@@ -17,6 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
+    <!-- Lenis (Inertia Scroll) -->
+    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -55,8 +58,25 @@
         body {
             background-color: #F0F0EB;
             color: #121212;
-            overflow-x: hidden;
-            /* cursor: none; Removed global setting, applied via media query below */
+            /* overflow-x: hidden; Removed for Lenis compatibility */
+            cursor: none;
+        }
+
+        /* === LENIS RECOMMENDED CSS === */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
         }
 
         /* Initial Lock for Loader */
@@ -88,39 +108,29 @@
 
         /* 
          * DEVICE SPECIFIC CURSOR LOGIC 
-         * Only show custom cursor on devices with a mouse/trackpad (pointer: fine)
          */
         .cursor-dot, .cursor-outline {
-            display: none; /* Hidden by default on touch devices */
+            display: none;
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%; z-index: 9999; pointer-events: none;
         }
         
         @media (hover: hover) and (pointer: fine) {
-            /* Hide default cursor only on PC */
-            body {
-                cursor: none;
-            }
-            /* Show custom cursor only on PC */
-            .cursor-dot, .cursor-outline {
-                display: block;
-            }
+            body { cursor: none; }
+            .cursor-dot, .cursor-outline { display: block; }
         }
 
         .cursor-dot { width: 8px; height: 8px; background-color: #121212; }
+        /* Improved cursor transition for smoother feel */
         .cursor-outline {
             width: 40px; height: 40px;
             border: 2px solid #121212;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            /* Transition moved to GSAP in JS for better performance */
         }
         body.hovering .cursor-outline {
-            width: 80px; height: 80px;
-            background-color: #121212;
-            mix-blend-mode: difference;
-            border: none;
+            /* Styles handled by GSAP now */
         }
-        body.hovering .cursor-dot { opacity: 0; }
 
         /* Components */
         .neo-border { border: 3px solid #121212; }
@@ -141,6 +151,9 @@
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
+
+        /* Scramble Effect Helper Class */
+        .scramble-text { display: inline-block; min-width: 1em; }
 
         /* Infinite Marquee Animation */
         .marquee-container { display: flex; overflow: hidden; user-select: none; }
@@ -215,7 +228,6 @@
     <div id="progress-bar"></div>
 
     <div class="grain-overlay"></div>
-    <!-- Cursor divs removed 'hidden md:block' to be controlled by CSS media query instead -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -241,10 +253,11 @@
 
             <!-- MENU (Desktop) -->
             <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
-                <a href="#about" class="text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade" data-key="navAbout">私について</a>
-                <a href="#works" class="text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade" data-key="navWorks">活動・受賞歴</a>
-                <a href="#skills" class="text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade" data-key="navSkills">保有資格</a>
-                <a href="#contact" class="text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade" data-key="navContact">連絡先</a>
+                <!-- Added 'scramble-hover' class for effect -->
+                <a href="#about" class="text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover" data-key="navAbout">私について</a>
+                <a href="#works" class="text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover" data-key="navWorks">活動・受賞歴</a>
+                <a href="#skills" class="text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover" data-key="navSkills">保有資格</a>
+                <a href="#contact" class="text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover" data-key="navContact">連絡先</a>
                 
                 <!-- Language Switcher (Desktop) -->
                 <button id="lang-toggle" class="ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
@@ -277,12 +290,10 @@
     <main>
         <!-- HERO SECTION -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
-            <!-- Background Elements -->
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse"></div>
             <div class="absolute bottom-1/4 left-[10%] w-80 h-80 bg-neoYellow rounded-full blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
 
-            <!-- Content Container -->
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full">
                 
                 <!-- 1. Floating Badge -->
@@ -300,8 +311,9 @@
                 <!-- 2. Main Title -->
                 <div class="relative title-anim fade-in-up">
                     <h1 class="font-display text-[12vw] md:text-[11rem] leading-[0.85] font-black uppercase tracking-tighter mix-blend-darken select-none">
-                        <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade" data-key="heroTitle1">播磨 賢</span>
-                        <span class="block text-black lang-fade" data-key="heroTitle2">KEN HARIMA</span>
+                        <!-- Added scramble target class -->
+                        <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade scramble-on-load" data-key="heroTitle1">播磨 賢</span>
+                        <span class="block text-black lang-fade scramble-on-load" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
                 </div>
 
@@ -332,12 +344,10 @@
             </div>
         </section>
 
-        <!-- ABOUT SECTION -->
+        <!-- ABOUT SECTION (Stylized Name) -->
         <section id="about" class="py-32 px-6 bg-black text-white relative clip-path-polygon">
             <div class="container mx-auto relative z-10">
                 <div class="flex flex-col md:flex-row gap-16 items-center">
-                    
-                    <!-- IMAGE SECTION -->
                     <div class="w-full md:w-1/2 aspect-square relative gs-reveal-left">
                         <div class="absolute inset-0 bg-neoYellow border-4 border-white transform translate-x-4 translate-y-4"></div>
                         <div class="absolute inset-0 bg-[url('./profile.jpg')] bg-cover bg-center grayscale contrast-125 border-4 border-white">
@@ -350,7 +360,7 @@
                         <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
                             <p class="lang-fade" data-key="aboutBody1">
-                                こんにちは、播磨 賢です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。
+                                こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。
                             </p>
                             <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">
                                 学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業
@@ -581,7 +591,79 @@
     </footer>
 
     <script>
-        // --- 1. LOADING SCREEN LOGIC (Restored) ---
+        // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
+        // Initialize Lenis but don't start scrolling yet (wait for loader)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Expo ease
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        function startLenis() {
+            // Start Lenis loop
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+
+        // --- 0.5 TEXT SCRAMBLE CLASS ---
+        class ScrambleText {
+            constructor(chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+") {
+                this.chars = chars;
+            }
+
+            scramble(element, finalText, duration = 1000) {
+                const length = finalText.length;
+                let iteration = 0;
+                
+                // Clear any existing interval to prevent conflicts
+                if (element.dataset.scrambleInterval) {
+                    clearInterval(parseInt(element.dataset.scrambleInterval));
+                }
+
+                const interval = setInterval(() => {
+                    element.innerText = finalText
+                        .split("")
+                        .map((letter, index) => {
+                            if (index < iteration) {
+                                return finalText[index];
+                            }
+                            // Preserve spaces or use random char
+                            if (letter === " " && Math.random() > 0.5) return " ";
+                            return this.chars[Math.floor(Math.random() * this.chars.length)];
+                        })
+                        .join("");
+
+                    if (iteration >= length) {
+                        clearInterval(interval);
+                        element.innerText = finalText; // Ensure perfect finish
+                    }
+
+                    // Speed of reveal
+                    iteration += 1 / 3; 
+                }, 30);
+
+                element.dataset.scrambleInterval = interval.toString();
+            }
+        }
+
+        const scrambler = new ScrambleText();
+
+        // --- 1. LOADING SCREEN LOGIC ---
         const loader = document.getElementById('loader');
         const loaderCounter = document.getElementById('loader-counter');
         const loaderBar = document.getElementById('loader-bar');
@@ -610,6 +692,15 @@
                 onComplete: () => {
                     document.body.classList.remove('is-loading');
                     loader.style.display = 'none';
+                    
+                    // 1. Start Smooth Scroll
+                    startLenis();
+
+                    // 2. Trigger Text Scramble on Titles
+                    document.querySelectorAll('.scramble-on-load').forEach(el => {
+                        const final = el.innerText; // Get current text (JP or EN)
+                        scrambler.scramble(el, final);
+                    });
                 }
             })
             .from(".fade-in-up", {
@@ -629,10 +720,6 @@
         // --- 3. GSAP ScrollTrigger ---
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from(".title-anim", {
-            // Handled by loader
-        });
-
         gsap.utils.toArray('.gs-reveal-left').forEach(elem => {
             gsap.from(elem, {
                 scrollTrigger: { trigger: elem, start: "top 80%" },
@@ -651,20 +738,58 @@
             y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)"
         });
 
-        // --- 4. Cursor ---
+        // --- 4. Enhanced Cursor ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button');
 
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX; const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
-            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+            
+            // Dot follows instantly
+            cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+
+            // Outline follows with GSAP lag for smooth feeling
+            gsap.to(cursorOutline, {
+                x: posX,
+                y: posY,
+                duration: 0.15,
+                ease: "power2.out"
+            });
         });
 
         hoverTriggers.forEach(trigger => {
-            trigger.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            trigger.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            trigger.addEventListener('mouseenter', () => {
+                document.body.classList.add('hovering');
+                gsap.to(cursorOutline, { 
+                    scale: 2, 
+                    backgroundColor: "#121212", 
+                    mixBlendMode: "difference", 
+                    border: "none", 
+                    duration: 0.3 
+                });
+                gsap.to(cursorDot, { opacity: 0, duration: 0.1 });
+            });
+            trigger.addEventListener('mouseleave', () => {
+                document.body.classList.remove('hovering');
+                gsap.to(cursorOutline, { 
+                    scale: 1, 
+                    backgroundColor: "transparent", 
+                    mixBlendMode: "normal", 
+                    border: "2px solid #121212", 
+                    duration: 0.3 
+                });
+                gsap.to(cursorDot, { opacity: 1, duration: 0.1 });
+            });
+        });
+
+        // --- 4.5 Scramble on Hover for Nav ---
+        document.querySelectorAll('.scramble-hover').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Use translation key or current text
+                // Since text might be changing, getting current text is safer
+                scrambler.scramble(el, el.innerText);
+            });
         });
 
         // --- 5. Mobile Menu ---
@@ -678,7 +803,7 @@
         closeBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 6. Bilingual Logic ---
+        // --- 6. Bilingual Logic & Scramble Integration ---
         const translations = {
             ja: {
                 navLogo: "KEN.H",
@@ -695,7 +820,7 @@
                 marquee3: "SHATTERING CONVENTIONS",
                 marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
-                aboutBody1: "こんにちは、播磨 賢です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。",
+                aboutBody1: "こんにちは、<span class=\"inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]\">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。",
                 aboutBody2: "学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業",
                 worksTitle: "活動・受賞歴",
                 work1Title: "社会科学部野口ゼミ×(株)理想科学工業マーケティング戦略コンペ",
@@ -753,7 +878,7 @@
                 marquee3: "SHATTERING CONVENTIONS",
                 marquee4: "EXISTENTIALISM",
                 aboutTitle: "About Me",
-                aboutBody1: "Hello, I’m Ken Harima. I explore the possibilities of existence at a fundamental level in the age of AGI and ASI. I studied sociology and Western philosophy at the University of Mannheim in Germany. I am a poker player and essayist. My main hobbies are playing poker, watching anime and reading manga, reading books, and writing. I am good at entering a flow state: I shut out the surrounding noise, often lose track of time, and frequently realize only later that the sun has already set.",
+                aboutBody1: "Hello, I’m <span class=\"inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]\">Ken Harima</span>. I explore the possibilities of existence at a fundamental level in the age of AGI and ASI. I studied sociology and Western philosophy at the University of Mannheim in Germany. I am a poker player and essayist. My main hobbies are playing poker, watching anime and reading manga, reading books, and writing. I am good at entering a flow state: I shut out the surrounding noise, often lose track of time, and frequently realize only later that the sun has already set.",
                 aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange) Hiroo Gakuen Junior and Senior High School",
                 worksTitle: "Works & Awards",
                 work1Title: "Faculty of Social Sciences Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition",
@@ -819,32 +944,45 @@
             }
 
             // Mobile Toggle Animation
-            mobileLangBg.animate([
-                { transform: 'rotate(0deg)' },
-                { transform: 'rotate(360deg)' }
-            ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
+            if(mobileLangBg) {
+                mobileLangBg.animate([
+                    { transform: 'rotate(0deg)' },
+                    { transform: 'rotate(360deg)' }
+                ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
 
-            setTimeout(() => {
-                if (currentLang === 'en') {
-                    mobileLangText.innerText = 'JP'; // Show JP option to switch back
-                    mobileLangBg.classList.remove('bg-neoYellow');
-                    mobileLangBg.classList.add('bg-black', 'text-white');
-                } else {
-                    mobileLangText.innerText = 'EN'; // Show EN option to switch
-                    mobileLangBg.classList.remove('bg-black', 'text-white');
-                    mobileLangBg.classList.add('bg-neoYellow');
-                }
-            }, 100);
-            
-            translatableElements.forEach(el => {
-                el.style.opacity = '0';
                 setTimeout(() => {
-                    el.innerHTML = translations[currentLang][el.dataset.key];
-                    el.style.opacity = '1';
-                }, 300);
+                    if (currentLang === 'en') {
+                        mobileLangText.innerText = 'JP'; 
+                        mobileLangBg.classList.remove('bg-neoYellow');
+                        mobileLangBg.classList.add('bg-black', 'text-white');
+                    } else {
+                        mobileLangText.innerText = 'EN';
+                        mobileLangBg.classList.remove('bg-black', 'text-white');
+                        mobileLangBg.classList.add('bg-neoYellow');
+                    }
+                }, 100);
+            }
+            
+            // Apply Translation WITH Scramble Effect
+            translatableElements.forEach(el => {
+                const key = el.dataset.key;
+                const newText = translations[currentLang][key];
+
+                // If it's a heading or short text, scramble it
+                // Otherwise (long paragraphs), fade it
+                if (newText.length < 50 && !newText.includes('<')) {
+                    scrambler.scramble(el, newText);
+                } else {
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.innerHTML = newText;
+                        el.style.opacity = '1';
+                    }, 300);
+                }
             });
         }
 
+        // Add event listeners to BOTH buttons
         langToggle.addEventListener('click', switchLanguage);
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
 
