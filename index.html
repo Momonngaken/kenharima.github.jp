@@ -202,11 +202,11 @@
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
 
-    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER (Modified Logic) === -->
-    <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-50 group outline-none tap-highlight-transparent">
+    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER (FIXED: High Z-Index) === -->
+    <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-[10000] group outline-none touch-manipulation">
         <div class="absolute inset-0 rounded-full bg-black translate-x-1 translate-y-1"></div>
         <div id="mobile-lang-bg" class="relative w-16 h-16 bg-neoYellow border-[3px] border-black rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out">
-            <!-- Initial State: JA mode -> Show 'EN' to switch -->
+            <!-- Initial: JA Mode, show 'EN' as switch option -->
             <div id="mobile-lang-text-wrap" class="font-black font-stylish text-xl italic tracking-tighter">
                 EN
             </div>
@@ -261,10 +261,12 @@
     <main>
         <!-- HERO SECTION -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
+            <!-- Background Elements -->
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse"></div>
             <div class="absolute bottom-1/4 left-[10%] w-80 h-80 bg-neoYellow rounded-full blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
 
+            <!-- Content Container -->
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full">
                 
                 <!-- 1. Floating Badge -->
@@ -663,7 +665,6 @@
         // --- 6. Language Switch Logic (Floating & Desktop) ---
         let currentLang = 'ja';
         
-        // Select BOTH switchers
         const desktopLangBtn = document.getElementById('lang-toggle');
         const desktopLangText = document.getElementById('lang-text');
         const mobileLangBtn = document.getElementById('mobile-lang-float');
@@ -796,9 +797,9 @@
             
             // Desktop Toggle Text
             if (currentLang === 'en') {
-                langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`;
+                desktopLangText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`;
             } else {
-                langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`;
+                desktopLangText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`;
             }
 
             // Mobile Toggle Animation & Text Update
@@ -829,7 +830,7 @@
             });
         }
 
-        // Add event listeners
+        // Add event listeners to BOTH buttons
         desktopLangBtn.addEventListener('click', switchLanguage);
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
 
