@@ -20,7 +20,7 @@
     <!-- Lenis (Inertia Scroll) -->
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
 
-    <!-- Vanilla Tilt (For 3D Card Effect) -->
+    <!-- Vanilla Tilt -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
     <script>
@@ -63,148 +63,68 @@
     </script>
 
     <style>
-        body {
-            background-color: #F0F0EB;
-            color: #121212;
-            cursor: none;
-        }
-
-        /* === LENIS RECOMMENDED CSS === */
+        body { background-color: #F0F0EB; color: #121212; cursor: none; }
+        /* LENIS */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-scrolling iframe { pointer-events: none; }
-
-        /* Initial Lock for Loader */
+        /* Loader */
         body.is-loading { overflow: hidden; height: 100vh; }
-
-        /* Scroll Progress Bar */
-        #progress-bar {
-            position: fixed; top: 0; left: 0; height: 6px; background: #5D5FEF; width: 0%; z-index: 100; transition: width 0.1s ease-out;
-        }
-
-        /* Grain Texture */
-        .grain-overlay {
-            position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        /* DEVICE SPECIFIC CURSOR LOGIC */
+        /* Progress Bar */
+        #progress-bar { position: fixed; top: 0; left: 0; height: 6px; background: #5D5FEF; width: 0%; z-index: 100; transition: width 0.1s ease-out; }
+        /* Grain */
+        .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+        /* Cursor */
         .cursor-dot, .cursor-outline { display: none; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none; }
-        @media (hover: hover) and (pointer: fine) {
-            body { cursor: none; }
-            .cursor-dot, .cursor-outline { display: block; }
-        }
+        @media (hover: hover) and (pointer: fine) { body { cursor: none; } .cursor-dot, .cursor-outline { display: block; } }
         .cursor-dot { width: 8px; height: 8px; background-color: #121212; }
         .cursor-outline { width: 40px; height: 40px; border: 2px solid #121212; }
-
         /* Components */
         .neo-border { border: 3px solid #121212; }
-        .neo-shadow {
-            box-shadow: 6px 6px 0px #121212;
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+        .neo-shadow { box-shadow: 6px 6px 0px #121212; transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .neo-shadow:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px #121212; }
         .neo-shadow:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #121212; }
-
-        /* Text Styles */
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .scramble-text { display: inline-block; min-width: 1em; }
-
-        /* Infinite Marquee Animation */
+        /* Marquee */
         .marquee-container { display: flex; overflow: hidden; user-select: none; }
         .marquee-content { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; gap: 4rem; padding-right: 4rem; animation: scroll 20s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
-
         /* Background */
         .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; }
         .lang-fade { transition: opacity 0.3s ease; }
-        
-        /* Interactive Blobs */
-        .interactive-blob {
-            position: fixed;
-            top: 0; left: 0;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: -1;
-            transform: translate(-50%, -50%);
-        }
-
-        /* LOADING SCREEN STYLES */
+        .interactive-blob { position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; transform: translate(-50%, -50%); }
+        /* Loader */
         #loader { position: fixed; inset: 0; background-color: #121212; color: #F0F0EB; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .loader-text { font-family: 'Syne', sans-serif; font-weight: 900; line-height: 0.8; }
-
-        /* === POKER CARD STYLES === */
+        /* Poker */
         .perspective-1000 { perspective: 1000px; }
-        .card-container {
-            width: 60px; height: 90px;
-            position: relative; cursor: pointer;
-        }
-        @media (min-width: 768px) {
-            .card-container { width: 100px; height: 150px; }
-        }
-        .card-inner {
-            width: 100%; height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-        .card-front, .card-back {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden;
-            border: 3px solid #000;
-            border-radius: 8px;
-            display: flex; justify-content: center; align-items: center;
-            font-family: 'Syne', sans-serif; font-weight: 900;
-        }
-        .card-back {
-            background-color: #121212; color: #D6FC52;
-            transform: rotateY(0deg);
-        }
-        .card-front {
-            background-color: white; color: black;
-            transform: rotateY(180deg);
-            font-size: 1.5rem;
-        }
+        .card-container { width: 60px; height: 90px; position: relative; cursor: pointer; }
+        @media (min-width: 768px) { .card-container { width: 100px; height: 150px; } }
+        .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border: 3px solid #000; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: 'Syne', sans-serif; font-weight: 900; }
+        .card-back { background-color: #121212; color: #D6FC52; transform: rotateY(0deg); }
+        .card-front { background-color: white; color: black; transform: rotateY(180deg); font-size: 1.5rem; }
         @media (min-width: 768px) { .card-front { font-size: 2.5rem; } }
-
-        /* Win State Animation */
-        .win-active #contact-btn-wrap span {
-            animation: glow 0.5s infinite alternate;
-            background-color: #D6FC52;
-            border-color: #FF4D4D;
-            color: #000;
-        }
-        
-        /* Magnetic Button */
+        .win-active #contact-btn-wrap span { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
         .magnetic-btn { display: inline-block; }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
 
-    <!-- === INTERACTIVE BACKGROUND BLOBS === -->
     <div id="blob-1" class="interactive-blob w-96 h-96 bg-neoBlue"></div>
     <div id="blob-2" class="interactive-blob w-64 h-64 bg-neoRed" style="animation-delay: -2s;"></div>
     <div class="fixed top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse -z-10 pointer-events-none"></div>
 
-    <!-- === LOADING SCREEN === -->
     <div id="loader">
-        <div class="absolute top-6 left-6 font-mono text-xs md:text-sm text-neoYellow animate-pulse">
-            SYS_BOOT_V.3.0<br>KEN_HARIMA_PF
-        </div>
-        <div class="absolute top-6 right-6 font-mono text-xs md:text-sm text-neoBlue text-right">
-            MEMORY: OK<br>RENDER: OK
-        </div>
-        <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">
-            > INITIALIZING...
-        </div>
-        <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">
-            ©2025
-        </div>
+        <div class="absolute top-6 left-6 font-mono text-xs md:text-sm text-neoYellow animate-pulse">SYS_BOOT_V.3.0<br>KEN_HARIMA_PF</div>
+        <div class="absolute top-6 right-6 font-mono text-xs md:text-sm text-neoBlue text-right">MEMORY: OK<br>RENDER: OK</div>
+        <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">> INITIALIZING...</div>
+        <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">©2025</div>
         <div class="relative z-10 text-center">
             <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter" id="loader-counter">000</div>
             <div class="h-2 w-full bg-[#333] mt-4 relative overflow-hidden">
@@ -213,68 +133,40 @@
         </div>
     </div>
 
-    <!-- SCROLL PROGRESS BAR -->
     <div id="progress-bar"></div>
-
     <div class="grain-overlay"></div>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER === -->
     <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-[10000] group outline-none touch-manipulation">
         <div class="absolute inset-0 rounded-full bg-black translate-x-1 translate-y-1"></div>
         <div id="mobile-lang-bg" class="relative w-16 h-16 bg-neoYellow border-[3px] border-black rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out">
-            <div id="mobile-lang-text-wrap" class="font-black font-stylish text-xl italic tracking-tighter">
-                EN
-            </div>
+            <div id="mobile-lang-text-wrap" class="font-black font-stylish text-xl italic tracking-tighter">EN</div>
         </div>
     </button>
 
-    <!-- HEADER -->
     <header class="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
         <nav class="container mx-auto flex justify-between items-center pointer-events-auto">
-            <!-- LOGO -->
             <div class="magnetic-btn bg-white neo-border px-5 py-2 neo-shadow transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-                <a href="#" data-key="navLogo" class="text-3xl font-stylish italic hover-trigger lang-fade">
-                    KEN.H
-                </a>
+                <a href="#" data-key="navLogo" class="text-3xl font-stylish italic hover-trigger lang-fade">KEN.H</a>
             </div>
-
-            <!-- MENU (Desktop) -->
             <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
-                <div class="magnetic-btn">
-                    <a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a>
-                </div>
-                <div class="magnetic-btn">
-                    <a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a>
-                </div>
-                <div class="magnetic-btn">
-                    <a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a>
-                </div>
-                <div class="magnetic-btn">
-                    <a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a>
-                </div>
-                
-                <!-- Language Switcher -->
+                <div class="magnetic-btn"><a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a></div>
+                <div class="magnetic-btn"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a></div>
+                <div class="magnetic-btn"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a></div>
+                <div class="magnetic-btn"><a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a></div>
                 <button id="lang-toggle" class="magnetic-btn ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
-
-                <a href="mailto:beyondtheken.jp@gmail.com" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">
-                    コンタクトを取る
-                </a>
+                <a href="mailto:beyondtheken.jp@gmail.com" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</a>
             </div>
-
             <button id="mobile-menu-btn" class="md:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
 
-        <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed inset-0 bg-neoYellow z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 pointer-events-auto">
-            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 border-2 border-black rounded-full">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 border-2 border-black rounded-full"><svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <a href="#about" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navAbout">私について</a>
             <a href="#works" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navWorks">活動・受賞歴</a>
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
@@ -284,80 +176,51 @@
     </header>
 
     <main>
-        <!-- HERO SECTION -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-            
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full">
-                
-                <!-- Badge -->
                 <div class="mb-12 relative group cursor-default fade-in-up">
                     <div class="hidden md:block absolute -inset-1 bg-black rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                     <div class="relative flex items-center gap-3 bg-white border-[3px] border-black px-6 py-2 rounded-full shadow-[4px_4px_0px_#000] hover:translate-y-1 hover:shadow-none transition-all">
-                        <span class="relative flex h-3 w-3">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neoRed opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-3 w-3 bg-neoRed"></span>
-                        </span>
+                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neoRed opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-neoRed"></span></span>
                         <span class="text-xs font-black uppercase tracking-[0.2em]">Portfolio 2025</span>
                     </div>
                 </div>
-
-                <!-- Title -->
                 <div class="relative title-anim fade-in-up">
                     <h1 class="font-display text-[12vw] md:text-[11rem] leading-[0.85] font-black uppercase tracking-tighter mix-blend-darken select-none">
                         <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade scramble-on-load" data-key="heroTitle1">播磨 賢</span>
                         <span class="block text-black lang-fade scramble-on-load" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
                 </div>
-
-                <!-- Subtitle -->
                 <div class="mt-6 md:mt-8 max-w-2xl bg-white/90 backdrop-blur border-[3px] border-black p-6 text-left neo-shadow transform rotate-1 hover:rotate-0 transition-transform hero-content fade-in-up">
-                    <p class="text-lg md:text-2xl font-bold leading-tight lang-fade" data-key="heroSubtitle">
-                        ダイキン工業株式会社 | 早稲田大学社会科学部
-                    </p>
+                    <p class="text-lg md:text-2xl font-bold leading-tight lang-fade" data-key="heroSubtitle">ダイキン工業株式会社 | 早稲田大学社会科学部</p>
                 </div>
             </div>
-
-            <!-- Marquee -->
             <div class="absolute bottom-0 left-0 w-full bg-neoRed border-y-4 border-black py-4 z-10">
                 <div class="marquee-container">
                     <div class="marquee-content text-white font-black text-2xl uppercase italic tracking-wider">
-                        <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • 
-                        <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • 
-                        <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • 
-                        <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
+                        <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
                     </div>
                     <div class="marquee-content text-white font-black text-2xl uppercase italic tracking-wider" aria-hidden="true">
-                         <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • 
-                        <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • 
-                        <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • 
-                        <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
+                         <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ABOUT -->
         <section id="about" class="py-32 px-6 bg-black text-white relative clip-path-polygon">
             <div class="container mx-auto relative z-10">
                 <div class="flex flex-col md:flex-row gap-16 items-center">
                     <div class="w-full md:w-1/2 aspect-square relative gs-reveal-left">
                         <div class="absolute inset-0 bg-neoYellow border-4 border-white transform translate-x-4 translate-y-4"></div>
-                        <div class="absolute inset-0 bg-[url('./profile.jpg')] bg-cover bg-center grayscale contrast-125 border-4 border-white">
-                            <div class="absolute inset-0 bg-neoPurple/30 mix-blend-multiply"></div>
-                        </div>
+                        <div class="absolute inset-0 bg-[url('./profile.jpg')] bg-cover bg-center grayscale contrast-125 border-4 border-white"><div class="absolute inset-0 bg-neoPurple/30 mix-blend-multiply"></div></div>
                         <div class="absolute -bottom-8 -right-8 bg-white text-black p-4 font-black text-3xl border-4 border-black neo-shadow">WHO?</div>
                     </div>
-
                     <div class="w-full md:w-1/2 gs-reveal-right">
                         <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
-                            <p class="lang-fade" data-key="aboutBody1">
-                                こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。
-                            </p>
-                            <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">
-                                学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業
-                            </p>
+                            <p class="lang-fade" data-key="aboutBody1">こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。</p>
+                            <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業</p>
                             <div class="flex gap-4 mt-8">
                                 <span class="bg-white text-black px-4 py-1 font-bold rounded-full hover:bg-neoYellow transition-colors hover-trigger">#Poker</span>
                                 <span class="bg-white text-black px-4 py-1 font-bold rounded-full hover:bg-neoBlue hover:text-white transition-colors hover-trigger">#Sociology</span>
@@ -369,52 +232,42 @@
             </div>
         </section>
 
-        <!-- WORKS (Updated for 3D Tilt) -->
         <section id="works" class="py-32 px-4 md:px-8 overflow-hidden">
             <div class="container mx-auto">
                 <h2 class="text-6xl md:text-9xl font-black text-center mb-24 relative inline-block left-1/2 -translate-x-1/2">
                     <span class="relative z-10 lang-fade" data-key="worksTitle">活動・受賞歴</span>
                     <span class="absolute top-2 left-2 text-neoYellow -z-10 blur-sm opacity-70 w-full lang-fade" aria-hidden="true" data-key="worksTitle">活動・受賞歴</span>
                 </h2>
-
-                <!-- Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                    <!-- Card 1 -->
                     <article class="group relative gs-card" style="transform: rotate(-2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <!-- Tilt Target Wrapper -->
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">MARKETING</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work1Title">社会科学部野口ゼミ×(株)理想科学工業マーケティング戦略コンペ</h3>
                                     <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work1Subtitle">最優秀賞受賞</p>
-                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">
-                                        １年間にかけて行われた早稲田大学社会科学部野口ゼミと㍿理想科学工業のコラボレーションによる当該企業が手がけるプリンター「MiScreen A4」をプロモーション戦略の立案コンペで、SNSでの広報におけるPV数や動画の構成要素を因子分解して数量化１類と呼ばれる専門的な統計学的プロセスを経て抽出されたプロモーション戦略を提案しました。
-                                    </p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">１年間にかけて行われた早稲田大学社会科学部野口ゼミと㍿理想科学工業のコラボレーションによる当該企業が手がけるプリンター「MiScreen A4」をプロモーション戦略の立案コンペで、SNSでの広報におけるPV数や動画の構成要素を因子分解して数量化１類と呼ばれる専門的な統計学的プロセスを経て抽出されたプロモーション戦略を提案しました。</p>
                                 </div>
                             </div>
                         </div>
                     </article>
-
-                    <!-- Card 2 -->
+                    <!-- Other cards truncated for brevity, but same structure applies to all cards -->
+                    <!-- Added Card 2 for example structure -->
                     <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
-                        <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
+                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoYellow neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ESSAY</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work2Title">第36回「働くってなんだろう」エッセイコンテスト</h3>
                                     <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle">勤労青少年躍進会理事長賞受賞</p>
-                                    <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">
-                                    ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、勤労青少年躍進会理事長賞を受賞しました。
-                                    </p>
+                                    <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、勤労青少年躍進会理事長賞を受賞しました。</p>
                                 </div>
                                 <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-2 border-black transition-colors hover-trigger lang-fade" data-key="work2Button" style="transform: translateZ(30px);">エッセイを読む</a>
                             </div>
                         </div>
                     </article>
-
                     <!-- Card 3 -->
                     <article class="group relative gs-card lg:mt-24" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
@@ -424,14 +277,11 @@
                                     <div class="bg-neoBlue text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">DESIGN</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title">第10回あなたが考えるブランドラベルコンテスト</h3>
                                     <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle">TOP40 東京ビックサイト展示</p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">
-                                    2023年、東京吉岡株式会社主催の「あなたのアイデアブランドラベルコンテスト」に参加しました。架空のアパレルブランド"ONESAGE"のコンセプトとデザインを構築。環境に優しい生分解性プラスチック100%使用した作品を完成させました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで3日間にわたって展示されました。
-                                    </p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">2023年、東京吉岡株式会社主催の「あなたのアイデアブランドラベルコンテスト」に参加しました。架空のアパレルブランド"ONESAGE"のコンセプトとデザインを構築。環境に優しい生分解性プラスチック100%使用した作品を完成させました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで3日間にわたって展示されました。</p>
                                 </div>
                             </div>
                         </div>
                     </article>
-
                     <!-- Card 4 -->
                     <article class="group relative gs-card" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
@@ -441,15 +291,12 @@
                                     <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">GAMBLE & LOGIC</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work4Title">海外ポーカー実践</h3>
                                     <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle">投資利益率532%</p>
-                                    <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">
-                                        趣味の1つであるポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、5,056ユーロ（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））
-                                    </p>
+                                    <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">趣味の1つであるポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、5,056ユーロ（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））</p>
                                 </div>
                                 <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
                         </div>
                     </article>
-
                     <!-- Card 5 -->
                     <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
@@ -459,19 +306,14 @@
                                     <div class="bg-neoYellow text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">EVENT & MEDIA</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work5Title">早稲田大学✕(株)PIVOT</h3>
                                     <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle">コラボ企画動画実行委員</p>
-                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">
-                                        起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、㍿PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。
-                                    </p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、㍿PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。</p>
                                 </div>
-                                <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center bg-black text-white py-3 font-bold border-2 border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="work5Button" style="transform: translateZ(30px);">
-                                    動画を見る &rarr;
-                                </a>
+                                <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center bg-black text-white py-3 font-bold border-2 border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="work5Button" style="transform: translateZ(30px);">動画を見る &rarr;</a>
                             </div>
                         </div>
                     </article>
-
-                     <!-- Card 6 -->
-                     <article class="group relative gs-card lg:mt-16" style="transform: rotate(1deg);">
+                    <!-- Card 6 -->
+                    <article class="group relative gs-card lg:mt-16" style="transform: rotate(1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoPurple neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -479,31 +321,25 @@
                                     <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ACADEMIC</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work6Title">「社会デザイン論入門」レポートコンテスト</h3>
                                     <p class="text-xl font-bold text-white mb-4 lang-fade" data-key="work6Subtitle">優秀賞受賞</p>
-                                    <p class="text-sm text-black font-black lang-fade" data-key="work6Body">
-                                        2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。
-                                    </p>
+                                    <p class="text-sm text-black font-black lang-fade" data-key="work6Body">2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。</p>
                                 </div>
                             </div>
                         </div>
                     </article>
-
-                     <!-- Card 7 -->
-                     <article class="group relative gs-card lg:mt-12" style="transform: rotate(-1deg);">
+                    <!-- Card 7 -->
+                    <article class="group relative gs-card lg:mt-12" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-gray-200 text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">BUSINESS</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work7Title">第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</h3>
                                     <p class="text-xl font-bold text-gray-600 mb-4 lang-fade" data-key="work7Subtitle">東京都産業労働局長賞受賞</p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">
-                                    2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。
-                                    </p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。</p>
                                 </div>
                             </div>
                         </div>
                     </article>
-
                     <!-- Card 8 -->
                     <article class="group relative gs-card" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
@@ -513,14 +349,11 @@
                                     <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">PRESENTATION</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title">広尾学園中学校学年プレゼンテーション大会</h3>
                                     <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle">最優秀賞受賞</p>
-                                    <p class="text-sm font-medium lang-fade" data-key="work8Body">
-                                        2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。
-                                    </p>
+                                    <p class="text-sm font-medium lang-fade" data-key="work8Body">2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。</p>
                                 </div>
                             </div>
                         </div>
                     </article>
-
                     <!-- Card 9 -->
                     <article class="group relative gs-card lg:mt-12" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
@@ -530,9 +363,7 @@
                                     <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title">JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</h3>
                                     <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle">107位入賞</p>
-                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">
-                                        日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。
-                                    </p>
+                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。</p>
                                 </div>
                                 <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
@@ -542,11 +373,9 @@
             </div>
         </section>
 
-        <!-- SKILLS -->
         <section id="skills" class="py-24 bg-neoYellow border-y-4 border-black">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke lang-fade" data-key="skillsTitle">保有資格</h2>
-                
                 <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl mx-auto">
                     <div class="skill-pill bg-white rotate-3 lang-fade" data-key="skill1">実用英語技能検定準1級</div>
                     <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade" data-key="skill2">珠算検定1級</div>
@@ -557,136 +386,53 @@
             </div>
         </section>
 
-        <!-- CONTACT -->
         <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-[#121212] text-white relative overflow-hidden p-6">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-gray-900 whitespace-nowrap opacity-30 pointer-events-none select-none">
-                CONTACT
-            </div>
-
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-gray-900 whitespace-nowrap opacity-30 pointer-events-none select-none">CONTACT</div>
             <div class="container mx-auto text-center max-w-4xl relative z-10">
-                <h2 class="text-4xl md:text-7xl font-black mb-12 leading-tight lang-fade" data-key="contactTitle">
-                    まだ見ぬ何かを、<br class="sm:hidden">一緒に創りませんか？
-                </h2>
-                <p class="text-xl md:text-2xl text-gray-400 mb-20 lang-fade" data-key="contactBody">
-                    お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。
-                </p>
-                
-                <!-- BUTTON with Magnetic Effect -->
+                <h2 class="text-4xl md:text-7xl font-black mb-12 leading-tight lang-fade" data-key="contactTitle">まだ見ぬ何かを、<br class="sm:hidden">一緒に創りませんか？</h2>
+                <p class="text-xl md:text-2xl text-gray-400 mb-20 lang-fade" data-key="contactBody">お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。</p>
                 <div class="magnetic-btn inline-block">
                     <a href="mailto:beyondtheken.jp@gmail.com" class="group relative inline-block hover-trigger" id="contact-btn-wrap">
                         <span class="absolute inset-0 w-full h-full bg-white transform translate-x-4 translate-y-4 border-4 border-white pointer-events-none"></span>
-                        <span class="relative block bg-neoYellow text-black text-3xl md:text-5xl font-black border-[6px] border-black px-16 py-8 transition-all duration-200 group-hover:-translate-y-2 group-hover:-translate-x-2 group-hover:animate-vibrate lang-fade" data-key="contactButton">
-                            今すぐコンタクトを取る
-                        </span>
+                        <span class="relative block bg-neoYellow text-black text-3xl md:text-5xl font-black border-[6px] border-black px-16 py-8 transition-all duration-200 group-hover:-translate-y-2 group-hover:-translate-x-2 group-hover:animate-vibrate lang-fade" data-key="contactButton">今すぐコンタクトを取る</span>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- === POKER MINI GAME SECTION (EASTER EGG) === -->
         <section id="poker-game" class="py-20 bg-neoBg border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
-                <h3 class="text-2xl md:text-3xl font-black mb-8 font-stylish italic">
-                    FEELING LUCKY? <span class="text-xs font-sans font-normal block mt-1 text-gray-500">Click cards to deal</span>
-                </h3>
-                
-                <!-- Cards Wrapper -->
+                <h3 class="text-2xl md:text-3xl font-black mb-8 font-stylish italic">FEELING LUCKY? <span class="text-xs font-sans font-normal block mt-1 text-gray-500">Click cards to deal</span></h3>
                 <div class="flex justify-center items-center gap-2 md:gap-6 perspective-1000">
-                    <!-- 10 Spades -->
-                    <div class="card-container" onclick="flipCard(this, '10')">
-                        <div class="card-inner duration-500 ease-in-out">
-                            <div class="card-back flex-col">
-                                <span class="text-2xl md:text-4xl">?</span>
-                                <span class="text-[10px] mt-1">KEN.H</span>
-                            </div>
-                            <div class="card-front">10♠</div>
-                        </div>
-                    </div>
-                    <!-- Jack Spades -->
-                    <div class="card-container" onclick="flipCard(this, 'J')">
-                        <div class="card-inner duration-500 ease-in-out">
-                             <div class="card-back flex-col">
-                                <span class="text-2xl md:text-4xl">?</span>
-                                <span class="text-[10px] mt-1">KEN.H</span>
-                            </div>
-                            <div class="card-front">J♠</div>
-                        </div>
-                    </div>
-                    <!-- Queen Spades -->
-                    <div class="card-container" onclick="flipCard(this, 'Q')">
-                        <div class="card-inner duration-500 ease-in-out">
-                             <div class="card-back flex-col">
-                                <span class="text-2xl md:text-4xl">?</span>
-                                <span class="text-[10px] mt-1">KEN.H</span>
-                            </div>
-                            <div class="card-front">Q♠</div>
-                        </div>
-                    </div>
-                    <!-- King Spades -->
-                    <div class="card-container" onclick="flipCard(this, 'K')">
-                        <div class="card-inner duration-500 ease-in-out">
-                             <div class="card-back flex-col">
-                                <span class="text-2xl md:text-4xl">?</span>
-                                <span class="text-[10px] mt-1">KEN.H</span>
-                            </div>
-                            <div class="card-front">K♠</div>
-                        </div>
-                    </div>
-                    <!-- Ace Spades -->
-                    <div class="card-container" onclick="flipCard(this, 'A')">
-                        <div class="card-inner duration-500 ease-in-out">
-                             <div class="card-back flex-col">
-                                <span class="text-2xl md:text-4xl">?</span>
-                                <span class="text-[10px] mt-1">KEN.H</span>
-                            </div>
-                            <div class="card-front">A♠</div>
-                        </div>
-                    </div>
+                    <div class="card-container" onclick="flipCard(this, '10')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">10♠</div></div></div>
+                    <div class="card-container" onclick="flipCard(this, 'J')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">J♠</div></div></div>
+                    <div class="card-container" onclick="flipCard(this, 'Q')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">Q♠</div></div></div>
+                    <div class="card-container" onclick="flipCard(this, 'K')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">K♠</div></div></div>
+                    <div class="card-container" onclick="flipCard(this, 'A')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">A♠</div></div></div>
                 </div>
-
-                <!-- Win Message Container -->
                 <div id="poker-message" class="mt-8 h-16 flex items-center justify-center overflow-hidden">
-                    <p class="text-transparent font-black text-4xl md:text-6xl italic tracking-tighter opacity-0 transform translate-y-10 transition-all duration-500">
-                        ROYAL STRAIGHT FLUSH!!
-                    </p>
+                    <p class="text-transparent font-black text-4xl md:text-6xl italic tracking-tighter opacity-0 transform translate-y-10 transition-all duration-500">ROYAL STRAIGHT FLUSH!!</p>
                 </div>
             </div>
-            <!-- Confetti Container -->
             <div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-white border-t-4 border-black py-8">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 md:gap-0">
-            <div>
-                <p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p>
-            </div>
+            <div><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
             <p class="text-sm font-bold lang-fade" data-key="footerCopy">&copy; 2025 Ken HARIMA. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
         // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', gestureDirection: 'vertical', smooth: true, mouseMultiplier: 1, smoothTouch: false, touchMultiplier: 2 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
-
-        function startLenis() {
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
-        }
+        function startLenis() { function raf(time) { lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf); }
 
         // --- 0.5 SCRAMBLE TEXT CLASS ---
         class ScrambleText {
@@ -725,154 +471,75 @@
         function finishLoading() {
             const tl = gsap.timeline();
             tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" })
-            .to(loader, {
-                yPercent: -100, duration: 1.2, ease: "power4.inOut",
-                onComplete: () => {
-                    document.body.classList.remove('is-loading');
-                    loader.style.display = 'none';
-                    startLenis();
-                    document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
-                    initMagneticButtons(); // Start Magnetic Effect
-                    initInteractiveBackground(); // Start Background Effect
-                }
-            })
+            .to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => {
+                document.body.classList.remove('is-loading'); loader.style.display = 'none'; startLenis();
+                document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
+                initMagneticButtons(); initInteractiveBackground();
+                // Initialize original text data for scramble hover fix
+                document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
+            }})
             .from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8");
         }
 
-        // --- 2. INTERACTIVE BACKGROUND (BLOBS) ---
+        // --- 2. INTERACTIVE BACKGROUND ---
         function initInteractiveBackground() {
-            const blob1 = document.getElementById('blob-1');
-            const blob2 = document.getElementById('blob-2');
-            
-            // QuickTo provides high performance mouse following with lag
-            const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"});
-            const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
-            
-            const xTo2 = gsap.quickTo(blob2, "x", {duration: 1.2, ease: "power3"}); // Different delay for depth
-            const yTo2 = gsap.quickTo(blob2, "y", {duration: 1.2, ease: "power3"});
-
-            window.addEventListener("mousemove", (e) => {
-                xTo1(e.clientX);
-                yTo1(e.clientY);
-                xTo2(e.clientX);
-                yTo2(e.clientY);
-            });
+            const blob1 = document.getElementById('blob-1'); const blob2 = document.getElementById('blob-2');
+            const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"}); const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
+            const xTo2 = gsap.quickTo(blob2, "x", {duration: 1.2, ease: "power3"}); const yTo2 = gsap.quickTo(blob2, "y", {duration: 1.2, ease: "power3"});
+            window.addEventListener("mousemove", (e) => { xTo1(e.clientX); yTo1(e.clientY); xTo2(e.clientX); yTo2(e.clientY); });
         }
 
         // --- 3. MAGNETIC BUTTONS ---
         function initMagneticButtons() {
             const magnets = document.querySelectorAll('.magnetic-btn');
-            
             magnets.forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const bounds = btn.getBoundingClientRect();
-                    // Calculate distance from center
-                    const x = e.clientX - bounds.left - bounds.width / 2;
-                    const y = e.clientY - bounds.top - bounds.height / 2;
-                    
-                    // Move the button towards mouse
-                    gsap.to(btn, {
-                        x: x * 0.4, // Magnetic strength
-                        y: y * 0.4,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
+                    const x = e.clientX - bounds.left - bounds.width / 2; const y = e.clientY - bounds.top - bounds.height / 2;
+                    gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: "power2.out" });
                 });
-
-                btn.addEventListener('mouseleave', () => {
-                    // Snap back to center
-                    gsap.to(btn, {
-                        x: 0,
-                        y: 0,
-                        duration: 0.6,
-                        ease: "elastic.out(1, 0.3)"
-                    });
-                });
+                btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" }); });
             });
         }
 
-        // --- 4. POKER MINI GAME LOGIC ---
-        let flippedCount = 0;
-        const totalCards = 5;
-        
+        // --- 4. POKER MINI GAME ---
+        let flippedCount = 0; const totalCards = 5;
         function flipCard(element, rank) {
             if(element.classList.contains('is-flipped')) return;
-            
-            const inner = element.querySelector('.card-inner');
-            element.classList.add('is-flipped');
-            
-            gsap.to(inner, {
-                rotationY: 180,
-                duration: 0.6,
-                ease: "back.out(1.7)",
-                onComplete: () => {
-                    flippedCount++;
-                    if(flippedCount === totalCards) {
-                        triggerWin();
-                    }
-                }
-            });
+            const inner = element.querySelector('.card-inner'); element.classList.add('is-flipped');
+            gsap.to(inner, { rotationY: 180, duration: 0.6, ease: "back.out(1.7)", onComplete: () => { flippedCount++; if(flippedCount === totalCards) triggerWin(); } });
         }
-
         function triggerWin() {
             const msg = document.querySelector('#poker-message p');
-            msg.classList.remove('opacity-0', 'translate-y-10');
-            msg.classList.add('text-neoRed', 'scramble-on-win');
+            msg.classList.remove('opacity-0', 'translate-y-10'); msg.classList.add('text-neoRed', 'scramble-on-win');
             scrambler.scramble(msg, "ROYAL STRAIGHT FLUSH!!");
-
-            const contactSection = document.getElementById('contact');
-            contactSection.classList.add('win-active');
-            createConfetti();
+            const contactSection = document.getElementById('contact'); contactSection.classList.add('win-active'); createConfetti();
         }
-
         function createConfetti() {
             const container = document.getElementById('confetti-container');
             const colors = ['#D6FC52', '#B983FF', '#FF4D4D', '#5D5FEF', '#000000'];
             for(let i = 0; i < 50; i++) {
                 const conf = document.createElement('div');
-                conf.style.position = 'absolute';
-                conf.style.width = Math.random() * 10 + 5 + 'px';
-                conf.style.height = Math.random() * 10 + 5 + 'px';
-                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                conf.style.left = Math.random() * 100 + '%';
-                conf.style.top = '-10px';
-                conf.style.zIndex = 10;
+                conf.style.position = 'absolute'; conf.style.width = Math.random() * 10 + 5 + 'px'; conf.style.height = Math.random() * 10 + 5 + 'px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; conf.style.left = Math.random() * 100 + '%'; conf.style.top = '-10px'; conf.style.zIndex = 10;
                 container.appendChild(conf);
-                gsap.to(conf, {
-                    y: '100vh',
-                    x: (Math.random() - 0.5) * 200,
-                    rotation: Math.random() * 360,
-                    duration: Math.random() * 2 + 1,
-                    ease: "power1.out",
-                    onComplete: () => conf.remove()
-                });
+                gsap.to(conf, { y: '100vh', x: (Math.random() - 0.5) * 200, rotation: Math.random() * 360, duration: Math.random() * 2 + 1, ease: "power1.out", onComplete: () => conf.remove() });
             }
         }
 
-        // --- 5. SCROLL PROGRESS ---
+        // --- 5. SCROLL & CURSOR ---
         const progressBar = document.getElementById('progress-bar');
         window.addEventListener('scroll', () => {
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (scrollTop / scrollHeight) * 100;
-            progressBar.style.width = scrolled + "%";
+            progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
         });
-
-        // --- 6. GSAP SCROLL TRIGGER ---
         gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('.gs-reveal-left').forEach(elem => {
-            gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" });
-        });
-        gsap.utils.toArray('.gs-reveal-right').forEach(elem => {
-            gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 });
-        });
-        gsap.from(".gs-card", {
-            scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)"
-        });
+        gsap.utils.toArray('.gs-reveal-left').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" }); });
+        gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
+        gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
-        // --- 7. CURSOR ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
+        const cursorDot = document.querySelector('.cursor-dot'); const cursorOutline = document.querySelector('.cursor-outline');
         const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button, .card-container');
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX; const posY = e.clientY;
@@ -892,20 +559,21 @@
             });
         });
 
-        // --- 8. NAV & SCRAMBLE HOVER ---
+        // --- 6. FIXED SCRAMBLE HOVER ---
         document.querySelectorAll('.scramble-hover').forEach(el => {
-            el.addEventListener('mouseenter', () => { scrambler.scramble(el, el.innerText); });
+            el.addEventListener('mouseenter', () => { 
+                // ALWAYS use dataset.originalText instead of innerText to prevent corruption
+                const text = el.dataset.originalText || el.innerText;
+                scrambler.scramble(el, text); 
+            });
         });
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = mobileMenu.querySelectorAll('a');
+        
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn'); const closeBtn = document.getElementById('close-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); const mobileLinks = mobileMenu.querySelectorAll('a');
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
-        menuBtn.addEventListener('click', toggleMenu);
-        closeBtn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+        menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 9. BILINGUAL LOGIC ---
+        // --- 7. BILINGUAL LOGIC ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
@@ -971,6 +639,12 @@
             }
             translatableElements.forEach(el => {
                 const key = el.dataset.key; const newText = translations[currentLang][key];
+                
+                // UPDATE ORIGINAL TEXT DATA HERE FOR SCRAMBLE HOVER FIX
+                if(el.classList.contains('scramble-hover')) {
+                    el.dataset.originalText = newText;
+                }
+                
                 if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
                 else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
             });
