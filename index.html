@@ -202,12 +202,13 @@
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
 
-    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER === -->
+    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER (Modified Logic) === -->
     <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-50 group outline-none tap-highlight-transparent">
         <div class="absolute inset-0 rounded-full bg-black translate-x-1 translate-y-1"></div>
         <div id="mobile-lang-bg" class="relative w-16 h-16 bg-neoYellow border-[3px] border-black rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out">
+            <!-- Initial State: JA mode -> Show 'EN' to switch -->
             <div id="mobile-lang-text-wrap" class="font-black font-stylish text-xl italic tracking-tighter">
-                JP
+                EN
             </div>
         </div>
     </button>
@@ -222,14 +223,14 @@
                 </a>
             </div>
 
-            <!-- MENU -->
+            <!-- MENU (Desktop) -->
             <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
                 <a href="#about" class="text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade" data-key="navAbout">私について</a>
                 <a href="#works" class="text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade" data-key="navWorks">活動・受賞歴</a>
                 <a href="#skills" class="text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade" data-key="navSkills">保有資格</a>
                 <a href="#contact" class="text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade" data-key="navContact">連絡先</a>
                 
-                <!-- Language Switcher -->
+                <!-- Language Switcher (Desktop) -->
                 <button id="lang-toggle" class="ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
@@ -260,12 +261,10 @@
     <main>
         <!-- HERO SECTION -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
-            <!-- Background Elements -->
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse"></div>
             <div class="absolute bottom-1/4 left-[10%] w-80 h-80 bg-neoYellow rounded-full blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
 
-            <!-- Content Container -->
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full">
                 
                 <!-- 1. Floating Badge -->
@@ -422,7 +421,7 @@
                         </div>
                     </article>
 
-                    <!-- 5 (PIVOT) -->
+                    <!-- 5 -->
                     <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -440,7 +439,7 @@
                         </div>
                     </article>
 
-                     <!-- 6 (Social Design) -->
+                     <!-- 6 -->
                      <article class="group relative gs-card lg:mt-16" style="transform: rotate(1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="relative bg-neoPurple neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -455,7 +454,7 @@
                         </div>
                     </article>
 
-                     <!-- 7 (Business Plan) -->
+                     <!-- 7 -->
                      <article class="group relative gs-card lg:mt-12" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                          <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -470,7 +469,7 @@
                         </div>
                     </article>
 
-                    <!-- 8 (Hiroo Presentation - UPDATED TEXT) -->
+                    <!-- 8 -->
                     <article class="group relative gs-card" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="relative bg-neoRed text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -485,7 +484,7 @@
                         </div>
                     </article>
 
-                    <!-- 9 (JOPT) -->
+                    <!-- 9 -->
                     <article class="group relative gs-card lg:mt-12" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="relative bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -661,7 +660,18 @@
         closeBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 6. Bilingual Logic ---
+        // --- 6. Language Switch Logic (Floating & Desktop) ---
+        let currentLang = 'ja';
+        
+        // Select BOTH switchers
+        const desktopLangBtn = document.getElementById('lang-toggle');
+        const desktopLangText = document.getElementById('lang-text');
+        const mobileLangBtn = document.getElementById('mobile-lang-float');
+        const mobileLangText = document.getElementById('mobile-lang-text-wrap');
+        const mobileLangBg = document.getElementById('mobile-lang-bg');
+        
+        const translatableElements = document.querySelectorAll('[data-key]');
+
         const translations = {
             ja: {
                 navLogo: "KEN.H",
@@ -781,27 +791,18 @@
             }
         };
 
-        let currentLang = 'ja';
-        const langToggle = document.getElementById('lang-toggle');
-        const langText = document.getElementById('lang-text');
-        const translatableElements = document.querySelectorAll('[data-key]');
-
-        // Mobile Lang Switcher
-        const mobileLangBtn = document.getElementById('mobile-lang-float');
-        const mobileLangText = document.getElementById('mobile-lang-text-wrap');
-        const mobileLangBg = document.getElementById('mobile-lang-bg');
-
         function switchLanguage() {
-             currentLang = currentLang === 'ja' ? 'en' : 'ja';
+            currentLang = currentLang === 'ja' ? 'en' : 'ja';
             
-            // Desktop Toggle
+            // Desktop Toggle Text
             if (currentLang === 'en') {
                 langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`;
             } else {
                 langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`;
             }
 
-            // Mobile Toggle Animation
+            // Mobile Toggle Animation & Text Update
+            // The logic here sets the text to the TARGET language (switch TO)
             mobileLangBg.animate([
                 { transform: 'rotate(0deg)' },
                 { transform: 'rotate(360deg)' }
@@ -809,11 +810,11 @@
 
             setTimeout(() => {
                 if (currentLang === 'en') {
-                    mobileLangText.innerText = 'EN';
+                    mobileLangText.innerText = 'JP'; // In EN mode, show JP to switch back
                     mobileLangBg.classList.remove('bg-neoYellow');
                     mobileLangBg.classList.add('bg-black', 'text-white');
                 } else {
-                    mobileLangText.innerText = 'JP';
+                    mobileLangText.innerText = 'EN'; // In JP mode, show EN to switch
                     mobileLangBg.classList.remove('bg-black', 'text-white');
                     mobileLangBg.classList.add('bg-neoYellow');
                 }
@@ -828,7 +829,8 @@
             });
         }
 
-        langToggle.addEventListener('click', switchLanguage);
+        // Add event listeners
+        desktopLangBtn.addEventListener('click', switchLanguage);
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
 
     </script>
