@@ -20,6 +20,9 @@
     <!-- Lenis (Inertia Scroll) -->
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
 
+    <!-- Vanilla Tilt (For 3D Card Effect) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -119,6 +122,18 @@
         /* Background */
         .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; }
         .lang-fade { transition: opacity 0.3s ease; }
+        
+        /* Interactive Blobs */
+        .interactive-blob {
+            position: fixed;
+            top: 0; left: 0;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+        }
 
         /* LOADING SCREEN STYLES */
         #loader { position: fixed; inset: 0; background-color: #121212; color: #F0F0EB; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -137,7 +152,6 @@
             width: 100%; height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            /* Transition handled by GSAP */
         }
         .card-front, .card-back {
             position: absolute; width: 100%; height: 100%;
@@ -165,9 +179,17 @@
             border-color: #FF4D4D;
             color: #000;
         }
+        
+        /* Magnetic Button */
+        .magnetic-btn { display: inline-block; }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
+
+    <!-- === INTERACTIVE BACKGROUND BLOBS === -->
+    <div id="blob-1" class="interactive-blob w-96 h-96 bg-neoBlue"></div>
+    <div id="blob-2" class="interactive-blob w-64 h-64 bg-neoRed" style="animation-delay: -2s;"></div>
+    <div class="fixed top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse -z-10 pointer-events-none"></div>
 
     <!-- === LOADING SCREEN === -->
     <div id="loader">
@@ -212,7 +234,7 @@
     <header class="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
         <nav class="container mx-auto flex justify-between items-center pointer-events-auto">
             <!-- LOGO -->
-            <div class="bg-white neo-border px-5 py-2 neo-shadow transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+            <div class="magnetic-btn bg-white neo-border px-5 py-2 neo-shadow transform -rotate-2 hover:rotate-0 transition-transform duration-300">
                 <a href="#" data-key="navLogo" class="text-3xl font-stylish italic hover-trigger lang-fade">
                     KEN.H
                 </a>
@@ -220,17 +242,25 @@
 
             <!-- MENU (Desktop) -->
             <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
-                <a href="#about" class="text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover" data-key="navAbout">私について</a>
-                <a href="#works" class="text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover" data-key="navWorks">活動・受賞歴</a>
-                <a href="#skills" class="text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover" data-key="navSkills">保有資格</a>
-                <a href="#contact" class="text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover" data-key="navContact">連絡先</a>
+                <div class="magnetic-btn">
+                    <a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a>
+                </div>
+                <div class="magnetic-btn">
+                    <a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a>
+                </div>
+                <div class="magnetic-btn">
+                    <a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a>
+                </div>
+                <div class="magnetic-btn">
+                    <a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a>
+                </div>
                 
                 <!-- Language Switcher -->
-                <button id="lang-toggle" class="ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
+                <button id="lang-toggle" class="magnetic-btn ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
 
-                <a href="mailto:beyondtheken.jp@gmail.com" class="ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">
+                <a href="mailto:beyondtheken.jp@gmail.com" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">
                     コンタクトを取る
                 </a>
             </div>
@@ -257,9 +287,7 @@
         <!-- HERO SECTION -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-            <div class="absolute top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse"></div>
-            <div class="absolute bottom-1/4 left-[10%] w-80 h-80 bg-neoYellow rounded-full blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
-
+            
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full">
                 
                 <!-- Badge -->
@@ -341,7 +369,7 @@
             </div>
         </section>
 
-        <!-- WORKS -->
+        <!-- WORKS (Updated for 3D Tilt) -->
         <section id="works" class="py-32 px-4 md:px-8 overflow-hidden">
             <div class="container mx-auto">
                 <h2 class="text-6xl md:text-9xl font-black text-center mb-24 relative inline-block left-1/2 -translate-x-1/2">
@@ -354,14 +382,17 @@
                     <!-- Card 1 -->
                     <article class="group relative gs-card" style="transform: rotate(-2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">MARKETING</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work1Title">社会科学部野口ゼミ×(株)理想科学工業マーケティング戦略コンペ</h3>
-                                <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work1Subtitle">最優秀賞受賞</p>
-                                <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">
-                                    １年間にかけて行われた早稲田大学社会科学部野口ゼミと㍿理想科学工業のコラボレーションによる当該企業が手がけるプリンター「MiScreen A4」をプロモーション戦略の立案コンペで、SNSでの広報におけるPV数や動画の構成要素を因子分解して数量化１類と呼ばれる専門的な統計学的プロセスを経て抽出されたプロモーション戦略を提案しました。
-                                </p>
+                        <!-- Tilt Target Wrapper -->
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">MARKETING</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work1Title">社会科学部野口ゼミ×(株)理想科学工業マーケティング戦略コンペ</h3>
+                                    <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work1Subtitle">最優秀賞受賞</p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">
+                                        １年間にかけて行われた早稲田大学社会科学部野口ゼミと㍿理想科学工業のコラボレーションによる当該企業が手がけるプリンター「MiScreen A4」をプロモーション戦略の立案コンペで、SNSでの広報におけるPV数や動画の構成要素を因子分解して数量化１類と呼ばれる専門的な統計学的プロセスを経て抽出されたプロモーション戦略を提案しました。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -369,30 +400,34 @@
                     <!-- Card 2 -->
                     <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-neoYellow neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ESSAY</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work2Title">第36回「働くってなんだろう」エッセイコンテスト</h3>
-                                <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle">勤労青少年躍進会理事長賞受賞</p>
-                                <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">
-                                  ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、勤労青少年躍進会理事長賞を受賞しました。
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-neoYellow neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ESSAY</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work2Title">第36回「働くってなんだろう」エッセイコンテスト</h3>
+                                    <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle">勤労青少年躍進会理事長賞受賞</p>
+                                    <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">
+                                    ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、勤労青少年躍進会理事長賞を受賞しました。
+                                    </p>
+                                </div>
+                                <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-2 border-black transition-colors hover-trigger lang-fade" data-key="work2Button" style="transform: translateZ(30px);">エッセイを読む</a>
                             </div>
-                            <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-2 border-black transition-colors hover-trigger lang-fade" data-key="work2Button">エッセイを読む</a>
                         </div>
                     </article>
 
                     <!-- Card 3 -->
                     <article class="group relative gs-card lg:mt-24" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-[#E0E0E0] neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-neoBlue text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">DESIGN</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title">第10回あなたが考えるブランドラベルコンテスト</h3>
-                                <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle">TOP40 東京ビックサイト展示</p>
-                                <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">
-                                   2023年、東京吉岡株式会社主催の「あなたのアイデアブランドラベルコンテスト」に参加しました。架空のアパレルブランド"ONESAGE"のコンセプトとデザインを構築。環境に優しい生分解性プラスチック100%使用した作品を完成させました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで3日間にわたって展示されました。
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-[#E0E0E0] neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-neoBlue text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">DESIGN</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title">第10回あなたが考えるブランドラベルコンテスト</h3>
+                                    <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle">TOP40 東京ビックサイト展示</p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">
+                                    2023年、東京吉岡株式会社主催の「あなたのアイデアブランドラベルコンテスト」に参加しました。架空のアパレルブランド"ONESAGE"のコンセプトとデザインを構築。環境に優しい生分解性プラスチック100%使用した作品を完成させました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで3日間にわたって展示されました。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -400,48 +435,54 @@
                     <!-- Card 4 -->
                     <article class="group relative gs-card" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-black text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">GAMBLE & LOGIC</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work4Title">海外ポーカー実践</h3>
-                                <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle">投資利益率532%</p>
-                                <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">
-                                    趣味の1つであるポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、5,056ユーロ（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-black text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">GAMBLE & LOGIC</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work4Title">海外ポーカー実践</h3>
+                                    <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle">投資利益率532%</p>
+                                    <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">
+                                        趣味の1つであるポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、5,056ユーロ（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））
+                                    </p>
+                                </div>
+                                <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
-                            <div class="mt-4 text-4xl">♠♥♣♦</div>
                         </div>
                     </article>
 
                     <!-- Card 5 -->
                     <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-neoYellow text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">EVENT & MEDIA</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work5Title">早稲田大学✕(株)PIVOT</h3>
-                                <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle">コラボ企画動画実行委員</p>
-                                <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">
-                                    起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、㍿PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-neoYellow text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">EVENT & MEDIA</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work5Title">早稲田大学✕(株)PIVOT</h3>
+                                    <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle">コラボ企画動画実行委員</p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">
+                                        起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、㍿PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。
+                                    </p>
+                                </div>
+                                <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center bg-black text-white py-3 font-bold border-2 border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="work5Button" style="transform: translateZ(30px);">
+                                    動画を見る &rarr;
+                                </a>
                             </div>
-                            <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center bg-black text-white py-3 font-bold border-2 border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="work5Button">
-                                動画を見る &rarr;
-                            </a>
                         </div>
                     </article>
 
                      <!-- Card 6 -->
                      <article class="group relative gs-card lg:mt-16" style="transform: rotate(1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-neoPurple neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ACADEMIC</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work6Title">「社会デザイン論入門」レポートコンテスト</h3>
-                                <p class="text-xl font-bold text-white mb-4 lang-fade" data-key="work6Subtitle">優秀賞受賞</p>
-                                <p class="text-sm text-black font-black lang-fade" data-key="work6Body">
-                                    2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-neoPurple neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ACADEMIC</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work6Title">「社会デザイン論入門」レポートコンテスト</h3>
+                                    <p class="text-xl font-bold text-white mb-4 lang-fade" data-key="work6Subtitle">優秀賞受賞</p>
+                                    <p class="text-sm text-black font-black lang-fade" data-key="work6Body">
+                                        2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -449,14 +490,16 @@
                      <!-- Card 7 -->
                      <article class="group relative gs-card lg:mt-12" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                         <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-gray-200 text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">BUSINESS</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work7Title">第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</h3>
-                                <p class="text-xl font-bold text-gray-600 mb-4 lang-fade" data-key="work7Subtitle">東京都産業労働局長賞受賞</p>
-                                <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">
-                                   2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。
-                                </p>
+                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-gray-200 text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">BUSINESS</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work7Title">第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</h3>
+                                    <p class="text-xl font-bold text-gray-600 mb-4 lang-fade" data-key="work7Subtitle">東京都産業労働局長賞受賞</p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">
+                                    2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -464,14 +507,16 @@
                     <!-- Card 8 -->
                     <article class="group relative gs-card" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-neoRed text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">PRESENTATION</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title">広尾学園中学校学年プレゼンテーション大会</h3>
-                                <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle">最優秀賞受賞</p>
-                                <p class="text-sm font-medium lang-fade" data-key="work8Body">
-                                    2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-neoRed text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">PRESENTATION</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title">広尾学園中学校学年プレゼンテーション大会</h3>
+                                    <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle">最優秀賞受賞</p>
+                                    <p class="text-sm font-medium lang-fade" data-key="work8Body">
+                                        2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -479,16 +524,18 @@
                     <!-- Card 9 -->
                     <article class="group relative gs-card lg:mt-12" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="relative bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                            <div>
-                                <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
-                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title">JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</h3>
-                                <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle">107位入賞</p>
-                                <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">
-                                    日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。
-                                </p>
+                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+                            <div class="relative bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                                <div style="transform: translateZ(20px);">
+                                    <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title">JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</h3>
+                                    <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle">107位入賞</p>
+                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">
+                                        日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。
+                                    </p>
+                                </div>
+                                <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
-                            <div class="mt-4 text-4xl">♠♥♣♦</div>
                         </div>
                     </article>
                 </div>
@@ -524,13 +571,15 @@
                     お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。
                 </p>
                 
-                <!-- BUTTON with ID Wrapper for Win Effect -->
-                <a href="mailto:beyondtheken.jp@gmail.com" class="group relative inline-block hover-trigger" id="contact-btn-wrap">
-                    <span class="absolute inset-0 w-full h-full bg-white transform translate-x-4 translate-y-4 border-4 border-white"></span>
-                    <span class="relative block bg-neoYellow text-black text-3xl md:text-5xl font-black border-[6px] border-black px-16 py-8 transition-all duration-200 group-hover:-translate-y-2 group-hover:-translate-x-2 group-hover:animate-vibrate lang-fade" data-key="contactButton">
-                        今すぐコンタクトを取る
-                    </span>
-                </a>
+                <!-- BUTTON with Magnetic Effect -->
+                <div class="magnetic-btn inline-block">
+                    <a href="mailto:beyondtheken.jp@gmail.com" class="group relative inline-block hover-trigger" id="contact-btn-wrap">
+                        <span class="absolute inset-0 w-full h-full bg-white transform translate-x-4 translate-y-4 border-4 border-white pointer-events-none"></span>
+                        <span class="relative block bg-neoYellow text-black text-3xl md:text-5xl font-black border-[6px] border-black px-16 py-8 transition-all duration-200 group-hover:-translate-y-2 group-hover:-translate-x-2 group-hover:animate-vibrate lang-fade" data-key="contactButton">
+                            今すぐコンタクトを取る
+                        </span>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -683,23 +732,75 @@
                     loader.style.display = 'none';
                     startLenis();
                     document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
+                    initMagneticButtons(); // Start Magnetic Effect
+                    initInteractiveBackground(); // Start Background Effect
                 }
             })
             .from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8");
         }
 
-        // --- 2. POKER MINI GAME LOGIC ---
+        // --- 2. INTERACTIVE BACKGROUND (BLOBS) ---
+        function initInteractiveBackground() {
+            const blob1 = document.getElementById('blob-1');
+            const blob2 = document.getElementById('blob-2');
+            
+            // QuickTo provides high performance mouse following with lag
+            const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"});
+            const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
+            
+            const xTo2 = gsap.quickTo(blob2, "x", {duration: 1.2, ease: "power3"}); // Different delay for depth
+            const yTo2 = gsap.quickTo(blob2, "y", {duration: 1.2, ease: "power3"});
+
+            window.addEventListener("mousemove", (e) => {
+                xTo1(e.clientX);
+                yTo1(e.clientY);
+                xTo2(e.clientX);
+                yTo2(e.clientY);
+            });
+        }
+
+        // --- 3. MAGNETIC BUTTONS ---
+        function initMagneticButtons() {
+            const magnets = document.querySelectorAll('.magnetic-btn');
+            
+            magnets.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const bounds = btn.getBoundingClientRect();
+                    // Calculate distance from center
+                    const x = e.clientX - bounds.left - bounds.width / 2;
+                    const y = e.clientY - bounds.top - bounds.height / 2;
+                    
+                    // Move the button towards mouse
+                    gsap.to(btn, {
+                        x: x * 0.4, // Magnetic strength
+                        y: y * 0.4,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    // Snap back to center
+                    gsap.to(btn, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.6,
+                        ease: "elastic.out(1, 0.3)"
+                    });
+                });
+            });
+        }
+
+        // --- 4. POKER MINI GAME LOGIC ---
         let flippedCount = 0;
         const totalCards = 5;
         
         function flipCard(element, rank) {
-            // If already flipped or animating, ignore
             if(element.classList.contains('is-flipped')) return;
             
             const inner = element.querySelector('.card-inner');
             element.classList.add('is-flipped');
             
-            // Flip Animation
             gsap.to(inner, {
                 rotationY: 180,
                 duration: 0.6,
@@ -715,27 +816,18 @@
 
         function triggerWin() {
             const msg = document.querySelector('#poker-message p');
-            
-            // 1. Reveal Message
             msg.classList.remove('opacity-0', 'translate-y-10');
-            msg.classList.add('text-neoRed', 'scramble-on-win'); // Add color
+            msg.classList.add('text-neoRed', 'scramble-on-win');
             scrambler.scramble(msg, "ROYAL STRAIGHT FLUSH!!");
 
-            // 2. Highlight Contact Button (The Request)
             const contactSection = document.getElementById('contact');
             contactSection.classList.add('win-active');
-            
-            // Scroll slightly up to see the button if it's out of view (Optional UX)
-            // lenis.scrollTo('#contact', { offset: -100, duration: 1.5 });
-
-            // 3. Confetti Effect
             createConfetti();
         }
 
         function createConfetti() {
             const container = document.getElementById('confetti-container');
             const colors = ['#D6FC52', '#B983FF', '#FF4D4D', '#5D5FEF', '#000000'];
-            
             for(let i = 0; i < 50; i++) {
                 const conf = document.createElement('div');
                 conf.style.position = 'absolute';
@@ -746,7 +838,6 @@
                 conf.style.top = '-10px';
                 conf.style.zIndex = 10;
                 container.appendChild(conf);
-
                 gsap.to(conf, {
                     y: '100vh',
                     x: (Math.random() - 0.5) * 200,
@@ -758,7 +849,7 @@
             }
         }
 
-        // --- 3. SCROLL PROGRESS ---
+        // --- 5. SCROLL PROGRESS ---
         const progressBar = document.getElementById('progress-bar');
         window.addEventListener('scroll', () => {
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -767,7 +858,7 @@
             progressBar.style.width = scrolled + "%";
         });
 
-        // --- 4. GSAP SCROLL TRIGGER ---
+        // --- 6. GSAP SCROLL TRIGGER ---
         gsap.registerPlugin(ScrollTrigger);
         gsap.utils.toArray('.gs-reveal-left').forEach(elem => {
             gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" });
@@ -779,10 +870,10 @@
             scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)"
         });
 
-        // --- 5. CURSOR ---
+        // --- 7. CURSOR ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button, .card-container'); // Added card-container
+        const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button, .card-container');
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX; const posY = e.clientY;
             cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
@@ -801,7 +892,7 @@
             });
         });
 
-        // --- 6. NAV & SCRAMBLE HOVER ---
+        // --- 8. NAV & SCRAMBLE HOVER ---
         document.querySelectorAll('.scramble-hover').forEach(el => {
             el.addEventListener('mouseenter', () => { scrambler.scramble(el, el.innerText); });
         });
@@ -814,7 +905,7 @@
         closeBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 7. BILINGUAL LOGIC ---
+        // --- 9. BILINGUAL LOGIC ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
@@ -832,7 +923,7 @@
                 work6Title: "「社会デザイン論入門」レポートコンテスト", work6Subtitle: "優秀賞受賞", work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
                 work7Title: "第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018", work7Subtitle: "東京都産業労働局長賞受賞", work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。",
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
-                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107位入賞", work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
+                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
                 contactTitle: "まだ見ぬ何かを、<br class=\"sm:hidden\">一緒に創りませんか？", contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", contactButton: "今すぐコンタクトを取る", footerCopy: "&copy; 2025 Ken HARIMA. All Rights Reserved."
             },
