@@ -56,7 +56,7 @@
             background-color: #F0F0EB;
             color: #121212;
             overflow-x: hidden;
-            cursor: none;
+            /* cursor: none; Removed global setting, applied via media query below */
         }
 
         /* Initial Lock for Loader */
@@ -86,12 +86,28 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Cursor */
+        /* 
+         * DEVICE SPECIFIC CURSOR LOGIC 
+         * Only show custom cursor on devices with a mouse/trackpad (pointer: fine)
+         */
         .cursor-dot, .cursor-outline {
+            display: none; /* Hidden by default on touch devices */
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%; z-index: 9999; pointer-events: none;
         }
+        
+        @media (hover: hover) and (pointer: fine) {
+            /* Hide default cursor only on PC */
+            body {
+                cursor: none;
+            }
+            /* Show custom cursor only on PC */
+            .cursor-dot, .cursor-outline {
+                display: block;
+            }
+        }
+
         .cursor-dot { width: 8px; height: 8px; background-color: #121212; }
         .cursor-outline {
             width: 40px; height: 40px;
@@ -199,14 +215,14 @@
     <div id="progress-bar"></div>
 
     <div class="grain-overlay"></div>
-    <div class="cursor-dot hidden md:block"></div>
-    <div class="cursor-outline hidden md:block"></div>
+    <!-- Cursor divs removed 'hidden md:block' to be controlled by CSS media query instead -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
-    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER (FIXED: High Z-Index) === -->
+    <!-- === MOBILE EXCLUSIVE: FLOATING LANG SWITCHER === -->
     <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-[10000] group outline-none touch-manipulation">
         <div class="absolute inset-0 rounded-full bg-black translate-x-1 translate-y-1"></div>
         <div id="mobile-lang-bg" class="relative w-16 h-16 bg-neoYellow border-[3px] border-black rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out">
-            <!-- Initial: JA Mode, show 'EN' as switch option -->
             <div id="mobile-lang-text-wrap" class="font-black font-stylish text-xl italic tracking-tighter">
                 EN
             </div>
@@ -662,17 +678,7 @@
         closeBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 6. Language Switch Logic (Floating & Desktop) ---
-        let currentLang = 'ja';
-        
-        const desktopLangBtn = document.getElementById('lang-toggle');
-        const desktopLangText = document.getElementById('lang-text');
-        const mobileLangBtn = document.getElementById('mobile-lang-float');
-        const mobileLangText = document.getElementById('mobile-lang-text-wrap');
-        const mobileLangBg = document.getElementById('mobile-lang-bg');
-        
-        const translatableElements = document.querySelectorAll('[data-key]');
-
+        // --- 6. Bilingual Logic ---
         const translations = {
             ja: {
                 navLogo: "KEN.H",
@@ -792,18 +798,27 @@
             }
         };
 
+        let currentLang = 'ja';
+        const langToggle = document.getElementById('lang-toggle');
+        const langText = document.getElementById('lang-text');
+        const translatableElements = document.querySelectorAll('[data-key]');
+
+        // Mobile Lang Switcher
+        const mobileLangBtn = document.getElementById('mobile-lang-float');
+        const mobileLangText = document.getElementById('mobile-lang-text-wrap');
+        const mobileLangBg = document.getElementById('mobile-lang-bg');
+
         function switchLanguage() {
-            currentLang = currentLang === 'ja' ? 'en' : 'ja';
+             currentLang = currentLang === 'ja' ? 'en' : 'ja';
             
-            // Desktop Toggle Text
+            // Desktop Toggle
             if (currentLang === 'en') {
-                desktopLangText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`;
+                langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`;
             } else {
-                desktopLangText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`;
+                langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`;
             }
 
-            // Mobile Toggle Animation & Text Update
-            // The logic here sets the text to the TARGET language (switch TO)
+            // Mobile Toggle Animation
             mobileLangBg.animate([
                 { transform: 'rotate(0deg)' },
                 { transform: 'rotate(360deg)' }
@@ -811,11 +826,11 @@
 
             setTimeout(() => {
                 if (currentLang === 'en') {
-                    mobileLangText.innerText = 'JP'; // In EN mode, show JP to switch back
+                    mobileLangText.innerText = 'JP'; // Show JP option to switch back
                     mobileLangBg.classList.remove('bg-neoYellow');
                     mobileLangBg.classList.add('bg-black', 'text-white');
                 } else {
-                    mobileLangText.innerText = 'EN'; // In JP mode, show EN to switch
+                    mobileLangText.innerText = 'EN'; // Show EN option to switch
                     mobileLangBg.classList.remove('bg-black', 'text-white');
                     mobileLangBg.classList.add('bg-neoYellow');
                 }
@@ -830,8 +845,7 @@
             });
         }
 
-        // Add event listeners to BOTH buttons
-        desktopLangBtn.addEventListener('click', switchLanguage);
+        langToggle.addEventListener('click', switchLanguage);
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
 
     </script>
