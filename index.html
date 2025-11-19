@@ -81,13 +81,14 @@
     </script>
 
     <style>
-        /* Performance Optimization: GPU Acceleration */
+        /* --- PERFORMANCE OPTIMIZATION --- */
+        /* GPU Acceleration & Rendering Hints */
         .gpu-accelerated {
             transform: translateZ(0);
             backface-visibility: hidden;
             will-change: transform;
         }
-
+        
         body { background-color: #F0F0EB; color: #121212; cursor: none; transition: cursor 0.3s; }
         
         /* System Cursor Mode */
@@ -106,11 +107,11 @@
         /* Progress Bar */
         #progress-bar { position: fixed; top: 0; left: 0; height: 6px; background: #5D5FEF; width: 0%; z-index: 100; transition: width 0.1s ease-out; }
         
-        /* Grain - Optimized */
+        /* Grain - Optimized (Fixed positioning + GPU force) */
         .grain-overlay { 
             position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            transform: translateZ(0); /* GPU Force */
+            transform: translateZ(0); 
         }
         
         /* Custom Cursor */
@@ -155,14 +156,20 @@
         
         /* Marquee & Grid */
         .marquee-container { display: flex; overflow: hidden; user-select: none; width: 100%; }
-        .marquee-content { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; gap: 4rem; padding-right: 4rem; will-change: transform; transform: translateZ(0); }
+        .marquee-content { 
+            flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; 
+            gap: 4rem; padding-right: 4rem; 
+            will-change: transform; 
+            transform: translateZ(0); /* GPU Force */
+        }
         .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; transform-origin: top center; }
         
         .lang-fade { transition: opacity 0.3s ease; }
         
         /* Optimized Blob */
         .interactive-blob { 
-            position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; transform: translate(-50%, -50%) translateZ(0); 
+            position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; 
+            transform: translate(-50%, -50%) translateZ(0); 
             will-change: transform;
         }
         
@@ -221,7 +228,7 @@
         </div>
     </div>
 
-    <!-- --- FEATURE: Contact Modal (Fixed Formspree) --- -->
+    <!-- --- FEATURE: Contact Modal (Fixed Formspree Logic) --- -->
     <div id="contact-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
         <div class="modal-content relative bg-white w-full max-w-lg neo-border p-8 md:p-10 shadow-[10px_10px_0px_#D6FC52]">
@@ -229,6 +236,7 @@
             
             <h3 class="text-3xl md:text-4xl font-black font-stylish italic mb-6 text-center">GET IN TOUCH</h3>
             
+            <!-- ACTION URL is correct (xovrdzya) -->
             <form id="contact-form" action="https://formspree.io/f/xovrdzya" method="POST" class="space-y-6">
                 <div>
                     <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Name</label>
@@ -868,7 +876,7 @@
             });
         }
 
-        // --- FEATURE: Contact Modal & Chip Confetti (B) ---
+        // --- FEATURE: Contact Modal & Chip Confetti (FIXED FORMSPREE) ---
         function initContactModal() {
             const modal = document.getElementById('contact-modal');
             const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')];
@@ -884,51 +892,55 @@
             closeBtn.addEventListener('click', closeModal);
             backdrop.addEventListener('click', closeModal);
 
+            // --- NEW ROBUST FETCH LOGIC ---
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const submitBtn = form.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.innerText;
                 
-                // JSON Conversion for reliable Formspree submission
+                // Use standard FormData (Most reliable for Formspree AJAX)
                 const formData = new FormData(form);
-                const object = {};
-                formData.forEach((value, key) => object[key] = value);
-                const json = JSON.stringify(object);
 
+                // UI Loading State
                 submitBtn.innerText = "SENDING...";
                 submitBtn.disabled = true;
                 submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
                 fetch(form.action, {
                     method: 'POST',
+                    body: formData,
                     headers: {
-                        'Content-Type': 'application/json',
                         'Accept': 'application/json'
-                    },
-                    body: json
+                        // Note: Do NOT set Content-Type here. Browser sets it automatically with boundary for FormData.
+                    }
                 })
                 .then(response => {
                     if (response.ok) {
-                        form.reset();
-                        form.classList.add('hidden');
-                        successMsg.classList.remove('hidden');
-                        createChipConfetti(); 
+                        // Success! Even if response body is empty or tricky, we treat 200 OK as success.
+                        return response.json().catch(() => {}); // Try to parse JSON, but ignore errors if body is empty
                     } else {
-                        response.json().then(data => {
+                        // Server returned error (4xx, 5xx)
+                        return response.json().then(data => {
                             if (Object.hasOwn(data, 'errors')) {
-                                alert(data["errors"].map(error => error["message"]).join(", "));
+                                throw new Error(data["errors"].map(error => error["message"]).join(", "));
                             } else {
-                                alert("Oops! There was a problem submitting your form");
+                                throw new Error("Server error");
                             }
                         });
-                        submitBtn.innerText = originalBtnText;
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     }
                 })
+                .then(() => {
+                    // Success Logic
+                    form.reset();
+                    form.classList.add('hidden');
+                    successMsg.classList.remove('hidden');
+                    createChipConfetti(); 
+                })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert("Network error. Please try again.");
+                    // Error Logic
+                    console.error('Submission Error:', error);
+                    alert("送信に失敗しました。ネットワーク状況を確認して再度お試しください。");
+                    // Reset button
                     submitBtn.innerText = originalBtnText;
                     submitBtn.disabled = false;
                     submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -1097,13 +1109,6 @@
             });
             requestAnimationFrame(animateMarquee);
         }
-
-        // --- Grid Distortion (REMOVED FOR PERFORMANCE) ---
-        /*
-        function initGridDistortion() {
-            // This was causing major repaints. Removed for optimization.
-        }
-        */
 
         // --- INIT SEQUENCE ---
         document.addEventListener("DOMContentLoaded", () => {
