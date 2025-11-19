@@ -178,7 +178,7 @@
             transform-style: preserve-3d;
         }
 
-        .win-active #contact-btn-wrap span { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
+        .win-active #contact-btn-wrap span:last-child { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
         .magnetic-btn { display: inline-block; }
     </style>
 </head>
@@ -229,7 +229,7 @@
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
 
-                <!-- ADDED: LinkedIn Button (Desktop) -->
+                <!-- LinkedIn Button (Desktop) -->
                 <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                    class="magnetic-btn ml-4 w-11 h-11 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow hover:bg-white hover:text-[#0077B5] transition-colors duration-300 hover-trigger"
                    aria-label="LinkedIn Profile">
@@ -253,7 +253,7 @@
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <a href="mailto:beyondtheken.jp@gmail.com" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</a>
             
-            <!-- ADDED: LinkedIn Button (Mobile) -->
+            <!-- LinkedIn Button (Mobile) -->
             <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover:bg-white hover:text-[#0077B5]"
                aria-label="LinkedIn Profile">
@@ -344,7 +344,7 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 2 (UPDATED: Thicker border + Smooth CSS hack) -->
+                    <!-- Card 2 -->
                     <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
                          <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -388,7 +388,7 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 5 (UPDATED: Thicker border + Smooth CSS hack) -->
+                    <!-- Card 5 -->
                     <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -477,15 +477,29 @@
             </div>
         </section>
 
-        <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-[#121212] text-white relative overflow-hidden p-6">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-gray-900 whitespace-nowrap opacity-30 pointer-events-none select-none font-tight">CONTACT</div>
+        <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
+            <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
+
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">CONTACT</div>
+            
             <div class="container mx-auto text-center max-w-4xl relative z-10">
-                <h2 class="text-4xl md:text-7xl font-black mb-12 leading-tight lang-fade font-tight" data-key="contactTitle">まだ見ぬ何かを、<br class="sm:hidden">一緒に創りませんか？</h2>
-                <p class="text-xl md:text-2xl text-gray-400 mb-20 lang-fade" data-key="contactBody">お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。</p>
+                <!-- UPDATED: Responsive text size and nowrap span to prevent orphan "か？" -->
+                <h2 class="text-[9vw] sm:text-6xl md:text-8xl font-black mb-10 leading-[0.9] lang-fade font-tight text-black mix-blend-darken" data-key="contactTitle">
+                    まだ見ぬ何かを、<br>
+                    <span class="whitespace-nowrap"><span class="inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4">一緒に</span>創りませんか？</span>
+                </h2>
+                
+                <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
+                    お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。
+                </p>
+                
                 <div class="magnetic-btn inline-block">
                     <a href="mailto:beyondtheken.jp@gmail.com" class="group relative inline-block hover-trigger" id="contact-btn-wrap">
-                        <span class="absolute inset-0 w-full h-full bg-white transform translate-x-4 translate-y-4 border-4 border-white pointer-events-none"></span>
-                        <span class="relative block bg-neoYellow text-black text-3xl md:text-5xl font-black border-[6px] border-black px-16 py-8 transition-all duration-200 group-hover:-translate-y-2 group-hover:-translate-x-2 group-hover:animate-vibrate lang-fade" data-key="contactButton">今すぐコンタクトを取る</span>
+                        <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                        <span class="relative block bg-black text-white text-xl md:text-3xl font-black border-2 border-black px-10 py-5 rounded-full transition-all duration-300 group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:bg-neoYellow group-hover:text-black lang-fade flex items-center gap-3" data-key="contactButton">
+                            今すぐコンタクトを取る
+                             <svg class="w-6 h-6 transform group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -782,7 +796,7 @@
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
-                contactTitle: "まだ見ぬ何かを、<br class=\"sm:hidden\">一緒に創りませんか？", contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", contactButton: "今すぐコンタクトを取る", footerCopy: "&copy; 2025 Ken HARIMA. All Rights Reserved."
+                contactTitle: "まだ見ぬ何かを、<br> <span class=\"whitespace-nowrap\"><span class=\"inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4\">一緒に</span>創りませんか？</span>", contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", contactButton: "今すぐコンタクトを取る", footerCopy: "&copy; 2025 Ken HARIMA. All Rights Reserved."
             },
             en: {
                 navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
@@ -802,7 +816,7 @@
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
-                contactTitle: "Let's build something<br class=\"sm:hidden\"> unforgettable.", contactBody: "Please feel free to contact me. Poker invites are also welcome.", contactButton: "Get in Touch Now", footerCopy: "&copy; 2025 Ken HARIMA. All Rights Reserved."
+                contactTitle: "Let's build something<br> <span class=\"inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4\">unforgettable.</span>", contactBody: "Please feel free to contact me. Poker invites are also welcome.", contactButton: "Get in Touch Now", footerCopy: "&copy; 2025 Ken HARIMA. All Rights Reserved."
             }
         };
 
