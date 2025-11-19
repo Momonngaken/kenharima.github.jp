@@ -77,7 +77,7 @@
         /* Grain */
         .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
         
-        /* --- FEATURE: Difference Blend Mode Cursor --- */
+        /* Cursor */
         .cursor-dot, .cursor-outline { 
             display: none; 
             position: fixed; 
@@ -102,17 +102,17 @@
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
         
-        /* --- FEATURE: Tight Kerning for Titles --- */
+        /* Typography */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .font-tight { letter-spacing: -0.06em; }
 
         .scramble-text { display: inline-block; min-width: 1em; }
         
-        /* --- FEATURE: Kinetic Marquee Container --- */
+        /* Marquee */
         .marquee-container { display: flex; overflow: hidden; user-select: none; width: 100%; }
         .marquee-content { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; gap: 4rem; padding-right: 4rem; will-change: transform; }
         
-        /* --- FEATURE: Grid Distortion --- */
+        /* Grid Distortion */
         .bg-grid { 
             background-size: 40px 40px; 
             background-image: radial-gradient(circle, #000000 1px, transparent 1px); 
@@ -126,7 +126,8 @@
         
         /* Loader */
         #loader { position: fixed; inset: 0; background-color: #121212; color: #F0F0EB; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .loader-text { font-family: 'Syne', sans-serif; font-weight: 900; line-height: 0.8; }
+        /* UPDATED: Font settings for loader text to be tabular and match theme */
+        .loader-text { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 0.8; font-feature-settings: "tnum"; font-style: italic; }
         
         /* Poker */
         .perspective-1000 { perspective: 1000px; }
@@ -134,50 +135,18 @@
         @media (min-width: 768px) { .card-container { width: 100px; height: 150px; } }
         .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
         
-        /* UPDATED: Card Front Styles for "Taipa Poker" Design */
         .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border: 3px solid #000; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: 'Syne', sans-serif; font-weight: 900; }
         .card-back { background-color: #121212; color: #D6FC52; transform: rotateY(0deg); }
-        .card-front { 
-            background-color: white; 
-            color: black; 
-            transform: rotateY(180deg); 
-            overflow: hidden;
-        }
+        .card-front { background-color: white; color: black; transform: rotateY(180deg); overflow: hidden; }
         
-        /* New Classes for Card Typography */
-        .taipa-text {
-            font-family: 'Syne', sans-serif;
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -0.1em;
-            transform: scaleY(1.3); /* 縦長効果 */
-            z-index: 10;
-        }
-        .taipa-text-10 {
-            letter-spacing: -0.15em;
-            margin-right: 0.1em;
-        }
-        .corner-suit {
-            position: absolute;
-            font-size: 10px;
-            line-height: 1;
-        }
-        @media (min-width: 768px) { 
-            .corner-suit { font-size: 14px; }
-        }
+        .taipa-text { font-family: 'Syne', sans-serif; font-weight: 900; line-height: 1; letter-spacing: -0.1em; transform: scaleY(1.3); z-index: 10; }
+        .taipa-text-10 { letter-spacing: -0.15em; margin-right: 0.1em; }
+        .corner-suit { position: absolute; font-size: 10px; line-height: 1; }
+        @media (min-width: 768px) { .corner-suit { font-size: 14px; } }
         .corner-tl { top: 4px; left: 4px; }
         .corner-br { bottom: 4px; right: 4px; transform: rotate(180deg); }
 
-        /* --- FIX: Smooth Border for 3D Transforms --- */
-        .smooth-border {
-            /* 透明なアウトラインをつけることで、WebKit系ブラウザでの3D変形時のジャギー（ギザギザ）を滑らかにします */
-            outline: 1px solid transparent;
-            /* 背面を隠すことで描画負荷を下げ、レンダリングを安定させます */
-            backface-visibility: hidden;
-            /* 3D空間内での描画を維持します */
-            transform-style: preserve-3d;
-        }
-
+        .smooth-border { outline: 1px solid transparent; backface-visibility: hidden; transform-style: preserve-3d; }
         .win-active #contact-btn-wrap span:last-child { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
         .magnetic-btn { display: inline-block; }
     </style>
@@ -195,6 +164,7 @@
         <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">> INITIALIZING...</div>
         <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">©2025</div>
         <div class="relative z-10 text-center">
+            <!-- Counter 000-100 -->
             <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter min-w-[3ch]" id="loader-counter">000</div>
             <div class="h-2 w-full bg-[#333] mt-4 relative overflow-hidden">
                 <div id="loader-bar" class="absolute top-0 left-0 h-full bg-neoYellow w-0"></div>
@@ -229,13 +199,10 @@
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
 
-                <!-- LinkedIn Button (Desktop) -->
                 <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                    class="magnetic-btn ml-4 w-11 h-11 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow hover:bg-white hover:text-[#0077B5] transition-colors duration-300 hover-trigger"
                    aria-label="LinkedIn Profile">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
 
                 <a href="mailto:beyondtheken.jp@gmail.com" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</a>
@@ -253,13 +220,10 @@
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <a href="mailto:beyondtheken.jp@gmail.com" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</a>
             
-            <!-- LinkedIn Button (Mobile) -->
             <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover:bg-white hover:text-[#0077B5]"
                aria-label="LinkedIn Profile">
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
         </div>
     </header>
@@ -311,7 +275,6 @@
                     <div class="w-full md:w-1/2 gs-reveal-right">
                         <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade font-tight" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
-                            <!-- NOTE: The greeting content here is a placeholder and will be updated by JS on load -->
                             <p class="lang-fade" data-key="aboutBody1">こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。</p>
                             <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業</p>
                             <div class="flex gap-4 mt-8">
@@ -345,7 +308,6 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 2 (UPDATED TEXT) -->
                     <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
                          <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -356,14 +318,12 @@
                                     <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle">勤労青少年躍進会理事長賞受賞</p>
                                     <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">2023年、「働くってなんだろうエッセイ」にて、ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、TOP14にあたる勤労青少年躍進会理事長賞を受賞しました。エッセイの随所でハイデガーの存在論的要素、サルトルの他者論的要素、レヴィナスの倫理的要素、西田幾多郎の「純粋経験」等を下地に展開される物語が見て取ることができます。ゴミが散乱する早朝の新宿を見た経験から、そこで働く早朝の清掃員の構想を思いつき、それを基に描いたフィクションです。</p>
                                 </div>
-                                <!-- Added group class for arrow hover -->
                                 <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="group block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-[3px] border-black transition-colors hover-trigger lang-fade smooth-border" data-key="work2Button" style="transform: translateZ(30px);">
                                     エッセイを読む <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
                                 </a>
                             </div>
                         </div>
                     </article>
-                    <!-- Card 3 (Updated) -->
                     <article class="group relative gs-card lg:mt-24" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -374,14 +334,12 @@
                                     <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle">TOP40 東京ビックサイト展示</p>
                                     <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。</p>
                                 </div>
-                                <!-- UPDATED LINK and Added group class for arrow hover -->
                                 <a href="https://www.tokyo-yoshioka.co.jp/2023s_contest" target="_blank" class="group mt-6 block text-center bg-neoBlue text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoBlue transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work3Button" style="transform: translateZ(30px);">
                                     作品を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
                                 </a>
                             </div>
                         </div>
                     </article>
-                    <!-- Card 4 (UPDATED TEXT) -->
                     <article class="group relative gs-card" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -396,7 +354,6 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 5 -->
                     <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -407,14 +364,12 @@
                                     <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle">コラボ企画動画実行委員</p>
                                     <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、株式会社PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。</p>
                                 </div>
-                                <!-- Added group class for arrow hover -->
                                 <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="group mt-6 block text-center bg-black text-white py-3 font-bold border-[3px] border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work5Button" style="transform: translateZ(30px);">
                                     動画を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
                                 </a>
                             </div>
                         </div>
                     </article>
-                    <!-- Card 6 -->
                     <article class="group relative gs-card lg:mt-16" style="transform: rotate(1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -428,7 +383,6 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 7 -->
                     <article class="group relative gs-card lg:mt-12" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -442,7 +396,6 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 8 -->
                     <article class="group relative gs-card" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -456,7 +409,6 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 9 -->
                     <article class="group relative gs-card lg:mt-12" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -490,14 +442,19 @@
 
         <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">CONTACT</div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
             
             <div class="container mx-auto text-center max-w-4xl relative z-10">
-                <!-- UPDATED: Responsive text size and nowrap span to prevent orphan "か？" -->
-                <h2 class="text-[9vw] sm:text-6xl md:text-8xl font-black mb-10 leading-[0.9] lang-fade font-tight text-black mix-blend-darken" data-key="contactTitle">
-                    まだ見ぬ何かを、<br>
-                    <span class="whitespace-nowrap"><span class="inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4">一緒に</span>創りませんか？</span>
+                <!-- UPDATED: Added margin-right and alignment fix -->
+                <h2 class="text-[10vw] sm:text-7xl md:text-9xl font-black mb-16 leading-none lang-fade font-tight text-black mix-blend-darken" data-key="contactTitle">
+                    <span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle">
+                        <span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span>
+                        <span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">
+                            共犯者
+                        </span>
+                    </span><span class="align-middle">、</span>
+                    <br class="md:hidden">
+                    <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>
                 </h2>
                 
                 <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
@@ -521,7 +478,6 @@
                 <h3 class="text-2xl md:text-3xl font-black mb-8 font-stylish italic">FEELING LUCKY? <span class="text-xs font-sans font-normal block mt-1 text-gray-500">Click cards to deal</span></h3>
                 <div class="flex justify-center items-center gap-2 md:gap-6 perspective-1000">
                     
-                    <!-- Card 10 -->
                     <div class="card-container" onclick="flipCard(this, '10')">
                         <div class="card-inner duration-500 ease-in-out">
                             <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
@@ -532,8 +488,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card J -->
                     <div class="card-container" onclick="flipCard(this, 'J')">
                         <div class="card-inner duration-500 ease-in-out">
                             <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
@@ -544,8 +498,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card Q -->
                     <div class="card-container" onclick="flipCard(this, 'Q')">
                         <div class="card-inner duration-500 ease-in-out">
                             <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
@@ -556,8 +508,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card K -->
                     <div class="card-container" onclick="flipCard(this, 'K')">
                         <div class="card-inner duration-500 ease-in-out">
                             <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
@@ -568,8 +518,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card A -->
                     <div class="card-container" onclick="flipCard(this, 'A')">
                         <div class="card-inner duration-500 ease-in-out">
                             <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
@@ -606,74 +554,48 @@
         gsap.ticker.lagSmoothing(0);
         function startLenis() { function raf(time) { lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf); }
 
-        // --- 0.5 SCRAMBLE TEXT CLASS (UPDATED: 固定時間制に変更) ---
+        // --- 0.5 SCRAMBLE TEXT CLASS ---
         class ScrambleText {
             constructor(chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+") { this.chars = chars; }
-            
-            // duration引数を有効活用するように変更 (デフォルト800ms = 0.8秒で完了)
             scramble(element, finalText, duration = 800) {
                 const length = finalText.length;
                 let iteration = 0;
-                const intervalTime = 30; // 30msごとに更新
-
-                // 重要: 文字数に関わらず duration 内に終わるように 1回あたりの進行度(step) を計算
+                const intervalTime = 30;
                 const totalFrames = duration / intervalTime;
                 let step = length / totalFrames;
-                
-                // あまりに短すぎて一瞬で終わるのを防ぐため、最低速度を設定
                 if (step < 0.3) step = 0.3; 
-
                 if (element.dataset.scrambleInterval) clearInterval(parseInt(element.dataset.scrambleInterval));
-                
                 const interval = setInterval(() => {
-                    element.innerText = finalText.split("").map((letter, index) => {
+                    element.innerHTML = finalText.split("").map((letter, index) => {
                         if (index < iteration) return finalText[index];
-                        // 空白文字のランダム化確率を下げてチラつきを軽減
-                        if (letter === " ") return " "; 
+                        if (letter === " " || letter === "<" || letter === ">") return letter; 
                         return this.chars[Math.floor(Math.random() * this.chars.length)];
                     }).join("");
-                    
-                    if (iteration >= length) { 
-                        clearInterval(interval); 
-                        element.innerText = finalText; 
-                    }
-                    iteration += step; // 計算したステップで進める
+                    if (iteration >= length) { clearInterval(interval); element.innerHTML = finalText; }
+                    iteration += step;
                 }, intervalTime);
-                
                 element.dataset.scrambleInterval = interval.toString();
             }
         }
         const scrambler = new ScrambleText();
 
-        // --- 1. FEATURE: POKER LOADING LOGIC ---
+        // --- 1. FEATURE: LOADER LOGIC (UPDATED) ---
         const loader = document.getElementById('loader');
         const loaderCounter = document.getElementById('loader-counter');
         const loaderBar = document.getElementById('loader-bar');
         let count = 0;
         
-        // ポーカー用文字セット
-        const pokerChars = "0123456789♠♥♣♦";
-        
+        // UPDATED: Numeric count 000-100 with padStart
         const interval = setInterval(() => {
-            count += Math.floor(Math.random() * 5) + 1;
+            count += Math.floor(Math.random() * 3) + 1;
             if(count > 100) count = 100;
             
-            // 表示用文字列の生成（100以外はランダムな文字混じり）
-            let displayStr = "";
-            if(count === 100) {
-                displayStr = "100";
-            } else {
-                // 3文字分のランダム文字列生成
-                for(let i=0; i<3; i++) {
-                    displayStr += pokerChars.charAt(Math.floor(Math.random() * pokerChars.length));
-                }
-            }
-            
-            loaderCounter.innerText = displayStr;
+            // Format as 3 digits (005, 020, 100)
+            loaderCounter.innerText = count.toString().padStart(3, '0');
             loaderBar.style.width = `${count}%`;
             
             if(count === 100) { clearInterval(interval); finishLoading(); }
-        }, 30);
+        }, 20); // Speed tweaked
 
         function finishLoading() {
             const tl = gsap.timeline();
@@ -682,10 +604,7 @@
                 document.body.classList.remove('is-loading'); loader.style.display = 'none'; startLenis();
                 document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
                 initMagneticButtons(); initInteractiveBackground();
-                // Initialize original text data for scramble hover fix
                 document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
-                
-                // --- FEATURE: Initialize New Effects ---
                 initKineticMarquee();
                 initGridDistortion();
             }})
@@ -750,20 +669,17 @@
         gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
-        // --- FEATURE: Cursor Logic for Difference Mode ---
+        // Cursor Logic
         const cursorDot = document.querySelector('.cursor-dot'); const cursorOutline = document.querySelector('.cursor-outline');
         const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button, .card-container');
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX; const posY = e.clientY;
-            // Using fixed since cursor is fixed
             cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
-            // UPDATED: Increased speed by reducing duration from 0.15 to 0.08
             gsap.to(cursorOutline, { x: posX, y: posY, duration: 0.08, ease: "power2.out" });
         });
         hoverTriggers.forEach(trigger => {
             trigger.addEventListener('mouseenter', () => {
                 document.body.classList.add('hovering');
-                // On hover, we scale up. Color remains white/difference but we can reduce opacity or scale drastically
                 gsap.to(cursorOutline, { scale: 2.5, opacity: 0.4, duration: 0.3 });
                 gsap.to(cursorDot, { opacity: 0, duration: 0.1 });
             });
@@ -777,7 +693,6 @@
         // --- 6. FIXED SCRAMBLE HOVER ---
         document.querySelectorAll('.scramble-hover').forEach(el => {
             el.addEventListener('mouseenter', () => { 
-                // ALWAYS use dataset.originalText instead of innerText to prevent corruption
                 const text = el.dataset.originalText || el.innerText;
                 scrambler.scramble(el, text); 
             });
@@ -788,131 +703,91 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 7. BILINGUAL LOGIC ---
+        // --- 7. BILINGUAL LOGIC (UPDATED for Contact Section) ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
-                // aboutBody1 will be set dynamically based on time
                 aboutBody1: "",
                 aboutBody2: "学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業",
                 worksTitle: "活動・受賞歴",
-                // UPDATED TEXT (MARKETING)
                 work1Title: "野口ゼミ×株式会社理想科学工業マーケティング戦略コンペ", work1Subtitle: "最優秀賞受賞", 
                 work1Body: "2024年、早稲田大学社会科学部野口智雄ゼミにおいて、株式会社理想科学工業の「MiScreen A4」プロモーション戦略コンペに取り組みました。 既存のSNS投稿におけるPV数やリアクションの違いに着目し、動画のクリエイティブ要素を分解。多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出することで、感覚に頼らない客観的根拠のある勝ちパターンを導き出しました。 そのデータを基に、製品特性と最も合致する市場として国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。",
-                
                 work2Title: "第36回「働くってなんだろう」エッセイコンテスト", work2Subtitle: "勤労青少年躍進会理事長賞受賞", 
-                // UPDATED TEXT
                 work2Body: "2023年、「働くってなんだろうエッセイ」にて、ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、TOP14にあたる勤労青少年躍進会理事長賞を受賞しました。エッセイの随所でハイデガーの存在論的要素、サルトルの他者論的要素、レヴィナスの倫理的要素、西田幾多郎の「純粋経験」等を下地に展開される物語が見て取ることができます。ゴミが散乱する早朝の新宿を見た経験から、そこで働く早朝の清掃員の構想を思いつき、それを基に描いたフィクションです。", 
-                // Added arrow span with group-hover animation
                 work2Button: `エッセイを読む <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                
                 work3Title: "第10回あなたが考えるブランドラベルコンテスト", work3Subtitle: "TOP40 東京ビックサイト展示", 
                 work3Body: "2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。",
-                // Added arrow span with group-hover animation
                 work3Button: `作品を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                
-                // UPDATED TEXT (POKER)
                 work4Title: "海外ポーカー実践", work4Subtitle: "投資利益率532%", 
                 work4Body: "2023年10月〜2024年2月にかけて、趣味のポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、€5,056（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））",
-                
                 work5Title: "早稲田大学✕株式会社PIVOT", work5Subtitle: "コラボ企画動画実行委員", work5Body: "起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、株式会社PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。", 
-                // Added arrow span with group-hover animation
                 work5Button: `動画を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                
                 work6Title: "「社会デザイン論入門」レポートコンテスト", work6Subtitle: "優秀賞受賞", work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
                 work7Title: "第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018", work7Subtitle: "東京都産業労働局長賞受賞", work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。",
-
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
-                contactTitle: "まだ見ぬ何かを、<br> <span class=\"whitespace-nowrap\"><span class=\"inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4\">一緒に</span>創りませんか？</span>", contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
+                
+                // UPDATED: "共犯者" Text with margins
+                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">共犯者</span></span><span class="align-middle">、</span><br class="md:hidden"> <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>`,
+                contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", 
+                contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             },
             en: {
                 navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
                 heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "About Me",
-                // aboutBody1 will be set dynamically based on time
                 aboutBody1: "",
                 aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange) Hiroo Gakuen Junior and Senior High School",
                 worksTitle: "Works & Awards",
-                // UPDATED TEXT (MARKETING - ENGLISH TRANSLATION)
                 work1Title: "Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition", work1Subtitle: "Grand Prize", 
-                work1Body: "In 2024, as part of the Tomio Noguchi Seminar at Waseda University’s School of Social Sciences, we participated in a competition to formulate a promotion strategy for Riso Kagaku Corporation's 'MiScreen A4. Focusing on differences in views and engagement in existing social media posts, we broke down the creative elements of the videos. We then calculated the impact of each element using 'Quantification Theory Type I' (a type of multivariate analysis) to derive a winning pattern based on objective evidence rather than intuition.  Based on this data, I proposed a strategy targeting museums—both in Japan and overseas—as the market that best matched the product's characteristics. As a result, our team won the Grand Prize.",
-                
+                work1Body: "In 2024, at the Tomio Noguchi Seminar in the School of Social Sciences at Waseda University, I participated in a competition to formulate a promotion strategy for Riso Kagaku Corporation's 'MiScreen A4'. Focusing on the differences in PVs and reactions in existing SNS posts, I decomposed the creative elements of the videos. By calculating the impact of each element using 'Quantification Theory Type I,' a type of multivariate analysis, I derived a winning pattern based on objective evidence rather than intuition. Based on this data, I proposed a strategy targeting museums in Japan and overseas as the market that best matches the product characteristics, and won the Grand Prize.",
                 work2Title: "The 36th “What Does It Mean to Work?” Essay Contest", work2Subtitle: "Chairperson’s Award, Association for the Advancement of Working Youth", 
-                // UPDATED TEXT (ENGLISH TRANSLATION)
                 work2Body: "In 2023, at the 'What Does It Mean to Work?' Essay Contest, my essay 'Lovingly Walking Through the World of a Janitor,' written under the pen name 'Ken Kazeori' and highlighting an existential approach to work, won the Chairperson's Award (top 14) out of 1,112 entries. The story is underpinned by Heidegger's ontology, Sartre's theory of the Other, Levinas's ethics, and Kitaro Nishida's 'pure experience.' It is a fiction conceived from the experience of seeing Shinjuku scattered with trash in the early morning and imagining the janitors who work there.", 
-                // Added arrow span with group-hover animation
                 work2Button: `Read Essay <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                
                 work3Title: "The 10th “Design Your Own Brand Label” Contest", work3Subtitle: "Top 40 / Exhibition at Tokyo Big Sight", 
                 work3Body: "In 2023, I participated in this contest organized by Tokyo Yoshioka Co., Ltd. I built the concept and hang tag design for a fictional apparel brand 'ONESAGE' (a pun on 'price reduction'). I created the work using 100% biodegradable plastic with a 3D printer. The work was selected in the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight for 3 days. Although paint peeled off due to shipping issues and I missed an award, it was a very stimulating experience.",
-                // Added arrow span with group-hover animation
                 work3Button: `View Work <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-
-                // UPDATED TEXT (POKER - ENGLISH TRANSLATION)
                 work4Title: "Overseas Poker Experience", work4Subtitle: "Return on Investment: 532%", 
                 work4Body: "From October 2023 to February 2024, in my hobby of poker (No-Limit Texas Hold'em), backed by game theory research and the experience and intuition of hundreds of thousands of hands, I played 26 sessions in 10 cities around the world during my study abroad, recording a profit of €5,056 (approx. ¥908,000). My highest ROI temporarily reached 927.125%. I managed this while ensuring it did not interfere with my university classes. (Total play time: 175 hours 52 minutes, Hourly rate: approx. ¥5,200 (€28.75))",
-                
                 work5Title: "Waseda University x PIVOT Inc.", work5Subtitle: "Collaboration Project Video Executive Committee", work5Body: "As an executive committee member of BEYOND 2020 NEXT PROJECT, a Waseda University official circle for aspiring entrepreneurs, I spent about four months negotiating the collaborative project 'Real Investment Documentary ANGELS in Waseda University' between PIVOT Inc. and Waseda University. The filming took place at the Okuma Auditorium on the Waseda campus.", 
-                // Added arrow span with group-hover animation
                 work5Button: `Watch Video <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                
                 work6Title: "Introduction to Social Design” Report Contest", work6Subtitle: "Excellence Award", work6Body: "In 2022, in the report contest for the “Introduction to Social Design” course hosted by faculty members including the Dean of the School of Social Sciences at Waseda University, I proposed a new type of coworking space that combines Web3 with conventional coworking spaces and received the Excellence Award.",
                 work7Title: "The 6th “Creativity, Infinity ∞” High School Business Plan Grand Prix 2018", work7Subtitle: "Director General’s Award, Tokyo Metropolitan Bureau of Industrial and Labor Affairs", work7Body: "In 2018, in the National High School Business Plan Grand Prix hosted by the Japan Finance Corporation, my business plan was selected among the Top 100 out of 4,359 submissions. I advanced to the Tokyo metropolitan finals and received the Director General’s Award from the Tokyo Metropolitan Bureau of Industrial and Labor Affairs (second place, next to the Governor’s Award).",
-                
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
-                contactTitle: "Let's build something<br> <span class=\"inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4\">unforgettable.</span>", contactBody: "Please feel free to contact me. Poker invites are also welcome.", contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
+                
+                // UPDATED: "ACCOMPLICES" Text with margins
+                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">ACCOMPLICES</span></span><br class="md:hidden"> <span class="inline-block mt-4 md:mt-0 align-middle">WANTED.</span>`,
+                contactBody: "Please feel free to contact me. Poker invites are also welcome.",
+                contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             }
         };
 
-        // --- DYNAMIC GREETING LOGIC ---
-        // This block calculates the correct greeting based on the user's local time
-        // and updates the translations object BEFORE the first render or language switch.
+        // --- DYNAMIC GREETING ---
         {
             const now = new Date();
             const totalMinutes = now.getHours() * 60 + now.getMinutes();
             let greetingJa, greetingEn;
-
-            // 05:00 (300 mins) - 11:59 (719 mins)
-            if (totalMinutes >= 300 && totalMinutes < 720) {
-                greetingJa = "おはようございます";
-                greetingEn = "Good morning";
-            } 
-            // 12:00 (720 mins) - 18:30 (1110 mins)
-            else if (totalMinutes >= 720 && totalMinutes <= 1110) {
-                greetingJa = "こんにちは";
-                greetingEn = "Hello";
-            } 
-            // 18:31 (1111 mins) - 04:59 (299 mins)
-            else {
-                greetingJa = "こんばんは";
-                greetingEn = "Good evening";
-            }
+            if (totalMinutes >= 300 && totalMinutes < 720) { greetingJa = "おはようございます"; greetingEn = "Good morning"; } 
+            else if (totalMinutes >= 720 && totalMinutes <= 1110) { greetingJa = "こんにちは"; greetingEn = "Hello"; } 
+            else { greetingJa = "こんばんは"; greetingEn = "Good evening"; }
 
             const nameHtmlJa = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>`;
             const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
-            
             const bioJa = `です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。`;
             const bioEn = `, I’m ${nameHtmlEn}. I explore the possibilities of existence at a fundamental level in the age of AGI and ASI. I studied sociology and Western philosophy at the University of Mannheim in Germany. I am a poker player and essayist. My main hobbies are playing poker, watching anime and reading manga, reading books, and writing. I am good at entering a flow state: I shut out the surrounding noise, often lose track of time, and frequently realize only later that the sun has already set.`;
 
-            // Construct the full sentence
             translations.ja.aboutBody1 = `${greetingJa}、${nameHtmlJa}${bioJa}`;
             translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
-            
-            // Apply immediately to the current DOM element for the initial load
             const aboutBodyEl = document.querySelector('[data-key="aboutBody1"]');
-            if (aboutBodyEl) {
-                aboutBodyEl.innerHTML = translations.ja.aboutBody1;
-            }
+            if (aboutBodyEl) { aboutBodyEl.innerHTML = translations.ja.aboutBody1; }
         }
-        // ------------------------------
 
         let currentLang = 'ja';
         const langToggle = document.getElementById('lang-toggle');
@@ -936,12 +811,7 @@
             }
             translatableElements.forEach(el => {
                 const key = el.dataset.key; const newText = translations[currentLang][key];
-                
-                // UPDATE ORIGINAL TEXT DATA HERE FOR SCRAMBLE HOVER FIX
-                if(el.classList.contains('scramble-hover')) {
-                    el.dataset.originalText = newText;
-                }
-                
+                if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
                 if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
                 else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
             });
@@ -949,66 +819,41 @@
         langToggle.addEventListener('click', switchLanguage);
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
 
-        // --- FEATURE: Kinetic Scroll Marquee ---
+        // --- Kinetic Scroll Marquee ---
         function initKineticMarquee() {
             const marqueeContainer = document.querySelector('.marquee-container');
             const marqueeContents = gsap.utils.toArray('.marquee-content');
             if (!marqueeContainer || marqueeContents.length === 0) return;
-
-            let xPercent = 0;
-            let direction = -1; // -1 = left, 1 = right
-            let speed = 0.05;   // Base speed
-
+            let xPercent = 0; let direction = -1; let speed = 0.05;
             const animateMarquee = () => {
                 if (xPercent <= -100) xPercent = 0;
                 if (xPercent > 0) xPercent = -100;
-                
                 gsap.set(marqueeContents, { xPercent: xPercent });
                 xPercent += speed * direction;
                 requestAnimationFrame(animateMarquee);
             };
-
             ScrollTrigger.create({
                 onUpdate: (self) => {
                     const velocity = self.getVelocity();
-                    // Change direction based on scroll
-                    if (velocity > 0) {
-                        direction = 1;
-                    } else if (velocity < 0) {
-                        direction = -1;
-                    }
-                    // Dynamic speed increase based on scroll velocity
+                    if (velocity > 0) { direction = 1; } else if (velocity < 0) { direction = -1; }
                     const velocityFactor = Math.min(Math.abs(velocity) / 200, 2.5);
                     speed = 0.05 + velocityFactor;
                 }
             });
-
             requestAnimationFrame(animateMarquee);
         }
 
-        // --- FEATURE: Grid Distortion ---
+        // --- Grid Distortion ---
         function initGridDistortion() {
-            // Note: CSS needs transform-origin: top center;
             ScrollTrigger.create({
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
+                trigger: "body", start: "top top", end: "bottom bottom",
                 onUpdate: (self) => {
                     const velocity = Math.abs(self.getVelocity());
-                    // Stretch scale based on velocity. 1 is normal.
-                    // Max stretch e.g. 1.5
                     const stretch = 1 + Math.min(velocity / 3000, 0.5);
-                    
-                    gsap.to(".bg-grid", { 
-                        scaleY: stretch, 
-                        duration: 0.1, 
-                        overwrite: true,
-                        ease: "power1.out"
-                    });
+                    gsap.to(".bg-grid", { scaleY: stretch, duration: 0.1, overwrite: true, ease: "power1.out" });
                 }
             });
         }
-
     </script>
 </body>
 </html>
