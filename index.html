@@ -168,6 +168,16 @@
         .corner-tl { top: 4px; left: 4px; }
         .corner-br { bottom: 4px; right: 4px; transform: rotate(180deg); }
 
+        /* --- FIX: Smooth Border for 3D Transforms --- */
+        .smooth-border {
+            /* 透明なアウトラインをつけることで、WebKit系ブラウザでの3D変形時のジャギー（ギザギザ）を滑らかにします */
+            outline: 1px solid transparent;
+            /* 背面を隠すことで描画負荷を下げ、レンダリングを安定させます */
+            backface-visibility: hidden;
+            /* 3D空間内での描画を維持します */
+            transform-style: preserve-3d;
+        }
+
         .win-active #contact-btn-wrap span { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
         .magnetic-btn { display: inline-block; }
     </style>
@@ -314,7 +324,7 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 2 -->
+                    <!-- Card 2 (UPDATED: Thicker border + Smooth CSS hack) -->
                     <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
                          <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -325,7 +335,7 @@
                                     <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle">勤労青少年躍進会理事長賞受賞</p>
                                     <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、勤労青少年躍進会理事長賞を受賞しました。</p>
                                 </div>
-                                <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-2 border-black transition-colors hover-trigger lang-fade" data-key="work2Button" style="transform: translateZ(30px);">エッセイを読む</a>
+                                <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-[3px] border-black transition-colors hover-trigger lang-fade smooth-border" data-key="work2Button" style="transform: translateZ(30px);">エッセイを読む</a>
                             </div>
                         </div>
                     </article>
@@ -358,7 +368,7 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 5 -->
+                    <!-- Card 5 (UPDATED: Thicker border + Smooth CSS hack) -->
                     <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -369,7 +379,7 @@
                                     <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle">コラボ企画動画実行委員</p>
                                     <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、㍿PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。</p>
                                 </div>
-                                <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center bg-black text-white py-3 font-bold border-2 border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="work5Button" style="transform: translateZ(30px);">動画を見る &rarr;</a>
+                                <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center bg-black text-white py-3 font-bold border-[3px] border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work5Button" style="transform: translateZ(30px);">動画を見る &rarr;</a>
                             </div>
                         </div>
                     </article>
