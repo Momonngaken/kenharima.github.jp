@@ -1110,6 +1110,13 @@
             requestAnimationFrame(animateMarquee);
         }
 
+        // --- Grid Distortion (REMOVED FOR PERFORMANCE) ---
+        /*
+        function initGridDistortion() {
+            // This was causing major repaints. Removed for optimization.
+        }
+        */
+
         // --- INIT SEQUENCE ---
         document.addEventListener("DOMContentLoaded", () => {
             detectLanguage(); // Feature C
