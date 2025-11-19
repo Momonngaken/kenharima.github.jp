@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>播磨 賢 | Ken HARIMA - Portfolio</title>
     
+    <!-- =========================================
+         1. OGP & Favicon Settings
+         (Replace URLs with your actual domain)
+    ========================================== -->
+    <meta name="description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI. Sociology, Philosophy, and Poker.">
+    
+    <!-- Facebook / LinkedIn / Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="播磨 賢 | Ken HARIMA - Portfolio">
+    <meta property="og:description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI.">
+    <!-- 推奨サイズ: 1200x630px の画像を設置してください -->
+    <meta property="og:image" content="https://your-domain.com/ogp-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="播磨 賢 | Ken HARIMA - Portfolio">
+    <meta property="twitter:description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI.">
+    <meta property="twitter:image" content="https://your-domain.com/ogp-image.jpg">
+
+    <!-- Favicon (Replace with your actual icon files) -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -63,7 +89,13 @@
     </script>
 
     <style>
-        body { background-color: #F0F0EB; color: #121212; cursor: none; }
+        body { background-color: #F0F0EB; color: #121212; cursor: none; transition: cursor 0.3s; }
+        
+        /* --- FEATURE: System Cursor Mode Styles --- */
+        body.use-system-cursor { cursor: auto !important; }
+        body.use-system-cursor a, body.use-system-cursor button, body.use-system-cursor .card-container { cursor: pointer !important; }
+        body.use-system-cursor .cursor-dot, body.use-system-cursor .cursor-outline { display: none !important; }
+
         /* LENIS */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -102,6 +134,16 @@
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
         
+        /* --- FEATURE: Active Nav Item Style (ScrollSpy) --- */
+        .magnetic-btn.nav-active {
+            background-color: #121212 !important;
+            color: white !important;
+            transform: scale(1.05);
+        }
+        .magnetic-btn.nav-active a {
+            color: white !important;
+        }
+
         /* Typography */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .font-tight { letter-spacing: -0.06em; }
@@ -189,13 +231,18 @@
                 <a href="#" data-key="navLogo" class="text-3xl font-stylish italic hover-trigger lang-fade">KEN.H</a>
             </div>
             <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
-                <div class="magnetic-btn"><a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a></div>
-                <div class="magnetic-btn"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a></div>
-                <div class="magnetic-btn"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a></div>
-                <div class="magnetic-btn"><a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a></div>
+                <div class="magnetic-btn link-wrapper"><a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a></div>
+                <div class="magnetic-btn link-wrapper"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a></div>
+                <div class="magnetic-btn link-wrapper"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a></div>
+                <div class="magnetic-btn link-wrapper"><a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a></div>
                 
                 <button id="lang-toggle" class="magnetic-btn ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
+                </button>
+
+                <!-- FEATURE: Cursor Toggle Button -->
+                <button id="cursor-toggle" class="magnetic-btn ml-2 text-[10px] font-bold border border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[60px]" aria-label="Toggle Cursor">
+                    CURSOR
                 </button>
 
                 <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
@@ -606,6 +653,9 @@
                 document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
                 initKineticMarquee();
                 initGridDistortion();
+                // Init features
+                initCursorToggle();
+                initScrollSpy();
             }})
             .from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8");
         }
@@ -688,6 +738,61 @@
                 gsap.to(cursorDot, { opacity: 1, duration: 0.1 });
             });
         });
+
+        // --- FEATURE: Cursor Toggle Logic ---
+        function initCursorToggle() {
+            const cursorBtn = document.getElementById('cursor-toggle');
+            // Load saved preference, default to false (custom cursor enabled)
+            let isSystemCursor = localStorage.getItem('systemCursor') === 'true';
+
+            function updateCursorState() {
+                if (isSystemCursor) {
+                    document.body.classList.add('use-system-cursor');
+                    cursorBtn.innerText = "SYSTEM";
+                    cursorBtn.classList.add('bg-black', 'text-white');
+                    cursorBtn.classList.remove('bg-white', 'text-black');
+                } else {
+                    document.body.classList.remove('use-system-cursor');
+                    cursorBtn.innerText = "CUSTOM";
+                    cursorBtn.classList.remove('bg-black', 'text-white');
+                    cursorBtn.classList.add('bg-white', 'text-black');
+                }
+            }
+
+            cursorBtn.addEventListener('click', () => {
+                isSystemCursor = !isSystemCursor;
+                localStorage.setItem('systemCursor', isSystemCursor);
+                updateCursorState();
+            });
+
+            updateCursorState(); // Init on load
+        }
+
+        // --- FEATURE: ScrollSpy (Active Nav) ---
+        function initScrollSpy() {
+            // Map sections to their nav links
+            const navItems = [
+                { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement },
+                { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement },
+                { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement },
+                { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement },
+            ];
+
+            navItems.forEach(item => {
+                ScrollTrigger.create({
+                    trigger: `#${item.id}`,
+                    start: "top center", // Trigger when top of section hits center of viewport
+                    end: "bottom center",
+                    onToggle: self => {
+                        if (self.isActive) {
+                            item.link.classList.add('nav-active');
+                        } else {
+                            item.link.classList.remove('nav-active');
+                        }
+                    }
+                });
+            });
+        }
 
         // --- 6. FIXED SCRAMBLE HOVER ---
         document.querySelectorAll('.scramble-hover').forEach(el => {
