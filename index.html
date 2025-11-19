@@ -6,27 +6,19 @@
     <title>播磨 賢 | Ken HARIMA - Portfolio</title>
     
     <!-- =========================================
-         1. OGP & Favicon Settings
+         OGP & Favicon Settings
     ========================================== -->
     <meta name="description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI. Sociology, Philosophy, and Poker.">
-    
-    <!-- Facebook / LinkedIn / Open Graph -->
     <meta property="og:type" content="website">
-    <!-- 公開時に実際のURLに変更してください -->
     <meta property="og:url" content="https://your-domain.com/"> 
     <meta property="og:title" content="播磨 賢 | Ken HARIMA - Portfolio">
     <meta property="og:description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI.">
-    <!-- 画像ファイル名: ogp.jpg (index.htmlと同じ場所に保存してください) -->
     <meta property="og:image" content="https://your-domain.com/ogp.jpg">
-
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://your-domain.com/">
     <meta property="twitter:title" content="播磨 賢 | Ken HARIMA - Portfolio">
     <meta property="twitter:description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI.">
     <meta property="twitter:image" content="https://your-domain.com/ogp.jpg">
-
-    <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -91,9 +83,9 @@
     <style>
         body { background-color: #F0F0EB; color: #121212; cursor: none; transition: cursor 0.3s; }
         
-        /* --- System Cursor Mode Styles --- */
+        /* System Cursor Mode */
         body.use-system-cursor { cursor: auto !important; }
-        body.use-system-cursor a, body.use-system-cursor button, body.use-system-cursor .card-container { cursor: pointer !important; }
+        body.use-system-cursor a, body.use-system-cursor button, body.use-system-cursor .card-container, body.use-system-cursor input, body.use-system-cursor textarea { cursor: pointer !important; }
         body.use-system-cursor .cursor-dot, body.use-system-cursor .cursor-outline { display: none !important; }
 
         /* LENIS */
@@ -122,21 +114,13 @@
             background-color: #fff;
             mix-blend-mode: difference;
         }
-
-        /* --- FEATURE: Cursor Toggle Button Visibility --- */
-        /* デフォルトでは非表示（スマホ・タブレット用） */
+        /* Cursor Button Visibility */
         #cursor-toggle { display: none; }
-
-        /* --- Media Query for Devices with Mouse/Trackpad --- */
-        /* ホバーが可能で、ポインターが正確（マウス等）なデバイスでのみ表示 */
         @media (hover: hover) and (pointer: fine) { 
             body { cursor: none; } 
             .cursor-dot, .cursor-outline { display: block; } 
-            
-            /* ここでPCのみ表示させる */
             #cursor-toggle { display: inline-block; }
         }
-
         .cursor-dot { width: 8px; height: 8px; }
         .cursor-outline { width: 40px; height: 40px; border: none; opacity: 0.8; transition: transform 0.15s ease-out, opacity 0.2s; } 
 
@@ -148,34 +132,19 @@
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
         
-        /* Active Nav Item Style */
-        .magnetic-btn.nav-active {
-            background-color: #121212 !important;
-            color: white !important;
-            transform: scale(1.05);
-        }
-        .magnetic-btn.nav-active a {
-            color: white !important;
-        }
+        /* Active Nav */
+        .magnetic-btn.nav-active { background-color: #121212 !important; color: white !important; transform: scale(1.05); }
+        .magnetic-btn.nav-active a { color: white !important; }
 
         /* Typography */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .font-tight { letter-spacing: -0.06em; }
-
         .scramble-text { display: inline-block; min-width: 1em; }
         
-        /* Marquee */
+        /* Marquee & Grid */
         .marquee-container { display: flex; overflow: hidden; user-select: none; width: 100%; }
         .marquee-content { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; gap: 4rem; padding-right: 4rem; will-change: transform; }
-        
-        /* Grid Distortion */
-        .bg-grid { 
-            background-size: 40px 40px; 
-            background-image: radial-gradient(circle, #000000 1px, transparent 1px); 
-            opacity: 0.08; 
-            transform-origin: top center;
-            will-change: transform;
-        }
+        .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; transform-origin: top center; will-change: transform; }
         
         .lang-fade { transition: opacity 0.3s ease; }
         .interactive-blob { position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; transform: translate(-50%, -50%); }
@@ -189,20 +158,29 @@
         .card-container { width: 60px; height: 90px; position: relative; cursor: pointer; }
         @media (min-width: 768px) { .card-container { width: 100px; height: 150px; } }
         .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
-        
         .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border: 3px solid #000; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: 'Syne', sans-serif; font-weight: 900; }
         .card-back { background-color: #121212; color: #D6FC52; transform: rotateY(0deg); }
         .card-front { background-color: white; color: black; transform: rotateY(180deg); overflow: hidden; }
-        
         .taipa-text { font-family: 'Syne', sans-serif; font-weight: 900; line-height: 1; letter-spacing: -0.1em; transform: scaleY(1.3); z-index: 10; }
         .taipa-text-10 { letter-spacing: -0.15em; margin-right: 0.1em; }
         .corner-suit { position: absolute; font-size: 10px; line-height: 1; }
         @media (min-width: 768px) { .corner-suit { font-size: 14px; } }
         .corner-tl { top: 4px; left: 4px; }
         .corner-br { bottom: 4px; right: 4px; transform: rotate(180deg); }
-
         .smooth-border { outline: 1px solid transparent; backface-visibility: hidden; transform-style: preserve-3d; }
         .win-active #contact-btn-wrap span:last-child { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
+        
+        /* --- FEATURE: Contact Modal --- */
+        #contact-modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        #contact-modal.is-open { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        #contact-modal.is-open .modal-content { transform: scale(1); }
+        .form-input { width: 100%; background: #F0F0EB; border: 3px solid #121212; padding: 12px; font-weight: bold; outline: none; transition: all 0.2s; }
+        .form-input:focus { background: white; box-shadow: 4px 4px 0px #D6FC52; transform: translate(-2px, -2px); }
+        
+        /* Chip Confetti */
+        .confetti-chip { border-radius: 50%; border: 2px dashed rgba(255,255,255,0.5); box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
         .magnetic-btn { display: inline-block; }
     </style>
 </head>
@@ -219,10 +197,42 @@
         <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">> INITIALIZING...</div>
         <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">©2025</div>
         <div class="relative z-10 text-center">
-            <!-- Counter 000-100 -->
             <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter min-w-[3ch]" id="loader-counter">000</div>
             <div class="h-2 w-full bg-[#333] mt-4 relative overflow-hidden">
                 <div id="loader-bar" class="absolute top-0 left-0 h-full bg-neoYellow w-0"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- FEATURE: Contact Modal (Replaces Mailto) --- -->
+    <div id="contact-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div class="modal-content relative bg-white w-full max-w-lg neo-border p-8 md:p-10 shadow-[10px_10px_0px_#D6FC52]">
+            <button id="close-modal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors">✕</button>
+            
+            <h3 class="text-3xl md:text-4xl font-black font-stylish italic mb-6 text-center">GET IN TOUCH</h3>
+            
+            <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
+                <!-- NOTE: Replace YOUR_FORM_ID with your actual Formspree ID -->
+                <div>
+                    <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Name</label>
+                    <input type="text" name="name" required class="form-input" placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Email</label>
+                    <input type="email" name="email" required class="form-input" placeholder="your@email.com">
+                </div>
+                <div>
+                    <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Message</label>
+                    <textarea name="message" required rows="4" class="form-input" placeholder="What's on your mind?"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-neoRed hover:shadow-[4px_4px_0px_#000] hover:-translate-y-1 transition-all">
+                    Send Message
+                </button>
+            </form>
+            <div id="form-success" class="hidden text-center py-10">
+                <p class="text-4xl font-black text-neoBlue mb-4">MESSAGE SENT!</p>
+                <p class="font-bold">お問い合わせありがとうございます。<br>確認次第ご連絡いたします。</p>
             </div>
         </div>
     </div>
@@ -254,7 +264,6 @@
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
 
-                <!-- CURSOR BUTTON: Controlled via CSS media query for visibility -->
                 <button id="cursor-toggle" class="magnetic-btn ml-2 text-[10px] font-bold border border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[60px]" aria-label="Toggle Cursor">
                     CURSOR
                 </button>
@@ -265,7 +274,8 @@
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
 
-                <a href="mailto:beyondtheken.jp@gmail.com" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</a>
+                <!-- MODIFIED BUTTON: Triggers Modal -->
+                <button id="open-contact-btn" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</button>
             </div>
             <button id="mobile-menu-btn" class="md:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -278,7 +288,7 @@
             <a href="#works" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navWorks">活動・受賞歴</a>
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
-            <a href="mailto:beyondtheken.jp@gmail.com" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</a>
+            <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
             
             <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover:bg-white hover:text-[#0077B5]"
@@ -522,13 +532,14 @@
                 </p>
                 
                 <div class="magnetic-btn inline-block">
-                    <a href="mailto:beyondtheken.jp@gmail.com" class="group relative inline-block hover-trigger" id="contact-btn-wrap">
+                    <!-- MODIFIED: Button now opens Modal -->
+                    <button id="contact-btn-main" class="group relative inline-block hover-trigger">
                         <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
                         <span class="relative block bg-black text-white text-xl md:text-3xl font-black border-2 border-black px-10 py-5 rounded-full transition-all duration-300 group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:bg-neoYellow group-hover:text-black lang-fade flex items-center gap-3" data-key="contactButton">
                             今すぐコンタクトを取る
                              <svg class="w-6 h-6 transform group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>
@@ -639,39 +650,78 @@
         }
         const scrambler = new ScrambleText();
 
-        // --- 1. FEATURE: LOADER LOGIC (UPDATED) ---
+        // --- GLOBAL VARS ---
         const loader = document.getElementById('loader');
         const loaderCounter = document.getElementById('loader-counter');
         const loaderBar = document.getElementById('loader-bar');
         let count = 0;
+        let currentLang = 'ja'; // Default
         
-        // UPDATED: Numeric count 000-100 with padStart
-        const interval = setInterval(() => {
-            count += Math.floor(Math.random() * 3) + 1;
-            if(count > 100) count = 100;
-            
-            // Format as 3 digits (005, 020, 100)
-            loaderCounter.innerText = count.toString().padStart(3, '0');
-            loaderBar.style.width = `${count}%`;
-            
-            if(count === 100) { clearInterval(interval); finishLoading(); }
-        }, 20); // Speed tweaked
+        // --- FEATURE: AUTO LANGUAGE DETECTION (C) ---
+        function detectLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('en')) {
+                currentLang = 'en';
+                // Update DOM immediately to English before animation starts
+                switchLanguage(false); // false = no animation
+            }
+        }
+
+        // --- FEATURE: LOADER LOGIC WITH SESSION STORAGE (A) ---
+        function initLoader() {
+            const hasVisited = sessionStorage.getItem('visited');
+
+            if (hasVisited) {
+                // Skip loader
+                loader.style.display = 'none';
+                document.body.classList.remove('is-loading');
+                
+                // Run initialization immediately
+                initSite();
+            } else {
+                // Run loader animation
+                sessionStorage.setItem('visited', 'true');
+                
+                const interval = setInterval(() => {
+                    count += Math.floor(Math.random() * 3) + 1;
+                    if(count > 100) count = 100;
+                    
+                    loaderCounter.innerText = count.toString().padStart(3, '0');
+                    loaderBar.style.width = `${count}%`;
+                    
+                    if(count === 100) { 
+                        clearInterval(interval); 
+                        finishLoading(); 
+                    }
+                }, 20);
+            }
+        }
 
         function finishLoading() {
             const tl = gsap.timeline();
             tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" })
             .to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => {
-                document.body.classList.remove('is-loading'); loader.style.display = 'none'; startLenis();
-                document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
-                initMagneticButtons(); initInteractiveBackground();
-                document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
-                initKineticMarquee();
-                initGridDistortion();
-                // Init features
-                initCursorToggle();
-                initScrollSpy();
-            }})
-            .from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8");
+                loader.style.display = 'none';
+                document.body.classList.remove('is-loading');
+                initSite();
+            }});
+        }
+
+        // --- MAIN INITIALIZATION (Runs after loader or immediately if skipped) ---
+        function initSite() {
+            startLenis();
+            document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
+            initMagneticButtons(); 
+            initInteractiveBackground();
+            document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
+            initKineticMarquee();
+            initGridDistortion();
+            initCursorToggle();
+            initScrollSpy();
+            initContactModal(); // Feature B
+
+            // Trigger entry animations
+            gsap.from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
 
         // --- 2. INTERACTIVE BACKGROUND ---
@@ -756,7 +806,6 @@
         // --- FEATURE: Cursor Toggle Logic ---
         function initCursorToggle() {
             const cursorBtn = document.getElementById('cursor-toggle');
-            // Load saved preference, default to false (custom cursor enabled)
             let isSystemCursor = localStorage.getItem('systemCursor') === 'true';
 
             function updateCursorState() {
@@ -779,12 +828,11 @@
                 updateCursorState();
             });
 
-            updateCursorState(); // Init on load
+            updateCursorState(); 
         }
 
         // --- FEATURE: ScrollSpy (Active Nav) ---
         function initScrollSpy() {
-            // Map sections to their nav links
             const navItems = [
                 { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement },
                 { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement },
@@ -795,17 +843,77 @@
             navItems.forEach(item => {
                 ScrollTrigger.create({
                     trigger: `#${item.id}`,
-                    start: "top center", // Trigger when top of section hits center of viewport
-                    end: "bottom center",
+                    start: "top center", end: "bottom center",
                     onToggle: self => {
-                        if (self.isActive) {
-                            item.link.classList.add('nav-active');
-                        } else {
-                            item.link.classList.remove('nav-active');
-                        }
+                        if (self.isActive) { item.link.classList.add('nav-active'); } 
+                        else { item.link.classList.remove('nav-active'); }
                     }
                 });
             });
+        }
+
+        // --- FEATURE: Contact Modal & Chip Confetti (B) ---
+        function initContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')];
+            const closeBtn = document.getElementById('close-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('form-success');
+
+            function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+            function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
+
+            openBtns.forEach(btn => { if(btn) btn.addEventListener('click', (e) => { e.preventDefault(); openModal(); }); });
+            closeBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // Simulate submission for demo
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerText;
+                submitBtn.innerText = "SENDING...";
+                submitBtn.disabled = true;
+
+                // Simulated API call
+                setTimeout(() => {
+                    form.classList.add('hidden');
+                    successMsg.classList.remove('hidden');
+                    createChipConfetti(); // Trigger Poker Chip Confetti
+                }, 1500);
+            });
+        }
+
+        // Poker Chip Confetti
+        function createChipConfetti() {
+            const colors = ['#D6FC52', '#FF4D4D', '#000000', '#FFFFFF', '#5D5FEF'];
+            for(let i = 0; i < 80; i++) {
+                const chip = document.createElement('div');
+                chip.classList.add('confetti-chip');
+                chip.style.position = 'fixed';
+                chip.style.left = '50%';
+                chip.style.top = '50%';
+                chip.style.width = '20px';
+                chip.style.height = '20px';
+                chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                chip.style.zIndex = 10001;
+                document.body.appendChild(chip);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 100 + Math.random() * 400;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+
+                gsap.to(chip, {
+                    x: tx,
+                    y: ty,
+                    rotation: Math.random() * 720,
+                    opacity: 0,
+                    duration: 1 + Math.random(),
+                    ease: "power2.out",
+                    onComplete: () => chip.remove()
+                });
+            }
         }
 
         // --- 6. FIXED SCRAMBLE HOVER ---
@@ -817,7 +925,7 @@
         });
         
         // Mobile Menu
-        const menuBtn = document.getElementById('mobile-menu-btn'); const closeBtn = document.getElementById('close-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); const mobileLinks = mobileMenu.querySelectorAll('a');
+        const menuBtn = document.getElementById('mobile-menu-btn'); const closeBtn = document.getElementById('close-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); const mobileLinks = mobileMenu.querySelectorAll('a, button');
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
@@ -907,7 +1015,6 @@
             if (aboutBodyEl) { aboutBodyEl.innerHTML = translations.ja.aboutBody1; }
         }
 
-        let currentLang = 'ja';
         const langToggle = document.getElementById('lang-toggle');
         const langText = document.getElementById('lang-text');
         const translatableElements = document.querySelectorAll('[data-key]');
@@ -915,27 +1022,37 @@
         const mobileLangText = document.getElementById('mobile-lang-text-wrap');
         const mobileLangBg = document.getElementById('mobile-lang-bg');
 
-        function switchLanguage() {
+        function switchLanguage(animate = true) {
              currentLang = currentLang === 'ja' ? 'en' : 'ja';
             if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } 
             else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
 
-            if(mobileLangBg) {
+            if(mobileLangBg && animate) {
                 mobileLangBg.animate([ { transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' } ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
                 setTimeout(() => {
                     if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } 
                     else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); }
                 }, 100);
+            } else if (mobileLangBg && !animate) {
+                // Static update for initial load
+                 if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } 
+                    else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); }
             }
+
             translatableElements.forEach(el => {
                 const key = el.dataset.key; const newText = translations[currentLang][key];
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
-                if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
-                else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
+                
+                if (animate) {
+                    if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
+                    else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
+                } else {
+                    el.innerHTML = newText;
+                }
             });
         }
-        langToggle.addEventListener('click', switchLanguage);
-        if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
+        langToggle.addEventListener('click', () => switchLanguage(true));
+        if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
         // --- Kinetic Scroll Marquee ---
         function initKineticMarquee() {
@@ -972,6 +1089,12 @@
                 }
             });
         }
+
+        // --- INIT SEQUENCE ---
+        document.addEventListener("DOMContentLoaded", () => {
+            detectLanguage(); // Feature C
+            initLoader(); // Feature A
+        });
     </script>
 </body>
 </html>
