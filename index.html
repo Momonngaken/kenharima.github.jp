@@ -87,13 +87,11 @@
             border-radius: 50%; 
             z-index: 9999; 
             pointer-events: none; 
-            /* 重要: 色を白にし、背景と差分を取るモードに */
             background-color: #fff;
             mix-blend-mode: difference;
         }
         @media (hover: hover) and (pointer: fine) { body { cursor: none; } .cursor-dot, .cursor-outline { display: block; } }
         .cursor-dot { width: 8px; height: 8px; }
-        /* アウトラインは塗りに変更して少し透明に */
         .cursor-outline { width: 40px; height: 40px; border: none; opacity: 0.8; transition: transform 0.15s ease-out, opacity 0.2s; } 
 
         /* Components */
@@ -106,7 +104,7 @@
         
         /* --- FEATURE: Tight Kerning for Titles --- */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
-        .font-tight { letter-spacing: -0.06em; } /* 追加：より強力なカーニング */
+        .font-tight { letter-spacing: -0.06em; }
 
         .scramble-text { display: inline-block; min-width: 1em; }
         
@@ -119,7 +117,6 @@
             background-size: 40px 40px; 
             background-image: radial-gradient(circle, #000000 1px, transparent 1px); 
             opacity: 0.08; 
-            /* 重要: 変形の基点を中央上に設定し、縦伸びエフェクトに対応 */
             transform-origin: top center;
             will-change: transform;
         }
@@ -136,10 +133,41 @@
         .card-container { width: 60px; height: 90px; position: relative; cursor: pointer; }
         @media (min-width: 768px) { .card-container { width: 100px; height: 150px; } }
         .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+        
+        /* UPDATED: Card Front Styles for "Taipa Poker" Design */
         .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border: 3px solid #000; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: 'Syne', sans-serif; font-weight: 900; }
         .card-back { background-color: #121212; color: #D6FC52; transform: rotateY(0deg); }
-        .card-front { background-color: white; color: black; transform: rotateY(180deg); font-size: 1.5rem; }
-        @media (min-width: 768px) { .card-front { font-size: 2.5rem; } }
+        .card-front { 
+            background-color: white; 
+            color: black; 
+            transform: rotateY(180deg); 
+            overflow: hidden;
+        }
+        
+        /* New Classes for Card Typography */
+        .taipa-text {
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.1em;
+            transform: scaleY(1.3); /* 縦長効果 */
+            z-index: 10;
+        }
+        .taipa-text-10 {
+            letter-spacing: -0.15em;
+            margin-right: 0.1em;
+        }
+        .corner-suit {
+            position: absolute;
+            font-size: 10px;
+            line-height: 1;
+        }
+        @media (min-width: 768px) { 
+            .corner-suit { font-size: 14px; }
+        }
+        .corner-tl { top: 4px; left: 4px; }
+        .corner-br { bottom: 4px; right: 4px; transform: rotate(180deg); }
+
         .win-active #contact-btn-wrap span { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
         .magnetic-btn { display: inline-block; }
     </style>
@@ -157,7 +185,6 @@
         <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">> INITIALIZING...</div>
         <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">©2025</div>
         <div class="relative z-10 text-center">
-            <!-- Updated ID for JS targeting -->
             <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter min-w-[3ch]" id="loader-counter">000</div>
             <div class="h-2 w-full bg-[#333] mt-4 relative overflow-hidden">
                 <div id="loader-bar" class="absolute top-0 left-0 h-full bg-neoYellow w-0"></div>
@@ -438,11 +465,67 @@
             <div class="container mx-auto text-center relative z-10">
                 <h3 class="text-2xl md:text-3xl font-black mb-8 font-stylish italic">FEELING LUCKY? <span class="text-xs font-sans font-normal block mt-1 text-gray-500">Click cards to deal</span></h3>
                 <div class="flex justify-center items-center gap-2 md:gap-6 perspective-1000">
-                    <div class="card-container" onclick="flipCard(this, '10')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">10♠</div></div></div>
-                    <div class="card-container" onclick="flipCard(this, 'J')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">J♠</div></div></div>
-                    <div class="card-container" onclick="flipCard(this, 'Q')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">Q♠</div></div></div>
-                    <div class="card-container" onclick="flipCard(this, 'K')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">K♠</div></div></div>
-                    <div class="card-container" onclick="flipCard(this, 'A')"><div class="card-inner duration-500 ease-in-out"><div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div><div class="card-front">A♠</div></div></div>
+                    
+                    <!-- Card 10 -->
+                    <div class="card-container" onclick="flipCard(this, '10')">
+                        <div class="card-inner duration-500 ease-in-out">
+                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
+                            <div class="card-front relative">
+                                <span class="corner-suit corner-tl">♠</span>
+                                <span class="taipa-text taipa-text-10 text-5xl md:text-7xl">10</span>
+                                <span class="corner-suit corner-br">♠</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card J -->
+                    <div class="card-container" onclick="flipCard(this, 'J')">
+                        <div class="card-inner duration-500 ease-in-out">
+                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
+                            <div class="card-front relative">
+                                <span class="corner-suit corner-tl">♠</span>
+                                <span class="taipa-text text-6xl md:text-8xl">J</span>
+                                <span class="corner-suit corner-br">♠</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Q -->
+                    <div class="card-container" onclick="flipCard(this, 'Q')">
+                        <div class="card-inner duration-500 ease-in-out">
+                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
+                            <div class="card-front relative">
+                                <span class="corner-suit corner-tl">♠</span>
+                                <span class="taipa-text text-6xl md:text-8xl">Q</span>
+                                <span class="corner-suit corner-br">♠</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card K -->
+                    <div class="card-container" onclick="flipCard(this, 'K')">
+                        <div class="card-inner duration-500 ease-in-out">
+                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
+                            <div class="card-front relative">
+                                <span class="corner-suit corner-tl">♠</span>
+                                <span class="taipa-text text-6xl md:text-8xl">K</span>
+                                <span class="corner-suit corner-br">♠</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card A -->
+                    <div class="card-container" onclick="flipCard(this, 'A')">
+                        <div class="card-inner duration-500 ease-in-out">
+                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
+                            <div class="card-front relative">
+                                <span class="corner-suit corner-tl">♠</span>
+                                <span class="taipa-text text-6xl md:text-8xl">A</span>
+                                <span class="corner-suit corner-br">♠</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div id="poker-message" class="mt-8 h-16 flex items-center justify-center overflow-hidden">
                     <p class="text-transparent font-black text-4xl md:text-6xl italic tracking-tighter opacity-0 transform translate-y-10 transition-all duration-500">ROYAL STRAIGHT FLUSH!!</p>
