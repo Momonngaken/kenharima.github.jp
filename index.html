@@ -311,6 +311,7 @@
                     <div class="w-full md:w-1/2 gs-reveal-right">
                         <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade font-tight" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
+                            <!-- NOTE: The greeting content here is a placeholder and will be updated by JS on load -->
                             <p class="lang-fade" data-key="aboutBody1">こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。</p>
                             <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業</p>
                             <div class="flex gap-4 mt-8">
@@ -359,7 +360,7 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Card 3 -->
+                    <!-- Card 3 (Updated) -->
                     <article class="group relative gs-card lg:mt-24" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -368,8 +369,10 @@
                                     <div class="bg-neoBlue text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">DESIGN</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title">第10回あなたが考えるブランドラベルコンテスト</h3>
                                     <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle">TOP40 東京ビックサイト展示</p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">2023年、東京吉岡株式会社主催の「あなたのアイデアブランドラベルコンテスト」に参加しました。架空のアパレルブランド"ONESAGE"のコンセプトとデザインを構築。環境に優しい生分解性プラスチック100%使用した作品を完成させました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで3日間にわたって展示されました。</p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。</p>
                                 </div>
+                                <!-- UPDATED LINK -->
+                                <a href="https://www.tokyo-yoshioka.co.jp/2023s_contest" target="_blank" class="mt-6 block text-center bg-neoBlue text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoBlue transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work3Button" style="transform: translateZ(30px);">作品を見る &rarr;</a>
                             </div>
                         </div>
                     </article>
@@ -783,12 +786,17 @@
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
-                aboutBody1: "こんにちは、<span class=\"inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]\">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。",
+                // aboutBody1 will be set dynamically based on time
+                aboutBody1: "",
                 aboutBody2: "学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業",
                 worksTitle: "活動・受賞歴",
                 work1Title: "社会科学部野口ゼミ×(株)理想科学工業マーケティング戦略コンペ", work1Subtitle: "最優秀賞受賞", work1Body: "１年間にかけて行われた早稲田大学社会科学部野口ゼミと㍿理想科学工業のコラボレーションによる当該企業が手がけるプリンター「MiScreen A4」をプロモーション戦略の立案コンペで、SNSでの広報におけるPV数や動画の構成要素を因子分解して数量化１類と呼ばれる専門的な統計学的プロセスを経て抽出されたプロモーション戦略を提案しました。",
                 work2Title: "第36回「働くってなんだろう」エッセイコンテスト", work2Subtitle: "勤労青少年躍進会理事長賞受賞", work2Body: "ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、勤労青少年躍進会理事長賞を受賞しました。", work2Button: "エッセイを読む",
-                work3Title: "第10回あなたが考えるブランドラベルコンテスト", work3Subtitle: "TOP40 東京ビックサイト展示", work3Body: "2023年、東京吉岡株式会社主催の「あなたのアイデアブランドラベルコンテスト」に参加しました。架空のアパレルブランド\"ONESAGE\"のコンセプトとデザインを構築。環境に優しい生分解性プラスチック100%使用した作品を完成させました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで3日間にわたって展示されました。",
+                
+                work3Title: "第10回あなたが考えるブランドラベルコンテスト", work3Subtitle: "TOP40 東京ビックサイト展示", 
+                work3Body: "2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。",
+                work3Button: "作品を見る &rarr;",
+                
                 work4Title: "海外ポーカー実践", work4Subtitle: "投資利益率532%", work4Body: "趣味の1つであるポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、5,056ユーロ（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））",
                 work5Title: "早稲田大学✕(株)PIVOT", work5Subtitle: "コラボ企画動画実行委員", work5Body: "起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、㍿PIVOT様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。", work5Button: "動画を見る",
                 work6Title: "「社会デザイン論入門」レポートコンテスト", work6Subtitle: "優秀賞受賞", work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
@@ -803,12 +811,17 @@
                 heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "About Me",
-                aboutBody1: "Hello, I’m <span class=\"inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]\">Ken Harima</span>. I explore the possibilities of existence at a fundamental level in the age of AGI and ASI. I studied sociology and Western philosophy at the University of Mannheim in Germany. I am a poker player and essayist. My main hobbies are playing poker, watching anime and reading manga, reading books, and writing. I am good at entering a flow state: I shut out the surrounding noise, often lose track of time, and frequently realize only later that the sun has already set.",
+                // aboutBody1 will be set dynamically based on time
+                aboutBody1: "",
                 aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange) Hiroo Gakuen Junior and Senior High School",
                 worksTitle: "Works & Awards",
                 work1Title: "Faculty of Social Sciences Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition", work1Subtitle: "Grand Prize", work1Body: "Over the course of a year, I took part in a joint project between the Noguchi Seminar at Waseda University’s School of Social Sciences and Riso Kagaku Corporation, competing to design a promotion strategy for the company’s printer “MiScreen A4.” I proposed a promotion strategy derived through a specialized statistical process (Quantification Theory Type I), in which I factor-analyzed elements such as page views and video composition in SNS-based promotion.",
                 work2Title: "The 36th “What Does It Mean to Work?” Essay Contest", work2Subtitle: "Chairperson’s Award, Association for the Advancement of Working Youth", work2Body: "In 2023, Under the pen name Kazeori Ken, my essay “Lovingly Walking Through the World of a Janitor,” which sheds light on an existential approach to work, was selected for the Chairperson’s Award from among 1,112 submissions.", work2Button: "Read Essay",
-                work3Title: "The 10th “Design Your Own Brand Label” Contest", work3Subtitle: "Top 40 / Exhibition at Tokyo Big Sight", work3Body: "In 2023, I participated in the “Design Your Own Brand Label Contest” organized by Tokyo Yoshioka Co., Ltd. I developed the concept and design for a fictional apparel brand, ONESAGE, and created a piece made from 100% environmentally friendly biodegradable plastic. From a total of 520 entries, the work was selected among the Top 40 and exhibited for three days at Tokyo Big Sight.",
+                
+                work3Title: "The 10th “Design Your Own Brand Label” Contest", work3Subtitle: "Top 40 / Exhibition at Tokyo Big Sight", 
+                work3Body: "In 2023, I participated in this contest organized by Tokyo Yoshioka Co., Ltd. I built the concept and hang tag design for a fictional apparel brand 'ONESAGE' (a pun on 'price reduction'). I created the work using 100% biodegradable plastic with a 3D printer. The work was selected in the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight for 3 days. Although paint peeled off due to shipping issues and I missed an award, it was a very stimulating experience.",
+                work3Button: "View Work &rarr;",
+
                 work4Title: "Overseas Poker Experience", work4Subtitle: "Return on Investment: 532%", work4Body: "One of my hobbies is poker (No-Limit Texas Hold’em). Drawing on game theory research, hundreds of thousands of hands of experience, and cultivated intuition, I played a total of 26 sessions in 10 cities worldwide during my study abroad. I recorded total profits of €5,056 (approx. ¥908,000), achieving a maximum ROI of 927.125% at one point and an overall ROI of 532%. I made sure that my playing schedule did not interfere with my university classes. (Total playing time: 175 hours 52 minutes; hourly earnings: approx. ¥5,200 (€28.75))",
                 work5Title: "Waseda University x PIVOT Inc.", work5Subtitle: "Collaboration Project Video Executive Committee", work5Body: "As an executive committee member of BEYOND 2020 NEXT PROJECT, a Waseda University official circle for aspiring entrepreneurs, I spent about 4 months negotiating the collaboration project 'Real Investment Documentary ANGELS in Waseda University' between PIVOT Inc. and Waseda University. Filming took place at the Okuma Auditorium on the Waseda campus.", work5Button: "Watch Video",
                 work6Title: "Introduction to Social Design” Report Contest", work6Subtitle: "Excellence Award", work6Body: "In 2022, in the report contest for the “Introduction to Social Design” course hosted by faculty members including the Dean of the School of Social Sciences at Waseda University, I proposed a new type of coworking space that combines Web3 with conventional coworking spaces and received the Excellence Award.",
@@ -819,6 +832,48 @@
                 contactTitle: "Let's build something<br> <span class=\"inline-block transform -rotate-1 decoration-neoYellow underline decoration-8 underline-offset-4\">unforgettable.</span>", contactBody: "Please feel free to contact me. Poker invites are also welcome.", contactButton: "Get in Touch Now", footerCopy: "&copy; 2025 Ken HARIMA. All Rights Reserved."
             }
         };
+
+        // --- DYNAMIC GREETING LOGIC ---
+        // This block calculates the correct greeting based on the user's local time
+        // and updates the translations object BEFORE the first render or language switch.
+        {
+            const now = new Date();
+            const totalMinutes = now.getHours() * 60 + now.getMinutes();
+            let greetingJa, greetingEn;
+
+            // 05:00 (300 mins) - 11:59 (719 mins)
+            if (totalMinutes >= 300 && totalMinutes < 720) {
+                greetingJa = "おはようございます";
+                greetingEn = "Good morning";
+            } 
+            // 12:00 (720 mins) - 18:30 (1110 mins)
+            else if (totalMinutes >= 720 && totalMinutes <= 1110) {
+                greetingJa = "こんにちは";
+                greetingEn = "Hello";
+            } 
+            // 18:31 (1111 mins) - 04:59 (299 mins)
+            else {
+                greetingJa = "こんばんは";
+                greetingEn = "Good evening";
+            }
+
+            const nameHtmlJa = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>`;
+            const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
+            
+            const bioJa = `です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。`;
+            const bioEn = `, I’m ${nameHtmlEn}. I explore the possibilities of existence at a fundamental level in the age of AGI and ASI. I studied sociology and Western philosophy at the University of Mannheim in Germany. I am a poker player and essayist. My main hobbies are playing poker, watching anime and reading manga, reading books, and writing. I am good at entering a flow state: I shut out the surrounding noise, often lose track of time, and frequently realize only later that the sun has already set.`;
+
+            // Construct the full sentence
+            translations.ja.aboutBody1 = `${greetingJa}、${nameHtmlJa}${bioJa}`;
+            translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
+            
+            // Apply immediately to the current DOM element for the initial load
+            const aboutBodyEl = document.querySelector('[data-key="aboutBody1"]');
+            if (aboutBodyEl) {
+                aboutBodyEl.innerHTML = translations.ja.aboutBody1;
+            }
+        }
+        // ------------------------------
 
         let currentLang = 'ja';
         const langToggle = document.getElementById('lang-toggle');
