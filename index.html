@@ -77,7 +77,7 @@
         /* Grain */
         .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
         
-        /* --- UPDATED: Difference Blend Mode Cursor --- */
+        /* --- FEATURE: Difference Blend Mode Cursor --- */
         .cursor-dot, .cursor-outline { 
             display: none; 
             position: fixed; 
@@ -87,13 +87,14 @@
             border-radius: 50%; 
             z-index: 9999; 
             pointer-events: none; 
-            /* 新機能：反転モード */
+            /* 重要: 色を白にし、背景と差分を取るモードに */
             background-color: #fff;
             mix-blend-mode: difference;
         }
         @media (hover: hover) and (pointer: fine) { body { cursor: none; } .cursor-dot, .cursor-outline { display: block; } }
         .cursor-dot { width: 8px; height: 8px; }
-        .cursor-outline { width: 40px; height: 40px; border: none; opacity: 0.8; } /* Borderをなくし、塗りに変更 */
+        /* アウトラインは塗りに変更して少し透明に */
+        .cursor-outline { width: 40px; height: 40px; border: none; opacity: 0.8; transition: transform 0.15s ease-out, opacity 0.2s; } 
 
         /* Components */
         .neo-border { border: 3px solid #121212; }
@@ -102,29 +103,34 @@
         .neo-shadow:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #121212; }
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
+        
+        /* --- FEATURE: Tight Kerning for Titles --- */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
+        .font-tight { letter-spacing: -0.06em; } /* 追加：より強力なカーニング */
+
         .scramble-text { display: inline-block; min-width: 1em; }
         
-        /* --- UPDATED: Marquee (CSS Animation Removed for JS Control) --- */
+        /* --- FEATURE: Kinetic Marquee Container --- */
         .marquee-container { display: flex; overflow: hidden; user-select: none; width: 100%; }
         .marquee-content { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; gap: 4rem; padding-right: 4rem; will-change: transform; }
-        /* @keyframes scroll removed */
-
-        /* --- UPDATED: Background Grid (Prepared for Distortion) --- */
+        
+        /* --- FEATURE: Grid Distortion --- */
         .bg-grid { 
             background-size: 40px 40px; 
             background-image: radial-gradient(circle, #000000 1px, transparent 1px); 
             opacity: 0.08; 
-            /* 新機能：変形の基点を上部に設定 */
+            /* 重要: 変形の基点を中央上に設定し、縦伸びエフェクトに対応 */
             transform-origin: top center;
             will-change: transform;
         }
         
         .lang-fade { transition: opacity 0.3s ease; }
         .interactive-blob { position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; transform: translate(-50%, -50%); }
+        
         /* Loader */
         #loader { position: fixed; inset: 0; background-color: #121212; color: #F0F0EB; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .loader-text { font-family: 'Syne', sans-serif; font-weight: 900; line-height: 0.8; }
+        
         /* Poker */
         .perspective-1000 { perspective: 1000px; }
         .card-container { width: 60px; height: 90px; position: relative; cursor: pointer; }
@@ -144,13 +150,15 @@
     <div id="blob-2" class="interactive-blob w-64 h-64 bg-neoRed" style="animation-delay: -2s;"></div>
     <div class="fixed top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse -z-10 pointer-events-none"></div>
 
+    <!-- Loader -->
     <div id="loader">
         <div class="absolute top-6 left-6 font-mono text-xs md:text-sm text-neoYellow animate-pulse">SYS_BOOT_V.3.0<br>KEN_HARIMA_PF</div>
         <div class="absolute top-6 right-6 font-mono text-xs md:text-sm text-neoBlue text-right">MEMORY: OK<br>RENDER: OK</div>
         <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">> INITIALIZING...</div>
         <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">©2025</div>
         <div class="relative z-10 text-center">
-            <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter" id="loader-counter">000</div>
+            <!-- Updated ID for JS targeting -->
+            <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter min-w-[3ch]" id="loader-counter">000</div>
             <div class="h-2 w-full bg-[#333] mt-4 relative overflow-hidden">
                 <div id="loader-bar" class="absolute top-0 left-0 h-full bg-neoYellow w-0"></div>
             </div>
@@ -211,7 +219,7 @@
                     </div>
                 </div>
                 <div class="relative title-anim fade-in-up">
-                    <h1 class="font-display text-[12vw] md:text-[11rem] leading-[0.85] font-black uppercase tracking-tighter mix-blend-darken select-none">
+                    <h1 class="font-display text-[12vw] md:text-[11rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
                         <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade scramble-on-load" data-key="heroTitle1">播磨 賢</span>
                         <span class="block text-black lang-fade scramble-on-load" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
@@ -221,7 +229,6 @@
                 </div>
             </div>
             <div class="absolute bottom-0 left-0 w-full bg-neoRed border-y-4 border-black py-4 z-10 overflow-hidden">
-                <!-- UPDATED: Added unique ID for GSAP targeting -->
                 <div class="marquee-container">
                     <div class="marquee-content text-white font-black text-2xl uppercase italic tracking-wider">
                         <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
@@ -229,7 +236,6 @@
                     <div class="marquee-content text-white font-black text-2xl uppercase italic tracking-wider" aria-hidden="true">
                          <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
                     </div>
-                    <!-- Duplicate for seamless GSAP loop -->
                     <div class="marquee-content text-white font-black text-2xl uppercase italic tracking-wider" aria-hidden="true">
                          <span class="lang-fade" data-key="marquee1">DIVING IN EXISTENTIALLY</span> • <span class="text-black lang-fade" data-key="marquee2">ESSAY & NARRATIVE</span> • <span class="lang-fade" data-key="marquee3">SHATTERING CONVENTIONS</span> • <span class="text-black lang-fade" data-key="marquee4">EXISTENTIALISM</span> •
                     </div>
@@ -246,7 +252,7 @@
                         <div class="absolute -bottom-8 -right-8 bg-white text-black p-4 font-black text-3xl border-4 border-black neo-shadow">WHO?</div>
                     </div>
                     <div class="w-full md:w-1/2 gs-reveal-right">
-                        <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade" data-key="aboutTitle">私について</h2>
+                        <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade font-tight" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
                             <p class="lang-fade" data-key="aboutBody1">こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。</p>
                             <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業</p>
@@ -263,7 +269,7 @@
 
         <section id="works" class="py-32 px-4 md:px-8 overflow-hidden">
             <div class="container mx-auto">
-                <h2 class="text-6xl md:text-9xl font-black text-center mb-24 relative inline-block left-1/2 -translate-x-1/2">
+                <h2 class="text-6xl md:text-9xl font-black text-center mb-24 relative inline-block left-1/2 -translate-x-1/2 font-tight">
                     <span class="relative z-10 lang-fade" data-key="worksTitle">活動・受賞歴</span>
                     <span class="absolute top-2 left-2 text-neoYellow -z-10 blur-sm opacity-70 w-full lang-fade" aria-hidden="true" data-key="worksTitle">活動・受賞歴</span>
                 </h2>
@@ -281,8 +287,7 @@
                             </div>
                         </div>
                     </article>
-                    <!-- Other cards truncated for brevity, but same structure applies to all cards -->
-                    <!-- Added Card 2 for example structure -->
+                    <!-- Card 2 -->
                     <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
                          <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
@@ -404,7 +409,7 @@
 
         <section id="skills" class="py-24 bg-neoYellow border-y-4 border-black">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke lang-fade" data-key="skillsTitle">保有資格</h2>
+                <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke font-tight lang-fade" data-key="skillsTitle">保有資格</h2>
                 <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl mx-auto">
                     <div class="skill-pill bg-white rotate-3 lang-fade" data-key="skill1">実用英語技能検定準1級</div>
                     <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade" data-key="skill2">珠算検定1級</div>
@@ -416,9 +421,9 @@
         </section>
 
         <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-[#121212] text-white relative overflow-hidden p-6">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-gray-900 whitespace-nowrap opacity-30 pointer-events-none select-none">CONTACT</div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-gray-900 whitespace-nowrap opacity-30 pointer-events-none select-none font-tight">CONTACT</div>
             <div class="container mx-auto text-center max-w-4xl relative z-10">
-                <h2 class="text-4xl md:text-7xl font-black mb-12 leading-tight lang-fade" data-key="contactTitle">まだ見ぬ何かを、<br class="sm:hidden">一緒に創りませんか？</h2>
+                <h2 class="text-4xl md:text-7xl font-black mb-12 leading-tight lang-fade font-tight" data-key="contactTitle">まだ見ぬ何かを、<br class="sm:hidden">一緒に創りませんか？</h2>
                 <p class="text-xl md:text-2xl text-gray-400 mb-20 lang-fade" data-key="contactBody">お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。</p>
                 <div class="magnetic-btn inline-block">
                     <a href="mailto:beyondtheken.jp@gmail.com" class="group relative inline-block hover-trigger" id="contact-btn-wrap">
@@ -463,37 +468,72 @@
         gsap.ticker.lagSmoothing(0);
         function startLenis() { function raf(time) { lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf); }
 
-        // --- 0.5 SCRAMBLE TEXT CLASS ---
+        // --- 0.5 SCRAMBLE TEXT CLASS (UPDATED: 固定時間制に変更) ---
         class ScrambleText {
             constructor(chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+") { this.chars = chars; }
-            scramble(element, finalText, duration = 1000) {
+            
+            // duration引数を有効活用するように変更 (デフォルト800ms = 0.8秒で完了)
+            scramble(element, finalText, duration = 800) {
                 const length = finalText.length;
                 let iteration = 0;
+                const intervalTime = 30; // 30msごとに更新
+
+                // 重要: 文字数に関わらず duration 内に終わるように 1回あたりの進行度(step) を計算
+                const totalFrames = duration / intervalTime;
+                let step = length / totalFrames;
+                
+                // あまりに短すぎて一瞬で終わるのを防ぐため、最低速度を設定
+                if (step < 0.3) step = 0.3; 
+
                 if (element.dataset.scrambleInterval) clearInterval(parseInt(element.dataset.scrambleInterval));
+                
                 const interval = setInterval(() => {
                     element.innerText = finalText.split("").map((letter, index) => {
                         if (index < iteration) return finalText[index];
-                        if (letter === " " && Math.random() > 0.5) return " ";
+                        // 空白文字のランダム化確率を下げてチラつきを軽減
+                        if (letter === " ") return " "; 
                         return this.chars[Math.floor(Math.random() * this.chars.length)];
                     }).join("");
-                    if (iteration >= length) { clearInterval(interval); element.innerText = finalText; }
-                    iteration += 1 / 3; 
-                }, 30);
+                    
+                    if (iteration >= length) { 
+                        clearInterval(interval); 
+                        element.innerText = finalText; 
+                    }
+                    iteration += step; // 計算したステップで進める
+                }, intervalTime);
+                
                 element.dataset.scrambleInterval = interval.toString();
             }
         }
         const scrambler = new ScrambleText();
 
-        // --- 1. LOADING LOGIC ---
+        // --- 1. FEATURE: POKER LOADING LOGIC ---
         const loader = document.getElementById('loader');
         const loaderCounter = document.getElementById('loader-counter');
         const loaderBar = document.getElementById('loader-bar');
         let count = 0;
+        
+        // ポーカー用文字セット
+        const pokerChars = "0123456789♠♥♣♦";
+        
         const interval = setInterval(() => {
             count += Math.floor(Math.random() * 5) + 1;
             if(count > 100) count = 100;
-            loaderCounter.innerText = count < 10 ? `00${count}` : count < 100 ? `0${count}` : count;
+            
+            // 表示用文字列の生成（100以外はランダムな文字混じり）
+            let displayStr = "";
+            if(count === 100) {
+                displayStr = "100";
+            } else {
+                // 3文字分のランダム文字列生成
+                for(let i=0; i<3; i++) {
+                    displayStr += pokerChars.charAt(Math.floor(Math.random() * pokerChars.length));
+                }
+            }
+            
+            loaderCounter.innerText = displayStr;
             loaderBar.style.width = `${count}%`;
+            
             if(count === 100) { clearInterval(interval); finishLoading(); }
         }, 30);
 
@@ -507,7 +547,7 @@
                 // Initialize original text data for scramble hover fix
                 document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
                 
-                // --- UPDATED: Initialize New Features ---
+                // --- FEATURE: Initialize New Effects ---
                 initKineticMarquee();
                 initGridDistortion();
             }})
@@ -572,7 +612,7 @@
         gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
-        // --- UPDATED: Cursor Logic for Difference Mode ---
+        // --- FEATURE: Cursor Logic for Difference Mode ---
         const cursorDot = document.querySelector('.cursor-dot'); const cursorOutline = document.querySelector('.cursor-outline');
         const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button, .card-container');
         window.addEventListener('mousemove', (e) => {
@@ -688,7 +728,7 @@
         langToggle.addEventListener('click', switchLanguage);
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', switchLanguage);
 
-        // --- UPDATED: New Function: Kinetic Scroll Marquee ---
+        // --- FEATURE: Kinetic Scroll Marquee ---
         function initKineticMarquee() {
             const marqueeContainer = document.querySelector('.marquee-container');
             const marqueeContents = gsap.utils.toArray('.marquee-content');
@@ -717,7 +757,7 @@
                         direction = -1;
                     }
                     // Dynamic speed increase based on scroll velocity
-                    const velocityFactor = Math.min(Math.abs(velocity) / 200, 1.5);
+                    const velocityFactor = Math.min(Math.abs(velocity) / 200, 2.5);
                     speed = 0.05 + velocityFactor;
                 }
             });
@@ -725,7 +765,7 @@
             requestAnimationFrame(animateMarquee);
         }
 
-        // --- UPDATED: New Function: Grid Distortion ---
+        // --- FEATURE: Grid Distortion ---
         function initGridDistortion() {
             // Note: CSS needs transform-origin: top center;
             ScrollTrigger.create({
