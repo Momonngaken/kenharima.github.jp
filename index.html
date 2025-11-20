@@ -34,6 +34,7 @@
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
     <!-- Lenis (Inertia Scroll) -->
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
@@ -56,86 +57,68 @@
                         neoPurple: '#B983FF',
                         neoRed: '#FF4D4D',
                         neoBlue: '#5D5FEF',
+                        pokerBlue: '#0044AA', /* Custom Poker Mat Color */
                     },
                     animation: {
-                        'vibrate': 'vibrate 0.3s linear infinite both',
                         'glow': 'glow 0.5s ease-in-out infinite alternate',
                     },
-                    keyframes: {
-                        vibrate: {
-                            '0%': { transform: 'translate(0)' },
-                            '20%': { transform: 'translate(-2px, 2px)' },
-                            '40%': { transform: 'translate(-2px, -2px)' },
-                            '60%': { transform: 'translate(2px, 2px)' },
-                            '80%': { transform: 'translate(2px, -2px)' },
-                            '100%': { transform: 'translate(0)' },
-                        },
-                        glow: {
-                            'from': { boxShadow: '0 0 10px #D6FC52, 0 0 20px #D6FC52' },
-                            'to': { boxShadow: '0 0 20px #FF4D4D, 0 0 30px #FF4D4D' }
-                        }
-                    }
                 }
             }
         }
     </script>
 
     <style>
-        /* --- PERFORMANCE OPTIMIZATION --- */
-        /* GPU Acceleration & Rendering Hints */
-        .gpu-accelerated {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            will-change: transform;
-        }
+        /* --- CORE & PERFORMANCE --- */
+        .gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
+        body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; }
         
-        body { background-color: #F0F0EB; color: #121212; cursor: none; transition: cursor 0.3s; }
-        
-        /* System Cursor Mode */
-        body.use-system-cursor { cursor: auto !important; }
-        body.use-system-cursor a, body.use-system-cursor button, body.use-system-cursor .card-container, body.use-system-cursor input, body.use-system-cursor textarea { cursor: pointer !important; }
-        body.use-system-cursor .cursor-dot, body.use-system-cursor .cursor-outline { display: none !important; }
+        /* Hide Default Cursor */
+        * { cursor: none !important; }
 
         /* LENIS */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
-        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
         /* Loader */
         body.is-loading { overflow: hidden; height: 100vh; }
-        /* Progress Bar */
         #progress-bar { position: fixed; top: 0; left: 0; height: 6px; background: #5D5FEF; width: 0%; z-index: 100; transition: width 0.1s ease-out; }
         
-        /* Grain - Optimized (Fixed positioning + GPU force) */
+        /* Grain */
         .grain-overlay { 
             position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             transform: translateZ(0); 
         }
         
-        /* Custom Cursor */
-        .cursor-dot, .cursor-outline { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            transform: translate(-50%, -50%); 
-            border-radius: 50%; 
-            z-index: 9999; 
-            pointer-events: none; 
-            background-color: #fff;
+        /* --- 1. LIQUID CYBER CURSOR STYLES --- */
+        .cursor-wrapper {
+            position: fixed; top: 0; left: 0; pointer-events: none; 
+            z-index: 20000; /* FIXED: Increased z-index to appear above modal (10000) */
             mix-blend-mode: difference;
         }
-        /* Cursor Button Visibility */
-        #cursor-toggle { display: none; }
-        @media (hover: hover) and (pointer: fine) { 
-            body { cursor: none; } 
-            .cursor-dot, .cursor-outline { display: block; } 
-            #cursor-toggle { display: inline-block; }
+        .cursor-dot {
+            position: absolute; top: 0; left: 0; width: 8px; height: 8px;
+            background-color: #D6FC52; border-radius: 50%;
+            transform: translate(-50%, -50%);
         }
-        .cursor-dot { width: 8px; height: 8px; }
-        .cursor-outline { width: 40px; height: 40px; border: none; opacity: 0.8; transition: transform 0.15s ease-out, opacity 0.2s; } 
+        .cursor-liquid {
+            position: absolute; top: 0; left: 0;
+            width: 50px; height: 50px;
+            border: 1px solid #D6FC52;
+            background-color: rgba(214, 252, 82, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+        body.hovering .cursor-liquid {
+            background-color: #D6FC52;
+            width: 80px; height: 80px;
+            mix-blend-mode: difference;
+            border: none;
+        }
+        body.hovering .cursor-dot { opacity: 0; }
 
         /* Components */
         .neo-border { border: 3px solid #121212; }
@@ -159,42 +142,147 @@
         .marquee-content { 
             flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; 
             gap: 4rem; padding-right: 4rem; 
-            will-change: transform; 
-            transform: translateZ(0); /* GPU Force */
+            will-change: transform; transform: translateZ(0);
         }
         .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; transform-origin: top center; }
-        
         .lang-fade { transition: opacity 0.3s ease; }
         
-        /* Optimized Blob */
+        /* Interactive Blob */
         .interactive-blob { 
             position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; 
-            transform: translate(-50%, -50%) translateZ(0); 
-            will-change: transform;
+            transform: translate(-50%, -50%) translateZ(0); will-change: transform;
         }
         
         /* Loader */
         #loader { position: fixed; inset: 0; background-color: #121212; color: #F0F0EB; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .loader-text { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 0.8; font-feature-settings: "tnum"; font-style: italic; }
         
-        /* Poker */
-        .perspective-1000 { perspective: 1000px; }
-        .card-container { width: 60px; height: 90px; position: relative; cursor: pointer; }
-        @media (min-width: 768px) { .card-container { width: 100px; height: 150px; } }
-        .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border: 3px solid #000; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-family: 'Syne', sans-serif; font-weight: 900; }
-        .card-back { background-color: #121212; color: #D6FC52; transform: rotateY(0deg); }
-        .card-front { background-color: white; color: black; transform: rotateY(180deg); overflow: hidden; }
-        .taipa-text { font-family: 'Syne', sans-serif; font-weight: 900; line-height: 1; letter-spacing: -0.1em; transform: scaleY(1.3); z-index: 10; }
-        .taipa-text-10 { letter-spacing: -0.15em; margin-right: 0.1em; }
-        .corner-suit { position: absolute; font-size: 10px; line-height: 1; }
-        @media (min-width: 768px) { .corner-suit { font-size: 14px; } }
-        .corner-tl { top: 4px; left: 4px; }
-        .corner-br { bottom: 4px; right: 4px; transform: rotate(180deg); }
-        .smooth-border { outline: 1px solid transparent; backface-visibility: hidden; transform-style: preserve-3d; }
-        .win-active #contact-btn-wrap span:last-child { animation: glow 0.5s infinite alternate; background-color: #D6FC52; border-color: #FF4D4D; color: #000; }
+        /* --- 2. POKER GAME REDESIGN (TAIPA STYLE) --- */
+        #poker-game {
+            background-color: #0044AA; /* Deep Blue Mat Color */
+            background-image: radial-gradient(circle at 50% 50%, #0055CC 0%, #003388 100%);
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+        }
         
-        /* --- FEATURE: Contact Modal --- */
+        .perspective-1000 { perspective: 1000px; }
+        
+        .card-container { 
+            width: 80px; height: 112px; 
+            position: relative; cursor: pointer; 
+            transform-style: preserve-3d;
+        }
+        @media (min-width: 768px) { 
+            .card-container { width: 140px; height: 196px; } 
+        }
+        
+        /* This is the flipper */
+        .card-inner { 
+            width: 100%; height: 100%; 
+            position: relative; 
+            transform-style: preserve-3d; 
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Snappy flip */
+        }
+        
+        /* The faces */
+        .card-front, .card-back { 
+            position: absolute; width: 100%; height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 8px; /* Slightly tighter radius for sharp look */
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .card-back { 
+            background: #0033AA;
+            border: 4px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotateY(0deg); 
+        }
+
+        .card-back::after {
+            content: 'KEN.H';
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            color: rgba(255,255,255,0.2);
+            font-size: 24px;
+            transform: rotate(-45deg);
+        }
+        
+        .card-front { 
+            background: white; 
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* TAIPA TYPOGRAPHY STYLE */
+        .taipa-num {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 6rem; /* Huge */
+            line-height: 0.75;
+            letter-spacing: -0.08em;
+            color: #121212;
+            transform: scaleY(1.1); /* Condensed look */
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .taipa-num { font-size: 9rem; }
+        }
+        
+        /* 10 needs special kern */
+        .taipa-num-10 { letter-spacing: -0.15em; margin-left: -5px; }
+        
+        .corner-pip {
+            position: absolute;
+            font-size: 1.2rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .top-left { top: 6px; left: 6px; }
+        .bottom-right { bottom: 6px; right: 6px; transform: rotate(180deg); }
+
+        /* --- WIN STATE ANIMATIONS --- */
+        .card-container.is-winner {
+            pointer-events: none;
+            z-index: 50;
+        }
+        
+        .win-overlay-text {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .win-word {
+            display: block;
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 12vw;
+            line-height: 0.85;
+            color: #D6FC52; /* Neon Yellow */
+            text-shadow: 4px 4px 0 #000;
+            opacity: 0;
+            transform: scale(3);
+        }
+
+        /* Invert Flash Overlay */
+        #flash-overlay {
+            position: fixed; inset: 0; z-index: 100000;
+            pointer-events: none; opacity: 0; 
+            background-color: white;
+        }
+        
+        /* Contact Modal */
         #contact-modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         #contact-modal.is-open { opacity: 1; pointer-events: auto; }
         .modal-content { transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
@@ -202,13 +290,50 @@
         .form-input { width: 100%; background: #F0F0EB; border: 3px solid #121212; padding: 12px; font-weight: bold; outline: none; transition: all 0.2s; }
         .form-input:focus { background: white; box-shadow: 4px 4px 0px #D6FC52; transform: translate(-2px, -2px); }
         
-        /* Chip Confetti */
-        .confetti-chip { border-radius: 50%; border: 2px dashed rgba(255,255,255,0.5); box-shadow: 0 2px 4px rgba(0,0,0,0.3); will-change: transform; }
-
+        /* FIXED: Modal Internal Cursor Logic */
+        #contact-modal.is-open .modal-content {
+            cursor: default !important; /* Restore default cursor inside modal */
+        }
+        #contact-modal.is-open button, 
+        #contact-modal.is-open .close-modal {
+            cursor: pointer !important;
+        }
+        #contact-modal.is-open input, 
+        #contact-modal.is-open textarea {
+            cursor: text !important;
+        }
+        
         .magnetic-btn { display: inline-block; }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
+
+    <!-- SVG Filter for Liquid Cursor -->
+    <svg class="hidden">
+        <defs>
+            <filter id="liquidFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="1" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Cursor Elements -->
+    <div class="cursor-wrapper">
+        <div class="cursor-liquid"></div>
+        <div class="cursor-dot"></div>
+    </div>
+
+    <!-- Flash Overlay for Poker Win -->
+    <div id="flash-overlay"></div>
+    
+    <!-- Win Text Overlay -->
+    <div id="win-text-container" class="win-overlay-text">
+        <div class="win-word word-royal">ROYAL</div>
+        <!-- REPLACED text-stroke with SOLID WHITE text for visibility -->
+        <div class="win-word word-straight text-white">STRAIGHT</div>
+        <div class="win-word word-flush text-neoRed">FLUSH</div>
+    </div>
 
     <div id="blob-1" class="interactive-blob w-96 h-96 bg-neoBlue"></div>
     <div id="blob-2" class="interactive-blob w-64 h-64 bg-neoRed" style="animation-delay: -2s;"></div>
@@ -228,7 +353,7 @@
         </div>
     </div>
 
-    <!-- --- FEATURE: Contact Modal (Fixed Formspree Logic) --- -->
+    <!-- Contact Modal -->
     <div id="contact-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
         <div class="modal-content relative bg-white w-full max-w-lg neo-border p-8 md:p-10 shadow-[10px_10px_0px_#D6FC52]">
@@ -236,7 +361,6 @@
             
             <h3 class="text-3xl md:text-4xl font-black font-stylish italic mb-6 text-center">GET IN TOUCH</h3>
             
-            <!-- ACTION URL is correct (xovrdzya) -->
             <form id="contact-form" action="https://formspree.io/f/xovrdzya" method="POST" class="space-y-6">
                 <div>
                     <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Name</label>
@@ -263,8 +387,6 @@
 
     <div id="progress-bar"></div>
     <div class="grain-overlay"></div>
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
 
     <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-[10000] group outline-none touch-manipulation">
         <div class="absolute inset-0 rounded-full bg-black translate-x-1 translate-y-1"></div>
@@ -288,10 +410,6 @@
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
                 </button>
 
-                <button id="cursor-toggle" class="magnetic-btn ml-2 text-[10px] font-bold border border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[60px]" aria-label="Toggle Cursor">
-                    CURSOR
-                </button>
-
                 <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                    class="magnetic-btn ml-4 w-11 h-11 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow hover:bg-white hover:text-[#0077B5] transition-colors duration-300 hover-trigger"
                    aria-label="LinkedIn Profile">
@@ -313,11 +431,11 @@
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
             
-            <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
-               class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover:bg-white hover:text-[#0077B5]"
+             <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
+               class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover-bg-white hover:text-[#0077B5]"
                aria-label="LinkedIn Profile">
                 <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
+            </a>
         </div>
     </header>
 
@@ -325,7 +443,7 @@
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full">
-                <div class="mb-12 relative group cursor-default fade-in-up">
+                <div class="mb-12 relative group cursor-default fade-in-up hover-trigger">
                     <div class="hidden md:block absolute -inset-1 bg-black rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                     <div class="relative flex items-center gap-3 bg-white border-[3px] border-black px-6 py-2 rounded-full shadow-[4px_4px_0px_#000] hover:translate-y-1 hover:shadow-none transition-all">
                         <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neoRed opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-neoRed"></span></span>
@@ -334,8 +452,8 @@
                 </div>
                 <div class="relative title-anim fade-in-up">
                     <h1 class="font-display text-[12vw] md:text-[11rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
-                        <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade scramble-on-load" data-key="heroTitle1">播磨 賢</span>
-                        <span class="block text-black lang-fade scramble-on-load" data-key="heroTitle2">KEN HARIMA</span>
+                        <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade scramble-on-load hover-trigger" data-key="heroTitle1">播磨 賢</span>
+                        <span class="block text-black lang-fade scramble-on-load hover-trigger" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
                 </div>
                 <div class="mt-6 md:mt-8 max-w-2xl bg-white/90 backdrop-blur border-[3px] border-black p-6 text-left neo-shadow transform rotate-1 hover:rotate-0 transition-transform hero-content fade-in-up">
@@ -360,7 +478,7 @@
         <section id="about" class="py-32 px-6 bg-black text-white relative clip-path-polygon">
             <div class="container mx-auto relative z-10">
                 <div class="flex flex-col md:flex-row gap-16 items-center">
-                    <div class="w-full md:w-1/2 aspect-square relative gs-reveal-left">
+                    <div class="w-full md:w-1/2 aspect-square relative gs-reveal-left hover-trigger">
                         <div class="absolute inset-0 bg-neoYellow border-4 border-white transform translate-x-4 translate-y-4"></div>
                         <div class="absolute inset-0 bg-[url('./profile.jpg')] bg-cover bg-center grayscale contrast-125 border-4 border-white"><div class="absolute inset-0 bg-neoPurple/30 mix-blend-multiply"></div></div>
                         <div class="absolute -bottom-8 -right-8 bg-white text-black p-4 font-black text-3xl border-4 border-black neo-shadow">WHO?</div>
@@ -388,7 +506,8 @@
                     <span class="absolute top-2 left-2 text-neoYellow -z-10 blur-sm opacity-70 w-full lang-fade" aria-hidden="true" data-key="worksTitle">活動・受賞歴</span>
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                    <article class="group relative gs-card" style="transform: rotate(-2deg);">
+                    <!-- Work 1 -->
+                    <article class="group relative gs-card hover-trigger" style="transform: rotate(-2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -401,7 +520,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card mt-12 md:mt-0" style="transform: rotate(1.5deg);">
+                    <!-- Work 2 -->
+                    <article class="group relative gs-card mt-12 md:mt-0 hover-trigger" style="transform: rotate(1.5deg);">
                          <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoYellow neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -417,7 +537,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card lg:mt-24" style="transform: rotate(-1deg);">
+                    <!-- Work 3 -->
+                    <article class="group relative gs-card lg:mt-24 hover-trigger" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-[#E0E0E0] neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -433,7 +554,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card" style="transform: rotate(2deg);">
+                    <!-- Work 4 -->
+                    <article class="group relative gs-card hover-trigger" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-black text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -447,7 +569,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card mt-8" style="transform: rotate(-1.5deg);">
+                    <!-- Work 5 -->
+                    <article class="group relative gs-card mt-8 hover-trigger" style="transform: rotate(-1.5deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -463,7 +586,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card lg:mt-16" style="transform: rotate(1deg);">
+                    <!-- Work 6 -->
+                    <article class="group relative gs-card lg:mt-16 hover-trigger" style="transform: rotate(1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoPurple neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -476,7 +600,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card lg:mt-12" style="transform: rotate(-1deg);">
+                    <!-- Work 7 -->
+                    <article class="group relative gs-card lg:mt-12 hover-trigger" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -489,7 +614,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card" style="transform: rotate(-1deg);">
+                    <!-- Work 8 -->
+                    <article class="group relative gs-card hover-trigger" style="transform: rotate(-1deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoRed text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -502,7 +628,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="group relative gs-card lg:mt-12" style="transform: rotate(2deg);">
+                    <!-- Work 9 -->
+                    <article class="group relative gs-card lg:mt-12 hover-trigger" style="transform: rotate(2deg);">
                         <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
@@ -524,11 +651,11 @@
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke font-tight lang-fade" data-key="skillsTitle">保有資格</h2>
                 <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl mx-auto">
-                    <div class="skill-pill bg-white rotate-3 lang-fade" data-key="skill1">実用英語技能検定準1級</div>
-                    <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade" data-key="skill2">珠算検定1級</div>
-                    <div class="skill-pill bg-black text-white rotate-1 lang-fade" data-key="skill3">暗算検定1級</div>
-                    <div class="skill-pill bg-neoBlue text-white -rotate-3 lang-fade" data-key="skill4">生成AIパスポート</div>
-                    <div class="skill-pill bg-white rotate-2 lang-fade" data-key="skill5">ITパスポート</div>
+                    <div class="skill-pill bg-white rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors" data-key="skill1">実用英語技能検定準1級</div>
+                    <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoRed transition-colors" data-key="skill2">珠算検定1級</div>
+                    <div class="skill-pill bg-black text-white rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-white hover-trigger hover:bg-white hover:text-black transition-colors" data-key="skill3">暗算検定1級</div>
+                    <div class="skill-pill bg-neoBlue text-white -rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-colors" data-key="skill4">生成AIパスポート</div>
+                    <div class="skill-pill bg-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors" data-key="skill5">ITパスポート</div>
                 </div>
             </div>
         </section>
@@ -540,7 +667,7 @@
             <div class="container mx-auto text-center max-w-4xl relative z-10">
                 <!-- JP (Default) -->
                 <h2 class="text-[10vw] sm:text-7xl md:text-9xl font-black mb-16 leading-none lang-fade font-tight text-black mix-blend-darken" data-key="contactTitle">
-                    <span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle">
+                    <span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle hover-trigger">
                         <span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span>
                         <span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">
                             共犯者
@@ -555,7 +682,6 @@
                 </p>
                 
                 <div class="magnetic-btn inline-block">
-                    <!-- MODIFIED: Button now opens Modal -->
                     <button id="contact-btn-main" class="group relative inline-block hover-trigger">
                         <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
                         <span class="relative block bg-black text-white text-xl md:text-3xl font-black border-2 border-black px-10 py-5 rounded-full transition-all duration-300 group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:bg-neoYellow group-hover:text-black lang-fade flex items-center gap-3" data-key="contactButton">
@@ -567,68 +693,80 @@
             </div>
         </section>
 
-        <section id="poker-game" class="py-20 bg-neoBg border-t-4 border-black overflow-hidden relative">
+        <!-- REDESIGNED POKER GAME SECTION (TAIPA STYLE) -->
+        <section id="poker-game" class="py-32 border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
-                <h3 class="text-2xl md:text-3xl font-black mb-8 font-stylish italic">FEELING LUCKY? <span class="text-xs font-sans font-normal block mt-1 text-gray-500">Click cards to deal</span></h3>
-                <div class="flex justify-center items-center gap-2 md:gap-6 perspective-1000">
+                <h3 class="text-white text-xl md:text-2xl font-black mb-12 font-stylish italic opacity-80 tracking-widest">
+                    DEAL YOUR FATE <span class="text-xs font-sans font-normal block mt-2 opacity-60">Click all cards to reveal</span>
+                </h3>
+                
+                <!-- Cards Container -->
+                <div class="flex justify-center items-center gap-3 md:gap-6 perspective-1000">
                     
-                    <div class="card-container" onclick="flipCard(this, '10')">
-                        <div class="card-inner duration-500 ease-in-out">
-                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
-                            <div class="card-front relative">
-                                <span class="corner-suit corner-tl">♠</span>
-                                <span class="taipa-text taipa-text-10 text-5xl md:text-7xl">10</span>
-                                <span class="corner-suit corner-br">♠</span>
+                    <!-- Card 10 -->
+                    <div class="card-container hover-trigger" onclick="flipCard(this)">
+                        <div class="card-inner">
+                            <div class="card-back"></div>
+                            <div class="card-front">
+                                <span class="corner-pip top-left">♠</span>
+                                <span class="taipa-num taipa-num-10">10</span>
+                                <span class="corner-pip bottom-right">♠</span>
                             </div>
                         </div>
                     </div>
-                    <div class="card-container" onclick="flipCard(this, 'J')">
-                        <div class="card-inner duration-500 ease-in-out">
-                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
-                            <div class="card-front relative">
-                                <span class="corner-suit corner-tl">♠</span>
-                                <span class="taipa-text text-6xl md:text-8xl">J</span>
-                                <span class="corner-suit corner-br">♠</span>
+
+                    <!-- Card J -->
+                    <div class="card-container hover-trigger" onclick="flipCard(this)">
+                        <div class="card-inner">
+                            <div class="card-back"></div>
+                            <div class="card-front">
+                                <span class="corner-pip top-left">♠</span>
+                                <span class="taipa-num">J</span>
+                                <span class="corner-pip bottom-right">♠</span>
                             </div>
                         </div>
                     </div>
-                    <div class="card-container" onclick="flipCard(this, 'Q')">
-                        <div class="card-inner duration-500 ease-in-out">
-                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
-                            <div class="card-front relative">
-                                <span class="corner-suit corner-tl">♠</span>
-                                <span class="taipa-text text-6xl md:text-8xl">Q</span>
-                                <span class="corner-suit corner-br">♠</span>
+
+                    <!-- Card Q -->
+                    <div class="card-container hover-trigger" onclick="flipCard(this)">
+                        <div class="card-inner">
+                            <div class="card-back"></div>
+                            <div class="card-front">
+                                <span class="corner-pip top-left">♠</span>
+                                <span class="taipa-num">Q</span>
+                                <span class="corner-pip bottom-right">♠</span>
                             </div>
                         </div>
                     </div>
-                    <div class="card-container" onclick="flipCard(this, 'K')">
-                        <div class="card-inner duration-500 ease-in-out">
-                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
-                            <div class="card-front relative">
-                                <span class="corner-suit corner-tl">♠</span>
-                                <span class="taipa-text text-6xl md:text-8xl">K</span>
-                                <span class="corner-suit corner-br">♠</span>
+
+                    <!-- Card K -->
+                    <div class="card-container hover-trigger" onclick="flipCard(this)">
+                        <div class="card-inner">
+                            <div class="card-back"></div>
+                            <div class="card-front">
+                                <span class="corner-pip top-left">♠</span>
+                                <span class="taipa-num">K</span>
+                                <span class="corner-pip bottom-right">♠</span>
                             </div>
                         </div>
                     </div>
-                    <div class="card-container" onclick="flipCard(this, 'A')">
-                        <div class="card-inner duration-500 ease-in-out">
-                            <div class="card-back flex-col"><span class="text-2xl md:text-4xl">?</span><span class="text-[10px] mt-1">KEN.H</span></div>
-                            <div class="card-front relative">
-                                <span class="corner-suit corner-tl">♠</span>
-                                <span class="taipa-text text-6xl md:text-8xl">A</span>
-                                <span class="corner-suit corner-br">♠</span>
+
+                    <!-- Card A -->
+                    <div class="card-container hover-trigger" onclick="flipCard(this)">
+                        <div class="card-inner">
+                            <div class="card-back"></div>
+                            <div class="card-front">
+                                <span class="corner-pip top-left">♠</span>
+                                <span class="taipa-num">A</span>
+                                <span class="corner-pip bottom-right">♠</span>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div id="poker-message" class="mt-8 h-16 flex items-center justify-center overflow-hidden">
-                    <p class="text-transparent font-black text-4xl md:text-6xl italic tracking-tighter opacity-0 transform translate-y-10 transition-all duration-500">ROYAL STRAIGHT FLUSH!!</p>
-                </div>
             </div>
-            <div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
+            
+            <div id="confetti-container" class="absolute inset-0 pointer-events-none z-50"></div>
         </section>
 
     </main>
@@ -641,82 +779,242 @@
     </footer>
 
     <script>
-        // --- 0. LENIS (SMOOTH SCROLL) SETUP - OPTIMIZED ---
-        // Reduce duration for snappier feel, remove mouseMultiplier quirks
-        const lenis = new Lenis({ duration: 0.9, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', gestureDirection: 'vertical', smooth: true, smoothTouch: false, touchMultiplier: 2 });
+        // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
+        const lenis = new Lenis({ duration: 0.9, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
         function startLenis() { function raf(time) { lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf); }
 
-        // --- 0.5 SCRAMBLE TEXT CLASS ---
+        // --- 0.5 SCRAMBLE TEXT ---
         class ScrambleText {
             constructor(chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+") { this.chars = chars; }
             scramble(element, finalText, duration = 800) {
-                const length = finalText.length;
-                let iteration = 0;
-                const intervalTime = 30;
-                const totalFrames = duration / intervalTime;
-                let step = length / totalFrames;
-                if (step < 0.3) step = 0.3; 
+                const length = finalText.length; let iteration = 0; const intervalTime = 30;
+                const totalFrames = duration / intervalTime; let step = length / totalFrames; if (step < 0.3) step = 0.3; 
                 if (element.dataset.scrambleInterval) clearInterval(parseInt(element.dataset.scrambleInterval));
                 const interval = setInterval(() => {
                     element.innerHTML = finalText.split("").map((letter, index) => {
-                        if (index < iteration) return finalText[index];
-                        if (letter === " " || letter === "<" || letter === ">") return letter; 
+                        if (index < iteration) return finalText[index]; if (letter === " " || letter === "<" || letter === ">") return letter; 
                         return this.chars[Math.floor(Math.random() * this.chars.length)];
                     }).join("");
-                    if (iteration >= length) { clearInterval(interval); element.innerHTML = finalText; }
-                    iteration += step;
+                    if (iteration >= length) { clearInterval(interval); element.innerHTML = finalText; } iteration += step;
                 }, intervalTime);
                 element.dataset.scrambleInterval = interval.toString();
             }
         }
         const scrambler = new ScrambleText();
 
-        // --- GLOBAL VARS ---
+        // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
+        function initLiquidCursor() {
+            const cursorLiquid = document.querySelector('.cursor-liquid');
+            const cursorDot = document.querySelector('.cursor-dot');
+            const liquidFilter = document.querySelector('#liquidFilter feDisplacementMap');
+            
+            // Mouse State
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let currentX = mouseX;
+            let currentY = mouseY;
+            
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                // Move dot instantly
+                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 });
+            });
+
+            // Loop for Liquid Follower
+            gsap.ticker.add(() => {
+                const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
+                
+                const dx = mouseX - currentX;
+                const dy = mouseY - currentY;
+                
+                currentX += dx * dt;
+                currentY += dy * dt;
+                
+                // Velocity Calculation for stretch
+                const velocity = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                
+                // Stretch factor (capped)
+                const stretch = Math.min(velocity * 0.005, 0.5);
+                const scaleX = 1 + stretch;
+                const scaleY = 1 - stretch * 0.5;
+                
+                // Filter Distortion based on speed
+                const distortion = Math.min(velocity * 0.5, 50);
+                if(liquidFilter) liquidFilter.setAttribute('scale', distortion);
+
+                gsap.set(cursorLiquid, {
+                    x: currentX, 
+                    y: currentY, 
+                    rotation: angle, 
+                    scaleX: scaleX, 
+                    scaleY: scaleY
+                });
+            });
+
+            // Magnetic Hover & Blend Mode Trigger
+            const hovers = document.querySelectorAll('.hover-trigger, a, button');
+            hovers.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    document.body.classList.add('hovering');
+                    gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 });
+                });
+                el.addEventListener('mouseleave', () => {
+                    document.body.classList.remove('hovering');
+                    gsap.to(cursorLiquid, { scale: 1, duration: 0.3 });
+                });
+            });
+        }
+
+        // --- 2. POKER GAME: ULTIMATE CREATIVE MODE ---
+        let flippedCount = 0; 
+        const totalCards = 5;
+        let gameWon = false;
+
+        function flipCard(element) {
+            if(element.classList.contains('is-flipped') || gameWon) return;
+            
+            const inner = element.querySelector('.card-inner'); 
+            element.classList.add('is-flipped');
+            
+            gsap.to(inner, { 
+                rotationY: 180, 
+                duration: 0.8, 
+                ease: "power4.out", 
+                onComplete: () => { 
+                    flippedCount++; 
+                    if(flippedCount === totalCards) triggerWin(); 
+                } 
+            });
+        }
+
+        function triggerWin() {
+            gameWon = true;
+            
+            // 1. Dim Background & Scroll Lock
+            gsap.to('#poker-game', { backgroundColor: '#000', duration: 1 });
+            
+            // 2. Cards Levitation & Gold Glow
+            const cards = document.querySelectorAll('.card-container');
+            const tl = gsap.timeline();
+
+            tl.to(cards, {
+                y: -50,
+                scale: 1.1,
+                boxShadow: '0 0 50px #FFD700',
+                duration: 1,
+                stagger: 0.1,
+                ease: "back.out(1.2)",
+                onStart: () => {
+                    cards.forEach(c => {
+                        c.classList.add('is-winner');
+                        c.querySelector('.card-front').style.boxShadow = '0 0 30px #FFD700, inset 0 0 20px #FFD700';
+                        c.querySelector('.card-front').style.borderColor = '#FFD700';
+                    });
+                }
+            })
+            
+            // 3. Flash Overlay
+            .to('#flash-overlay', { opacity: 1, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.inOut" }, "-=0.5")
+            
+            // 4. Text Explosion Sequence
+            .to('.win-word', { opacity: 1, duration: 0.1 }, "-=0.2") // Make visible for anim
+            .fromTo('.word-royal', 
+                { scale: 5, opacity: 0, z: 500 }, 
+                { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" }
+            )
+            .to('#poker-game', { x: 10, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<") // Camera Shake
+            
+            .fromTo('.word-straight', 
+                { scale: 5, opacity: 0, z: 500 }, 
+                { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" }
+            )
+            .to('#poker-game', { x: -10, y: -10, yoyo:true, repeat:5, duration:0.05 }, "<")
+            
+            .fromTo('.word-flush', 
+                { scale: 5, opacity: 0, z: 500 }, 
+                { scale: 1, opacity: 1, z: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" }
+            )
+            .to('#poker-game', { x: 0, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<")
+            
+            // 5. Confetti Rain
+            .add(() => { createChipConfetti(); }, "-=0.5")
+
+            // 6. Fade Out Sequence (Clean up view)
+            .to('#win-text-container', { autoAlpha: 0, duration: 1, delay: 2.5 }) // Fade out text after 2.5s
+            .to('#poker-game', { backgroundColor: '#0044AA', duration: 1 }, "<"); // Revert background color
+        }
+
+        function createChipConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#D6FC52', '#FF4D4D', '#5D5FEF', '#FFFFFF', '#FFD700'];
+            
+            for(let i = 0; i < 150; i++) {
+                const chip = document.createElement('div');
+                const size = Math.random() * 20 + 10;
+                const isChip = Math.random() > 0.5;
+                
+                chip.style.position = 'absolute';
+                chip.style.width = size + 'px';
+                chip.style.height = size + 'px';
+                chip.style.left = Math.random() * 100 + '%';
+                chip.style.top = '-50px';
+                chip.style.zIndex = 100;
+                
+                if(isChip) {
+                    chip.style.borderRadius = '50%';
+                    chip.style.border = '2px dashed white';
+                    chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                } else {
+                    chip.style.width = size/2 + 'px';
+                    chip.style.height = size + 'px';
+                    chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                container.appendChild(chip);
+                
+                gsap.to(chip, {
+                    y: window.innerHeight + 100,
+                    x: (Math.random() - 0.5) * 500,
+                    rotationX: Math.random() * 720,
+                    rotationY: Math.random() * 720,
+                    duration: Math.random() * 3 + 2,
+                    ease: "power1.in",
+                    delay: Math.random() * 0.5,
+                    onComplete: () => chip.remove()
+                });
+            }
+        }
+
+
+        // --- GLOBAL VARS & INIT ---
         const loader = document.getElementById('loader');
         const loaderCounter = document.getElementById('loader-counter');
         const loaderBar = document.getElementById('loader-bar');
         let count = 0;
-        let currentLang = 'ja'; // Default
+        let currentLang = 'ja';
         
-        // --- FEATURE: AUTO LANGUAGE DETECTION (C) ---
         function detectLanguage() {
             const userLang = navigator.language || navigator.userLanguage;
-            if (userLang.startsWith('en')) {
-                currentLang = 'en';
-                // Update DOM immediately to English before animation starts
-                switchLanguage(false); // false = no animation
-            }
+            if (userLang.startsWith('en')) { currentLang = 'en'; switchLanguage(false); }
         }
 
-        // --- FEATURE: LOADER LOGIC WITH SESSION STORAGE (A) ---
         function initLoader() {
             const hasVisited = sessionStorage.getItem('visited');
-
             if (hasVisited) {
-                // Skip loader
-                loader.style.display = 'none';
-                document.body.classList.remove('is-loading');
-                
-                // Run initialization immediately
+                loader.style.display = 'none'; document.body.classList.remove('is-loading');
                 initSite();
             } else {
-                // Run loader animation
                 sessionStorage.setItem('visited', 'true');
-                
                 const interval = setInterval(() => {
-                    count += Math.floor(Math.random() * 3) + 1;
-                    if(count > 100) count = 100;
-                    
+                    count += Math.floor(Math.random() * 3) + 1; if(count > 100) count = 100;
                     loaderCounter.innerText = count.toString().padStart(3, '0');
                     loaderBar.style.width = `${count}%`;
-                    
-                    if(count === 100) { 
-                        clearInterval(interval); 
-                        finishLoading(); 
-                    }
+                    if(count === 100) { clearInterval(interval); finishLoading(); }
                 }, 20);
             }
         }
@@ -725,30 +1023,24 @@
             const tl = gsap.timeline();
             tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" })
             .to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => {
-                loader.style.display = 'none';
-                document.body.classList.remove('is-loading');
+                loader.style.display = 'none'; document.body.classList.remove('is-loading');
                 initSite();
             }});
         }
 
-        // --- MAIN INITIALIZATION (Runs after loader or immediately if skipped) ---
         function initSite() {
             startLenis();
+            initLiquidCursor(); // New Cursor
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); 
             initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
             initKineticMarquee();
-            // initGridDistortion(); // REMOVED FOR PERFORMANCE
-            initCursorToggle();
             initScrollSpy();
-            initContactModal(); // Feature B
-
-            // Trigger entry animations
+            initContactModal();
             gsap.from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
 
-        // --- 2. INTERACTIVE BACKGROUND ---
         function initInteractiveBackground() {
             const blob1 = document.getElementById('blob-1'); const blob2 = document.getElementById('blob-2');
             const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"}); const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
@@ -756,7 +1048,6 @@
             window.addEventListener("mousemove", (e) => { xTo1(e.clientX); yTo1(e.clientY); xTo2(e.clientX); yTo2(e.clientY); });
         }
 
-        // --- 3. MAGNETIC BUTTONS ---
         function initMagneticButtons() {
             const magnets = document.querySelectorAll('.magnetic-btn');
             magnets.forEach(btn => {
@@ -769,93 +1060,8 @@
             });
         }
 
-        // --- 4. POKER MINI GAME ---
-        let flippedCount = 0; const totalCards = 5;
-        function flipCard(element, rank) {
-            if(element.classList.contains('is-flipped')) return;
-            const inner = element.querySelector('.card-inner'); element.classList.add('is-flipped');
-            gsap.to(inner, { rotationY: 180, duration: 0.6, ease: "back.out(1.7)", onComplete: () => { flippedCount++; if(flippedCount === totalCards) triggerWin(); } });
-        }
-        function triggerWin() {
-            const msg = document.querySelector('#poker-message p');
-            msg.classList.remove('opacity-0', 'translate-y-10'); msg.classList.add('text-neoRed', 'scramble-on-win');
-            scrambler.scramble(msg, "ROYAL STRAIGHT FLUSH!!");
-            const contactSection = document.getElementById('contact'); contactSection.classList.add('win-active'); createConfetti();
-        }
-        function createConfetti() {
-            const container = document.getElementById('confetti-container');
-            const colors = ['#D6FC52', '#B983FF', '#FF4D4D', '#5D5FEF', '#000000'];
-            for(let i = 0; i < 50; i++) {
-                const conf = document.createElement('div');
-                conf.style.position = 'absolute'; conf.style.width = Math.random() * 10 + 5 + 'px'; conf.style.height = Math.random() * 10 + 5 + 'px';
-                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; conf.style.left = Math.random() * 100 + '%'; conf.style.top = '-10px'; conf.style.zIndex = 10;
-                container.appendChild(conf);
-                gsap.to(conf, { y: '100vh', x: (Math.random() - 0.5) * 200, rotation: Math.random() * 360, duration: Math.random() * 2 + 1, ease: "power1.out", onComplete: () => conf.remove() });
-            }
-        }
-
-        // --- 5. SCROLL & CURSOR ---
-        const progressBar = document.getElementById('progress-bar');
-        window.addEventListener('scroll', () => {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
-        });
+        // Scroll Spy
         gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('.gs-reveal-left').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" }); });
-        gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
-        gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
-
-        // Cursor Logic
-        const cursorDot = document.querySelector('.cursor-dot'); const cursorOutline = document.querySelector('.cursor-outline');
-        const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button, .card-container');
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX; const posY = e.clientY;
-            cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
-            gsap.to(cursorOutline, { x: posX, y: posY, duration: 0.08, ease: "power2.out" });
-        });
-        hoverTriggers.forEach(trigger => {
-            trigger.addEventListener('mouseenter', () => {
-                document.body.classList.add('hovering');
-                gsap.to(cursorOutline, { scale: 2.5, opacity: 0.4, duration: 0.3 });
-                gsap.to(cursorDot, { opacity: 0, duration: 0.1 });
-            });
-            trigger.addEventListener('mouseleave', () => {
-                document.body.classList.remove('hovering');
-                gsap.to(cursorOutline, { scale: 1, opacity: 0.8, duration: 0.3 });
-                gsap.to(cursorDot, { opacity: 1, duration: 0.1 });
-            });
-        });
-
-        // --- FEATURE: Cursor Toggle Logic ---
-        function initCursorToggle() {
-            const cursorBtn = document.getElementById('cursor-toggle');
-            let isSystemCursor = localStorage.getItem('systemCursor') === 'true';
-
-            function updateCursorState() {
-                if (isSystemCursor) {
-                    document.body.classList.add('use-system-cursor');
-                    cursorBtn.innerText = "SYSTEM";
-                    cursorBtn.classList.add('bg-black', 'text-white');
-                    cursorBtn.classList.remove('bg-white', 'text-black');
-                } else {
-                    document.body.classList.remove('use-system-cursor');
-                    cursorBtn.innerText = "CUSTOM";
-                    cursorBtn.classList.remove('bg-black', 'text-white');
-                    cursorBtn.classList.add('bg-white', 'text-black');
-                }
-            }
-
-            cursorBtn.addEventListener('click', () => {
-                isSystemCursor = !isSystemCursor;
-                localStorage.setItem('systemCursor', isSystemCursor);
-                updateCursorState();
-            });
-
-            updateCursorState(); 
-        }
-
-        // --- FEATURE: ScrollSpy (Active Nav) ---
         function initScrollSpy() {
             const navItems = [
                 { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement },
@@ -863,20 +1069,20 @@
                 { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement },
                 { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement },
             ];
-
             navItems.forEach(item => {
                 ScrollTrigger.create({
-                    trigger: `#${item.id}`,
-                    start: "top center", end: "bottom center",
-                    onToggle: self => {
-                        if (self.isActive) { item.link.classList.add('nav-active'); } 
-                        else { item.link.classList.remove('nav-active'); }
-                    }
+                    trigger: `#${item.id}`, start: "top center", end: "bottom center",
+                    onToggle: self => { if (self.isActive) { item.link.classList.add('nav-active'); } else { item.link.classList.remove('nav-active'); } }
                 });
             });
         }
+        
+        // GSAP Reveals
+        gsap.utils.toArray('.gs-reveal-left').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" }); });
+        gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
+        gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
-        // --- FEATURE: Contact Modal & Chip Confetti (FIXED FORMSPREE) ---
+        // Contact Modal
         function initContactModal() {
             const modal = document.getElementById('contact-modal');
             const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')];
@@ -887,73 +1093,26 @@
 
             function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
             function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
-
             openBtns.forEach(btn => { if(btn) btn.addEventListener('click', (e) => { e.preventDefault(); openModal(); }); });
-            closeBtn.addEventListener('click', closeModal);
-            backdrop.addEventListener('click', closeModal);
+            closeBtn.addEventListener('click', closeModal); backdrop.addEventListener('click', closeModal);
 
-            // --- NEW ROBUST FETCH LOGIC ---
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerText;
-                
-                // Use standard FormData (Most reliable for Formspree AJAX)
+                const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText;
                 const formData = new FormData(form);
-
-                // UI Loading State
-                submitBtn.innerText = "SENDING...";
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                        // Note: Do NOT set Content-Type here. Browser sets it automatically with boundary for FormData.
-                    }
-                })
+                submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
                 .then(response => {
-                    if (response.ok) {
-                        // Success! Even if response body is empty or tricky, we treat 200 OK as success.
-                        return response.json().catch(() => {}); // Try to parse JSON, but ignore errors if body is empty
-                    } else {
-                        // Server returned error (4xx, 5xx)
-                        return response.json().then(data => {
-                            if (Object.hasOwn(data, 'errors')) {
-                                throw new Error(data["errors"].map(error => error["message"]).join(", "));
-                            } else {
-                                throw new Error("Server error");
-                            }
-                        });
-                    }
+                    if (response.ok) { return response.json().catch(() => {}); } 
+                    else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); }
                 })
-                .then(() => {
-                    // Success Logic
-                    form.reset();
-                    form.classList.add('hidden');
-                    successMsg.classList.remove('hidden');
-                    createChipConfetti(); 
-                })
-                .catch(error => {
-                    // Error Logic
-                    console.error('Submission Error:', error);
-                    alert("送信に失敗しました。ネットワーク状況を確認して再度お試しください。");
-                    // Reset button
-                    submitBtn.innerText = originalBtnText;
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                });
+                .then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); })
+                .catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); });
             });
         }
 
-        // --- 6. FIXED SCRAMBLE HOVER ---
         document.querySelectorAll('.scramble-hover').forEach(el => {
-            el.addEventListener('mouseenter', () => { 
-                const text = el.dataset.originalText || el.innerText;
-                scrambler.scramble(el, text); 
-            });
+            el.addEventListener('mouseenter', () => { const text = el.dataset.originalText || el.innerText; scrambler.scramble(el, text); });
         });
         
         // Mobile Menu
@@ -961,7 +1120,7 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- 7. BILINGUAL LOGIC (UPDATED) ---
+        // --- TRANSLATION DATA (UNCHANGED) ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
@@ -986,11 +1145,9 @@
                 work6Title: "「社会デザイン論入門」レポートコンテスト", work6Subtitle: "優秀賞受賞", work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
                 work7Title: "第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018", work7Subtitle: "東京都産業労働局長賞受賞", work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。",
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
-                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
+                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
-                
-                // JP: Default size
-                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">共犯者</span></span><span class="align-middle">、</span><br class="md:hidden"> <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>`,
+                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle hover-trigger"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">共犯者</span></span><span class="align-middle">、</span><br class="md:hidden"> <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>`,
                 contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             },
@@ -1019,9 +1176,7 @@
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
-                
-                // EN: Smaller font size (text-[6vw] md:text-6xl) to fit screen
-                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-4 md:mr-6 align-middle"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-4 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter text-[6vw] md:text-6xl leading-tight">ACCOMPLICES</span></span><br class="md:hidden"> <span class="inline-block mt-2 md:mt-0 align-middle">WANTED.</span>`,
+                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-4 md:mr-6 align-middle hover-trigger"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-4 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter text-[6vw] md:text-6xl leading-tight">ACCOMPLICES</span></span><br class="md:hidden"> <span class="inline-block mt-2 md:mt-0 align-middle">WANTED.</span>`,
                 contactBody: "Please feel free to contact me. Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             }
@@ -1029,18 +1184,15 @@
 
         // --- DYNAMIC GREETING ---
         {
-            const now = new Date();
-            const totalMinutes = now.getHours() * 60 + now.getMinutes();
+            const now = new Date(); const totalMinutes = now.getHours() * 60 + now.getMinutes();
             let greetingJa, greetingEn;
             if (totalMinutes >= 300 && totalMinutes < 720) { greetingJa = "おはようございます"; greetingEn = "Good morning"; } 
             else if (totalMinutes >= 720 && totalMinutes <= 1110) { greetingJa = "こんにちは"; greetingEn = "Hello"; } 
             else { greetingJa = "こんばんは"; greetingEn = "Good evening"; }
-
             const nameHtmlJa = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>`;
             const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
             const bioJa = `です。AGI・ASI時代における実存の可能性を本質的に探究します。ドイツ・マンハイム大学で社会学と西洋哲学を専門的に学びました。ポーカープレイヤー、エッセイスト。主な趣味はポーカー、アニメ漫画鑑賞、読書、執筆活動。ゾーンに入ることが得意で、周りの騒音はシャットアウトされ、よく時間も忘れて気づけば太陽が沈んでいることがしばしば。`;
             const bioEn = `, I’m ${nameHtmlEn}. I explore the possibilities of existence at a fundamental level in the age of AGI and ASI. I studied sociology and Western philosophy at the University of Mannheim in Germany. I am a poker player and essayist. My main hobbies are playing poker, watching anime and reading manga, reading books, and writing. I am good at entering a flow state: I shut out the surrounding noise, often lose track of time, and frequently realize only later that the sun has already set.`;
-
             translations.ja.aboutBody1 = `${greetingJa}、${nameHtmlJa}${bioJa}`;
             translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
             const aboutBodyEl = document.querySelector('[data-key="aboutBody1"]');
@@ -1058,70 +1210,45 @@
              currentLang = currentLang === 'ja' ? 'en' : 'ja';
             if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } 
             else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
-
             if(mobileLangBg && animate) {
                 mobileLangBg.animate([ { transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' } ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
                 setTimeout(() => {
                     if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } 
                     else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); }
                 }, 100);
-            } else if (mobileLangBg && !animate) {
-                // Static update for initial load
-                 if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } 
-                    else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); }
             }
-
             translatableElements.forEach(el => {
                 const key = el.dataset.key; const newText = translations[currentLang][key];
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
-                
                 if (animate) {
                     if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
                     else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
-                } else {
-                    el.innerHTML = newText;
-                }
+                } else { el.innerHTML = newText; }
             });
         }
         langToggle.addEventListener('click', () => switchLanguage(true));
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
-        // --- Kinetic Scroll Marquee ---
         function initKineticMarquee() {
-            const marqueeContainer = document.querySelector('.marquee-container');
-            const marqueeContents = gsap.utils.toArray('.marquee-content');
+            const marqueeContainer = document.querySelector('.marquee-container'); const marqueeContents = gsap.utils.toArray('.marquee-content');
             if (!marqueeContainer || marqueeContents.length === 0) return;
             let xPercent = 0; let direction = -1; let speed = 0.05;
             const animateMarquee = () => {
-                if (xPercent <= -100) xPercent = 0;
-                if (xPercent > 0) xPercent = -100;
-                gsap.set(marqueeContents, { xPercent: xPercent });
-                xPercent += speed * direction;
+                if (xPercent <= -100) xPercent = 0; if (xPercent > 0) xPercent = -100;
+                gsap.set(marqueeContents, { xPercent: xPercent }); xPercent += speed * direction;
                 requestAnimationFrame(animateMarquee);
             };
             ScrollTrigger.create({
                 onUpdate: (self) => {
                     const velocity = self.getVelocity();
                     if (velocity > 0) { direction = 1; } else if (velocity < 0) { direction = -1; }
-                    const velocityFactor = Math.min(Math.abs(velocity) / 200, 2.5);
-                    speed = 0.05 + velocityFactor;
+                    const velocityFactor = Math.min(Math.abs(velocity) / 200, 2.5); speed = 0.05 + velocityFactor;
                 }
             });
             requestAnimationFrame(animateMarquee);
         }
 
-        // --- Grid Distortion (REMOVED FOR PERFORMANCE) ---
-        /*
-        function initGridDistortion() {
-            // This was causing major repaints. Removed for optimization.
-        }
-        */
-
-        // --- INIT SEQUENCE ---
-        document.addEventListener("DOMContentLoaded", () => {
-            detectLanguage(); // Feature C
-            initLoader(); // Feature A
-        });
+        document.addEventListener("DOMContentLoaded", () => { detectLanguage(); initLoader(); });
     </script>
 </body>
 </html>
