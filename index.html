@@ -341,6 +341,7 @@
     <!-- Win Text Overlay -->
     <div id="win-text-container" class="win-overlay-text">
         <div class="win-word word-royal">ROYAL</div>
+        <!-- REPLACED text-stroke with SOLID WHITE text for visibility -->
         <div class="win-word word-straight text-white">STRAIGHT</div>
         <div class="win-word word-flush text-neoRed">FLUSH</div>
     </div>
@@ -450,6 +451,7 @@
     </header>
 
     <main>
+        <!-- UPDATED SECTION PADDING AND TITLE SIZE HERE -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-48 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full px-4">
@@ -461,13 +463,15 @@
                     </div>
                 </div>
                 <div class="relative title-anim fade-in-up">
+                    <!-- UPDATED TEXT SIZES TO PREVENT OVERLAP (12vw->11vw, 11rem->9rem) -->
                     <h1 class="font-display text-[11vw] md:text-[9rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
+                        <!-- REMOVED 'scramble-on-load' class from the spans below -->
                         <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade hover-trigger" data-key="heroTitle1">播磨 賢</span>
                         <span class="block text-black lang-fade hover-trigger" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
                 </div>
 
-                <!-- Timeline Cards -->
+                <!-- REDESIGNED: Timeline Cards -->
                 <div class="mt-10 md:mt-12 w-full max-w-5xl mx-auto fade-in-up relative z-10 px-4">
                     <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12">
                         
@@ -491,7 +495,7 @@
                             ↓
                         </div>
 
-                        <!-- Daikin Card -->
+                        <!-- Daikin Card (CREATIVE FIX FOR UNDECIDED DEPARTMENT) -->
                         <div class="relative group hover-trigger w-full md:w-auto max-w-xs">
                             <div class="absolute inset-0 bg-neoYellow translate-x-2 translate-y-2 rounded-lg transition-transform group-hover:translate-x-1 group-hover:translate-y-1 border-[3px] border-black"></div>
                             <div class="relative bg-neoBlue text-white border-[3px] border-black p-5 rounded-lg transform rotate-2 group-hover:rotate-0 transition-transform duration-300 min-w-[280px]">
@@ -521,7 +525,7 @@
                 </div>
             </div>
 
-            <!-- Marquee -->
+            <!-- REDESIGNED: Marquee -->
             <div class="absolute bottom-0 left-0 w-full bg-black border-y-4 border-neoYellow py-3 z-10 overflow-hidden rotate-1 scale-105 origin-bottom-left">
                 <div class="marquee-container">
                     <div class="marquee-content text-white font-black text-xl md:text-2xl uppercase italic tracking-wider">
@@ -733,10 +737,10 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
             
             <div class="container mx-auto text-center max-w-5xl relative z-10">
-                <!-- CREATIVE TEXT UPDATE: "ON THE SAME TABLE" -->
-                <div class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle">
+                <!-- CREATIVE TEXT UPDATE FOR "SAME TABLE / DEAL YOU IN" -->
+                <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle">
                      <!-- DEFAULT CONTENT WILL BE INJECTED BY JS -->
-                </div>
+                </h2>
                 
                 <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
                     お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。
@@ -1223,21 +1227,18 @@
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
-                
-                /* --- UPDATED CONTACT SECTION (JP) --- */
+                /* --- UPDATED CONTACT SECTION --- */
                 contactTitle: `
-                <div class="flex flex-col items-center">
-                    <span class="font-mono text-xs md:text-sm text-neoBlue font-bold tracking-[0.3em] mb-4 animate-pulse">/// YOUR MOVE</span>
-                    <span class="block text-[10vw] md:text-[9rem] font-black leading-[0.9] italic font-stylish mix-blend-hard-light">
-                        <span class="text-stroke hover:text-black transition-colors duration-500">同じテーブルに、</span>
+                <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span>
+                <span class="block text-[7vw] md:text-8xl font-black leading-tight">
+                    同じテーブルに、
+                </span>
+                <span class="relative inline-block mt-4 group hover-trigger">
+                    <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span>
+                    <span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">
+                        着くか<span class="text-neoRed">。</span>
                     </span>
-                    <span class="relative inline-block mt-4 group hover-trigger">
-                        <span class="absolute inset-0 bg-neoRed w-full h-full transform translate-x-2 translate-y-2 border-4 border-black"></span>
-                        <span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[10vw] md:text-[9rem] font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-0 group-hover:translate-y-0 text-black shadow-[8px_8px_0px_rgba(0,0,0,0.2)]">
-                            着くか<span class="text-neoBlue">。</span>
-                        </span>
-                    </span>
-                </div>
+                </span>
                 `,
                 contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
@@ -1268,21 +1269,18 @@
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
-                
                 /* --- UPDATED CONTACT SECTION (EN) --- */
                 contactTitle: `
-                <div class="flex flex-col items-center">
-                    <span class="font-mono text-xs md:text-sm text-neoBlue font-bold tracking-[0.3em] mb-4 animate-pulse">/// ALL IN</span>
-                    <span class="block text-[10vw] md:text-[9rem] font-black leading-[0.9] italic font-stylish mix-blend-hard-light">
-                        <span class="text-stroke hover:text-black transition-colors duration-500">DEAL YOU</span>
+                <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span>
+                <span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">
+                    DEAL
+                </span>
+                <span class="relative inline-block mt-2 group hover-trigger">
+                     <span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span>
+                    <span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">
+                        YOU IN?
                     </span>
-                    <span class="relative inline-block mt-4 group hover-trigger">
-                         <span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span>
-                        <span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 md:py-4 text-[10vw] md:text-[9rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-0 group-hover:translate-y-0 text-neoYellow shadow-[8px_8px_0px_rgba(214,252,82,0.3)]">
-                            IN?
-                        </span>
-                    </span>
-                </div>
+                </span>
                 `,
                 contactBody: "Please feel free to contact me. Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
@@ -1300,7 +1298,7 @@
             const nameHtmlJa = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>`;
             const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
             
-            // BIO TEXT
+            // UPDATED BIO TEXT HERE
             const bioJa = `です。シンガポール生まれ、日本とマレーシアのハーフ。ドイツ・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力は、様々な課題解決の現場でも必ず活きると確信しています。`;
             
             const bioEn = `, I’m ${nameHtmlEn}. Born in Singapore to a Japanese–Malaysian family. My thinking is grounded in the philosophical logic I honed at the University of Mannheim in Germany, and the multi-faceted perspective I cultivated by moving between diverse cultural contexts. I also view poker not as a game of chance, but as a “game of imperfect information” with clear parallels to business. The process of calculating probabilities from limited information and consistently maximizing expected value has strengthened my ability to make logical, optimal decisions under uncertainty. I am confident this skill set will be directly applicable to solving complex problems in a wide range of business settings. By structuring complex information and articulating its essence, I am committed to driving projects forward and contributing to meaningful value creation.`;
