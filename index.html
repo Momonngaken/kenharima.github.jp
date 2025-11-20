@@ -736,17 +736,10 @@
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
             
-            <div class="container mx-auto text-center max-w-4xl relative z-10">
-                <!-- JP (Default) -->
-                <h2 class="text-[10vw] sm:text-7xl md:text-9xl font-black mb-16 leading-none lang-fade font-tight text-black mix-blend-darken" data-key="contactTitle">
-                    <span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle hover-trigger">
-                        <span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span>
-                        <span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">
-                            共犯者
-                        </span>
-                    </span><span class="align-middle">、</span>
-                    <br class="md:hidden">
-                    <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>
+            <div class="container mx-auto text-center max-w-5xl relative z-10">
+                <!-- CREATIVE TEXT UPDATE FOR "SAME TABLE / DEAL YOU IN" -->
+                <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle">
+                     <!-- DEFAULT CONTENT WILL BE INJECTED BY JS -->
                 </h2>
                 
                 <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
@@ -1206,12 +1199,12 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- TRANSLATION DATA (UPDATED for Daikin) ---
+        // --- TRANSLATION DATA (UPDATED for Daikin & Creative Contact) ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
-                daikinRole: "/// 配属：解析中...", // FIXED TEXT
+                daikinRole: "/// 配属：解析中...", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
                 aboutBody1: "",
@@ -1234,7 +1227,19 @@
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
-                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle hover-trigger"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">共犯者</span></span><span class="align-middle">、</span><br class="md:hidden"> <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>`,
+                /* --- UPDATED CONTACT SECTION --- */
+                contactTitle: `
+                <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">SAME TABLE.</span>
+                <span class="block text-[7vw] md:text-8xl font-black leading-tight">
+                    同じテーブルに、
+                </span>
+                <span class="relative inline-block mt-4 group hover-trigger">
+                    <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span>
+                    <span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">
+                        着くか<span class="text-neoRed">。</span>
+                    </span>
+                </span>
+                `,
                 contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             },
@@ -1264,7 +1269,19 @@
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
-                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-4 md:mr-6 align-middle hover-trigger"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-4 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter text-[6vw] md:text-6xl leading-tight">ACCOMPLICES</span></span><br class="md:hidden"> <span class="inline-block mt-2 md:mt-0 align-middle">WANTED.</span>`,
+                /* --- UPDATED CONTACT SECTION (EN) --- */
+                contactTitle: `
+                <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span>
+                <span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">
+                    DEAL
+                </span>
+                <span class="relative inline-block mt-2 group hover-trigger">
+                     <span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span>
+                    <span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">
+                        YOU IN?
+                    </span>
+                </span>
+                `,
                 contactBody: "Please feel free to contact me. Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             }
@@ -1317,6 +1334,7 @@
                 const key = el.dataset.key; const newText = translations[currentLang][key];
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
                 if (animate) {
+                    // If content is just text and short, scramble. If it contains HTML (like our new creative titles), fade it.
                     if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
                     else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
                 } else { el.innerHTML = newText; }
