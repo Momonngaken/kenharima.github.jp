@@ -451,7 +451,8 @@
     </header>
 
     <main>
-        <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-40">
+        <!-- UPDATED SECTION PADDING AND TITLE SIZE HERE -->
+        <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-48 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full px-4">
                 <div class="mb-8 md:mb-12 relative group cursor-default fade-in-up hover-trigger">
@@ -462,7 +463,8 @@
                     </div>
                 </div>
                 <div class="relative title-anim fade-in-up">
-                    <h1 class="font-display text-[12vw] md:text-[11rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
+                    <!-- UPDATED TEXT SIZES TO PREVENT OVERLAP (12vw->11vw, 11rem->9rem) -->
+                    <h1 class="font-display text-[11vw] md:text-[9rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
                         <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade scramble-on-load hover-trigger" data-key="heroTitle1">播磨 賢</span>
                         <span class="block text-black lang-fade scramble-on-load hover-trigger" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
