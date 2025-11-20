@@ -72,8 +72,10 @@
         .gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
         body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; }
         
-        /* Hide Default Cursor */
-        * { cursor: none !important; }
+        /* Hide Default Cursor (PC) */
+        @media (min-width: 1025px) and (hover: hover) {
+            * { cursor: none !important; }
+        }
 
         /* LENIS */
         html.lenis, html.lenis body { height: auto; }
@@ -95,9 +97,17 @@
         /* --- 1. LIQUID CYBER CURSOR STYLES --- */
         .cursor-wrapper {
             position: fixed; top: 0; left: 0; pointer-events: none; 
-            z-index: 20000; /* FIXED: Increased z-index to appear above modal (10000) */
+            z-index: 20000; 
             mix-blend-mode: difference;
         }
+        
+        /* --- MOBILE/TABLET CURSOR FIX --- */
+        /* Hide custom cursor on touch devices or screens smaller than 1024px */
+        @media (hover: none) and (pointer: coarse), (max-width: 1024px) {
+            .cursor-wrapper { display: none !important; }
+            body, * { cursor: auto !important; } /* Restore system cursor behavior */
+        }
+
         .cursor-dot {
             position: absolute; top: 0; left: 0; width: 8px; height: 8px;
             background-color: #D6FC52; border-radius: 50%;
@@ -807,6 +817,12 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
+            // Check if device is touch or screen is small (Tablet/Mobile)
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 1024);
+            
+            // If mobile/tablet, do NOT run custom cursor logic
+            if (isTouchDevice) return;
+
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
             const liquidFilter = document.querySelector('#liquidFilter feDisplacementMap');
