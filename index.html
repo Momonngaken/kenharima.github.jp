@@ -49,6 +49,7 @@
                     fontFamily: {
                         sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
+                        mono: ['monospace'], // Ensure monospace is available
                     },
                     colors: {
                         neoBg: '#F0F0EB',
@@ -61,14 +62,7 @@
                     },
                     animation: {
                         'glow': 'glow 0.5s ease-in-out infinite alternate',
-                        'blink': 'blink 1s step-end infinite',
                     },
-                    keyframes: {
-                        blink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
-                        }
-                    }
                 }
             }
         }
@@ -498,17 +492,24 @@
                             ↓
                         </div>
 
-                        <!-- Daikin Card (Updated for Pending Status) -->
+                        <!-- Daikin Card (CREATIVE FIX FOR UNDECIDED DEPARTMENT) -->
                         <div class="relative group hover-trigger w-full md:w-auto max-w-xs">
                             <div class="absolute inset-0 bg-neoYellow translate-x-2 translate-y-2 rounded-lg transition-transform group-hover:translate-x-1 group-hover:translate-y-1 border-[3px] border-black"></div>
                             <div class="relative bg-neoBlue text-white border-[3px] border-black p-5 rounded-lg transform rotate-2 group-hover:rotate-0 transition-transform duration-300 min-w-[280px]">
                                 <div class="bg-white text-black text-[0.65rem] font-black px-2 py-0.5 border border-black mb-3 inline-block animate-pulse">NEXT STAGE</div>
                                 <h3 class="text-2xl font-black font-stylish italic leading-none mb-1">DAIKIN IND.</h3>
-                                <!-- PENDING STATUS -->
-                                <div class="font-mono text-xs font-bold text-white/80 mb-3 flex items-center gap-2">
-                                    <span class="text-neoYellow">> DEPT:</span>
-                                    <span class="bg-black/30 px-1 rounded tracking-widest text-[0.65rem]">[ LOADING... ]<span class="animate-blink">_</span></span>
+                                
+                                <!-- Creative "Undecided/Locked" Visual -->
+                                <div class="mb-3 mt-2 font-mono">
+                                    <div class="flex items-center gap-2 text-neoYellow">
+                                        <span class="animate-spin text-xs">❋</span>
+                                        <p class="text-xs font-bold tracking-widest scramble-on-load" data-key="daikinRole">/// PROCESSING...</p>
+                                    </div>
+                                    <p class="text-[10px] text-white/70 font-bold mt-1 pl-5 border-l border-white/30">
+                                        UNLOCK DATE: <span class="text-white bg-black/20 px-1">2026.05</span>
+                                    </p>
                                 </div>
+
                                 <div class="w-full border-t-2 border-dashed border-white/30 my-3"></div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs font-bold bg-black/20 px-2 py-1 rounded">JOINING</span>
@@ -1194,11 +1195,12 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- TRANSLATION DATA (UNCHANGED) ---
+        // --- TRANSLATION DATA (UPDATED for Daikin) ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
+                daikinRole: "/// 配属：解析中...", // NEW
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
                 aboutBody1: "",
@@ -1221,6 +1223,36 @@
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
+                contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-5 md:mr-8 align-middle hover-trigger"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-6 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter">共犯者</span></span><span class="align-middle">、</span><br class="md:hidden"> <span class="inline-block mt-4 md:mt-0 align-middle">求む。</span>`,
+                contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", 
+                contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
+            },
+            en: {
+                navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
+                heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
+                daikinRole: "/// DEPLOYMENT_PENDING", // NEW
+                marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
+                aboutTitle: "About Me",
+                aboutBody1: "",
+                aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange) Hiroo Gakuen Junior and Senior High School",
+                worksTitle: "Works & Awards",
+                work1Title: "Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition", work1Subtitle: "Grand Prize", 
+                work1Body: "In 2024, at the Tomio Noguchi Seminar in the School of Social Sciences at Waseda University, I participated in a competition to formulate a promotion strategy for Riso Kagaku Corporation's 'MiScreen A4'. Focusing on the differences in PVs and reactions in existing SNS posts, I decomposed the creative elements of the videos. By calculating the impact of each element using 'Quantification Theory Type I,' a type of multivariate analysis, I derived a winning pattern based on objective evidence rather than intuition. Based on this data, I proposed a strategy targeting museums in Japan and overseas as the market that best matches the product characteristics, and won the Grand Prize.",
+                work2Title: "The 36th “What Does It Mean to Work?” Essay Contest", work2Subtitle: "Chairperson’s Award, Association for the Advancement of Working Youth", 
+                work2Body: "In 2023, at the 'What Does It Mean to Work?' Essay Contest, my essay 'Lovingly Walking Through the World of a Janitor,' written under the pen name 'Ken Kazeori' and highlighting an existential approach to work, won the Chairperson's Award (top 14) out of 1,112 entries. The story is underpinned by Heidegger's ontology, Sartre's theory of the Other, Levinas's ethics, and Kitaro Nishida's 'pure experience.' It is a fiction conceived from the experience of seeing Shinjuku scattered with trash in the early morning and imagining the janitors who work there.", 
+                work2Button: `Read Essay <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
+                work3Title: "The 10th “Design Your Own Brand Label” Contest", work3Subtitle: "Top 40 / Exhibition at Tokyo Big Sight", 
+                work3Body: "In 2023, I participated in this contest organized by Tokyo Yoshioka Co., Ltd. I built the concept and hang tag design for a fictional apparel brand 'ONESAGE' (a pun on 'price reduction'). I created the work using 100% biodegradable plastic with a 3D printer. The work was selected in the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight for 3 days. Although paint peeled off due to shipping issues and I missed an award, it was a very stimulating experience.",
+                work3Button: `View Work <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
+                work4Title: "Overseas Poker Experience", work4Subtitle: "Return on Investment: 532%", 
+                work4Body: "From October 2023 to February 2024, in my hobby of poker (No-Limit Texas Hold'em), backed by game theory research and the experience and intuition of hundreds of thousands of hands, I played 26 sessions in 10 cities around the world during my study abroad, recording a profit of €5,056 (approx. ¥908,000). My highest ROI temporarily reached 927.125%. I managed this while ensuring it did not interfere with my university classes. (Total play time: 175 hours 52 minutes, Hourly rate: approx. ¥5,200 (€28.75))",
+                work5Title: "Waseda University x PIVOT Inc.", work5Subtitle: "Collaboration Project Video Executive Committee", work5Body: "As an executive committee member of BEYOND 2020 NEXT PROJECT, a Waseda University official circle for aspiring entrepreneurs, I spent about four months negotiating the collaborative project 'Real Investment Documentary ANGELS in Waseda University' between PIVOT Inc. and Waseda University. The filming took place at the Okuma Auditorium on the Waseda campus.", 
+                work5Button: `Watch Video <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
+                work6Title: "Introduction to Social Design” Report Contest", work6Subtitle: "Excellence Award", work6Body: "In 2022, in the report contest for the “Introduction to Social Design” course hosted by faculty members including the Dean of the School of Social Sciences at Waseda University, I proposed a new type of coworking space that combines Web3 with conventional coworking spaces and received the Excellence Award.",
+                work7Title: "The 6th “Creativity, Infinity ∞” High School Business Plan Grand Prix 2018", work7Subtitle: "Director General’s Award, Tokyo Metropolitan Bureau of Industrial and Labor Affairs", work7Body: "In 2018, in the National High School Business Plan Grand Prix hosted by the Japan Finance Corporation, my business plan was selected among the Top 100 out of 4,359 submissions. I advanced to the Tokyo metropolitan finals and received the Director General’s Award from the Tokyo Metropolitan Bureau of Industrial and Labor Affairs (second place, next to the Governor’s Award).",
+                work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
+                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
+                skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
                 contactTitle: `<span class="relative inline-block group hover:scale-105 transition-transform duration-300 cursor-default mr-4 md:mr-6 align-middle hover-trigger"><span class="absolute inset-0 bg-neoRed border-4 border-black transform -rotate-2 translate-x-2 translate-y-2 shadow-[8px_8px_0px_#D6FC52] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-[4px_4px_0px_#D6FC52] transition-all z-0"></span><span class="relative z-10 text-white px-4 py-2 block transform -rotate-2 group-hover:rotate-0 transition-transform font-stylish italic tracking-tighter text-[6vw] md:text-6xl leading-tight">ACCOMPLICES</span></span><br class="md:hidden"> <span class="inline-block mt-2 md:mt-0 align-middle">WANTED.</span>`,
                 contactBody: "Please feel free to contact me. Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
