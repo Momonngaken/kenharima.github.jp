@@ -1076,9 +1076,17 @@
         let count = 0;
         let currentLang = 'ja';
         
+        // --- LANGUAGE DETECTION & APPLICATION (MODIFIED FOR FIX) ---
         function detectLanguage() {
             const userLang = navigator.language || navigator.userLanguage;
-            if (userLang.startsWith('en')) { currentLang = 'en'; switchLanguage(false); }
+            // Only switch variable if English detected, default is 'ja'
+            if (userLang.startsWith('en')) { 
+                currentLang = 'en'; 
+            } else {
+                currentLang = 'ja';
+            }
+            // IMPORTANT: Apply language immediately (even if Japanese) to overwrite hardcoded English placeholders
+            applyLanguage(false);
         }
 
         function initLoader() {
@@ -1203,7 +1211,7 @@
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
-                daikinRole: "/// 配属：解析中...", // NEW
+                daikinRole: "/// 配属：解析中...", // FIXED TEXT
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
                 aboutBody1: "",
@@ -1286,10 +1294,11 @@
         const mobileLangText = document.getElementById('mobile-lang-text-wrap');
         const mobileLangBg = document.getElementById('mobile-lang-bg');
 
-        function switchLanguage(animate = true) {
-             currentLang = currentLang === 'ja' ? 'en' : 'ja';
+        // --- SEPARATE "APPLY" FROM "SWITCH" FOR INITIAL LOAD FIX ---
+        function applyLanguage(animate = true) {
             if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } 
             else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
+            
             if(mobileLangBg && animate) {
                 mobileLangBg.animate([ { transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' } ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
                 setTimeout(() => {
@@ -1297,6 +1306,7 @@
                     else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); }
                 }, 100);
             }
+            
             translatableElements.forEach(el => {
                 const key = el.dataset.key; const newText = translations[currentLang][key];
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
@@ -1306,6 +1316,12 @@
                 } else { el.innerHTML = newText; }
             });
         }
+
+        function switchLanguage(animate = true) {
+             currentLang = currentLang === 'ja' ? 'en' : 'ja';
+             applyLanguage(animate);
+        }
+        
         langToggle.addEventListener('click', () => switchLanguage(true));
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
