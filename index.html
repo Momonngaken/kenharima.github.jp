@@ -15,6 +15,10 @@
     <meta property="og:description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI.">
     <meta property="og:image" content="https://your-domain.com/ogp.jpg">
     <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="播磨 賢 | Ken HARIMA - Portfolio">
+    <meta property="twitter:description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI.">
+    <meta property="twitter:image" content="https://your-domain.com/ogp.jpg">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -45,7 +49,7 @@
                     fontFamily: {
                         sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
-                        mono: ['monospace'],
+                        mono: ['monospace'], // Ensure monospace is available
                     },
                     colors: {
                         neoBg: '#F0F0EB',
@@ -54,7 +58,7 @@
                         neoPurple: '#B983FF',
                         neoRed: '#FF4D4D',
                         neoBlue: '#5D5FEF',
-                        pokerBlue: '#0044AA',
+                        pokerBlue: '#0044AA', /* Custom Poker Mat Color */
                     },
                     animation: {
                         'glow': 'glow 0.5s ease-in-out infinite alternate',
@@ -65,31 +69,13 @@
     </script>
 
     <style>
-        /* --- CORE & PERFORMANCE OPTIMIZATIONS --- */
-        .gpu-accelerated { 
-            transform: translate3d(0, 0, 0); 
-            backface-visibility: hidden; 
-            will-change: transform; 
-        }
+        /* --- CORE & PERFORMANCE --- */
+        .gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
+        body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; }
         
-        /* Content Visibility to skip rendering off-screen content */
-        section {
-            content-visibility: auto;
-            contain-intrinsic-size: 1000px; /* Estimate height */
-        }
-
-        body { 
-            background-color: #F0F0EB; 
-            color: #121212; 
-            /* Optimized cursor handling: Apply to body only */
-            cursor: none; 
-            overflow-x: hidden; 
-        }
-        
-        /* Restore cursor for touch/small screens */
-        @media (hover: none) and (pointer: coarse), (max-width: 1024px) {
-            body, * { cursor: auto !important; }
-            .cursor-wrapper { display: none !important; }
+        /* Hide Default Cursor (PC Only) */
+        @media (min-width: 1025px) and (hover: hover) {
+            * { cursor: none !important; }
         }
 
         /* LENIS */
@@ -102,11 +88,11 @@
         body.is-loading { overflow: hidden; height: 100vh; }
         #progress-bar { position: fixed; top: 0; left: 0; height: 6px; background: #5D5FEF; width: 0%; z-index: 100; transition: width 0.1s ease-out; }
         
-        /* Grain - Optimized */
+        /* Grain */
         .grain-overlay { 
             position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            transform: translateZ(0); /* Force GPU Layer */
+            transform: translateZ(0); 
         }
         
         /* --- 1. LIQUID CYBER CURSOR STYLES --- */
@@ -114,14 +100,19 @@
             position: fixed; top: 0; left: 0; pointer-events: none; 
             z-index: 20000; 
             mix-blend-mode: difference;
-            will-change: transform; /* Optimize movement */
+        }
+        
+        /* --- MOBILE/TABLET CURSOR FIX --- */
+        /* Hide custom cursor on touch devices or screens smaller than 1024px */
+        @media (hover: none) and (pointer: coarse), (max-width: 1024px) {
+            .cursor-wrapper { display: none !important; }
+            body, * { cursor: auto !important; } /* Restore system cursor behavior */
         }
 
         .cursor-dot {
             position: absolute; top: 0; left: 0; width: 8px; height: 8px;
             background-color: #D6FC52; border-radius: 50%;
             transform: translate(-50%, -50%);
-            will-change: transform;
         }
         .cursor-liquid {
             position: absolute; top: 0; left: 0;
@@ -130,8 +121,7 @@
             background-color: rgba(214, 252, 82, 0.1);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            /* Removed transition here to let GSAP handle it smoothly without conflict */
-            will-change: transform, width, height;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
         }
         body.hovering .cursor-liquid {
             background-color: #D6FC52;
@@ -143,11 +133,7 @@
 
         /* Components */
         .neo-border { border: 3px solid #121212; }
-        .neo-shadow { 
-            box-shadow: 6px 6px 0px #121212; 
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-            will-change: transform, box-shadow; 
-        }
+        .neo-shadow { box-shadow: 6px 6px 0px #121212; transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform, box-shadow; }
         .neo-shadow:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px #121212; }
         .neo-shadow:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #121212; }
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
@@ -160,7 +146,7 @@
         /* Typography */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .font-tight { letter-spacing: -0.06em; }
-        .scramble-text { display: inline-block; min-width: 1em; font-feature-settings: "tnum"; }
+        .scramble-text { display: inline-block; min-width: 1em; }
         
         /* Marquee & Grid */
         .marquee-container { display: flex; overflow: hidden; user-select: none; width: 100%; }
@@ -172,13 +158,10 @@
         .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; transform-origin: top center; }
         .lang-fade { transition: opacity 0.3s ease; }
         
-        /* Interactive Blob - Optimized */
+        /* Interactive Blob */
         .interactive-blob { 
-            position: fixed; top: 0; left: 0; border-radius: 50%; 
-            filter: blur(60px); /* Reduced blur for performance */
-            opacity: 0.4; pointer-events: none; z-index: -1; 
-            transform: translate(-50%, -50%) translateZ(0); 
-            will-change: transform;
+            position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; 
+            transform: translate(-50%, -50%) translateZ(0); will-change: transform;
         }
         
         /* Loader */
@@ -187,7 +170,7 @@
         
         /* --- 2. POKER GAME REDESIGN (TAIPA STYLE) --- */
         #poker-game {
-            background-color: #0044AA;
+            background-color: #0044AA; /* Deep Blue Mat Color */
             background-image: radial-gradient(circle at 50% 50%, #0055CC 0%, #003388 100%);
             box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
         }
@@ -198,24 +181,24 @@
             width: 80px; height: 112px; 
             position: relative; cursor: pointer; 
             transform-style: preserve-3d;
-            will-change: transform;
         }
         @media (min-width: 768px) { 
             .card-container { width: 140px; height: 196px; } 
         }
         
+        /* This is the flipper */
         .card-inner { 
             width: 100%; height: 100%; 
             position: relative; 
             transform-style: preserve-3d; 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: transform;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Snappy flip */
         }
         
+        /* The faces */
         .card-front, .card-back { 
             position: absolute; width: 100%; height: 100%; 
             backface-visibility: hidden; 
-            border-radius: 8px;
+            border-radius: 8px; /* Slightly tighter radius for sharp look */
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
@@ -223,76 +206,129 @@
         .card-back { 
             background: #0033AA;
             border: 4px solid white;
-            display: flex; justify-content: center; align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             transform: rotateY(0deg); 
         }
 
         .card-back::after {
             content: 'KEN.H';
-            font-family: 'Syne', sans-serif; font-weight: 900; font-style: italic;
-            color: rgba(255,255,255,0.2); font-size: 24px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            color: rgba(255,255,255,0.2);
+            font-size: 24px;
             transform: rotate(-45deg);
         }
         
         .card-front { 
             background: white; 
             transform: rotateY(180deg);
-            display: flex; justify-content: center; align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        /* TAIPA TYPOGRAPHY STYLE */
         .taipa-num {
-            font-family: 'Inter', sans-serif; font-weight: 900;
-            font-size: 6rem; line-height: 0.75; letter-spacing: -0.08em;
-            color: #121212; transform: scaleY(1.1); z-index: 10;
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 6rem; /* Huge */
+            line-height: 0.75;
+            letter-spacing: -0.08em;
+            color: #121212;
+            transform: scaleY(1.1); /* Condensed look */
+            z-index: 10;
         }
-        @media (min-width: 768px) { .taipa-num { font-size: 9rem; } }
+        @media (min-width: 768px) {
+            .taipa-num { font-size: 9rem; }
+        }
         
+        /* 10 needs special kern */
         .taipa-num-10 { letter-spacing: -0.15em; margin-left: -5px; }
-        .corner-pip { position: absolute; font-size: 1.2rem; font-weight: bold; line-height: 1; }
+        
+        .corner-pip {
+            position: absolute;
+            font-size: 1.2rem;
+            font-weight: bold;
+            line-height: 1;
+        }
         .top-left { top: 6px; left: 6px; }
         .bottom-right { bottom: 6px; right: 6px; transform: rotate(180deg); }
 
-        .card-container.is-winner { pointer-events: none; z-index: 50; }
+        /* --- WIN STATE ANIMATIONS --- */
+        .card-container.is-winner {
+            pointer-events: none;
+            z-index: 50;
+        }
         
         .win-overlay-text {
-            position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); z-index: 9999; width: 100%;
-            text-align: center; pointer-events: none;
-            will-change: opacity, transform;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
         }
         
         .win-word {
             display: block;
-            font-family: 'Syne', sans-serif; font-weight: 900; font-style: italic;
-            font-size: 12vw; line-height: 0.85;
-            color: #D6FC52; text-shadow: 4px 4px 0 #000;
-            opacity: 0; transform: scale(3);
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 12vw;
+            line-height: 0.85;
+            color: #D6FC52; /* Neon Yellow */
+            text-shadow: 4px 4px 0 #000;
+            opacity: 0;
+            transform: scale(3);
         }
 
+        /* Invert Flash Overlay */
         #flash-overlay {
             position: fixed; inset: 0; z-index: 100000;
             pointer-events: none; opacity: 0; 
             background-color: white;
-            will-change: opacity;
         }
         
         /* Contact Modal */
         #contact-modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         #contact-modal.is-open { opacity: 1; pointer-events: auto; }
         .modal-content { transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
-        #contact-modal.is-open .modal-content { transform: scale(1); cursor: default !important; }
-        #contact-modal.is-open button, #contact-modal.is-open .close-modal { cursor: pointer !important; }
-        #contact-modal.is-open input, #contact-modal.is-open textarea { cursor: text !important; }
+        #contact-modal.is-open .modal-content { transform: scale(1); }
         .form-input { width: 100%; background: #F0F0EB; border: 3px solid #121212; padding: 12px; font-weight: bold; outline: none; transition: all 0.2s; }
         .form-input:focus { background: white; box-shadow: 4px 4px 0px #D6FC52; transform: translate(-2px, -2px); }
         
-        .magnetic-btn { display: inline-block; will-change: transform; }
+        /* FIXED: Modal Internal Cursor Logic */
+        #contact-modal.is-open .modal-content {
+            cursor: default !important; /* Restore default cursor inside modal */
+        }
+        #contact-modal.is-open button, 
+        #contact-modal.is-open .close-modal {
+            cursor: pointer !important;
+        }
+        #contact-modal.is-open input, 
+        #contact-modal.is-open textarea {
+            cursor: text !important;
+        }
+        
+        .magnetic-btn { display: inline-block; }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
 
-    <!-- Filter REMOVED for performance, replaced with CSS transform stretching -->
-    
+    <!-- SVG Filter for Liquid Cursor -->
+    <svg class="hidden">
+        <defs>
+            <filter id="liquidFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="1" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
     <!-- Cursor Elements -->
     <div class="cursor-wrapper">
         <div class="cursor-liquid"></div>
@@ -305,14 +341,14 @@
     <!-- Win Text Overlay -->
     <div id="win-text-container" class="win-overlay-text">
         <div class="win-word word-royal">ROYAL</div>
+        <!-- REPLACED text-stroke with SOLID WHITE text for visibility -->
         <div class="win-word word-straight text-white">STRAIGHT</div>
         <div class="win-word word-flush text-neoRed">FLUSH</div>
     </div>
 
     <div id="blob-1" class="interactive-blob w-96 h-96 bg-neoBlue"></div>
     <div id="blob-2" class="interactive-blob w-64 h-64 bg-neoRed" style="animation-delay: -2s;"></div>
-    <!-- Fixed static blob -->
-    <div class="fixed top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse -z-10 pointer-events-none transform translate-z-0"></div>
+    <div class="fixed top-1/4 right-[10%] w-64 h-64 bg-neoPurple rounded-full blur-3xl opacity-30 animate-pulse -z-10 pointer-events-none"></div>
 
     <!-- Loader -->
     <div id="loader">
@@ -405,6 +441,7 @@
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
+            
              <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover-bg-white hover:text-[#0077B5]"
                aria-label="LinkedIn Profile">
@@ -414,6 +451,7 @@
     </header>
 
     <main>
+        <!-- UPDATED SECTION PADDING AND TITLE SIZE HERE -->
         <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-48 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full px-4">
@@ -425,12 +463,15 @@
                     </div>
                 </div>
                 <div class="relative title-anim fade-in-up">
+                    <!-- UPDATED TEXT SIZES TO PREVENT OVERLAP (12vw->11vw, 11rem->9rem) -->
                     <h1 class="font-display text-[11vw] md:text-[9rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
+                        <!-- REMOVED 'scramble-on-load' class from the spans below -->
                         <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade hover-trigger" data-key="heroTitle1">播磨 賢</span>
                         <span class="block text-black lang-fade hover-trigger" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
                 </div>
 
+                <!-- REDESIGNED: Timeline Cards -->
                 <div class="mt-10 md:mt-12 w-full max-w-5xl mx-auto fade-in-up relative z-10 px-4">
                     <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12">
                         
@@ -454,13 +495,14 @@
                             ↓
                         </div>
 
-                        <!-- Daikin Card -->
+                        <!-- Daikin Card (CREATIVE FIX FOR UNDECIDED DEPARTMENT) -->
                         <div class="relative group hover-trigger w-full md:w-auto max-w-xs">
                             <div class="absolute inset-0 bg-neoYellow translate-x-2 translate-y-2 rounded-lg transition-transform group-hover:translate-x-1 group-hover:translate-y-1 border-[3px] border-black"></div>
                             <div class="relative bg-neoBlue text-white border-[3px] border-black p-5 rounded-lg transform rotate-2 group-hover:rotate-0 transition-transform duration-300 min-w-[280px]">
                                 <div class="bg-white text-black text-[0.65rem] font-black px-2 py-0.5 border border-black mb-3 inline-block animate-pulse">NEXT STAGE</div>
                                 <h3 class="text-2xl font-black font-stylish italic leading-none mb-1">DAIKIN IND.</h3>
                                 
+                                <!-- Creative "Undecided/Locked" Visual -->
                                 <div class="mb-3 mt-2 font-mono">
                                     <div class="flex items-center gap-2 text-neoYellow">
                                         <span class="animate-spin text-xs">❋</span>
@@ -483,7 +525,7 @@
                 </div>
             </div>
 
-            <!-- Marquee -->
+            <!-- REDESIGNED: Marquee -->
             <div class="absolute bottom-0 left-0 w-full bg-black border-y-4 border-neoYellow py-3 z-10 overflow-hidden rotate-1 scale-105 origin-bottom-left">
                 <div class="marquee-container">
                     <div class="marquee-content text-white font-black text-xl md:text-2xl uppercase italic tracking-wider">
@@ -519,17 +561,28 @@
                             <p class="lang-fade" data-key="aboutBody1">こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。シンガポール生まれ、日本とマレーシアのハーフ。ドイツ・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。</p>
                             <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業</p>
                             
+                            <!-- UPDATED HASHTAGS WITH PAWN ICON -->
                             <div class="flex flex-wrap gap-4 mt-8">
+                                <!-- GameTheory with 2D Pawn Icon -->
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoYellow transition-colors hover-trigger flex items-center gap-2 group">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 384 512"><path d="M192 0c53 0 96 43 96 96s-43 96-96 96-96-43-96-96S139 0 192 0zM64 464c0 26.5 21.5 48 48 48h160c26.5 0 48-21.5 48-48 0-26.5-21.5-48-48-48h-16v-56.3c22.2-8.8 40.9-24.5 53.3-44.3 12.6-20.1 18.7-43 18.7-67.5V192h-256v56c0 24.4 6.2 47.4 18.7 67.5 12.4 19.8 31.1 35.5 53.3 44.3V416h-16c-26.5 0-48 21.5-48 48z"/></svg>
+                                    <!-- Standard 2D Side-View Pawn Icon -->
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 384 512">
+                                        <path d="M192 0c53 0 96 43 96 96s-43 96-96 96-96-43-96-96S139 0 192 0zM64 464c0 26.5 21.5 48 48 48h160c26.5 0 48-21.5 48-48 0-26.5-21.5-48-48-48h-16v-56.3c22.2-8.8 40.9-24.5 53.3-44.3 12.6-20.1 18.7-43 18.7-67.5V192h-256v56c0 24.4 6.2 47.4 18.7 67.5 12.4 19.8 31.1 35.5 53.3 44.3V416h-16c-26.5 0-48 21.5-48 48z"/>
+                                    </svg>
                                     #GameTheory
                                 </span>
+                                <!-- SocialDesign with Network Icon -->
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoBlue hover:text-white transition-colors hover-trigger flex items-center gap-2 group">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM609.3 512l-137.8 0c5.4-9.4 8.6-20.3 8.6-32l0-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2l61.4 0C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-57.9-16.9-72-42.6c18.3-27.6 28-61.5 26-97.4c36.9 0 66.8 29.9 66.8 66.8C452.8 222.1 441.9 256 432 256z"/></svg>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 640 512">
+                                        <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM609.3 512l-137.8 0c5.4-9.4 8.6-20.3 8.6-32l0-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2l61.4 0C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-57.9-16.9-72-42.6c18.3-27.6 28-61.5 26-97.4c36.9 0 66.8 29.9 66.8 66.8C452.8 222.1 441.9 256 432 256z"/>
+                                    </svg>
                                     #SocialDesign
                                 </span>
+                                <!-- CreativeWriting with Pen/Nib Icon -->
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoRed hover:text-white transition-colors hover-trigger flex items-center gap-2 group">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M368.4 18.3L312.7 74.1l54.2 54.2L422.6 72.6c12.2-12.2 12.2-32 0-44.2l-9.9-9.9c-12.2-12.2-32-12.2-44.2 0zM282.5 104.3L46.2 340.6 116 410.5l236.3-236.3-69.8-69.8zM33.7 384.3L126.3 477l-98.1 25.4c-2.2 .6-4.5 .9-6.7 .9c-15.1 0-27.3-12.2-21.5-26.7l33.7-92.3z"/></svg>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512">
+                                        <path d="M368.4 18.3L312.7 74.1l54.2 54.2L422.6 72.6c12.2-12.2 12.2-32 0-44.2l-9.9-9.9c-12.2-12.2-32-12.2-44.2 0zM282.5 104.3L46.2 340.6 116 410.5l236.3-236.3-69.8-69.8zM33.7 384.3L126.3 477l-98.1 25.4c-2.2 .6-4.5 .9-6.7 .9c-15.1 0-27.3-12.2-21.5-26.7l33.7-92.3z"/>
+                                    </svg>
                                     #CreativeWriting
                                 </span>
                             </div>
@@ -705,7 +758,9 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
             
             <div class="container mx-auto text-center max-w-5xl relative z-10">
+                <!-- CREATIVE TEXT UPDATE FOR "SAME TABLE / DEAL YOU IN" -->
                 <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle">
+                     <!-- DEFAULT CONTENT WILL BE INJECTED BY JS -->
                 </h2>
                 
                 <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
@@ -724,7 +779,7 @@
             </div>
         </section>
 
-        <!-- POKER GAME -->
+        <!-- REDESIGNED POKER GAME SECTION (TAIPA STYLE) -->
         <section id="poker-game" class="py-32 border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
                 <h3 class="text-white text-xl md:text-2xl font-black mb-12 font-stylish italic opacity-80 tracking-widest">
@@ -811,14 +866,7 @@
 
     <script>
         // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
-        // Optimized settings for performance
-        const lenis = new Lenis({ 
-            duration: 0.9, 
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            smooth: true, 
-            touchMultiplier: 2,
-            syncTouch: true // Improves touch device response
-        });
+        const lenis = new Lenis({ duration: 0.9, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
@@ -843,19 +891,19 @@
         }
         const scrambler = new ScrambleText();
 
-        // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC (OPTIMIZED) ---
+        // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
+            // Check if device is touch or screen is small (Tablet/Mobile)
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 1024);
+            
+            // If mobile/tablet, do NOT run custom cursor logic
             if (isTouchDevice) return;
 
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
+            const liquidFilter = document.querySelector('#liquidFilter feDisplacementMap');
             
-            // Use quickTo for much better performance than .to()
-            const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
-            const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
-            
-            // Liquid follower vars
+            // Mouse State
             let mouseX = window.innerWidth / 2;
             let mouseY = window.innerHeight / 2;
             let currentX = mouseX;
@@ -864,38 +912,43 @@
             window.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-                xToDot(mouseX);
-                yToDot(mouseY);
+                // Move dot instantly
+                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 });
             });
 
-            // Optimize Ticker: No SVG filter updates, just CSS transforms
+            // Loop for Liquid Follower
             gsap.ticker.add(() => {
                 const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
+                
                 const dx = mouseX - currentX;
                 const dy = mouseY - currentY;
                 
                 currentX += dx * dt;
                 currentY += dy * dt;
                 
+                // Velocity Calculation for stretch
                 const velocity = Math.sqrt(dx * dx + dy * dy);
                 const angle = Math.atan2(dy, dx) * 180 / Math.PI;
                 
-                // CSS Stretch Effect (Replaces SVG Displacement Map for performance)
+                // Stretch factor (capped)
                 const stretch = Math.min(velocity * 0.005, 0.5);
                 const scaleX = 1 + stretch;
-                const scaleY = 1 - stretch * 0.4;
+                const scaleY = 1 - stretch * 0.5;
+                
+                // Filter Distortion based on speed
+                const distortion = Math.min(velocity * 0.5, 50);
+                if(liquidFilter) liquidFilter.setAttribute('scale', distortion);
 
-                // Apply transform directly
                 gsap.set(cursorLiquid, {
                     x: currentX, 
                     y: currentY, 
                     rotation: angle, 
                     scaleX: scaleX, 
-                    scaleY: scaleY,
-                    overwrite: 'auto'
+                    scaleY: scaleY
                 });
             });
 
+            // Magnetic Hover & Blend Mode Trigger
             const hovers = document.querySelectorAll('.hover-trigger, a, button');
             hovers.forEach(el => {
                 el.addEventListener('mouseenter', () => {
@@ -909,7 +962,7 @@
             });
         }
 
-        // --- 2. POKER GAME: OPTIMIZED ---
+        // --- 2. POKER GAME: ULTIMATE CREATIVE MODE ---
         let flippedCount = 0; 
         const totalCards = 5;
         let gameWon = false;
@@ -934,40 +987,65 @@
         function triggerWin() {
             gameWon = true;
             
+            // 1. Dim Background & Scroll Lock
             gsap.to('#poker-game', { backgroundColor: '#000', duration: 1 });
             
+            // 2. Cards Levitation & Gold Glow
             const cards = document.querySelectorAll('.card-container');
             const tl = gsap.timeline();
 
             tl.to(cards, {
-                y: -50, scale: 1.1, boxShadow: '0 0 50px #FFD700', duration: 1, stagger: 0.1, ease: "back.out(1.2)",
+                y: -50,
+                scale: 1.1,
+                boxShadow: '0 0 50px #FFD700',
+                duration: 1,
+                stagger: 0.1,
+                ease: "back.out(1.2)",
                 onStart: () => {
                     cards.forEach(c => {
                         c.classList.add('is-winner');
-                        const front = c.querySelector('.card-front');
-                        front.style.boxShadow = '0 0 30px #FFD700, inset 0 0 20px #FFD700';
-                        front.style.borderColor = '#FFD700';
+                        c.querySelector('.card-front').style.boxShadow = '0 0 30px #FFD700, inset 0 0 20px #FFD700';
+                        c.querySelector('.card-front').style.borderColor = '#FFD700';
                     });
                 }
             })
+            
+            // 3. Flash Overlay
             .to('#flash-overlay', { opacity: 1, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.inOut" }, "-=0.5")
-            .to('.win-word', { opacity: 1, duration: 0.1 }, "-=0.2")
-            .fromTo('.word-royal', { scale: 5, opacity: 0, z: 500 }, { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" })
-            .to('#poker-game', { x: 10, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<")
-            .fromTo('.word-straight', { scale: 5, opacity: 0, z: 500 }, { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" })
+            
+            // 4. Text Explosion Sequence
+            .to('.win-word', { opacity: 1, duration: 0.1 }, "-=0.2") // Make visible for anim
+            .fromTo('.word-royal', 
+                { scale: 5, opacity: 0, z: 500 }, 
+                { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" }
+            )
+            .to('#poker-game', { x: 10, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<") // Camera Shake
+            
+            .fromTo('.word-straight', 
+                { scale: 5, opacity: 0, z: 500 }, 
+                { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" }
+            )
             .to('#poker-game', { x: -10, y: -10, yoyo:true, repeat:5, duration:0.05 }, "<")
-            .fromTo('.word-flush', { scale: 5, opacity: 0, z: 500 }, { scale: 1, opacity: 1, z: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" })
+            
+            .fromTo('.word-flush', 
+                { scale: 5, opacity: 0, z: 500 }, 
+                { scale: 1, opacity: 1, z: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" }
+            )
             .to('#poker-game', { x: 0, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<")
+            
+            // 5. Confetti Rain
             .add(() => { createChipConfetti(); }, "-=0.5")
-            .to('#win-text-container', { autoAlpha: 0, duration: 1, delay: 2.5 })
-            .to('#poker-game', { backgroundColor: '#0044AA', duration: 1 }, "<");
+
+            // 6. Fade Out Sequence (Clean up view)
+            .to('#win-text-container', { autoAlpha: 0, duration: 1, delay: 2.5 }) // Fade out text after 2.5s
+            .to('#poker-game', { backgroundColor: '#0044AA', duration: 1 }, "<"); // Revert background color
         }
 
         function createChipConfetti() {
             const container = document.getElementById('confetti-container');
             const colors = ['#D6FC52', '#FF4D4D', '#5D5FEF', '#FFFFFF', '#FFD700'];
-            // Reduced count from 150 to 60 for performance
-            for(let i = 0; i < 60; i++) {
+            
+            for(let i = 0; i < 150; i++) {
                 const chip = document.createElement('div');
                 const size = Math.random() * 20 + 10;
                 const isChip = Math.random() > 0.5;
@@ -978,8 +1056,6 @@
                 chip.style.left = Math.random() * 100 + '%';
                 chip.style.top = '-50px';
                 chip.style.zIndex = 100;
-                // Optimize confetti rendering
-                chip.style.willChange = 'transform';
                 
                 if(isChip) {
                     chip.style.borderRadius = '50%';
@@ -1014,9 +1090,16 @@
         let count = 0;
         let currentLang = 'ja';
         
+        // --- LANGUAGE DETECTION & APPLICATION (MODIFIED FOR FIX) ---
         function detectLanguage() {
             const userLang = navigator.language || navigator.userLanguage;
-            if (userLang.startsWith('en')) { currentLang = 'en'; } else { currentLang = 'ja'; }
+            // Only switch variable if English detected, default is 'ja'
+            if (userLang.startsWith('en')) { 
+                currentLang = 'en'; 
+            } else {
+                currentLang = 'ja';
+            }
+            // IMPORTANT: Apply language immediately (even if Japanese) to overwrite hardcoded English placeholders
             applyLanguage(false);
         }
 
@@ -1047,7 +1130,7 @@
 
         function initSite() {
             startLenis();
-            initLiquidCursor();
+            initLiquidCursor(); // New Cursor
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); 
             initInteractiveBackground();
@@ -1058,19 +1141,11 @@
             gsap.from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
 
-        // Optimized Interactive Background (QuickTo)
         function initInteractiveBackground() {
             const blob1 = document.getElementById('blob-1'); const blob2 = document.getElementById('blob-2');
-            // quickTo is more performant than repetitive .to()
-            const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"}); 
-            const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
-            const xTo2 = gsap.quickTo(blob2, "x", {duration: 1.2, ease: "power3"}); 
-            const yTo2 = gsap.quickTo(blob2, "y", {duration: 1.2, ease: "power3"});
-            
-            window.addEventListener("mousemove", (e) => { 
-                xTo1(e.clientX); yTo1(e.clientY); 
-                xTo2(e.clientX); yTo2(e.clientY); 
-            });
+            const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"}); const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
+            const xTo2 = gsap.quickTo(blob2, "x", {duration: 1.2, ease: "power3"}); const yTo2 = gsap.quickTo(blob2, "y", {duration: 1.2, ease: "power3"});
+            window.addEventListener("mousemove", (e) => { xTo1(e.clientX); yTo1(e.clientY); xTo2(e.clientX); yTo2(e.clientY); });
         }
 
         function initMagneticButtons() {
@@ -1078,8 +1153,7 @@
             magnets.forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const bounds = btn.getBoundingClientRect();
-                    const x = e.clientX - bounds.left - bounds.width / 2; 
-                    const y = e.clientY - bounds.top - bounds.height / 2;
+                    const x = e.clientX - bounds.left - bounds.width / 2; const y = e.clientY - bounds.top - bounds.height / 2;
                     gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: "power2.out" });
                 });
                 btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" }); });
@@ -1146,12 +1220,13 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- TRANSLATION DATA ---
+        // --- TRANSLATION DATA (UPDATED for Daikin & Creative Contact) ---
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
                 daikinRole: "/// 配属：解析中...", 
+                marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
                 aboutBody1: "",
                 aboutBody2: "学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業",
@@ -1171,10 +1246,13 @@
                 work6Title: "「社会デザイン論入門」レポートコンテスト", work6Subtitle: "優秀賞受賞", work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
                 work7Title: "第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018", work7Subtitle: "東京都産業労働局長賞受賞", work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。",
                 work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
+                // --- FIXED SECTION START ---
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", 
                 work9Subtitle: "107位入賞", 
                 work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
+                // --- FIXED SECTION END ---
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
+                /* --- UPDATED CONTACT SECTION --- */
                 contactTitle: `
                 <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span>
                 <span class="block text-[7vw] md:text-8xl font-black leading-tight">
@@ -1193,7 +1271,8 @@
             en: {
                 navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
                 heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
-                daikinRole: "/// DEPLOYMENT_PENDING",
+                daikinRole: "/// DEPLOYMENT_PENDING", // NEW
+                marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "About Me",
                 aboutBody1: "",
                 aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange) Hiroo Gakuen Junior and Senior High School",
@@ -1215,6 +1294,7 @@
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
+                /* --- UPDATED CONTACT SECTION (EN) --- */
                 contactTitle: `
                 <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span>
                 <span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">
@@ -1232,6 +1312,7 @@
             }
         };
 
+        // --- DYNAMIC GREETING & TEXT INJECTION ---
         {
             const now = new Date(); const totalMinutes = now.getHours() * 60 + now.getMinutes();
             let greetingJa, greetingEn;
@@ -1242,6 +1323,7 @@
             const nameHtmlJa = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>`;
             const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
             
+            // UPDATED BIO TEXT (MODIFIED FOR REQUEST)
             const bioJa = `です。シンガポール生まれ、日本とマレーシアのハーフ。ドイツ・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。`;
             
             const bioEn = `, I’m ${nameHtmlEn}. Born in Singapore to a Japanese–Malaysian family. My thinking is grounded in the philosophical logic I honed at the University of Mannheim in Germany, and the multi-faceted perspective I cultivated by moving between diverse cultural contexts. I also view poker not as a game of chance, but as a “game of imperfect information” with clear parallels to business. The process of calculating probabilities from limited information and consistently maximizing expected value has strengthened my ability to make logical, optimal decisions under uncertainty. I am confident this decision-making ability serves as a compass to unravel complex business challenges and guide teams to results via the shortest path, proving invaluable in any problem-solving context.`;
@@ -1260,6 +1342,7 @@
         const mobileLangText = document.getElementById('mobile-lang-text-wrap');
         const mobileLangBg = document.getElementById('mobile-lang-bg');
 
+        // --- SEPARATE "APPLY" FROM "SWITCH" FOR INITIAL LOAD FIX ---
         function applyLanguage(animate = true) {
             if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } 
             else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
@@ -1276,6 +1359,7 @@
                 const key = el.dataset.key; const newText = translations[currentLang][key];
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
                 if (animate) {
+                    // If content is just text and short, scramble. If it contains HTML (like our new creative titles), fade it.
                     if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
                     else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
                 } else { el.innerHTML = newText; }
