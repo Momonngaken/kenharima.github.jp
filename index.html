@@ -70,19 +70,10 @@
     <style>
         /* --- CORE & PERFORMANCE --- */
         .gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
-        body { background-color: #F0F0EB; color: #121212; overflow-x: hidden; }
+        body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; }
         
-        /* --- 0. CURSOR VISIBILITY LOGIC (FIXED) --- */
-        /* Desktop Only: Hide default cursor */
-        @media (min-width: 1025px) and (hover: hover) {
-            * { cursor: none !important; }
-        }
-        
-        /* Mobile/Tablet: Restore default cursor */
-        @media (max-width: 1024px), (hover: none) {
-            * { cursor: auto !important; }
-            .cursor-wrapper { display: none !important; }
-        }
+        /* Hide Default Cursor (Desktop) */
+        * { cursor: none !important; }
 
         /* LENIS */
         html.lenis, html.lenis body { height: auto; }
@@ -128,6 +119,12 @@
             border: none;
         }
         body.hovering .cursor-dot { opacity: 0; }
+
+        /* MOBILE/TABLET CURSOR OVERRIDE (FIX) */
+        @media (max-width: 1024px), (hover: none), (pointer: coarse) {
+            .cursor-wrapper { display: none !important; }
+            * { cursor: auto !important; }
+        }
 
         /* Components */
         .neo-border { border: 3px solid #121212; }
@@ -299,9 +296,9 @@
         .form-input { width: 100%; background: #F0F0EB; border: 3px solid #121212; padding: 12px; font-weight: bold; outline: none; transition: all 0.2s; }
         .form-input:focus { background: white; box-shadow: 4px 4px 0px #D6FC52; transform: translate(-2px, -2px); }
         
-        /* FIXED: Modal Internal Cursor Logic */
+        /* Modal Internal Cursor Logic (Still needed for desktop) */
         #contact-modal.is-open .modal-content {
-            cursor: default !important; /* Restore default cursor inside modal */
+            cursor: default !important; 
         }
         #contact-modal.is-open button, 
         #contact-modal.is-open .close-modal {
@@ -339,7 +336,6 @@
     <!-- Win Text Overlay -->
     <div id="win-text-container" class="win-overlay-text">
         <div class="win-word word-royal">ROYAL</div>
-        <!-- REPLACED text-stroke with SOLID WHITE text for visibility -->
         <div class="win-word word-straight text-white">STRAIGHT</div>
         <div class="win-word word-flush text-neoRed">FLUSH</div>
     </div>
@@ -428,7 +424,7 @@
                 <button id="open-contact-btn" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</button>
             </div>
             <button id="mobile-menu-btn" class="md:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
 
@@ -816,8 +812,8 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-            // --- MODIFIED: Disable cursor on touch devices or small screens ---
-            if (window.matchMedia("(max-width: 1024px)").matches || 'ontouchstart' in window) return;
+            // [OPTIMIZATION] Disable custom cursor logic on mobile/touch devices to save performance
+            if (window.matchMedia("(max-width: 1024px), (hover: none), (pointer: coarse)").matches) return;
 
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
