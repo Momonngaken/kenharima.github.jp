@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ECXCCZF93D');
+</script>
+    
+    <!-- 
+       =========================================
+       GOOGLE ANALYTICS 4 (GA4) SETUP
+       =========================================
+    -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ECXCCZF93D');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>播磨 賢 | Ken HARIMA - Portfolio</title>
@@ -41,6 +64,8 @@
 
     <!-- Vanilla Tilt -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <!-- Chart.js removed as we utilize Looker Studio -->
 
     <script>
         tailwind.config = {
@@ -315,6 +340,73 @@
         }
         
         .magnetic-btn { display: inline-block; }
+
+        /* =====================================================
+           ADMIN DASHBOARD STYLES (SECRET)
+           ===================================================== */
+        #admin-console {
+            position: fixed; inset: 0; z-index: 20001;
+            background: #050505; color: #00ff41;
+            display: none; opacity: 0;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        #admin-console.active {
+            display: flex; pointer-events: auto; cursor: auto !important;
+        }
+        .admin-grid-bg {
+            position: absolute; inset: 0; 
+            background: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .scanline {
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            z-index: 10; opacity: 0.6;
+        }
+        .admin-content {
+            position: relative; z-index: 5;
+            width: 100%; max-width: 1400px; margin: 0 auto;
+            padding: 2rem; height: 100vh; overflow-y: auto;
+            display: flex; flex-direction: column;
+        }
+        .admin-header {
+            border-bottom: 2px solid #00ff41;
+            padding-bottom: 1rem; margin-bottom: 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .admin-card {
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ff41;
+            padding: 1.5rem;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+        }
+        .glitch-text { position: relative; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+        }
+        .glitch-text::before { color: #ff0000; z-index: -1; animation: glitch-anim-1 0.4s infinite; }
+        .glitch-text::after { color: #0000ff; z-index: -2; animation: glitch-anim-2 0.4s infinite; }
+        @keyframes glitch-anim-1 { 0% { clip: rect(20px, 9999px, 10px, 0); left: -2px; } 100% { clip: rect(80px, 9999px, 90px, 0); left: 2px; } }
+        @keyframes glitch-anim-2 { 0% { clip: rect(60px, 9999px, 70px, 0); left: 2px; } 100% { clip: rect(10px, 9999px, 50px, 0); left: -2px; } }
+
+        /* Looker Studio Iframe Container */
+        .looker-studio-container {
+            width: 100%;
+            height: 70vh;
+            min-height: 600px;
+            border: 1px solid #00ff41;
+            background: #000;
+        }
+        .looker-studio-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -341,7 +433,6 @@
     <!-- Win Text Overlay -->
     <div id="win-text-container" class="win-overlay-text">
         <div class="win-word word-royal">ROYAL</div>
-        <!-- REPLACED text-stroke with SOLID WHITE text for visibility -->
         <div class="win-word word-straight text-white">STRAIGHT</div>
         <div class="win-word word-flush text-neoRed">FLUSH</div>
     </div>
@@ -713,7 +804,7 @@
                         <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
                             <div class="relative bg-neoRed text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
-                                    <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">PRESENTATION</div>
+                                    <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">PRESENTATION</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title">広尾学園中学校学年プレゼンテーション大会</h3>
                                     <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle">最優秀賞受賞</p>
                                     <p class="text-sm font-medium lang-fade" data-key="work8Body">2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。</p>
@@ -764,7 +855,7 @@
                 </h2>
                 
                 <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
-                    お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。
+                    お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。
                 </p>
                 
                 <div class="magnetic-btn inline-block">
@@ -857,12 +948,57 @@
 
     </main>
 
-    <footer class="bg-white border-t-4 border-black py-8">
+    <footer class="bg-white border-t-4 border-black py-8 relative z-20">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 md:gap-0">
-            <div><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
+            <!-- TRIGGER FOR ADMIN PANEL -->
+            <div><p id="footer-logo-trigger" class="text-6xl font-stylish italic tracking-tighter font-black cursor-pointer select-none hover:text-neoRed transition-colors">KEN.H</p></div>
             <p class="text-sm font-bold lang-fade" data-key="footerCopy">© 2025 Ken HARIMA. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- =====================================================
+         ADMIN CONSOLE UI (HIDDEN BY DEFAULT)
+         ===================================================== -->
+    <div id="admin-console">
+        <div class="admin-grid-bg"></div>
+        <div class="scanline"></div>
+        <div class="admin-content">
+            <div class="admin-header">
+                <div class="text-2xl font-black glitch-text" data-text="ADMIN_CONSOLE // ACCESS_GRANTED">ADMIN_CONSOLE // ACCESS_GRANTED</div>
+                <div class="font-bold text-sm" id="admin-clock">00:00:00</div>
+                <button id="admin-close" class="border border-green-500 px-4 py-1 hover:bg-green-500 hover:text-black transition">EXIT_GOD_MODE</button>
+            </div>
+            
+            <!-- LOOKER STUDIO CONTAINER -->
+            <div class="admin-card">
+                <h3 class="text-xl font-bold mb-4 text-white">GA4_DATA_STREAM</h3>
+                <div class="looker-studio-container">
+                    <!-- 
+                      =====================================================
+                      ★ここにLooker Studioのiframeを貼る★
+                      Step 4でコピーした <iframe> タグをここに貼り付けてください。
+                      =====================================================
+                    -->
+                    <iframe width="100%" height="100%" src="" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+                <p class="text-xs text-green-700 mt-2">* Data stream connected via Google Looker Studio Integration</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                <!-- SYSTEM LOG (KEEPING THIS FOR AESTHETICS) -->
+                <div class="admin-card overflow-hidden relative col-span-3">
+                     <h3 class="text-lg font-bold mb-2 text-white">SYSTEM_LOG</h3>
+                     <div class="text-xs font-mono h-32 overflow-y-hidden opacity-70" id="sys-log">
+                         > INIT_GA4_CONNECTION... OK<br>
+                         > FETCHING_CLIENT_ID... G-ECXCCZF93D<br>
+                         > HANDSHAKE_ESTABLISHED...<br>
+                         > DECRYPTING_PACKETS...<br>
+                         > RENDER_UI_COMPLETE.<br>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
@@ -1138,6 +1274,7 @@
             initKineticMarquee();
             initScrollSpy();
             initContactModal();
+            initAdminTrigger(); // NEW: Admin Trigger
             gsap.from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
 
@@ -1220,6 +1357,51 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
+        // --- ADMIN DASHBOARD LOGIC ---
+        function initAdminTrigger() {
+            const trigger = document.getElementById('footer-logo-trigger');
+            const adminConsole = document.getElementById('admin-console');
+            const closeBtn = document.getElementById('admin-close');
+            let clicks = 0;
+            let resetTimer;
+
+            trigger.addEventListener('click', () => {
+                clicks++;
+                clearTimeout(resetTimer);
+                
+                // Visual feedback
+                gsap.to(trigger, { color: '#FF4D4D', duration: 0.1, yoyo: true, repeat: 1 });
+
+                if(clicks >= 5) {
+                    openAdmin();
+                    clicks = 0;
+                } else {
+                    resetTimer = setTimeout(() => { clicks = 0; }, 2000);
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                gsap.to(adminConsole, { opacity: 0, duration: 0.5, onComplete: () => {
+                    adminConsole.classList.remove('active');
+                }});
+                document.body.style.overflow = '';
+            });
+
+            function openAdmin() {
+                adminConsole.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                gsap.to(adminConsole, { opacity: 1, duration: 0.5 });
+                startClock();
+            }
+
+            function startClock() {
+                setInterval(() => {
+                    const now = new Date();
+                    document.getElementById('admin-clock').innerText = now.toLocaleTimeString();
+                }, 1000);
+            }
+        }
+
         // --- TRANSLATION DATA (UPDATED for Daikin & Creative Contact) ---
         const translations = {
             ja: {
@@ -1265,7 +1447,7 @@
                     </span>
                 </span>
                 `,
-                contactBody: "お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。", 
+                contactBody: "お気軽にご連絡ください。ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             },
             en: {
@@ -1293,7 +1475,7 @@
                 work7Title: "The 6th “Creativity, Infinity ∞” High School Business Plan Grand Prix 2018", work7Subtitle: "Director General’s Award, Tokyo Metropolitan Bureau of Industrial and Labor Affairs", work7Body: "In 2018, in the National High School Business Plan Grand Prix hosted by the Japan Finance Corporation, my business plan was selected among the Top 100 out of 4,359 submissions. I advanced to the Tokyo metropolitan finals and received the Director General’s Award from the Tokyo Metropolitan Bureau of Industrial and Labor Affairs (second place, next to the Governor’s Award).",
                 work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
-                skillsTitle: "Certifications", skill1: "EIKEN Test, Grade Pre-1", skill2: "Abacus Certificate Examination, Grade 1", skill3: "Mental Arithmetic Certificate Examination, Grade 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
+                skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
                 /* --- UPDATED CONTACT SECTION (EN) --- */
                 contactTitle: `
                 <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span>
@@ -1307,7 +1489,7 @@
                     </span>
                 </span>
                 `,
-                contactBody: "Please feel free to contact me.<br>Poker invites are also welcome.",
+                contactBody: "Please feel free to contact me. Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved."
             }
         };
@@ -1324,9 +1506,9 @@
             const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
             
             // UPDATED BIO TEXT (MODIFIED FOR REQUEST)
-            const bioJa = `です。シンガポール生まれ、日本とマレーシアのハーフ。ドイツ・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。<br><br>また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。`;
+            const bioJa = `です。シンガポール生まれ、日本とマレーシアのハーフ。ドイツ・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。`;
             
-            const bioEn = `, I’m ${nameHtmlEn}. Born in Singapore to a Japanese–Malaysian family. My thinking is grounded in the philosophical logic I honed at the University of Mannheim in Germany, and the multi-faceted perspective I cultivated by moving between diverse cultural contexts. <br><br>I also view poker not as a game of chance, but as a “game of imperfect information” with clear parallels to business. The process of calculating probabilities from limited information and consistently maximizing expected value has strengthened my ability to make logical, optimal decisions under uncertainty. I am confident this decision-making ability serves as a compass to unravel complex business challenges and guide teams to results via the shortest path, proving invaluable in any problem-solving context.`;
+            const bioEn = `, I’m ${nameHtmlEn}. Born in Singapore to a Japanese–Malaysian family. My thinking is grounded in the philosophical logic I honed at the University of Mannheim in Germany, and the multi-faceted perspective I cultivated by moving between diverse cultural contexts. I also view poker not as a game of chance, but as a “game of imperfect information” with clear parallels to business. The process of calculating probabilities from limited information and consistently maximizing expected value has strengthened my ability to make logical, optimal decisions under uncertainty. I am confident this decision-making ability serves as a compass to unravel complex business challenges and guide teams to results via the shortest path, proving invaluable in any problem-solving context.`;
             
             translations.ja.aboutBody1 = `${greetingJa}、${nameHtmlJa}${bioJa}`;
             translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
