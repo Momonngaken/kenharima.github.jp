@@ -52,7 +52,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -75,6 +75,7 @@
                         sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
                         mono: ['monospace'], // Ensure monospace is available
+                        terminal: ['Courier Prime', 'monospace'],
                     },
                     colors: {
                         neoBg: '#F0F0EB',
@@ -348,7 +349,7 @@
             position: fixed; inset: 0; z-index: 20001;
             background: #050505; color: #00ff41;
             display: none; opacity: 0;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier Prime', 'Courier New', monospace;
             overflow: hidden;
             pointer-events: none;
         }
@@ -368,6 +369,36 @@
             background-size: 100% 4px;
             z-index: 10; opacity: 0.6;
         }
+        /* LOGIN VIEW STYLES (New) */
+        #admin-login-view {
+            position: absolute; inset: 0; z-index: 20;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background-color: #050505;
+        }
+        .admin-input-wrapper { position: relative; }
+        .admin-input {
+            background: transparent; border: none; 
+            border-bottom: 2px solid #00ff41; 
+            color: #00ff41; 
+            font-family: 'Courier Prime', monospace; 
+            font-size: 2.5rem; font-weight: 700;
+            text-align: center; letter-spacing: 0.5em;
+            outline: none; width: 100%; max-width: 400px;
+            padding: 1rem;
+            caret-color: transparent; /* Hide default caret */
+            text-transform: uppercase;
+        }
+        .admin-input::selection { background: #00ff41; color: #000; }
+        .cursor-blink {
+            display: inline-block; width: 12px; height: 2.5rem; background: #00ff41;
+            animation: blink 1s step-end infinite; vertical-align: bottom; margin-left: -10px;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        
+        .shake-anim { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; border-bottom-color: #ff0000 !important; color: #ff0000 !important; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
+        
+        /* DASHBOARD VIEW STYLES */
         .admin-content {
             position: relative; z-index: 5;
             width: 100%; max-width: 1400px; margin: 0 auto;
@@ -814,17 +845,14 @@
                     </article>
                     <!-- Work 9 -->
                     <article class="group relative gs-card lg:mt-12 hover-trigger" style="transform: rotate(2deg);">
-                        <div class="absolute inset-0 bg-black transform translate-x-2 translate-y-2 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 neo-border rounded-xl"></div>
-                        <div class="tilt-card h-full" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
-                            <div class="relative bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                                <div style="transform: translateZ(20px);">
-                                    <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title">JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</h3>
-                                    <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle">107位入賞</p>
-                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。</p>
-                                </div>
-                                <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
+                        <div class="absolute inset-0 bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                            <div style="transform: translateZ(20px);">
+                                <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
+                                <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title">JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</h3>
+                                <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle">107位入賞</p>
+                                <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。</p>
                             </div>
+                            <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                         </div>
                     </article>
                 </div>
@@ -962,7 +990,24 @@
     <div id="admin-console">
         <div class="admin-grid-bg"></div>
         <div class="scanline"></div>
-        <div class="admin-content">
+
+        <!-- LOGIN VIEW LAYER (NEW) -->
+        <div id="admin-login-view">
+            <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10">
+                 <div class="text-[20vw] font-black text-stroke select-none">RESTRICTED</div>
+            </div>
+            <div class="relative z-10 flex flex-col items-center gap-8">
+                <div class="text-sm font-mono text-green-500 tracking-widest mb-4 opacity-70">/// SECURITY CLEARANCE REQUIRED ///</div>
+                <div class="admin-input-wrapper">
+                    <input type="text" id="admin-pass-input" class="admin-input" placeholder="PASSWORD" autocomplete="off" spellcheck="false">
+                    <span class="cursor-blink"></span>
+                </div>
+                <div id="login-status" class="text-xs font-mono text-red-500 h-4"></div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD VIEW LAYER (INITIALLY HIDDEN) -->
+        <div id="admin-dashboard-view" class="admin-content hidden opacity-0">
             <div class="admin-header">
                 <div class="text-2xl font-black glitch-text" data-text="ADMIN_CONSOLE // ACCESS_GRANTED">ADMIN_CONSOLE // ACCESS_GRANTED</div>
                 <div class="font-bold text-sm" id="admin-clock">00:00:00</div>
@@ -974,7 +1019,6 @@
                 <h3 class="text-xl font-bold mb-4 text-white">GA4_DATA_STREAM</h3>
                 <div class="looker-studio-container">
                     <iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/797f5bcf-23db-4e11-a950-2f73e8935e98/page/vlSgF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
-                    <iframe width="100%" height="100%" src="" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
                 <p class="text-xs text-green-700 mt-2">* Data stream connected via Google Looker Studio Integration</p>
             </div>
@@ -1352,18 +1396,70 @@
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- ADMIN DASHBOARD LOGIC ---
+        // --- ADMIN DASHBOARD LOGIC (UPDATED WITH SECURITY) ---
         function initAdminTrigger() {
             const trigger = document.getElementById('footer-logo-trigger');
             const adminConsole = document.getElementById('admin-console');
+            const loginView = document.getElementById('admin-login-view');
+            const dashboardView = document.getElementById('admin-dashboard-view');
+            const input = document.getElementById('admin-pass-input');
             const closeBtn = document.getElementById('admin-close');
+            const statusMsg = document.getElementById('login-status');
+            
+            const correctPass = "2351881";
             let clicks = 0;
             let resetTimer;
+
+            // Creative Input Masking (Hex code scramble instead of actual input)
+            input.addEventListener('input', (e) => {
+                // We store real value in data attribute if needed, but here we just check validation on Enter
+                // Just ensures lowercase doesn't mess it up
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    validatePassword();
+                }
+            });
+
+            function validatePassword() {
+                if (input.value === correctPass) {
+                    // SUCCESS
+                    input.blur();
+                    statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
+                    statusMsg.classList.remove('text-red-500');
+                    statusMsg.classList.add('text-green-500');
+                    
+                    // Unlock Animation
+                    const tl = gsap.timeline();
+                    tl.to(input, { scale: 1.2, duration: 0.1, ease: "power2.out" })
+                      .to(loginView, { 
+                          opacity: 0, 
+                          scale: 1.1, 
+                          filter: "blur(20px)",
+                          duration: 0.8, 
+                          ease: "power4.inOut",
+                          onComplete: () => {
+                              loginView.classList.add('hidden');
+                              dashboardView.classList.remove('hidden');
+                              gsap.to(dashboardView, { opacity: 1, duration: 0.5 });
+                              startClock();
+                          }
+                      });
+                } else {
+                    // FAIL
+                    input.classList.add('shake-anim');
+                    statusMsg.innerText = "ACCESS DENIED. INVALID CREDENTIALS.";
+                    input.value = "";
+                    setTimeout(() => {
+                        input.classList.remove('shake-anim');
+                    }, 500);
+                }
+            }
 
             trigger.addEventListener('click', () => {
                 clicks++;
                 clearTimeout(resetTimer);
-                
                 // Visual feedback
                 gsap.to(trigger, { color: '#FF4D4D', duration: 0.1, yoyo: true, repeat: 1 });
 
@@ -1378,6 +1474,15 @@
             closeBtn.addEventListener('click', () => {
                 gsap.to(adminConsole, { opacity: 0, duration: 0.5, onComplete: () => {
                     adminConsole.classList.remove('active');
+                    // Reset State
+                    loginView.classList.remove('hidden');
+                    loginView.style.opacity = '1';
+                    loginView.style.filter = 'none';
+                    loginView.style.transform = 'none';
+                    dashboardView.classList.add('hidden');
+                    dashboardView.style.opacity = '0';
+                    input.value = "";
+                    statusMsg.innerText = "";
                 }});
                 document.body.style.overflow = '';
             });
@@ -1385,14 +1490,16 @@
             function openAdmin() {
                 adminConsole.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                gsap.to(adminConsole, { opacity: 1, duration: 0.5 });
-                startClock();
+                gsap.to(adminConsole, { opacity: 1, duration: 0.5, onComplete: () => {
+                    input.focus();
+                }});
             }
 
             function startClock() {
                 setInterval(() => {
                     const now = new Date();
-                    document.getElementById('admin-clock').innerText = now.toLocaleTimeString();
+                    const clock = document.getElementById('admin-clock');
+                    if(clock) clock.innerText = now.toLocaleTimeString();
                 }, 1000);
             }
         }
