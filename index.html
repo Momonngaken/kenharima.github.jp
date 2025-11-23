@@ -49,7 +49,7 @@
                     fontFamily: {
                         sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
-                        mono: ['monospace'], // Ensure monospace is available
+                        mono: ['monospace'], 
                     },
                     colors: {
                         neoBg: '#F0F0EB',
@@ -58,16 +58,21 @@
                         neoPurple: '#B983FF',
                         neoRed: '#FF4D4D',
                         neoBlue: '#5D5FEF',
-                        pokerBlue: '#0044AA', /* Custom Poker Mat Color */
+                        pokerBlue: '#0044AA', 
                     },
                     animation: {
                         'glow': 'glow 0.5s ease-in-out infinite alternate',
                         'marquee-slow': 'marquee 10s linear infinite',
+                        'scan-pulse': 'scanPulse 2s infinite',
                     },
                     keyframes: {
                         marquee: {
                             '0%': { transform: 'translateX(0%)' },
                             '100%': { transform: 'translateX(-50%)' },
+                        },
+                        scanPulse: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.5 },
                         }
                     }
                 }
@@ -78,9 +83,8 @@
     <style>
         /* --- CORE & PERFORMANCE --- */
         .gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
-        body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; }
+        body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; transition: background-color 0.5s ease; }
         
-        /* Hide Default Cursor (PC Only) */
         @media (min-width: 1025px) and (hover: hover) {
             * { cursor: none !important; }
         }
@@ -102,18 +106,15 @@
             transform: translateZ(0); 
         }
         
-        /* --- 1. LIQUID CYBER CURSOR STYLES --- */
+        /* --- CURSOR --- */
         .cursor-wrapper {
             position: fixed; top: 0; left: 0; pointer-events: none; 
             z-index: 20000; 
             mix-blend-mode: difference;
         }
-        
-        /* --- MOBILE/TABLET CURSOR FIX --- */
-        /* Hide custom cursor on touch devices or screens smaller than 1024px */
         @media (hover: none) and (pointer: coarse), (max-width: 1024px) {
             .cursor-wrapper { display: none !important; }
-            body, * { cursor: auto !important; } /* Restore system cursor behavior */
+            body, * { cursor: auto !important; } 
         }
 
         .cursor-dot {
@@ -146,16 +147,13 @@
         .text-stroke { -webkit-text-stroke: 2px #121212; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 2px #fff; color: transparent; }
         
-        /* Active Nav */
         .magnetic-btn.nav-active { background-color: #121212 !important; color: white !important; transform: scale(1.05); }
         .magnetic-btn.nav-active a { color: white !important; }
 
-        /* Typography */
         .font-stylish { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .font-tight { letter-spacing: -0.06em; }
         .scramble-text { display: inline-block; min-width: 1em; }
         
-        /* Marquee & Grid */
         .marquee-container { display: flex; overflow: hidden; user-select: none; width: 100%; }
         .marquee-content { 
             flex-shrink: 0; display: flex; align-items: center; justify-content: flex-start; min-width: 100%; 
@@ -165,209 +163,192 @@
         .bg-grid { background-size: 40px 40px; background-image: radial-gradient(circle, #000000 1px, transparent 1px); opacity: 0.08; transform-origin: top center; }
         .lang-fade { transition: opacity 0.3s ease; }
         
-        /* Interactive Blob */
         .interactive-blob { 
             position: fixed; top: 0; left: 0; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: -1; 
             transform: translate(-50%, -50%) translateZ(0); will-change: transform;
         }
         
-        /* Loader */
         #loader { position: fixed; inset: 0; background-color: #121212; color: #F0F0EB; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .loader-text { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 0.8; font-feature-settings: "tnum"; font-style: italic; }
         
-        /* --- 2. POKER GAME REDESIGN (TAIPA STYLE) --- */
+        /* POKER */
         #poker-game {
-            background-color: #0044AA; /* Deep Blue Mat Color */
+            background-color: #0044AA;
             background-image: radial-gradient(circle at 50% 50%, #0055CC 0%, #003388 100%);
             box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
         }
-        
         .perspective-1000 { perspective: 1000px; }
-        
-        .card-container { 
-            width: 80px; height: 112px; 
-            position: relative; cursor: pointer; 
-            transform-style: preserve-3d;
-        }
-        @media (min-width: 768px) { 
-            .card-container { width: 140px; height: 196px; } 
-        }
-        
-        /* This is the flipper */
-        .card-inner { 
-            width: 100%; height: 100%; 
-            position: relative; 
-            transform-style: preserve-3d; 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Snappy flip */
-        }
-        
-        /* The faces */
-        .card-front, .card-back { 
-            position: absolute; width: 100%; height: 100%; 
-            backface-visibility: hidden; 
-            border-radius: 8px; /* Slightly tighter radius for sharp look */
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .card-back { 
-            background: #0033AA;
-            border: 4px solid white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: rotateY(0deg); 
-        }
-
-        .card-back::after {
-            content: 'KEN.H';
-            font-family: 'Syne', sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            color: rgba(255,255,255,0.2);
-            font-size: 24px;
-            transform: rotate(-45deg);
-        }
-        
-        .card-front { 
-            background: white; 
-            transform: rotateY(180deg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* --- FIX 1: TAIPA TYPOGRAPHY STYLE (Mobile Optimized) --- */
-        .taipa-num {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 3.5rem; /* Reduced from 6rem for mobile to prevent overlap */
-            line-height: 1; /* Tighter line height */
-            letter-spacing: -0.08em;
-            color: #121212;
-            transform: scaleY(1.1); /* Condensed look */
-            z-index: 10;
-        }
-        @media (min-width: 768px) {
-            .taipa-num { font-size: 9rem; line-height: 0.75; }
-        }
-        
-        /* 10 needs special kern */
+        .card-container { width: 80px; height: 112px; position: relative; cursor: pointer; transform-style: preserve-3d; }
+        @media (min-width: 768px) { .card-container { width: 140px; height: 196px; } }
+        .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .card-back { background: #0033AA; border: 4px solid white; display: flex; justify-content: center; align-items: center; transform: rotateY(0deg); }
+        .card-back::after { content: 'KEN.H'; font-family: 'Syne', sans-serif; font-weight: 900; font-style: italic; color: rgba(255,255,255,0.2); font-size: 24px; transform: rotate(-45deg); }
+        .card-front { background: white; transform: rotateY(180deg); display: flex; justify-content: center; align-items: center; }
+        .taipa-num { font-family: 'Inter', sans-serif; font-weight: 900; font-size: 3.5rem; line-height: 1; letter-spacing: -0.08em; color: #121212; transform: scaleY(1.1); z-index: 10; }
+        @media (min-width: 768px) { .taipa-num { font-size: 9rem; line-height: 0.75; } }
         .taipa-num-10 { letter-spacing: -0.15em; margin-left: -5px; }
-        
-        .corner-pip {
-            position: absolute;
-            font-size: 0.8rem; /* Smaller on mobile */
-            font-weight: bold;
-            line-height: 1;
-        }
-        @media (min-width: 768px) {
-            .corner-pip { font-size: 1.2rem; }
-        }
-
+        .corner-pip { position: absolute; font-size: 0.8rem; font-weight: bold; line-height: 1; }
+        @media (min-width: 768px) { .corner-pip { font-size: 1.2rem; } }
         .top-left { top: 4px; left: 4px; }
         .bottom-right { bottom: 4px; right: 4px; transform: rotate(180deg); }
-
-        /* --- FIX 2: PRE-HIDE FADE IN ELEMENTS (Prevent Flash) --- */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            will-change: opacity, transform;
-        }
-
-        /* --- WIN STATE ANIMATIONS --- */
-        .card-container.is-winner {
-            pointer-events: none;
-            z-index: 50;
-        }
+        .fade-in-up { opacity: 0; transform: translateY(30px); will-change: opacity, transform; }
+        .card-container.is-winner { pointer-events: none; z-index: 50; }
+        .win-overlay-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 100%; text-align: center; pointer-events: none; }
+        .win-word { display: block; font-family: 'Syne', sans-serif; font-weight: 900; font-style: italic; font-size: 12vw; line-height: 0.85; color: #D6FC52; text-shadow: 4px 4px 0 #000; opacity: 0; transform: scale(3); }
+        #flash-overlay { position: fixed; inset: 0; z-index: 100000; pointer-events: none; opacity: 0; background-color: white; }
         
-        .win-overlay-text {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            width: 100%;
-            text-align: center;
-            pointer-events: none;
-        }
-        
-        .win-word {
-            display: block;
-            font-family: 'Syne', sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            font-size: 12vw;
-            line-height: 0.85;
-            color: #D6FC52; /* Neon Yellow */
-            text-shadow: 4px 4px 0 #000;
-            opacity: 0;
-            transform: scale(3);
-        }
-
-        /* Invert Flash Overlay */
-        #flash-overlay {
-            position: fixed; inset: 0; z-index: 100000;
-            pointer-events: none; opacity: 0; 
-            background-color: white;
-        }
-        
-        /* Contact Modal */
+        /* Modal */
         #contact-modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         #contact-modal.is-open { opacity: 1; pointer-events: auto; }
         .modal-content { transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
-        #contact-modal.is-open .modal-content { transform: scale(1); }
+        #contact-modal.is-open .modal-content { transform: scale(1); cursor: default !important; }
+        #contact-modal.is-open button, #contact-modal.is-open .close-modal { cursor: pointer !important; }
+        #contact-modal.is-open input, #contact-modal.is-open textarea { cursor: text !important; }
         .form-input { width: 100%; background: #F0F0EB; border: 3px solid #121212; padding: 12px; font-weight: bold; outline: none; transition: all 0.2s; }
         .form-input:focus { background: white; box-shadow: 4px 4px 0px #D6FC52; transform: translate(-2px, -2px); }
         
-        /* FIXED: Modal Internal Cursor Logic */
-        #contact-modal.is-open .modal-content {
-            cursor: default !important; /* Restore default cursor inside modal */
-        }
-        #contact-modal.is-open button, 
-        #contact-modal.is-open .close-modal {
-            cursor: pointer !important;
-        }
-        #contact-modal.is-open input, 
-        #contact-modal.is-open textarea {
-            cursor: text !important;
-        }
-        
         .magnetic-btn { display: inline-block; }
 
-        /* --- NEW: CYBER SCROLL HUD (PC) --- */
-        #cyber-hud {
-            position: fixed; right: 2rem; top: 50%; transform: translateY(-50%);
-            z-index: 9990; pointer-events: none;
-            display: none; flex-direction: column; align-items: flex-end;
-            mix-blend-mode: difference; /* Visible on black & white */
-            font-family: 'monospace'; color: #D6FC52;
-        }
+        /* HUD */
+        #cyber-hud { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 9990; pointer-events: none; display: none; flex-direction: column; align-items: flex-end; mix-blend-mode: difference; font-family: 'monospace'; color: #D6FC52; }
         @media (min-width: 1025px) { #cyber-hud { display: flex; } }
-
-        .hud-track {
-            position: relative; width: 2px; height: 300px; background: rgba(255,255,255,0.2);
-            margin-right: 9px;
-        }
-        .hud-progress {
-            position: absolute; top: 0; left: 0; width: 100%; height: 0%; 
-            background: #D6FC52; box-shadow: 0 0 10px #D6FC52;
-        }
-        .hud-point {
-            position: absolute; right: 10px; transform: translateY(-50%);
-            font-size: 10px; font-weight: bold; opacity: 0.3; transition: all 0.3s;
-            display: flex; align-items: center; gap: 6px;
-        }
+        .hud-track { position: relative; width: 2px; height: 300px; background: rgba(255,255,255,0.2); margin-right: 9px; }
+        .hud-progress { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: #D6FC52; box-shadow: 0 0 10px #D6FC52; }
+        .hud-point { position: absolute; right: 10px; transform: translateY(-50%); font-size: 10px; font-weight: bold; opacity: 0.3; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
         .hud-point.active { opacity: 1; color: #D6FC52; text-shadow: 0 0 5px #D6FC52; }
-        .hud-point::after {
-            content: ''; display: block; width: 6px; height: 1px; background: currentColor;
+        .hud-point::after { content: ''; display: block; width: 6px; height: 1px; background: currentColor; }
+        .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
+
+        /* =========================================
+           QUICK SCAN PROTOCOL (TAIPA MODE) CSS
+           ========================================= */
+        
+        /* 1. Global Activation State */
+        body.is-scanning {
+            background-color: #050505 !important;
+            --scan-dim-color: #333333;
+            --scan-highlight-color: #D6FC52;
+        }
+
+        /* 2. Dimming Non-Essential Elements */
+        body.is-scanning * {
+            transition: color 0.4s ease, background-color 0.4s ease, opacity 0.4s ease, border-color 0.4s ease;
+        }
+
+        body.is-scanning h1:not(.scan-highlight), 
+        body.is-scanning h2:not(.scan-highlight), 
+        body.is-scanning h3:not(.scan-highlight), 
+        body.is-scanning p:not(.scan-highlight),
+        body.is-scanning span:not(.scan-highlight),
+        body.is-scanning a:not(.scan-highlight),
+        body.is-scanning li,
+        body.is-scanning div {
+            color: var(--scan-dim-color) !important;
+            text-shadow: none !important;
+            border-color: #222 !important;
         }
         
-        /* Coordinates */
-        .hud-coords {
-            position: absolute; bottom: -40px; right: -5px;
-            font-size: 10px; font-weight: bold; letter-spacing: 1px;
-            writing-mode: vertical-rl; text-orientation: mixed;
-            opacity: 0.7;
+        /* Dim backgrounds of cards */
+        /* Added specific Tailwind arbitrary class for Work 3 */
+        body.is-scanning .bg-white,
+        body.is-scanning .bg-neoYellow,
+        body.is-scanning .bg-neoBlue,
+        body.is-scanning .bg-neoRed,
+        body.is-scanning .bg-neoPurple,
+        body.is-scanning .bg-gray-200,
+        body.is-scanning .bg-\[\#E0E0E0\],
+        body.is-scanning .bg-black {
+            background-color: #0a0a0a !important;
+            border-color: #222 !important;
+            box-shadow: none !important;
+        }
+
+        /* Hide images or dim them */
+        body.is-scanning img,
+        body.is-scanning .bg-cover {
+            filter: grayscale(100%) brightness(0.2) !important;
+            opacity: 0.3;
+        }
+        
+        /* 3. The Highlight Logic */
+        body.is-scanning .scan-highlight {
+            color: var(--scan-highlight-color) !important;
+            font-weight: 900 !important;
+            opacity: 1 !important;
+            text-shadow: 0 0 15px rgba(214, 252, 82, 0.4) !important;
+            position: relative;
+            z-index: 10;
+            display: inline-block; /* Ensure transforms work if needed */
+        }
+        
+        /* Special handling for Cards in Scan Mode to make text pop */
+        body.is-scanning .gs-card {
+            opacity: 1 !important; /* Ensure card container is visible */
+        }
+
+        /* 4. The Scan Button Styles */
+        #scan-toggle-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 6rem; /* Left of Lang Toggle on PC */
+            z-index: 10000;
+        }
+        
+        /* Mobile Positioning */
+        @media (max-width: 767px) {
+            #scan-toggle-container {
+                right: 1.5rem;
+                bottom: 8rem; /* Stacked above Lang toggle */
+            }
+        }
+
+        .scan-btn {
+            background: black;
+            border: 2px solid #D6FC52;
+            color: #D6FC52;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 rgba(214, 252, 82, 0.3);
+            transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scan-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #D6FC52;
+            background: #D6FC52;
+            color: black;
+        }
+        
+        .scan-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0 0 0;
+        }
+
+        .scan-btn.active {
+            background: #D6FC52;
+            color: black;
+            box-shadow: 0 0 15px #D6FC52;
+            border-color: #fff;
+        }
+
+        .scan-indicator {
+            width: 8px; height: 8px;
+            background: #333;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .scan-btn.active .scan-indicator {
+            background: #FF4D4D;
+            box-shadow: 0 0 5px #FF4D4D;
         }
 
     </style>
@@ -390,24 +371,26 @@
         <div class="cursor-dot"></div>
     </div>
 
-    <!-- --- NEW: PC CYBER HUD (RIGHT) - RE:BOOT Button Removed --- -->
+    <!-- HUD -->
     <aside id="cyber-hud">
         <div style="position: relative; height: 300px;">
-            <!-- Markers -->
             <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
             <div class="hud-point" style="top: 25%" data-target="about">ABOUT</div>
             <div class="hud-point" style="top: 50%" data-target="works">WORKS</div>
             <div class="hud-point" style="top: 75%" data-target="skills">SKILLS</div>
             <div class="hud-point" style="top: 100%" data-target="contact">CONTACT</div>
-            
-            <!-- Track Line -->
-            <div class="hud-track">
-                <div class="hud-progress" id="hud-bar"></div>
-            </div>
-            
+            <div class="hud-track"><div class="hud-progress" id="hud-bar"></div></div>
             <div class="hud-coords">Y-AXIS: <span id="y-val">0000</span></div>
         </div>
     </aside>
+
+    <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
+    <div id="scan-toggle-container">
+        <button id="scan-toggle-btn" class="scan-btn hover-trigger">
+            <span class="scan-indicator"></span>
+            <span data-key="scanBtn">// 核心を表示</span>
+        </button>
+    </div>
 
     <!-- Flash Overlay for Poker Win -->
     <div id="flash-overlay"></div>
@@ -415,7 +398,6 @@
     <!-- Win Text Overlay -->
     <div id="win-text-container" class="win-overlay-text">
         <div class="win-word word-royal">ROYAL</div>
-        <!-- REPLACED text-stroke with SOLID WHITE text for visibility -->
         <div class="win-word word-straight text-white">STRAIGHT</div>
         <div class="win-word word-flush text-neoRed">FLUSH</div>
     </div>
@@ -443,30 +425,14 @@
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
         <div class="modal-content relative bg-white w-full max-w-lg neo-border p-8 md:p-10 shadow-[10px_10px_0px_#D6FC52]">
             <button id="close-modal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors">✕</button>
-            
             <h3 class="text-3xl md:text-4xl font-black font-stylish italic mb-6 text-center">GET IN TOUCH</h3>
-            
             <form id="contact-form" action="https://formspree.io/f/xovrdzya" method="POST" class="space-y-6">
-                <div>
-                    <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Name</label>
-                    <input type="text" name="name" required class="form-input" placeholder="Your Name">
-                </div>
-                <div>
-                    <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Email</label>
-                    <input type="email" name="email" required class="form-input" placeholder="your@email.com">
-                </div>
-                <div>
-                    <label class="block font-bold text-sm mb-2 uppercase tracking-wider">Message</label>
-                    <textarea name="message" required rows="4" class="form-input" placeholder="What's on your mind?"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-neoRed hover:shadow-[4px_4px_0px_#000] hover:-translate-y-1 transition-all">
-                    Send Message
-                </button>
+                <div><label class="block font-bold text-sm mb-2 uppercase tracking-wider">Name</label><input type="text" name="name" required class="form-input" placeholder="Your Name"></div>
+                <div><label class="block font-bold text-sm mb-2 uppercase tracking-wider">Email</label><input type="email" name="email" required class="form-input" placeholder="your@email.com"></div>
+                <div><label class="block font-bold text-sm mb-2 uppercase tracking-wider">Message</label><textarea name="message" required rows="4" class="form-input" placeholder="What's on your mind?"></textarea></div>
+                <button type="submit" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-neoRed hover:shadow-[4px_4px_0px_#000] hover:-translate-y-1 transition-all">Send Message</button>
             </form>
-            <div id="form-success" class="hidden text-center py-10">
-                <p class="text-4xl font-black text-neoBlue mb-4">MESSAGE SENT!</p>
-                <p class="font-bold">お問い合わせありがとうございます。<br>確認次第ご連絡いたします。</p>
-            </div>
+            <div id="form-success" class="hidden text-center py-10"><p class="text-4xl font-black text-neoBlue mb-4">MESSAGE SENT!</p><p class="font-bold">お問い合わせありがとうございます。<br>確認次第ご連絡いたします。</p></div>
         </div>
     </div>
 
@@ -515,7 +481,6 @@
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
-            
              <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
                class="mt-6 w-16 h-16 flex items-center justify-center bg-[#0077B5] text-white neo-border rounded-full neo-shadow transform rotate-6 hover:rotate-0 transition-transform duration-300 hover-bg-white hover:text-[#0077B5]"
                aria-label="LinkedIn Profile">
@@ -525,7 +490,6 @@
     </header>
 
     <main>
-        <!-- UPDATED SECTION PADDING AND TITLE SIZE HERE -->
         <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-48 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full px-4">
@@ -537,15 +501,13 @@
                     </div>
                 </div>
                 <div class="relative title-anim fade-in-up">
-                    <!-- UPDATED TEXT SIZES TO PREVENT OVERLAP (12vw->11vw, 11rem->9rem) -->
                     <h1 class="font-display text-[11vw] md:text-[9rem] leading-[0.85] font-black uppercase font-tight mix-blend-darken select-none">
-                        <!-- REMOVED 'scramble-on-load' class from the spans below -->
                         <span class="block text-stroke hover:text-black transition-colors duration-500 lang-fade hover-trigger" data-key="heroTitle1">播磨 賢</span>
                         <span class="block text-black lang-fade hover-trigger" data-key="heroTitle2">KEN HARIMA</span>
                     </h1>
                 </div>
 
-                <!-- REDESIGNED: Timeline Cards -->
+                <!-- Timeline Cards (Updated with SCAN targets) -->
                 <div class="mt-10 md:mt-12 w-full max-w-5xl mx-auto fade-in-up relative z-10 px-4">
                     <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12">
                         
@@ -554,12 +516,12 @@
                             <div class="absolute inset-0 bg-black translate-x-2 translate-y-2 rounded-lg transition-transform group-hover:translate-x-1 group-hover:translate-y-1"></div>
                             <div class="relative bg-white border-[3px] border-black p-5 rounded-lg transform -rotate-2 group-hover:rotate-0 transition-transform duration-300 min-w-[280px]">
                                 <div class="bg-neoRed text-white text-[0.65rem] font-black px-2 py-0.5 border border-black mb-3 inline-block">EDUCATION</div>
-                                <h3 class="text-2xl font-black font-stylish italic leading-none mb-1">WASEDA UNIV.</h3>
-                                <p class="text-xs font-bold text-gray-500 mb-3">School of Social Sciences</p>
+                                <h3 class="text-2xl font-black font-stylish italic leading-none mb-1"><span class="scan-highlight">WASEDA UNIV.</span></h3>
+                                <p class="text-xs font-bold text-gray-500 mb-3"><span class="scan-highlight">School of Social Sciences</span></p>
                                 <div class="w-full border-t-2 border-dashed border-gray-300 my-3"></div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs font-bold bg-gray-200 px-2 py-1 rounded">GRADUATION</span>
-                                    <span class="font-mono font-bold text-neoRed text-lg">2026.03</span>
+                                    <span class="font-mono font-bold text-neoRed text-lg"><span class="scan-highlight">2026.03</span></span>
                                 </div>
                             </div>
                         </div>
@@ -569,14 +531,13 @@
                             ↓
                         </div>
 
-                        <!-- Daikin Card (CREATIVE FIX FOR UNDECIDED DEPARTMENT) -->
+                        <!-- Daikin Card -->
                         <div class="relative group hover-trigger w-full md:w-auto max-w-xs">
                             <div class="absolute inset-0 bg-neoYellow translate-x-2 translate-y-2 rounded-lg transition-transform group-hover:translate-x-1 group-hover:translate-y-1 border-[3px] border-black"></div>
                             <div class="relative bg-neoBlue text-white border-[3px] border-black p-5 rounded-lg transform rotate-2 group-hover:rotate-0 transition-transform duration-300 min-w-[280px]">
                                 <div class="bg-white text-black text-[0.65rem] font-black px-2 py-0.5 border border-black mb-3 inline-block animate-pulse">NEXT STAGE</div>
-                                <h3 class="text-2xl font-black font-stylish italic leading-none mb-1">DAIKIN IND.</h3>
+                                <h3 class="text-2xl font-black font-stylish italic leading-none mb-1"><span class="scan-highlight">DAIKIN IND.</span></h3>
                                 
-                                <!-- Creative "Undecided/Locked" Visual -->
                                 <div class="mb-3 mt-2 font-mono">
                                     <div class="flex items-center gap-2 text-neoYellow">
                                         <span class="animate-spin text-xs">❋</span>
@@ -590,7 +551,7 @@
                                 <div class="w-full border-t-2 border-dashed border-white/30 my-3"></div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs font-bold bg-black/20 px-2 py-1 rounded">JOINING</span>
-                                    <span class="font-mono font-bold text-neoYellow text-lg">2026.04</span>
+                                    <span class="font-mono font-bold text-neoYellow text-lg"><span class="scan-highlight">2026.04</span></span>
                                 </div>
                             </div>
                         </div>
@@ -599,7 +560,7 @@
                 </div>
             </div>
 
-            <!-- REDESIGNED: Marquee -->
+            <!-- Marquee -->
             <div class="absolute bottom-0 left-0 w-full bg-black border-y-4 border-neoYellow py-3 z-10 overflow-hidden rotate-1 scale-105 origin-bottom-left">
                 <div class="marquee-container">
                     <div class="marquee-content text-white font-black text-xl md:text-2xl uppercase italic tracking-wider">
@@ -632,65 +593,42 @@
                     <div class="w-full md:w-1/2 gs-reveal-right">
                         <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade font-tight" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
-                            <p class="lang-fade" data-key="aboutBody1">こんにちは、<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>です。シンガポール生まれ、日本とマレーシアのハーフ。独・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。</p>
-                            <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業</p>
+                            <p class="lang-fade" data-key="aboutBody1"></p>
+                            <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：<span class="scan-highlight">早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）</span>、広尾学園中学・高等学校卒業</p>
                             
-                            <!-- UPDATED HASHTAGS WITH PAWN ICON -->
                             <div class="flex flex-wrap gap-4 mt-8">
-                                <!-- GameTheory with 2D Pawn Icon -->
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoYellow transition-colors hover-trigger flex items-center gap-2 group">
-                                    <!-- Standard 2D Side-View Pawn Icon -->
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 384 512">
-                                        <path d="M192 0c53 0 96 43 96 96s-43 96-96 96-96-43-96-96S139 0 192 0zM64 464c0 26.5 21.5 48 48 48h160c26.5 0 48-21.5 48-48 0-26.5-21.5-48-48-48h-16v-56.3c22.2-8.8 40.9-24.5 53.3-44.3 12.6-20.1 18.7-43 18.7-67.5V192h-256v56c0 24.4 6.2 47.4 18.7 67.5 12.4 19.8 31.1 35.5 53.3 44.3V416h-16c-26.5 0-48 21.5-48 48z"/>
-                                    </svg>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 384 512"><path d="M192 0c53 0 96 43 96 96s-43 96-96 96-96-43-96-96S139 0 192 0zM64 464c0 26.5 21.5 48 48 48h160c26.5 0 48-21.5 48-48 0-26.5-21.5-48-48-48h-16v-56.3c22.2-8.8 40.9-24.5 53.3-44.3 12.6-20.1 18.7-43 18.7-67.5V192h-256v56c0 24.4 6.2 47.4 18.7 67.5 12.4 19.8 31.1 35.5 53.3 44.3V416h-16c-26.5 0-48 21.5-48 48z"/></svg>
                                     #GameTheory
                                 </span>
-                                <!-- SocialDesign with Network Icon -->
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoBlue hover:text-white transition-colors hover-trigger flex items-center gap-2 group">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 640 512">
-                                        <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM609.3 512l-137.8 0c5.4-9.4 8.6-20.3 8.6-32l0-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2l61.4 0C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-57.9-16.9-72-42.6c18.3-27.6 28-61.5 26-97.4c36.9 0 66.8 29.9 66.8 66.8C452.8 222.1 441.9 256 432 256z"/>
-                                    </svg>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM609.3 512l-137.8 0c5.4-9.4 8.6-20.3 8.6-32l0-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2l61.4 0C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-57.9-16.9-72-42.6c18.3-27.6 28-61.5 26-97.4c36.9 0 66.8 29.9 66.8 66.8C452.8 222.1 441.9 256 432 256z"/></svg>
                                     #SocialDesign
                                 </span>
-                                <!-- CreativeWriting with Pen/Nib Icon -->
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoRed hover:text-white transition-colors hover-trigger flex items-center gap-2 group">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512">
-                                        <path d="M368.4 18.3L312.7 74.1l54.2 54.2L422.6 72.6c12.2-12.2 12.2-32 0-44.2l-9.9-9.9c-12.2-12.2-32-12.2-44.2 0zM282.5 104.3L46.2 340.6 116 410.5l236.3-236.3-69.8-69.8zM33.7 384.3L126.3 477l-98.1 25.4c-2.2 .6-4.5 .9-6.7 .9c-15.1 0-27.3-12.2-21.5-26.7l33.7-92.3z"/>
-                                    </svg>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M368.4 18.3L312.7 74.1l54.2 54.2L422.6 72.6c12.2-12.2 12.2-32 0-44.2l-9.9-9.9c-12.2-12.2-32-12.2-44.2 0zM282.5 104.3L46.2 340.6 116 410.5l236.3-236.3-69.8-69.8zM33.7 384.3L126.3 477l-98.1 25.4c-2.2 .6-4.5 .9-6.7 .9c-15.1 0-27.3-12.2-21.5-26.7l33.7-92.3z"/></svg>
                                     #CreativeWriting
                                 </span>
                             </div>
 
-                            <!-- --- RESUME DOWNLOAD MODULE START --- -->
                             <div class="mt-12 relative w-full max-w-md mx-auto md:mx-0 group hover-trigger" id="resume-download-btn">
-                                <a href="./resume.pdf" download="Ken_Harima_Resume.pdf" class="block relative">
-                                    <!-- Background Layer (Shifted) -->
+                                <a href="./resume.pdf" download="Ken_Harima_Resume.pdf" class="block relative scan-highlight">
                                     <div class="absolute inset-0 bg-neoRed border-4 border-white translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></div>
-                                    
-                                    <!-- Main Container -->
                                     <div class="relative bg-black border-4 border-white p-5 md:p-6 flex items-center justify-between overflow-hidden">
-                                        <!-- Scrolling Marquee Background (Low Opacity) -->
                                         <div class="absolute inset-0 opacity-10 pointer-events-none whitespace-nowrap text-[3rem] md:text-[4rem] font-black text-gray-500 leading-none select-none flex items-center">
                                             <span class="animate-marquee-slow">DOWNLOAD DOWNLOAD DOWNLOAD DOWNLOAD</span>
                                         </div>
-
-                                        <!-- Text Content -->
                                         <div class="relative z-10 flex flex-col">
                                             <span class="text-neoYellow font-mono text-[0.6rem] md:text-xs mb-1 tracking-wider">/// SYSTEM DATA_V.2</span>
-                                            <span class="text-2xl md:text-3xl font-black italic text-white font-stylish tracking-tighter group-hover:text-neoYellow transition-colors lang-fade" data-key="resumeBtn">
-                                                履歴書をDLする
-                                            </span>
+                                            <span class="text-2xl md:text-3xl font-black italic text-white font-stylish tracking-tighter group-hover:text-neoYellow transition-colors lang-fade" data-key="resumeBtn">履歴書をDLする</span>
                                             <span class="text-[0.6rem] text-gray-400 font-mono mt-1 group-hover:text-white transition-colors">SIZE: PDF // UPDATED: 2025.11</span>
                                         </div>
-
-                                        <!-- Icon -->
                                         <div class="relative z-10 w-10 h-10 md:w-12 md:h-12 border-2 border-white rounded-full flex items-center justify-center bg-white text-black group-hover:bg-neoRed group-hover:text-white transition-colors duration-300">
                                             <svg class="w-5 h-5 md:w-6 md:h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <!-- --- RESUME DOWNLOAD MODULE END --- -->
 
                         </div>
                     </div>
@@ -712,9 +650,9 @@
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">MARKETING</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work1Title">野口ゼミ×理想科学工業株式会社マーケティング戦略コンペ</h3>
-                                    <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work1Subtitle">最優秀賞受賞</p>
-                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社の「MiScreen A4」プロモーション戦略コンペに取り組みました。 既存のSNS投稿におけるPV数やリアクションの違いに着目し、動画のクリエイティブ要素を分解。多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出することで、感覚に頼らない客観的根拠のある勝ちパターンを導き出しました。 そのデータを基に、製品特性と最も合致する市場として国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work1Title"><span class='scan-highlight'>野口ゼミ×理想科学工業株式会社マーケティング戦略コンペ</span></h3>
+                                    <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work1Subtitle"><span class='scan-highlight'>最優秀賞受賞</span></p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -726,9 +664,9 @@
                             <div class="relative bg-neoYellow neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ESSAY</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work2Title">第36回「働くってなんだろう」エッセイコンテスト</h3>
-                                    <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle">勤労青少年躍進会理事長賞受賞</p>
-                                    <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">2023年、「働くってなんだろうエッセイ」にて、ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、TOP14にあたる勤労青少年躍進会理事長賞を受賞しました。エッセイの随所でハイデガーの存在論的要素、サルトルの他者論的要素、レヴィナスの倫理的要素、西田幾多郎の「純粋経験」等を下地に展開される物語が見て取ることができます。ゴミが散乱する早朝の新宿を見た経験から、そこで働く早朝の清掃員の構想を思いつき、それを基に描いたフィクションです。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work2Title"><span class='scan-highlight'>第36回「働くってなんだろう」エッセイコンテスト</span></h3>
+                                    <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle"><span class='scan-highlight'>勤労青少年躍進会理事長賞受賞</span></p>
+                                    <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">...</p>
                                 </div>
                                 <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="group block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-[3px] border-black transition-colors hover-trigger lang-fade smooth-border" data-key="work2Button" style="transform: translateZ(30px);">
                                     エッセイを読む <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -743,9 +681,9 @@
                             <div class="relative bg-[#E0E0E0] neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-neoBlue text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">DESIGN</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title">第10回あなたが考えるブランドラベルコンテスト</h3>
-                                    <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle">TOP40 東京ビックサイト展示</p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title"><span class='scan-highlight'>第10回あなたが考えるブランドラベルコンテスト</span></h3>
+                                    <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle"><span class='scan-highlight'>TOP40 東京ビックサイト展示</span></p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">...</p>
                                 </div>
                                 <a href="https://www.tokyo-yoshioka.co.jp/2023s_contest" target="_blank" class="group mt-6 block text-center bg-neoBlue text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoBlue transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work3Button" style="transform: translateZ(30px);">
                                     作品を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -760,9 +698,9 @@
                             <div class="relative bg-black text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">GAMBLE & LOGIC</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work4Title">海外ポーカー実践</h3>
-                                    <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle">投資利益率532%</p>
-                                    <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">2023年10月〜2024年2月にかけて、趣味のポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、€5,056（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work4Title"><span class='scan-highlight'>海外ポーカー実践</span></h3>
+                                    <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle"><span class='scan-highlight'>投資利益率532%</span></p>
+                                    <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">...</p>
                                 </div>
                                 <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
@@ -775,9 +713,9 @@
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-neoYellow text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">EVENT & MEDIA</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work5Title">早稲田大学✕PIVOT株式会社</h3>
-                                    <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle">コラボ企画動画実行委員</p>
-                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、PIVOT株式会社様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work5Title"><span class='scan-highlight'>早稲田大学✕PIVOT株式会社</span></h3>
+                                    <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle"><span class='scan-highlight'>コラボ企画動画実行委員</span></p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">...</p>
                                 </div>
                                 <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="group mt-6 block text-center bg-black text-white py-3 font-bold border-[3px] border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work5Button" style="transform: translateZ(30px);">
                                     動画を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -792,9 +730,9 @@
                             <div class="relative bg-neoPurple neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ACADEMIC</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work6Title">「社会デザイン論入門」レポートコンテスト</h3>
-                                    <p class="text-xl font-bold text-white mb-4 lang-fade" data-key="work6Subtitle">優秀賞受賞</p>
-                                    <p class="text-sm text-black font-black lang-fade" data-key="work6Body">2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work6Title"><span class='scan-highlight'>「社会デザイン論入門」レポートコンテスト</span></h3>
+                                    <p class="text-xl font-bold text-white mb-4 lang-fade" data-key="work6Subtitle"><span class='scan-highlight'>優秀賞受賞</span></p>
+                                    <p class="text-sm text-black font-black lang-fade" data-key="work6Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -806,9 +744,9 @@
                             <div class="relative bg-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-gray-200 text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">BUSINESS</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work7Title">第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</h3>
-                                    <p class="text-xl font-bold text-gray-600 mb-4 lang-fade" data-key="work7Subtitle">東京都産業労働局長賞受賞</p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work7Title"><span class='scan-highlight'>第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</span></h3>
+                                    <p class="text-xl font-bold text-gray-600 mb-4 lang-fade" data-key="work7Subtitle"><span class='scan-highlight'>東京都産業労働局長賞受賞</span></p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -820,9 +758,9 @@
                             <div class="relative bg-neoRed text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">PRESENTATION</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title">広尾学園中学校学年プレゼンテーション大会</h3>
-                                    <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle">最優秀賞受賞</p>
-                                    <p class="text-sm font-medium lang-fade" data-key="work8Body">2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title"><span class='scan-highlight'>広尾学園中学校学年プレゼンテーション大会</span></h3>
+                                    <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle"><span class='scan-highlight'>最優秀賞受賞</span></p>
+                                    <p class="text-sm font-medium lang-fade" data-key="work8Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -834,9 +772,9 @@
                             <div class="relative bg-neoBlue text-white neo-border rounded-xl p-8 h-full flex flex-col justify-between transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                                 <div style="transform: translateZ(20px);">
                                     <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
-                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title">JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</h3>
-                                    <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle">107位入賞</p>
-                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。</p>
+                                    <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title"><span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span></h3>
+                                    <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle"><span class='scan-highlight'>107位入賞</span></p>
+                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">...</p>
                                 </div>
                                 <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
@@ -850,11 +788,11 @@
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke font-tight lang-fade" data-key="skillsTitle">保有資格</h2>
                 <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl mx-auto">
-                    <div class="skill-pill bg-white rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors" data-key="skill1">実用英語技能検定準1級</div>
-                    <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoRed transition-colors" data-key="skill2">珠算検定1級</div>
-                    <div class="skill-pill bg-black text-white rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-white hover-trigger hover:bg-white hover:text-black transition-colors" data-key="skill3">暗算検定1級</div>
-                    <div class="skill-pill bg-neoBlue text-white -rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-colors" data-key="skill4">生成AIパスポート</div>
-                    <div class="skill-pill bg-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors" data-key="skill5">ITパスポート</div>
+                    <div class="skill-pill bg-white rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors scan-highlight" data-key="skill1">実用英語技能検定準1級</div>
+                    <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoRed transition-colors scan-highlight" data-key="skill2">珠算検定1級</div>
+                    <div class="skill-pill bg-black text-white rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-white hover-trigger hover:bg-white hover:text-black transition-colors scan-highlight" data-key="skill3">暗算検定1級</div>
+                    <div class="skill-pill bg-neoBlue text-white -rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-colors scan-highlight" data-key="skill4">生成AIパスポート</div>
+                    <div class="skill-pill bg-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors scan-highlight" data-key="skill5">ITパスポート</div>
                 </div>
             </div>
         </section>
@@ -862,17 +800,9 @@
         <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
-            
             <div class="container mx-auto text-center max-w-5xl relative z-10">
-                <!-- CREATIVE TEXT UPDATE FOR "SAME TABLE / DEAL YOU IN" -->
-                <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle">
-                     <!-- DEFAULT CONTENT WILL BE INJECTED BY JS -->
-                </h2>
-                
-                <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">
-                    お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。
-                </p>
-                
+                <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle"></h2>
+                <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。</p>
                 <div class="magnetic-btn inline-block">
                     <button id="contact-btn-main" class="group relative inline-block hover-trigger">
                         <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
@@ -885,102 +815,29 @@
             </div>
         </section>
 
-        <!-- REDESIGNED POKER GAME SECTION (TAIPA STYLE) -->
         <section id="poker-game" class="py-32 border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
-                <h3 class="text-white text-xl md:text-2xl font-black mb-12 font-stylish italic opacity-80 tracking-widest">
-                    DEAL YOUR FATE <span class="text-xs font-sans font-normal block mt-2 opacity-60">Click all cards to reveal</span>
-                </h3>
-                
-                <!-- Cards Container -->
+                <h3 class="text-white text-xl md:text-2xl font-black mb-12 font-stylish italic opacity-80 tracking-widest">DEAL YOUR FATE <span class="text-xs font-sans font-normal block mt-2 opacity-60">Click all cards to reveal</span></h3>
                 <div class="flex justify-center items-center gap-3 md:gap-6 perspective-1000">
-                    
-                    <!-- Card 10 -->
-                    <div class="card-container hover-trigger" onclick="flipCard(this)">
-                        <div class="card-inner">
-                            <div class="card-back"></div>
-                            <div class="card-front">
-                                <span class="corner-pip top-left">♠</span>
-                                <span class="taipa-num taipa-num-10">10</span>
-                                <span class="corner-pip bottom-right">♠</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card J -->
-                    <div class="card-container hover-trigger" onclick="flipCard(this)">
-                        <div class="card-inner">
-                            <div class="card-back"></div>
-                            <div class="card-front">
-                                <span class="corner-pip top-left">♠</span>
-                                <span class="taipa-num">J</span>
-                                <span class="corner-pip bottom-right">♠</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Q -->
-                    <div class="card-container hover-trigger" onclick="flipCard(this)">
-                        <div class="card-inner">
-                            <div class="card-back"></div>
-                            <div class="card-front">
-                                <span class="corner-pip top-left">♠</span>
-                                <span class="taipa-num">Q</span>
-                                <span class="corner-pip bottom-right">♠</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card K -->
-                    <div class="card-container hover-trigger" onclick="flipCard(this)">
-                        <div class="card-inner">
-                            <div class="card-back"></div>
-                            <div class="card-front">
-                                <span class="corner-pip top-left">♠</span>
-                                <span class="taipa-num">K</span>
-                                <span class="corner-pip bottom-right">♠</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card A -->
-                    <div class="card-container hover-trigger" onclick="flipCard(this)">
-                        <div class="card-inner">
-                            <div class="card-back"></div>
-                            <div class="card-front">
-                                <span class="corner-pip top-left">♠</span>
-                                <span class="taipa-num">A</span>
-                                <span class="corner-pip bottom-right">♠</span>
-                            </div>
-                        </div>
-                    </div>
-
+                    <div class="card-container hover-trigger" onclick="flipCard(this)"><div class="card-inner"><div class="card-back"></div><div class="card-front"><span class="corner-pip top-left">♠</span><span class="taipa-num taipa-num-10">10</span><span class="corner-pip bottom-right">♠</span></div></div></div>
+                    <div class="card-container hover-trigger" onclick="flipCard(this)"><div class="card-inner"><div class="card-back"></div><div class="card-front"><span class="corner-pip top-left">♠</span><span class="taipa-num">J</span><span class="corner-pip bottom-right">♠</span></div></div></div>
+                    <div class="card-container hover-trigger" onclick="flipCard(this)"><div class="card-inner"><div class="card-back"></div><div class="card-front"><span class="corner-pip top-left">♠</span><span class="taipa-num">Q</span><span class="corner-pip bottom-right">♠</span></div></div></div>
+                    <div class="card-container hover-trigger" onclick="flipCard(this)"><div class="card-inner"><div class="card-back"></div><div class="card-front"><span class="corner-pip top-left">♠</span><span class="taipa-num">K</span><span class="corner-pip bottom-right">♠</span></div></div></div>
+                    <div class="card-container hover-trigger" onclick="flipCard(this)"><div class="card-inner"><div class="card-back"></div><div class="card-front"><span class="corner-pip top-left">♠</span><span class="taipa-num">A</span><span class="corner-pip bottom-right">♠</span></div></div></div>
                 </div>
             </div>
-            
             <div id="confetti-container" class="absolute inset-0 pointer-events-none z-50"></div>
         </section>
-
     </main>
 
-    <!-- REPLACED FOOTER WITH NEW TACTICAL BUTTON -->
     <footer class="bg-white border-t-4 border-black py-8 relative overflow-hidden">
         <div class="container mx-auto px-4 flex flex-col items-center justify-between gap-8 relative z-10 md:flex-row md:items-end">
-            <!-- Left: Logo -->
-            <div class="text-left w-full md:w-auto">
-                <p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p>
-            </div>
-
-            <!-- Center: Tactical Back to Top Button -->
+            <div class="text-left w-full md:w-auto"><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
             <div class="w-full md:w-auto flex justify-center">
                 <button id="footer-top-btn" class="group relative overflow-hidden border-4 border-black bg-black px-12 py-4 shadow-[6px_6px_0px_#D6FC52] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-200">
-                    <!-- Hover Effect Background -->
                     <span class="absolute inset-0 bg-neoYellow translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
-                    
-                    <!-- Content -->
                     <span class="relative flex items-center justify-center gap-3 font-black text-xl italic tracking-widest text-white transition-colors duration-300 group-hover:text-black">
                         <span class="overflow-hidden h-6 w-6 flex flex-col items-center justify-center relative">
-                             <!-- Arrow Loop Animation -->
                              <span class="absolute transform group-hover:-translate-y-[150%] transition-transform duration-300 ease-in-out">↑</span>
                              <span class="absolute transform translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out">↑</span>
                         </span>
@@ -988,11 +845,7 @@
                     </span>
                 </button>
             </div>
-
-            <!-- Right: Copyright -->
-            <div class="text-center md:text-right w-full md:w-auto">
-                <p class="text-sm font-bold lang-fade" data-key="footerCopy">© 2025 Ken HARIMA. All Rights Reserved.</p>
-            </div>
+            <div class="text-center md:text-right w-full md:w-auto"><p class="text-sm font-bold lang-fade" data-key="footerCopy">© 2025 Ken HARIMA. All Rights Reserved.</p></div>
         </div>
     </footer>
 
@@ -1013,7 +866,7 @@
                 if (element.dataset.scrambleInterval) clearInterval(parseInt(element.dataset.scrambleInterval));
                 const interval = setInterval(() => {
                     element.innerHTML = finalText.split("").map((letter, index) => {
-                        if (index < iteration) return finalText[index]; if (letter === " " || letter === "<" || letter === ">") return letter; 
+                        if (index < iteration) return finalText[index]; if (letter === " " || letter === "<" || letter === ">" || letter === "/") return letter; 
                         return this.chars[Math.floor(Math.random() * this.chars.length)];
                     }).join("");
                     if (iteration >= length) { clearInterval(interval); element.innerHTML = finalText; } iteration += step;
@@ -1025,395 +878,145 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-            // Check if device is touch or screen is small (Tablet/Mobile)
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 1024);
-            
-            // If mobile/tablet, do NOT run custom cursor logic
             if (isTouchDevice) return;
-
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
             const liquidFilter = document.querySelector('#liquidFilter feDisplacementMap');
-            
-            // Mouse State
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let currentX = mouseX;
-            let currentY = mouseY;
-            
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                // Move dot instantly
-                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 });
-            });
-
-            // Loop for Liquid Follower
+            let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2; let currentX = mouseX; let currentY = mouseY;
+            window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 }); });
             gsap.ticker.add(() => {
                 const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
-                
-                const dx = mouseX - currentX;
-                const dy = mouseY - currentY;
-                
-                currentX += dx * dt;
-                currentY += dy * dt;
-                
-                // Velocity Calculation for stretch
-                const velocity = Math.sqrt(dx * dx + dy * dy);
-                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                
-                // Stretch factor (capped)
-                const stretch = Math.min(velocity * 0.005, 0.5);
-                const scaleX = 1 + stretch;
-                const scaleY = 1 - stretch * 0.5;
-                
-                // Filter Distortion based on speed
-                const distortion = Math.min(velocity * 0.5, 50);
-                if(liquidFilter) liquidFilter.setAttribute('scale', distortion);
-
-                gsap.set(cursorLiquid, {
-                    x: currentX, 
-                    y: currentY, 
-                    rotation: angle, 
-                    scaleX: scaleX, 
-                    scaleY: scaleY
-                });
+                const dx = mouseX - currentX; const dy = mouseY - currentY; currentX += dx * dt; currentY += dy * dt;
+                const velocity = Math.sqrt(dx * dx + dy * dy); const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                const stretch = Math.min(velocity * 0.005, 0.5); const scaleX = 1 + stretch; const scaleY = 1 - stretch * 0.5;
+                const distortion = Math.min(velocity * 0.5, 50); if(liquidFilter) liquidFilter.setAttribute('scale', distortion);
+                gsap.set(cursorLiquid, { x: currentX, y: currentY, rotation: angle, scaleX: scaleX, scaleY: scaleY });
             });
-
-            // Magnetic Hover & Blend Mode Trigger
             const hovers = document.querySelectorAll('.hover-trigger, a, button');
             hovers.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    document.body.classList.add('hovering');
-                    gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 });
-                });
-                el.addEventListener('mouseleave', () => {
-                    document.body.classList.remove('hovering');
-                    gsap.to(cursorLiquid, { scale: 1, duration: 0.3 });
-                });
+                el.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 }); });
+                el.addEventListener('mouseleave', () => { document.body.classList.remove('hovering'); gsap.to(cursorLiquid, { scale: 1, duration: 0.3 }); });
             });
         }
 
         // --- 2. POKER GAME: ULTIMATE CREATIVE MODE ---
-        let flippedCount = 0; 
-        const totalCards = 5;
-        let gameWon = false;
-
+        let flippedCount = 0; const totalCards = 5; let gameWon = false;
         function flipCard(element) {
             if(element.classList.contains('is-flipped') || gameWon) return;
-            
-            const inner = element.querySelector('.card-inner'); 
-            element.classList.add('is-flipped');
-            
-            gsap.to(inner, { 
-                rotationY: 180, 
-                duration: 0.8, 
-                ease: "power4.out", 
-                onComplete: () => { 
-                    flippedCount++; 
-                    if(flippedCount === totalCards) triggerWin(); 
-                } 
-            });
+            const inner = element.querySelector('.card-inner'); element.classList.add('is-flipped');
+            gsap.to(inner, { rotationY: 180, duration: 0.8, ease: "power4.out", onComplete: () => { flippedCount++; if(flippedCount === totalCards) triggerWin(); } });
         }
-
         function triggerWin() {
             gameWon = true;
-            
-            // 1. Dim Background & Scroll Lock
             gsap.to('#poker-game', { backgroundColor: '#000', duration: 1 });
-            
-            // 2. Cards Levitation & Gold Glow
             const cards = document.querySelectorAll('.card-container');
             const tl = gsap.timeline();
-
-            tl.to(cards, {
-                y: -50,
-                scale: 1.1,
-                boxShadow: '0 0 50px #FFD700',
-                duration: 1,
-                stagger: 0.1,
-                ease: "back.out(1.2)",
-                onStart: () => {
-                    cards.forEach(c => {
-                        c.classList.add('is-winner');
-                        c.querySelector('.card-front').style.boxShadow = '0 0 30px #FFD700, inset 0 0 20px #FFD700';
-                        c.querySelector('.card-front').style.borderColor = '#FFD700';
-                    });
-                }
-            })
-            
-            // 3. Flash Overlay
+            tl.to(cards, { y: -50, scale: 1.1, boxShadow: '0 0 50px #FFD700', duration: 1, stagger: 0.1, ease: "back.out(1.2)", onStart: () => { cards.forEach(c => { c.classList.add('is-winner'); c.querySelector('.card-front').style.boxShadow = '0 0 30px #FFD700, inset 0 0 20px #FFD700'; c.querySelector('.card-front').style.borderColor = '#FFD700'; }); } })
             .to('#flash-overlay', { opacity: 1, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.inOut" }, "-=0.5")
-            
-            // 4. Text Explosion Sequence
-            .to('.win-word', { opacity: 1, duration: 0.1 }, "-=0.2") // Make visible for anim
-            .fromTo('.word-royal', 
-                { scale: 5, opacity: 0, z: 500 }, 
-                { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" }
-            )
-            .to('#poker-game', { x: 10, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<") // Camera Shake
-            
-            .fromTo('.word-straight', 
-                { scale: 5, opacity: 0, z: 500 }, 
-                { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" }
-            )
+            .to('.win-word', { opacity: 1, duration: 0.1 }, "-=0.2")
+            .fromTo('.word-royal', { scale: 5, opacity: 0, z: 500 }, { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" })
+            .to('#poker-game', { x: 10, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<")
+            .fromTo('.word-straight', { scale: 5, opacity: 0, z: 500 }, { scale: 1, opacity: 1, z: 0, duration: 0.4, ease: "power4.out" })
             .to('#poker-game', { x: -10, y: -10, yoyo:true, repeat:5, duration:0.05 }, "<")
-            
-            .fromTo('.word-flush', 
-                { scale: 5, opacity: 0, z: 500 }, 
-                { scale: 1, opacity: 1, z: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" }
-            )
+            .fromTo('.word-flush', { scale: 5, opacity: 0, z: 500 }, { scale: 1, opacity: 1, z: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" })
             .to('#poker-game', { x: 0, y: 10, yoyo:true, repeat:5, duration:0.05 }, "<")
-            
-            // 5. Confetti Rain
             .add(() => { createChipConfetti(); }, "-=0.5")
-
-            // 6. Fade Out Sequence (Clean up view)
-            .to('#win-text-container', { autoAlpha: 0, duration: 1, delay: 2.5 }) // Fade out text after 2.5s
-            .to('#poker-game', { backgroundColor: '#0044AA', duration: 1 }, "<"); // Revert background color
+            .to('#win-text-container', { autoAlpha: 0, duration: 1, delay: 2.5 })
+            .to('#poker-game', { backgroundColor: '#0044AA', duration: 1 }, "<");
         }
-
         function createChipConfetti() {
             const container = document.getElementById('confetti-container');
             const colors = ['#D6FC52', '#FF4D4D', '#5D5FEF', '#FFFFFF', '#FFD700'];
-            
             for(let i = 0; i < 150; i++) {
-                const chip = document.createElement('div');
-                const size = Math.random() * 20 + 10;
-                const isChip = Math.random() > 0.5;
-                
-                chip.style.position = 'absolute';
-                chip.style.width = size + 'px';
-                chip.style.height = size + 'px';
-                chip.style.left = Math.random() * 100 + '%';
-                chip.style.top = '-50px';
-                chip.style.zIndex = 100;
-                
-                if(isChip) {
-                    chip.style.borderRadius = '50%';
-                    chip.style.border = '2px dashed white';
-                    chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                } else {
-                    chip.style.width = size/2 + 'px';
-                    chip.style.height = size + 'px';
-                    chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                }
-                
+                const chip = document.createElement('div'); const size = Math.random() * 20 + 10; const isChip = Math.random() > 0.5;
+                chip.style.position = 'absolute'; chip.style.width = size + 'px'; chip.style.height = size + 'px'; chip.style.left = Math.random() * 100 + '%'; chip.style.top = '-50px'; chip.style.zIndex = 100;
+                if(isChip) { chip.style.borderRadius = '50%'; chip.style.border = '2px dashed white'; chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; } else { chip.style.width = size/2 + 'px'; chip.style.height = size + 'px'; chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; }
                 container.appendChild(chip);
-                
-                gsap.to(chip, {
-                    y: window.innerHeight + 100,
-                    x: (Math.random() - 0.5) * 500,
-                    rotationX: Math.random() * 720,
-                    rotationY: Math.random() * 720,
-                    duration: Math.random() * 3 + 2,
-                    ease: "power1.in",
-                    delay: Math.random() * 0.5,
-                    onComplete: () => chip.remove()
-                });
+                gsap.to(chip, { y: window.innerHeight + 100, x: (Math.random() - 0.5) * 500, rotationX: Math.random() * 720, rotationY: Math.random() * 720, duration: Math.random() * 3 + 2, ease: "power1.in", delay: Math.random() * 0.5, onComplete: () => chip.remove() });
             }
         }
-
 
         // --- GLOBAL VARS & INIT ---
-        const loader = document.getElementById('loader');
-        const loaderCounter = document.getElementById('loader-counter');
-        const loaderBar = document.getElementById('loader-bar');
-        let count = 0;
-        let currentLang = 'ja';
+        const loader = document.getElementById('loader'); const loaderCounter = document.getElementById('loader-counter'); const loaderBar = document.getElementById('loader-bar');
+        let count = 0; let currentLang = 'ja';
         
-        // --- LANGUAGE DETECTION & APPLICATION (MODIFIED FOR FIX) ---
-        function detectLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            // Only switch variable if English detected, default is 'ja'
-            if (userLang.startsWith('en')) { 
-                currentLang = 'en'; 
-            } else {
-                currentLang = 'ja';
-            }
-            // IMPORTANT: Apply language immediately (even if Japanese) to overwrite hardcoded English placeholders
-            applyLanguage(false);
-        }
-
+        function detectLanguage() { const userLang = navigator.language || navigator.userLanguage; if (userLang.startsWith('en')) { currentLang = 'en'; } else { currentLang = 'ja'; } applyLanguage(false); }
         function initLoader() {
             const hasVisited = sessionStorage.getItem('visited');
-            if (hasVisited) {
-                loader.style.display = 'none'; document.body.classList.remove('is-loading');
-                initSite();
-            } else {
+            if (hasVisited) { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); } 
+            else {
                 sessionStorage.setItem('visited', 'true');
-                const interval = setInterval(() => {
-                    count += Math.floor(Math.random() * 3) + 1; if(count > 100) count = 100;
-                    loaderCounter.innerText = count.toString().padStart(3, '0');
-                    loaderBar.style.width = `${count}%`;
-                    if(count === 100) { clearInterval(interval); finishLoading(); }
-                }, 20);
+                const interval = setInterval(() => { count += Math.floor(Math.random() * 3) + 1; if(count > 100) count = 100; loaderCounter.innerText = count.toString().padStart(3, '0'); loaderBar.style.width = `${count}%`; if(count === 100) { clearInterval(interval); finishLoading(); } }, 20);
             }
         }
-
-        function finishLoading() {
-            const tl = gsap.timeline();
-            tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" })
-            .to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => {
-                loader.style.display = 'none'; document.body.classList.remove('is-loading');
-                initSite();
-            }});
-        }
-
+        function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
         function initSite() {
-            startLenis();
-            initLiquidCursor(); // New Cursor
+            startLenis(); initLiquidCursor();
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
-            initMagneticButtons(); 
-            initInteractiveBackground();
+            initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
-            initKineticMarquee();
-            initScrollSpy();
-            initContactModal();
-            initScrollHUD(); // --- NEW: Init Scroll HUD logic
-            
-            // --- FIX 2: REVEAL HERO ELEMENTS SMOOTHLY (Changed from .from() to .to()) ---
-            gsap.to(".fade-in-up", { 
-                y: 0, 
-                opacity: 1, 
-                duration: 1, 
-                stagger: 0.1, 
-                ease: "power3.out" 
-            });
+            initKineticMarquee(); initScrollSpy(); initContactModal(); initScrollHUD();
+            initScanProtocol(); // Initialize Scan Mode
+            gsap.to(".fade-in-up", { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
-
         function initInteractiveBackground() {
             const blob1 = document.getElementById('blob-1'); const blob2 = document.getElementById('blob-2');
             const xTo1 = gsap.quickTo(blob1, "x", {duration: 0.8, ease: "power3"}); const yTo1 = gsap.quickTo(blob1, "y", {duration: 0.8, ease: "power3"});
             const xTo2 = gsap.quickTo(blob2, "x", {duration: 1.2, ease: "power3"}); const yTo2 = gsap.quickTo(blob2, "y", {duration: 1.2, ease: "power3"});
             window.addEventListener("mousemove", (e) => { xTo1(e.clientX); yTo1(e.clientY); xTo2(e.clientX); yTo2(e.clientY); });
         }
-
         function initMagneticButtons() {
             const magnets = document.querySelectorAll('.magnetic-btn');
             magnets.forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const bounds = btn.getBoundingClientRect();
-                    const x = e.clientX - bounds.left - bounds.width / 2; const y = e.clientY - bounds.top - bounds.height / 2;
-                    gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: "power2.out" });
-                });
+                btn.addEventListener('mousemove', (e) => { const bounds = btn.getBoundingClientRect(); const x = e.clientX - bounds.left - bounds.width / 2; const y = e.clientY - bounds.top - bounds.height / 2; gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: "power2.out" }); });
                 btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" }); });
             });
         }
-
-        // --- NEW: SCROLL HUD & TOP BUTTON LOGIC ---
         function initScrollHUD() {
-            // PC Elements
-            const hudBar = document.getElementById('hud-bar');
-            const hudYVal = document.getElementById('y-val');
-            
-            // Footer Elements
-            const footerTopBtn = document.getElementById('footer-top-btn');
-
-            // Function to scroll to top
-            const scrollToTop = () => {
-                lenis.scrollTo(0);
-            };
-            if(footerTopBtn) footerTopBtn.addEventListener('click', scrollToTop);
-
-            // Update loop
+            const hudBar = document.getElementById('hud-bar'); const hudYVal = document.getElementById('y-val'); const footerTopBtn = document.getElementById('footer-top-btn');
+            const scrollToTop = () => { lenis.scrollTo(0); }; if(footerTopBtn) footerTopBtn.addEventListener('click', scrollToTop);
             gsap.ticker.add(() => {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
-                
-                // Update PC HUD
-                if(hudBar) hudBar.style.height = `${scrollPercent * 100}%`;
-                if(hudYVal) hudYVal.innerText = Math.floor(scrollTop).toString().padStart(4, '0');
+                const scrollTop = window.scrollY; const docHeight = document.documentElement.scrollHeight - window.innerHeight; const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+                if(hudBar) hudBar.style.height = `${scrollPercent * 100}%`; if(hudYVal) hudYVal.innerText = Math.floor(scrollTop).toString().padStart(4, '0');
             });
         }
-
-        // Scroll Spy
         gsap.registerPlugin(ScrollTrigger);
         function initScrollSpy() {
-            const navItems = [
-                { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement },
-                { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement },
-                { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement },
-                { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement },
-            ];
-
-            // Define Sections for HUD Tracking (Includes Hero)
+            const navItems = [{ id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }];
             const sections = ['hero', 'about', 'works', 'skills', 'contact'];
-            
             sections.forEach(sectionId => {
                 const target = sectionId === 'hero' ? document.body : document.getElementById(sectionId);
                 if(!target) return;
-                
-                ScrollTrigger.create({
-                    trigger: target,
-                    start: "top center",
-                    end: "bottom center",
-                    onToggle: self => {
-                        if (self.isActive) {
-                            // Update Main Nav
-                            const navItem = navItems.find(i => i.id === sectionId);
-                            if (navItem) navItem.link.classList.add('nav-active');
-                            
-                            // Update HUD (PC)
-                            const hudPoint = document.querySelector(`.hud-point[data-target="${sectionId}"]`);
-                            if(hudPoint) {
-                                document.querySelectorAll('.hud-point').forEach(p => p.classList.remove('active'));
-                                hudPoint.classList.add('active');
-                            }
-                        } else {
-                            const navItem = navItems.find(i => i.id === sectionId);
-                            if (navItem) navItem.link.classList.remove('nav-active');
-                        }
-                    }
-                });
+                ScrollTrigger.create({ trigger: target, start: "top center", end: "bottom center", onToggle: self => { if (self.isActive) { const navItem = navItems.find(i => i.id === sectionId); if (navItem) navItem.link.classList.add('nav-active'); const hudPoint = document.querySelector(`.hud-point[data-target="${sectionId}"]`); if(hudPoint) { document.querySelectorAll('.hud-point').forEach(p => p.classList.remove('active')); hudPoint.classList.add('active'); } } else { const navItem = navItems.find(i => i.id === sectionId); if (navItem) navItem.link.classList.remove('nav-active'); } } });
             });
         }
-        
-        // GSAP Reveals
         gsap.utils.toArray('.gs-reveal-left').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" }); });
         gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
-        // Contact Modal
         function initContactModal() {
-            const modal = document.getElementById('contact-modal');
-            const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')];
-            const closeBtn = document.getElementById('close-modal');
-            const backdrop = document.getElementById('modal-backdrop');
-            const form = document.getElementById('contact-form');
-            const successMsg = document.getElementById('form-success');
-
-            function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
-            function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
+            const modal = document.getElementById('contact-modal'); const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')]; const closeBtn = document.getElementById('close-modal'); const backdrop = document.getElementById('modal-backdrop'); const form = document.getElementById('contact-form'); const successMsg = document.getElementById('form-success');
+            function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; } function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
             openBtns.forEach(btn => { if(btn) btn.addEventListener('click', (e) => { e.preventDefault(); openModal(); }); });
             closeBtn.addEventListener('click', closeModal); backdrop.addEventListener('click', closeModal);
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText;
-                const formData = new FormData(form);
-                submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
-                .then(response => {
-                    if (response.ok) { return response.json().catch(() => {}); } 
-                    else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); }
-                })
-                .then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); })
-                .catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); });
-            });
+            form.addEventListener('submit', (e) => { e.preventDefault(); const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText; const formData = new FormData(form); submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }).then(response => { if (response.ok) { return response.json().catch(() => {}); } else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); } }).then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); }).catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }); });
         }
-
-        document.querySelectorAll('.scramble-hover').forEach(el => {
-            el.addEventListener('mouseenter', () => { const text = el.dataset.originalText || el.innerText; scrambler.scramble(el, text); });
-        });
-        
-        // Mobile Menu
+        document.querySelectorAll('.scramble-hover').forEach(el => { el.addEventListener('mouseenter', () => { const text = el.dataset.originalText || el.innerText; scrambler.scramble(el, text); }); });
         const menuBtn = document.getElementById('mobile-menu-btn'); const closeBtn = document.getElementById('close-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); const mobileLinks = mobileMenu.querySelectorAll('a, button');
         function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- TRANSLATION DATA (UPDATED for Daikin & Creative Contact) ---
+        // --- QUICK SCAN PROTOCOL IMPLEMENTATION ---
+        function initScanProtocol() {
+            const toggleBtn = document.getElementById('scan-toggle-btn');
+            
+            toggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('is-scanning');
+                toggleBtn.classList.toggle('active');
+            });
+        }
+
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
@@ -1422,194 +1025,149 @@
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "私について",
                 aboutBody1: "",
-                aboutBody2: "学歴：早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）、広尾学園中学・高等学校卒業",
+                aboutBody2: "学歴：<span class='scan-highlight'>早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）</span>、広尾学園中学・高等学校卒業",
                 worksTitle: "活動・受賞歴",
-                work1Title: "野口ゼミ×理想科学工業株式会社マーケティング戦略コンペ", work1Subtitle: "最優秀賞受賞", 
-                work1Body: "2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社の「MiScreen A4」プロモーション戦略コンペに取り組みました。 既存のSNS投稿におけるPV数やリアクションの違いに着目し、動画のクリエイティブ要素を分解。多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出することで、感覚に頼らない客観的根拠のある勝ちパターンを導き出しました。 そのデータを基に、製品特性と最も合致する市場として国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。",
-                work2Title: "第36回「働くってなんだろう」エッセイコンテスト", work2Subtitle: "勤労青少年躍進会理事長賞受賞", 
-                work2Body: "2023年、「働くってなんだろうエッセイ」にて、ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、総応募作品数1,112編の中から、TOP14にあたる勤労青少年躍進会理事長賞を受賞しました。エッセイの随所でハイデガーの存在論的要素、サルトルの他者論的要素、レヴィナスの倫理的要素、西田幾多郎の「純粋経験」等を下地に展開される物語が見て取ることができます。ゴミが散乱する早朝の新宿を見た経験から、そこで働く早朝の清掃員の構想を思いつき、それを基に描いたフィクションです。", 
+                work1Title: "<span class='scan-highlight'>野口ゼミ×理想科学工業株式会社マーケティング戦略コンペ</span>", 
+                work1Subtitle: "<span class='scan-highlight'>最優秀賞受賞</span>", 
+                work1Body: "2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社の「MiScreen A4」プロモーション戦略コンペに取り組みました。 既存のSNS投稿におけるPV数やリアクションの違いに着目し、動画のクリエイティブ要素を分解。多変量解析の一種である<span class='scan-highlight'>「数量化I類」</span>を用いて各要素の影響度を算出することで、感覚に頼らない客観的根拠のある勝ちパターンを導き出しました。 そのデータを基に、製品特性と最も合致する市場として国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。",
+                work2Title: "<span class='scan-highlight'>第36回「働くってなんだろう」エッセイコンテスト</span>", 
+                work2Subtitle: "<span class='scan-highlight'>勤労青少年躍進会理事長賞受賞</span>", 
+                work2Body: "2023年、「働くってなんだろうエッセイ」にて、ペンネーム「風織ケン」の名で執筆した実存的な働き方に光を当てたエッセイ『愛を込めて、清掃員の世界を歩む』が、<span class='scan-highlight'>総応募作品数1,112編の中から、TOP14</span>にあたる勤労青少年躍進会理事長賞を受賞しました。エッセイの随所でハイデガーの存在論的要素、サルトルの他者論的要素、レヴィナスの倫理的要素、西田幾多郎の「純粋経験」等を下地に展開される物語が見て取ることができます。ゴミが散乱する早朝の新宿を見た経験から、そこで働く早朝の清掃員の構想を思いつき、それを基に描いたフィクションです。", 
                 work2Button: `エッセイを読む <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                work3Title: "第10回あなたが考えるブランドラベルコンテスト", work3Subtitle: "TOP40 東京ビックサイト展示", 
-                work3Body: "2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。",
+                work3Title: "<span class='scan-highlight'>第10回あなたが考えるブランドラベルコンテスト</span>", 
+                work3Subtitle: "<span class='scan-highlight'>TOP40 東京ビックサイト展示</span>", 
+                work3Body: "2023年、東京吉岡株式会社主催の本コンテストに参加しました。架空のアパレルブランド「ONESAGE（お値下げ）」のコンセプトと下げ札のデザインを構築。3Dプリンターを用いて生分解性プラスチック100%使用した作品を制作しました。作品は、<span class='scan-highlight'>延べ520点の応募の中からTOP40に選出され、東京ビックサイトで３日間に渡って展示</span>されました。途中の輸送トラブルで塗料が剥がれるトラブルがあり、受賞は逃しましたが、とても刺激的な体験でした。",
                 work3Button: `作品を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                work4Title: "海外ポーカー実践", work4Subtitle: "投資利益率532%", 
-                work4Body: "2023年10月〜2024年2月にかけて、趣味のポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、€5,056（約90万8千円）の利益を計上しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。（総プレイ時間：175時間52分、時給：約5200円（€28.75））",
-                work5Title: "早稲田大学✕PIVOT株式会社", work5Subtitle: "コラボ企画動画実行委員", work5Body: "起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、PIVOT株式会社様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。", 
+                work4Title: "<span class='scan-highlight'>海外ポーカー実践</span>", 
+                work4Subtitle: "<span class='scan-highlight'>投資利益率532%</span>", 
+                work4Body: "2023年10月〜2024年2月にかけて、趣味のポーカー（ノーリミットテキサスホールデム）では、ゲーム理論研究や数十万ハンドの経験知と勘に裏打ちされた実力で、最終的に留学中に世界10都市で26セッションを行い、<span class='scan-highlight'>€5,056（約90万8千円）の利益を計上</span>しました。最高のROIは一時927.125%を記録しました。実践は大学の授業に支障をきたさないように配慮しながら行いました。<span class='scan-highlight'>（総プレイ時間：175時間52分、時給：約5200円（€28.75））</span>",
+                work5Title: "<span class='scan-highlight'>早稲田大学✕PIVOT株式会社</span>", 
+                work5Subtitle: "<span class='scan-highlight'>コラボ企画動画実行委員</span>", 
+                work5Body: "起業を志す人や学生起業家が集う早稲田大学公認サークルBEYOND 2020 NEXT PROJECTの一環のイベントの実行委員として、PIVOT株式会社様と早稲田大学のコラボ企画『リアル投資ドキュメンタリー ANGELS in 早稲田大学』の開催まで約4ヶ月にわたる折衝を行いました。撮影は早稲田大学構内の記念講堂で実施しました。", 
                 work5Button: `動画を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                work6Title: "「社会デザイン論入門」レポートコンテスト", work6Subtitle: "優秀賞受賞", work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
-                work7Title: "第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018", work7Subtitle: "東京都産業労働局長賞受賞", work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞しました。",
-                work8Title: "広尾学園中学校学年プレゼンテーション大会", work8Subtitle: "最優秀賞受賞", work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
-                // --- FIXED SECTION START ---
-                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", 
-                work9Subtitle: "107位入賞", 
-                work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて2511人中107位に入賞し、約11万円の賞金を獲得しました。",
-                // --- FIXED SECTION END ---
+                work6Title: "<span class='scan-highlight'>「社会デザイン論入門」レポートコンテスト</span>", 
+                work6Subtitle: "<span class='scan-highlight'>優秀賞受賞</span>", 
+                work6Body: "2022年、早稲田大学社会科学部の学部長をはじめとする教員が主催する「社会デザイン論入門」の授業におけるレポートコンテストで、Web3と従来のコワーキングスペースを掛け合わせた新時代のコワーキングスペースを提唱し、優秀賞を受賞しました。",
+                work7Title: "<span class='scan-highlight'>第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</span>", 
+                work7Subtitle: "<span class='scan-highlight'>東京都産業労働局長賞受賞</span>", 
+                work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、<span class='scan-highlight'>東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞</span>しました。",
+                work8Title: "<span class='scan-highlight'>広尾学園中学校学年プレゼンテーション大会</span>", 
+                work8Subtitle: "<span class='scan-highlight'>最優秀賞受賞</span>", 
+                work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
+                work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
+                work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
+                work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>し、約11万円の賞金を獲得しました。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
-                resumeBtn: "履歴書をDLする", // NEW KEY
-                /* --- UPDATED CONTACT SECTION --- */
-                contactTitle: `
-                <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span>
-                <span class="block text-[7vw] md:text-8xl font-black leading-tight">
-                    同じテーブルに、
-                </span>
-                <span class="relative inline-block mt-4 group hover-trigger">
-                    <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span>
-                    <span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">
-                        着くか<span class="text-neoRed">。</span>
-                    </span>
-                </span>
-                `,
+                resumeBtn: "履歴書をDLする",
+                scanBtn: "// 核心を表示",
+                contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span><span class="block text-[7vw] md:text-8xl font-black leading-tight">同じテーブルに、</span><span class="relative inline-block mt-4 group hover-trigger"><span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span><span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">着くか<span class="text-neoRed">。</span></span></span>`,
                 contactBody: "お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
-                backToTop: "トップに戻る" // NEW TRANSLATION KEY
+                backToTop: "トップに戻る"
             },
             en: {
                 navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
                 heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
-                daikinRole: "/// DEPLOYMENT_PENDING", // NEW
+                daikinRole: "/// DEPLOYMENT_PENDING", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "About Me",
                 aboutBody1: "",
-                aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange) Hiroo Gakuen Junior and Senior High School",
+                aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, <span class='scan-highlight'>Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange)</span> Hiroo Gakuen Junior and Senior High School",
                 worksTitle: "Works & Awards",
-                work1Title: "Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition", work1Subtitle: "Grand Prize", 
-                work1Body: "In 2024, at the Tomio Noguchi Seminar in the School of Social Sciences at Waseda University, I participated in a competition to formulate a promotion strategy for Riso Kagaku Corporation's 'MiScreen A4'. Focusing on the differences in PVs and reactions in existing SNS posts, I decomposed the creative elements of the videos. By calculating the impact of each element using 'Quantification Theory Type I,' a type of multivariate analysis, I derived a winning pattern based on objective evidence rather than intuition. Based on this data, I proposed a strategy targeting museums in Japan and overseas as the market that best matches the product characteristics, and won the Grand Prize.",
-                work2Title: "The 36th “What Does It Mean to Work?” Essay Contest", work2Subtitle: "Chairperson’s Award, Association for the Advancement of Working Youth", 
-                work2Body: "In 2023, at the 'What Does It Mean to Work?' Essay Contest, my essay 'Lovingly Walking Through the World of a Janitor,' written under the pen name 'Ken Kazeori' and highlighting an existential approach to work, won the Chairperson's Award (top 14) out of 1,112 entries. The story is underpinned by Heidegger's ontology, Sartre's theory of the Other, Levinas's ethics, and Kitaro Nishida's 'pure experience.' It is a fiction conceived from the experience of seeing Shinjuku scattered with trash in the early morning and imagining the janitors who work there.", 
+                work1Title: "<span class='scan-highlight'>Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition</span>", 
+                work1Subtitle: "<span class='scan-highlight'>Grand Prize</span>", 
+                work1Body: "In 2024, at the Tomio Noguchi Seminar in the School of Social Sciences at Waseda University, I participated in a competition to formulate a promotion strategy for Riso Kagaku Corporation's 'MiScreen A4'. Focusing on the differences in PVs and reactions in existing SNS posts, I decomposed the creative elements of the videos. By calculating the impact of each element using <span class='scan-highlight'>'Quantification Theory Type I,'</span> a type of multivariate analysis, I derived a winning pattern based on objective evidence rather than intuition. Based on this data, I proposed a strategy targeting museums in Japan and overseas as the market that best matches the product characteristics, and won the Grand Prize.",
+                work2Title: "<span class='scan-highlight'>The 36th “What Does It Mean to Work?” Essay Contest</span>", 
+                work2Subtitle: "<span class='scan-highlight'>Chairperson’s Award, Association for the Advancement of Working Youth</span>", 
+                work2Body: "In 2023, at the 'What Does It Mean to Work?' Essay Contest, my essay 'Lovingly Walking Through the World of a Janitor,' written under the pen name 'Ken Kazeori' and highlighting an existential approach to work, won the Chairperson's Award <span class='scan-highlight'>(top 14) out of 1,112 entries</span>. The story is underpinned by Heidegger's ontology, Sartre's theory of the Other, Levinas's ethics, and Kitaro Nishida's 'pure experience.' It is a fiction conceived from the experience of seeing Shinjuku scattered with trash in the early morning and imagining the janitors who work there.", 
                 work2Button: `Read Essay <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                work3Title: "The 10th “Design Your Own Brand Label” Contest", work3Subtitle: "Top 40 / Exhibition at Tokyo Big Sight", 
-                work3Body: "In 2023, I participated in this contest organized by Tokyo Yoshioka Co., Ltd. I built the concept and hang tag design for a fictional apparel brand 'ONESAGE' (a pun on 'price reduction'). I created the work using 100% biodegradable plastic with a 3D printer. The work was selected in the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight for 3 days. Although paint peeled off due to shipping issues and I missed an award, it was a very stimulating experience.",
+                work3Title: "<span class='scan-highlight'>The 10th “Design Your Own Brand Label” Contest</span>", 
+                work3Subtitle: "<span class='scan-highlight'>Top 40 / Exhibition at Tokyo Big Sight</span>", 
+                work3Body: "In 2023, I participated in this contest organized by Tokyo Yoshioka Co., Ltd. I built the concept and hang tag design for a fictional apparel brand 'ONESAGE' (a pun on 'price reduction'). I created the work using 100% biodegradable plastic with a 3D printer. The work was <span class='scan-highlight'>selected in the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight for 3 days</span>. Although paint peeled off due to shipping issues and I missed an award, it was a very stimulating experience.",
                 work3Button: `View Work <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                work4Title: "Overseas Poker Experience", work4Subtitle: "Return on Investment: 532%", 
-                work4Body: "From October 2023 to February 2024, in my hobby of poker (No-Limit Texas Hold'em), backed by game theory research and the experience and intuition of hundreds of thousands of hands, I played 26 sessions in 10 cities around the world during my study abroad, recording a profit of €5,056 (approx. ¥908,000). My highest ROI temporarily reached 927.125%. I managed this while ensuring it did not interfere with my university classes. (Total play time: 175 hours 52 minutes, Hourly rate: approx. ¥5,200 (€28.75))",
-                work5Title: "Waseda University x PIVOT Inc.", work5Subtitle: "Collaboration Project Video Executive Committee", work5Body: "As an executive committee member of BEYOND 2020 NEXT PROJECT, a Waseda University official circle for aspiring entrepreneurs, I spent about four months negotiating the collaborative project 'Real Investment Documentary ANGELS in Waseda University' between PIVOT Inc. and Waseda University. The filming took place at the Okuma Auditorium on the Waseda campus.", 
+                work4Title: "<span class='scan-highlight'>Overseas Poker Experience</span>", 
+                work4Subtitle: "<span class='scan-highlight'>Return on Investment: 532%</span>", 
+                work4Body: "From October 2023 to February 2024, in my hobby of poker (No-Limit Texas Hold'em), backed by game theory research and the experience and intuition of hundreds of thousands of hands, I played 26 sessions in 10 cities around the world during my study abroad, recording a <span class='scan-highlight'>profit of €5,056 (approx. ¥908,000)</span>. My highest ROI temporarily reached 927.125%. I managed this while ensuring it did not interfere with my university classes. <span class='scan-highlight'>(Total play time: 175 hours 52 minutes, Hourly rate: approx. ¥5,200 (€28.75))</span>",
+                work5Title: "<span class='scan-highlight'>Waseda University x PIVOT Inc.</span>", 
+                work5Subtitle: "<span class='scan-highlight'>Collaboration Project Video Executive Committee</span>", 
+                work5Body: "As an executive committee member of BEYOND 2020 NEXT PROJECT, a Waseda University official circle for aspiring entrepreneurs, I spent about four months negotiating the collaborative project 'Real Investment Documentary ANGELS in Waseda University' between PIVOT Inc. and Waseda University. The filming took place at the Okuma Auditorium on the Waseda campus.", 
                 work5Button: `Watch Video <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>`,
-                work6Title: "Introduction to Social Design” Report Contest", work6Subtitle: "Excellence Award", work6Body: "In 2022, in the report contest for the “Introduction to Social Design” course hosted by faculty members including the Dean of the School of Social Sciences at Waseda University, I proposed a new type of coworking space that combines Web3 with conventional coworking spaces and received the Excellence Award.",
-                work7Title: "The 6th “Creativity, Infinity ∞” High School Business Plan Grand Prix 2018", work7Subtitle: "Director General’s Award, Tokyo Metropolitan Bureau of Industrial and Labor Affairs", work7Body: "In 2018, in the National High School Business Plan Grand Prix hosted by the Japan Finance Corporation, my business plan was selected among the Top 100 out of 4,359 submissions. I advanced to the Tokyo metropolitan finals and received the Director General’s Award from the Tokyo Metropolitan Bureau of Industrial and Labor Affairs (second place, next to the Governor’s Award).",
-                work8Title: "Hiroo Gakuen Junior High School Grade Presentation Contest", work8Subtitle: "Grand Prize", work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
-                work9Title: "JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC", work9Subtitle: "107th Place (In the Money)", work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished 107th out of 2,511 entrants and earned prize money of approximately ¥110,000.",
+                work6Title: "<span class='scan-highlight'>Introduction to Social Design” Report Contest</span>", 
+                work6Subtitle: "<span class='scan-highlight'>Excellence Award</span>", 
+                work6Body: "In 2022, in the report contest for the “Introduction to Social Design” course hosted by faculty members including the Dean of the School of Social Sciences at Waseda University, I proposed a new type of coworking space that combines Web3 with conventional coworking spaces and received the Excellence Award.",
+                work7Title: "<span class='scan-highlight'>The 6th “Creativity, Infinity ∞” High School Business Plan Grand Prix 2018</span>", 
+                work7Subtitle: "<span class='scan-highlight'>Director General’s Award, Tokyo Metropolitan Bureau of Industrial and Labor Affairs</span>", 
+                work7Body: "In 2018, in the National High School Business Plan Grand Prix hosted by the Japan Finance Corporation, my business plan was selected among the Top 100 out of 4,359 submissions. I advanced to the Tokyo metropolitan finals and received the <span class='scan-highlight'>Director General’s Award from the Tokyo Metropolitan Bureau of Industrial and Labor Affairs (second place, next to the Governor’s Award)</span>.",
+                work8Title: "<span class='scan-highlight'>Hiroo Gakuen Junior High School Grade Presentation Contest</span>", 
+                work8Subtitle: "<span class='scan-highlight'>Grand Prize</span>", 
+                work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
+                work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
+                work9Subtitle: "<span class='scan-highlight'>107th Place (In the Money)</span>", 
+                work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished <span class='scan-highlight'>107th out of 2,511 entrants</span> and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
-                resumeBtn: "CURRICULUM VITAE", // NEW KEY
-                /* --- UPDATED CONTACT SECTION (EN) --- */
-                contactTitle: `
-                <span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span>
-                <span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">
-                    DEAL
-                </span>
-                <span class="relative inline-block mt-2 group hover-trigger">
-                     <span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span>
-                    <span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">
-                        YOU IN?
-                    </span>
-                </span>
-                `,
+                resumeBtn: "CURRICULUM VITAE",
+                scanBtn: "// SIGNAL_ONLY",
+                contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span><span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">DEAL</span><span class="relative inline-block mt-2 group hover-trigger"><span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span><span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">YOU IN?</span></span>`,
                 contactBody: "Please feel free to contact me.<br>Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
-                backToTop: "Back to top" // NEW TRANSLATION KEY
+                backToTop: "Back to top" 
             }
         };
 
-        // --- DYNAMIC GREETING & TEXT INJECTION ---
         {
             const now = new Date(); const totalMinutes = now.getHours() * 60 + now.getMinutes();
             let greetingJa, greetingEn;
             if (totalMinutes >= 300 && totalMinutes < 720) { greetingJa = "おはようございます"; greetingEn = "Good morning"; } 
             else if (totalMinutes >= 720 && totalMinutes <= 1110) { greetingJa = "こんにちは"; greetingEn = "Hello"; } 
             else { greetingJa = "こんばんは"; greetingEn = "Good evening"; }
-            
             const nameHtmlJa = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">播磨 賢</span>`;
             const nameHtmlEn = `<span class="inline-block px-2 mx-1 bg-neoYellow text-black font-black border-2 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 hover-trigger shadow-[4px_4px_0px_#5D5FEF]">Ken Harima</span>`;
-            
-            // UPDATED BIO TEXT (MODIFIED FOR REQUEST)
-            const bioJa = `です。シンガポール生まれ、日本とマレーシアのハーフ。独・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。限られた情報から確率を計算し、期待値を最大化し続けるプロセス。そこで培った、不確実な状況下でも論理的に最適解を導き出す意思決定力。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。`;
-            
-            const bioEn = `, I’m ${nameHtmlEn}. Born in Singapore to a Japanese–Malaysian family. My thinking is grounded in the philosophical logic I honed at the University of Mannheim in Germany, and the multi-faceted perspective I cultivated by moving between diverse cultural contexts. I also view poker not as a game of chance, but as a “game of imperfect information” with clear parallels to business. The process of calculating probabilities from limited information and consistently maximizing expected value has strengthened my ability to make logical, optimal decisions under uncertainty. I am confident this decision-making ability serves as a compass to unravel complex business challenges and guide teams to results via the shortest path, proving invaluable in any problem-solving context.`;
-            
+            const bioJa = `です。シンガポール生まれ、日本とマレーシアのハーフ。独・マンハイム大学で培った「哲学的論理構造」と、多様な文化圏を行き来する中で養われた「多角的な視点」が私の思考の基盤です。また、ポーカーを単なる運任せの遊戯としてではなく、ビジネスに通じる「不完全情報ゲーム」として捉えています。<span class='scan-highlight'>限られた情報から確率を計算し、期待値を最大化し続ける</span>プロセス。そこで培った、<span class='scan-highlight'>不確実な状況下でも論理的に最適解を導き出す意思決定力</span>。これは、複雑化するビジネスの課題を解きほぐし、チームとして最短距離で成果に到達するための羅針盤として、様々な課題解決の現場でも必ず活きると確信しています。`;
+            const bioEn = `, I’m ${nameHtmlEn}. Born in Singapore to a Japanese–Malaysian family. My thinking is grounded in the philosophical logic I honed at the University of Mannheim in Germany, and the multi-faceted perspective I cultivated by moving between diverse cultural contexts. I also view poker not as a game of chance, but as a “game of imperfect information” with clear parallels to business. The process of <span class='scan-highlight'>calculating probabilities from limited information and consistently maximizing expected value</span> has strengthened my ability to make <span class='scan-highlight'>logical, optimal decisions under uncertainty</span>. I am confident this decision-making ability serves as a compass to unravel complex business challenges and guide teams to results via the shortest path, proving invaluable in any problem-solving context.`;
             translations.ja.aboutBody1 = `${greetingJa}、${nameHtmlJa}${bioJa}`;
             translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
-            
             const aboutBodyEl = document.querySelector('[data-key="aboutBody1"]');
             if (aboutBodyEl) { aboutBodyEl.innerHTML = translations.ja.aboutBody1; }
         }
 
-        const langToggle = document.getElementById('lang-toggle');
-        const langText = document.getElementById('lang-text');
-        const translatableElements = document.querySelectorAll('[data-key]');
-        const mobileLangBtn = document.getElementById('mobile-lang-float');
-        const mobileLangText = document.getElementById('mobile-lang-text-wrap');
-        const mobileLangBg = document.getElementById('mobile-lang-bg');
-
-        // --- SEPARATE "APPLY" FROM "SWITCH" FOR INITIAL LOAD FIX ---
+        const langToggle = document.getElementById('lang-toggle'); const langText = document.getElementById('lang-text'); const translatableElements = document.querySelectorAll('[data-key]'); const mobileLangBtn = document.getElementById('mobile-lang-float'); const mobileLangText = document.getElementById('mobile-lang-text-wrap'); const mobileLangBg = document.getElementById('mobile-lang-bg');
         function applyLanguage(animate = true) {
-            if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } 
-            else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
-            
+            if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
             if(mobileLangBg && animate) {
                 mobileLangBg.animate([ { transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' } ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
-                setTimeout(() => {
-                    if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } 
-                    else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); }
-                }, 100);
+                setTimeout(() => { if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); } }, 100);
             }
-            
             translatableElements.forEach(el => {
                 const key = el.dataset.key; const newText = translations[currentLang][key];
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
                 if (animate) {
-                    // If content is just text and short, scramble. If it contains HTML (like our new creative titles), fade it.
+                    // Do not scramble if it contains HTML tags (like scan-highlight spans)
                     if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
                     else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
                 } else { el.innerHTML = newText; }
             });
         }
-
-        function switchLanguage(animate = true) {
-             currentLang = currentLang === 'ja' ? 'en' : 'ja';
-             applyLanguage(animate);
-        }
-        
+        function switchLanguage(animate = true) { currentLang = currentLang === 'ja' ? 'en' : 'ja'; applyLanguage(animate); }
         langToggle.addEventListener('click', () => switchLanguage(true));
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
         function initKineticMarquee() {
-            const marqueeContainer = document.querySelector('.marquee-container'); 
-            const marqueeContents = gsap.utils.toArray('.marquee-content');
+            const marqueeContainer = document.querySelector('.marquee-container'); const marqueeContents = gsap.utils.toArray('.marquee-content');
             if (!marqueeContainer || marqueeContents.length === 0) return;
-            
-            // --- FIX 3: MOBILE SPEED OPTIMIZATION ---
-            // Determine if mobile screen
-            const isMobile = window.innerWidth < 768;
-            
-            let xPercent = 0; 
-            let direction = -1; 
-            // Reduce base speed significantly for mobile
-            let baseSpeed = isMobile ? 0.02 : 0.05; 
-            let speed = baseSpeed;
-            
+            const isMobile = window.innerWidth < 768; let xPercent = 0; let direction = -1; let baseSpeed = isMobile ? 0.02 : 0.05; let speed = baseSpeed;
             const animateMarquee = () => {
-                if (xPercent <= -100) xPercent = 0; 
-                if (xPercent > 0) xPercent = -100;
-                gsap.set(marqueeContents, { xPercent: xPercent }); 
-                xPercent += speed * direction;
+                if (xPercent <= -100) xPercent = 0; if (xPercent > 0) xPercent = -100;
+                gsap.set(marqueeContents, { xPercent: xPercent }); xPercent += speed * direction;
                 requestAnimationFrame(animateMarquee);
             };
-            
             ScrollTrigger.create({
                 onUpdate: (self) => {
-                    const velocity = self.getVelocity();
-                    if (velocity > 0) { direction = 1; } else if (velocity < 0) { direction = -1; }
-                    
-                    // Clamp velocity factor much tighter on mobile to prevent "runaway" scrolling
-                    const dampener = isMobile ? 800 : 200; // Higher dampener = less sensitivity
-                    const maxFactor = isMobile ? 0.5 : 2.5; // Lower max factor = capped speed
-                    
-                    const velocityFactor = Math.min(Math.abs(velocity) / dampener, maxFactor); 
-                    speed = baseSpeed + velocityFactor;
+                    const velocity = self.getVelocity(); if (velocity > 0) { direction = 1; } else if (velocity < 0) { direction = -1; }
+                    const dampener = isMobile ? 800 : 200; const maxFactor = isMobile ? 0.5 : 2.5; const velocityFactor = Math.min(Math.abs(velocity) / dampener, maxFactor); speed = baseSpeed + velocityFactor;
                 }
             });
             requestAnimationFrame(animateMarquee);
         }
-
         document.addEventListener("DOMContentLoaded", () => { detectLanguage(); initLoader(); });
     </script>
 </body>
