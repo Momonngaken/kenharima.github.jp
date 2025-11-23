@@ -237,19 +237,19 @@
             align-items: center;
         }
 
-        /* TAIPA TYPOGRAPHY STYLE */
+        /* --- FIX 1: TAIPA TYPOGRAPHY STYLE (Mobile Optimized) --- */
         .taipa-num {
             font-family: 'Inter', sans-serif;
             font-weight: 900;
-            font-size: 6rem; /* Huge */
-            line-height: 0.75;
+            font-size: 3.5rem; /* Reduced from 6rem for mobile to prevent overlap */
+            line-height: 1; /* Tighter line height */
             letter-spacing: -0.08em;
             color: #121212;
             transform: scaleY(1.1); /* Condensed look */
             z-index: 10;
         }
         @media (min-width: 768px) {
-            .taipa-num { font-size: 9rem; }
+            .taipa-num { font-size: 9rem; line-height: 0.75; }
         }
         
         /* 10 needs special kern */
@@ -257,12 +257,23 @@
         
         .corner-pip {
             position: absolute;
-            font-size: 1.2rem;
+            font-size: 0.8rem; /* Smaller on mobile */
             font-weight: bold;
             line-height: 1;
         }
-        .top-left { top: 6px; left: 6px; }
-        .bottom-right { bottom: 6px; right: 6px; transform: rotate(180deg); }
+        @media (min-width: 768px) {
+            .corner-pip { font-size: 1.2rem; }
+        }
+
+        .top-left { top: 4px; left: 4px; }
+        .bottom-right { bottom: 4px; right: 4px; transform: rotate(180deg); }
+
+        /* --- FIX 2: PRE-HIDE FADE IN ELEMENTS (Prevent Flash) --- */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: opacity, transform;
+        }
 
         /* --- WIN STATE ANIMATIONS --- */
         .card-container.is-winner {
@@ -1260,7 +1271,15 @@
             initScrollSpy();
             initContactModal();
             initScrollHUD(); // --- NEW: Init Scroll HUD logic
-            gsap.from(".fade-in-up", { y: 100, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" });
+            
+            // --- FIX 2: REVEAL HERO ELEMENTS SMOOTHLY (Changed from .from() to .to()) ---
+            gsap.to(".fade-in-up", { 
+                y: 0, 
+                opacity: 1, 
+                duration: 1, 
+                stagger: 0.1, 
+                ease: "power3.out" 
+            });
         }
 
         function initInteractiveBackground() {
@@ -1553,19 +1572,39 @@
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
         function initKineticMarquee() {
-            const marqueeContainer = document.querySelector('.marquee-container'); const marqueeContents = gsap.utils.toArray('.marquee-content');
+            const marqueeContainer = document.querySelector('.marquee-container'); 
+            const marqueeContents = gsap.utils.toArray('.marquee-content');
             if (!marqueeContainer || marqueeContents.length === 0) return;
-            let xPercent = 0; let direction = -1; let speed = 0.05;
+            
+            // --- FIX 3: MOBILE SPEED OPTIMIZATION ---
+            // Determine if mobile screen
+            const isMobile = window.innerWidth < 768;
+            
+            let xPercent = 0; 
+            let direction = -1; 
+            // Reduce base speed significantly for mobile
+            let baseSpeed = isMobile ? 0.02 : 0.05; 
+            let speed = baseSpeed;
+            
             const animateMarquee = () => {
-                if (xPercent <= -100) xPercent = 0; if (xPercent > 0) xPercent = -100;
-                gsap.set(marqueeContents, { xPercent: xPercent }); xPercent += speed * direction;
+                if (xPercent <= -100) xPercent = 0; 
+                if (xPercent > 0) xPercent = -100;
+                gsap.set(marqueeContents, { xPercent: xPercent }); 
+                xPercent += speed * direction;
                 requestAnimationFrame(animateMarquee);
             };
+            
             ScrollTrigger.create({
                 onUpdate: (self) => {
                     const velocity = self.getVelocity();
                     if (velocity > 0) { direction = 1; } else if (velocity < 0) { direction = -1; }
-                    const velocityFactor = Math.min(Math.abs(velocity) / 200, 2.5); speed = 0.05 + velocityFactor;
+                    
+                    // Clamp velocity factor much tighter on mobile to prevent "runaway" scrolling
+                    const dampener = isMobile ? 800 : 200; // Higher dampener = less sensitivity
+                    const maxFactor = isMobile ? 0.5 : 2.5; // Lower max factor = capped speed
+                    
+                    const velocityFactor = Math.min(Math.abs(velocity) / dampener, maxFactor); 
+                    speed = baseSpeed + velocityFactor;
                 }
             });
             requestAnimationFrame(animateMarquee);
