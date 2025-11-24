@@ -760,14 +760,106 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                position: absolute;
-                bottom: 15%; 
-                left: 0;
+                /* Overlap Fix: Changed from absolute to relative to stack naturally below the counter */
+                position: relative !important; 
+                inset: auto !important;
+                margin-top: 6vh; /* Dynamic spacing from the loader bar */
                 width: 100%;
                 z-index: 60;
                 animation: warning-glitch 0.1s infinite;
                 animation-play-state: paused;
             }
+
+            /* Cyberpunk Connector Line (Visual Anchor) */
+            .mobile-warning-container::before {
+                content: '';
+                position: absolute;
+                top: -6vh; /* Reach up to the loader bar */
+                left: 50%;
+                width: 1px;
+                height: 6vh;
+                background: linear-gradient(to bottom, transparent, #D6FC52); /* Neon fade-in */
+                opacity: 0.6;
+                box-shadow: 0 0 5px #D6FC52;
+            }
+            
+            /* Random glitch effect on hover/loading */
+            .mobile-warning-container:hover, 
+            body.is-loading .mobile-warning-container {
+               animation-play-state: running;
+               animation-duration: 3s;
+            }
+
+            .warning-box {
+                background: rgba(18, 18, 18, 0.95); /* Deeper black for better contrast */
+                border: 1px solid #D6FC52;
+                padding: 1rem 1.5rem;
+                backdrop-filter: blur(8px);
+                transform: skewX(-10deg);
+                box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.5), 0 0 15px rgba(214, 252, 82, 0.1);
+                max-width: 90%;
+                position: relative;
+            }
+            
+            /* Decor lines on the box corners */
+            .warning-box::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                right: -4px;
+                width: 15px;
+                height: 15px;
+                border-bottom: 2px solid #D6FC52;
+                border-right: 2px solid #D6FC52;
+            }
+
+            .warning-title {
+                font-family: 'Syne', sans-serif;
+                font-weight: 900;
+                font-style: italic;
+                color: #D6FC52;
+                font-size: 1.2rem;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                text-shadow: 0 0 10px rgba(214, 252, 82, 0.3);
+            }
+            
+            .warning-blink {
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                background-color: #FF4D4D;
+                border-radius: 50%;
+                box-shadow: 0 0 8px #FF4D4D;
+                animation: panic-pulse 0.4s infinite alternate;
+            }
+
+            .warning-text {
+                font-family: 'Noto Sans JP', sans-serif;
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1.6;
+                opacity: 0.9;
+            }
+            
+            .warning-decor {
+                margin-top: 0.8rem;
+                border-top: 1px dashed #333;
+                padding-top: 0.5rem;
+                font-family: 'monospace';
+                font-size: 0.6rem;
+                color: #666;
+                text-align: left;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+        }
             
             .mobile-warning-container:hover, 
             body.is-loading .mobile-warning-container {
