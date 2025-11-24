@@ -919,13 +919,16 @@
             }
             
             .warning-blink {
-                display: inline-block;
-                width: 6px;
-                height: 6px;
+                display: block; 
+                flex-shrink: 0;
+                width: 8px;     
+                height: 8px;    
                 background-color: #FF4D4D;
                 border-radius: 50%;
-                box-shadow: 0 0 8px #FF4D4D;
-                animation: panic-pulse 0.4s infinite alternate;
+                box-shadow: 0 0 10px #FF4D4D; 
+                position: relative; 
+                top: 1px;       
+                animation: panic-pulse 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
             }
 
             .warning-text {
