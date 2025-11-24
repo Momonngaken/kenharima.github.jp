@@ -30,7 +30,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -51,7 +50,6 @@
                         sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
                         mono: ['monospace'], 
-                        barcode: ['"Libre Barcode 128 Text"', 'cursive'],
                     },
                     colors: {
                         neoBg: '#F0F0EB',
@@ -149,21 +147,6 @@
             border: none;
         }
         body.hovering .cursor-dot { opacity: 0; }
-        
-        /* New Drag Cursor State */
-        body.is-dragging .cursor-liquid {
-            width: 100px; height: 30px;
-            border-radius: 15px;
-            background-color: #fff;
-            mix-blend-mode: exclusion;
-            border: none;
-        }
-        body.is-dragging .cursor-liquid::after {
-            content: 'DRAG';
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10px; font-weight: 900; color: black;
-        }
 
         /* Components */
         .neo-border { border: 3px solid #121212; }
@@ -239,99 +222,12 @@
         /* HUD */
         #cyber-hud { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 9990; pointer-events: none; display: none; flex-direction: column; align-items: flex-end; mix-blend-mode: difference; font-family: 'monospace'; color: #D6FC52; }
         @media (min-width: 1025px) { #cyber-hud { display: flex; } }
-        .hud-track { position: relative; width: 2px; height: 360px; background: rgba(255,255,255,0.2); margin-right: 9px; } /* Extended height */
+        .hud-track { position: relative; width: 2px; height: 300px; background: rgba(255,255,255,0.2); margin-right: 9px; }
         .hud-progress { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: #D6FC52; box-shadow: 0 0 10px #D6FC52; }
         .hud-point { position: absolute; right: 10px; transform: translateY(-50%); font-size: 10px; font-weight: bold; opacity: 0.3; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
         .hud-point.active { opacity: 1; color: #D6FC52; text-shadow: 0 0 5px #D6FC52; }
         .hud-point::after { content: ''; display: block; width: 6px; height: 1px; background: currentColor; }
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
-
-        /* =========================================
-           NEW: PHOTOS SECTION (EDITORIAL GALLERY)
-           ========================================= */
-        #photos {
-            overflow: hidden; /* Controlled via JS on Desktop */
-            position: relative;
-            background-color: #F0F0EB;
-        }
-        
-        /* Mobile Native Scroll */
-        @media (max-width: 1023px) {
-            #photos-wrapper {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                padding-bottom: 2rem;
-                -webkit-overflow-scrolling: touch;
-            }
-            .photo-card {
-                scroll-snap-align: center;
-                flex-shrink: 0;
-            }
-        }
-
-        /* Desktop Pinned Scroll */
-        @media (min-width: 1024px) {
-            #photos-wrapper {
-                display: flex;
-                flex-wrap: nowrap;
-                height: 100vh;
-                align-items: center;
-                width: fit-content;
-                will-change: transform;
-            }
-        }
-
-        .photo-card {
-            position: relative;
-            margin-right: 5vw; /* Editorial spacing */
-            transition: transform 0.3s ease;
-        }
-        
-        /* Brutalist Frame */
-        .photo-frame {
-            position: relative;
-            overflow: hidden;
-            border: 4px solid #121212;
-            box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            background: #000;
-        }
-        
-        .photo-frame:hover {
-            box-shadow: 15px 15px 0 #D6FC52;
-            transform: translate(-4px, -4px);
-        }
-
-        .photo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(1.2);
-            transition: filter 0.5s ease, transform 0.8s ease;
-            will-change: transform;
-        }
-
-        .photo-frame:hover .photo-img {
-            filter: grayscale(0%) contrast(1.1);
-            transform: scale(1.05);
-        }
-        
-        /* Cyber Data Overlay */
-        .photo-meta {
-            margin-top: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            font-family: 'Syne', sans-serif;
-        }
-        
-        .barcode {
-            font-family: 'Libre Barcode 128 Text', cursive;
-            font-size: 2.5rem;
-            line-height: 0.8;
-            opacity: 0.5;
-        }
 
         /* =========================================
            CYBER NAVY PROGRESS BAR (MOBILE)
@@ -447,29 +343,6 @@
             box-shadow: none !important;
         }
 
-        /* Photos Section Scan Mode Overrides */
-        body.is-scanning #photos {
-            background-color: #000 !important;
-            border-top: 4px solid #222 !important;
-        }
-        body.is-scanning .photo-frame {
-            border-color: #333 !important;
-            box-shadow: none !important;
-        }
-        body.is-scanning .photo-img {
-            filter: grayscale(100%) brightness(0.4) !important;
-        }
-        body.is-scanning .photo-frame:hover .photo-img {
-            filter: grayscale(100%) brightness(0.6) contrast(1.2) !important; /* Slight boost on hover even in scan mode */
-        }
-        body.is-scanning .photo-meta, body.is-scanning .barcode {
-             color: #333 !important;
-        }
-        body.is-scanning .photo-meta .scan-highlight {
-             color: #D6FC52 !important;
-             text-shadow: 0 0 5px #D6FC52 !important;
-        }
-
         body.is-scanning img,
         body.is-scanning .bg-cover {
             filter: grayscale(100%) brightness(0.2) !important;
@@ -543,6 +416,8 @@
                 calc(100% - 20px) 100%, 100% 100%, 
                 20px 100%, 0 100%, 0 calc(100% - 20px)
             );
+            /* Corner Bracket Animation Logic handled by pseudo repetition or complex path */
+            /* Simplified powerful visual: */
             background: 
                 linear-gradient(to right, #D6FC52 4px, transparent 4px) 0 0,
                 linear-gradient(to bottom, #D6FC52 4px, transparent 4px) 0 0,
@@ -821,12 +696,11 @@
 
     <!-- HUD (PC Only) -->
     <aside id="cyber-hud">
-        <div style="position: relative; height: 360px;">
+        <div style="position: relative; height: 300px;">
             <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
-            <div class="hud-point" style="top: 20%" data-target="about">BIO</div>
-            <div class="hud-point" style="top: 40%" data-target="works">WORK</div>
-            <div class="hud-point" style="top: 60%" data-target="photos">PHOTO</div>
-            <div class="hud-point" style="top: 80%" data-target="skills">SKILLS</div>
+            <div class="hud-point" style="top: 25%" data-target="about">BIO</div>
+            <div class="hud-point" style="top: 50%" data-target="works">WORK</div>
+            <div class="hud-point" style="top: 75%" data-target="skills">SKILLS</div>
             <div class="hud-point" style="top: 100%" data-target="contact">CONTACT</div>
             <div class="hud-track"><div class="hud-progress" id="hud-bar"></div></div>
             <div class="hud-coords">Y-AXIS: <span id="y-val">0000</span></div>
@@ -910,7 +784,6 @@
             <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
                 <div class="magnetic-btn link-wrapper"><a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a></div>
-                <div class="magnetic-btn link-wrapper"><a href="#photos" class="block text-sm font-bold uppercase hover:text-neoYellow transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navPhotos">写真</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a></div>
                 
@@ -935,7 +808,6 @@
             <button id="close-menu-btn" class="absolute top-6 right-6 p-2 border-2 border-black rounded-full"><svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <a href="#about" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navAbout">私について</a>
             <a href="#works" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navWorks">活動・受賞歴</a>
-            <a href="#photos" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navPhotos">写真</a>
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
@@ -1242,92 +1114,6 @@
             </div>
         </section>
 
-        <!-- =========================================
-             NEW SECTION: PHOTOS (HORIZONTAL GALLERY)
-             ========================================= -->
-        <section id="photos" class="relative bg-neoBg border-t-4 border-black">
-            <div id="photos-wrapper">
-                <!-- Title Slide -->
-                <div class="photo-card w-[100vw] md:w-[50vw] h-[60vh] md:h-[80vh] flex items-center justify-center px-8 md:pl-16 flex-shrink-0">
-                    <div class="relative">
-                        <div class="absolute -top-16 -left-8 text-neoYellow text-9xl opacity-50 blur-lg select-none pointer-events-none font-black font-display">SNAPSHOT</div>
-                        <h2 class="text-[15vw] md:text-[12rem] font-black font-display leading-none text-black relative z-10 text-stroke hover:text-black transition-colors duration-500">
-                            CAPTURED<br>MOMENTS
-                        </h2>
-                        <div class="mt-8 flex items-center gap-4 font-mono text-xs md:text-sm font-bold">
-                            <span class="bg-black text-white px-3 py-1">/// GALLERY_MODE</span>
-                            <span class="animate-pulse text-neoRed">● LIVE VIEW</span>
-                            <span class="hidden md:inline-block text-gray-500 border-l-2 border-gray-300 pl-4">SCROLL / DRAG TO EXPLORE -></span>
-                            <span class="md:hidden text-gray-500 border-l-2 border-gray-300 pl-4">SWIPE TO EXPLORE -></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Photo 1 (Portrait) -->
-                <div class="photo-card w-[85vw] md:w-[30vw] h-[60vh] md:h-[70vh] flex-shrink-0 hover-trigger">
-                    <div class="photo-frame h-full w-full">
-                        <img src="https://picsum.photos/600/900?random=1" alt="Photo 1" class="photo-img">
-                    </div>
-                    <div class="photo-meta">
-                        <div class="flex flex-col">
-                            <span class="text-3xl font-black italic text-neoBlue scan-highlight">TOKYO</span>
-                            <span class="text-xs font-mono font-bold text-gray-500">ISO 400 // F2.8 // 1/250</span>
-                        </div>
-                        <div class="barcode">123456</div>
-                    </div>
-                </div>
-
-                <!-- Photo 2 (Landscape) -->
-                <div class="photo-card w-[90vw] md:w-[50vw] h-[40vh] md:h-[50vh] flex-shrink-0 hover-trigger self-end mb-20 md:mb-0">
-                    <div class="photo-frame h-full w-full">
-                        <img src="https://picsum.photos/1200/800?random=2" alt="Photo 2" class="photo-img">
-                    </div>
-                    <div class="photo-meta">
-                        <div class="flex flex-col">
-                            <span class="text-3xl font-black italic text-neoRed scan-highlight">MANNHEIM</span>
-                            <span class="text-xs font-mono font-bold text-gray-500">ISO 800 // F1.4 // 1/60</span>
-                        </div>
-                        <div class="barcode">789012</div>
-                    </div>
-                </div>
-
-                <!-- Photo 3 (Portrait) -->
-                <div class="photo-card w-[85vw] md:w-[30vw] h-[60vh] md:h-[70vh] flex-shrink-0 hover-trigger">
-                    <div class="photo-frame h-full w-full">
-                        <img src="https://picsum.photos/600/900?random=3" alt="Photo 3" class="photo-img">
-                    </div>
-                    <div class="photo-meta">
-                        <div class="flex flex-col">
-                            <span class="text-3xl font-black italic text-neoYellow scan-highlight text-stroke">SINGAPORE</span>
-                            <span class="text-xs font-mono font-bold text-gray-500">ISO 100 // F8.0 // 1/500</span>
-                        </div>
-                        <div class="barcode">345678</div>
-                    </div>
-                </div>
-
-                <!-- Photo 4 (Square) -->
-                <div class="photo-card w-[80vw] md:w-[40vh] h-[40vh] md:h-[40vh] flex-shrink-0 hover-trigger self-start mt-20 md:mt-0">
-                    <div class="photo-frame h-full w-full bg-white p-4">
-                        <div class="h-full w-full border-2 border-black flex items-center justify-center bg-black">
-                             <span class="text-white font-black text-6xl font-display italic">?</span>
-                        </div>
-                    </div>
-                    <div class="photo-meta">
-                        <div class="flex flex-col">
-                            <span class="text-3xl font-black italic text-black scan-highlight">UNKNOWN</span>
-                            <span class="text-xs font-mono font-bold text-gray-500">DATA_CORRUPTED</span>
-                        </div>
-                        <div class="barcode">000000</div>
-                    </div>
-                </div>
-
-                 <!-- End Spacer -->
-                 <div class="photo-card w-[10vw] md:w-[20vw] flex-shrink-0 flex items-center justify-center">
-                    <div class="w-[2px] h-[200px] bg-black opacity-20"></div>
-                 </div>
-            </div>
-        </section>
-
         <section id="skills" class="py-24 bg-neoYellow border-y-4 border-black">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke font-tight lang-fade" data-key="skillsTitle">保有資格</h2>
@@ -1449,13 +1235,6 @@
                 el.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 }); });
                 el.addEventListener('mouseleave', () => { document.body.classList.remove('hovering'); gsap.to(cursorLiquid, { scale: 1, duration: 0.3 }); });
             });
-
-            // Drag Cursor Logic for Photos
-            const photoSection = document.getElementById('photos');
-            if(photoSection) {
-                photoSection.addEventListener('mouseenter', () => { document.body.classList.add('is-dragging'); });
-                photoSection.addEventListener('mouseleave', () => { document.body.classList.remove('is-dragging'); });
-            }
         }
 
         // --- 1.5 GYROSCOPE PARALLAX (MOBILE TILT) ---
@@ -1566,7 +1345,6 @@
             initScanProtocol(); // Initialize Scan Mode
             initMobileCommandCenter(); // Initialize Mobile HUD
             initMobileGyro(); // Initialize Mobile Gyro Effects
-            initPhotoGallery(); // Initialize the new gallery
             
             // Attach Haptic to all buttons
             document.querySelectorAll('button, a').forEach(btn => {
@@ -1614,62 +1392,10 @@
             });
         }
 
-        // --- NEW: PHOTO GALLERY LOGIC (SCROLL TRIGGER PIN) ---
-        function initPhotoGallery() {
-            const wrapper = document.getElementById("photos-wrapper");
-            const sections = gsap.utils.toArray(".photo-card");
-
-            // Only run horizontal scroll logic on larger screens to preserve UX
-            ScrollTrigger.matchMedia({
-                "(min-width: 1024px)": function() {
-                    let scrollTween = gsap.to(sections, {
-                        xPercent: -100 * (sections.length - 1),
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: "#photos",
-                            pin: true,
-                            scrub: 1,
-                            // Calculate end based on width to ensure smooth scrub feeling (not too fast)
-                            end: () => "+=" + wrapper.offsetWidth,
-                            invalidateOnRefresh: true
-                        }
-                    });
-                    
-                    // Parallax Effect for Images inside frames
-                    sections.forEach((section) => {
-                        const img = section.querySelector('.photo-img');
-                        if(img) {
-                            gsap.fromTo(img, { xPercent: -10 }, {
-                                xPercent: 10,
-                                ease: "none",
-                                scrollTrigger: {
-                                    trigger: section,
-                                    containerAnimation: scrollTween,
-                                    start: "left right",
-                                    end: "right left",
-                                    scrub: true
-                                }
-                            });
-                        }
-                    });
-                },
-                // Mobile: Ensure native scrolling works nicely (No GSAP needed, handled by CSS)
-                "(max-width: 1023px)": function() {
-                   // No JS needed for snap scroll, it's CSS based for performance
-                }
-            });
-        }
-
         gsap.registerPlugin(ScrollTrigger);
         function initScrollSpy() {
-            const navItems = [
-                { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, 
-                { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, 
-                { id: "photos", link: document.querySelector('a[data-key="navPhotos"]').parentElement },
-                { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, 
-                { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }
-            ];
-            const sections = ['hero', 'about', 'works', 'photos', 'skills', 'contact'];
+            const navItems = [{ id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }];
+            const sections = ['hero', 'about', 'works', 'skills', 'contact'];
             
             sections.forEach(sectionId => {
                 const target = sectionId === 'hero' ? document.body : document.getElementById(sectionId);
@@ -1735,7 +1461,7 @@
 
         const translations = {
             ja: {
-                navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navPhotos: "写真", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
+                navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
                 daikinRole: "/// 配属：解析中...", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
@@ -1769,7 +1495,7 @@
                 work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018にて、私の考えたビジネスプランが総応募数4359件のうち TOP100件に選出。同グランプリ都大会に出場し、<span class='scan-highlight'>東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞</span>しました。",
                 work8Title: "<span class='scan-highlight'>広尾学園中学校学年プレゼンテーション大会</span>", 
                 work8Subtitle: "<span class='scan-highlight'>最優秀賞受賞</span>", 
-                work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
+                work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、<span class='scan-highlight'>1学年302名の中から、最高位「プレゼン大賞」を受賞</span>しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
                 work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
                 work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>し、約11万円の賞金を獲得しました。",
@@ -1782,7 +1508,7 @@
                 backToTop: "トップに戻る"
             },
             en: {
-                navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navPhotos: "Photos", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
+                navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
                 heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
                 daikinRole: "/// DEPLOYMENT_PENDING", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
@@ -1816,7 +1542,7 @@
                 work7Body: "In 2018, in the National High School Business Plan Grand Prix hosted by the Japan Finance Corporation, my business plan was selected among the Top 100 out of 4,359 submissions. I advanced to the Tokyo metropolitan finals and received the <span class='scan-highlight'>Director General’s Award from the Tokyo Metropolitan Bureau of Industrial and Labor Affairs (second place, next to the Governor’s Award)</span>.",
                 work8Title: "<span class='scan-highlight'>Hiroo Gakuen Junior High School Grade Presentation Contest</span>", 
                 work8Subtitle: "<span class='scan-highlight'>Grand Prize</span>", 
-                work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.” Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
+                work8Body: "In 2017, after a month of intensive practice, I competed in the school-wide presentation contest at Hiroo Gakuen Junior High School. <span class='scan-highlight'>Out of 302 students in my grade, I received the highest honor, the “Presentation Grand Prize.”</span> Title: “What is ‘Progress’ from the perspective of ‘Common Sense’?” I argued how ‘common sense’ can be tunnel vision and emphasized the importance of education that fosters critical thinking.",
                 work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
                 work9Subtitle: "<span class='scan-highlight'>107th Place (In the Money)</span>", 
                 work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished <span class='scan-highlight'>107th out of 2,511 entrants</span> and earned prize money of approximately ¥110,000.",
