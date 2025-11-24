@@ -343,28 +343,6 @@
         @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         /* Utility */
-        /* ■■■ ADDITION: QUICK BOOT PROTOCOL (NO FLASH) ■■■ */
-        /* 再訪問時、DOM描画の瞬間からローダーを抹消する */
-        html.quick-boot #loader {
-            display: none !important;
-            visibility: hidden !important;
-            z-index: -9999 !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-
-        html.quick-boot body.is-loading {
-            overflow: auto !important;
-            overflow-x: hidden !important; /* 横スクロールは防止 */
-            height: auto !important;
-        }
-
-        /* 瞬時にコンテンツを表示するための強制フェードイン */
-        html.quick-boot .fade-in-up {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            animation: none !important;
-        }
         /* Utility - Force Hide Scrollbar but keep functionality */
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { 
@@ -981,24 +959,6 @@
             to { opacity: 0.4; transform: scale(1.5); }
         }
     </style>
-    <!-- ■■■ ADDITION: SYSTEM MEMORY PERSISTENCE CHECK ■■■ -->
-    <!-- 描画開始前に実行し、再訪問時のローダーフラッシュを物理的に阻止する -->
-    <script>
-        (function() {
-            try {
-                // Check memory state immediately
-                var recoveryState = sessionStorage.getItem('visited');
-                var navType = window.performance && window.performance.navigation ? window.performance.navigation.type : null;
-                
-                // If visited OR navigating back (type 2), engage Quick Boot Protocol
-                if (recoveryState || navType === 2) {
-                    document.documentElement.classList.add('quick-boot');
-                }
-            } catch (e) {
-                // Fallback: Continue standard boot sequence
-            }
-        })();
-    </script>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
 
@@ -2241,20 +2201,6 @@
             requestAnimationFrame(animateMarquee);
         }
         document.addEventListener("DOMContentLoaded", () => { detectLanguage(); initLoader(); });
-        /* ■■■ ADDITION: BFCache RECOVERY (Safari/iOS Back Button Fix) ■■■ */
-        window.addEventListener('pageshow', function(event) {
-            // ページがキャッシュから復元された場合(戻るボタン等)、強制的にローダーを排除して即時操作可能にする
-            if (event.persisted || sessionStorage.getItem('visited')) {
-                const loader = document.getElementById('loader');
-                if (loader) {
-                    loader.style.display = 'none';
-                    document.body.classList.remove('is-loading');
-                    // スクロール位置の復元が必要な場合、Lenisを再開
-                    if (typeof lenis !== 'undefined') lenis.start();
-                }
-                document.documentElement.classList.add('quick-boot');
-            }
-        });
     </script>
 </body>
 </html>
