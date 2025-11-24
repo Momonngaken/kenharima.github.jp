@@ -754,20 +754,80 @@
             pointer-events: none;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1024px), (hover: none) and (pointer: coarse) {
             .mobile-warning-container {
                 display: flex !important;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 position: absolute;
-                bottom: 15%; /* ローディングバーの下あたりに配置 */
+                bottom: 15%; 
                 left: 0;
                 width: 100%;
                 z-index: 60;
-                animation: warning-glitch 0.1s infinite; /* 微細なグリッチ演出 */
-                animation-play-state: paused; /* 通常は停止 */
+                animation: warning-glitch 0.1s infinite;
+                animation-play-state: paused;
             }
+            
+            .mobile-warning-container:hover, 
+            body.is-loading .mobile-warning-container {
+               animation-play-state: running;
+               animation-duration: 3s;
+            }
+
+            .warning-box {
+                background: rgba(0, 0, 0, 0.85);
+                border: 1px solid #D6FC52;
+                padding: 1rem 1.5rem;
+                backdrop-filter: blur(4px);
+                transform: skewX(-10deg);
+                box-shadow: 4px 4px 0px rgba(214, 252, 82, 0.2);
+                max-width: 90%;
+            }
+
+            .warning-title {
+                font-family: 'Syne', sans-serif;
+                font-weight: 900;
+                font-style: italic;
+                color: #D6FC52;
+                font-size: 1.2rem;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .warning-blink {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                background-color: #FF4D4D;
+                border-radius: 50%;
+                box-shadow: 0 0 5px #FF4D4D;
+                animation: panic-pulse 0.5s infinite alternate;
+            }
+
+            .warning-text {
+                font-family: 'Noto Sans JP', sans-serif;
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1.4;
+                opacity: 0.9;
+            }
+            
+            .warning-decor {
+                margin-top: 0.5rem;
+                border-top: 1px dashed #333;
+                padding-top: 0.3rem;
+                font-family: 'monospace';
+                font-size: 0.6rem;
+                color: #555;
+                text-align: left;
+            }
+        }
             
             /* ランダムにグリッチさせる */
             .mobile-warning-container:hover, 
@@ -1348,17 +1408,19 @@
             </div>
 
             <!-- GSAP Pin Wrapper -->
-            <div id="fragments-wrapper" class="relative w-full h-auto md:h-[100vh] flex flex-col justify-center py-24 md:py-0 z-10">
+            <!-- UPDATE: md:h-[100vh] -> lg:h-[100vh] to allow natural flow on tablets -->
+            <div id="fragments-wrapper" class="relative w-full h-auto lg:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
                 
                 <!-- Horizontal Track -->
-                <div id="fragments-track" class="flex flex-row items-center gap-6 md:gap-20 px-8 md:pl-[20vw] md:pr-[20vw] overflow-x-auto md:overflow-visible w-full hide-scroll snap-x snap-mandatory md:snap-none pb-8 md:pb-0">
+                <!-- UPDATE: Changed breakpoints to lg: so tablets keep horizontal scroll -->
+                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[20vw] lg:pr-[20vw] overflow-x-auto lg:overflow-visible w-full hide-scroll snap-x snap-mandatory lg:snap-none pb-8 lg:pb-0 cursor-grab active:cursor-grabbing">
                     
                     <!-- Card 1 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
-                        <div class="relative w-[80vw] md:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[80vw] lg:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Tokyo, Japan</p>
@@ -1367,11 +1429,12 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-12">
+                    <!-- UPDATE: lg:translate-y-12 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-12">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[90vw] md:w-[35vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[90vw] lg:w-[35vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_6495.jpg" alt="Evidence 02" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2022@Tokyo, Japan</p>
@@ -1380,11 +1443,12 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:-translate-y-8">
+                    <!-- UPDATE: lg:-translate-y-8 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-8">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[70vw] md:w-[22vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[70vw] lg:w-[22vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_9749.jpg" alt="Evidence 03" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoBlue font-mono text-xs">2025@Tokyo, Japan</p>
@@ -1393,11 +1457,12 @@
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-6">
+                    <!-- UPDATE: lg:translate-y-6 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-6">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[90vw] md:w-[38vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[90vw] lg:w-[38vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_5333.jpg" alt="Evidence 04" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-white font-mono text-xs">2024@Sofia, Bulgaria </p>
@@ -1406,11 +1471,12 @@
                     </div>
 
                     <!-- Card 5 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:-translate-y-16">
+                    <!-- UPDATE: lg:-translate-y-16 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-16">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[80vw] md:w-[28vw] aspect-square bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[80vw] lg:w-[28vw] aspect-square bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_1234.jpg" alt="Evidence 05" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoPurple font-mono text-xs">2023@Mannheim, Germany</p>
@@ -1419,11 +1485,12 @@
                     </div>
 
                     <!-- Card 6 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-10">
+                    <!-- UPDATE: lg:translate-y-10 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-10">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[80vw] md:w-[25vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[80vw] lg:w-[25vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG9876.jpg" alt="Evidence 06" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Mannheim, Germany</p>
@@ -1432,11 +1499,12 @@
                     </div>
 
                     <!-- Card 7 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:-translate-y-4">
+                    <!-- UPDATE: lg:-translate-y-4 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-4">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[90vw] md:w-[35vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[90vw] lg:w-[35vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_2045.jpg" alt="Evidence 07" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2023@Yamanashi, Japan</p>
