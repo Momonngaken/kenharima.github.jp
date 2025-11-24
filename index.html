@@ -746,7 +746,94 @@
             30%, 50%, 70% { transform: translate3d(-2px, 0, 0); }
             40%, 60% { transform: translate3d(1px, 0, 0); }
         }
+/* =========================================
+           MOBILE OPTIMIZATION WARNING (LOADING SCREEN)
+           ========================================= */
+        .mobile-warning-container {
+            display: none; /* PCでは非表示 */
+            pointer-events: none;
+        }
 
+        @media (max-width: 1024px) {
+            .mobile-warning-container {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                bottom: 15%; /* ローディングバーの下あたりに配置 */
+                left: 0;
+                width: 100%;
+                z-index: 60;
+                animation: warning-glitch 0.1s infinite; /* 微細なグリッチ演出 */
+                animation-play-state: paused; /* 通常は停止 */
+            }
+            
+            /* ランダムにグリッチさせる */
+            .mobile-warning-container:hover, 
+            body.is-loading .mobile-warning-container {
+               animation-play-state: running;
+               animation-duration: 3s; /* ゆったりとしたノイズ */
+            }
+
+            .warning-box {
+                background: rgba(0, 0, 0, 0.85);
+                border: 1px solid #D6FC52;
+                padding: 1rem 1.5rem;
+                backdrop-filter: blur(4px);
+                transform: skewX(-10deg); /* サイバーな傾き */
+                box-shadow: 4px 4px 0px rgba(214, 252, 82, 0.2);
+                max-width: 90%;
+            }
+
+            .warning-title {
+                font-family: 'Syne', sans-serif;
+                font-weight: 900;
+                font-style: italic;
+                color: #D6FC52;
+                font-size: 1.2rem;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .warning-blink {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                background-color: #FF4D4D;
+                border-radius: 50%;
+                box-shadow: 0 0 5px #FF4D4D;
+                animation: panic-pulse 0.5s infinite alternate;
+            }
+
+            .warning-text {
+                font-family: 'Noto Sans JP', sans-serif;
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1.4;
+                opacity: 0.9;
+            }
+            
+            .warning-decor {
+                margin-top: 0.5rem;
+                border-top: 1px dashed #333;
+                padding-top: 0.3rem;
+                font-family: 'monospace';
+                font-size: 0.6rem;
+                color: #555;
+                text-align: left;
+            }
+        }
+
+        @keyframes panic-pulse {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0.4; transform: scale(1.5); }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -816,10 +903,27 @@
         <div class="absolute top-6 right-6 font-mono text-xs md:text-sm text-neoBlue text-right">MEMORY: OK<br>RENDER: OK</div>
         <div class="absolute bottom-6 left-6 font-mono text-xs md:text-sm text-neoRed">> INITIALIZING...</div>
         <div class="absolute bottom-6 right-6 font-mono text-xs md:text-sm text-gray-500">©2025</div>
+        
         <div class="relative z-10 text-center">
             <div class="loader-text text-[25vw] md:text-[20vw] tracking-tighter min-w-[3ch]" id="loader-counter">000</div>
             <div class="h-2 w-full bg-[#333] mt-4 relative overflow-hidden">
                 <div id="loader-bar" class="absolute top-0 left-0 h-full bg-neoYellow w-0"></div>
+            </div>
+        </div>
+        
+        <div class="mobile-warning-container">
+            <div class="warning-box">
+                <div class="warning-title">
+                    <span class="warning-blink"></span>
+                    OPTIMIZED FOR DESKTOP
+                </div>
+                <p class="warning-text">
+                    PCでの閲覧で、<br>本来の体験が可能になります
+                </p>
+                <div class="warning-decor">
+                    >> DETECTED: TOUCH_DEVICE<br>
+                    >> UX_MODE: COMPATIBILITY
+                </div>
             </div>
         </div>
     </div>
