@@ -1485,7 +1485,9 @@
                </button>
 
                <!-- Horizontal Track -->
-                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:px-[15vw] overflow-x-auto lg:overflow-x-hidden w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20" style="-webkit-overflow-scrolling: touch;">
+                <!-- Horizontal Track -->
+                <!-- UPDATED: Added pr-[10vw] lg:pr-[40vw] to ensure the last cards can be centered properly -->
+                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[15vw] pr-[10vw] lg:pr-[40vw] overflow-x-auto lg:overflow-x-hidden w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20" style="-webkit-overflow-scrolling: touch;">
                     
                     <!-- Hint for Mobile -->
                     <div class="lg:hidden absolute top-1/2 left-10 z-50 pointer-events-none animate-pulse text-neoYellow font-mono text-xs tracking-widest writing-vertical-rl opacity-70">
@@ -1558,7 +1560,8 @@
                     </div>
 
                      <!-- Card 6 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-20">
+                     <!-- UPDATED: Adjusted translate-y slightly to prevent top clipping, kept aspect ratio -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-16">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
@@ -1583,8 +1586,19 @@
                         </div>
                     </div>
 
+                    <!-- NEW: CYBER TERMINATOR (Visual Spacer & End Marker) -->
+                    <!-- This ensures the scroll track is long enough for the last cards to be centered -->
+                    <div class="fragment-frame relative flex-shrink-0 flex items-center justify-center snap-center lg:snap-align-none w-[20vw] h-[20vh] opacity-50 select-none pointer-events-none">
+                        <div class="relative flex flex-col items-center justify-center gap-4">
+                            <div class="w-[1px] h-24 bg-gradient-to-b from-transparent via-neoYellow to-transparent animate-pulse"></div>
+                            <div class="writing-vertical-rl font-mono text-[10px] md:text-xs text-neoYellow tracking-[0.3em] font-bold" style="text-orientation: mixed;">
+                                /// END_OF_DATA_LOG ///
+                            </div>
+                            <div class="w-[1px] h-24 bg-gradient-to-b from-transparent via-neoYellow to-transparent animate-pulse"></div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
             
             <!-- Decoration Footer for Section -->
             <div class="absolute bottom-2 left-0 w-full flex justify-between px-4 opacity-30 font-mono text-[10px] pointer-events-none z-20">
