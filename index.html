@@ -287,7 +287,7 @@
             opacity: 1 !important; /* Ensure card container is visible */
         }
 
-        /* 4. The Scan Button Styles */
+        /* 4. The Scan Button Styles (PC & Global Base) */
         #scan-toggle-container {
             position: fixed;
             bottom: 2rem;
@@ -295,14 +295,7 @@
             z-index: 10000;
         }
         
-        /* Mobile Positioning */
-        @media (max-width: 767px) {
-            #scan-toggle-container {
-                right: 1.5rem;
-                bottom: 8rem; /* Stacked above Lang toggle */
-            }
-        }
-
+        /* PC Button Style */
         .scan-btn {
             background: black;
             border: 2px solid #D6FC52;
@@ -349,6 +342,100 @@
         .scan-btn.active .scan-indicator {
             background: #FF4D4D;
             box-shadow: 0 0 5px #FF4D4D;
+        }
+
+        /* ----------------------------------------------------
+           EXTREME MOBILE OPTIMIZATION - "SYSTEM TERMINAL" STYLE
+           ---------------------------------------------------- */
+        @media (max-width: 767px) {
+            #scan-toggle-container {
+                right: 1.5rem;      /* Aligned with Lang button right edge */
+                bottom: 8.5rem;     /* Ergonomically placed above Lang button */
+                perspective: 1000px;
+            }
+
+            .scan-btn {
+                width: 56px;
+                height: 56px;
+                padding: 0;
+                justify-content: center;
+                border-radius: 50%; /* Perfect circle */
+                background: #000;
+                border: 2px solid #D6FC52;
+                box-shadow: 0 0 15px rgba(214, 252, 82, 0.2), inset 0 0 10px rgba(214, 252, 82, 0.1);
+                overflow: hidden;
+                position: relative;
+            }
+
+            /* HIDE EXISTING PC TEXT/ELEMENTS */
+            .scan-btn span {
+                display: none !important;
+            }
+
+            /* TERMINAL SYMBOL ">_" */
+            .scan-btn::after {
+                content: '>_';
+                font-family: 'monospace';
+                font-weight: 900;
+                font-size: 1.25rem;
+                color: #D6FC52;
+                letter-spacing: -2px;
+                margin-left: 2px;
+                animation: terminalBlink 1s steps(2, start) infinite;
+                z-index: 2;
+                text-shadow: 0 0 5px #D6FC52;
+            }
+
+            /* RADAR PULSE EFFECT (Background layer) */
+            .scan-btn::before {
+                content: '';
+                position: absolute;
+                inset: -50%;
+                background: conic-gradient(from 0deg, transparent 0%, transparent 80%, rgba(214, 252, 82, 0.3) 100%);
+                animation: radarSpin 2s linear infinite;
+                z-index: 1;
+                border-radius: 50%;
+                opacity: 0.5;
+            }
+
+            /* ACTIVE STATE (Mobile) - "SYSTEM OVERRIDE" */
+            .scan-btn.active {
+                background: #D6FC52;
+                border-color: #fff;
+                box-shadow: 0 0 25px #D6FC52;
+                animation: glitchShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+            }
+
+            .scan-btn.active::after {
+                color: #000;
+                text-shadow: none;
+                content: 'OK'; /* Feedback on activation */
+                letter-spacing: 0;
+                font-size: 0.9rem;
+                animation: none;
+            }
+            
+            .scan-btn.active::before {
+                opacity: 0; /* Stop radar on active */
+            }
+        }
+
+        /* ANIMATIONS FOR MOBILE BUTTON */
+        @keyframes terminalBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes radarSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes glitchShake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-2px, 0, 0); }
+            40%, 60% { transform: translate3d(1px, 0, 0); }
         }
 
     </style>
@@ -1056,7 +1143,7 @@
                 work8Body: "2017年、1ヶ月の猛練習の末、広尾学園中学の全学年プレゼン大会に出場し、1学年302名の中から、最高位「プレゼン大賞」を受賞しました。発表タイトルは「『常識』から見る『進歩』とは何か」で、「常識」とされるものがいかにトンネルビジョンであるか、そして批判的思考力を身につける教育に光を当てる重要性を説きました。",
                 work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
                 work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
-                work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位</span>に入賞し、約11万円の賞金を獲得しました。",
+                work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>し、約11万円の賞金を獲得しました。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
                 resumeBtn: "履歴書をDLする",
                 scanBtn: "// 核心を表示",
