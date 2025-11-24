@@ -1790,12 +1790,10 @@
 
         gsap.registerPlugin(ScrollTrigger);
         
-        // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC ---
+        // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC  ---
         function initFragmentsGallery() {
-            // Only engage GSAP horizontal scroll on PC (Desktop)
-            // Mobile uses native CSS scroll snap for better UX
             ScrollTrigger.matchMedia({
-                "(min-width: 768px)": function() {
+                "(min-width: 1025px) and (hover: hover)": function() {
                     const track = document.getElementById("fragments-track");
                     const wrapper = document.getElementById("fragments-wrapper");
                     if(!track || !wrapper) return;
