@@ -615,9 +615,9 @@
     <!-- HUD (PC Only) -->
     <aside id="cyber-hud">
         <div style="position: relative; height: 300px;">
-            <div class="hud-point" style="top: 0%" data-target="top">TOP</div>
-            <div class="hud-point" style="top: 25%" data-target="about">BIO</div>
-            <div class="hud-point" style="top: 50%" data-target="works">WORK</div>
+            <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
+            <div class="hud-point" style="top: 25%" data-target="about">ABOUT</div>
+            <div class="hud-point" style="top: 50%" data-target="works">WORKS</div>
             <div class="hud-point" style="top: 75%" data-target="skills">SKILLS</div>
             <div class="hud-point" style="top: 100%" data-target="contact">CONTACT</div>
             <div class="hud-track"><div class="hud-progress" id="hud-bar"></div></div>
@@ -1345,11 +1345,11 @@
             
             // Updated Meaningful Labels for Mobile
             const mobileSectionNames = {
-                'top': '/// SYSTEM READY',
-                'bio': '[01] ABOUT ME',
-                'works': '[02] WORK',
-                'skills': '[03] SKILLS',
-                'contact': '[04] CONTACT'
+                'hero': '/// SYSTEM READY',
+                'about': '[01] IDENTITY',
+                'works': '[02] WORKS LOG',
+                'skills': '[03] SKILL SET',
+                'contact': '[04] CONNECT'
             };
 
             const sectionNameEl = document.getElementById('mcb-section-name');
