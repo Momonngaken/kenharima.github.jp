@@ -230,7 +230,7 @@
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
 
         /* =========================================
-           MOBILE COMMAND CENTER CSS
+           [UPDATED] MOBILE COMMAND CENTER CSS
            ========================================= */
         #mobile-command-bar {
             display: flex;
@@ -240,18 +240,31 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 42px;
-            background: #050505;
-            border-top: 2px solid #D6FC52;
+            height: 48px; /* Slightly taller for impact */
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid #333;
             z-index: 9995;
             padding: 0 16px;
             font-family: 'monospace';
-            font-size: 10px;
-            color: #D6FC52;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
-            pointer-events: none; /* Let clicks pass through if needed, but usually just visual */
+            font-size: 11px;
+            color: #fff;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.8);
+            pointer-events: none;
             opacity: 1;
             transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        /* Texture Overlay for Mobile Bar */
+        .mcb-scanline {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 1;
         }
 
         /* Hide on PC */
@@ -259,11 +272,94 @@
             #mobile-command-bar { display: none !important; }
         }
 
-        .mcb-section { display: flex; align-items: center; gap: 8px; }
-        .mcb-blinker { width: 6px; height: 6px; background-color: #FF4D4D; border-radius: 50%; animation: blinkRed 1s infinite; }
-        .mcb-progress-track { width: 60px; height: 4px; background: #333; position: relative; overflow: hidden; }
-        .mcb-progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #D6FC52; }
-        @keyframes blinkRed { 0%, 100% { opacity: 1; box-shadow: 0 0 5px #FF4D4D; } 50% { opacity: 0.3; box-shadow: none; } }
+        /* Left: Audio Visualizer (Replaces Red Dot) */
+        .mcb-visualizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 14px;
+            width: 20px;
+            z-index: 2;
+        }
+        .mcb-bar {
+            width: 4px;
+            background: #D6FC52;
+            box-shadow: 0 0 5px #D6FC52;
+            animation: audioWave 0.8s ease-in-out infinite;
+        }
+        .mcb-bar:nth-child(1) { animation-delay: 0.1s; height: 60%; }
+        .mcb-bar:nth-child(2) { animation-delay: 0.2s; height: 100%; }
+        .mcb-bar:nth-child(3) { animation-delay: 0.3s; height: 40%; }
+
+        @keyframes audioWave {
+            0%, 100% { height: 40%; opacity: 0.7; }
+            50% { height: 100%; opacity: 1; }
+        }
+
+        /* Center: Status Text (Replaces HERO) */
+        .mcb-center-panel {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        .mcb-status-badge {
+            background: rgba(214, 252, 82, 0.1);
+            border: 1px solid rgba(214, 252, 82, 0.3);
+            color: #D6FC52;
+            padding: 2px 10px;
+            border-radius: 2px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(214, 252, 82, 0.5);
+            font-size: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .mcb-status-badge::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        /* Right: Data Group */
+        .mcb-data-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+        .mcb-clock {
+            font-weight: bold;
+            color: #aaa;
+        }
+        .mcb-percent {
+            color: #D6FC52;
+            font-weight: 900;
+        }
+
+        /* Bottom Progress Line */
+        .mcb-progress-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: #D6FC52;
+            box-shadow: 0 -2px 8px #D6FC52;
+            transition: width 0.1s linear;
+            z-index: 3;
+        }
 
         /* Adjusted button positions for mobile to accommodate the bar */
         @media (max-width: 767px) {
@@ -529,21 +625,32 @@
         </div>
     </aside>
 
-    <!-- MOBILE COMMAND BAR (New Feature) -->
+    <!-- [UPDATED] MOBILE COMMAND BAR -->
     <div id="mobile-command-bar">
-        <div class="mcb-section">
-            <div class="mcb-blinker"></div>
-            <span id="mcb-clock">00:00:00</span>
+        <div class="mcb-scanline"></div>
+        
+        <!-- Left: Audio Visualizer (Friendly Pulse) -->
+        <div class="mcb-visualizer">
+            <div class="mcb-bar"></div>
+            <div class="mcb-bar"></div>
+            <div class="mcb-bar"></div>
         </div>
-        <div class="mcb-section text-center">
-            <span id="mcb-section-name" class="font-black tracking-wider">>> HERO</span>
-        </div>
-        <div class="mcb-section">
-            <span id="mcb-percent" class="mr-2">0%</span>
-            <div class="mcb-progress-track">
-                <div id="mcb-progress-bar" class="mcb-progress-bar"></div>
+
+        <!-- Center: Status Badge (Clear Meaning) -->
+        <div class="mcb-center-panel">
+            <div id="mcb-section-name" class="mcb-status-badge">
+                /// SYSTEM READY
             </div>
         </div>
+
+        <!-- Right: Data -->
+        <div class="mcb-data-group">
+            <span id="mcb-clock" class="mcb-clock">00:00</span>
+            <span id="mcb-percent" class="mcb-percent">0%</span>
+        </div>
+
+        <!-- Bottom: Progress -->
+        <div id="mcb-progress-bar" class="mcb-progress-line"></div>
     </div>
 
     <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
@@ -1207,7 +1314,7 @@
             });
         }
         
-        // --- MOBILE COMMAND CENTER LOGIC ---
+        // --- [UPDATED] MOBILE COMMAND CENTER LOGIC ---
         function initMobileCommandCenter() {
             const clockEl = document.getElementById('mcb-clock');
             const percentEl = document.getElementById('mcb-percent');
@@ -1217,7 +1324,7 @@
             // Clock
             setInterval(() => {
                 const now = new Date();
-                clockEl.innerText = now.toLocaleTimeString('en-US', { hour12: false });
+                clockEl.innerText = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
             }, 1000);
 
             // Progress Loop
@@ -1236,12 +1343,13 @@
             const navItems = [{ id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }];
             const sections = ['hero', 'about', 'works', 'skills', 'contact'];
             
+            // Updated Meaningful Labels for Mobile
             const mobileSectionNames = {
-                'hero': '>> HERO_SEC',
-                'about': '>> ABOUT_ME',
-                'works': '>> WORKS_LOG',
-                'skills': '>> SKILLS_SET',
-                'contact': '>> CONTACT'
+                'hero': '/// SYSTEM READY',
+                'about': '[01] IDENTITY',
+                'works': '[02] WORKS LOG',
+                'skills': '[03] SKILL SET',
+                'contact': '[04] CONNECT'
             };
 
             const sectionNameEl = document.getElementById('mcb-section-name');
@@ -1264,8 +1372,14 @@
                                 hudPoint.classList.add('active'); 
                             }
                             
-                            // Update Mobile Command Bar
-                            if(sectionNameEl) sectionNameEl.innerText = mobileSectionNames[sectionId];
+                            // Update Mobile Command Bar with cool glitch text effect
+                            if(sectionNameEl) {
+                                sectionNameEl.innerText = mobileSectionNames[sectionId];
+                                sectionNameEl.style.opacity = '0.5';
+                                setTimeout(() => sectionNameEl.style.opacity = '1', 50);
+                                setTimeout(() => sectionNameEl.style.opacity = '0.5', 100);
+                                setTimeout(() => sectionNameEl.style.opacity = '1', 150);
+                            }
                         } else { 
                             const navItem = navItems.find(i => i.id === sectionId); 
                             if (navItem) navItem.link.classList.remove('nav-active'); 
