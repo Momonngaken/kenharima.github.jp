@@ -230,7 +230,7 @@
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
 
         /* =========================================
-           MOBILE COMMAND CENTER CSS (IMPROVED - QUANTUM WAVEFORM)
+           MOBILE COMMAND CENTER CSS
            ========================================= */
         #mobile-command-bar {
             display: flex;
@@ -240,17 +240,16 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 48px; /* Slightly taller for the visualizer */
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
+            height: 42px;
+            background: #050505;
             border-top: 2px solid #D6FC52;
             z-index: 9995;
             padding: 0 16px;
             font-family: 'monospace';
             font-size: 10px;
             color: #D6FC52;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-            pointer-events: none;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
+            pointer-events: none; /* Let clicks pass through if needed, but usually just visual */
             opacity: 1;
             transition: transform 0.3s ease;
         }
@@ -260,36 +259,11 @@
             #mobile-command-bar { display: none !important; }
         }
 
-        .mcb-section { display: flex; align-items: center; gap: 8px; height: 100%; }
-        
-        /* Quantum Waveform Visualizer */
-        .quantum-waveform {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 20px;
-            width: 50px;
-        }
-        .q-bar {
-            width: 4px;
-            background: #D6FC52;
-            height: 20%;
-            border-radius: 2px 2px 0 0;
-            animation: q-wave 1.2s infinite ease-in-out;
-            will-change: height;
-        }
-        .q-bar:nth-child(2) { animation-delay: 0.1s; background: #5D5FEF; }
-        .q-bar:nth-child(3) { animation-delay: 0.2s; }
-        .q-bar:nth-child(4) { animation-delay: 0.3s; background: #5D5FEF; }
-        .q-bar:nth-child(5) { animation-delay: 0.4s; }
-
-        @keyframes q-wave {
-            0%, 100% { height: 20%; opacity: 0.5; }
-            50% { height: 80%; opacity: 1; box-shadow: 0 0 8px currentColor; }
-        }
-
-        .mcb-progress-track { width: 60px; height: 4px; background: #222; position: relative; overflow: hidden; border: 1px solid #333; }
-        .mcb-progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #D6FC52; box-shadow: 0 0 10px #D6FC52; }
+        .mcb-section { display: flex; align-items: center; gap: 8px; }
+        .mcb-blinker { width: 6px; height: 6px; background-color: #FF4D4D; border-radius: 50%; animation: blinkRed 1s infinite; }
+        .mcb-progress-track { width: 60px; height: 4px; background: #333; position: relative; overflow: hidden; }
+        .mcb-progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #D6FC52; }
+        @keyframes blinkRed { 0%, 100% { opacity: 1; box-shadow: 0 0 5px #FF4D4D; } 50% { opacity: 0.3; box-shadow: none; } }
 
         /* Adjusted button positions for mobile to accommodate the bar */
         @media (max-width: 767px) {
@@ -555,23 +529,17 @@
         </div>
     </aside>
 
-    <!-- MOBILE COMMAND BAR (IMPROVED - QUANTUM WAVEFORM) -->
+    <!-- MOBILE COMMAND BAR (New Feature) -->
     <div id="mobile-command-bar">
-        <!-- Replaced Clock with Quantum Waveform Visualizer -->
         <div class="mcb-section">
-            <div class="quantum-waveform" id="quantum-viz">
-                <div class="q-bar"></div>
-                <div class="q-bar"></div>
-                <div class="q-bar"></div>
-                <div class="q-bar"></div>
-                <div class="q-bar"></div>
-            </div>
+            <div class="mcb-blinker"></div>
+            <span id="mcb-clock">00:00:00</span>
         </div>
         <div class="mcb-section text-center">
-            <span id="mcb-section-name" class="font-black tracking-wider text-[11px] text-white/90" style="text-shadow: 0 0 10px rgba(214,252,82,0.5);">>> HERO</span>
+            <span id="mcb-section-name" class="font-black tracking-wider">>> HERO</span>
         </div>
         <div class="mcb-section">
-            <span id="mcb-percent" class="mr-2 font-black">0%</span>
+            <span id="mcb-percent" class="mr-2">0%</span>
             <div class="mcb-progress-track">
                 <div id="mcb-progress-bar" class="mcb-progress-bar"></div>
             </div>
@@ -1024,7 +992,7 @@
         </section>
     </main>
 
-    <footer class="bg-white border-t-4 border-black py-8 relative overflow-hidden mb-[48px] md:mb-0">
+    <footer class="bg-white border-t-4 border-black py-8 relative overflow-hidden mb-[42px] md:mb-0">
         <div class="container mx-auto px-4 flex flex-col items-center justify-between gap-8 relative z-10 md:flex-row md:items-end">
             <div class="text-center md:text-left w-full md:w-auto"><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
             <div class="w-full md:w-auto flex justify-center">
@@ -1101,107 +1069,47 @@
             });
         }
 
-        // --- 1.5 ADVANCED MOBILE PHYSICS (WIND PRESSURE & GYRO) ---
-        // Enhanced to use scroll velocity as "wind pressure"
+        // --- 1.5 GYROSCOPE PARALLAX (MOBILE TILT) ---
         function initMobileGyro() {
             if (window.innerWidth >= 1024) return;
             
+            // Apply subtle tilt to cards based on device orientation
             const cards = document.querySelectorAll('.gs-card, .tilt-card');
             
-            // Physics variables
-            let lastScrollY = window.scrollY;
-            let currentVelocity = 0;
-            let targetRotation = 0;
-            let currentRotation = 0;
+            // Fallback for no permission: animate based on scroll velocity (simulated life)
+            let lastScroll = 0;
+            let tiltVelocity = 0;
             
-            // Gyro state
-            let gyroEnabled = false;
-            let gyroX = 0;
-            let gyroY = 0;
-            
-            // Secret Permission Request
-            // Triggered on first interaction (Menu open, Card tap)
-            const requestGyro = async () => {
-                if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                    try {
-                        const permissionState = await DeviceOrientationEvent.requestPermission();
-                        if (permissionState === 'granted') {
-                            gyroEnabled = true;
-                            window.addEventListener('deviceorientation', handleOrientation);
-                        }
-                    } catch (e) {
-                        // Silent fail - just use scroll physics
-                    }
-                } else if (window.DeviceOrientationEvent) {
-                    gyroEnabled = true;
-                    window.addEventListener('deviceorientation', handleOrientation);
-                }
-                // Remove listeners after first attempt
-                document.removeEventListener('click', requestGyro);
-                document.removeEventListener('touchstart', requestGyro);
-            };
-            
-            document.addEventListener('click', requestGyro, { once: true });
-            document.addEventListener('touchstart', requestGyro, { once: true });
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.scrollY;
+                const delta = currentScroll - lastScroll;
+                tiltVelocity = Math.max(Math.min(delta * 0.1, 10), -10); // Cap velocity
+                lastScroll = currentScroll;
+                
+                gsap.to(cards, {
+                    rotationX: tiltVelocity,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
 
-            function handleOrientation(event) {
-                if (!event.gamma || !event.beta) return;
-                // Clamp values
-                gyroX = Math.max(-15, Math.min(15, event.beta - 45)) * -1; // Invert for natural feel
-                gyroY = Math.max(-15, Math.min(15, event.gamma)) * -1;
-            }
-
-            // Animation Loop
-            gsap.ticker.add(() => {
-                const currentScrollY = window.scrollY;
-                const delta = currentScrollY - lastScrollY;
-                
-                // Damping for velocity (inertia)
-                currentVelocity += (delta - currentVelocity) * 0.15;
-                
-                // Map velocity to rotation (Wind Pressure)
-                // If scrolling down (positive velocity), card top tilts back (negative rotationX)
-                // Cap rotation at 25 degrees
-                targetRotation = Math.max(Math.min(currentVelocity * 0.5, 25), -25);
-                
-                // Smoothly interpolate current rotation to target
-                currentRotation += (targetRotation - currentRotation) * 0.1;
-                
-                // Combine Scroll Physics + Gyro
-                // Note: Scroll primarily affects Rotation X
-                const finalRotX = currentRotation + (gyroEnabled ? gyroX : 0);
-                const finalRotY = (gyroEnabled ? gyroY : 0);
-
-                // Apply to cards
-                if (Math.abs(currentRotation) > 0.1 || gyroEnabled) {
-                     cards.forEach(card => {
-                        // Add a slight parallax stagger based on element position could be cool, 
-                        // but sticking to global physics for performance.
-                        card.style.transform = `perspective(1000px) rotateX(${-finalRotX}deg) rotateY(${-finalRotY}deg) scale(${1 - Math.abs(currentRotation/500)})`;
+            // If device orientation is available (and permission granted)
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', (event) => {
+                    if (!event.gamma || !event.beta) return;
+                    
+                    // Clamp values to avoid extreme flips
+                    const tiltX = Math.max(-20, Math.min(20, event.beta - 45)); // Portrait tilt
+                    const tiltY = Math.max(-20, Math.min(20, event.gamma));   // Landscape tilt
+                    
+                    gsap.to(cards, {
+                        rotationX: -tiltX,
+                        rotationY: -tiltY,
+                        duration: 0.5,
+                        ease: "power2.out"
                     });
-                }
-                
-                lastScrollY = currentScrollY;
-                
-                // Also drive the Quantum Waveform intensity with scroll speed
-                updateQuantumWaveform(Math.abs(currentVelocity));
-            });
-        }
-        
-        // Helper to update the Command Center Visualizer based on scroll intensity
-        function updateQuantumWaveform(intensity) {
-            const bars = document.querySelectorAll('.q-bar');
-            if(bars.length === 0) return;
-            
-            // Base animation is CSS, we add "agitation" via scaleY
-            // Intensity is roughly 0 to 50
-            const agitatedScale = 1 + (intensity * 0.1); 
-            
-            bars.forEach((bar, i) => {
-                // Randomize slightly for noise effect
-                const noise = 1 + Math.random() * (intensity * 0.05);
-                bar.style.transform = `scaleY(${Math.max(1, Math.min(agitatedScale * noise, 4))})`;
-            });
+                });
+            }
         }
 
         // --- 2. POKER GAME: ULTIMATE CREATIVE MODE ---
@@ -1268,7 +1176,7 @@
             initKineticMarquee(); initScrollSpy(); initContactModal(); initScrollHUD();
             initScanProtocol(); // Initialize Scan Mode
             initMobileCommandCenter(); // Initialize Mobile HUD
-            initMobileGyro(); // Initialize Mobile Gyro & Physics Effects
+            initMobileGyro(); // Initialize Mobile Gyro Effects
             
             // Attach Haptic to all buttons
             document.querySelectorAll('button, a').forEach(btn => {
@@ -1299,19 +1207,27 @@
             });
         }
         
-        // --- MOBILE COMMAND CENTER LOGIC (Updated for Quantum Waveform) ---
+        // --- MOBILE COMMAND CENTER LOGIC ---
         function initMobileCommandCenter() {
+            const clockEl = document.getElementById('mcb-clock');
             const percentEl = document.getElementById('mcb-percent');
             const barEl = document.getElementById('mcb-progress-bar');
+            const sectionNameEl = document.getElementById('mcb-section-name');
             
+            // Clock
+            setInterval(() => {
+                const now = new Date();
+                clockEl.innerText = now.toLocaleTimeString('en-US', { hour12: false });
+            }, 1000);
+
             // Progress Loop
             gsap.ticker.add(() => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const scrollPercent = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
                 
-                if(percentEl) percentEl.innerText = Math.floor(scrollPercent) + '%';
-                if(barEl) barEl.style.width = scrollPercent + '%';
+                percentEl.innerText = Math.floor(scrollPercent) + '%';
+                barEl.style.width = scrollPercent + '%';
             });
         }
 
