@@ -230,7 +230,7 @@
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
 
         /* =========================================
-           [UPDATED] CYBER NAVY PROGRESS BAR (MOBILE)
+           CYBER NAVY PROGRESS BAR (MOBILE)
            ========================================= */
         #mobile-navy-progress {
             display: none;
@@ -238,8 +238,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 8px; /* Slightly thick as requested */
-            z-index: 10001; /* Highest priority */
+            height: 8px; 
+            z-index: 10001; 
             pointer-events: none;
             mix-blend-mode: normal;
         }
@@ -248,12 +248,9 @@
             #mobile-navy-progress { display: block; }
         }
 
-        /* The animated bar container */
         .mnp-bar-inner {
             height: 100%;
-            width: 0%; /* Will be animated by JS */
-            background: #000080; /* Fallback Navy */
-            /* Stylish Deep Navy to Electric Sapphire Gradient */
+            width: 0%; 
             background: linear-gradient(90deg, #020024 0%, #090979 40%, #0044AA 80%, #2E72FF 100%);
             box-shadow: 0 2px 10px rgba(0, 68, 170, 0.4);
             position: relative;
@@ -262,7 +259,6 @@
             transition: width 0.1s linear;
         }
 
-        /* Scanline Texture for "Limit Pushing" Detail */
         .mnp-bar-inner::after {
             content: '';
             position: absolute;
@@ -278,7 +274,6 @@
             animation: mnp-texture-shift 20s linear infinite;
         }
 
-        /* Glowing Leading Edge (The Pulse) */
         .mnp-head-pulse {
             position: absolute;
             top: 0;
@@ -303,8 +298,6 @@
             54% { opacity: 0.6; }
         }
 
-
-        /* Adjusted button positions for mobile */
         @media (max-width: 767px) {
             #mobile-lang-float { bottom: 2rem !important; }
             #scan-toggle-container { bottom: 6.5rem !important; } 
@@ -314,14 +307,12 @@
            QUICK SCAN PROTOCOL (TAIPA MODE) CSS
            ========================================= */
         
-        /* 1. Global Activation State */
         body.is-scanning {
             background-color: #050505 !important;
             --scan-dim-color: #333333;
             --scan-highlight-color: #D6FC52;
         }
 
-        /* 2. Dimming Non-Essential Elements */
         body.is-scanning * {
             transition: color 0.4s ease, background-color 0.4s ease, opacity 0.4s ease, border-color 0.4s ease;
         }
@@ -339,8 +330,6 @@
             border-color: #222 !important;
         }
         
-        /* Dim backgrounds of cards */
-        /* Modified to exclude .scan-highlight items to prevent button shrinking */
         body.is-scanning .bg-white:not(.scan-highlight),
         body.is-scanning .bg-neoYellow:not(.scan-highlight),
         body.is-scanning .bg-neoBlue:not(.scan-highlight),
@@ -354,14 +343,12 @@
             box-shadow: none !important;
         }
 
-        /* Hide images or dim them */
         body.is-scanning img,
         body.is-scanning .bg-cover {
             filter: grayscale(100%) brightness(0.2) !important;
             opacity: 0.3;
         }
         
-        /* 3. The Highlight Logic */
         body.is-scanning .scan-highlight {
             color: var(--scan-highlight-color) !important;
             font-weight: 900 !important;
@@ -369,67 +356,155 @@
             text-shadow: 0 0 15px rgba(214, 252, 82, 0.4) !important;
             position: relative;
             z-index: 10;
-            display: inline; /* Keep default inline for text flows */
+            display: inline;
             box-decoration-break: clone;
             -webkit-box-decoration-break: clone;
         }
 
         /* =================================================================
-           [FIXED] RESUME BUTTON STYLING IN SCAN MODE (DATA-PROTOCOL STYLE)
+           [EXTREME UPDATE] RESUME BUTTON - EXISTENTIAL DATA INTERFERENCE
            ================================================================= */
         
-        /* Force Block Display to prevent shrinking */
         body.is-scanning #resume-download-btn .scan-highlight,
         body.is-scanning #resume-download-btn a.scan-highlight {
             display: block !important;
             box-shadow: none !important;
-            transition: all 0.3s ease;
             text-decoration: none !important;
+            border: none !important; /* Overwrite existing borders */
         }
 
-        /* Wireframe / Holographic Container Style */
+        /* The Main Portal Container */
         body.is-scanning #resume-download-btn a {
-            background-color: rgba(0,0,0,0.8) !important;
-            border: 2px dashed #D6FC52 !important; /* Neon dashed border */
-            box-shadow: 0 0 20px rgba(214, 252, 82, 0.15), inset 0 0 20px rgba(214, 252, 82, 0.05) !important;
-            transform: translate(0, 0) !important; /* Reset offset */
-            animation: cyber-glitch-border 3s infinite linear;
+            position: relative;
+            background: #000 !important;
+            padding: 2rem !important; /* Increased padding */
+            transform: translate(0, 0) scale(1.05) !important;
+            box-shadow: 0 0 50px rgba(214, 252, 82, 0.1) !important;
+            overflow: visible !important;
+            border: 2px solid rgba(214, 252, 82, 0.5) !important;
         }
-        
-        /* Hide the offset shadow layer in scan mode for cleaner look */
+
+        /* Animated Data Stream Background */
+        body.is-scanning #resume-download-btn a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(0,0,0,1) 0px,
+                rgba(0,0,0,1) 2px,
+                rgba(214, 252, 82, 0.05) 2px,
+                rgba(214, 252, 82, 0.05) 4px
+            );
+            background-size: 200% 100%;
+            z-index: 0;
+            animation: data-stream-flow 1s linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* HUD Target Corners */
+        body.is-scanning #resume-download-btn a::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 2px solid #D6FC52;
+            clip-path: polygon(
+                0 20px, 0 0, 20px 0, 
+                100% 0, 100% 20px, 
+                100% 100%, 
+                calc(100% - 20px) 100%, 100% 100%, 
+                20px 100%, 0 100%, 0 calc(100% - 20px)
+            );
+            /* Corner Bracket Animation Logic handled by pseudo repetition or complex path */
+            /* Simplified powerful visual: */
+            background: 
+                linear-gradient(to right, #D6FC52 4px, transparent 4px) 0 0,
+                linear-gradient(to bottom, #D6FC52 4px, transparent 4px) 0 0,
+                linear-gradient(to left, #D6FC52 4px, transparent 4px) 100% 0,
+                linear-gradient(to bottom, #D6FC52 4px, transparent 4px) 100% 0,
+                linear-gradient(to left, #D6FC52 4px, transparent 4px) 100% 100%,
+                linear-gradient(to top, #D6FC52 4px, transparent 4px) 100% 100%,
+                linear-gradient(to right, #D6FC52 4px, transparent 4px) 0 100%,
+                linear-gradient(to top, #D6FC52 4px, transparent 4px) 0 100%;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            box-shadow: 0 0 15px #D6FC52, inset 0 0 20px rgba(214, 252, 82, 0.2);
+            animation: hud-target-lock 1.5s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+
+        /* Hide the old offset shadow layer completely */
         body.is-scanning #resume-download-btn .absolute.bg-neoRed.scan-highlight {
             display: none !important;
         }
         
-        /* Make inner content transparent and reset borders */
+        /* Inner Text & Icons */
         body.is-scanning #resume-download-btn .relative.bg-black.scan-highlight {
             background: transparent !important;
             border: none !important;
-            padding: 1.5rem !important;
+            padding: 0 !important;
+            z-index: 10;
         }
 
-        /* Internal Text & Icon Styling */
         body.is-scanning #resume-download-btn span,
         body.is-scanning #resume-download-btn div {
-            color: #D6FC52 !important;
-            font-family: 'monospace' !important; /* Code style font */
-            text-shadow: 0 0 8px #D6FC52 !important;
+            color: #fff !important;
+            font-family: 'Syne', sans-serif !important;
+            text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff !important; /* Chromatic Aberration */
             opacity: 1 !important;
-        }
-        
-        /* Special animation for the text inside resume button */
-        body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
-             content: '> ';
+            z-index: 20;
         }
 
-        @keyframes cyber-glitch-border {
-            0% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
-            5% { clip-path: inset(10% 0 80% 0); border-color: #fff; }
-            10% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
-            50% { opacity: 1; }
-            52% { opacity: 0.8; }
-            54% { opacity: 1; }
-            100% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
+        /* Glitching Text Effect */
+        body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
+             animation: text-glitch-shake 0.3s infinite;
+             display: inline-block;
+        }
+        
+        body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
+             content: '>> SYSTEM_OVERRIDE: ';
+             font-family: 'monospace';
+             font-size: 0.8rem;
+             display: block;
+             color: #D6FC52 !important;
+             text-shadow: none !important;
+             margin-bottom: 4px;
+        }
+
+        /* Icon Override */
+        body.is-scanning #resume-download-btn .w-10,
+        body.is-scanning #resume-download-btn .w-12 {
+            background: #D6FC52 !important;
+            color: black !important;
+            border-color: #D6FC52 !important;
+            box-shadow: 0 0 20px #D6FC52;
+            animation: spin-pulse 2s linear infinite;
+        }
+
+        @keyframes data-stream-flow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: -200% 0%; }
+        }
+
+        @keyframes hud-target-lock {
+            0% { clip-path: polygon(0 20px, 0 0, 20px 0, 100% 0, 100% 20px, 100% 100%, calc(100% - 20px) 100%, 100% 100%, 20px 100%, 0 100%, 0 calc(100% - 20px)); opacity: 0.8; transform: scale(1); }
+            100% { clip-path: polygon(0 10px, 0 0, 10px 0, 100% 0, 100% 10px, 100% 100%, calc(100% - 10px) 100%, 100% 100%, 10px 100%, 0 100%, 0 calc(100% - 10px)); opacity: 1; transform: scale(1.02); }
+        }
+
+        @keyframes text-glitch-shake {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        @keyframes spin-pulse {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         /* ================================================================= */
@@ -439,16 +514,15 @@
             display: block;
         }
         
-        /* Special handling for Cards in Scan Mode to make text pop */
         body.is-scanning .gs-card {
-            opacity: 1 !important; /* Ensure card container is visible */
+            opacity: 1 !important; 
         }
 
         /* 4. The Scan Button Styles (PC & Global Base) */
         #scan-toggle-container {
             position: fixed;
             bottom: 2rem;
-            right: 6rem; /* Left of Lang Toggle on PC */
+            right: 6rem; 
             z-index: 10000;
         }
         
@@ -502,12 +576,11 @@
         }
 
         /* ----------------------------------------------------
-           EXTREME MOBILE OPTIMIZATION - "SYSTEM TERMINAL" STYLE
+           [FIXED & OPTIMIZED] MOBILE SCAN BUTTON
            ---------------------------------------------------- */
         @media (max-width: 767px) {
             #scan-toggle-container {
-                right: 1.5rem;      /* Aligned with Lang button right edge */
-                /* bottom: set via rule above to avoid collision */
+                right: 1.5rem;      
                 perspective: 1000px;
             }
 
@@ -516,35 +589,37 @@
                 height: 56px;
                 padding: 0;
                 justify-content: center;
-                border-radius: 50%; /* Perfect circle */
-                background: #000;
-                color: #D6FC52; /* Ensure base color is neon green */
+                border-radius: 50%; 
+                background: #000; /* Default Black */
+                color: #D6FC52;   /* Default Neon Green */
                 border: 2px solid #D6FC52;
                 box-shadow: 0 0 15px rgba(214, 252, 82, 0.2), inset 0 0 10px rgba(214, 252, 82, 0.1);
                 overflow: hidden;
                 position: relative;
-                transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Ensure smooth transition back */
-                mix-blend-mode: normal; /* Avoid visibility issues */
+                /* Remove transition on 'content' to prevent blank state */
+                transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+                mix-blend-mode: normal;
             }
 
-            /* HIDE EXISTING PC TEXT/ELEMENTS */
+            /* HIDE EXISTING PC TEXT */
             .scan-btn span {
                 display: none !important;
             }
 
-            /* TERMINAL SYMBOL ">_" */
+            /* TERMINAL SYMBOL ">_" (DEFAULT STATE) */
             .scan-btn::after {
                 content: '>_';
                 font-family: 'monospace';
                 font-weight: 900;
                 font-size: 1.25rem;
-                color: #D6FC52;
+                color: inherit; /* Inherits from .scan-btn */
                 letter-spacing: -2px;
                 margin-left: 2px;
                 animation: terminalBlink 1s steps(2, start) infinite;
-                z-index: 2;
-                text-shadow: 0 0 5px #D6FC52;
-                transition: content 0s, color 0.3s ease; /* Fix for content switch glitch */
+                z-index: 10; /* Ensure text is above background effects */
+                text-shadow: 0 0 5px currentColor;
+                position: relative;
+                opacity: 1;
             }
 
             /* RADAR PULSE EFFECT (Background layer) */
@@ -562,20 +637,18 @@
 
             /* ACTIVE STATE (Mobile) - "SYSTEM OVERRIDE / CLOSE" */
             .scan-btn.active {
-                background: #D6FC52 !important; /* Force green background */
-                color: #000 !important; /* Force black text */
+                background: #D6FC52 !important; /* Force Green Background */
+                color: #000 !important;         /* Force Black Text */
                 border-color: #fff;
                 box-shadow: 0 0 25px #D6FC52;
                 animation: glitchShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
             }
 
             .scan-btn.active::after {
-                color: #000 !important;
-                text-shadow: none;
-                content: '[×]'; /* UPDATED: Changed from OK to [×] */
+                content: '[×]';
                 letter-spacing: 0;
-                font-size: 1.1rem; /* Adjusted for the symbol */
-                animation: none;
+                font-size: 1.1rem;
+                animation: none; /* Stop blinking */
                 margin-left: 0;
             }
             
@@ -584,7 +657,6 @@
             }
         }
 
-        /* ANIMATIONS FOR MOBILE BUTTON */
         @keyframes terminalBlink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
@@ -635,7 +707,7 @@
         </div>
     </aside>
 
-    <!-- [NEW] MOBILE NAVY PROGRESS BAR -->
+    <!-- MOBILE NAVY PROGRESS BAR -->
     <div id="mobile-navy-progress">
         <div class="mnp-bar-inner" id="mnp-bar">
             <div class="mnp-head-pulse"></div>
