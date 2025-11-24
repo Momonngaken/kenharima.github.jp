@@ -272,6 +272,21 @@
         @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         /* Utility */
+        /* [ADD] iPad/Mobile Horizontal Scroll Fixes */
+        #fragments-track {
+            /* Ensure horizontal scrolling is prioritized on touch */
+            touch-action: pan-x pan-y;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+        }
+        #fragments-track::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+        
+        /* Prevent Lenis from hijacking horizontal swipes */
+        html.lenis #fragments-track {
+            overscroll-behavior-x: contain;
+        }
         /* Utility - Force Hide Scrollbar but keep functionality */
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { 
@@ -1899,21 +1914,25 @@
 
         gsap.registerPlugin(ScrollTrigger);
         
-        // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC  ---
-       function initFragmentsGallery() {
+       // --- [FIXED] FRAGMENTS GALLERY: IPAD/TABLET SCROLL FIX ---
+        function initFragmentsGallery() {
             const track = document.getElementById("fragments-track");
             const wrapper = document.getElementById("fragments-wrapper");
             if(!track || !wrapper) return;
 
             // Media Query Logic:
-            // PC (Mouse) -> GSAP Pin & Scroll
-            // iPad/Tablet/Mobile -> Native Smooth Scroll (CSS)
+            // PC (Mouse + Large Screen) -> GSAP Pin & Scroll
+            // iPad/Tablet/Mobile (Touch or Hybrid) -> Native CSS Horizontal Scroll
+            
+            // "pointer: fine" ensures we only target devices with a mouse/trackpad, excluding touch-first tablets even if they are large.
             ScrollTrigger.matchMedia({
-                // Desktop Only (Must have fine pointer like mouse)
-                "(min-width: 1025px) and (hover: hover)": function() {
+                
+                // DESKTOP MODE: Large screen AND Mouse pointer
+                "(min-width: 1025px) and (hover: hover) and (pointer: fine)": function() {
                     
-                    // Force styles for Desktop experience (override CSS defaults)
-                    gsap.set(track, { overflow: "visible", scrollSnapType: "none" });
+                    // Setup for GSAP Pinning
+                    gsap.set(track, { overflow: "visible", scrollSnapType: "none", width: "auto" });
+                    gsap.set(wrapper, { height: "100vh" }); // Force full height for pinning effect
 
                     const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200);
 
@@ -1925,27 +1944,52 @@
                             start: "top top",
                             end: () => `+=${track.scrollWidth - window.innerWidth}`,
                             pin: true,
-                            scrub: 1, // Smoothness linkage
+                            scrub: 1, 
                             invalidateOnRefresh: true,
                             anticipatePin: 1
                         }
                     });
 
-                    // Cleanup styles when switching back to mobile/tablet view
+                    // Cleanup when switching contexts
                     return () => {
-                        gsap.set(track, { overflowX: "auto", scrollSnapType: "x mandatory", x: 0 });
-                        // Clear inline styles to let CSS take over
-                        track.style.overflow = "";
-                        track.style.scrollSnapType = "";
+                        gsap.set(track, { clearProps: "all" });
+                        gsap.set(wrapper, { clearProps: "all" });
                     };
                 },
                 
-                // Fallback for iPad Pro / Tablet Landscape (Touch devices)
-                "(max-width: 1366px), (hover: none)": function() {
-                    // Ensure native scrolling is active and smooth
+                // TABLET / MOBILE MODE: Any touch device OR small screen
+                "(max-width: 1024px), (hover: none), (pointer: coarse)": function() {
+                    // Force Reset for Native Scrolling
+                    // This fixes the "freeze" on iPad landscape by removing the 100vh constraint and allowing natural flow
+                    wrapper.style.height = "auto";
+                    wrapper.style.display = "block"; 
+                    wrapper.style.paddingTop = "6rem"; // Keep some spacing
+                    wrapper.style.paddingBottom = "6rem";
+
                     track.style.overflowX = "auto";
+                    track.style.display = "flex";
                     track.style.scrollSnapType = "x mandatory";
-                    track.style.transform = "none"; // Reset any GSAP transforms
+                    track.style.transform = "none"; 
+                    track.style.width = "100%";
+                    
+                    // Enable touch smooth scrolling
+                    track.style.webkitOverflowScrolling = "touch";
+                },
+                
+                // Fallback specifically for iPad Pro Landscape (Large width but touch)
+                "(min-width: 1025px) and (pointer: coarse)": function() {
+                     // Same reset logic as above for large tablets
+                    wrapper.style.height = "auto";
+                    wrapper.style.display = "block"; 
+                    wrapper.style.paddingTop = "8rem"; 
+                    wrapper.style.paddingBottom = "8rem";
+
+                    track.style.overflowX = "auto";
+                    track.style.display = "flex";
+                    track.style.scrollSnapType = "x mandatory";
+                    track.style.transform = "none"; 
+                    track.style.width = "100%";
+                    track.style.webkitOverflowScrolling = "touch";
                 }
             });
         }
