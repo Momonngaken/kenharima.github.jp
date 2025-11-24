@@ -387,15 +387,40 @@
             text-decoration: none !important;
         }
 
-        /* Wireframe / Holographic Container Style */
+        /* Clean "Decoded Data" Style - Less Noisy, More Technical */
         body.is-scanning #resume-download-btn a {
-            background-color: rgba(0,0,0,0.8) !important;
-            border: 2px dashed #D6FC52 !important; /* Neon dashed border */
-            box-shadow: 0 0 20px rgba(214, 252, 82, 0.15), inset 0 0 20px rgba(214, 252, 82, 0.05) !important;
-            transform: translate(0, 0) !important; /* Reset offset */
-            animation: cyber-glitch-border 3s infinite linear;
+            background-color: #000 !important;
+            border: 1px solid #D6FC52 !important;
+            /* Technical 'bracket' look using box-shadow */
+            box-shadow: 
+                4px 4px 0 #D6FC52,
+                inset 0 0 20px rgba(214, 252, 82, 0.1) !important;
+            transform: translate(0, 0) !important;
+            animation: none !important; /* Stop the shake */
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: visible !important;
         }
         
+        /* Technical crosshair/corner accents for that "System Core" feel */
+        body.is-scanning #resume-download-btn a::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: 
+                linear-gradient(to right, #D6FC52 2px, transparent 2px) 0 0,
+                linear-gradient(to right, #D6FC52 2px, transparent 2px) 0 100%,
+                linear-gradient(to left, #D6FC52 2px, transparent 2px) 100% 0,
+                linear-gradient(to left, #D6FC52 2px, transparent 2px) 100% 100%,
+                linear-gradient(to bottom, #D6FC52 2px, transparent 2px) 0 0,
+                linear-gradient(to bottom, #D6FC52 2px, transparent 2px) 100% 0,
+                linear-gradient(to top, #D6FC52 2px, transparent 2px) 0 100%,
+                linear-gradient(to top, #D6FC52 2px, transparent 2px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 8px 8px;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
         /* Hide the offset shadow layer in scan mode for cleaner look */
         body.is-scanning #resume-download-btn .absolute.bg-neoRed.scan-highlight {
             display: none !important;
@@ -413,7 +438,7 @@
         body.is-scanning #resume-download-btn div {
             color: #D6FC52 !important;
             font-family: 'monospace' !important; /* Code style font */
-            text-shadow: 0 0 8px #D6FC52 !important;
+            text-shadow: 0 0 8px rgba(214, 252, 82, 0.5) !important;
             opacity: 1 !important;
         }
         
@@ -422,14 +447,18 @@
              content: '> ';
         }
 
-        @keyframes cyber-glitch-border {
-            0% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
-            5% { clip-path: inset(10% 0 80% 0); border-color: #fff; }
-            10% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
-            50% { opacity: 1; }
-            52% { opacity: 0.8; }
-            54% { opacity: 1; }
-            100% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
+        /* On Hover in Scan Mode */
+        body.is-scanning #resume-download-btn a:hover {
+            background-color: #D6FC52 !important;
+            box-shadow: 0 0 30px rgba(214, 252, 82, 0.6) !important;
+            transform: scale(1.02) !important;
+        }
+
+        /* Text Color Fixes on Hover */
+        body.is-scanning #resume-download-btn a:hover span,
+        body.is-scanning #resume-download-btn a:hover div {
+            color: #000 !important;
+            text-shadow: none !important;
         }
 
         /* ================================================================= */
