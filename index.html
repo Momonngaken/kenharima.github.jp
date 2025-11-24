@@ -1579,27 +1579,24 @@
             </div>
 
             <!-- GSAP Pin Wrapper -->
-            <!-- UPDATE: md:h-[100vh] -> lg:h-[100vh] to allow natural flow on tablets -->
-            <div id="fragments-wrapper" class="relative w-full h-auto lg:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
-                <!-- GSAP Pin Wrapper -->
-            <!-- UPDATE: md:h-[100vh] -> lg:h-[100vh] to allow natural flow on tablets -->
             <div id="fragments-wrapper" class="relative w-full h-auto lg:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
                 
-               <!-- ★★★ ここに挿入: CYBER NAVIGATION KEYS (Tablet Only) ★★★ -->
-               <button class="frag-nav-key prev" id="frag-prev-btn" aria-label="Previous Fragment">
+               <!-- CYBER NAVIGATION KEYS (Tablet/Mobile Only) -->
+               <!-- ボタンのクリック判定を広げ、確実なタップを誘導 -->
+               <button class="frag-nav-key prev touch-manipulation" id="frag-prev-btn" aria-label="Previous Fragment" style="touch-action: manipulation;">
                    <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
                    <span>BACK</span>
                </button>
                
-               <button class="frag-nav-key next" id="frag-next-btn" aria-label="Next Fragment">
+               <button class="frag-nav-key next touch-manipulation" id="frag-next-btn" aria-label="Next Fragment" style="touch-action: manipulation;">
                    <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
                    <span>NEXT</span>
                </button>
+
                <!-- Horizontal Track -->
-                <!-- UPDATE: Removed 'lg:overflow-visible' and 'lg:snap-none' to prevent iPad freeze. JS will handle desktop mode. -->
-                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[20vw] lg:pr-[20vw] overflow-x-auto w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20">
+                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[20vw] lg:pr-[20vw] overflow-x-auto w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20" style="-webkit-overflow-scrolling: touch;">
                     
-                    <!-- iPad/Tablet Cyber Hint (Only visible on touch devices via CSS/JS logic) -->
+                    <!-- iPad/Tablet Cyber Hint -->
                     <div class="lg:hidden absolute top-1/2 left-10 z-50 pointer-events-none animate-pulse text-neoYellow font-mono text-xs tracking-widest writing-vertical-rl opacity-70">
                         <<< DRAG_TO_SCAN >>>
                     </div>
@@ -1618,7 +1615,6 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <!-- UPDATE: lg:translate-y-12 -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-12">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
@@ -1632,7 +1628,6 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <!-- UPDATE: lg:-translate-y-8 -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-8">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
@@ -1646,7 +1641,6 @@
                     </div>
 
                     <!-- Card 4 -->
-                    <!-- UPDATE: lg:translate-y-6 -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-6">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
@@ -1660,7 +1654,6 @@
                     </div>
 
                     <!-- Card 5 -->
-                    <!-- UPDATE: lg:-translate-y-16 -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-16">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
@@ -1674,7 +1667,6 @@
                     </div>
 
                     <!-- Card 6 -->
-                    <!-- UPDATE: lg:translate-y-10 -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-10">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
@@ -1688,7 +1680,6 @@
                     </div>
 
                     <!-- Card 7 -->
-                    <!-- UPDATE: lg:-translate-y-4 -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-4">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
@@ -1990,44 +1981,59 @@
 
             // --- NAVIGATION BUTTON LOGIC (For Tablet/Mobile) ---
             if(nextBtn && prevBtn) {
-                // スクロール量（カード1枚分 + ギャップ）を概算
-                const scrollAmount = () => window.innerWidth * 0.8; 
+                // スクロール量の計算（画面幅の70%移動させる）
+                const getScrollAmount = () => window.innerWidth * 0.7; 
 
-                const smoothScroll = (direction) => {
-                    vibrateEngine(20); // ハプティックフィードバック
-                    const currentScroll = track.scrollLeft;
-                    const targetScroll = direction === 'next' 
-                        ? currentScroll + scrollAmount() 
-                        : currentScroll - scrollAmount();
+                const smoothScroll = (e, direction) => {
+                    // タッチイベントの重複発火防止
+                    if(e) e.preventDefault();
                     
-                    track.scrollTo({
-                        left: targetScroll,
+                    vibrateEngine(20); // ハプティックフィードバック
+
+                    // 現在のスクロール位置から相対的に移動させる (scrollByを使用)
+                    // iPad等のWebKitブラウザでの互換性を向上
+                    const amount = getScrollAmount();
+                    const sign = direction === 'next' ? 1 : -1;
+                    
+                    track.scrollBy({
+                        left: amount * sign,
                         behavior: 'smooth'
                     });
                 };
 
-                nextBtn.addEventListener('click', () => smoothScroll('next'));
-                prevBtn.addEventListener('click', () => smoothScroll('prev'));
+                // ClickとTouchstart両方に対応（反応速度向上）
+                ['click', 'touchstart'].forEach(evt => {
+                    nextBtn.addEventListener(evt, (e) => {
+                         // touchstart後のclick発火を防ぐフラグ管理などは簡易的に省略し
+                         // preventDefaultで制御
+                         if(e.type === 'touchstart') e.preventDefault(); 
+                         smoothScroll(e, 'next');
+                    });
+                    prevBtn.addEventListener(evt, (e) => {
+                         if(e.type === 'touchstart') e.preventDefault();
+                         smoothScroll(e, 'prev');
+                    });
+                });
             }
 
             // --- SCROLL TRIGGER LOGIC ---
             ScrollTrigger.matchMedia({
-                // Desktop Only (Must have fine pointer like mouse AND be wide)
-                // iPad Pro (1366px)などで誤作動しないよう (hover: hover) を厳密に適用
+                // Desktop Only: マウス操作かつ画面幅が広い場合のみGSAPのPinを有効化
+                // (hover: hover) は「マウスカーソルがあるデバイス」を指すため、iPadを除外できる
                 "(min-width: 1025px) and (hover: hover)": function() {
                     
-                    // Force styles for Desktop experience
+                    // Desktop用のスタイル設定
                     gsap.set(track, { overflow: "visible", scrollSnapType: "none" });
 
-                    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200);
+                    const totalWidth = track.scrollWidth - window.innerWidth + 200; // 余白調整
 
                     gsap.to(track, {
-                        x: getScrollAmount,
+                        x: -totalWidth,
                         ease: "none",
                         scrollTrigger: {
                             trigger: wrapper,
                             start: "top top",
-                            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+                            end: () => `+=${totalWidth}`,
                             pin: true,
                             scrub: 1, 
                             invalidateOnRefresh: true,
@@ -2035,21 +2041,23 @@
                         }
                     });
 
+                    // クリーンアップ関数
                     return () => {
                         gsap.set(track, { overflowX: "auto", scrollSnapType: "x mandatory", x: 0 });
                         track.style.overflow = "";
                         track.style.scrollSnapType = "";
+                        // ピン留め解除時のスタイルリセット
+                        gsap.set(wrapper, { height: "auto" });
                     };
                 },
                 
-                // Fallback for Touch Devices (iPad, Mobile)
-                // 画面幅が広くてもホバーできない端末(=iPad)はこちらに含まれる
+                // Tablet / Mobile / Touch Devices
                 "all": function() {
-                    // ネイティブスクロールを強制
+                    // ネイティブの横スクロールを強制
                     track.style.overflowX = "auto";
                     track.style.scrollSnapType = "x mandatory";
                     track.style.transform = "none";
-                    track.style.display = "flex"; // Flexレイアウト維持
+                    track.style.display = "flex";
                 }
             });
         }
