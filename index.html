@@ -352,6 +352,17 @@
             -webkit-overflow-scrolling: touch; 
         }
         
+        /* 
+         !!! CRITICAL FIX FOR GALLERY !!!
+         PC/Tablet (Landscape) で Scroll Snap が JS アニメーションと競合するのを防ぐ
+         モバイルは Snap を維持する
+        */
+        @media (min-width: 1024px) {
+            #fragments-track { 
+                scroll-snap-type: none !important; 
+            }
+        }
+        
         /* Writing Mode for Cyber Hint */
         .writing-vertical-rl {
             writing-mode: vertical-rl;
@@ -1850,54 +1861,107 @@
 
         gsap.registerPlugin(ScrollTrigger);
         
-        // --- NEW: FRAGMENTS GALLERY LOGIC (Button Driven for PC) ---
-       function initFragmentsGallery() {
+        // --- [MAJOR UPDATE] FRAGMENTS GALLERY LOGIC (Precision Indexing) ---
+        function initFragmentsGallery() {
             const track = document.getElementById("fragments-track");
             const nextBtn = document.getElementById("frag-next-btn");
             const prevBtn = document.getElementById("frag-prev-btn");
             
             if(!track || !nextBtn || !prevBtn) return;
 
-            // Scroll Amount Calculation
-            // PC: 50% of viewport / Mobile: 70% of viewport
-            const getScrollAmount = () => window.innerWidth < 768 ? window.innerWidth * 0.7 : window.innerWidth * 0.5;
+            // Helper: Find which card index is closest to the viewport center
+            const getCurrentIndex = () => {
+                const cards = Array.from(track.querySelectorAll('.fragment-frame'));
+                if(cards.length === 0) return 0;
 
-            // Function to handle scroll
-            const scrollTrack = (direction) => {
-                vibrateEngine(20);
-                const amount = getScrollAmount();
-                const sign = direction === 'next' ? 1 : -1;
+                const trackRect = track.getBoundingClientRect();
+                const centerPoint = trackRect.width / 2 + track.scrollLeft;
                 
-                // Use GSAP for smooth scrolling on all button-enabled devices
+                let closestIndex = 0;
+                let minDistance = Infinity;
+
+                cards.forEach((card, index) => {
+                    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                    const distance = Math.abs(centerPoint - cardCenter);
+                    if(distance < minDistance) {
+                        minDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+                return closestIndex;
+            };
+
+            // Helper: Scroll to a specific card index
+            const scrollToCard = (index) => {
+                const cards = Array.from(track.querySelectorAll('.fragment-frame'));
+                // Clamp index
+                const targetIndex = Math.max(0, Math.min(index, cards.length - 1));
+                const targetCard = cards[targetIndex];
+                
+                // Calculate scroll position to center the card
+                const trackWidth = track.clientWidth;
+                const cardWidth = targetCard.offsetWidth;
+                const cardLeft = targetCard.offsetLeft;
+                
+                // Target scroll position = Card Left - (Viewport Half - Card Half)
+                const scrollTarget = cardLeft - (trackWidth - cardWidth) / 2;
+
+                // Visual Glitch Effect during transit
+                glitchEffect(cards);
+
                 gsap.to(track, {
-                    scrollTo: { x: track.scrollLeft + (amount * sign) },
+                    scrollTo: { x: scrollTarget },
                     duration: 0.8,
                     ease: "power4.out",
-                    overwrite: "auto"
+                    overwrite: "true" // Important: Force overwrite previous scroll
                 });
             };
 
-            // Attach Events (Mouse & Touch) - Using 'click' as it covers both
-            // PreventDefault on touchstart to avoid ghost clicks if necessary, but 'click' is safer for hybrid
-            const attachEvents = (btn, dir) => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation(); // Stop event bubbling
-                    scrollTrack(dir);
-                });
-                // Ensure touch doesn't double fire but works instantly
-                btn.addEventListener('touchstart', (e) => {
-                     // e.preventDefault(); // Don't prevent default here to allow click to fire, or manage manually
-                }, {passive: true});
+            // Helper: Glitch visual effect on navigation
+            const glitchEffect = (cards) => {
+                 // Subtle flash on track or images
+                 const images = cards.map(c => c.querySelector('img'));
+                 gsap.to(images, {
+                     filter: "grayscale(100%) brightness(1.5) contrast(1.5)",
+                     duration: 0.1,
+                     yoyo: true,
+                     repeat: 1,
+                     onComplete: () => { gsap.set(images, { clearProps: "filter" }); }
+                 });
             };
 
-            attachEvents(nextBtn, 'next');
-            attachEvents(prevBtn, 'prev');
+            // Deny Action (Red Flash if at end)
+            const denyAction = (btn) => {
+                vibrateEngine([50, 50, 50]); // Error buzz
+                gsap.to(btn, { x: [5, -5, 5, -5, 0], color: "#FF4D4D", borderColor: "#FF4D4D", duration: 0.4, ease: "none", clearProps: "color,borderColor" });
+            };
 
-            // Note: Tablet Portrait Hiding is handled via CSS Media Queries
-            // Note: Tablet Landscape & PC Visibility is handled via CSS
+            // Event Listeners
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault(); e.stopPropagation();
+                vibrateEngine(20);
+                const current = getCurrentIndex();
+                const cards = track.querySelectorAll('.fragment-frame');
+                
+                if(current < cards.length - 1) {
+                    scrollToCard(current + 1);
+                } else {
+                    denyAction(nextBtn);
+                }
+            });
+
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault(); e.stopPropagation();
+                vibrateEngine(20);
+                const current = getCurrentIndex();
+                
+                if(current > 0) {
+                    scrollToCard(current - 1);
+                } else {
+                    denyAction(prevBtn);
+                }
+            });
         }
-
         
         function initScrollSpy() {
             const navItems = [
