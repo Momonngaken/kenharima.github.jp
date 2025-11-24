@@ -369,7 +369,14 @@
             text-shadow: 0 0 15px rgba(214, 252, 82, 0.4) !important;
             position: relative;
             z-index: 10;
-            display: inline-block; /* Ensure transforms work if needed */
+            display: inline; /* CHANGED FROM inline-block TO inline to fix text wrapping */
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        /* Exception for the Resume Button to ensure it stays block-level in scan mode */
+        body.is-scanning a.scan-highlight {
+            display: block;
         }
         
         /* Special handling for Cards in Scan Mode to make text pop */
