@@ -8,7 +8,7 @@
     <!-- =========================================
          OGP & Favicon Settings
     ========================================== -->
-    <meta name="description" content="Portfolio of Ken Harima. Exploring existence in the age of AGI/ASI. Sociology, Philosophy, and Poker.">
+    <meta name="description" content="Portfolio of Ken Harima. Exploring existence in th</section>e age of AGI/ASI. Sociology, Philosophy, and Poker.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-domain.com/"> 
     <meta property="og:title" content="播磨 賢 | Ken HARIMA - Portfolio">
@@ -674,6 +674,44 @@
             40%, 60% { transform: translate3d(1px, 0, 0); }
         }
 
+        /* =========================================
+           PHOTOS SECTION CSS
+           ========================================= */
+        /* PC: Hide native scrollbar for the track, handled by GSAP */
+        @media (min-width: 768px) {
+            .gallery-track {
+                width: max-content; /* Ensure container fits all images in one line */
+            }
+            .gallery-item {
+                width: 30vw; /* Editorial Size */
+                height: 100%;
+            }
+            .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        /* Mobile: Native Horizontal Scroll */
+        @media (max-width: 767px) {
+            .gallery-track {
+                display: flex;
+                flex-direction: row; /* Force row on mobile */
+                width: 100%;
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch; /* Momentum scroll */
+                padding-bottom: 2rem;
+                padding-right: 2rem; /* End padding */
+            }
+            .gallery-track::-webkit-scrollbar {
+                display: none; /* Clean look */
+            }
+            .gallery-item {
+                width: 85vw; /* Full width cards on mobile */
+                margin-right: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -1114,6 +1152,158 @@
             </div>
         </section>
 
+        <!-- =========================================
+             PHOTOS SECTION (NEW)
+             Horizontal Editorial Gallery
+        ========================================== -->
+        <section id="photos" class="relative z-20 bg-neoBg border-t-4 border-black overflow-hidden">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-10" 
+                 style="background-image: linear-gradient(90deg, #121212 1px, transparent 1px); background-size: 20vw 100%;">
+            </div>
+            
+            <!-- Sticky Container for Horizontal Scroll (PC) -->
+            <div class="gallery-wrapper w-full h-full md:h-[100dvh] md:flex md:items-center md:overflow-hidden py-20 md:py-0">
+                
+                <!-- Section Title (Absolute on PC, Static on Mobile) -->
+                <div class="md:absolute md:top-12 md:left-12 px-6 md:px-0 mb-12 md:mb-0 z-30">
+                    <h2 class="text-5xl md:text-7xl font-black font-stylish italic text-stroke lang-fade" data-key="photosTitle">
+                        MEMORIES
+                        <span class="block text-sm md:text-lg font-mono font-bold text-black mt-2 tracking-widest opacity-60">/// ARCHIVED_DATA_LOGS</span>
+                    </h2>
+                </div>
+
+                <!-- The Track -->
+                <div class="gallery-track flex flex-col md:flex-row gap-12 md:gap-[15vw] px-6 md:px-[10vw] md:h-[70vh] items-center md:justify-start w-full md:w-fit overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none">
+                    
+                    <!-- PHOTO 1: Waseda Lecture -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <!-- Frame -->
+                            <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5"></div>
+                            <div class="relative h-full border-4 border-black bg-white p-2 md:p-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 ease-out">
+                                <img src="./images/photo_01.jpg" alt="Social Design 2022" class="w-full h-full object-cover border border-gray-200">
+                                <!-- Tech Overlay -->
+                                <div class="absolute top-4 right-4 text-[0.6rem] font-mono font-bold bg-black text-white px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">REC ●</div>
+                            </div>
+                        </div>
+                        <!-- Caption -->
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-neoBlue scan-highlight">2022</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">WASEDA UNIVERSITY</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#01</span>
+                        </div>
+                    </article>
+
+                    <!-- PHOTO 2: Poker -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group md:mt-12">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <div class="absolute inset-0 bg-neoRed translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5 border-2 border-black"></div>
+                            <div class="relative h-full border-4 border-black bg-black p-2 md:p-4 overflow-hidden">
+                                <img src="./images/photo_02.jpg" alt="Poker Match" class="w-full h-full object-cover filter contrast-125 brightness-90">
+                            </div>
+                        </div>
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-neoRed scan-highlight">2023</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">POKER MATCH // TOKYO</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#02</span>
+                        </div>
+                    </article>
+
+                    <!-- PHOTO 3: Jump/Outdoor -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <div class="absolute inset-0 bg-neoYellow translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5 border-2 border-black"></div>
+                            <div class="relative h-full border-4 border-black bg-white p-2 md:p-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                                <img src="./images/photo_03.jpg" alt="Youth" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-neoYellow text-stroke scan-highlight">2023</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">CHERRY BLOSSOMS</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#03</span>
+                        </div>
+                    </article>
+
+                    <!-- PHOTO 4: Travel Selfie -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group md:mt-24">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <div class="absolute inset-0 bg-gray-300 translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5 border-2 border-black"></div>
+                            <div class="relative h-full border-4 border-black bg-white p-1 md:p-2 overflow-hidden rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                                <img src="./images/photo_04.jpg" alt="Travel" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all">
+                            </div>
+                        </div>
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-black scan-highlight">2023</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">EXCHANGE // EUROPE</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#04</span>
+                        </div>
+                    </article>
+
+                    <!-- PHOTO 5: Bus Sleep -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5"></div>
+                            <div class="relative h-full border-4 border-black bg-white p-2 md:p-4 overflow-hidden">
+                                <img src="./images/photo_05.jpg" alt="On the bus" class="w-full h-full object-cover grayscale contrast-125">
+                                <div class="absolute bottom-4 left-4 font-mono text-[0.6rem] bg-neoRed text-white px-2">ZZZ...</div>
+                            </div>
+                        </div>
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-black scan-highlight">2023</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">MANNHEIM // TRANSIT</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#05</span>
+                        </div>
+                    </article>
+
+                    <!-- PHOTO 6: Night Group -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group md:mt-8">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <div class="absolute inset-0 bg-neoBlue translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5 border-2 border-black"></div>
+                            <div class="relative h-full border-4 border-black bg-white p-2 md:p-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all">
+                                <img src="./images/photo_06.jpg" alt="Night Gathering" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-neoBlue scan-highlight">2023</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">THE SQUAD</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#06</span>
+                        </div>
+                    </article>
+
+                    <!-- PHOTO 7: Cow -->
+                    <article class="gallery-item relative flex-shrink-0 w-full md:w-auto md:h-full snap-center group">
+                        <div class="relative md:h-[85%] aspect-[4/3] md:aspect-auto">
+                            <div class="absolute inset-0 bg-white translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5 border-2 border-black"></div>
+                            <div class="relative h-full border-4 border-black bg-white p-2 md:p-4 overflow-hidden -rotate-2 group-hover:rotate-0 transition-transform">
+                                <img src="./images/photo_07.jpg" alt="Cow Statue" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                        <div class="mt-6 md:mt-8 flex justify-between items-end border-b-2 border-black pb-2 max-w-md">
+                            <div>
+                                <span class="block text-4xl md:text-5xl font-black font-stylish italic text-black scan-highlight">2024</span>
+                                <span class="block text-xs font-mono font-bold mt-1 uppercase tracking-widest text-gray-500">OBJECTS & IRONY</span>
+                            </div>
+                            <span class="font-bold text-sm bg-black text-white px-2">#07</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
         <section id="skills" class="py-24 bg-neoYellow border-y-4 border-black">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke font-tight lang-fade" data-key="skillsTitle">保有資格</h2>
@@ -1342,6 +1532,61 @@
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
             initKineticMarquee(); initScrollSpy(); initContactModal(); initScrollHUD();
+            initGalleryScroll();
+            function initGalleryScroll() {
+            // Use GSAP MatchMedia to run only on Desktop
+            let mm = gsap.matchMedia();
+
+            mm.add("(min-width: 768px)", () => {
+                const track = document.querySelector('.gallery-track');
+                const items = document.querySelectorAll('.gallery-item');
+                
+                // Calculate total width to scroll
+                // (Total items width + gaps) - viewport width
+                const totalWidth = track.scrollWidth;
+                const windowWidth = window.innerWidth;
+                
+                // Create the ScrollTrigger Pin & Horizontal Scroll
+                gsap.to(track, {
+                    x: () => -(totalWidth - windowWidth + 200), // +200 for end padding margin
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "#photos",
+                        pin: true,
+                        scrub: 1, // Smoothness
+                        // Adjust the 'end' value to control scroll speed. 
+                        // "bottom bottom" means natural height, strictly creating horizontal space requires a defined value like "+=3000"
+                        end: () => "+=" + (totalWidth), 
+                        invalidateOnRefresh: true,
+                        anticipatePin: 1
+                    }
+                });
+
+                // Parallax effect for images inside the frames while scrolling horizontally
+                items.forEach(item => {
+                    const img = item.querySelector('img');
+                    if(img) {
+                        gsap.fromTo(img, 
+                            { scale: 1.1, objectPosition: "0% 50%" },
+                            { 
+                                scale: 1.1, 
+                                objectPosition: "100% 50%", 
+                                ease: "none",
+                                scrollTrigger: {
+                                    trigger: item,
+                                    containerAnimation: gsap.getTween(track), // Link to horizontal tween
+                                    start: "left right",
+                                    end: "right left",
+                                    scrub: true
+                                }
+                            }
+                        );
+                    }
+                });
+            });
+
+            // Clean up for mobile (optional, but good practice is handled by matchMedia automatically)
+        }
             initScanProtocol(); // Initialize Scan Mode
             initMobileCommandCenter(); // Initialize Mobile HUD
             initMobileGyro(); // Initialize Mobile Gyro Effects
