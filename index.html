@@ -229,90 +229,33 @@
         .hud-point::after { content: ''; display: block; width: 6px; height: 1px; background: currentColor; }
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
 
-        /* --- FRAGMENTS NAVIGATION KEYS (CYBER TACTICAL V2) --- */
+        /* FRAGMENTS RE-DESIGN (HUD STYLE) */
+        /* --- NAVIGATION KEYS (CYBER TACTICAL) --- */
         .frag-nav-key {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 60;
-            background: rgba(5, 5, 5, 0.9);
-            border: 1px solid #D6FC52; /* Neon Yellow */
+            z-index: 100; /* High z-index to ensure clickability */
+            background: rgba(18, 18, 18, 0.85); /* 半透明の黒 */
+            border: 1px solid #D6FC52;
             color: #D6FC52;
-            padding: 2rem 0.8rem;
+            padding: 1.5rem 0.5rem;
             font-family: 'Syne', sans-serif;
             font-weight: 900;
             font-style: italic;
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+            backdrop-filter: blur(8px);
+            opacity: 1; 
+            pointer-events: auto; /* Force clickability */
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%); /* 台形クリッピング */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            box-shadow: 0 0 20px rgba(214, 252, 82, 0.1);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            /* デフォルトで表示 */
-            opacity: 1;
-            pointer-events: auto;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(214, 252, 82, 0.1);
         }
-
-        /* テキストの縦書き装飾 */
-        .frag-nav-key span {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-shadow: 0 0 5px rgba(214, 252, 82, 0.5);
-        }
-
-        .frag-nav-key svg {
-            width: 24px; height: 24px;
-            fill: none; stroke: currentColor; stroke-width: 3;
-            filter: drop-shadow(0 0 5px rgba(214, 252, 82, 0.8));
-        }
-
-        /* 配置 */
-        .frag-nav-key.prev { left: 0; border-left: none; transform: translateY(-50%) translateX(0); }
-        .frag-nav-key.next { right: 0; border-right: none; transform: translateY(-50%) translateX(0); }
-
-        /* ホバーエフェクト (PC) */
-        @media (hover: hover) {
-            .frag-nav-key:hover {
-                background: #D6FC52;
-                color: #000;
-                box-shadow: 0 0 40px rgba(214, 252, 82, 0.4);
-                padding: 2.5rem 1rem; /* 拡張アニメーション */
-            }
-            .frag-nav-key.prev:hover { transform: translateY(-50%) translateX(5px); }
-            .frag-nav-key.next:hover { transform: translateY(-50%) translateX(-5px); }
-        }
-
-        /* クリック/タップ時の反応 */
-        .frag-nav-key:active {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
-            transform: translateY(-50%) scale(0.95);
-        }
-
-        /* =========================================
-           VISIBILITY CONTROL (表示制御の核心)
-           ========================================= */
-        
-        /* 1. スマホ (縦画面・幅狭) -> ボタン非表示 */
-        @media (max-width: 767px) {
-            .frag-nav-key { display: none !important; }
-        }
-
-        /* 2. タブレット (縦画面) -> ボタン非表示 */
-        /* Portrait orientation on tablets */
-        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-            .frag-nav-key { display: none !important; }
-        }
-
-        /* 3. PC & タブレット(横画面) -> ボタン表示 (デフォルト設定のまま) */
-        /* ここでは特に追加の隠蔽ルールを書かないことで表示を維持 */
 
         /* 内部のアイコン装飾 */
         .frag-nav-key span {
@@ -331,30 +274,34 @@
             stroke-width: 3;
         }
 
-        .frag-nav-key.prev { left: 0; border-left: none; transform: translateY(-50%) translateX(-10px); }
-        .frag-nav-key.next { right: 0; border-right: none; transform: translateY(-50%) translateX(10px); }
+        /* PC/Desktop Positioning */
+        .frag-nav-key.prev { left: 2rem; border-left: none; transform: translateY(-50%); }
+        .frag-nav-key.next { right: 2rem; border-right: none; transform: translateY(-50%); }
+
+        /* Tablet Horizontal/Mobile Positioning Adjustments */
+        @media (max-width: 1024px) {
+            .frag-nav-key.prev { left: 0; }
+            .frag-nav-key.next { right: 0; }
+        }
 
         /* ホバー・アクティブ時の発光 */
-        .frag-nav-key:active {
+        .frag-nav-key:hover, .frag-nav-key:active {
             background: #D6FC52;
             color: #000;
             box-shadow: 0 0 30px #D6FC52;
+            transform: translateY(-50%) scale(1.1);
+            z-index: 101;
         }
 
-        /* タブレット・モバイル（iPad横含む）のみ表示 */
-        @media (max-width: 1366px), (hover: none) {
-            .frag-nav-key { 
-                opacity: 1; 
-                pointer-events: auto; 
-            }
-            .frag-nav-key.prev { transform: translateY(-50%) translateX(0); }
-            .frag-nav-key.next { transform: translateY(-50%) translateX(0); }
-        }
-
-        /* デスクトップでは非表示 */
-        @media (min-width: 1025px) and (hover: hover) {
+        /* 
+           VISIBILITY CONTROL 
+           - Visible on PC & Tablet Landscape
+           - Hidden on Mobile & Tablet Portrait (Native scroll preferred)
+        */
+        @media (max-width: 1024px) and (orientation: portrait), (max-width: 600px) {
             .frag-nav-key { display: none !important; }
         }
+
         /* ターゲットマーカー（カギ括弧） */
         .fragment-frame { padding: 10px; position: relative; transition: transform 0.3s ease; }
         .frame-hud {
@@ -410,10 +357,6 @@
             writing-mode: vertical-rl;
             text-orientation: mixed;
         }
-
-        /* Hide scrollbar for gallery */
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
            CYBER NAVY PROGRESS BAR (MOBILE)
@@ -996,127 +939,6 @@
                 gap: 2px;
             }
         }
-            
-            .mobile-warning-container:hover, 
-            body.is-loading .mobile-warning-container {
-               animation-play-state: running;
-               animation-duration: 3s;
-            }
-
-            .warning-box {
-                background: rgba(0, 0, 0, 0.85);
-                border: 1px solid #D6FC52;
-                padding: 1rem 1.5rem;
-                backdrop-filter: blur(4px);
-                transform: skewX(-10deg);
-                box-shadow: 4px 4px 0px rgba(214, 252, 82, 0.2);
-                max-width: 90%;
-            }
-
-            .warning-title {
-                font-family: 'Syne', sans-serif;
-                font-weight: 900;
-                font-style: italic;
-                color: #D6FC52;
-                font-size: 1.2rem;
-                letter-spacing: 0.05em;
-                text-transform: uppercase;
-                margin-bottom: 0.5rem;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            
-            .warning-blink {
-                display: inline-block;
-                width: 8px;
-                height: 8px;
-                background-color: #FF4D4D;
-                border-radius: 50%;
-                box-shadow: 0 0 5px #FF4D4D;
-                animation: panic-pulse 0.5s infinite alternate;
-            }
-
-            .warning-text {
-                font-family: 'Noto Sans JP', sans-serif;
-                font-size: 0.7rem;
-                font-weight: 700;
-                color: #fff;
-                line-height: 1.4;
-                opacity: 0.9;
-            }
-            
-            .warning-decor {
-                margin-top: 0.5rem;
-                border-top: 1px dashed #333;
-                padding-top: 0.3rem;
-                font-family: 'monospace';
-                font-size: 0.6rem;
-                color: #555;
-                text-align: left;
-            }
-        }
-            
-            /* ランダムにグリッチさせる */
-            .mobile-warning-container:hover, 
-            body.is-loading .mobile-warning-container {
-               animation-play-state: running;
-               animation-duration: 3s; /* ゆったりとしたノイズ */
-            }
-
-            .warning-box {
-                background: rgba(0, 0, 0, 0.85);
-                border: 1px solid #D6FC52;
-                padding: 1rem 1.5rem;
-                backdrop-filter: blur(4px);
-                transform: skewX(-10deg); /* サイバーな傾き */
-                box-shadow: 4px 4px 0px rgba(214, 252, 82, 0.2);
-                max-width: 90%;
-            }
-
-            .warning-title {
-                font-family: 'Syne', sans-serif;
-                font-weight: 900;
-                font-style: italic;
-                color: #D6FC52;
-                font-size: 1.2rem;
-                letter-spacing: 0.05em;
-                text-transform: uppercase;
-                margin-bottom: 0.5rem;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            
-            .warning-blink {
-                display: inline-block;
-                width: 8px;
-                height: 8px;
-                background-color: #FF4D4D;
-                border-radius: 50%;
-                box-shadow: 0 0 5px #FF4D4D;
-                animation: panic-pulse 0.5s infinite alternate;
-            }
-
-            .warning-text {
-                font-family: 'Noto Sans JP', sans-serif;
-                font-size: 0.7rem;
-                font-weight: 700;
-                color: #fff;
-                line-height: 1.4;
-                opacity: 0.9;
-            }
-            
-            .warning-decor {
-                margin-top: 0.5rem;
-                border-top: 1px dashed #333;
-                padding-top: 0.3rem;
-                font-family: 'monospace';
-                font-size: 0.6rem;
-                color: #555;
-                text-align: left;
-            }
-        }
 
         @keyframes panic-pulse {
             from { opacity: 1; transform: scale(1); }
@@ -1607,7 +1429,7 @@
         </section>
 
         <!-- =========================================
-             FRAGMENTS (GALLERY) SECTION [RE-DESIGNED]
+             FRAGMENTS (GALLERY) SECTION [RE-DESIGNED FOR PC BUTTONS]
              ========================================= -->
         <section id="fragments" class="relative bg-[#050505] text-white border-b-4 border-black overflow-hidden select-none">
             
@@ -1615,14 +1437,14 @@
             <div class="absolute inset-0 bg-[linear-gradient(rgba(18,18,18,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 bg-[length:100%_4px,6px_100%] pointer-events-none"></div>
             <div class="absolute top-0 left-0 w-full h-1 bg-neoYellow opacity-20 animate-scan-pulse z-10 pointer-events-none" style="animation-duration: 3s;"></div>
 
-            <!-- Massive Background Typography -->
+            <!-- Massive Background Typography (Parallax Layer) -->
             <div class="absolute inset-0 flex items-center justify-center z-0 overflow-hidden opacity-20 pointer-events-none">
                 <span class="text-[25vw] font-black font-display italic text-transparent text-stroke-white tracking-tighter whitespace-nowrap leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.3);">
                     FRAGMENTS
                 </span>
             </div>
 
-            <!-- System Header -->
+            <!-- System Header (Sticky) -->
             <div class="absolute top-6 left-6 md:left-12 z-20 mix-blend-difference">
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 bg-neoYellow animate-pulse"></div>
@@ -1635,29 +1457,28 @@
                 </p>
             </div>
 
-            <!-- Main Gallery Wrapper -->
-            <!-- heightを h-auto md:h-[100vh] に設定し、PCでは全画面、スマホでは自然な高さに -->
-            <div id="fragments-wrapper" class="relative w-full h-auto md:h-[100vh] flex flex-col justify-center py-24 md:py-0 z-10">
+            <!-- GSAP Pin Wrapper -->
+            <!-- Note: h-screen Removed to allow button based navigation and avoid pinning conflict -->
+            <div id="fragments-wrapper" class="relative w-full h-[80vh] md:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
                 
-               <!-- CYBER NAVIGATION KEYS (PC & Landscape Tablet) -->
-               <button class="frag-nav-key prev" id="frag-prev-btn" aria-label="Scroll Left">
+               <!-- CYBER NAVIGATION KEYS (PC & Tablet Landscape) -->
+               <!-- Enabled on PC now as per request -->
+               <button class="frag-nav-key prev touch-manipulation hover-trigger" id="frag-prev-btn" aria-label="Previous Fragment" style="touch-action: manipulation;">
                    <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
                    <span>BACK</span>
                </button>
                
-               <button class="frag-nav-key next" id="frag-next-btn" aria-label="Scroll Right">
+               <button class="frag-nav-key next touch-manipulation hover-trigger" id="frag-next-btn" aria-label="Next Fragment" style="touch-action: manipulation;">
                    <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
                    <span>NEXT</span>
                </button>
 
                <!-- Horizontal Track -->
-               <!-- hide-scrollクラスでスクロールバーを消しつつ機能させる -->
-                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[15vw] lg:pr-[15vw] overflow-x-auto w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:px-[15vw] overflow-x-auto lg:overflow-x-hidden w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20" style="-webkit-overflow-scrolling: touch;">
                     
-                    <!-- Mobile/Tablet Portrait Scroll Hint -->
-                    <!-- CSSでPC/横画面タブレットでは非表示にする制御を行う -->
-                    <div class="md:hidden absolute top-1/2 left-4 z-50 pointer-events-none animate-pulse text-neoYellow font-mono text-xs tracking-widest writing-vertical-rl opacity-70">
-                        <<< SCROLL >>>
+                    <!-- Hint for Mobile -->
+                    <div class="lg:hidden absolute top-1/2 left-10 z-50 pointer-events-none animate-pulse text-neoYellow font-mono text-xs tracking-widest writing-vertical-rl opacity-70">
+                        <<< DRAG_TO_SCAN >>>
                     </div>
 
                     <!-- Card 1 -->
@@ -1665,7 +1486,7 @@
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
-                        <div class="relative w-[80vw] md:w-[30vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[80vw] lg:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Tokyo, Japan</p>
@@ -1674,11 +1495,11 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group md:translate-y-12">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-12">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[90vw] md:w-[40vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[90vw] lg:w-[35vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_6495.jpg" alt="Evidence 02" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2022@Tokyo, Japan</p>
@@ -1687,11 +1508,11 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group md:-translate-y-8">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-8">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[70vw] md:w-[25vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[70vw] lg:w-[22vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_9749.jpg" alt="Evidence 03" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoBlue font-mono text-xs">2025@Tokyo, Japan</p>
@@ -1700,11 +1521,11 @@
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group md:translate-y-6">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-6">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[90vw] md:w-[45vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[90vw] lg:w-[38vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_5333.jpg" alt="Evidence 04" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-white font-mono text-xs">2024@Sofia, Bulgaria </p>
@@ -1713,11 +1534,11 @@
                     </div>
 
                     <!-- Card 5 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group md:-translate-y-16">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-16">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[80vw] md:w-[30vw] aspect-square bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[80vw] lg:w-[28vw] aspect-square bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_1234.jpg" alt="Evidence 05" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoPurple font-mono text-xs">2023@Mannheim, Germany</p>
@@ -1726,11 +1547,11 @@
                     </div>
 
                     <!-- Card 6 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group md:translate-y-10">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-10">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[80vw] md:w-[28vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[80vw] lg:w-[25vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG9876.jpg" alt="Evidence 06" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Mannheim, Germany</p>
@@ -1739,11 +1560,11 @@
                     </div>
 
                     <!-- Card 7 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group md:-translate-y-4">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-4">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="relative w-[90vw] md:w-[40vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
+                        <div class="relative w-[90vw] lg:w-[35vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
                             <img src="./IMG_2045.jpg" alt="Evidence 07" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2023@Yamanashi, Japan</p>
@@ -1754,7 +1575,7 @@
                 </div>
             </div>
             
-            <!-- Decoration Footer -->
+            <!-- Decoration Footer for Section -->
             <div class="absolute bottom-2 left-0 w-full flex justify-between px-4 opacity-30 font-mono text-[10px] pointer-events-none z-20">
                 <span>SCROLL_X: ENABLED</span>
                 <span>// END_OF_STREAM</span>
@@ -2029,139 +1850,52 @@
 
         gsap.registerPlugin(ScrollTrigger);
         
-        // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC  ---
+        // --- NEW: FRAGMENTS GALLERY LOGIC (Button Driven for PC) ---
        function initFragmentsGallery() {
             const track = document.getElementById("fragments-track");
             const nextBtn = document.getElementById("frag-next-btn");
             const prevBtn = document.getElementById("frag-prev-btn");
             
-            if(!track) return;
+            if(!track || !nextBtn || !prevBtn) return;
 
-            // --- 堅牢なスクロールロジック (PC & iPad横) ---
-            // GSAPのPinningを使わず、ボタンによる直接制御を行うことで
-            // 要素が見切れる問題と、タッチデバイスでの競合を回避する
-            
-            const handleScroll = (direction) => {
-                vibrateEngine(20); // 触覚フィードバック
+            // Scroll Amount Calculation
+            // PC: 50% of viewport / Mobile: 70% of viewport
+            const getScrollAmount = () => window.innerWidth < 768 ? window.innerWidth * 0.7 : window.innerWidth * 0.5;
 
-                // スクロール量の決定 (画面幅の60%程度)
-                // カードが見切れないように余裕を持たせる
-                const scrollAmount = window.innerWidth * 0.6;
-                const currentScroll = track.scrollLeft;
-                let targetScroll;
-
-                if (direction === 'next') {
-                    targetScroll = currentScroll + scrollAmount;
-                } else {
-                    targetScroll = currentScroll - scrollAmount;
-                }
-
-                // GSAPを使ってスムーズにスクロール位置をアニメーションさせる
-                // nativeのscrollToよりも滑らかで、確実に動作する
+            // Function to handle scroll
+            const scrollTrack = (direction) => {
+                vibrateEngine(20);
+                const amount = getScrollAmount();
+                const sign = direction === 'next' ? 1 : -1;
+                
+                // Use GSAP for smooth scrolling on all button-enabled devices
                 gsap.to(track, {
-                    scrollTo: { x: targetScroll, autoKill: false },
+                    scrollTo: { x: track.scrollLeft + (amount * sign) },
                     duration: 0.8,
-                    ease: "power3.out",
-                    overwrite: true // 連続クリック時の挙動安定化
+                    ease: "power4.out",
+                    overwrite: "auto"
                 });
             };
 
-            if(nextBtn && prevBtn) {
-                // クリックイベント (PC)
-                nextBtn.addEventListener('click', () => handleScroll('next'));
-                prevBtn.addEventListener('click', () => handleScroll('prev'));
-
-                // タッチイベント (iPad横画面での反応性向上)
-                // preventDefaultはスクロール阻害を避けるため慎重に使用
-                nextBtn.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); // ボタン自体のハイライト等を抑制し即時実行
-                    handleScroll('next');
-                }, { passive: false });
-
-                prevBtn.addEventListener('touchstart', (e) => {
+            // Attach Events (Mouse & Touch) - Using 'click' as it covers both
+            // PreventDefault on touchstart to avoid ghost clicks if necessary, but 'click' is safer for hybrid
+            const attachEvents = (btn, dir) => {
+                btn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    handleScroll('prev');
-                }, { passive: false });
-            }
-
-            // --- マウスホイールでの横スクロール対応 (PC UX向上) ---
-            // Shiftキーなしでも横スクロールできるようにする
-            track.addEventListener("wheel", (evt) => {
-                // 縦スクロールの意図が強い場合は無視 (ユーザー体験保護)
-                if (Math.abs(evt.deltaY) < Math.abs(evt.deltaX)) return;
-
-                // トラック領域内でのホイール操作を横スクロールに変換
-                // ただし、ページの縦スクロールを邪魔しないよう、
-                // 端まで到達していない場合のみpreventDefaultする
-                const isAtLeft = track.scrollLeft <= 0;
-                const isAtRight = track.scrollLeft >= (track.scrollWidth - track.clientWidth - 10);
-
-                if ((evt.deltaY > 0 && !isAtRight) || (evt.deltaY < 0 && !isAtLeft)) {
-                    evt.preventDefault();
-                    track.scrollLeft += evt.deltaY;
-                }
-            }, { passive: false });
-        }
-
-                // ClickとTouchstart両方に対応（反応速度向上）
-                ['click', 'touchstart'].forEach(evt => {
-                    nextBtn.addEventListener(evt, (e) => {
-                         // touchstart後のclick発火を防ぐフラグ管理などは簡易的に省略し
-                         // preventDefaultで制御
-                         if(e.type === 'touchstart') e.preventDefault(); 
-                         smoothScroll(e, 'next');
-                    });
-                    prevBtn.addEventListener(evt, (e) => {
-                         if(e.type === 'touchstart') e.preventDefault();
-                         smoothScroll(e, 'prev');
-                    });
+                    e.stopPropagation(); // Stop event bubbling
+                    scrollTrack(dir);
                 });
-            }
+                // Ensure touch doesn't double fire but works instantly
+                btn.addEventListener('touchstart', (e) => {
+                     // e.preventDefault(); // Don't prevent default here to allow click to fire, or manage manually
+                }, {passive: true});
+            };
 
-            // --- SCROLL TRIGGER LOGIC ---
-            ScrollTrigger.matchMedia({
-                // Desktop Only: マウス操作かつ画面幅が広い場合のみGSAPのPinを有効化
-                // (hover: hover) は「マウスカーソルがあるデバイス」を指すため、iPadを除外できる
-                "(min-width: 1025px) and (hover: hover)": function() {
-                    
-                    // Desktop用のスタイル設定
-                    gsap.set(track, { overflow: "visible", scrollSnapType: "none" });
+            attachEvents(nextBtn, 'next');
+            attachEvents(prevBtn, 'prev');
 
-                    const totalWidth = track.scrollWidth - window.innerWidth + 200; // 余白調整
-
-                    gsap.to(track, {
-                        x: -totalWidth,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: wrapper,
-                            start: "top top",
-                            end: () => `+=${totalWidth}`,
-                            pin: true,
-                            scrub: 1, 
-                            invalidateOnRefresh: true,
-                            anticipatePin: 1
-                        }
-                    });
-
-                    // クリーンアップ関数
-                    return () => {
-                        gsap.set(track, { overflowX: "auto", scrollSnapType: "x mandatory", x: 0 });
-                        track.style.overflow = "";
-                        track.style.scrollSnapType = "";
-                        // ピン留め解除時のスタイルリセット
-                        gsap.set(wrapper, { height: "auto" });
-                    };
-                },
-                
-                // Tablet / Mobile / Touch Devices
-                "all": function() {
-                    // ネイティブの横スクロールを強制
-                    track.style.overflowX = "auto";
-                    track.style.scrollSnapType = "x mandatory";
-                    track.style.transform = "none";
-                    track.style.display = "flex";
-                }
-            });
+            // Note: Tablet Portrait Hiding is handled via CSS Media Queries
+            // Note: Tablet Landscape & PC Visibility is handled via CSS
         }
 
         
