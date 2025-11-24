@@ -350,7 +350,7 @@
         @media (max-width: 767px) {
             #scan-toggle-container {
                 right: 1.5rem;      /* Aligned with Lang button right edge */
-                bottom: 8.5rem;     /* Ergonomically placed above Lang button */
+                bottom: 7.5rem;     /* ERGONOMIC UPDATE: Adjusted to optimal thumb zone relative to lang button */
                 perspective: 1000px;
             }
 
@@ -361,10 +361,13 @@
                 justify-content: center;
                 border-radius: 50%; /* Perfect circle */
                 background: #000;
+                color: #D6FC52; /* Ensure base color is neon green */
                 border: 2px solid #D6FC52;
                 box-shadow: 0 0 15px rgba(214, 252, 82, 0.2), inset 0 0 10px rgba(214, 252, 82, 0.1);
                 overflow: hidden;
                 position: relative;
+                transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Ensure smooth transition back */
+                mix-blend-mode: normal; /* Avoid visibility issues */
             }
 
             /* HIDE EXISTING PC TEXT/ELEMENTS */
@@ -384,6 +387,7 @@
                 animation: terminalBlink 1s steps(2, start) infinite;
                 z-index: 2;
                 text-shadow: 0 0 5px #D6FC52;
+                transition: content 0s, color 0.3s ease; /* Fix for content switch glitch */
             }
 
             /* RADAR PULSE EFFECT (Background layer) */
@@ -396,23 +400,26 @@
                 z-index: 1;
                 border-radius: 50%;
                 opacity: 0.5;
+                transition: opacity 0.3s ease;
             }
 
-            /* ACTIVE STATE (Mobile) - "SYSTEM OVERRIDE" */
+            /* ACTIVE STATE (Mobile) - "SYSTEM OVERRIDE / CLOSE" */
             .scan-btn.active {
-                background: #D6FC52;
+                background: #D6FC52 !important; /* Force green background */
+                color: #000 !important; /* Force black text */
                 border-color: #fff;
                 box-shadow: 0 0 25px #D6FC52;
                 animation: glitchShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
             }
 
             .scan-btn.active::after {
-                color: #000;
+                color: #000 !important;
                 text-shadow: none;
-                content: 'OK'; /* Feedback on activation */
+                content: '[×]'; /* UPDATED: Changed from OK to [×] */
                 letter-spacing: 0;
-                font-size: 0.9rem;
+                font-size: 1.1rem; /* Adjusted for the symbol */
                 animation: none;
+                margin-left: 0;
             }
             
             .scan-btn.active::before {
@@ -919,7 +926,7 @@
 
     <footer class="bg-white border-t-4 border-black py-8 relative overflow-hidden">
         <div class="container mx-auto px-4 flex flex-col items-center justify-between gap-8 relative z-10 md:flex-row md:items-end">
-            <div class="text-left w-full md:w-auto"><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
+            <div class="text-center md:text-left w-full md:w-auto"><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
             <div class="w-full md:w-auto flex justify-center">
                 <button id="footer-top-btn" class="group relative overflow-hidden border-4 border-black bg-black px-12 py-4 shadow-[6px_6px_0px_#D6FC52] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-200">
                     <span class="absolute inset-0 bg-neoYellow translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
