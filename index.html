@@ -272,8 +272,20 @@
         @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         /* Utility */
+        /* Utility - Force Hide Scrollbar but keep functionality */
         .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scroll { 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            /* Smooth momentum scrolling for iOS/iPad */
+            -webkit-overflow-scrolling: touch; 
+        }
+        
+        /* Writing Mode for Cyber Hint */
+        .writing-vertical-rl {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
 
         /* Hide scrollbar for gallery */
         .hide-scroll::-webkit-scrollbar { display: none; }
@@ -1503,12 +1515,17 @@
             <!-- UPDATE: md:h-[100vh] -> lg:h-[100vh] to allow natural flow on tablets -->
             <div id="fragments-wrapper" class="relative w-full h-auto lg:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
                 
-                <!-- Horizontal Track -->
-                <!-- UPDATE: Changed breakpoints to lg: so tablets keep horizontal scroll -->
-                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[20vw] lg:pr-[20vw] overflow-x-auto lg:overflow-visible w-full hide-scroll snap-x snap-mandatory lg:snap-none pb-8 lg:pb-0 cursor-grab active:cursor-grabbing">
+               <!-- Horizontal Track -->
+                <!-- UPDATE: Removed 'lg:overflow-visible' and 'lg:snap-none' to prevent iPad freeze. JS will handle desktop mode. -->
+                <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[20vw] lg:pr-[20vw] overflow-x-auto w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20">
                     
+                    <!-- iPad/Tablet Cyber Hint (Only visible on touch devices via CSS/JS logic) -->
+                    <div class="lg:hidden absolute top-1/2 left-10 z-50 pointer-events-none animate-pulse text-neoYellow font-mono text-xs tracking-widest writing-vertical-rl opacity-70">
+                        <<< DRAG_TO_SCAN >>>
+                    </div>
+
                     <!-- Card 1 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group">
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group">
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
@@ -1883,17 +1900,24 @@
         gsap.registerPlugin(ScrollTrigger);
         
         // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC  ---
-        function initFragmentsGallery() {
+       function initFragmentsGallery() {
+            const track = document.getElementById("fragments-track");
+            const wrapper = document.getElementById("fragments-wrapper");
+            if(!track || !wrapper) return;
+
+            // Media Query Logic:
+            // PC (Mouse) -> GSAP Pin & Scroll
+            // iPad/Tablet/Mobile -> Native Smooth Scroll (CSS)
             ScrollTrigger.matchMedia({
+                // Desktop Only (Must have fine pointer like mouse)
                 "(min-width: 1025px) and (hover: hover)": function() {
-                    const track = document.getElementById("fragments-track");
-                    const wrapper = document.getElementById("fragments-wrapper");
-                    if(!track || !wrapper) return;
+                    
+                    // Force styles for Desktop experience (override CSS defaults)
+                    gsap.set(track, { overflow: "visible", scrollSnapType: "none" });
 
-                    // Calculate total width of track minus viewport width
-                    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200); // +200 for padding
+                    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200);
 
-                    const tween = gsap.to(track, {
+                    gsap.to(track, {
                         x: getScrollAmount,
                         ease: "none",
                         scrollTrigger: {
@@ -1901,15 +1925,31 @@
                             start: "top top",
                             end: () => `+=${track.scrollWidth - window.innerWidth}`,
                             pin: true,
-                            scrub: 1,
+                            scrub: 1, // Smoothness linkage
                             invalidateOnRefresh: true,
                             anticipatePin: 1
                         }
                     });
+
+                    // Cleanup styles when switching back to mobile/tablet view
+                    return () => {
+                        gsap.set(track, { overflowX: "auto", scrollSnapType: "x mandatory", x: 0 });
+                        // Clear inline styles to let CSS take over
+                        track.style.overflow = "";
+                        track.style.scrollSnapType = "";
+                    };
+                },
+                
+                // Fallback for iPad Pro / Tablet Landscape (Touch devices)
+                "(max-width: 1366px), (hover: none)": function() {
+                    // Ensure native scrolling is active and smooth
+                    track.style.overflowX = "auto";
+                    track.style.scrollSnapType = "x mandatory";
+                    track.style.transform = "none"; // Reset any GSAP transforms
                 }
             });
         }
-
+        
         function initScrollSpy() {
             const navItems = [
                 { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, 
