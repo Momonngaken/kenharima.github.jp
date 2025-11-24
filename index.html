@@ -272,21 +272,6 @@
         @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         /* Utility */
-        /* [ADD] iPad/Mobile Horizontal Scroll Fixes */
-        #fragments-track {
-            /* Ensure horizontal scrolling is prioritized on touch */
-            touch-action: pan-x pan-y;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-        }
-        #fragments-track::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
-        
-        /* Prevent Lenis from hijacking horizontal swipes */
-        html.lenis #fragments-track {
-            overscroll-behavior-x: contain;
-        }
         /* Utility - Force Hide Scrollbar but keep functionality */
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { 
@@ -1012,88 +997,6 @@
         @keyframes panic-pulse {
             from { opacity: 1; transform: scale(1); }
             to { opacity: 0.4; transform: scale(1.5); }
-        }
-         /* =========================================
-           CYBER DECK MODE (TABLET/MOBILE NEW UI)
-           ========================================= */
-        
-        /* デフォルトのスクロールバー隠しを強化 */
-        .cyber-deck-wrapper {
-            position: relative;
-            width: 100%;
-            height: 70vh; /* タップしやすい高さ */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            perspective: 1000px; /* 3D深度 */
-            touch-action: pan-y; /* 縦スクロールは許可、横はJSで制御 */
-        }
-
-        /* カードの基本配置を絶対配置に変更し、重ね合わせる */
-        .cyber-deck-mode .fragment-frame {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-origin: center center;
-            /* サイズを統一してカード感（証拠品感）を出す */
-            width: 65vw !important; 
-            aspect-ratio: 3/4 !important;
-            height: auto !important;
-            margin: 0 !important;
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
-            will-change: transform, opacity, filter;
-            cursor: pointer;
-        }
-
-        /* タブレット横画面 (iPad Landscape) 用のサイズ調整 */
-        @media (min-width: 768px) and (hover: none) {
-            .cyber-deck-mode .fragment-frame {
-                width: 40vw !important; /* 横画面では少し小さくして左右を見せる */
-            }
-        }
-
-        /* アクティブなカード（中央） */
-        .cyber-deck-mode .fragment-frame.is-active {
-            z-index: 50;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            border: 1px solid #D6FC52; /* Active Neon */
-        }
-        
-        /* アクティブ時の画像 */
-        .cyber-deck-mode .fragment-frame.is-active img {
-            filter: grayscale(0%) contrast(1.1) !important;
-        }
-
-        /* 非アクティブ（待機中）のカード */
-        .cyber-deck-mode .fragment-frame:not(.is-active) {
-            cursor: pointer;
-        }
-        
-        /* スキャンラインエフェクト（切り替え時） */
-        .scan-flash-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(214, 252, 82, 0.1);
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        /* インジケーター */
-        #deck-indicator {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'monospace';
-            color: #D6FC52;
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            z-index: 60;
-            pointer-events: none;
-            text-shadow: 0 0 5px #D6FC52;
-            opacity: 0; /* JSで表示 */
         }
     </style>
 </head>
@@ -1996,151 +1899,25 @@
 
         gsap.registerPlugin(ScrollTrigger);
         
-       // --- [FIXED] FRAGMENTS GALLERY: IPAD/TABLET SCROLL FIX ---
-        // --- [RE-ENGINEERED] FRAGMENTS GALLERY: CYBER DECK SYSTEM ---
-        function initFragmentsGallery() {
+        // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC  ---
+       function initFragmentsGallery() {
             const track = document.getElementById("fragments-track");
             const wrapper = document.getElementById("fragments-wrapper");
-            const cards = document.querySelectorAll(".fragment-frame");
-            
-            if(!track || !wrapper || cards.length === 0) return;
+            if(!track || !wrapper) return;
 
-            // インジケーターの動的生成
-            let indicator = document.getElementById('deck-indicator');
-            if (!indicator) {
-                indicator = document.createElement('div');
-                indicator.id = 'deck-indicator';
-                wrapper.appendChild(indicator);
-            }
-
-            // カードの状態管理
-            let currentIndex = 0;
-            const totalCards = cards.length;
-
-            // --- DECK RENDERER (TOUCH DEVICES) ---
-            // カードの位置を計算してGSAPで動かす核心関数
-            function updateDeckVisuals() {
-                indicator.innerHTML = `DATA: <span style="color:#fff">${(currentIndex + 1).toString().padStart(2, '0')}</span> / ${totalCards.toString().padStart(2, '0')}`;
-                indicator.style.opacity = 1;
-
-                cards.forEach((card, index) => {
-                    // 相対位置 (-1:左, 0:中央, 1:右...)
-                    const diff = index - currentIndex;
-
-                    // 表示ロジック（視界に入らないものは非表示で負荷軽減）
-                    if (Math.abs(diff) > 2) {
-                        gsap.set(card, { autoAlpha: 0 });
-                        return;
-                    }
-
-                    // 3D Transform計算
-                    // 右側のカードは重なり合って待機、左側は消えていく
-                    let xPos = 0;
-                    let zPos = 0;
-                    let scale = 1;
-                    let rotationY = 0;
-                    let opacity = 1;
-                    let zIndex = 0;
-                    let filter = "grayscale(100%) brightness(0.3)";
-
-                    if (diff === 0) {
-                        // 【中央: Active】
-                        xPos = 0; 
-                        zPos = 0; 
-                        scale = 1; 
-                        zIndex = 100;
-                        filter = "grayscale(0%) brightness(1)";
-                        card.classList.add('is-active');
-                    } else if (diff > 0) {
-                        // 【右側: Next】
-                        // 1つ右は大きく見せ、それ以降は奥に詰める
-                        const offset = window.innerWidth < 768 ? 60 : 45; // 画面幅に応じたオフセット(%)
-                        xPos = `${offset + (diff * 5)}%`; 
-                        scale = 1 - (diff * 0.15);
-                        zPos = -100 * diff;
-                        zIndex = 100 - diff;
-                        rotationY = -5 * diff; // 少し内側を向く
-                        opacity = 1 - (diff * 0.2);
-                    } else {
-                        // 【左側: Past】
-                        // 過ぎ去ったものは左奥へフレームアウト
-                        xPos = '-120%'; 
-                        scale = 0.8;
-                        zPos = -200;
-                        zIndex = 0;
-                        rotationY = 20;
-                        opacity = 0; // 完全には消さず、アニメーションさせる
-                        card.classList.remove('is-active');
-                    }
-                    
-                    if (diff !== 0) card.classList.remove('is-active');
-
-                    // アニメーション実行
-                    gsap.to(card, {
-                        x: xPos,
-                        y: '-50%', // absolute center adjustment
-                        z: zPos,
-                        scale: scale,
-                        rotationY: rotationY,
-                        autoAlpha: opacity,
-                        zIndex: zIndex,
-                        filter: filter,
-                        duration: 0.6,
-                        ease: "power3.out",
-                        overwrite: "auto"
-                    });
-                });
-            }
-
-            // クリック/タップイベントハンドラ
-            function handleDeckClick(e) {
-                // クリックされたカードのインデックスを取得
-                const clickedCard = e.currentTarget;
-                const clickedIndex = Array.from(cards).indexOf(clickedCard);
-
-                if (clickedIndex === currentIndex) {
-                    // 中央をタップした場合：軽いバウンド（"Access Granted"感）
-                    vibrateEngine(10);
-                    gsap.to(clickedCard, { 
-                        scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 
-                    });
-                    return;
-                }
-
-                // Haptic Feedback
-                vibrateEngine(20);
-
-                // インデックス更新
-                currentIndex = clickedIndex;
-
-                // 画面外に行かないよう制限（念のため）
-                if (currentIndex < 0) currentIndex = 0;
-                if (currentIndex >= totalCards) currentIndex = totalCards - 1;
-
-                updateDeckVisuals();
-            }
-
+            // Media Query Logic:
+            // PC (Mouse) -> GSAP Pin & Scroll
+            // iPad/Tablet/Mobile -> Native Smooth Scroll (CSS)
             ScrollTrigger.matchMedia({
-                
-                // =============================================
-                // DESKTOP MODE (Mouse/Trackpad) - KEEP EXISTING
-                // =============================================
-                "(min-width: 1025px) and (hover: hover) and (pointer: fine)": function() {
-                    // リセット
-                    track.classList.remove('cyber-deck-mode');
-                    wrapper.classList.remove('cyber-deck-wrapper');
-                    if(indicator) indicator.style.display = 'none';
+                // Desktop Only (Must have fine pointer like mouse)
+                "(min-width: 1025px) and (hover: hover)": function() {
                     
-                    // スタイルリセット (GSAPによる書き換えを消去)
-                    gsap.set(cards, { clearProps: "all" });
-                    
-                    // 既存のPC用横スクロールロジック
-                    gsap.set(track, { overflow: "visible", scrollSnapType: "none", width: "auto", display: "flex", flexDirection: "row" });
-                    gsap.set(wrapper, { height: "100vh", display: "flex" });
+                    // Force styles for Desktop experience (override CSS defaults)
+                    gsap.set(track, { overflow: "visible", scrollSnapType: "none" });
 
                     const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200);
 
-                    const tween = gsap.to(track, {
+                    gsap.to(track, {
                         x: getScrollAmount,
                         ease: "none",
                         scrollTrigger: {
@@ -2148,62 +1925,27 @@
                             start: "top top",
                             end: () => `+=${track.scrollWidth - window.innerWidth}`,
                             pin: true,
-                            scrub: 1, 
+                            scrub: 1, // Smoothness linkage
                             invalidateOnRefresh: true,
                             anticipatePin: 1
                         }
                     });
 
+                    // Cleanup styles when switching back to mobile/tablet view
                     return () => {
-                        tween.kill();
-                        gsap.set(track, { clearProps: "all" });
+                        gsap.set(track, { overflowX: "auto", scrollSnapType: "x mandatory", x: 0 });
+                        // Clear inline styles to let CSS take over
+                        track.style.overflow = "";
+                        track.style.scrollSnapType = "";
                     };
                 },
                 
-                // =============================================
-                // TOUCH MODE (iPad Landscape / Mobile) - NEW UI
-                // =============================================
-                "(max-width: 1024px), (hover: none), (pointer: coarse)": function() {
-                    // コンテナをCyber Deckモードへ変更
-                    track.classList.add('cyber-deck-mode');
-                    wrapper.classList.add('cyber-deck-wrapper'); // Flex & Perspective
-                    track.style.transform = "none"; // Reset any scroll transforms
-                    
-                    if(indicator) indicator.style.display = 'block';
-
-                    // ScrollTriggerのピン留めを解除（自然な縦スクロールの中に埋め込む）
-                    wrapper.style.height = "80vh"; 
-                    wrapper.style.padding = "0";
-                    track.style.width = "100%";
-                    track.style.height = "100%";
-                    track.style.overflow = "hidden"; // 横スクロール禁止
-
-                    // 初期化
-                    updateDeckVisuals();
-
-                    // イベントリスナー登録
-                    cards.forEach(card => {
-                        card.addEventListener('click', handleDeckClick);
-                        // タッチ開始時の視覚フィードバック
-                        card.addEventListener('touchstart', () => {
-                           if(!card.classList.contains('is-active')) {
-                               gsap.to(card, { scale: card === cards[currentIndex+1] ? 0.9 : 0.75, duration: 0.2 });
-                           }
-                        }, {passive: true});
-                        card.addEventListener('touchend', () => {
-                           if(!card.classList.contains('is-active')) {
-                               updateDeckVisuals(); // 元の位置に戻す（clickが発火すれば上書きされる）
-                           }
-                        }, {passive: true});
-                    });
-
-                    // Cleanup
-                    return () => {
-                        cards.forEach(card => card.removeEventListener('click', handleDeckClick));
-                        track.classList.remove('cyber-deck-mode');
-                        wrapper.classList.remove('cyber-deck-wrapper');
-                        gsap.set(cards, { clearProps: "all" });
-                    };
+                // Fallback for iPad Pro / Tablet Landscape (Touch devices)
+                "(max-width: 1366px), (hover: none)": function() {
+                    // Ensure native scrolling is active and smooth
+                    track.style.overflowX = "auto";
+                    track.style.scrollSnapType = "x mandatory";
+                    track.style.transform = "none"; // Reset any GSAP transforms
                 }
             });
         }
