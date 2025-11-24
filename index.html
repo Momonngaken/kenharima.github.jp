@@ -369,10 +369,70 @@
             text-shadow: 0 0 15px rgba(214, 252, 82, 0.4) !important;
             position: relative;
             z-index: 10;
-            display: inline; /* CHANGED FROM inline-block TO inline to fix text wrapping */
+            display: inline; /* Keep default inline for text flows */
             box-decoration-break: clone;
             -webkit-box-decoration-break: clone;
         }
+
+        /* =================================================================
+           [FIXED] RESUME BUTTON STYLING IN SCAN MODE (DATA-PROTOCOL STYLE)
+           ================================================================= */
+        
+        /* Force Block Display to prevent shrinking */
+        body.is-scanning #resume-download-btn .scan-highlight,
+        body.is-scanning #resume-download-btn a.scan-highlight {
+            display: block !important;
+            box-shadow: none !important;
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+        }
+
+        /* Wireframe / Holographic Container Style */
+        body.is-scanning #resume-download-btn a {
+            background-color: rgba(0,0,0,0.8) !important;
+            border: 2px dashed #D6FC52 !important; /* Neon dashed border */
+            box-shadow: 0 0 20px rgba(214, 252, 82, 0.15), inset 0 0 20px rgba(214, 252, 82, 0.05) !important;
+            transform: translate(0, 0) !important; /* Reset offset */
+            animation: cyber-glitch-border 3s infinite linear;
+        }
+        
+        /* Hide the offset shadow layer in scan mode for cleaner look */
+        body.is-scanning #resume-download-btn .absolute.bg-neoRed.scan-highlight {
+            display: none !important;
+        }
+        
+        /* Make inner content transparent and reset borders */
+        body.is-scanning #resume-download-btn .relative.bg-black.scan-highlight {
+            background: transparent !important;
+            border: none !important;
+            padding: 1.5rem !important;
+        }
+
+        /* Internal Text & Icon Styling */
+        body.is-scanning #resume-download-btn span,
+        body.is-scanning #resume-download-btn div {
+            color: #D6FC52 !important;
+            font-family: 'monospace' !important; /* Code style font */
+            text-shadow: 0 0 8px #D6FC52 !important;
+            opacity: 1 !important;
+        }
+        
+        /* Special animation for the text inside resume button */
+        body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
+             content: '> ';
+        }
+
+        @keyframes cyber-glitch-border {
+            0% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
+            5% { clip-path: inset(10% 0 80% 0); border-color: #fff; }
+            10% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
+            50% { opacity: 1; }
+            52% { opacity: 0.8; }
+            54% { opacity: 1; }
+            100% { clip-path: inset(0 0 0 0); border-color: #D6FC52; }
+        }
+
+        /* ================================================================= */
 
         /* Exception for the Resume Button to ensure it stays block-level in scan mode */
         body.is-scanning a.scan-highlight {
