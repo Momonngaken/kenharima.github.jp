@@ -222,12 +222,62 @@
         /* HUD */
         #cyber-hud { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 9990; pointer-events: none; display: none; flex-direction: column; align-items: flex-end; mix-blend-mode: difference; font-family: 'monospace'; color: #D6FC52; }
         @media (min-width: 1025px) { #cyber-hud { display: flex; } }
-        .hud-track { position: relative; width: 2px; height: 300px; background: rgba(255,255,255,0.2); margin-right: 9px; }
+        .hud-track { position: relative; width: 2px; height: 350px; background: rgba(255,255,255,0.2); margin-right: 9px; }
         .hud-progress { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: #D6FC52; box-shadow: 0 0 10px #D6FC52; }
         .hud-point { position: absolute; right: 10px; transform: translateY(-50%); font-size: 10px; font-weight: bold; opacity: 0.3; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
         .hud-point.active { opacity: 1; color: #D6FC52; text-shadow: 0 0 5px #D6FC52; }
         .hud-point::after { content: ''; display: block; width: 6px; height: 1px; background: currentColor; }
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
+
+        /* FRAGMENTS RE-DESIGN (HUD STYLE) */
+        
+        /* ターゲットマーカー（カギ括弧） */
+        .fragment-frame { padding: 10px; position: relative; transition: transform 0.3s ease; }
+        .frame-hud {
+            position: absolute; width: 20px; height: 20px;
+            border-color: #555; border-style: solid;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 20; pointer-events: none;
+        }
+        
+        .frame-hud.top-left { top: 0; left: 0; border-width: 2px 0 0 2px; }
+        .frame-hud.top-right { top: 0; right: 0; border-width: 2px 2px 0 0; }
+        .frame-hud.bottom-left { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+        .frame-hud.bottom-right { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+        /* ホバー時のアクション */
+        .fragment-frame:hover .frame-hud {
+            width: 100%; height: 100%;
+            border-color: #D6FC52; /* Neon Yellow */
+            box-shadow: 0 0 10px rgba(214, 252, 82, 0.5);
+        }
+        
+        .fragment-frame:hover { z-index: 30; }
+
+        /* スキャンモード時の挙動 */
+        body.is-scanning .fragment-frame img {
+            filter: grayscale(100%) brightness(0.2) !important;
+            border: 1px solid #D6FC52;
+        }
+        body.is-scanning .fragment-frame:hover img {
+            filter: grayscale(0%) brightness(1) !important;
+            transform: scale(1.1);
+        }
+        body.is-scanning .frame-hud {
+            border-color: #D6FC52;
+            opacity: 0.5;
+            animation: hud-blink 1s infinite;
+        }
+        
+        @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* Utility */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Hide scrollbar for gallery */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
            CYBER NAVY PROGRESS BAR (MOBILE)
@@ -416,8 +466,6 @@
                 calc(100% - 20px) 100%, 100% 100%, 
                 20px 100%, 0 100%, 0 calc(100% - 20px)
             );
-            /* Corner Bracket Animation Logic handled by pseudo repetition or complex path */
-            /* Simplified powerful visual: */
             background: 
                 linear-gradient(to right, #D6FC52 4px, transparent 4px) 0 0,
                 linear-gradient(to bottom, #D6FC52 4px, transparent 4px) 0 0,
@@ -696,11 +744,12 @@
 
     <!-- HUD (PC Only) -->
     <aside id="cyber-hud">
-        <div style="position: relative; height: 300px;">
+        <div style="position: relative; height: 350px;">
             <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
-            <div class="hud-point" style="top: 25%" data-target="about">BIO</div>
-            <div class="hud-point" style="top: 50%" data-target="works">WORK</div>
-            <div class="hud-point" style="top: 75%" data-target="skills">SKILLS</div>
+            <div class="hud-point" style="top: 20%" data-target="about">BIO</div>
+            <div class="hud-point" style="top: 40%" data-target="works">WORK</div>
+            <div class="hud-point" style="top: 60%" data-target="skills">SKILLS</div>
+            <div class="hud-point" style="top: 80%" data-target="fragments">FRAGS</div>
             <div class="hud-point" style="top: 100%" data-target="contact">CONTACT</div>
             <div class="hud-track"><div class="hud-progress" id="hud-bar"></div></div>
             <div class="hud-coords">Y-AXIS: <span id="y-val">0000</span></div>
@@ -785,6 +834,7 @@
                 <div class="magnetic-btn link-wrapper"><a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a></div>
+                <div class="magnetic-btn link-wrapper"><a href="#fragments" class="block text-sm font-bold uppercase hover:text-neoYellow transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navFragments">断片</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navContact">連絡先</a></div>
                 
                 <button id="lang-toggle" class="magnetic-btn ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
@@ -809,6 +859,7 @@
             <a href="#about" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navAbout">私について</a>
             <a href="#works" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navWorks">活動・受賞歴</a>
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
+            <a href="#fragments" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navFragments">断片</a>
             <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
              <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" 
@@ -1127,6 +1178,155 @@
             </div>
         </section>
 
+        <!-- =========================================
+             FRAGMENTS (GALLERY) SECTION [RE-DESIGNED]
+             ========================================= -->
+        <section id="fragments" class="relative bg-[#050505] text-white border-b-4 border-black overflow-hidden select-none">
+            
+            <!-- Dynamic Background Grid & Scanline -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(18,18,18,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 bg-[length:100%_4px,6px_100%] pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-1 bg-neoYellow opacity-20 animate-scan-pulse z-10 pointer-events-none" style="animation-duration: 3s;"></div>
+
+            <!-- Massive Background Typography (Parallax Layer) -->
+            <div class="absolute inset-0 flex items-center justify-center z-0 overflow-hidden opacity-20 pointer-events-none">
+                <span class="text-[25vw] font-black font-display italic text-transparent text-stroke-white tracking-tighter whitespace-nowrap leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.3);">
+                    FRAGMENTS
+                </span>
+            </div>
+
+            <!-- System Header (Sticky) -->
+            <div class="absolute top-6 left-6 md:left-12 z-20 mix-blend-difference">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-neoYellow animate-pulse"></div>
+                    <h2 class="text-xl md:text-3xl font-black font-mono text-neoYellow tracking-widest lang-fade" data-key="fragmentsTitle">
+                        /// FRAGMENTS_LOG
+                    </h2>
+                </div>
+                <p class="font-mono text-[10px] md:text-xs text-white/60 mt-1 pl-6">
+                    Dir: /root/user/ken.h/memory_dump/ <span class="hidden md:inline"> // MODE: READ_ONLY</span>
+                </p>
+            </div>
+
+            <!-- GSAP Pin Wrapper -->
+            <div id="fragments-wrapper" class="relative w-full h-auto md:h-[100vh] flex flex-col justify-center py-24 md:py-0 z-10">
+                
+                <!-- Horizontal Track -->
+                <div id="fragments-track" class="flex flex-row items-center gap-6 md:gap-20 px-8 md:pl-[20vw] md:pr-[20vw] overflow-x-auto md:overflow-visible w-full hide-scroll snap-x snap-mandatory md:snap-none pb-8 md:pb-0">
+                    
+                    <!-- Card 1 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+                        
+                        <div class="relative w-[80vw] md:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoYellow font-mono text-xs">IMG_6457.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-12">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[90vw] md:w-[35vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_6495.jpg" alt="Evidence 02" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoRed font-mono text-xs">IMG_6495.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:-translate-y-8">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[70vw] md:w-[22vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_9749.jpg" alt="Evidence 03" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoBlue font-mono text-xs">IMG_9749.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-6">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[90vw] md:w-[38vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_5333.jpg" alt="Evidence 04" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-white font-mono text-xs">IMG_5333.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:-translate-y-16">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[80vw] md:w-[28vw] aspect-square bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_1234.jpg" alt="Evidence 05" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoPurple font-mono text-xs">IMG_1234.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-10">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[80vw] md:w-[25vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG9876.jpg" alt="Evidence 06" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoYellow font-mono text-xs">IMG_9876.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:-translate-y-4">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[90vw] md:w-[35vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_2045.jpg" alt="Evidence 07" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoRed font-mono text-xs">IMG_2045.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8 -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center group cursor-none md:translate-y-8">
+                        <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
+                        <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
+
+                        <div class="relative w-[75vw] md:w-[24vw] aspect-[9/16] bg-black overflow-hidden border border-white/20">
+                            <img src="./IMG_9749.jpg" alt="Evidence 08" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p class="text-neoBlue font-mono text-xs">IMG_9749_B.RAW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Decoration Footer for Section -->
+            <div class="absolute bottom-2 left-0 w-full flex justify-between px-4 opacity-30 font-mono text-[10px] pointer-events-none z-20">
+                <span>SCROLL_X: ENABLED</span>
+                <span>// END_OF_STREAM</span>
+            </div>
+        </section>
+
         <section id="contact" class="min-h-[80dvh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
@@ -1342,6 +1542,7 @@
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
             initKineticMarquee(); initScrollSpy(); initContactModal(); initScrollHUD();
+            initFragmentsGallery(); // NEW: Initialize Fragments Gallery
             initScanProtocol(); // Initialize Scan Mode
             initMobileCommandCenter(); // Initialize Mobile HUD
             initMobileGyro(); // Initialize Mobile Gyro Effects
@@ -1393,9 +1594,46 @@
         }
 
         gsap.registerPlugin(ScrollTrigger);
+        
+        // --- NEW: FRAGMENTS GALLERY HORIZONTAL SCROLL LOGIC ---
+        function initFragmentsGallery() {
+            // Only engage GSAP horizontal scroll on PC (Desktop)
+            // Mobile uses native CSS scroll snap for better UX
+            ScrollTrigger.matchMedia({
+                "(min-width: 768px)": function() {
+                    const track = document.getElementById("fragments-track");
+                    const wrapper = document.getElementById("fragments-wrapper");
+                    if(!track || !wrapper) return;
+
+                    // Calculate total width of track minus viewport width
+                    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200); // +200 for padding
+
+                    const tween = gsap.to(track, {
+                        x: getScrollAmount,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: wrapper,
+                            start: "top top",
+                            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+                            pin: true,
+                            scrub: 1,
+                            invalidateOnRefresh: true,
+                            anticipatePin: 1
+                        }
+                    });
+                }
+            });
+        }
+
         function initScrollSpy() {
-            const navItems = [{ id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }];
-            const sections = ['hero', 'about', 'works', 'skills', 'contact'];
+            const navItems = [
+                { id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, 
+                { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, 
+                { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, 
+                { id: "fragments", link: document.querySelector('a[data-key="navFragments"]').parentElement },
+                { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }
+            ];
+            const sections = ['hero', 'about', 'works', 'skills', 'fragments', 'contact'];
             
             sections.forEach(sectionId => {
                 const target = sectionId === 'hero' ? document.body : document.getElementById(sectionId);
@@ -1461,7 +1699,7 @@
 
         const translations = {
             ja: {
-                navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navContact: "連絡先", navButton: "コンタクトを取る",
+                navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navFragments: "断片", navContact: "連絡先", navButton: "コンタクトを取る",
                 heroTitle1: "播磨 賢", heroTitle2: "KEN HARIMA", heroSubtitle: "ダイキン工業株式会社 | 早稲田大学社会科学部",
                 daikinRole: "/// 配属：解析中...", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
@@ -1500,6 +1738,7 @@
                 work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
                 work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>し、約11万円の賞金を獲得しました。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
+                fragmentsTitle: "断片",
                 resumeBtn: "履歴書をDLする",
                 scanBtn: "// 核心を表示",
                 contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span><span class="block text-[7vw] md:text-8xl font-black leading-tight">同じテーブルに、</span><span class="relative inline-block mt-4 group hover-trigger"><span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span><span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">着くか<span class="text-neoRed">。</span></span></span>`,
@@ -1508,7 +1747,7 @@
                 backToTop: "トップに戻る"
             },
             en: {
-                navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navContact: "Contact", navButton: "Get in Touch",
+                navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navFragments: "Fragments", navContact: "Contact", navButton: "Get in Touch",
                 heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
                 daikinRole: "/// DEPLOYMENT_PENDING", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
@@ -1547,6 +1786,7 @@
                 work9Subtitle: "<span class='scan-highlight'>107th Place (In the Money)</span>", 
                 work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished <span class='scan-highlight'>107th out of 2,511 entrants</span> and earned prize money of approximately ¥110,000.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Proficiency Test, Level 1", skill3: "Mental Arithmetic Proficiency Test, Level 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
+                fragmentsTitle: "Fragments",
                 resumeBtn: "CURRICULUM VITAE",
                 scanBtn: "// SIGNAL_ONLY",
                 contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span><span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">DEAL</span><span class="relative inline-block mt-2 group hover-trigger"><span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span><span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">YOU IN?</span></span>`,
