@@ -230,7 +230,74 @@
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
 
         /* FRAGMENTS RE-DESIGN (HUD STYLE) */
-        
+        /* --- TABLET/MOBILE NAVIGATION KEYS (CYBER TACTICAL) --- */
+        .frag-nav-key {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 60;
+            background: rgba(18, 18, 18, 0.85); /* 半透明の黒 */
+            border: 1px solid #D6FC52;
+            color: #D6FC52;
+            padding: 1.5rem 0.5rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            opacity: 0; 
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%); /* 台形クリッピング */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(214, 252, 82, 0.1);
+        }
+
+        /* 内部のアイコン装飾 */
+        .frag-nav-key span {
+            display: block;
+            writing-mode: vertical-rl; /* 縦書きでサイバー感演出 */
+            text-orientation: mixed;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+        }
+
+        .frag-nav-key svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 3;
+        }
+
+        .frag-nav-key.prev { left: 0; border-left: none; transform: translateY(-50%) translateX(-10px); }
+        .frag-nav-key.next { right: 0; border-right: none; transform: translateY(-50%) translateX(10px); }
+
+        /* ホバー・アクティブ時の発光 */
+        .frag-nav-key:active {
+            background: #D6FC52;
+            color: #000;
+            box-shadow: 0 0 30px #D6FC52;
+        }
+
+        /* タブレット・モバイル（iPad横含む）のみ表示 */
+        @media (max-width: 1366px), (hover: none) {
+            .frag-nav-key { 
+                opacity: 1; 
+                pointer-events: auto; 
+            }
+            .frag-nav-key.prev { transform: translateY(-50%) translateX(0); }
+            .frag-nav-key.next { transform: translateY(-50%) translateX(0); }
+        }
+
+        /* デスクトップでは非表示 */
+        @media (min-width: 1025px) and (hover: hover) {
+            .frag-nav-key { display: none !important; }
+        }
         /* ターゲットマーカー（カギ括弧） */
         .fragment-frame { padding: 10px; position: relative; transition: transform 0.3s ease; }
         .frame-hud {
@@ -1514,7 +1581,20 @@
             <!-- GSAP Pin Wrapper -->
             <!-- UPDATE: md:h-[100vh] -> lg:h-[100vh] to allow natural flow on tablets -->
             <div id="fragments-wrapper" class="relative w-full h-auto lg:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
+                <!-- GSAP Pin Wrapper -->
+            <!-- UPDATE: md:h-[100vh] -> lg:h-[100vh] to allow natural flow on tablets -->
+            <div id="fragments-wrapper" class="relative w-full h-auto lg:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
                 
+               <!-- ★★★ ここに挿入: CYBER NAVIGATION KEYS (Tablet Only) ★★★ -->
+               <button class="frag-nav-key prev" id="frag-prev-btn" aria-label="Previous Fragment">
+                   <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
+                   <span>BACK</span>
+               </button>
+               
+               <button class="frag-nav-key next" id="frag-next-btn" aria-label="Next Fragment">
+                   <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
+                   <span>NEXT</span>
+               </button>
                <!-- Horizontal Track -->
                 <!-- UPDATE: Removed 'lg:overflow-visible' and 'lg:snap-none' to prevent iPad freeze. JS will handle desktop mode. -->
                 <div id="fragments-track" class="flex flex-row items-center gap-6 lg:gap-20 px-8 lg:pl-[20vw] lg:pr-[20vw] overflow-x-auto w-full hide-scroll snap-x snap-mandatory pb-8 lg:pb-0 cursor-grab active:cursor-grabbing relative z-20">
@@ -1903,16 +1983,40 @@
        function initFragmentsGallery() {
             const track = document.getElementById("fragments-track");
             const wrapper = document.getElementById("fragments-wrapper");
+            const nextBtn = document.getElementById("frag-next-btn");
+            const prevBtn = document.getElementById("frag-prev-btn");
+            
             if(!track || !wrapper) return;
 
-            // Media Query Logic:
-            // PC (Mouse) -> GSAP Pin & Scroll
-            // iPad/Tablet/Mobile -> Native Smooth Scroll (CSS)
+            // --- NAVIGATION BUTTON LOGIC (For Tablet/Mobile) ---
+            if(nextBtn && prevBtn) {
+                // スクロール量（カード1枚分 + ギャップ）を概算
+                const scrollAmount = () => window.innerWidth * 0.8; 
+
+                const smoothScroll = (direction) => {
+                    vibrateEngine(20); // ハプティックフィードバック
+                    const currentScroll = track.scrollLeft;
+                    const targetScroll = direction === 'next' 
+                        ? currentScroll + scrollAmount() 
+                        : currentScroll - scrollAmount();
+                    
+                    track.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                };
+
+                nextBtn.addEventListener('click', () => smoothScroll('next'));
+                prevBtn.addEventListener('click', () => smoothScroll('prev'));
+            }
+
+            // --- SCROLL TRIGGER LOGIC ---
             ScrollTrigger.matchMedia({
-                // Desktop Only (Must have fine pointer like mouse)
+                // Desktop Only (Must have fine pointer like mouse AND be wide)
+                // iPad Pro (1366px)などで誤作動しないよう (hover: hover) を厳密に適用
                 "(min-width: 1025px) and (hover: hover)": function() {
                     
-                    // Force styles for Desktop experience (override CSS defaults)
+                    // Force styles for Desktop experience
                     gsap.set(track, { overflow: "visible", scrollSnapType: "none" });
 
                     const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 200);
@@ -1925,30 +2029,31 @@
                             start: "top top",
                             end: () => `+=${track.scrollWidth - window.innerWidth}`,
                             pin: true,
-                            scrub: 1, // Smoothness linkage
+                            scrub: 1, 
                             invalidateOnRefresh: true,
                             anticipatePin: 1
                         }
                     });
 
-                    // Cleanup styles when switching back to mobile/tablet view
                     return () => {
                         gsap.set(track, { overflowX: "auto", scrollSnapType: "x mandatory", x: 0 });
-                        // Clear inline styles to let CSS take over
                         track.style.overflow = "";
                         track.style.scrollSnapType = "";
                     };
                 },
                 
-                // Fallback for iPad Pro / Tablet Landscape (Touch devices)
-                "(max-width: 1366px), (hover: none)": function() {
-                    // Ensure native scrolling is active and smooth
+                // Fallback for Touch Devices (iPad, Mobile)
+                // 画面幅が広くてもホバーできない端末(=iPad)はこちらに含まれる
+                "all": function() {
+                    // ネイティブスクロールを強制
                     track.style.overflowX = "auto";
                     track.style.scrollSnapType = "x mandatory";
-                    track.style.transform = "none"; // Reset any GSAP transforms
+                    track.style.transform = "none";
+                    track.style.display = "flex"; // Flexレイアウト維持
                 }
             });
         }
+
         
         function initScrollSpy() {
             const navItems = [
