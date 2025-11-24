@@ -2,7 +2,7 @@
 <html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>播磨 賢 | Ken HARIMA - Portfolio</title>
     
     <!-- =========================================
@@ -83,7 +83,16 @@
     <style>
         /* --- CORE & PERFORMANCE --- */
         .gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
-        body { background-color: #F0F0EB; color: #121212; cursor: none; overflow-x: hidden; transition: background-color 0.5s ease; }
+        /* 100vh Fix for Mobile & Overscroll Control */
+        body { 
+            background-color: #F0F0EB; 
+            color: #121212; 
+            cursor: none; 
+            overflow-x: hidden; 
+            transition: background-color 0.5s ease;
+            overscroll-behavior-y: none; /* Prevent bounce effect */
+            min-height: 100dvh; /* Dynamic Viewport Height */
+        }
         
         @media (min-width: 1025px) and (hover: hover) {
             * { cursor: none !important; }
@@ -96,7 +105,7 @@
         .lenis.lenis-stopped { overflow: hidden; }
 
         /* Loader */
-        body.is-loading { overflow: hidden; height: 100vh; }
+        body.is-loading { overflow: hidden; height: 100dvh; }
         #progress-bar { position: fixed; top: 0; left: 0; height: 6px; background: #5D5FEF; width: 0%; z-index: 100; transition: width 0.1s ease-out; }
         
         /* Grain */
@@ -219,6 +228,48 @@
         .hud-point.active { opacity: 1; color: #D6FC52; text-shadow: 0 0 5px #D6FC52; }
         .hud-point::after { content: ''; display: block; width: 6px; height: 1px; background: currentColor; }
         .hud-coords { position: absolute; bottom: -40px; right: -5px; font-size: 10px; font-weight: bold; letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.7; }
+
+        /* =========================================
+           MOBILE COMMAND CENTER CSS
+           ========================================= */
+        #mobile-command-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 42px;
+            background: #050505;
+            border-top: 2px solid #D6FC52;
+            z-index: 9995;
+            padding: 0 16px;
+            font-family: 'monospace';
+            font-size: 10px;
+            color: #D6FC52;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
+            pointer-events: none; /* Let clicks pass through if needed, but usually just visual */
+            opacity: 1;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hide on PC */
+        @media (min-width: 768px) {
+            #mobile-command-bar { display: none !important; }
+        }
+
+        .mcb-section { display: flex; align-items: center; gap: 8px; }
+        .mcb-blinker { width: 6px; height: 6px; background-color: #FF4D4D; border-radius: 50%; animation: blinkRed 1s infinite; }
+        .mcb-progress-track { width: 60px; height: 4px; background: #333; position: relative; overflow: hidden; }
+        .mcb-progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #D6FC52; }
+        @keyframes blinkRed { 0%, 100% { opacity: 1; box-shadow: 0 0 5px #FF4D4D; } 50% { opacity: 0.3; box-shadow: none; } }
+
+        /* Adjusted button positions for mobile to accommodate the bar */
+        @media (max-width: 767px) {
+            #mobile-lang-float { bottom: 4.5rem !important; } /* Raised */
+            #scan-toggle-container { bottom: 9rem !important; } /* Raised relative to lang */
+        }
 
         /* =========================================
            QUICK SCAN PROTOCOL (TAIPA MODE) CSS
@@ -350,7 +401,7 @@
         @media (max-width: 767px) {
             #scan-toggle-container {
                 right: 1.5rem;      /* Aligned with Lang button right edge */
-                bottom: 7.5rem;     /* ERGONOMIC UPDATE: Adjusted to optimal thumb zone relative to lang button */
+                /* bottom: set via rule above to avoid collision */
                 perspective: 1000px;
             }
 
@@ -465,7 +516,7 @@
         <div class="cursor-dot"></div>
     </div>
 
-    <!-- HUD -->
+    <!-- HUD (PC Only) -->
     <aside id="cyber-hud">
         <div style="position: relative; height: 300px;">
             <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
@@ -477,6 +528,23 @@
             <div class="hud-coords">Y-AXIS: <span id="y-val">0000</span></div>
         </div>
     </aside>
+
+    <!-- MOBILE COMMAND BAR (New Feature) -->
+    <div id="mobile-command-bar">
+        <div class="mcb-section">
+            <div class="mcb-blinker"></div>
+            <span id="mcb-clock">00:00:00</span>
+        </div>
+        <div class="mcb-section text-center">
+            <span id="mcb-section-name" class="font-black tracking-wider">>> HERO</span>
+        </div>
+        <div class="mcb-section">
+            <span id="mcb-percent" class="mr-2">0%</span>
+            <div class="mcb-progress-track">
+                <div id="mcb-progress-bar" class="mcb-progress-bar"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
     <div id="scan-toggle-container">
@@ -584,7 +652,7 @@
     </header>
 
     <main>
-        <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-48 pb-40">
+        <section id="hero" class="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-48 pb-40">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="relative z-20 text-center flex flex-col items-center justify-center flex-grow w-full px-4">
                 <div class="mb-8 md:mb-12 relative group cursor-default fade-in-up hover-trigger">
@@ -891,7 +959,7 @@
             </div>
         </section>
 
-        <section id="contact" class="min-h-[80vh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
+        <section id="contact" class="min-h-[80dvh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
             <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
             <div class="container mx-auto text-center max-w-5xl relative z-10">
@@ -924,7 +992,7 @@
         </section>
     </main>
 
-    <footer class="bg-white border-t-4 border-black py-8 relative overflow-hidden">
+    <footer class="bg-white border-t-4 border-black py-8 relative overflow-hidden mb-[42px] md:mb-0">
         <div class="container mx-auto px-4 flex flex-col items-center justify-between gap-8 relative z-10 md:flex-row md:items-end">
             <div class="text-center md:text-left w-full md:w-auto"><p class="text-6xl font-stylish italic tracking-tighter font-black">KEN.H</p></div>
             <div class="w-full md:w-auto flex justify-center">
@@ -970,6 +1038,13 @@
         }
         const scrambler = new ScrambleText();
 
+        // --- HAPTIC FEEDBACK ENGINE (New Feature) ---
+        const vibrateEngine = (pattern) => {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        };
+
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 1024);
@@ -994,15 +1069,63 @@
             });
         }
 
+        // --- 1.5 GYROSCOPE PARALLAX (MOBILE TILT) ---
+        function initMobileGyro() {
+            if (window.innerWidth >= 1024) return;
+            
+            // Apply subtle tilt to cards based on device orientation
+            const cards = document.querySelectorAll('.gs-card, .tilt-card');
+            
+            // Fallback for no permission: animate based on scroll velocity (simulated life)
+            let lastScroll = 0;
+            let tiltVelocity = 0;
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.scrollY;
+                const delta = currentScroll - lastScroll;
+                tiltVelocity = Math.max(Math.min(delta * 0.1, 10), -10); // Cap velocity
+                lastScroll = currentScroll;
+                
+                gsap.to(cards, {
+                    rotationX: tiltVelocity,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+
+            // If device orientation is available (and permission granted)
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', (event) => {
+                    if (!event.gamma || !event.beta) return;
+                    
+                    // Clamp values to avoid extreme flips
+                    const tiltX = Math.max(-20, Math.min(20, event.beta - 45)); // Portrait tilt
+                    const tiltY = Math.max(-20, Math.min(20, event.gamma));   // Landscape tilt
+                    
+                    gsap.to(cards, {
+                        rotationX: -tiltX,
+                        rotationY: -tiltY,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                });
+            }
+        }
+
         // --- 2. POKER GAME: ULTIMATE CREATIVE MODE ---
         let flippedCount = 0; const totalCards = 5; let gameWon = false;
         function flipCard(element) {
             if(element.classList.contains('is-flipped') || gameWon) return;
+            
+            // Haptic Feedback for Flip
+            vibrateEngine(20);
+
             const inner = element.querySelector('.card-inner'); element.classList.add('is-flipped');
             gsap.to(inner, { rotationY: 180, duration: 0.8, ease: "power4.out", onComplete: () => { flippedCount++; if(flippedCount === totalCards) triggerWin(); } });
         }
         function triggerWin() {
             gameWon = true;
+            vibrateEngine([50, 50, 50, 50, 200]); // Victory Vibration Pattern
             gsap.to('#poker-game', { backgroundColor: '#000', duration: 1 });
             const cards = document.querySelectorAll('.card-container');
             const tl = gsap.timeline();
@@ -1052,6 +1175,14 @@
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
             initKineticMarquee(); initScrollSpy(); initContactModal(); initScrollHUD();
             initScanProtocol(); // Initialize Scan Mode
+            initMobileCommandCenter(); // Initialize Mobile HUD
+            initMobileGyro(); // Initialize Mobile Gyro Effects
+            
+            // Attach Haptic to all buttons
+            document.querySelectorAll('button, a').forEach(btn => {
+                btn.addEventListener('click', () => vibrateEngine(10));
+            });
+
             gsap.to(".fade-in-up", { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
         function initInteractiveBackground() {
@@ -1075,14 +1206,72 @@
                 if(hudBar) hudBar.style.height = `${scrollPercent * 100}%`; if(hudYVal) hudYVal.innerText = Math.floor(scrollTop).toString().padStart(4, '0');
             });
         }
+        
+        // --- MOBILE COMMAND CENTER LOGIC ---
+        function initMobileCommandCenter() {
+            const clockEl = document.getElementById('mcb-clock');
+            const percentEl = document.getElementById('mcb-percent');
+            const barEl = document.getElementById('mcb-progress-bar');
+            const sectionNameEl = document.getElementById('mcb-section-name');
+            
+            // Clock
+            setInterval(() => {
+                const now = new Date();
+                clockEl.innerText = now.toLocaleTimeString('en-US', { hour12: false });
+            }, 1000);
+
+            // Progress Loop
+            gsap.ticker.add(() => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+                
+                percentEl.innerText = Math.floor(scrollPercent) + '%';
+                barEl.style.width = scrollPercent + '%';
+            });
+        }
+
         gsap.registerPlugin(ScrollTrigger);
         function initScrollSpy() {
             const navItems = [{ id: "about", link: document.querySelector('a[data-key="navAbout"]').parentElement }, { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }];
             const sections = ['hero', 'about', 'works', 'skills', 'contact'];
+            
+            const mobileSectionNames = {
+                'hero': '>> HERO_SEC',
+                'about': '>> ABOUT_ME',
+                'works': '>> WORKS_LOG',
+                'skills': '>> SKILLS_SET',
+                'contact': '>> CONTACT'
+            };
+
+            const sectionNameEl = document.getElementById('mcb-section-name');
+
             sections.forEach(sectionId => {
                 const target = sectionId === 'hero' ? document.body : document.getElementById(sectionId);
                 if(!target) return;
-                ScrollTrigger.create({ trigger: target, start: "top center", end: "bottom center", onToggle: self => { if (self.isActive) { const navItem = navItems.find(i => i.id === sectionId); if (navItem) navItem.link.classList.add('nav-active'); const hudPoint = document.querySelector(`.hud-point[data-target="${sectionId}"]`); if(hudPoint) { document.querySelectorAll('.hud-point').forEach(p => p.classList.remove('active')); hudPoint.classList.add('active'); } } else { const navItem = navItems.find(i => i.id === sectionId); if (navItem) navItem.link.classList.remove('nav-active'); } } });
+                ScrollTrigger.create({ 
+                    trigger: target, 
+                    start: "top center", 
+                    end: "bottom center", 
+                    onToggle: self => { 
+                        if (self.isActive) { 
+                            const navItem = navItems.find(i => i.id === sectionId); 
+                            if (navItem) navItem.link.classList.add('nav-active'); 
+                            
+                            const hudPoint = document.querySelector(`.hud-point[data-target="${sectionId}"]`); 
+                            if(hudPoint) { 
+                                document.querySelectorAll('.hud-point').forEach(p => p.classList.remove('active')); 
+                                hudPoint.classList.add('active'); 
+                            }
+                            
+                            // Update Mobile Command Bar
+                            if(sectionNameEl) sectionNameEl.innerText = mobileSectionNames[sectionId];
+                        } else { 
+                            const navItem = navItems.find(i => i.id === sectionId); 
+                            if (navItem) navItem.link.classList.remove('nav-active'); 
+                        } 
+                    } 
+                });
             });
         }
         gsap.utils.toArray('.gs-reveal-left').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" }); });
@@ -1091,14 +1280,18 @@
 
         function initContactModal() {
             const modal = document.getElementById('contact-modal'); const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')]; const closeBtn = document.getElementById('close-modal'); const backdrop = document.getElementById('modal-backdrop'); const form = document.getElementById('contact-form'); const successMsg = document.getElementById('form-success');
-            function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; } function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
+            function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; vibrateEngine(10); } 
+            function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; vibrateEngine(10); }
             openBtns.forEach(btn => { if(btn) btn.addEventListener('click', (e) => { e.preventDefault(); openModal(); }); });
             closeBtn.addEventListener('click', closeModal); backdrop.addEventListener('click', closeModal);
-            form.addEventListener('submit', (e) => { e.preventDefault(); const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText; const formData = new FormData(form); submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }).then(response => { if (response.ok) { return response.json().catch(() => {}); } else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); } }).then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); }).catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }); });
+            form.addEventListener('submit', (e) => { e.preventDefault(); vibrateEngine(20); const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText; const formData = new FormData(form); submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }).then(response => { if (response.ok) { return response.json().catch(() => {}); } else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); } }).then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); }).catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }); });
         }
         document.querySelectorAll('.scramble-hover').forEach(el => { el.addEventListener('mouseenter', () => { const text = el.dataset.originalText || el.innerText; scrambler.scramble(el, text); }); });
         const menuBtn = document.getElementById('mobile-menu-btn'); const closeBtn = document.getElementById('close-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); const mobileLinks = mobileMenu.querySelectorAll('a, button');
-        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
+        function toggleMenu() { 
+            mobileMenu.classList.toggle('translate-x-full'); 
+            vibrateEngine(15);
+        }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
         // --- QUICK SCAN PROTOCOL IMPLEMENTATION ---
@@ -1108,6 +1301,13 @@
             toggleBtn.addEventListener('click', () => {
                 document.body.classList.toggle('is-scanning');
                 toggleBtn.classList.toggle('active');
+                
+                // Scan Mode Haptic Pattern
+                if(toggleBtn.classList.contains('active')) {
+                    vibrateEngine([10, 30, 10, 30]);
+                } else {
+                    vibrateEngine(20);
+                }
             });
         }
 
@@ -1241,7 +1441,11 @@
                 } else { el.innerHTML = newText; }
             });
         }
-        function switchLanguage(animate = true) { currentLang = currentLang === 'ja' ? 'en' : 'ja'; applyLanguage(animate); }
+        function switchLanguage(animate = true) { 
+            vibrateEngine(10);
+            currentLang = currentLang === 'ja' ? 'en' : 'ja'; 
+            applyLanguage(animate); 
+        }
         langToggle.addEventListener('click', () => switchLanguage(true));
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
