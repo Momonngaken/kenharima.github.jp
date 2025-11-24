@@ -1439,22 +1439,8 @@
             </div>
         </section>
 
-       写真が表示されない主な原因は、**「ファイル名の拡張子（.jpg と .JPG の違い）」**や**「画像の配置場所」**、あるいは**「コードの記述ミス（閉じタグ忘れなど）」**の可能性が高いです。
-
-以下に、**修正済みの `fragments` セクション全体のコード** を作成しました。
-デザインのインパクトを強めつつ、画像が確実に表示されるように（パスの記述をシンプルにし、レイアウトの崩れを防ぐスペーサーを追加）調整しています。
-
-**修正のポイント:**
-1.  **パスの簡略化:** `src="./IMG_..."` を `src="IMG_..."` に変更し、パスのトラブルを減らしました。
-2.  **Card 8 (Vertical):** 「ノイズ/グリッチ」をテーマに、ホバー時に少し歪むエフェクトを追加。
-3.  **Card 9 (Cinematic):** 「映画のワンシーン」をテーマに、ホバー時に上下に黒帯（レターボックス）が現れる演出を追加。
-4.  **スクロールの詰まり防止:** 最後のカードが見切れないよう、トラックの最後に透明なスペーサー (`div`) を追加しました。
-
-このコードを `<!-- ========================================= FRAGMENTS ... -->` から `</section>` まで、まるごと上書きしてください。
-
-```html
         <!-- =========================================
-             FRAGMENTS (GALLERY) SECTION [FIXED & ENHANCED]
+             FRAGMENTS (GALLERY) SECTION [RE-DESIGNED FOR PC BUTTONS]
              ========================================= -->
         <section id="fragments" class="relative bg-[#050505] text-white border-b-4 border-black overflow-hidden select-none">
             
@@ -1483,9 +1469,11 @@
             </div>
 
             <!-- GSAP Pin Wrapper -->
+            <!-- Note: h-screen Removed to allow button based navigation and avoid pinning conflict -->
             <div id="fragments-wrapper" class="relative w-full h-[80vh] md:h-[100vh] flex flex-col justify-center py-24 lg:py-0 z-10">
                 
                <!-- CYBER NAVIGATION KEYS (PC & Tablet Landscape) -->
+               <!-- Enabled on PC now as per request -->
                <button class="frag-nav-key prev touch-manipulation hover-trigger" id="frag-prev-btn" aria-label="Previous Fragment" style="touch-action: manipulation;">
                    <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
                    <span>BACK</span>
@@ -1510,7 +1498,7 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
                         <div class="relative w-[80vw] lg:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
-                            <img src="IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Tokyo, Japan</p>
                             </div>
@@ -1523,7 +1511,7 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[90vw] lg:w-[35vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
-                            <img src="IMG_6495.jpg" alt="Evidence 02" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_6495.jpg" alt="Evidence 02" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2022@Tokyo, Japan</p>
                             </div>
@@ -1536,7 +1524,7 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[70vw] lg:w-[22vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
-                            <img src="IMG_9749.jpg" alt="Evidence 03" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_9749.jpg" alt="Evidence 03" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoBlue font-mono text-xs">2025@Tokyo, Japan</p>
                             </div>
@@ -1549,7 +1537,7 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[90vw] lg:w-[38vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
-                            <img src="IMG_5333.jpg" alt="Evidence 04" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_5333.jpg" alt="Evidence 04" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-white font-mono text-xs">2024@Sofia, Bulgaria </p>
                             </div>
@@ -1562,7 +1550,7 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[80vw] lg:w-[28vw] aspect-square bg-black overflow-hidden border border-white/20">
-                            <img src="IMG_1234.jpg" alt="Evidence 05" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_1234.jpg" alt="Evidence 05" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoPurple font-mono text-xs">2023@Mannheim, Germany</p>
                             </div>
@@ -1575,7 +1563,7 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[80vw] lg:w-[25vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
-                            <img src="IMG9876.jpg" alt="Evidence 06" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG9876.jpg" alt="Evidence 06" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Mannheim, Germany</p>
                             </div>
@@ -1588,73 +1576,87 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[90vw] lg:w-[35vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
-                            <img src="IMG_2045.jpg" alt="Evidence 07" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_2045.jpg" alt="Evidence 07" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2023@Yamanashi, Japan</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 8: THE GLITCH (Vertical Focus) -->
-                    <!-- 修正: 画像パスを簡易化し、スタイルを調整 -->
+                    <!-- Card 8: THE GLITCH (Vertical/Portrait Focus) -->
+                    <!-- 想定: 縦長の写真 (IMG_4149) -->
+                    <!-- デザイン意図: 縦に長く配置し、リズムを崩して視線を誘導する -->
                     <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:translate-y-16">
+                        <!-- HUD Elements -->
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
+                        <!-- System Label -->
                         <div class="absolute -top-6 left-0 font-mono text-[0.6rem] text-neoYellow opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             >> ERR_SEGMENT_08
                         </div>
 
-                        <!-- 縦長 (9:16) のコンテナ -->
-                        <div class="relative w-[85vw] lg:w-[26vw] aspect-[9/16] bg-black overflow-hidden border border-neoYellow/40 shadow-[0_0_15px_rgba(214,252,82,0.1)] group-hover:border-neoYellow transition-all duration-500 hover:skew-y-1">
-                            <!-- !!! IMPORTANT: ファイル名が大文字・小文字も含めて完全に一致しているか確認してください (例: .jpg と .JPG) !!! -->
-                            <img src="IMG_4149.jpg" alt="Evidence 08" class="w-full h-full object-cover filter grayscale contrast-125 brightness-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-100">
+                        <!-- Image Container (Aspect Ratio 9:16 for Stylish Vertical) -->
+                        <div class="relative w-[85vw] lg:w-[26vw] aspect-[9/16] bg-black overflow-hidden border border-neoYellow/40 shadow-[0_0_15px_rgba(214,252,82,0.1)] group-hover:border-neoYellow transition-all duration-500">
+                            <!-- 
+                               注意: 写真が「横長」の場合は classの aspect-[9/16] を aspect-[16/9] に変更してください 
+                            -->
+                            <img src="./IMG_4149.jpg" alt="Evidence 08" class="w-full h-full object-cover filter grayscale contrast-125 brightness-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-100">
                             
+                            <!-- Glitch Overlay Effect -->
                             <div class="absolute inset-0 bg-neoYellow mix-blend-overlay opacity-0 group-hover:opacity-20 transition-opacity duration-100 animate-pulse pointer-events-none"></div>
 
+                            <!-- Caption Info -->
                             <div class="absolute bottom-0 left-0 w-full bg-black/90 backdrop-blur-md p-3 border-t border-neoYellow/30 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                                 <div class="flex justify-between items-end">
                                     <p class="text-neoYellow font-mono text-xs font-bold">2024@Tokyo_Drift</p>
-                                    <span class="text-[0.5rem] text-white/50 font-mono">08 // RAW</span>
+                                    <span class="text-[0.5rem] text-white/50 font-mono">08 // RAW_DATA</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 9: THE HORIZON (Cinematic/Wide Focus) -->
-                    <!-- 修正: ワイドスクリーン演出を強化 -->
-                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-8">
+                    <!-- Card 9: THE HORIZON (Cinematic/Horizontal Focus) -->
+                    <!-- 想定: 横長の写真 (IMG_5372) -->
+                    <!-- デザイン意図: 最後のピースとして、映画的なワイドスクリーンで締めくくる -->
+                    <div class="fragment-frame relative flex-shrink-0 snap-center lg:snap-align-none group lg:-translate-y-8 pr-12 lg:pr-24">
+                        <!-- HUD Elements -->
                         <div class="frame-hud top-left"></div><div class="frame-hud top-right"></div>
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
-                        <div class="absolute -bottom-6 right-0 font-mono text-[0.6rem] text-neoRed opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-right">
+                        <!-- System Label -->
+                        <div class="absolute -bottom-6 right-12 lg:right-24 font-mono text-[0.6rem] text-neoRed opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-right">
                             >> FINAL_SEQUENCE_09
                         </div>
 
-                        <!-- 横長 (16:9) のコンテナ -->
+                        <!-- Image Container (Aspect Ratio 16:9 for Cinematic Look) -->
                         <div class="relative w-[90vw] lg:w-[45vw] aspect-[16/9] bg-black overflow-hidden border border-neoRed/40 shadow-[0_0_20px_rgba(255,77,77,0.15)] group-hover:border-neoRed transition-all duration-500">
-                             <!-- !!! IMPORTANT: ファイル名が大文字・小文字も含めて完全に一致しているか確認してください !!! -->
-                            <img src="IMG_5372.jpg" alt="Evidence 09" class="w-full h-full object-cover filter grayscale contrast-125 sepia-[0.3] transition-all duration-700 group-hover:grayscale-0 group-hover:sepia-0 group-hover:scale-105">
+                            <!-- 
+                               注意: 写真が「縦長」の場合は classの aspect-[16/9] を aspect-[3/4] に変更してください 
+                            -->
+                            <img src="./IMG_5372.jpg" alt="Evidence 09" class="w-full h-full object-cover filter grayscale contrast-125 sepia-[0.3] transition-all duration-700 group-hover:grayscale-0 group-hover:sepia-0 group-hover:scale-105">
                             
-                            <!-- Cinematic Letterbox Effect (黒帯) -->
-                            <div class="absolute top-0 left-0 w-full h-[10%] bg-black transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10"></div>
-                            <div class="absolute bottom-0 left-0 w-full h-[10%] bg-black transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10"></div>
-
-                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden pointer-events-none z-20">
+                            <!-- Center "CLASSIFIED" Marker -->
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden pointer-events-none">
                                 <span class="block text-neoRed font-black font-stylish italic text-4xl lg:text-6xl opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-150 group-hover:scale-100 blur-sm group-hover:blur-0 mix-blend-screen">
                                     FRAGMENT
                                 </span>
                             </div>
 
-                            <div class="absolute top-4 right-4 w-auto bg-neoRed text-black p-1 px-2 transform -translate-y-20 group-hover:translate-y-0 transition-transform duration-500 delay-100 z-20">
-                                <p class="font-mono text-[10px] font-black tracking-tighter">2025 // FUTURE</p>
+                            <!-- Caption Info -->
+                            <div class="absolute top-0 right-0 w-auto bg-neoRed text-black p-2 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+                                <p class="font-mono text-xs font-black tracking-tighter">2025 // FUTURE</p>
+                            </div>
+                            
+                            <!-- Bottom Overlay -->
+                            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                                <p class="text-white font-mono text-xs border-l-2 border-neoRed pl-3">
+                                    Location: Unknown<br>
+                                    <span class="opacity-50">Status: Recovered</span>
+                                </p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Spacer for Scrolling safety -->
-                    <div class="w-12 lg:w-24 flex-shrink-0"></div>
-
                 </div>
             </div>
             
