@@ -412,147 +412,172 @@
         }
 
         /* =================================================================
-           [EXTREME UPDATE] RESUME BUTTON - EXISTENTIAL DATA INTERFERENCE
+           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY
            ================================================================= */
         
-        body.is-scanning #resume-download-btn .scan-highlight,
-        body.is-scanning #resume-download-btn a.scan-highlight {
+        /* 基本的なスキャンモード時の強制表示設定 */
+        body.is-scanning #resume-download-btn,
+        body.is-scanning #resume-download-btn a {
             display: block !important;
-            box-shadow: none !important;
+            visibility: visible !important;
+            opacity: 1 !important;
             text-decoration: none !important;
-            border: none !important; /* Overwrite existing borders */
+            transform: none !important; /* リセット */
+            box-shadow: none !important;
         }
 
-        /* The Main Portal Container */
+        /* コンテナ：背景を暗転させ、ボタンを浮かび上がらせる */
+        body.is-scanning #resume-download-btn {
+            position: relative;
+            z-index: 50; /* 他の要素より手前に */
+            transform: scale(1.05);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* ボタン本体：高級感のあるサイバーブラック・プレート */
         body.is-scanning #resume-download-btn a {
             position: relative;
-            background: #000 !important;
-            padding: 2rem !important; /* Increased padding */
-            transform: translate(0, 0) scale(1.05) !important;
-            box-shadow: 0 0 50px rgba(214, 252, 82, 0.1) !important;
-            overflow: visible !important;
-            border: 2px solid rgba(214, 252, 82, 0.5) !important;
+            background: #080808 !important; /* 深い黒 */
+            border: 1px solid rgba(214, 252, 82, 0.3) !important; /* 薄いネオンイエロー */
+            border-radius: 4px;
+            padding: 1.5rem 2rem !important;
+            overflow: hidden !important;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(214, 252, 82, 0.1) !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        /* Animated Data Stream Background */
+        /* 光の走査線（シマーエフェクト）：上品に流れる光 */
         body.is-scanning #resume-download-btn a::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
                 90deg,
-                rgba(0,0,0,1) 0px,
-                rgba(0,0,0,1) 2px,
-                rgba(214, 252, 82, 0.05) 2px,
-                rgba(214, 252, 82, 0.05) 4px
+                transparent,
+                rgba(214, 252, 82, 0.1),
+                rgba(255, 255, 255, 0.2),
+                rgba(214, 252, 82, 0.1),
+                transparent
             );
-            background-size: 200% 100%;
-            z-index: 0;
-            animation: data-stream-flow 1s linear infinite;
-            opacity: 0.8;
+            transform: skewX(-20deg);
+            animation: elegant-scan-shine 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
-        }
-
-        /* HUD Target Corners */
-        body.is-scanning #resume-download-btn a::after {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border: 2px solid #D6FC52;
-            clip-path: polygon(
-                0 20px, 0 0, 20px 0, 
-                100% 0, 100% 20px, 
-                100% 100%, 
-                calc(100% - 20px) 100%, 100% 100%, 
-                20px 100%, 0 100%, 0 calc(100% - 20px)
-            );
-            background: 
-                linear-gradient(to right, #D6FC52 4px, transparent 4px) 0 0,
-                linear-gradient(to bottom, #D6FC52 4px, transparent 4px) 0 0,
-                linear-gradient(to left, #D6FC52 4px, transparent 4px) 100% 0,
-                linear-gradient(to bottom, #D6FC52 4px, transparent 4px) 100% 0,
-                linear-gradient(to left, #D6FC52 4px, transparent 4px) 100% 100%,
-                linear-gradient(to top, #D6FC52 4px, transparent 4px) 100% 100%,
-                linear-gradient(to right, #D6FC52 4px, transparent 4px) 0 100%,
-                linear-gradient(to top, #D6FC52 4px, transparent 4px) 0 100%;
-            background-repeat: no-repeat;
-            background-size: 20px 20px;
-            box-shadow: 0 0 15px #D6FC52, inset 0 0 20px rgba(214, 252, 82, 0.2);
-            animation: hud-target-lock 1.5s ease-in-out infinite alternate;
             z-index: 1;
         }
 
-        /* Hide the old offset shadow layer completely */
-        body.is-scanning #resume-download-btn .absolute.bg-neoRed.scan-highlight {
-            display: none !important;
+        /* 四隅のターゲットマーカー（アクセント） */
+        body.is-scanning #resume-download-btn a::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            /* 四隅だけを描画するグラデーションテクニック */
+            background: 
+                linear-gradient(to right, #D6FC52 2px, transparent 2px) 0 0,
+                linear-gradient(to bottom, #D6FC52 2px, transparent 2px) 0 0,
+                linear-gradient(to left, #D6FC52 2px, transparent 2px) 100% 0,
+                linear-gradient(to bottom, #D6FC52 2px, transparent 2px) 100% 0,
+                linear-gradient(to left, #D6FC52 2px, transparent 2px) 100% 100%,
+                linear-gradient(to top, #D6FC52 2px, transparent 2px) 100% 100%,
+                linear-gradient(to right, #D6FC52 2px, transparent 2px) 0 100%,
+                linear-gradient(to top, #D6FC52 2px, transparent 2px) 0 100%;
+            background-repeat: no-repeat;
+            background-size: 10px 10px;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 20px rgba(214, 252, 82, 0.05);
+            z-index: 2;
         }
-        
-        /* Inner Text & Icons */
-        body.is-scanning #resume-download-btn .relative.bg-black.scan-highlight {
+
+        /* 既存の装飾（ノイズになるもの）を非表示 */
+        body.is-scanning #resume-download-btn .bg-neoRed,
+        body.is-scanning #resume-download-btn .bg-black,
+        body.is-scanning #resume-download-btn .absolute.inset-0 {
             background: transparent !important;
             border: none !important;
-            padding: 0 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* 文字スタイル：高精細なディスプレイ表示風 */
+        body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
+            font-family: 'Syne', sans-serif !important;
+            font-weight: 800 !important;
+            color: #fff !important;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            position: relative;
             z-index: 10;
         }
 
-        body.is-scanning #resume-download-btn span,
-        body.is-scanning #resume-download-btn div {
-            color: #fff !important;
-            font-family: 'Syne', sans-serif !important;
-            text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff !important; /* Chromatic Aberration */
-            opacity: 1 !important;
-            z-index: 20;
-        }
-
-        /* Glitching Text Effect */
-        body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
-             animation: text-glitch-shake 0.3s infinite;
-             display: inline-block;
+        /* システムテキストの追加装飾 */
+        body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
+            content: '>> PERMISSION: GRANTED';
+            display: block;
+            font-family: 'monospace';
+            font-size: 0.7rem;
+            color: #D6FC52;
+            margin-bottom: 4px;
+            opacity: 0.8;
+            letter-spacing: 2px;
         }
         
-        body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
-             content: '>> SYSTEM_OVERRIDE: ';
-             font-family: 'monospace';
-             font-size: 0.8rem;
-             display: block;
-             color: #D6FC52 !important;
-             text-shadow: none !important;
-             margin-bottom: 4px;
+        /* システムテキスト（サイズ等の情報） */
+        body.is-scanning #resume-download-btn .font-mono {
+            color: rgba(255, 255, 255, 0.5) !important;
+            z-index: 10;
         }
 
-        /* Icon Override */
+        /* アイコンのスタイル変更 */
         body.is-scanning #resume-download-btn .w-10,
         body.is-scanning #resume-download-btn .w-12 {
-            background: #D6FC52 !important;
-            color: black !important;
-            border-color: #D6FC52 !important;
-            box-shadow: 0 0 20px #D6FC52;
-            animation: spin-pulse 2s linear infinite;
+            background: transparent !important;
+            border: 1px solid #D6FC52 !important;
+            color: #D6FC52 !important;
+            box-shadow: 0 0 10px rgba(214, 252, 82, 0.3);
+            animation: slow-pulse 3s infinite ease-in-out;
+            z-index: 10;
         }
 
-        @keyframes data-stream-flow {
-            0% { background-position: 0% 0%; }
-            100% { background-position: -200% 0%; }
+        /* ホバー時のインタラクション（PC） */
+        @media (hover: hover) {
+            body.is-scanning #resume-download-btn a:hover {
+                background: rgba(214, 252, 82, 0.05) !important;
+                border-color: #D6FC52 !important;
+                box-shadow: 0 0 40px rgba(214, 252, 82, 0.2) !important;
+            }
+            body.is-scanning #resume-download-btn a:hover::after {
+                background-size: 100% 100%; /* 枠が広がる */
+                border-color: rgba(214, 252, 82, 0.3);
+                background-image: none;
+                opacity: 1;
+            }
+            body.is-scanning #resume-download-btn a:hover span[data-key="resumeBtn"]::before {
+                content: '>> DOWNLOAD_SEQUENCE: READY';
+                color: #fff;
+            }
         }
 
-        @keyframes hud-target-lock {
-            0% { clip-path: polygon(0 20px, 0 0, 20px 0, 100% 0, 100% 20px, 100% 100%, calc(100% - 20px) 100%, 100% 100%, 20px 100%, 0 100%, 0 calc(100% - 20px)); opacity: 0.8; transform: scale(1); }
-            100% { clip-path: polygon(0 10px, 0 0, 10px 0, 100% 0, 100% 10px, 100% 100%, calc(100% - 10px) 100%, 100% 100%, 10px 100%, 0 100%, 0 calc(100% - 10px)); opacity: 1; transform: scale(1.02); }
+        /* アニメーション定義 */
+        @keyframes elegant-scan-shine {
+            0% { left: -100%; opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { left: 200%; opacity: 0; }
         }
 
-        @keyframes text-glitch-shake {
-            0% { transform: translate(0, 0); }
-            20% { transform: translate(-1px, 1px); }
-            40% { transform: translate(-1px, -1px); }
-            60% { transform: translate(1px, 1px); }
-            80% { transform: translate(1px, -1px); }
-            100% { transform: translate(0, 0); }
+        @keyframes slow-pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(214, 252, 82, 0.3); opacity: 0.8; }
+            50% { box-shadow: 0 0 20px rgba(214, 252, 82, 0.6); opacity: 1; }
         }
-        
-        @keyframes spin-pulse {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
+
+        /* 元の「DOWNLOAD」マーキーをスキャンモード時は完全に消す */
+        body.is-scanning #resume-download-btn .animate-marquee-slow {
+            display: none !important;
         }
 
         /* ================================================================= */
@@ -992,7 +1017,35 @@
                                 </span>
                             </div>
 
+                            <!-- Updated Resume Button Wrapper -->
                             <div class="mt-12 relative w-full max-w-md mx-auto md:mx-0 group hover-trigger" id="resume-download-btn">
+                                <a href="./resume.pdf" download="Ken_Harima_Resume.pdf" class="block relative transition-all duration-300">
+                                    
+                                    <!-- Normal Mode Styles (Shadow/Offset) -->
+                                    <div class="absolute inset-0 bg-neoRed border-4 border-white translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></div>
+                                    
+                                    <!-- Main Container -->
+                                    <div class="relative bg-black border-4 border-white p-5 md:p-6 flex items-center justify-between overflow-hidden">
+                                        
+                                        <!-- Marquee Text (Hidden in Scan Mode via CSS) -->
+                                        <div class="absolute inset-0 opacity-10 pointer-events-none whitespace-nowrap text-[3rem] md:text-[4rem] font-black text-gray-500 leading-none select-none flex items-center animate-marquee-slow">
+                                            <span>DOWNLOAD DOWNLOAD DOWNLOAD DOWNLOAD</span>
+                                        </div>
+                                        
+                                        <!-- Text Content -->
+                                        <div class="relative z-10 flex flex-col">
+                                            <span class="text-neoYellow font-mono text-[0.6rem] md:text-xs mb-1 tracking-wider">/// SYSTEM DATA_V.2</span>
+                                            <span class="text-2xl md:text-3xl font-black italic text-white font-stylish tracking-tighter group-hover:text-neoYellow transition-colors lang-fade" data-key="resumeBtn">履歴書をDLする</span>
+                                            <span class="text-[0.6rem] text-gray-400 font-mono mt-1 group-hover:text-white transition-colors">SIZE: PDF // UPDATED: 2025.11</span>
+                                        </div>
+                                        
+                                        <!-- Icon -->
+                                        <div class="relative z-10 w-10 h-10 md:w-12 md:h-12 border-2 border-white rounded-full flex items-center justify-center bg-white text-black group-hover:bg-neoRed group-hover:text-white transition-colors duration-300">
+                                            <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                                 <a href="./resume.pdf" download="Ken_Harima_Resume.pdf" class="block relative scan-highlight">
                                     <div class="absolute inset-0 bg-neoRed border-4 border-white translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0 scan-highlight"></div>
                                     <div class="relative bg-black border-4 border-white p-5 md:p-6 flex items-center justify-between overflow-hidden scan-highlight">
