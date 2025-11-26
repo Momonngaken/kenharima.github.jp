@@ -2133,8 +2133,30 @@
                 fragmentsTitle: "断片",
                 resumeBtn: "履歴書をDLする",
                 scanBtn: "// 核心を表示",
-                contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span><span class="block text-[7vw] md:text-8xl font-black leading-tight">同じテーブルに、</span><span class="relative inline-block mt-4 group hover-trigger"><span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span><span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">着くか<span class="text-neoRed">。</span></span></span>`,
-                contactBody: "お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。", 
+                contactTitle: `
+                    <div class="flex flex-col items-center justify-center pointer-events-none select-none">
+                        <!-- Main Headline: "同じテーブルに、着くか。" -->
+                        <span class="block text-[11vw] md:text-[8rem] font-black leading-[0.9] text-stroke hover:text-black transition-colors duration-500 mb-2 md:mb-4 pointer-events-auto hover-trigger">
+                            同じテーブルに、
+                        </span>
+                        <div class="relative inline-block mb-10 md:mb-16 group pointer-events-auto hover-trigger">
+                            <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 border-4 border-black transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                            <span class="relative block bg-white border-4 border-black px-6 md:px-12 py-1 md:py-4 text-[11vw] md:text-[8rem] font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 text-black">
+                                着くか<span class="text-neoRed">。</span>
+                            </span>
+                        </div>
+
+                        <!-- Sub Headline: The Serious Pitch -->
+                        <div class="pointer-events-auto max-w-4xl mx-auto mt-4 md:mt-8">
+                            <p class="font-sans text-sm md:text-xl font-bold leading-loose tracking-wider text-gray-900 text-left md:text-center border-l-4 md:border-l-0 md:border-t-4 border-neoYellow pl-6 md:pl-0 md:pt-8 mix-blend-multiply">
+                                あなたの組織と私の才能が、<br class="hidden md:block">
+                                共に<span class="bg-black text-white px-2 py-1 mx-1 box-decoration-break-clone shadow-[4px_4px_0px_#D6FC52]">価値を最大化</span>できるか、<br class="md:hidden">
+                                真剣に議論させてください。
+                            </p>
+                        </div>
+                    </div>
+                `,
+                 contactBody: "お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
                 backToTop: "トップに戻る"
             },
@@ -2182,7 +2204,25 @@
                 fragmentsTitle: "Fragments",
                 resumeBtn: "CURRICULUM VITAE",
                 scanBtn: "// SIGNAL_ONLY",
-                contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span><span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">DEAL</span><span class="relative inline-block mt-2 group hover-trigger"><span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span><span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">YOU IN?</span></span>`,
+                contactTitle: `
+                    <div class="flex flex-col items-center justify-center pointer-events-none select-none">
+                        <span class="block text-[10vw] md:text-[7rem] font-black leading-[0.9] text-stroke hover:text-black transition-colors duration-500 mb-2 md:mb-4 pointer-events-auto hover-trigger">
+                            SHALL WE SIT
+                        </span>
+                        <div class="relative inline-block mb-10 md:mb-16 group pointer-events-auto hover-trigger">
+                            <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 border-4 border-black transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                            <span class="relative block bg-white border-4 border-black px-6 md:px-12 py-1 md:py-4 text-[10vw] md:text-[7rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-black">
+                                AT THE TABLE?<span class="text-neoRed">?</span>
+                            </span>
+                        </div>
+                        <div class="pointer-events-auto max-w-4xl mx-auto mt-4 md:mt-8">
+                            <p class="font-sans text-sm md:text-lg font-bold leading-loose tracking-wider text-gray-900 text-left md:text-center border-l-4 md:border-l-0 md:border-t-4 border-neoYellow pl-6 md:pl-0 md:pt-8 mix-blend-multiply">
+                                Let's seriously discuss if your organization and my talents<br class="hidden md:block">
+                                can <span class="bg-black text-white px-2 py-1 mx-1 box-decoration-break-clone shadow-[4px_4px_0px_#D6FC52]">maximize value</span> together.
+                            </p>
+                        </div>
+                    </div>
+                `,
                 contactBody: "Please feel free to contact me.<br>Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
                 backToTop: "Back to top" 
