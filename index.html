@@ -358,11 +358,14 @@
         }
 
         /* 
-           VISIBILITY CONTROL 
-           - Visible on PC & Tablet Landscape
-           - Hidden on Mobile & Tablet Portrait (Native scroll preferred)
+           VISIBILITY CONTROL - [SYSTEM UPDATE: TACTICAL OPTIMIZATION]
+           - PC / Mouse: ACTIVE (Click Interface)
+           - Mobile / Tablet (All Orientations): TERMINATED
+           >> Protocol: Prioritize Native Inertia Scroll on touch surfaces
         */
-        @media (max-width: 1024px) and (orientation: portrait), (max-width: 600px) {
+        @media 
+            (max-width: 1024px), 
+            (max-width: 1366px) and (orientation: landscape) and (pointer: coarse) {
             .frag-nav-key { display: none !important; }
         }
 
