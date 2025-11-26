@@ -1671,95 +1671,116 @@
             </div>
         </section>
 
-<section id="contact" class="relative min-h-screen flex flex-col justify-center items-center bg-[#F0F0EB] border-t-4 border-black overflow-hidden py-24 md:py-32">
+<section id="contact" class="relative min-h-[100dvh] flex flex-col justify-center items-center bg-neoBg border-t-4 border-black overflow-hidden py-24 select-none">
     
-    <!-- Dynamic Background -->
-    <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
-    <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-stroke opacity-[0.03] rotate-45 whitespace-nowrap select-none">
-            CONTACT ME
+    <!-- 1. Background: Dynamic Cyber Warning Stripes -->
+    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none" 
+         style="background: repeating-linear-gradient(45deg, #000 0, #000 10px, transparent 10px, transparent 20px);">
+    </div>
+    
+    <!-- 2. Background: Huge Moving Typography -->
+    <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 z-0 overflow-hidden pointer-events-none opacity-20 mix-blend-multiply">
+        <div class="whitespace-nowrap font-black text-[30vw] leading-none text-stroke text-transparent animate-marquee-slow font-display italic">
+            LINK_UP // INITIATE_Handshake // CONNECT // 
         </div>
-        <div class="absolute top-0 right-10 w-px h-full bg-black/10 hidden md:block"></div>
-        <div class="absolute top-0 left-10 w-px h-full bg-black/10 hidden md:block"></div>
     </div>
 
-    <div class="container mx-auto px-4 relative z-10 w-full max-w-7xl">
+    <!-- 3. Main Interface Card (3D Tilt Container) -->
+    <div class="relative z-10 w-full max-w-6xl px-4 md:px-8 perspective-1000">
         
-        <!-- CYBER TICKET CONTAINER -->
-        <div class="relative bg-white border-4 border-black shadow-[15px_15px_0px_#121212] md:shadow-[25px_25px_0px_#121212] transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:shadow-[10px_10px_0px_#121212]">
+        <!-- The Card Itself -->
+        <div class="group relative w-full bg-white border-[3px] border-black p-6 md:p-12 lg:p-16 shadow-[8px_8px_0px_#121212] transition-transform duration-500 hover:-translate-y-2 hover:shadow-[16px_16px_0px_#D6FC52] gs-card tilt-card" 
+             data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
             
-            <!-- DECORATIVE SCREWS -->
-            <div class="absolute top-4 left-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
-            <div class="absolute top-4 right-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
-            <div class="absolute bottom-4 left-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
-            <div class="absolute bottom-4 right-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
+            <!-- Decor: Corner Brackets -->
+            <div class="absolute top-0 left-0 w-8 h-8 border-t-[6px] border-l-[6px] border-black -translate-x-1 -translate-y-1"></div>
+            <div class="absolute top-0 right-0 w-8 h-8 border-t-[6px] border-r-[6px] border-black translate-x-1 -translate-y-1"></div>
+            <div class="absolute bottom-0 left-0 w-8 h-8 border-b-[6px] border-l-[6px] border-black -translate-x-1 translate-y-1"></div>
+            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-[6px] border-r-[6px] border-black translate-x-1 translate-y-1"></div>
 
-            <!-- TICKET HEADER -->
-            <div class="bg-black text-white p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4 border-b-4 border-black">
-                <div class="flex items-center gap-3">
-                    <div class="w-4 h-4 bg-neoRed animate-pulse"></div>
-                    <span class="font-mono text-xs md:text-sm tracking-[0.2em] text-neoYellow">STATUS: WAITING_FOR_PLAYER</span>
-                </div>
-                <div class="cyber-stripe h-4 w-full md:w-32 rounded-full border border-white"></div>
-                <div class="font-mono text-xs md:text-sm opacity-70">ID: KEN_H_2026</div>
+            <!-- Decor: Barcode & Status (PC Layout) -->
+            <div class="hidden md:flex justify-between items-start mb-8 font-mono text-xs text-gray-400 tracking-widest border-b-2 border-dashed border-gray-300 pb-4">
+                <span>ID: KEN_HARIMA_001</span>
+                <span class="animate-pulse text-neoRed">● SYSTEM: ONLINE</span>
+                <span class="font-barcode text-2xl scale-y-150 opacity-50">||| || ||| | |||| ||</span>
             </div>
 
-            <!-- TICKET BODY -->
-            <div class="p-8 md:p-16 flex flex-col items-center text-center">
+            <div class="flex flex-col lg:flex-row items-stretch gap-12 lg:gap-20">
                 
-                <!-- Main Title Area (Injected via JS) -->
-                <div class="w-full lang-fade" data-key="contactTitle">
-                    <!-- JS will inject the stylish HTML here -->
+                <!-- LEFT: The Hook (Text) -->
+                <div class="flex-1 flex flex-col justify-center">
+                    <div class="mb-6 relative">
+                        <span class="absolute -left-4 -top-4 text-6xl text-neoYellow opacity-50 font-black z-[-1]">“</span>
+                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black font-stylish italic leading-[0.9] tracking-tighter mb-6 lang-fade scan-highlight" data-key="contactTitle">
+                            <span class="block text-stroke hover:text-black transition-colors duration-300">同じテーブルに、</span>
+                            <span class="block pl-4 md:pl-8 text-black bg-neoYellow inline-block px-2 transform -skew-x-12">着くか。</span>
+                        </h2>
+                    </div>
+                    
+                    <p class="text-base md:text-lg lg:text-xl font-bold font-sans text-gray-800 leading-relaxed mb-8 border-l-4 border-black pl-6 lang-fade scan-highlight" data-key="contactBody">
+                        あなたの組織と私の才能が、<br>
+                        共に<span class="bg-black text-white px-1">価値を最大化</span>できるか、<br>
+                        真剣に議論させてください。
+                    </p>
+
+                    <!-- Contact Details (Email) -->
+                    <div class="flex flex-col gap-2 font-mono text-sm md:text-base">
+                        <span class="text-gray-500 text-xs font-bold uppercase tracking-widest">/// Direct Line</span>
+                        <a href="mailto:your@email.com" class="group/mail flex items-center gap-3 font-bold hover:text-neoBlue transition-colors w-fit hover-trigger">
+                            <span class="border-b-2 border-black group-hover/mail:border-neoBlue transition-colors">ken.harima.official@gmail.com</span> <!-- ※メールアドレスは適宜変更してください -->
+                            <svg class="w-4 h-4 transform -rotate-45 group-hover/mail:rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Sub Text -->
-                <p class="mt-12 md:mt-16 text-lg md:text-xl font-bold font-mono text-gray-600 max-w-2xl mx-auto lang-fade" data-key="contactBody">
-                    <!-- JS Injected -->
-                </p>
+                <!-- RIGHT: The Action (Form & Button) -->
+                <div class="flex-1 flex flex-col justify-center items-center lg:items-end relative">
+                    <!-- Decor: Big Circle -->
+                    <div class="absolute inset-0 bg-neoBlue rounded-full blur-[100px] opacity-10 pointer-events-none"></div>
 
-                <!-- GIANT ACTION BUTTON -->
-                <div class="mt-16 md:mt-20 w-full flex justify-center magnetic-btn">
-                    <button id="contact-btn-main" class="group relative w-full md:w-auto hover-trigger">
-                        <!-- Button Background Layers -->
-                        <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 transition-transform duration-200 group-hover:translate-x-0 group-hover:translate-y-0"></div>
-                        <div class="absolute inset-0 cyber-stripe opacity-50 translate-x-3 translate-y-3 transition-transform duration-200 group-hover:translate-x-0 group-hover:translate-y-0 mix-blend-overlay"></div>
-                        
-                        <!-- Main Button Box -->
-                        <div class="relative bg-neoYellow border-4 border-black px-12 md:px-24 py-8 md:py-10 flex flex-col items-center justify-center transition-transform duration-200 group-hover:-translate-y-1 group-hover:-translate-x-1">
+                    <!-- Main CTA Button -->
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute -inset-2 bg-neoRed border-2 border-black translate-x-2 translate-y-2 rounded-lg z-0"></div>
+                        <button id="contact-btn-main" class="relative w-full bg-black text-white border-2 border-black p-8 md:p-10 flex flex-col items-center justify-center gap-4 hover:-translate-y-1 hover:-translate-x-1 hover:bg-white hover:text-black transition-all duration-300 group/btn z-10 hover-trigger">
                             
-                            <!-- Corners -->
-                            <div class="absolute top-0 left-0 w-6 h-6 border-r-4 border-b-4 border-black bg-white"></div>
-                            <div class="absolute bottom-0 right-0 w-6 h-6 border-l-4 border-t-4 border-black bg-white"></div>
+                            <!-- Button Content -->
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl md:text-4xl font-black font-stylish italic tracking-tighter lang-fade" data-key="contactButton">CONNECT</span>
+                                <div class="w-12 h-12 bg-neoYellow rounded-full border-2 border-black flex items-center justify-center text-black transition-transform duration-300 group-hover/btn:rotate-45 group-hover/btn:scale-110">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                                </div>
+                            </div>
                             
-                            <!-- Text Content -->
-                            <span class="block font-black text-2xl md:text-5xl italic tracking-tighter transform -skew-x-12 group-hover:skew-x-0 transition-transform duration-300">
-                                <span class="lang-fade text-black" data-key="contactButton">コンタクトを取る</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60 group-hover/btn:opacity-100">
+                                >>> Start Protocol_V.2
                             </span>
-                            <span class="block text-xs font-mono font-bold mt-2 tracking-widest uppercase group-hover:text-neoRed transition-colors">>> Click to Initialize <<</span>
-                        </div>
-                    </button>
+                            
+                            <!-- Scanline Effect on Button -->
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent translate-y-[-100%] group-hover/btn:animate-[scanPulse_1s_infinite] pointer-events-none"></div>
+                        </button>
+                    </div>
+
+                    <!-- SNS Links (Badge Style) -->
+                    <div class="mt-8 flex gap-4">
+                        <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" class="w-12 h-12 bg-white border-2 border-black flex items-center justify-center hover:bg-[#0077B5] hover:text-white transition-all hover:shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover-trigger">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/ken_harima/" target="_blank" class="w-12 h-12 bg-white border-2 border-black flex items-center justify-center hover:bg-[#E1306C] hover:text-white transition-all hover:shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover-trigger">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
                 </div>
+
             </div>
 
-            <!-- TICKET FOOTER -->
-            <div class="bg-[#F0F0EB] p-4 border-t-4 border-black flex justify-between items-center font-mono text-[0.6rem] md:text-xs text-gray-500">
-                <span>HASH: #A9F-2204-KEN</span>
-                <span class="hidden md:inline">ENCRYPTED CONNECTION // SECURE</span>
-                <span>LOC: TOKYO, JP</span>
+            <!-- Bottom Status Bar (Mobile Only) -->
+            <div class="mt-8 pt-4 border-t-2 border-dashed border-gray-300 md:hidden font-mono text-[10px] flex justify-between text-gray-400">
+                <span>STATUS: WAITING_FOR_INPUT</span>
+                <span>SECURE_CONN: OK</span>
             </div>
         </div>
-
-        <!-- Flying Elements -->
-        <div class="absolute -top-12 -left-12 text-neoRed font-black text-6xl md:text-9xl opacity-20 rotate-[-15deg] pointer-events-none select-none z-0">
-            WANTED
-        </div>
-        <div class="absolute -bottom-12 -right-12 text-neoBlue font-black text-6xl md:text-9xl opacity-20 rotate-[15deg] pointer-events-none select-none z-0">
-            WANTED
-        </div>
-
     </div>
 </section>
-
         <section id="poker-game" class="py-32 border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
                 <h3 class="text-white text-xl md:text-2xl font-black mb-12 font-stylish italic opacity-80 tracking-widest">DEAL YOUR FATE <span class="text-xs font-sans font-normal block mt-2 opacity-60">Click all cards to reveal</span></h3>
