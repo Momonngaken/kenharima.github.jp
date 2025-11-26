@@ -93,7 +93,43 @@
             overscroll-behavior-y: none; /* Prevent bounce effect */
             min-height: 100dvh; /* Dynamic Viewport Height */
         }
-        
+
+        /* =========================================
+           CYBER READABILITY OPTIMIZATION
+           ========================================= */
+        .cyber-readability {
+            /* PC Default */
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.75;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 767px) {
+            .cyber-readability {
+                font-size: 0.95rem;      /* 15.2px相当: 視認性確保 */
+                line-height: 2.0;        /* 極端に広い行間で「余白」を演出 */
+                letter-spacing: 0.06em;  /* 文字間を広げ、漢字の密集を防ぐ */
+                
+                /* Visual Anchors (視線誘導) */
+                padding-left: 1.25rem;
+                border-left: 2px solid rgba(214, 252, 82, 0.6); /* NeoYellow Anchor */
+                background: linear-gradient(90deg, rgba(214, 252, 82, 0.05) 0%, transparent 100%);
+                
+                /* Text Rendering Fix */
+                -webkit-font-smoothing: antialiased;
+                text-align: left;        /* 無理なJustifyを避け、左揃えでリズムを作る */
+                word-break: break-all;   /* URLや長単語によるレイアウト崩れ防止 */
+                margin-bottom: 1.5rem;   /* 段落間の余白も確保 */
+            }
+        }
+
+        /* Dark Mode / Scan Mode Adaptation */
+        body.is-scanning .cyber-readability {
+            border-left-color: #D6FC52;
+            background: linear-gradient(90deg, rgba(214, 252, 82, 0.1) 0%, transparent 100%);
+            color: #ccc !important;
+        }
         @media (min-width: 1025px) and (hover: hover) {
             * { cursor: none !important; }
         }
@@ -1245,7 +1281,10 @@
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
                             <p class="lang-fade" data-key="aboutBody1"></p>
                             <p class="border-l-4 border-neoYellow pl-6 lang-fade" data-key="aboutBody2">学歴：<span class="scan-highlight">早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）</span>、広尾学園中学・高等学校卒業</p>
-                            
+                            <p class="lang-fade cyber-readability mb-6" data-key="aboutBody1"></p>
+                            <p class="border-l-4 border-neoYellow pl-6 lang-fade md:leading-normal leading-[2.0] tracking-wider text-sm md:text-base" data-key="aboutBody2">
+    学歴：<span class="scan-highlight">早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）</span>、広尾学園中学・高等学校卒業
+</p>
                             <div class="flex flex-wrap gap-4 mt-8">
                                 <span class="bg-white text-black px-4 py-2 font-bold rounded-full hover:bg-neoYellow transition-colors hover-trigger flex items-center gap-2 group">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 384 512"><path d="M192 0c53 0 96 43 96 96s-43 96-96 96-96-43-96-96S139 0 192 0zM64 464c0 26.5 21.5 48 48 48h160c26.5 0 48-21.5 48-48 0-26.5-21.5-48-48-48h-16v-56.3c22.2-8.8 40.9-24.5 53.3-44.3 12.6-20.1 18.7-43 18.7-67.5V192h-256v56c0 24.4 6.2 47.4 18.7 67.5 12.4 19.8 31.1 35.5 53.3 44.3V416h-16c-26.5 0-48 21.5-48 48z"/></svg>
@@ -1313,7 +1352,7 @@
                                     <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">MARKETING</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work1Title"><span class='scan-highlight'>野口ゼミ×理想科学工業株式会社マーケティング戦略コンペ</span></h3>
                                     <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work1Subtitle"><span class='scan-highlight'>最優秀賞受賞</span></p>
-                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work1Body">...</p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade cyber-readability" data-key="work1Body">...</p>
                                 </div>
                                 <a href="./presentation.pdf" target="_blank" class="group mt-6 block text-center bg-neoRed text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoRed transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work1Button" style="transform: translateZ(30px);">
     発表資料を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -1330,7 +1369,7 @@
                                     <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ESSAY</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work2Title"><span class='scan-highlight'>第36回「働くってなんだろう」エッセイコンテスト</span></h3>
                                     <p class="text-xl font-bold mb-4 lang-fade" data-key="work2Subtitle"><span class='scan-highlight'>勤労青少年躍進会理事長賞受賞</span></p>
-                                    <p class="text-sm text-black font-medium mb-6 lang-fade" data-key="work2Body">...</p>
+                                    <p class="text-sm text-black font-medium mb-6 lang-fade cyber-readability" data-key="work2Body">...</p>
                                 </div>
                                 <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="group block text-center bg-black text-white py-3 font-bold hover:bg-white hover:text-black border-[3px] border-black transition-colors hover-trigger lang-fade smooth-border" data-key="work2Button" style="transform: translateZ(30px);">
                                     エッセイを読む <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -1347,7 +1386,7 @@
                                     <div class="bg-neoBlue text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">DESIGN</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work3Title"><span class='scan-highlight'>第10回あなたが考えるブランドラベルコンテスト</span></h3>
                                     <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle"><span class='scan-highlight'>TOP40 東京ビックサイト展示</span></p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work3Body">...</p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade cyber-readability" data-key="work3Body">...</p>
                                 </div>
                                 <a href="https://www.tokyo-yoshioka.co.jp/2023s_contest" target="_blank" class="group mt-6 block text-center bg-neoBlue text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoBlue transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work3Button" style="transform: translateZ(30px);">
                                     作品を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -1364,7 +1403,7 @@
                                     <div class="bg-neoRed text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">GAMBLE & LOGIC</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work4Title"><span class='scan-highlight'>海外ポーカー実践</span></h3>
                                     <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle"><span class='scan-highlight'>投資利益率532%</span></p>
-                                    <p class="text-sm text-gray-300 font-medium lang-fade" data-key="work4Body">...</p>
+                                    <p class="text-sm text-gray-300 font-medium lang-fade cyber-readability" data-key="work4Body">...</p>
                                 </div>
                                 <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
@@ -1379,7 +1418,7 @@
                                     <div class="bg-neoYellow text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">EVENT & MEDIA</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work5Title"><span class='scan-highlight'>早稲田大学✕PIVOT株式会社</span></h3>
                                     <p class="text-xl font-bold text-neoRed mb-4 lang-fade" data-key="work5Subtitle"><span class='scan-highlight'>コラボ企画動画実行委員</span></p>
-                                    <p class="text-sm text-gray-800 font-medium lang-fade" data-key="work5Body">...</p>
+                                    <p class="text-sm text-gray-800 font-medium lang-fade cyber-readability" data-key="work5Body">...</p>
                                 </div>
                                 <a href="https://youtu.be/i890trIJeT4?si=zSl3_pB45miZBmIw" target="_blank" rel="noopener noreferrer" class="group mt-6 block text-center bg-black text-white py-3 font-bold border-[3px] border-black hover:bg-neoRed hover:text-black transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work5Button" style="transform: translateZ(30px);">
                                     動画を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
@@ -1396,7 +1435,7 @@
                                     <div class="bg-black text-white text-xs font-bold px-3 py-1 inline-block mb-4 border border-white">ACADEMIC</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work6Title"><span class='scan-highlight'>「社会デザイン論入門」レポートコンテスト</span></h3>
                                     <p class="text-xl font-bold text-white mb-4 lang-fade" data-key="work6Subtitle"><span class='scan-highlight'>優秀賞受賞</span></p>
-                                    <p class="text-sm text-black font-medium lang-fade" data-key="work6Body">...</p>
+                                    <p class="text-sm text-black font-medium lang-fade cyber-readability" data-key="work6Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -1410,7 +1449,7 @@
                                     <div class="bg-gray-200 text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">BUSINESS</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work7Title"><span class='scan-highlight'>第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリ2018</span></h3>
                                     <p class="text-xl font-bold text-gray-600 mb-4 lang-fade" data-key="work7Subtitle"><span class='scan-highlight'>東京都産業労働局長賞受賞</span></p>
-                                    <p class="text-sm text-gray-900 font-medium lang-fade" data-key="work7Body">...</p>
+                                    <p class="text-sm text-gray-900 font-medium lang-fade cyber-readability" data-key="work7Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -1424,7 +1463,7 @@
                                     <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">PRESENTATION</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work8Title"><span class='scan-highlight'>広尾学園中学校学年プレゼンテーション大会</span></h3>
                                     <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work8Subtitle"><span class='scan-highlight'>最優秀賞受賞</span></p>
-                                    <p class="text-sm font-medium lang-fade" data-key="work8Body">...</p>
+                                    <p class="text-sm font-medium lang-fade cyber-readability" data-key="work8Body">...</p>
                                 </div>
                             </div>
                         </div>
@@ -1438,7 +1477,7 @@
                                     <div class="bg-white text-black text-xs font-bold px-3 py-1 inline-block mb-4 border border-black">POKER</div>
                                     <h3 class="text-2xl font-black mb-4 leading-tight lang-fade" data-key="work9Title"><span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span></h3>
                                     <p class="text-xl font-bold text-white/80 mb-4 lang-fade" data-key="work9Subtitle"><span class='scan-highlight'>107位入賞</span></p>
-                                    <p class="text-sm text-white/90 font-medium lang-fade" data-key="work9Body">...</p>
+                                    <p class="text-sm text-white/90 font-medium lang-fade cyber-readability" data-key="work9Body">...</p>
                                 </div>
                                 <div class="mt-4 text-4xl" style="transform: translateZ(40px);">♠♥♣♦</div>
                             </div>
