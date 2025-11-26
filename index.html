@@ -1067,12 +1067,177 @@
             from { opacity: 1; transform: scale(1); }
             to { opacity: 0.4; transform: scale(1.5); }
         }
+
+        /* =========================================
+           TABLET ORIENTATION LOCK (SYSTEM ALERT)
+           ========================================= */
+        #orientation-lock {
+            display: none; /* デフォルトは非表示 */
+            position: fixed;
+            inset: 0;
+            background-color: #050505;
+            z-index: 999999; /* 最前面 */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        /* 背景のグリッド装飾 */
+        #orientation-lock::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(214, 252, 82, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(214, 252, 82, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* ターゲットデバイス設定: タブレット縦向き */
+        /* iPad Mini, Air, Pro (Portrait) などを想定 */
+        @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            #orientation-lock {
+                display: flex !important;
+            }
+            /* この状態では背面のスクロールを禁止 */
+            body { overflow: hidden !important; }
+        }
+
+        /* --------------------------------------
+           PICTOGRAM ANIMATION (DEVICE ROTATION)
+           -------------------------------------- */
+        .rotate-device-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 3rem;
+            perspective: 1000px;
+        }
+
+        .device-frame {
+            width: 60px;
+            height: 90px;
+            border: 3px solid #D6FC52; /* NeoYellow */
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(214, 252, 82, 0.2);
+            animation: rotate-anim 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        /* 画面内の装飾（ノッチやホームボタン的な） */
+        .device-frame::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #D6FC52;
+            border-radius: 50%;
+        }
+
+        /* 回転の軌跡を示す矢印 */
+        .rotate-arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border-top-color: transparent;
+            border-left-color: transparent;
+            animation: arrow-spin 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        @keyframes rotate-anim {
+            0%, 20% { transform: translate(-50%, -50%) rotate(0deg); width: 60px; height: 90px; }
+            50%, 70% { transform: translate(-50%, -50%) rotate(-90deg); width: 60px; height: 90px; } /* 横向き */
+            100% { transform: translate(-50%, -50%) rotate(0deg); width: 60px; height: 90px; }
+        }
+        
+        @keyframes arrow-spin {
+            0%, 20% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0; }
+            30% { opacity: 1; }
+            50%, 70% { transform: translate(-50%, -50%) rotate(-90deg); opacity: 1; }
+            80%, 100% { transform: translate(-50%, -50%) rotate(-90deg); opacity: 0; }
+        }
+
+        /* --------------------------------------
+           TEXT STYLING
+           -------------------------------------- */
+        .lock-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .lock-msg-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #D6FC52;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .lock-msg-en {
+            font-family: 'monospace';
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 0.1em;
+        }
+
+        .lock-decor-line {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, #D6FC52, transparent);
+            margin-top: 2rem;
+            animation: scan-pulse 1.5s infinite;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
     <!-- 1. スタビライザー（視覚的結界） -->
     <div class="viewport-stabilizer stabilizer-left"></div>
     <div class="viewport-stabilizer stabilizer-right"></div>
+
+    <!-- =========================================
+         ORIENTATION LOCK OVERLAY (TABLET PORTRAIT)
+    ========================================== -->
+    <div id="orientation-lock">
+        <!-- Center Pictogram Animation -->
+        <div class="rotate-device-wrapper">
+            <div class="rotate-arrow"></div>
+            <div class="device-frame"></div>
+        </div>
+
+        <!-- Warning Texts -->
+        <div class="flex flex-col items-center z-10">
+            <h2 class="lock-title">SYSTEM PAUSED</h2>
+            <p class="lock-msg-jp">デバイスを横向きにしてください</p>
+            <p class="lock-msg-en">>> PLEASE ROTATE YOUR DEVICE</p>
+        </div>
+
+        <!-- Decor -->
+        <div class="lock-decor-line"></div>
+        <div class="absolute bottom-8 font-mono text-[10px] text-gray-700 tracking-[0.3em]">
+            ERR_VIEWPORT_UNSUPPORTED
+        </div>
+    </div>
 
     <!-- SVG Filter for Liquid Cursor -->
     <svg class="hidden">
