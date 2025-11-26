@@ -121,7 +121,8 @@
             z-index: 20000; 
             mix-blend-mode: difference;
         }
-        @media (hover: none) and (pointer: coarse), (max-width: 1024px) {
+        /* Modified for Hybrid Devices (Touch-enabled PC) */
+        @media (max-width: 1024px) {
             .cursor-wrapper { display: none !important; }
             body, * { cursor: auto !important; } 
         }
@@ -1702,14 +1703,44 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 1024);
-            if (isTouchDevice) return;
+            // --- FIX: HYBRID DEVICE PROTOCOL ---
+            // Touch points check removed to allow Cursor on Windows Laptops/Surfaces
+            const isMobile = window.innerWidth < 1024; 
+            if (isMobile) return;
+
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
             const liquidFilter = document.querySelector('#liquidFilter feDisplacementMap');
+            
+            // Initial State: Hidden until interaction (Cyber Stealth Mode)
+            gsap.set([cursorLiquid, cursorDot], { opacity: 0, scale: 0 });
+
+            let isSystemActive = false;
             let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2; let currentX = mouseX; let currentY = mouseY;
-            window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 }); });
+
+            // Mouse Move Listener with "System Boot" Effect
+            window.addEventListener('mousemove', (e) => { 
+                mouseX = e.clientX; 
+                mouseY = e.clientY; 
+                
+                // First interaction: Boot up the cursor system
+                if (!isSystemActive) {
+                    isSystemActive = true;
+                    gsap.to([cursorLiquid, cursorDot], { 
+                        opacity: 1, 
+                        scale: 1, 
+                        duration: 0.6, 
+                        ease: "elastic.out(1, 0.5)",
+                        stagger: 0.1
+                    });
+                }
+
+                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 }); 
+            });
+
             gsap.ticker.add(() => {
+                if (!isSystemActive) return; // Save resources until active
+
                 const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
                 const dx = mouseX - currentX; const dy = mouseY - currentY; currentX += dx * dt; currentY += dy * dt;
                 const velocity = Math.sqrt(dx * dx + dy * dy); const angle = Math.atan2(dy, dx) * 180 / Math.PI;
@@ -1717,6 +1748,7 @@
                 const distortion = Math.min(velocity * 0.5, 50); if(liquidFilter) liquidFilter.setAttribute('scale', distortion);
                 gsap.set(cursorLiquid, { x: currentX, y: currentY, rotation: angle, scaleX: scaleX, scaleY: scaleY });
             });
+            
             const hovers = document.querySelectorAll('.hover-trigger, a, button');
             hovers.forEach(el => {
                 el.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 }); });
