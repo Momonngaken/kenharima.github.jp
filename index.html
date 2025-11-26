@@ -1620,7 +1620,8 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
             <div class="container mx-auto text-center max-w-5xl relative z-10">
                 <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle"></h2>
-                <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">お気軽にご連絡ください。<br>あなたの組織と私の才能が、共に価値を最大化できるか、真剣に議論させてください。<br>♠︎ポーカーのお誘いも大歓迎です。</p>
+                <div class="mb-20 lang-fade w-full max-w-4xl mx-auto" data-key="contactBody">
+</div>
                 <div class="magnetic-btn inline-block">
                     <button id="contact-btn-main" class="group relative inline-block hover-trigger">
                         <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
@@ -2134,7 +2135,25 @@
                 resumeBtn: "履歴書をDLする",
                 scanBtn: "// 核心を表示",
                 contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ON YOU.</span><span class="block text-[7vw] md:text-8xl font-black leading-tight">同じテーブルに、</span><span class="relative inline-block mt-4 group hover-trigger"><span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-3 translate-y-3 border-4 border-black"></span><span class="relative block bg-white border-4 border-black px-6 md:px-12 py-2 md:py-4 text-[9vw] md:text-9xl font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:translate-x-1 group-hover:translate-y-1 text-black">着くか<span class="text-neoRed">。</span></span></span>`,
-                contactBody: "お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。", 
+                contactBody: `
+    <div class="relative z-10 flex flex-col items-center justify-center font-sans">
+        <div class="font-mono text-xs md:text-sm text-neoBlue mb-6 tracking-[0.2em] opacity-80 bg-white border border-neoBlue px-3 py-1 rounded-full">
+            >> SYSTEM_QUERY: SYNERGY_CHECK
+        </div>
+        <h3 class="text-xl md:text-3xl font-bold text-gray-800 leading-loose mb-6">
+            貴社組織のポテンシャルと<br class="md:hidden" />私の才能の結合が、
+        </h3>
+        <div class="relative inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300 hover-trigger mb-10">
+            <span class="absolute inset-0 bg-black translate-x-2 translate-y-2"></span>
+            <span class="relative block bg-neoRed text-white text-2xl md:text-5xl font-black font-stylish italic border-2 border-black px-4 py-2 md:px-8 md:py-4 leading-tight shadow-[0_0_20px_rgba(255,77,77,0.4)]">
+                いかに価値を最大化し得るか。
+            </span>
+        </div>
+        <p class="text-sm md:text-lg font-bold font-mono text-black border-l-4 md:border-l-0 md:border-b-4 border-neoYellow pl-4 md:pl-0 md:pb-2 tracking-wide">
+            その本質を、真摯に対話させてください。
+        </p>
+    </div>
+`,
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
                 backToTop: "トップに戻る"
             },
@@ -2183,7 +2202,25 @@
                 resumeBtn: "CURRICULUM VITAE",
                 scanBtn: "// SIGNAL_ONLY",
                 contactTitle: `<span class="block text-3xl md:text-5xl font-bold mb-4 tracking-widest opacity-80">ARE YOU READY?</span><span class="block text-[10vw] md:text-[8rem] font-black leading-[0.8] text-stroke">DEAL</span><span class="relative inline-block mt-2 group hover-trigger"><span class="absolute inset-0 bg-neoYellow w-full h-full transform -translate-x-2 translate-y-2 border-4 border-black"></span><span class="relative block bg-black border-4 border-black px-6 md:px-10 py-2 text-[10vw] md:text-[8rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-neoYellow">YOU IN?</span></span>`,
-                contactBody: "Please feel free to contact me.<br>I propose a strategic discussion on how my expertise and your organization's resources can mutually maximize value.<br>Poker invites are also welcome.",
+                contactBody: `
+    <div class="relative z-10 flex flex-col items-center justify-center font-sans">
+        <div class="font-mono text-xs md:text-sm text-neoBlue mb-6 tracking-[0.2em] opacity-80 bg-white border border-neoBlue px-3 py-1 rounded-full">
+            >> SYSTEM_QUERY: SYNERGY_CHECK
+        </div>
+        <h3 class="text-xl md:text-3xl font-bold text-gray-800 leading-loose mb-6">
+            How the fusion of your potential<br class="md:hidden" />and my talent can
+        </h3>
+        <div class="relative inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300 hover-trigger mb-10">
+            <span class="absolute inset-0 bg-black translate-x-2 translate-y-2"></span>
+            <span class="relative block bg-neoRed text-white text-2xl md:text-5xl font-black font-stylish italic border-2 border-black px-4 py-2 md:px-8 md:py-4 leading-tight shadow-[0_0_20px_rgba(255,77,77,0.4)]">
+                MAXIMIZE VALUE?
+            </span>
+        </div>
+        <p class="text-sm md:text-lg font-bold font-mono text-black border-l-4 md:border-l-0 md:border-b-4 border-neoYellow pl-4 md:pl-0 md:pb-2 tracking-wide">
+            Let's have a sincere dialogue about this essence.
+        </p>
+    </div>
+`,
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
                 backToTop: "Back to top" 
             }
