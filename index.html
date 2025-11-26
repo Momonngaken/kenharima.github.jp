@@ -959,6 +959,62 @@
             from { opacity: 1; transform: scale(1); }
             to { opacity: 0.4; transform: scale(1.5); }
         }
+        /* --- CONTACT SECTION SPECIFIC --- */
+.ticket-edge {
+    background-image: radial-gradient(circle at 10px 10px, transparent 10px, #121212 11px);
+    background-size: 20px 20px;
+    background-position: -10px -10px;
+}
+.cyber-stripe {
+    background: repeating-linear-gradient(
+        45deg,
+        #000,
+        #000 10px,
+        #D6FC52 10px,
+        #D6FC52 20px
+    );
+}
+.glitch-layers {
+    position: relative;
+    display: inline-block;
+}
+.glitch-layers::before, .glitch-layers::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #F0F0EB;
+}
+.glitch-layers::before {
+    left: 2px;
+    text-shadow: -1px 0 #FF4D4D;
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-1 4s infinite linear alternate-reverse;
+}
+.glitch-layers::after {
+    left: -2px;
+    text-shadow: 1px 0 #5D5FEF;
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-2 4s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(20% 0 80% 0); }
+    20% { clip-path: inset(60% 0 10% 0); }
+    40% { clip-path: inset(40% 0 50% 0); }
+    60% { clip-path: inset(80% 0 5% 0); }
+    80% { clip-path: inset(10% 0 60% 0); }
+    100% { clip-path: inset(30% 0 30% 0); }
+}
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(10% 0 60% 0); }
+    20% { clip-path: inset(30% 0 20% 0); }
+    40% { clip-path: inset(70% 0 10% 0); }
+    60% { clip-path: inset(20% 0 50% 0); }
+    80% { clip-path: inset(50% 0 30% 0); }
+    100% { clip-path: inset(0% 0 90% 0); }
+}
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -1615,23 +1671,94 @@
             </div>
         </section>
 
-        <section id="contact" class="min-h-[80dvh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
-            <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
-            <div class="container mx-auto text-center max-w-5xl relative z-10">
-                <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle"></h2>
-                <p class="text-xl md:text-2xl text-gray-800 font-bold mb-20 lang-fade max-w-2xl mx-auto leading-relaxed" data-key="contactBody">お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。</p>
-                <div class="magnetic-btn inline-block">
-                    <button id="contact-btn-main" class="group relative inline-block hover-trigger">
-                        <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                        <span class="relative block bg-black text-white text-xl md:text-3xl font-black border-2 border-black px-10 py-5 rounded-full transition-all duration-300 group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:bg-neoYellow group-hover:text-black lang-fade flex items-center gap-3" data-key="contactButton">
-                            今すぐコンタクトを取る
-                             <svg class="w-6 h-6 transform group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </span>
+<section id="contact" class="relative min-h-screen flex flex-col justify-center items-center bg-[#F0F0EB] border-t-4 border-black overflow-hidden py-24 md:py-32">
+    
+    <!-- Dynamic Background -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-stroke opacity-[0.03] rotate-45 whitespace-nowrap select-none">
+            CONTACT ME
+        </div>
+        <div class="absolute top-0 right-10 w-px h-full bg-black/10 hidden md:block"></div>
+        <div class="absolute top-0 left-10 w-px h-full bg-black/10 hidden md:block"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 w-full max-w-7xl">
+        
+        <!-- CYBER TICKET CONTAINER -->
+        <div class="relative bg-white border-4 border-black shadow-[15px_15px_0px_#121212] md:shadow-[25px_25px_0px_#121212] transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:shadow-[10px_10px_0px_#121212]">
+            
+            <!-- DECORATIVE SCREWS -->
+            <div class="absolute top-4 left-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
+            <div class="absolute top-4 right-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
+            <div class="absolute bottom-4 left-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
+            <div class="absolute bottom-4 right-4 w-4 h-4 border-2 border-black rounded-full flex items-center justify-center bg-[#F0F0EB]"><div class="w-full h-px bg-black rotate-45"></div></div>
+
+            <!-- TICKET HEADER -->
+            <div class="bg-black text-white p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4 border-b-4 border-black">
+                <div class="flex items-center gap-3">
+                    <div class="w-4 h-4 bg-neoRed animate-pulse"></div>
+                    <span class="font-mono text-xs md:text-sm tracking-[0.2em] text-neoYellow">STATUS: WAITING_FOR_PLAYER</span>
+                </div>
+                <div class="cyber-stripe h-4 w-full md:w-32 rounded-full border border-white"></div>
+                <div class="font-mono text-xs md:text-sm opacity-70">ID: KEN_H_2026</div>
+            </div>
+
+            <!-- TICKET BODY -->
+            <div class="p-8 md:p-16 flex flex-col items-center text-center">
+                
+                <!-- Main Title Area (Injected via JS) -->
+                <div class="w-full lang-fade" data-key="contactTitle">
+                    <!-- JS will inject the stylish HTML here -->
+                </div>
+
+                <!-- Sub Text -->
+                <p class="mt-12 md:mt-16 text-lg md:text-xl font-bold font-mono text-gray-600 max-w-2xl mx-auto lang-fade" data-key="contactBody">
+                    <!-- JS Injected -->
+                </p>
+
+                <!-- GIANT ACTION BUTTON -->
+                <div class="mt-16 md:mt-20 w-full flex justify-center magnetic-btn">
+                    <button id="contact-btn-main" class="group relative w-full md:w-auto hover-trigger">
+                        <!-- Button Background Layers -->
+                        <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 transition-transform duration-200 group-hover:translate-x-0 group-hover:translate-y-0"></div>
+                        <div class="absolute inset-0 cyber-stripe opacity-50 translate-x-3 translate-y-3 transition-transform duration-200 group-hover:translate-x-0 group-hover:translate-y-0 mix-blend-overlay"></div>
+                        
+                        <!-- Main Button Box -->
+                        <div class="relative bg-neoYellow border-4 border-black px-12 md:px-24 py-8 md:py-10 flex flex-col items-center justify-center transition-transform duration-200 group-hover:-translate-y-1 group-hover:-translate-x-1">
+                            
+                            <!-- Corners -->
+                            <div class="absolute top-0 left-0 w-6 h-6 border-r-4 border-b-4 border-black bg-white"></div>
+                            <div class="absolute bottom-0 right-0 w-6 h-6 border-l-4 border-t-4 border-black bg-white"></div>
+                            
+                            <!-- Text Content -->
+                            <span class="block font-black text-2xl md:text-5xl italic tracking-tighter transform -skew-x-12 group-hover:skew-x-0 transition-transform duration-300">
+                                <span class="lang-fade text-black" data-key="contactButton">コンタクトを取る</span>
+                            </span>
+                            <span class="block text-xs font-mono font-bold mt-2 tracking-widest uppercase group-hover:text-neoRed transition-colors">>> Click to Initialize <<</span>
+                        </div>
                     </button>
                 </div>
             </div>
-        </section>
+
+            <!-- TICKET FOOTER -->
+            <div class="bg-[#F0F0EB] p-4 border-t-4 border-black flex justify-between items-center font-mono text-[0.6rem] md:text-xs text-gray-500">
+                <span>HASH: #A9F-2204-KEN</span>
+                <span class="hidden md:inline">ENCRYPTED CONNECTION // SECURE</span>
+                <span>LOC: TOKYO, JP</span>
+            </div>
+        </div>
+
+        <!-- Flying Elements -->
+        <div class="absolute -top-12 -left-12 text-neoRed font-black text-6xl md:text-9xl opacity-20 rotate-[-15deg] pointer-events-none select-none z-0">
+            WANTED
+        </div>
+        <div class="absolute -bottom-12 -right-12 text-neoBlue font-black text-6xl md:text-9xl opacity-20 rotate-[15deg] pointer-events-none select-none z-0">
+            WANTED
+        </div>
+
+    </div>
+</section>
 
         <section id="poker-game" class="py-32 border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
@@ -2134,30 +2261,30 @@
                 resumeBtn: "履歴書をDLする",
                 scanBtn: "// 核心を表示",
                  contactTitle: `
-                    <div class="flex flex-col items-center justify-center pointer-events-none select-none pt-12 md:pt-20">
-                        <!-- Main Headline: 上部に余白を追加し、行間も広げてゆとりを持たせる -->
-                        <span class="block text-[11vw] md:text-[8rem] font-black leading-[0.9] text-stroke hover:text-black transition-colors duration-500 mb-6 md:mb-10 pointer-events-auto hover-trigger">
-                            同じテーブルに、
-                        </span>
-                        
-                        <!-- "着くか。" Block -->
-                        <div class="relative inline-block mb-12 md:mb-20 group pointer-events-auto hover-trigger">
-                            <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 border-4 border-black transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                            <span class="relative block bg-white border-4 border-black px-8 md:px-16 py-2 md:py-6 text-[11vw] md:text-[8rem] font-black italic transform -rotate-2 transition-transform duration-300 group-hover:rotate-0 text-black">
-                                着くか<span class="text-neoRed">。</span>
-                            </span>
-                        </div>
+    <div class="flex flex-col items-center justify-center pointer-events-none select-none w-full">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full mb-6">
+            <span class="text-4xl md:text-7xl font-black font-stylish italic text-black whitespace-nowrap pointer-events-auto hover-trigger">
+                同じテーブルに、
+            </span>
+        </div>
+        
+        <div class="relative group pointer-events-auto hover-trigger w-full md:w-auto">
+            <div class="absolute inset-0 bg-neoRed transform skew-x-12 scale-105 blur-sm opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
+            <span class="glitch-layers block text-[18vw] md:text-[10rem] leading-[0.8] font-black font-display italic text-black transform -rotate-2 group-hover:rotate-0 transition-transform duration-300 md:px-12" data-text="着くか。">
+                着くか<span class="text-neoRed">。</span>
+            </span>
+        </div>
 
-                        <!-- Pitch Text: スタイリッシュなオファー文 -->
-                        <div class="pointer-events-auto max-w-4xl mx-auto mt-2 md:mt-6">
-                            <p class="font-sans text-sm md:text-xl font-bold leading-loose tracking-wider text-gray-900 text-left md:text-center border-l-4 md:border-l-0 md:border-t-4 border-neoYellow pl-6 md:pl-0 md:pt-10 mix-blend-multiply">
-                                あなたの組織と私の才能が、<br class="hidden md:block">
-                                共に<span class="bg-black text-white px-2 py-1 mx-1 box-decoration-break-clone shadow-[4px_4px_0px_#D6FC52]">価値を最大化</span>できるか、<br class="md:hidden">
-                                真剣に議論させてください。
-                            </p>
-                        </div>
-                    </div>
-                `,
+        <div class="mt-12 md:mt-16 w-full max-w-4xl border-l-8 border-neoYellow pl-6 md:pl-10 text-left pointer-events-auto">
+            <p class="font-sans text-xl md:text-3xl font-black text-black leading-snug">
+                あなたの組織と私の才能が、<br class="md:hidden">共に<span class="inline-block bg-black text-neoYellow px-2 mx-1 transform -skew-x-12">価値を最大化</span>できるか。
+            </p>
+            <p class="font-mono text-sm md:text-base text-gray-500 mt-2 font-bold tracking-wider">
+                // 真剣に議論させてください。
+            </p>
+        </div>
+    </div>
+`,
                  contactBody: "お気軽にご連絡ください。<br>ポーカーのお誘いも大歓迎です。", 
                 contactButton: "今すぐコンタクトを取る", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
                 backToTop: "トップに戻る"
@@ -2206,25 +2333,31 @@
                 fragmentsTitle: "Fragments",
                 resumeBtn: "CURRICULUM VITAE",
                 scanBtn: "// SIGNAL_ONLY",
-                contactTitle: `
-                    <div class="flex flex-col items-center justify-center pointer-events-none select-none pt-12 md:pt-20">
-                        <span class="block text-[10vw] md:text-[7rem] font-black leading-[0.9] text-stroke hover:text-black transition-colors duration-500 mb-6 md:mb-10 pointer-events-auto hover-trigger">
-                            SHALL WE SIT
-                        </span>
-                        <div class="relative inline-block mb-12 md:mb-20 group pointer-events-auto hover-trigger">
-                            <span class="absolute inset-0 bg-neoBlue w-full h-full transform translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 border-4 border-black transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                            <span class="relative block bg-white border-4 border-black px-8 md:px-16 py-2 md:py-6 text-[10vw] md:text-[7rem] font-black italic transform rotate-2 transition-transform duration-300 group-hover:rotate-0 text-black">
-                                AT THE TABLE?<span class="text-neoRed">?</span>
-                            </span>
-                        </div>
-                        <div class="pointer-events-auto max-w-4xl mx-auto mt-2 md:mt-6">
-                            <p class="font-sans text-sm md:text-lg font-bold leading-loose tracking-wider text-gray-900 text-left md:text-center border-l-4 md:border-l-0 md:border-t-4 border-neoYellow pl-6 md:pl-0 md:pt-10 mix-blend-multiply">
-                                Let's seriously discuss if your organization and my talents<br class="hidden md:block">
-                                can <span class="bg-black text-white px-2 py-1 mx-1 box-decoration-break-clone shadow-[4px_4px_0px_#D6FC52]">maximize value</span> together.
-                            </p>
-                        </div>
-                    </div>
-                `,
+                ccontactTitle: `
+    <div class="flex flex-col items-center justify-center pointer-events-none select-none w-full">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full mb-6">
+            <span class="text-4xl md:text-6xl font-black font-stylish italic text-black whitespace-nowrap pointer-events-auto hover-trigger">
+                SHALL WE SIT
+            </span>
+        </div>
+        
+        <div class="relative group pointer-events-auto hover-trigger w-full md:w-auto">
+             <div class="absolute inset-0 bg-neoRed transform skew-x-12 scale-105 blur-sm opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
+            <span class="glitch-layers block text-[13vw] md:text-[8rem] leading-[0.8] font-black font-display italic text-black transform rotate-2 group-hover:rotate-0 transition-transform duration-300 md:px-12" data-text="AT THE TABLE?">
+                AT THE TABLE<span class="text-neoRed">?</span>
+            </span>
+        </div>
+
+        <div class="mt-12 md:mt-16 w-full max-w-4xl border-l-8 border-neoYellow pl-6 md:pl-10 text-left pointer-events-auto">
+            <p class="font-sans text-xl md:text-3xl font-black text-black leading-snug">
+                Can your organization and my talents <br class="md:hidden"><span class="inline-block bg-black text-neoYellow px-2 mx-1 transform -skew-x-12">maximize value</span> together?
+            </p>
+            <p class="font-mono text-sm md:text-base text-gray-500 mt-2 font-bold tracking-wider">
+                // Let's discuss seriously.
+            </p>
+        </div>
+    </div>
+`,
                 contactBody: "Please feel free to contact me.<br>Poker invites are also welcome.",
                 contactButton: "Get in Touch Now", footerCopy: "© 2025 Ken HARIMA. All Rights Reserved.",
                 backToTop: "Back to top" 
