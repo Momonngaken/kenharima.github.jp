@@ -401,6 +401,64 @@
         align-items: center !important;
     }
 
+     /* ▼▼▼ [修正 2-A] ダウンロード・ストリーム・アニメーション ▼▼▼ */
+        
+        /* アイコンを囲むフレーム：ここを基準に中身を動かす */
+        .download-icon-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* 枠外に出た矢印を隠す */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* 矢印が連なるトラック（これを下に動かす） */
+        .download-stream-track {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px; /* 矢印間の隙間 */
+            /* 常に下に流れ続けるアニメーション */
+            animation: stream-fall 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+
+        /* 矢印単体のスタイル */
+        .download-arrow {
+            width: 16px;
+            height: 16px;
+            display: block;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        /* PCサイズでの矢印サイズ調整 */
+        @media (min-width: 768px) {
+            .download-arrow { width: 20px; height: 20px; gap: 16px; }
+        }
+
+        /* アニメーション定義：Y軸方向に移動してループさせる */
+        @keyframes stream-fall {
+            0% { transform: translateY(-35%); opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { transform: translateY(35%); opacity: 0.5; }
+        }
+
+        /* スキャンモード時の特別演出 */
+        body.is-scanning .download-stream-track {
+            animation-duration: 0.8s; /* 高速化 */
+        }
+        body.is-scanning .download-arrow {
+            stroke: #D6FC52 !important; /* 強制ネオンイエロー */
+            filter: drop-shadow(0 0 5px rgba(214, 252, 82, 0.8));
+        }
+            
     /* アイコンが潰れるのを物理的に阻止し、右端に固定 */
     body.is-scanning #resume-download-btn .w-10,
     body.is-scanning #resume-download-btn .w-12 {
@@ -1446,8 +1504,16 @@ body.is-scanning #mobile-orientation-lock *,
         /* テキスト類 */
         .lock-content-wrapper {
             text-align: center;
-            z-index: 10;
-            mix-blend-mode: overlay;
+            z-index: 50; /* 背景アニメーションより確実に手前に表示 */
+            position: relative; /* z-indexを効かせるため */
+            /* mix-blend-mode: overlay; を削除し、視認性を確保 */
+        }
+        
+        /* ついでに、警告画面全体がスキャンモードの影響を受けないよう安全策を追加 */
+        #mobile-orientation-lock h2, 
+        #mobile-orientation-lock p {
+            opacity: 1 !important;
+            visibility: visible !important;
         }
         .lock-title-mobile {
             font-family: 'Syne', sans-serif;
@@ -1914,11 +1980,23 @@ body.is-scanning #mobile-orientation-lock *,
                                             <span class="text-[0.6rem] text-gray-400 font-mono mt-1 group-hover:text-white transition-colors">SIZE: PDF // UPDATED: 2025.11</span>
                                         </div>
                                         
+                                       
                                         <!-- Icon -->
-                                        <div class="relative z-10 w-10 h-10 md:w-12 md:h-12 border-2 border-white rounded-full flex items-center justify-center bg-white text-black group-hover:bg-neoRed group-hover:text-white transition-colors duration-300">
-                                            <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                        </div>
-                                    </div>
+<!-- ▼▼▼ [修正 2-B] Icon: Cyber Data Stream Effect (位置ズレ修正・流体アニメーション) ▼▼▼ -->
+<div class="relative z-10 w-10 h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center border-2 border-white rounded-full bg-white text-black group-hover:bg-neoRed group-hover:text-white transition-colors duration-300 ml-4 overflow-hidden">
+    
+    <!-- アニメーション用の枠 -->
+    <div class="download-icon-frame">
+        <!-- 矢印を3つ縦に並べて、無限スクロールさせる -->
+        <div class="download-stream-track">
+            <!-- 予備の上矢印（ループ用） -->
+            <svg class="download-arrow opacity-50" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <!-- メインの矢印 -->
+            <svg class="download-arrow" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <!-- 予備の下矢印（ループ用） -->
+            <svg class="download-arrow opacity-50" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        </div>
+    </div>
                                 </a>
                             </div>
 
