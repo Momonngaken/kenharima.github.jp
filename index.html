@@ -1286,12 +1286,12 @@
         }
 
         /* モバイル（幅767px以下）かつ 横画面（Landscape）の場合に表示 */
-        @media only screen and (max-width: 767px) and (orientation: landscape) {
-            #mobile-orientation-lock {
-                display: flex !important;
-            }
-            body { overflow: hidden !important; }
-        }
+        @media only screen and (max-width: 950px) and (orientation: landscape) {
+    #mobile-orientation-lock {
+        display: flex !important;
+    }
+    body { overflow: hidden !important; }
+}
 
         /* 背景グリッド */
         #mobile-orientation-lock::before {
