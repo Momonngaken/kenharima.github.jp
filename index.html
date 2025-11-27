@@ -2068,6 +2068,42 @@
             });
         }
 
+        /* ▼▼▼ [INSERT NEW PROTOCOL] 新規追加箇所 ▼▼▼ */
+        /* SYSTEM UPDATE: TOUCH INTERVENTION
+           ハイブリッドデバイス対策。初期判定をすり抜けたデバイスであっても、
+           物理的な「タッチ接触（touchstart）」が一度でも検知された瞬間、
+           直ちにカーソルシステムを破棄し、ネイティブ操作モードへ強制移行する。
+        */
+        function initTouchIntervention() {
+            const killSystem = () => {
+                const cursorWrapper = document.querySelector('.cursor-wrapper');
+                if (cursorWrapper) {
+                    // 視覚的なフェードアウト処理（GSAP）
+                    gsap.to(cursorWrapper, { 
+                        opacity: 0, 
+                        scale: 0, 
+                        duration: 0.3, 
+                        ease: "power2.in", 
+                        onComplete: () => cursorWrapper.remove() // 完全消去
+                    });
+                    
+                    // システムログ（開発者ツール用演出）
+                    console.log("%c>> SYSTEM MSG: TOUCH_INPUT_DETECTED // CURSOR_MODULE_PURGED", "color: #D6FC52; background: #000; padding: 4px; font-weight: bold;");
+                }
+                
+                // 強制的にカーソルスタイルをリセット
+                const style = document.createElement('style');
+                style.innerHTML = '* { cursor: auto !important; }';
+                document.head.appendChild(style);
+                
+                // リスナー解除（一度発動すれば十分なため）
+                window.removeEventListener('touchstart', killSystem);
+            };
+
+            // { capture: true, once: true } で最優先かつ一度きりの検知を行う
+            window.addEventListener('touchstart', killSystem, { capture: true, once: true });
+        }
+        
         // --- 1.5 GYROSCOPE PARALLAX (MOBILE TILT) ---
         function initMobileGyro() {
             if (window.innerWidth >= 1024) return;
@@ -2168,7 +2204,9 @@
         }
         function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
         function initSite() {
-            startLenis(); initLiquidCursor();
+            startLenis(); 
+            initLiquidCursor();
+             initTouchIntervention(); // タッチ介入プロトコルの起動
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
