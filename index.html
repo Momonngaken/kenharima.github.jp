@@ -596,13 +596,16 @@
             #scan-toggle-container { bottom: 6.5rem !important; } 
         }
 
+
+        
         /* =========================================
            QUICK SCAN PROTOCOL (TAIPA MODE) CSS
            ========================================= */
         
         body.is-scanning {
             background-color: #050505 !important;
-            --scan-dim-color: #333333;
+            /* ↓↓↓ 修正：屋外でも見えるよう、暗くする色を少し明るく変更 ↓↓↓ */
+            --scan-dim-color: #666666;
             --scan-highlight-color: #D6FC52;
         }
 
@@ -1843,6 +1846,34 @@ body.is-scanning #mobile-orientation-lock *,
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.8) !important;
             z-index: 50;
             position: relative;
+        }
+
+        /* =========================================
+           [ADD] MOBILE READABILITY IMPROVEMENTS
+           アドバイス対応：スマホでの可読性向上パッチ
+           ========================================= */
+        @media (max-width: 767px) {
+            /* 1. 極小フォント（0.6remや10px）のサイズを11pxまで底上げ */
+            /* これにより、屋外でも「ノイズ」ではなく「文字」として認識されやすくなります */
+            .text-\[0\.6rem\], 
+            .text-\[0\.65rem\],
+            .text-\[10px\],
+            .font-mono.text-xs {
+                font-size: 11px !important;
+                letter-spacing: 0.05em !important; /* 文字が潰れないよう少し間隔を空ける */
+            }
+
+            /* 2. 等幅フォント（Monospace）を少し太くする */
+            /* 細い線はスマホの画面反射で見えなくなるため、ウェイトを上げて視認性を確保 */
+            .font-mono {
+                font-weight: 500 !important; 
+            }
+            
+            /* 3. 本文の可読性微調整 */
+            /* 既に行間は十分広いので、文字色を真っ黒から少し緩めて目に優しくする */
+            .cyber-readability {
+                color: #222222; /* 完全な黒(#000)より読みやすい濃いグレー */
+            }
         }
         
     </style>
