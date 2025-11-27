@@ -655,7 +655,7 @@
         }
 
         /* =================================================================
-           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY
+           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY (FIXED V.2)
            ================================================================= */
         
         /* 基本的なスキャンモード時の強制表示設定 */
@@ -665,33 +665,51 @@
             visibility: visible !important;
             opacity: 1 !important;
             text-decoration: none !important;
-            transform: none !important; /* リセット */
+            transform: none !important;
             box-shadow: none !important;
         }
 
         /* コンテナ：背景を暗転させ、ボタンを浮かび上がらせる */
+        /* ★修正: max-width制限を解除し、内容量に応じて横幅を可変(fit-content)にする */
         body.is-scanning #resume-download-btn {
             position: relative;
-            z-index: 50; /* 他の要素より手前に */
+            z-index: 50;
             transform: scale(1.05);
-            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            
+            /* PC版での拡張挙動 */
+            width: fit-content !important; 
+            min-width: 320px; /* 最小幅は確保 */
+            max-width: 90vw;  /* 画面からはみ出さないように */
+            margin-left: 0;   /* 左揃え、あるいは親要素に依存 */
+        }
+        
+        /* モバイル調整: スマホでは画面幅いっぱいにしないとデザインが崩れるため調整 */
+        @media (max-width: 767px) {
+            body.is-scanning #resume-download-btn {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
         }
 
         /* ボタン本体：高級感のあるサイバーブラック・プレート */
         body.is-scanning #resume-download-btn a {
             position: relative;
-            background: #080808 !important; /* 深い黒 */
-            border: 1px solid rgba(214, 252, 82, 0.3) !important; /* 薄いネオンイエロー */
+            background: #080808 !important;
+            border: 1px solid rgba(214, 252, 82, 0.5) !important; /* 発光強度UP */
             border-radius: 4px;
             padding: 1.5rem 2rem !important;
             overflow: hidden !important;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(214, 252, 82, 0.1) !important;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(214, 252, 82, 0.15) !important;
+            
+            /* Flexbox設定の強化 */
             display: flex !important;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-between; /* 左右に配置 */
+            gap: 2rem; /* ★修正: テキストとアイコンの間に物理的な距離を強制確保 */
         }
 
-        /* 光の走査線（シマーエフェクト）：上品に流れる光 */
+        /* 光の走査線（シマーエフェクト） */
         body.is-scanning #resume-download-btn a::before {
             content: '';
             position: absolute;
@@ -713,13 +731,12 @@
             z-index: 1;
         }
 
-        /* 四隅のターゲットマーカー（アクセント） */
+        /* 四隅のターゲットマーカー */
         body.is-scanning #resume-download-btn a::after {
             content: '';
             position: absolute;
             inset: 0;
             border: 1px solid transparent;
-            /* 四隅だけを描画するグラデーションテクニック */
             background: 
                 linear-gradient(to right, #D6FC52 2px, transparent 2px) 0 0,
                 linear-gradient(to bottom, #D6FC52 2px, transparent 2px) 0 0,
@@ -737,7 +754,7 @@
             z-index: 2;
         }
 
-        /* 既存の装飾（ノイズになるもの）を非表示 */
+        /* ノイズ除去 */
         body.is-scanning #resume-download-btn .bg-neoRed,
         body.is-scanning #resume-download-btn .bg-black,
         body.is-scanning #resume-download-btn .absolute.inset-0 {
@@ -747,7 +764,7 @@
             transform: none !important;
         }
 
-        /* 文字スタイル：高精細なディスプレイ表示風 */
+        /* ★修正: テキストスタイルとレイアウト制御 */
         body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
             font-family: 'Syne', sans-serif !important;
             font-weight: 800 !important;
@@ -756,6 +773,7 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             position: relative;
             z-index: 10;
+            white-space: nowrap; /* ★修正: 折り返しを禁止して横に伸ばす */
         }
 
         /* システムテキストの追加装飾 */
@@ -770,13 +788,12 @@
             letter-spacing: 2px;
         }
         
-        /* システムテキスト（サイズ等の情報） */
         body.is-scanning #resume-download-btn .font-mono {
             color: rgba(255, 255, 255, 0.5) !important;
             z-index: 10;
         }
 
-        /* アイコンのスタイル変更 */
+        /* ★修正: アイコンの固定化と消失防止 */
         body.is-scanning #resume-download-btn .w-10,
         body.is-scanning #resume-download-btn .w-12 {
             background: transparent !important;
@@ -785,32 +802,15 @@
             box-shadow: 0 0 10px rgba(214, 252, 82, 0.3);
             animation: slow-pulse 3s infinite ease-in-out;
             z-index: 10;
-        }
-
-        /* ホバー時のインタラクション（PC） */
-        @media (hover: hover) {
-            body.is-scanning #resume-download-btn a:hover {
-                background: rgba(214, 252, 82, 0.05) !important;
-                border-color: #D6FC52 !important;
-                box-shadow: 0 0 40px rgba(214, 252, 82, 0.2) !important;
-            }
-            body.is-scanning #resume-download-btn a:hover::after {
-                background-size: 100% 100%; /* 枠が広がる */
-                border-color: rgba(214, 252, 82, 0.3);
-                background-image: none;
-                opacity: 1;
-            }
-            body.is-scanning #resume-download-btn a:hover span[data-key="resumeBtn"]::before {
-                content: '>> DOWNLOAD_SEQUENCE: READY';
-                color: #fff;
-            }
-        }
-
-        /* アニメーション定義 */
-        @keyframes elegant-scan-shine {
-            0% { left: -100%; opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { left: 200%; opacity: 0; }
+            
+            /* ここが重要: テキストに押されて潰れるのを防ぐ */
+            flex-shrink: 0 !important; 
+            width: 48px !important;  /* サイズ固定 */
+            height: 48px !important; /* サイズ固定 */
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto !important; /* 右端に寄せる */
         }
 
         @keyframes slow-pulse {
