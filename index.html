@@ -2664,10 +2664,8 @@
         langToggle.addEventListener('click', () => switchLanguage(true));
         if(mobileLangBtn) mobileLangBtn.addEventListener('click', () => switchLanguage(true));
 
-        /* =========================================================
+         /* =========================================================
            [SYSTEM CORE] ORIENTATION GUARD (Animation Rebooter)
-           画面ロックが表示されるたびにDOMのリフローを強制し、
-           停止したアニメーションサイクルを物理的に「再起動」する。
            ========================================================= */
         function initOrientationGuard() {
             const lockScreen = document.getElementById('orientation-lock');
@@ -2678,30 +2676,27 @@
 
             // アニメーションを強制リセットする関数
             const rebootAnimations = () => {
-                // 1. アニメーション定義を一時的に抹消
+                // 1. 定義を一時的に抹消
                 deviceFrame.style.animation = 'none';
                 arrow.style.animation = 'none';
-                deviceFrame.style.opacity = '0.99'; // 微細な変更で描画更新を促す
+                deviceFrame.style.opacity = '0.99'; 
                 
-                // 2. Reflow（再描画計算）をブラウザに強制させる魔法の1行
-                // これによりブラウザは「アニメーションが無い状態」を確定する
+                // 2. Reflow（再描画計算）を強制
                 void deviceFrame.offsetWidth; 
                 
-                // 3. アニメーション定義を再注入（再起動）
+                // 3. 定義を再注入（再起動）
                 deviceFrame.style.animation = ''; 
                 arrow.style.animation = '';
                 deviceFrame.style.opacity = '';
 
-                // システムログ出力（動作確認用）
                 console.log(">> SYSTEM_EVENT: ANIMATION_REBOOT_SEQUENCE_EXECUTED");
             };
 
-            // 監視用オブザーバー: displayプロパティの変化をミリ秒単位で監視
+            // 監視用オブザーバー
             const observer = new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
                         const style = window.getComputedStyle(lockScreen);
-                        // ロック画面が出現した瞬間を検知
                         if (style.display !== 'none') {
                             rebootAnimations();
                         }
@@ -2709,35 +2704,29 @@
                 });
             });
             
-            // ロック画面自体の属性変化を監視開始
             observer.observe(lockScreen, { attributes: true, attributeFilter: ['style'] });
 
-            // メディアクエリ（画面回転）イベントの監視
-            // CSS側で display:flex に切り替わるタイミングをJS側でもフックする
+            // 画面回転イベントの監視
             const mediaQuery = window.matchMedia("(min-width: 768px) and (max-width: 1024px) and (orientation: portrait)");
             
             const handleOrientationChange = (e) => {
                 if (e.matches) {
-                    // ポートレートモード（警告表示条件）に入った瞬間、即座にリブート
-                    // わずかな遅延を入れることで、CSSの切り替わり完了を待つ
+                    // ポートレートモードに入った瞬間、再起動
                     setTimeout(rebootAnimations, 50);
-                    // スクロールロックも念の為ここで再適用
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
                 }
             };
 
-            // イベントリスナー登録（モダンブラウザと互換性の両立）
             try {
                 mediaQuery.addEventListener('change', handleOrientationChange);
             } catch (e1) {
                 try {
-                    mediaQuery.addListener(handleOrientationChange); // 古いiOS用
+                    mediaQuery.addListener(handleOrientationChange); 
                 } catch (e2) {}
             }
             
-            // 初期ロード時のチェック（既に縦持ちでリロードされた場合）
             if (mediaQuery.matches) {
                 setTimeout(rebootAnimations, 100);
             }
