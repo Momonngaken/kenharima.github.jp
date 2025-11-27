@@ -184,10 +184,64 @@
             z-index: 20000; 
             mix-blend-mode: difference;
         }
-        /* Modified for Hybrid Devices (Touch-enabled PC) */
-        @media (max-width: 1024px) {
+        /* ▼▼▼ 【変更・追加】: タッチデバイス判定を強化し、PCカーソルを確実に消去 ▼▼▼ */
+        /* width判定に加え、ポインター種別（指）でも判定 */
+        @media (max-width: 1024px), (hover: none), (pointer: coarse) {
             .cursor-wrapper { display: none !important; }
             body, * { cursor: auto !important; } 
+        }
+
+        /* ▼▼▼ 【新規追加】: タブレット/モバイル用 タクティカル・タップエフェクト ▼▼▼ */
+        .cyber-tap-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* タップ時の円形レーダー波 */
+        .tap-ring {
+            position: absolute;
+            border: 1px solid #D6FC52;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(214, 252, 82, 0.5);
+            opacity: 0;
+        }
+
+        /* タップ時の十字照準 */
+        .tap-crosshair {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+        }
+        .tap-crosshair::before, .tap-crosshair::after {
+            content: '';
+            position: absolute;
+            background: #D6FC52;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .tap-crosshair::before { width: 100%; height: 1px; } /* 横線 */
+        .tap-crosshair::after { width: 1px; height: 100%; } /* 縦線 */
+
+        /* タップ時の座標テキスト */
+        .tap-coords {
+            position: absolute;
+            top: -20px;
+            left: 15px;
+            font-family: 'monospace';
+            font-size: 10px;
+            color: #D6FC52;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2px 4px;
+            border: 1px solid #D6FC52;
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 0.1em;
         }
 
         .cursor-dot {
@@ -2001,10 +2055,10 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-            // --- FIX: HYBRID DEVICE PROTOCOL ---
-            // Touch points check removed to allow Cursor on Windows Laptops/Surfaces
-            const isMobile = window.innerWidth < 1024; 
-            if (isMobile) return;
+            // ▼▼▼ 【変更】: 判定ロジックを強化 ▼▼▼
+            // 画面幅が狭い、または「ホバーができない（＝タッチデバイス）」場合はPCカーソルを無効化
+            const isTouchDevice = window.innerWidth < 1024 || window.matchMedia("(hover: none)").matches; 
+            if (isTouchDevice) return;
 
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
