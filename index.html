@@ -609,10 +609,26 @@
             --scan-highlight-color: #D6FC52;
         }
 
-        body.is-scanning * {
-            transition: color 0.4s ease, background-color 0.4s ease, opacity 0.4s ease, border-color 0.4s ease;
+         body.is-scanning {
+            background-color: #050505 !important;
+            /* ↓↓↓ 修正：屋外でも見えるよう、暗くする色を少し明るく変更 ↓↓↓ */
+            --scan-dim-color: #666666;
+            --scan-highlight-color: #D6FC52;
         }
 
+        /* ▼▼▼ [FIX] スマホ連打時の背景色バグ修正 ▼▼▼ */
+        /* 色の変化に関わる要素に対し、常時トランジションを適用することで、
+           モードOFF時も滑らかに戻るようにし、描画スタック（色が固まる現象）を防ぎます。
+           GSAPのアニメーション（transform等）を邪魔しないよう、プロパティを限定しています。 */
+        .bg-white, .bg-neoYellow, .bg-neoBlue, .bg-neoRed, .bg-neoPurple, 
+        .bg-black, .bg-gray-200, .bg-\[\#E0E0E0\],
+        h1, h2, h3, h4, h5, h6, p, span, a, li, div, button, article, section {
+            transition-property: background-color, color, border-color, fill, stroke, opacity, filter;
+            transition-duration: 0.4s;
+            transition-timing-function: ease;
+        }
+        /* ▲▲▲ 修正ここまで ▲▲▲ */
+        
         body.is-scanning h1:not(.scan-highlight), 
         body.is-scanning h2:not(.scan-highlight), 
         body.is-scanning h3:not(.scan-highlight), 
