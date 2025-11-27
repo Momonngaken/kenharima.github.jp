@@ -657,8 +657,8 @@
 
 
         
-      /* =================================================================
-           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY (FIXED V.3)
+       /* =================================================================
+           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY (FIXED V.4)
            ================================================================= */
         
         /* 基本的なスキャンモード時の強制表示設定 */
@@ -672,7 +672,7 @@
             box-shadow: none !important;
         }
 
-        /* コンテナ：背景を暗転させ、ボタンを浮かび上がらせる */
+        /* コンテナ設定 */
         body.is-scanning #resume-download-btn {
             position: relative;
             z-index: 50;
@@ -680,13 +680,13 @@
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             
             width: fit-content !important; 
-            min-width: 320px; /* 日本語時の見栄えを担保 */
-            max-width: 90vw;  /* 画面からはみ出し防止 */
+            min-width: 320px;
+            max-width: 90vw;
             margin-right: auto; 
         }
         
-        /* モバイル調整: スマホでは画面幅いっぱいにしないとデザインが崩れるため調整 */
-        @media (max-width: 1024px) {
+        /* モバイル・タブレット調整 */
+        @media (max-width: 1366px) {
             body.is-scanning #resume-download-btn {
                 width: 100% !important;
                 max-width: 100% !important;
@@ -704,11 +704,10 @@
             overflow: hidden !important;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(214, 252, 82, 0.15) !important;
             
-            /* Flexbox設定の強化 */
             display: flex !important;
             align-items: center;
             justify-content: space-between; 
-            gap: 1.5rem; /* アイコンとの距離を確保 */
+            gap: 1rem; /* テキストとアイコンの距離 */
         }
 
         /* 光の走査線（シマーエフェクト） */
@@ -775,31 +774,32 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             position: relative;
             z-index: 10;
-            white-space: nowrap !important; /* PCでは1行を維持 */
+            white-space: nowrap !important;
         }
 
-        /* ▼▼▼ MOBILE/TABLET SPECIFIC FIX FOR ENGLISH ▼▼▼ */
-        /* 幅1024px以下（スマホ・タブレット）の場合のみ適用 */
-        @media (max-width: 1024px) {
+        /* ▼▼▼ CRITICAL FIX FOR iPad Pro & TABLETS ▼▼▼ */
+        /* 
+           条件1: 幅1366px以下 (iPad Pro 12.9横画面を含む多くのラップトップ・タブレット)
+           条件2: またはポインティングデバイスが「指」(pointer: coarse) である場合 
+           このいずれかに該当すれば強制的に「折り返しモード」を発動させる
+        */
+        @media (max-width: 1366px), (pointer: coarse) {
             body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
-                /* 強制的に折り返しを許可 */
+                /* 折り返しを許可 */
                 white-space: normal !important;
                 
-                /* ★核心技術: 'min-content' は「最も長い単語の幅」に合わせる設定。
-                   'CURRICULUM VITAE' (スペースあり) -> 'CURRICULUM' の幅になり、改行される。
-                   '履歴書をDLする' (スペースなし) -> 全体の幅になり、改行されない。
-                */
+                /* ★核心技術: 単語の切れ目で強制改行させる */
                 width: min-content !important; 
                 display: block !important;
                 
-                /* タイポグラフィ調整: データブロックのような塊感を演出 */
+                /* スタイリッシュなデータブロック表現 */
                 line-height: 0.9 !important; 
                 text-align: left !important;
-                font-size: 1.4rem !important; /* 2行になっても収まるよう微調整 */
+                font-size: 1.3rem !important;
             }
         }
 
-        /* システムテキストの追加装飾 */
+        /* システムテキスト装飾 */
         body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
             content: '>> PERMISSION: GRANTED';
             display: block;
@@ -809,7 +809,7 @@
             margin-bottom: 4px;
             opacity: 0.8;
             letter-spacing: 2px;
-            white-space: nowrap; /* 常に1行 */
+            white-space: nowrap; 
             width: max-content;
         }
         
@@ -818,7 +818,7 @@
             z-index: 10;
         }
 
-        /* ★FIX: アイコンの固定化と消失防止 */
+        /* ★FIX: アイコンの絶対防衛領域 */
         body.is-scanning #resume-download-btn .w-10,
         body.is-scanning #resume-download-btn .w-12 {
             background: transparent !important;
@@ -828,7 +828,6 @@
             animation: slow-pulse 3s infinite ease-in-out;
             z-index: 10;
             
-            /* アイコンの絶対防衛領域 */
             flex-shrink: 0 !important; 
             flex-grow: 0 !important;
             width: 48px !important;
@@ -847,7 +846,7 @@
                 box-shadow: 0 0 40px rgba(214, 252, 82, 0.2) !important;
             }
             body.is-scanning #resume-download-btn a:hover::after {
-                background-size: 100% 100%; /* 枠が広がる */
+                background-size: 100% 100%;
                 border-color: rgba(214, 252, 82, 0.3);
                 background-image: none;
                 opacity: 1;
@@ -874,6 +873,7 @@
         body.is-scanning #resume-download-btn .animate-marquee-slow {
             display: none !important;
         }
+
 
         
         /* ================================================================= */
