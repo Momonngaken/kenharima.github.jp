@@ -184,9 +184,19 @@
             z-index: 20000; 
             mix-blend-mode: difference;
         }
-        /* Modified for Hybrid Devices (Touch-enabled PC) */
-        @media (max-width: 1024px) {
-            .cursor-wrapper { display: none !important; }
+        
+        /* ▼▼▼ [REPLACE START] 修正・置換箇所 ▼▼▼ */
+        /* SYSTEM UPDATE: Device Input Detection Logic
+           画面幅だけでなく、ポインティングデバイスの精度(coarse=指)を検知して
+           カーソルモジュールを強制排除する。これによりiPad Pro横画面等での誤作動を防ぐ。
+        */
+        @media (max-width: 1024px), (pointer: coarse), (hover: none) {
+            .cursor-wrapper { 
+                display: none !important; 
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+            /* タッチデバイスでは標準カーソルに戻し、操作性を確保 */
             body, * { cursor: auto !important; } 
         }
 
@@ -2001,10 +2011,14 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-            // --- FIX: HYBRID DEVICE PROTOCOL ---
-            // Touch points check removed to allow Cursor on Windows Laptops/Surfaces
-            const isMobile = window.innerWidth < 1024; 
-            if (isMobile) return;
+            // --- SYSTEM PROTOCOL: INPUT CHECK ---
+            // 幅判定(1024px未満)に加え、タッチデバイス(pointer: coarse)を厳密に検出
+            // これにより、高解像度タブレット(iPad Pro Landscape等)でのカーソル出現を阻止する
+            const isTouchInterface = window.matchMedia("(pointer: coarse)").matches;
+            const isMobileWidth = window.innerWidth < 1024;
+            
+            // タッチデバイス、またはモバイル幅の場合はカーソルシステムを起動しない
+            if (isTouchInterface || isMobileWidth) return;
 
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
