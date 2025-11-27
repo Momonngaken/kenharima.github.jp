@@ -2108,6 +2108,77 @@
             });
         }
 
+        // ▼▼▼ 【新規追加】: TACTICAL TOUCH FEEDBACK (TABLET/MOBILE) ▼▼▼
+        function initTacticalTouch() {
+            // PC（マウス操作端末）では実行しない
+            if (window.matchMedia("(hover: hover)").matches) return;
+
+            window.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                const x = touch.clientX;
+                const y = touch.clientY;
+                
+                createTouchRipple(x, y);
+            }, { passive: true });
+
+            function createTouchRipple(x, y) {
+                // コンテナ生成
+                const el = document.createElement('div');
+                el.classList.add('cyber-tap-effect');
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+
+                // 内部パーツ生成 (リング、十字、座標テキスト)
+                const ring = document.createElement('div');
+                ring.classList.add('tap-ring');
+                
+                const crosshair = document.createElement('div');
+                crosshair.classList.add('tap-crosshair');
+
+                const coords = document.createElement('div');
+                coords.classList.add('tap-coords');
+                // ランダムなハッシュ値っぽさを演出して座標を表示
+                coords.innerHTML = `X:${Math.floor(x)}<br>Y:${Math.floor(y)}`;
+
+                el.appendChild(ring);
+                el.appendChild(crosshair);
+                el.appendChild(coords);
+                document.body.appendChild(el);
+
+                // GSAPアニメーション (世界観に合わせたソリッドな動き)
+                const tl = gsap.timeline({
+                    onComplete: () => el.remove()
+                });
+
+                // リング: 瞬時に拡大して消えるレーダー波
+                tl.fromTo(ring, 
+                    { width: 0, height: 0, opacity: 1, borderWidth: 3 },
+                    { width: 80, height: 80, opacity: 0, borderWidth: 0, duration: 0.5, ease: "power2.out" },
+                    0
+                );
+
+                // 十字: 回転しながら出現し、カットアウト
+                tl.fromTo(crosshair,
+                    { scale: 0, rotation: -45, opacity: 0 },
+                    { scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "back.out(2)" },
+                    0
+                ).to(crosshair, 
+                    { scale: 0, opacity: 0, duration: 0.2 }, 
+                    0.3
+                );
+
+                // 座標: グリッチ風に出現して残留
+                tl.fromTo(coords,
+                    { opacity: 0, x: 10 },
+                    { opacity: 1, x: 0, duration: 0.1, ease: "steps(3)" },
+                    0
+                ).to(coords, 
+                    { opacity: 0, duration: 0.2 }, 
+                    0.6
+                );
+            }
+        }
+
         // --- 1.5 GYROSCOPE PARALLAX (MOBILE TILT) ---
         function initMobileGyro() {
             if (window.innerWidth >= 1024) return;
@@ -2208,7 +2279,9 @@
         }
         function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
         function initSite() {
-            startLenis(); initLiquidCursor();
+            startLenis(); 
+            initLiquidCursor();
+            initTacticalTouch(); 
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
