@@ -1081,6 +1081,44 @@
             to { opacity: 0.4; transform: scale(1.5); }
         }
 
+        /* ▼▼▼ [ADD] ORIENTATION LOCK - SYSTEM OVERRIDE ▼▼▼
+           スキャンモード(is-scanning)時でも、この警告レイヤーだけは
+           物理的制約(デバイスの向き)のエラーであるため、
+           視覚効果を無視して「最前面・通常色」で表示を強制する。
+        */
+        body.is-scanning #orientation-lock {
+            background-color: #050505 !important; /* 背景の黒を維持 */
+            z-index: 2147483647 !important; /* 32bit整数の最大値で最前面保証 */
+            opacity: 1 !important;
+            filter: none !important; /* グレースケール化を無効化 */
+            pointer-events: auto !important;
+        }
+
+        /* 内部要素も全てスキャンモードの影響から保護 */
+        body.is-scanning #orientation-lock * {
+            color: inherit !important;
+            filter: none !important;
+            text-shadow: inherit !important;
+            transition: none !important;
+            opacity: 1 !important; /* ここで親要素の不透明度継承を強制 */
+        }
+
+        /* スキャンモード時の特定色の上書きをこのID配下だけ解除 */
+        body.is-scanning #orientation-lock .device-frame {
+            border-color: #D6FC52 !important;
+            box-shadow: 0 0 15px rgba(214, 252, 82, 0.2) !important;
+        }
+        
+        body.is-scanning #orientation-lock .lock-msg-jp {
+             color: #D6FC52 !important;
+        }
+        
+        body.is-scanning #orientation-lock .rotate-arrow {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            border-top-color: transparent !important;
+            border-left-color: transparent !important;
+        }
+        
         /* =========================================
            TABLET ORIENTATION LOCK (SYSTEM ALERT)
            ========================================= */
@@ -1133,13 +1171,18 @@
         .device-frame {
             width: 60px;
             height: 90px;
-            border: 3px solid #D6FC52; /* NeoYellow */
+            border: 3px solid #D6FC52;
             border-radius: 6px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 15px rgba(214, 252, 82, 0.2);
+            
+            /* 【追加】ブラウザにアニメーションの意図を伝え、カクつきを防ぐ */
+            will-change: transform, width, height; 
+            
+            /* アニメーション定義（JSが無効な場合のフォールバックとして残します） */
             animation: rotate-anim 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
         }
 
@@ -1168,6 +1211,10 @@
             transform: translate(-50%, -50%);
             border-top-color: transparent;
             border-left-color: transparent;
+            
+            /* 【追加】ここにもwill-changeを追加 */
+            will-change: transform, opacity; 
+            
             animation: arrow-spin 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
         }
 
