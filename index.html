@@ -23,25 +23,27 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Google Fonts -->
+   <!-- 接続の事前確立 (DNS Prefetch & Preconnect) -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Tailwind CSS (描画に関わるためdeferは付けない) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-
-    <!-- Lenis (Inertia Scroll) -->
-    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
-
-    <!-- Vanilla Tilt -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <!-- Libraries (deferを追加して並列読み込み・実行遅延させる) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
 
     <script>
         tailwind.config = {
@@ -1873,7 +1875,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
                         <div class="relative w-[80vw] lg:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG_6457.jpg" alt="Evidence 01" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Tokyo, Japan</p>
                             </div>
@@ -1886,7 +1889,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[90vw] lg:w-[35vw] aspect-[4/3] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_6495.jpg" alt="Evidence 02" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG_6495.jpg" alt="Evidence 02" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2022@Tokyo, Japan</p>
                             </div>
@@ -1899,7 +1903,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[70vw] lg:w-[22vw] aspect-[3/5] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_9749.jpg" alt="Evidence 03" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG_9749.jpg" alt="Evidence 03" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoBlue font-mono text-xs">2025@Tokyo, Japan</p>
                             </div>
@@ -1912,7 +1917,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[90vw] lg:w-[38vw] aspect-[16/9] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_5333.jpg" alt="Evidence 04" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG_5333.jpg" alt="Evidence 04" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-white font-mono text-xs">2024@Sofia, Bulgaria </p>
                             </div>
@@ -1925,7 +1931,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[80vw] lg:w-[28vw] aspect-square bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_1234.jpg" alt="Evidence 05" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG_1234.jpg" alt="Evidence 05" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoPurple font-mono text-xs">2023@Mannheim, Germany</p>
                             </div>
@@ -1938,7 +1945,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[80vw] lg:w-[25vw] aspect-[2/3] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG9876.jpg" alt="Evidence 06" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG9876.jpg" alt="Evidence 06" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Mannheim, Germany</p>
                             </div>
@@ -1951,7 +1959,8 @@
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
 
                         <div class="relative w-[90vw] lg:w-[35vw] aspect-[3/2] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_2045.jpg" alt="Evidence 07" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <!-- ▼▼▼ 修正箇所: loading="lazy" decoding="async" を追加 ▼▼▼ -->
+                            <img src="./IMG_2045.jpg" alt="Evidence 07" loading="lazy" decoding="async" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoRed font-mono text-xs">2023@Yamanashi, Japan</p>
                             </div>
@@ -2163,17 +2172,18 @@
             let tiltVelocity = 0;
             
             window.addEventListener('scroll', () => {
-                const currentScroll = window.scrollY;
-                const delta = currentScroll - lastScroll;
-                tiltVelocity = Math.max(Math.min(delta * 0.1, 10), -10); // Cap velocity
-                lastScroll = currentScroll;
-                
-                gsap.to(cards, {
-                    rotationX: tiltVelocity,
-                    duration: 0.5,
-                    ease: "power2.out"
-                });
-            });
+    const currentScroll = window.scrollY;
+    const delta = currentScroll - lastScroll;
+    tiltVelocity = Math.max(Math.min(delta * 0.1, 10), -10); 
+    lastScroll = currentScroll;
+    
+    gsap.to(cards, {
+        rotationX: tiltVelocity,
+        duration: 0.5,
+        ease: "power2.out",
+        overwrite: "auto" // 追加: GSAPの競合を防ぎ処理を軽くする
+    });
+}, { passive: true });
 
             // If device orientation is available (and permission granted)
             if (window.DeviceOrientationEvent) {
@@ -2224,17 +2234,55 @@
             .to('#win-text-container', { autoAlpha: 0, duration: 1, delay: 2.5 })
             .to('#poker-game', { backgroundColor: '#0044AA', duration: 1 }, "<");
         }
+
+        
         function createChipConfetti() {
-            const container = document.getElementById('confetti-container');
-            const colors = ['#D6FC52', '#FF4D4D', '#5D5FEF', '#FFFFFF', '#FFD700'];
-            for(let i = 0; i < 150; i++) {
-                const chip = document.createElement('div'); const size = Math.random() * 20 + 10; const isChip = Math.random() > 0.5;
-                chip.style.position = 'absolute'; chip.style.width = size + 'px'; chip.style.height = size + 'px'; chip.style.left = Math.random() * 100 + '%'; chip.style.top = '-50px'; chip.style.zIndex = 100;
-                if(isChip) { chip.style.borderRadius = '50%'; chip.style.border = '2px dashed white'; chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; } else { chip.style.width = size/2 + 'px'; chip.style.height = size + 'px'; chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; }
-                container.appendChild(chip);
-                gsap.to(chip, { y: window.innerHeight + 100, x: (Math.random() - 0.5) * 500, rotationX: Math.random() * 720, rotationY: Math.random() * 720, duration: Math.random() * 3 + 2, ease: "power1.in", delay: Math.random() * 0.5, onComplete: () => chip.remove() });
+        const container = document.getElementById('confetti-container');
+        const colors = ['#D6FC52', '#FF4D4D', '#5D5FEF', '#FFFFFF', '#FFD700'];
+        
+        // 【軽量化】スマホなら数を減らす (150個→80個)
+        const particleCount = window.innerWidth < 768 ? 80 : 150;
+
+        for(let i = 0; i < particleCount; i++) {
+            const chip = document.createElement('div'); 
+            const size = Math.random() * 20 + 10; 
+            const isChip = Math.random() > 0.5;
+            
+            chip.style.position = 'absolute'; 
+            chip.style.width = size + 'px'; 
+            chip.style.height = size + 'px'; 
+            chip.style.left = Math.random() * 100 + '%'; 
+            chip.style.top = '-50px'; 
+            chip.style.zIndex = 100;
+            
+            // 【軽量化】ブラウザにアニメーションの予定を伝えて負荷を下げる
+            chip.style.willChange = "transform";
+
+            if(isChip) { 
+                chip.style.borderRadius = '50%'; 
+                chip.style.border = '2px dashed white'; 
+                chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; 
+            } else { 
+                chip.style.width = size/2 + 'px'; 
+                chip.style.height = size + 'px'; 
+                chip.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; 
             }
+            
+            container.appendChild(chip);
+            
+            gsap.to(chip, { 
+                y: window.innerHeight + 100, 
+                x: (Math.random() - 0.5) * 500, 
+                rotationX: Math.random() * 720, 
+                rotationY: Math.random() * 720, 
+                duration: Math.random() * 3 + 2, 
+                ease: "power1.in", 
+                delay: Math.random() * 0.5, 
+                onComplete: () => chip.remove() 
+            });
         }
+    }
+        
 
         // --- GLOBAL VARS & INIT ---
         const loader = document.getElementById('loader'); const loaderCounter = document.getElementById('loader-counter'); const loaderBar = document.getElementById('loader-bar');
