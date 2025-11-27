@@ -658,7 +658,7 @@
 
         
        /* =================================================================
-           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY (FIXED V.4)
+           [ELEGANT UPDATE] RESUME BUTTON - THE PLATINUM ACCESS KEY (FIXED V.5)
            ================================================================= */
         
         /* 基本的なスキャンモード時の強制表示設定 */
@@ -672,7 +672,7 @@
             box-shadow: none !important;
         }
 
-        /* コンテナ設定 */
+        /* コンテナ設定：流動的な幅を持つサイバー枠 */
         body.is-scanning #resume-download-btn {
             position: relative;
             z-index: 50;
@@ -680,17 +680,18 @@
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             
             width: fit-content !important; 
-            min-width: 320px;
+            min-width: 380px; /* PCでの美観確保 */
             max-width: 90vw;
             margin-right: auto; 
         }
         
-        /* モバイル・タブレット調整 */
+        /* ▼ タブレット・モバイル共通レイアウト調整 ▼ */
         @media (max-width: 1366px) {
             body.is-scanning #resume-download-btn {
                 width: 100% !important;
                 max-width: 100% !important;
                 min-width: 0 !important;
+                transform: none !important; /* モバイルでは拡大しない */
             }
         }
 
@@ -698,16 +699,29 @@
         body.is-scanning #resume-download-btn a {
             position: relative;
             background: #080808 !important;
-            border: 1px solid rgba(214, 252, 82, 0.5) !important;
+            border: 1px solid rgba(214, 252, 82, 0.6) !important; /* 境界線をより鮮明に */
             border-radius: 4px;
-            padding: 1.5rem 2rem !important;
             overflow: hidden !important;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(214, 252, 82, 0.15) !important;
             
+            /* シャドウ: 深みのある発光 */
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 10px rgba(214, 252, 82, 0.1) !important;
+            
+            /* ★核心: Flexboxによるスペーシング制御 */
             display: flex !important;
-            align-items: center;
-            justify-content: space-between; 
-            gap: 1rem; /* テキストとアイコンの距離 */
+            align-items: center; /* 垂直方向中央揃え */
+            justify-content: space-between; /* 両端配置 */
+            
+            /* デフォルト（PC）の余白設計 */
+            padding: 1.5rem 3rem !important; 
+            gap: 4rem; /* テキストとアイコンの間に広大な空間を作る */
+        }
+
+        /* ▼ スマホ専用 (767px以下) の余白調整 ▼ */
+        @media (max-width: 767px) {
+            body.is-scanning #resume-download-btn a {
+                padding: 1.5rem 1.5rem !important; /* 端の余白を少し詰める */
+                gap: 1.5rem !important; /* アイコンとの距離を適切に保つ */
+            }
         }
 
         /* 光の走査線（シマーエフェクト） */
@@ -748,14 +762,13 @@
                 linear-gradient(to right, #D6FC52 2px, transparent 2px) 0 100%,
                 linear-gradient(to top, #D6FC52 2px, transparent 2px) 0 100%;
             background-repeat: no-repeat;
-            background-size: 10px 10px;
-            opacity: 0.6;
+            background-size: 12px 12px; /* マーカーを少し大きく */
+            opacity: 0.8;
             transition: all 0.3s ease;
-            box-shadow: inset 0 0 20px rgba(214, 252, 82, 0.05);
             z-index: 2;
         }
 
-        /* ノイズ除去 */
+        /* 既存ノイズ除去 */
         body.is-scanning #resume-download-btn .bg-neoRed,
         body.is-scanning #resume-download-btn .bg-black,
         body.is-scanning #resume-download-btn .absolute.inset-0 {
@@ -768,74 +781,97 @@
         /* ★FIX: テキストスタイル（PCデフォルト） */
         body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
             font-family: 'Syne', sans-serif !important;
-            font-weight: 800 !important;
+            font-weight: 900 !important;
             color: #fff !important;
-            letter-spacing: 0.05em;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.02em; /* 字間を少し詰めて塊感を出す */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
             position: relative;
             z-index: 10;
             white-space: nowrap !important;
+            
+            /* テキスト右側に不可視の壁を作り、アイコンとの接触を物理的に防ぐ */
+            margin-right: auto; 
         }
 
-        /* ▼▼▼ CRITICAL FIX FOR iPad Pro & TABLETS ▼▼▼ */
-        /* 
-           条件1: 幅1366px以下 (iPad Pro 12.9横画面を含む多くのラップトップ・タブレット)
-           条件2: またはポインティングデバイスが「指」(pointer: coarse) である場合 
-           このいずれかに該当すれば強制的に「折り返しモード」を発動させる
-        */
+        /* ▼▼▼ CRITICAL FIX: iPad Pro & Tablet Typography ▼▼▼ */
         @media (max-width: 1366px), (pointer: coarse) {
             body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
-                /* 折り返しを許可 */
+                /* 折り返し許可 */
                 white-space: normal !important;
                 
-                /* ★核心技術: 単語の切れ目で強制改行させる */
+                /* 強制的に最小幅（＝最も長い単語の幅）に合わせることで改行を誘発 */
                 width: min-content !important; 
                 display: block !important;
                 
-                /* スタイリッシュなデータブロック表現 */
-                line-height: 0.9 !important; 
+                /* スタイリッシュなブロック表示 */
+                line-height: 0.85 !important; /* 行間を詰め、塊感を強調 */
                 text-align: left !important;
-                font-size: 1.3rem !important;
+                font-size: 1.5rem !important; /* 少し大きくして迫力を出す */
             }
         }
+        
+        /* スマホでの微調整 */
+        @media (max-width: 767px) {
+             body.is-scanning #resume-download-btn span[data-key="resumeBtn"] {
+                 font-size: 1.25rem !important; /* 画面幅に合わせて少し縮小 */
+             }
+        }
 
-        /* システムテキスト装飾 */
+        /* システムテキスト装飾（>> PERMISSION...） */
         body.is-scanning #resume-download-btn span[data-key="resumeBtn"]::before {
             content: '>> PERMISSION: GRANTED';
             display: block;
             font-family: 'monospace';
-            font-size: 0.7rem;
+            font-weight: 400;
+            font-size: 0.65rem;
             color: #D6FC52;
-            margin-bottom: 4px;
-            opacity: 0.8;
-            letter-spacing: 2px;
+            margin-bottom: 6px;
+            opacity: 0.9;
+            letter-spacing: 1px;
             white-space: nowrap; 
-            width: max-content;
+            text-shadow: 0 0 5px rgba(214, 252, 82, 0.5);
         }
         
+        /* サイズ表記などのサブテキスト */
         body.is-scanning #resume-download-btn .font-mono {
-            color: rgba(255, 255, 255, 0.5) !important;
+            color: rgba(255, 255, 255, 0.4) !important;
             z-index: 10;
+            font-size: 0.6rem !important;
+            margin-top: 4px;
+            display: block;
         }
 
         /* ★FIX: アイコンの絶対防衛領域 */
         body.is-scanning #resume-download-btn .w-10,
         body.is-scanning #resume-download-btn .w-12 {
             background: transparent !important;
-            border: 1px solid #D6FC52 !important;
+            border: 2px solid #D6FC52 !important; /* 枠線を少し太く */
             color: #D6FC52 !important;
-            box-shadow: 0 0 10px rgba(214, 252, 82, 0.3);
+            box-shadow: 0 0 15px rgba(214, 252, 82, 0.2), inset 0 0 10px rgba(214, 252, 82, 0.1);
             animation: slow-pulse 3s infinite ease-in-out;
             z-index: 10;
             
+            /* 縮小・拡大を禁止し、右端に固定 */
             flex-shrink: 0 !important; 
             flex-grow: 0 !important;
-            width: 48px !important;
-            height: 48px !important;
+            width: 56px !important; /* タブレット用に少し大きく */
+            height: 56px !important;
+            border-radius: 50%;
+            
             display: flex !important;
             align-items: center;
             justify-content: center;
             margin-left: auto !important; 
+        }
+        
+        /* スマホではアイコンを少し小さくしてバランスを取る */
+        @media (max-width: 767px) {
+            body.is-scanning #resume-download-btn .w-10,
+            body.is-scanning #resume-download-btn .w-12 {
+                width: 48px !important;
+                height: 48px !important;
+                border-width: 1px !important;
+            }
         }
 
         /* ホバー時のインタラクション（PC） */
@@ -843,11 +879,11 @@
             body.is-scanning #resume-download-btn a:hover {
                 background: rgba(214, 252, 82, 0.05) !important;
                 border-color: #D6FC52 !important;
-                box-shadow: 0 0 40px rgba(214, 252, 82, 0.2) !important;
+                box-shadow: 0 0 50px rgba(214, 252, 82, 0.15) !important;
             }
             body.is-scanning #resume-download-btn a:hover::after {
-                background-size: 100% 100%;
-                border-color: rgba(214, 252, 82, 0.3);
+                background-size: 100% 100%; /* 枠が全域に広がる */
+                border-color: rgba(214, 252, 82, 0.4);
                 background-image: none;
                 opacity: 1;
             }
@@ -866,7 +902,7 @@
 
         @keyframes slow-pulse {
             0%, 100% { box-shadow: 0 0 10px rgba(214, 252, 82, 0.3); opacity: 0.8; }
-            50% { box-shadow: 0 0 20px rgba(214, 252, 82, 0.6); opacity: 1; }
+            50% { box-shadow: 0 0 25px rgba(214, 252, 82, 0.5); opacity: 1; }
         }
 
         /* 元の「DOWNLOAD」マーキーをスキャンモード時は完全に消す */
