@@ -184,127 +184,10 @@
             z-index: 20000; 
             mix-blend-mode: difference;
         }
-        /* ▼▼▼ 【変更・追加】: タッチデバイス判定を強化し、PCカーソルを確実に消去 ▼▼▼ */
-        /* width判定に加え、ポインター種別（指）でも判定 */
-        @media (max-width: 1024px), (hover: none), (pointer: coarse) {
+        /* Modified for Hybrid Devices (Touch-enabled PC) */
+        @media (max-width: 1024px) {
             .cursor-wrapper { display: none !important; }
             body, * { cursor: auto !important; } 
-        }
-
-        /* ▼▼▼ 【修正版】: TACTICAL TOUCH FEEDBACK STYLES ▼▼▼ */
-        .cyber-tap-effect {
-            position: fixed;
-            pointer-events: none;
-            z-index: 99999;
-            top: 0; left: 0;
-            width: 0; height: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            filter: drop-shadow(0 0 5px rgba(214, 252, 82, 0.8)); /* 全体発光 */
-        }
-
-        .tap-ring {
-            position: absolute;
-            border: 2px solid #D6FC52; /* 線を太く */
-            border-radius: 50%;
-            box-shadow: inset 0 0 10px rgba(214, 252, 82, 0.5); /* 内側発光 */
-            opacity: 0;
-        }
-        
-        /* ターゲットロック風の四隅の枠を追加 */
-        .tap-brackets {
-            position: absolute;
-            width: 40px; height: 40px;
-            border: 1px solid rgba(214, 252, 82, 0.5);
-            opacity: 0;
-            transform: scale(1.5);
-        }
-
-        .tap-crosshair {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            opacity: 0;
-        }
-        .tap-crosshair::before, .tap-crosshair::after {
-            content: '';
-            position: absolute;
-            background: #D6FC52;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 5px #D6FC52;
-        }
-        .tap-crosshair::before { width: 100%; height: 2px; }
-        .tap-crosshair::after { width: 2px; height: 100%; }
-
-        /* 指に隠れない位置へオフセット & 装飾強化 */
-        .tap-coords {
-            position: absolute;
-            /* 指の右上へ大きく逃がす */
-            top: -50px; 
-            left: 30px; 
-            font-family: 'Syne', monospace;
-            font-weight: 800;
-            font-size: 10px;
-            line-height: 1.1;
-            color: #000;
-            background: #D6FC52; /* 反転色で視認性UP */
-            padding: 4px 8px;
-            white-space: nowrap;
-            pointer-events: none;
-            clip-path: polygon(0 0, 100% 0, 100% 80%, 85% 100%, 0 100%); /* 角欠けデザイン */
-            box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
-            opacity: 0;
-        }
-        .tap-coords::before {
-            content: 'TARGET: LOCKED';
-            display: block;
-            font-size: 7px;
-            opacity: 0.7;
-            margin-bottom: 2px;
-            letter-spacing: 0.1em;
-        }
-
-        /* タップ時の円形レーダー波 */
-        .tap-ring {
-            position: absolute;
-            border: 1px solid #D6FC52;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(214, 252, 82, 0.5);
-            opacity: 0;
-        }
-
-        /* タップ時の十字照準 */
-        .tap-crosshair {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-        }
-        .tap-crosshair::before, .tap-crosshair::after {
-            content: '';
-            position: absolute;
-            background: #D6FC52;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .tap-crosshair::before { width: 100%; height: 1px; } /* 横線 */
-        .tap-crosshair::after { width: 1px; height: 100%; } /* 縦線 */
-
-        /* タップ時の座標テキスト */
-        .tap-coords {
-            position: absolute;
-            top: -20px;
-            left: 15px;
-            font-family: 'monospace';
-            font-size: 10px;
-            color: #D6FC52;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 2px 4px;
-            border: 1px solid #D6FC52;
-            white-space: nowrap;
-            pointer-events: none;
-            letter-spacing: 0.1em;
         }
 
         .cursor-dot {
@@ -2118,15 +2001,10 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-             // ▼▼▼ 【修正版】: 1366px (iPad Pro Landscape) までをタッチデバイスとみなす ▼▼▼
-            // Hybrid Device対応: 'hover: none' が真なら確実にタッチ端末。幅判定も強化。
-            const isTouchDevice = window.innerWidth <= 1366 || window.matchMedia("(hover: none)").matches; 
-            
-            if (isTouchDevice) {
-                // 万が一CSSが効かなかった時のための念押し非表示
-                gsap.set('.cursor-wrapper', { display: 'none', autoAlpha: 0 });
-                return;
-            }
+            // --- FIX: HYBRID DEVICE PROTOCOL ---
+            // Touch points check removed to allow Cursor on Windows Laptops/Surfaces
+            const isMobile = window.innerWidth < 1024; 
+            if (isMobile) return;
 
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
@@ -2174,77 +2052,6 @@
                 el.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 }); });
                 el.addEventListener('mouseleave', () => { document.body.classList.remove('hovering'); gsap.to(cursorLiquid, { scale: 1, duration: 0.3 }); });
             });
-        }
-
-        // ▼▼▼ 【新規追加】: TACTICAL TOUCH FEEDBACK (TABLET/MOBILE) ▼▼▼
-         // ▼▼▼ 【修正・強化版】: TACTICAL TOUCH FEEDBACK V.2.0 ▼▼▼
-        function initTacticalTouch() {
-            // ハイブリッドPC（タッチパネル付きPC）でもタッチしたならエフェクトを出すため
-            // 以前の (hover: hover) return; は削除し、touchstartイベントのみで発火させる
-            
-            window.addEventListener('touchstart', (e) => {
-                // マルチタッチ対応: 全てのタッチポイントでエフェクト生成
-                for (let i = 0; i < e.touches.length; i++) {
-                    const touch = e.touches[i];
-                    createTouchRipple(touch.clientX, touch.clientY);
-                }
-            }, { passive: true });
-
-            function createTouchRipple(x, y) {
-                const el = document.createElement('div');
-                el.classList.add('cyber-tap-effect');
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-
-                // パーツ生成
-                const ring = document.createElement('div'); ring.classList.add('tap-ring');
-                const brackets = document.createElement('div'); brackets.classList.add('tap-brackets');
-                const crosshair = document.createElement('div'); crosshair.classList.add('tap-crosshair');
-                const coords = document.createElement('div'); coords.classList.add('tap-coords');
-
-                // ランダムなシステムID生成 (例: TGT_A4F2)
-                const sysId = 'TGT_' + Math.random().toString(36).substr(2, 4).toUpperCase();
-                coords.innerHTML = `${sysId}<br>X:${Math.floor(x)} Y:${Math.floor(y)}`;
-
-                el.append(ring, brackets, crosshair, coords);
-                document.body.appendChild(el);
-
-                // GSAP High-Speed Animation
-                const tl = gsap.timeline({
-                    onComplete: () => el.remove()
-                });
-
-                // 1. 衝撃波 (Ring)
-                tl.fromTo(ring, 
-                    { width: 10, height: 10, opacity: 0.8, borderWidth: 4 },
-                    { width: 60, height: 60, opacity: 0, borderWidth: 0, duration: 0.4, ease: "power2.out" },
-                    0
-                );
-
-                // 2. ターゲットロック枠 (Brackets) - 急速収縮
-                tl.fromTo(brackets,
-                    { width: 80, height: 80, opacity: 0, rotation: 20 },
-                    { width: 40, height: 40, opacity: 1, rotation: 0, duration: 0.25, ease: "back.out(1.7)" },
-                    0
-                ).to(brackets, { opacity: 0, scale: 0.8, duration: 0.2 }, 0.25);
-
-                // 3. 十字キー (Crosshair) - 回転出現
-                tl.fromTo(crosshair,
-                    { scale: 0, rotation: -90, opacity: 0 },
-                    { scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "power4.out" },
-                    0
-                ).to(crosshair, { opacity: 0, duration: 0.2 }, 0.3);
-
-                // 4. データ表示 (Coords) - 指の邪魔にならないよう遅延させて表示
-                tl.fromTo(coords,
-                    { opacity: 0, x: 40, scale: 0.8 },
-                    { opacity: 1, x: 30, scale: 1, duration: 0.15, ease: "steps(2)" }, // カチッとした動き
-                    0.05
-                ).to(coords, 
-                    { opacity: 0, x: 35, duration: 0.2, delay: 0.4 }, // 少し長めに残す
-                    ">"
-                );
-            }
         }
 
         // --- 1.5 GYROSCOPE PARALLAX (MOBILE TILT) ---
@@ -2347,9 +2154,7 @@
         }
         function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
         function initSite() {
-            startLenis(); 
-            initLiquidCursor();
-            initTacticalTouch(); 
+            startLenis(); initLiquidCursor();
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
@@ -2618,7 +2423,7 @@
                 work7Body: "2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリにおいて、<span class='scan-highlight'>総応募数4,359件の中から私がコンセプト立案とプロダクトデザインを担当したビジネスプランがTOP100に選出</span>されました。さらに都大会では、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞。提案したビジネスプランは、<span class='scan-highlight'>「’presst」と名付けた勉強型SNSサービス</span>です 。私たちは、「スマートフォンが近くにあるだけで人間の認知能力は低下する」という認知科学の知見に着目し、従来のSNSが抱える学習妨害という問題を解決することを目指しました。コンセプトは「勉強を、表現する。」。友人とのコミュニケーションを断ち切るのではなく、<span class='scan-highlight'>「SNSを学習の推進力に変える」という逆説的なアプローチを採用</span>しました 。「'presst」は、集中を妨げる要素を極力排除しつつ、勉強の開始と終了時間を自動で記録し 、学習時間や内容をハッシュタグと共に公開する仕組みを核としています 。これにより、<span class='scan-highlight'>ユーザーは「友人が今、頑張っている姿」を可視化でき、自律的な学習意欲をピア効果で喚起するUXを設計</span>しました 。プレゼンテーションでは、このプロダクトのモックアップ提示に加え、5年目で5,000万円の売上を見込む具体的な収益モデルと財務計画を提示しました 。単なるアイデアではなく、プロダクトデザイン能力と事業計画能力を両立させた点が、高く評価されました。",
                 work8Title: "<span class='scan-highlight'>広尾学園中学校学年プレゼンテーション大会</span>", 
                 work8Subtitle: "<span class='scan-highlight'>最優秀賞受賞</span>", 
-                work8Body: "2017年、広尾学園中学校の全学年プレゼンテーション大会に出場し、<span class='scan-highlight'>1学年302名の中から最高位「プレゼン大賞」を受賞</span>しました。発表タイトルは「『常識』から見る『進歩』とは何か」。このプレゼンテーションの核は、「常識」と見なされている集合知がいかに脆く、絶対的なものではないか、という強烈な問題提起でした。歴史的な事例として、アルフレッド・ウェゲナーが提唱した大陸移動説が、当初学会で門前払いであった事実や、科学的真実が時の権威に否定されたガリレオ・ガリレイの地動説をめぐる宗教裁判を取り上げました。これらの具体例を丹念に検証することで、「常識」がいかに人の視界を狭めるトンネルビジョンであるかを、聴衆に5分間にわたって訴えかけました。そして、<span class='scan-highlight'>既存の知識や価値観を疑い、根拠をもって真実を追求する批判的思考力を身につける教育の重要性を力強く説きました</span>。「当たり前」を問う深い洞察力と、歴史的事実に基づく論理的な説得力、加えて<span class='scan-highlight'>スティーブ・ジョブズ風の、背面のスライドを一度たりとも見ることなく、壇上を左右に闊歩しながら観衆に抑揚交えながら訴えかける独創的なプレゼンスタイル</span>が、最高位受賞の要因となりました。", 
+                work8Body: "2017年、広尾学園中学校の全学年プレゼンテーション大会に出場し、<span class='scan-highlight'>ひと学年302名の中から最高位「プレゼン大賞」を受賞</span>しました。発表タイトルは「『常識』から見る『進歩』とは何か」。このプレゼンテーションの核は、「常識」と見なされている集合知がいかに脆く、絶対的なものではないか、という強烈な問題提起でした。歴史的な事例として、アルフレッド・ウェゲナーが提唱した大陸移動説が、当初学会で門前払いであった事実や、科学的真実が時の権威に否定されたガリレオ・ガリレイの地動説をめぐる宗教裁判を取り上げました。これらの具体例を丹念に検証することで、「常識」がいかに人の視界を狭めるトンネルビジョンであるかを、聴衆に5分間にわたって訴えかけました。そして、<span class='scan-highlight'>既存の知識や価値観を疑い、根拠をもって真実を追求する批判的思考力を身につける教育の重要性を力強く説きました</span>。「当たり前」を問う深い洞察力と、歴史的事実に基づく論理的な説得力、加えて<span class='scan-highlight'>スティーブ・ジョブズ風の、背面のスライドを一度たりとも見ることなく、壇上を左右に闊歩しながら観衆に抑揚交えながら訴えかける独創的なプレゼンスタイル</span>が、最高位受賞の要因となりました。", 
                 work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
                 work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
                 work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>。キャッシュゲームを主戦場としているため、あまりトーナメントは得意ではないものの、国内最大規模のトーナメントにおいて、2,511名のエントリーという巨大なフィールド（母数）に対し、<span class='scan-highlight'>分散を最小限に抑えるアジャストメント戦略</span>（相手のクセや状況の偏りを観察し、理論上の正解をあえて崩して、その相手・状況に特化した『最大の利益』を取りに行く戦い方）を実行。2日間にわたる長時間プレイの中で、<span class='scan-highlight'>ICM（Independent Chip Model）を考慮した生存戦略と、期待値最大化のバランスを維持し続けた</span>結果、上位4.2%にあたる107位入賞を果たした。短期的な運ではなく、長時間の意思決定精度が試される場での証明。",
