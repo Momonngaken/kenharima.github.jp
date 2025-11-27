@@ -191,7 +191,7 @@
             body, * { cursor: auto !important; } 
         }
 
-        /* ▼▼▼ 【新規追加】: タブレット/モバイル用 タクティカル・タップエフェクト ▼▼▼ */
+        /* ▼▼▼ 【修正版】: TACTICAL TOUCH FEEDBACK STYLES ▼▼▼ */
         .cyber-tap-effect {
             position: fixed;
             pointer-events: none;
@@ -201,6 +201,69 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            filter: drop-shadow(0 0 5px rgba(214, 252, 82, 0.8)); /* 全体発光 */
+        }
+
+        .tap-ring {
+            position: absolute;
+            border: 2px solid #D6FC52; /* 線を太く */
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(214, 252, 82, 0.5); /* 内側発光 */
+            opacity: 0;
+        }
+        
+        /* ターゲットロック風の四隅の枠を追加 */
+        .tap-brackets {
+            position: absolute;
+            width: 40px; height: 40px;
+            border: 1px solid rgba(214, 252, 82, 0.5);
+            opacity: 0;
+            transform: scale(1.5);
+        }
+
+        .tap-crosshair {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            opacity: 0;
+        }
+        .tap-crosshair::before, .tap-crosshair::after {
+            content: '';
+            position: absolute;
+            background: #D6FC52;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 5px #D6FC52;
+        }
+        .tap-crosshair::before { width: 100%; height: 2px; }
+        .tap-crosshair::after { width: 2px; height: 100%; }
+
+        /* 指に隠れない位置へオフセット & 装飾強化 */
+        .tap-coords {
+            position: absolute;
+            /* 指の右上へ大きく逃がす */
+            top: -50px; 
+            left: 30px; 
+            font-family: 'Syne', monospace;
+            font-weight: 800;
+            font-size: 10px;
+            line-height: 1.1;
+            color: #000;
+            background: #D6FC52; /* 反転色で視認性UP */
+            padding: 4px 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 85% 100%, 0 100%); /* 角欠けデザイン */
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+            opacity: 0;
+        }
+        .tap-coords::before {
+            content: 'TARGET: LOCKED';
+            display: block;
+            font-size: 7px;
+            opacity: 0.7;
+            margin-bottom: 2px;
+            letter-spacing: 0.1em;
         }
 
         /* タップ時の円形レーダー波 */
@@ -2055,10 +2118,15 @@
 
         // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
         function initLiquidCursor() {
-            // ▼▼▼ 【変更】: 判定ロジックを強化 ▼▼▼
-            // 画面幅が狭い、または「ホバーができない（＝タッチデバイス）」場合はPCカーソルを無効化
-            const isTouchDevice = window.innerWidth < 1024 || window.matchMedia("(hover: none)").matches; 
-            if (isTouchDevice) return;
+             // ▼▼▼ 【修正版】: 1366px (iPad Pro Landscape) までをタッチデバイスとみなす ▼▼▼
+            // Hybrid Device対応: 'hover: none' が真なら確実にタッチ端末。幅判定も強化。
+            const isTouchDevice = window.innerWidth <= 1366 || window.matchMedia("(hover: none)").matches; 
+            
+            if (isTouchDevice) {
+                // 万が一CSSが効かなかった時のための念押し非表示
+                gsap.set('.cursor-wrapper', { display: 'none', autoAlpha: 0 });
+                return;
+            }
 
             const cursorLiquid = document.querySelector('.cursor-liquid');
             const cursorDot = document.querySelector('.cursor-dot');
@@ -2109,72 +2177,72 @@
         }
 
         // ▼▼▼ 【新規追加】: TACTICAL TOUCH FEEDBACK (TABLET/MOBILE) ▼▼▼
+         // ▼▼▼ 【修正・強化版】: TACTICAL TOUCH FEEDBACK V.2.0 ▼▼▼
         function initTacticalTouch() {
-            // PC（マウス操作端末）では実行しない
-            if (window.matchMedia("(hover: hover)").matches) return;
-
+            // ハイブリッドPC（タッチパネル付きPC）でもタッチしたならエフェクトを出すため
+            // 以前の (hover: hover) return; は削除し、touchstartイベントのみで発火させる
+            
             window.addEventListener('touchstart', (e) => {
-                const touch = e.touches[0];
-                const x = touch.clientX;
-                const y = touch.clientY;
-                
-                createTouchRipple(x, y);
+                // マルチタッチ対応: 全てのタッチポイントでエフェクト生成
+                for (let i = 0; i < e.touches.length; i++) {
+                    const touch = e.touches[i];
+                    createTouchRipple(touch.clientX, touch.clientY);
+                }
             }, { passive: true });
 
             function createTouchRipple(x, y) {
-                // コンテナ生成
                 const el = document.createElement('div');
                 el.classList.add('cyber-tap-effect');
                 el.style.left = x + 'px';
                 el.style.top = y + 'px';
 
-                // 内部パーツ生成 (リング、十字、座標テキスト)
-                const ring = document.createElement('div');
-                ring.classList.add('tap-ring');
-                
-                const crosshair = document.createElement('div');
-                crosshair.classList.add('tap-crosshair');
+                // パーツ生成
+                const ring = document.createElement('div'); ring.classList.add('tap-ring');
+                const brackets = document.createElement('div'); brackets.classList.add('tap-brackets');
+                const crosshair = document.createElement('div'); crosshair.classList.add('tap-crosshair');
+                const coords = document.createElement('div'); coords.classList.add('tap-coords');
 
-                const coords = document.createElement('div');
-                coords.classList.add('tap-coords');
-                // ランダムなハッシュ値っぽさを演出して座標を表示
-                coords.innerHTML = `X:${Math.floor(x)}<br>Y:${Math.floor(y)}`;
+                // ランダムなシステムID生成 (例: TGT_A4F2)
+                const sysId = 'TGT_' + Math.random().toString(36).substr(2, 4).toUpperCase();
+                coords.innerHTML = `${sysId}<br>X:${Math.floor(x)} Y:${Math.floor(y)}`;
 
-                el.appendChild(ring);
-                el.appendChild(crosshair);
-                el.appendChild(coords);
+                el.append(ring, brackets, crosshair, coords);
                 document.body.appendChild(el);
 
-                // GSAPアニメーション (世界観に合わせたソリッドな動き)
+                // GSAP High-Speed Animation
                 const tl = gsap.timeline({
                     onComplete: () => el.remove()
                 });
 
-                // リング: 瞬時に拡大して消えるレーダー波
+                // 1. 衝撃波 (Ring)
                 tl.fromTo(ring, 
-                    { width: 0, height: 0, opacity: 1, borderWidth: 3 },
-                    { width: 80, height: 80, opacity: 0, borderWidth: 0, duration: 0.5, ease: "power2.out" },
+                    { width: 10, height: 10, opacity: 0.8, borderWidth: 4 },
+                    { width: 60, height: 60, opacity: 0, borderWidth: 0, duration: 0.4, ease: "power2.out" },
                     0
                 );
 
-                // 十字: 回転しながら出現し、カットアウト
+                // 2. ターゲットロック枠 (Brackets) - 急速収縮
+                tl.fromTo(brackets,
+                    { width: 80, height: 80, opacity: 0, rotation: 20 },
+                    { width: 40, height: 40, opacity: 1, rotation: 0, duration: 0.25, ease: "back.out(1.7)" },
+                    0
+                ).to(brackets, { opacity: 0, scale: 0.8, duration: 0.2 }, 0.25);
+
+                // 3. 十字キー (Crosshair) - 回転出現
                 tl.fromTo(crosshair,
-                    { scale: 0, rotation: -45, opacity: 0 },
-                    { scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "back.out(2)" },
+                    { scale: 0, rotation: -90, opacity: 0 },
+                    { scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "power4.out" },
                     0
-                ).to(crosshair, 
-                    { scale: 0, opacity: 0, duration: 0.2 }, 
-                    0.3
-                );
+                ).to(crosshair, { opacity: 0, duration: 0.2 }, 0.3);
 
-                // 座標: グリッチ風に出現して残留
+                // 4. データ表示 (Coords) - 指の邪魔にならないよう遅延させて表示
                 tl.fromTo(coords,
-                    { opacity: 0, x: 10 },
-                    { opacity: 1, x: 0, duration: 0.1, ease: "steps(3)" },
-                    0
+                    { opacity: 0, x: 40, scale: 0.8 },
+                    { opacity: 1, x: 30, scale: 1, duration: 0.15, ease: "steps(2)" }, // カチッとした動き
+                    0.05
                 ).to(coords, 
-                    { opacity: 0, duration: 0.2 }, 
-                    0.6
+                    { opacity: 0, x: 35, duration: 0.2, delay: 0.4 }, // 少し長めに残す
+                    ">"
                 );
             }
         }
