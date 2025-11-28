@@ -450,6 +450,38 @@
         
         @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
+        /* ▼▼▼ ADDED: TACTICAL CURSOR STYLES ▼▼▼ */
+        #custom-cursor {
+            transition: opacity 0.3s ease;
+            will-change: transform;
+        }
+
+        /* タッチデバイスでは強制非表示 */
+        @media (pointer: coarse), (hover: none) {
+            #custom-cursor { display: none !important; }
+            body, * { cursor: auto !important; }
+        }
+
+        /* ロックオン時のアニメーション */
+        body.hovering #custom-cursor .cursor-cross {
+            transform: translate(-50%, -50%) rotate(45deg) scale(1.5);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        body.hovering #custom-cursor .cursor-cross div {
+            background-color: #D6FC52; /* ロックオン時にネオンカラーへ */
+            height: 4px;
+            width: 100%;
+        }
+        body.hovering #custom-cursor .cursor-cross div:nth-child(2) {
+            width: 4px;
+            height: 100%;
+        }
+
+        /* 通常時の戻りアニメーション */
+        #custom-cursor .cursor-cross {
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
         /* Utility */
         /* Utility - Force Hide Scrollbar but keep functionality */
         .hide-scroll::-webkit-scrollbar { display: none; }
@@ -1938,20 +1970,18 @@ body.is-scanning #mobile-orientation-lock *,
         <div class="lock-decor-line-mobile"></div>
         <div class="lock-error-code">ERR_bad_orientation_detected // 0x404</div>
     </div>
-    <!-- SVG Filter for Liquid Cursor -->
-    <svg class="hidden">
-        <defs>
-            <filter id="liquidFilter">
-                <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="1" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-        </defs>
-    </svg>
-
-    <!-- Cursor Elements -->
-    <div class="cursor-wrapper">
-        <div class="cursor-liquid"></div>
-        <div class="cursor-dot"></div>
+    
+    <!-- ▼▼▼ NEW: TACTICAL RETICLE CURSOR ▼▼▼ -->
+    <div id="custom-cursor" class="fixed top-0 left-0 z-[20000] pointer-events-none mix-blend-difference hidden lg:block">
+        <!-- Crosshair -->
+        <div class="cursor-cross relative flex items-center justify-center w-8 h-8 -translate-x-1/2 -translate-y-1/2">
+            <div class="absolute w-full h-[2px] bg-white"></div>
+            <div class="absolute h-full w-[2px] bg-white"></div>
+        </div>
+        <!-- Data Label -->
+        <div class="cursor-data absolute top-4 left-4 font-mono text-[9px] text-white tracking-widest whitespace-nowrap opacity-70">
+            X:<span id="cursor-x">0</span> Y:<span id="cursor-y">0</span>
+        </div>
     </div>
 
     <!-- HUD (PC Only) -->
@@ -2716,62 +2746,52 @@ body.is-scanning #mobile-orientation-lock *,
             }
         };
 
-        // --- 1. LIQUID CYBER CURSOR & MAGNETIC LOGIC ---
-        function initLiquidCursor() {
+         // --- 1. TACTICAL RETICLE CURSOR & MAGNETIC LOGIC ---
+        function initTacticalCursor() {
             // --- SYSTEM PROTOCOL: INPUT CHECK ---
-            // 幅判定(1024px未満)に加え、タッチデバイス(pointer: coarse)を厳密に検出
-            // これにより、高解像度タブレット(iPad Pro Landscape等)でのカーソル出現を阻止する
+            // タッチデバイスまたはモバイル幅の場合は起動しない
             const isTouchInterface = window.matchMedia("(pointer: coarse)").matches;
             const isMobileWidth = window.innerWidth < 1024;
             
-            // タッチデバイス、またはモバイル幅の場合はカーソルシステムを起動しない
             if (isTouchInterface || isMobileWidth) return;
 
-            const cursorLiquid = document.querySelector('.cursor-liquid');
-            const cursorDot = document.querySelector('.cursor-dot');
-            const liquidFilter = document.querySelector('#liquidFilter feDisplacementMap');
+            const cursor = document.getElementById('custom-cursor');
+            const cursorX = document.getElementById('cursor-x');
+            const cursorY = document.getElementById('cursor-y');
             
-            // Initial State: Hidden until interaction (Cyber Stealth Mode)
-            gsap.set([cursorLiquid, cursorDot], { opacity: 0, scale: 0 });
+            // GSAP Setters for high performance
+            const setX = gsap.quickTo(cursor, "x", {duration: 0.1, ease: "power3.out"});
+            const setY = gsap.quickTo(cursor, "y", {duration: 0.1, ease: "power3.out"});
 
-            let isSystemActive = false;
-            let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2; let currentX = mouseX; let currentY = mouseY;
+            let isVisible = false;
 
-            // Mouse Move Listener with "System Boot" Effect
-            window.addEventListener('mousemove', (e) => { 
-                mouseX = e.clientX; 
-                mouseY = e.clientY; 
-                
-                // First interaction: Boot up the cursor system
-                if (!isSystemActive) {
-                    isSystemActive = true;
-                    gsap.to([cursorLiquid, cursorDot], { 
-                        opacity: 1, 
-                        scale: 1, 
-                        duration: 0.6, 
-                        ease: "elastic.out(1, 0.5)",
-                        stagger: 0.1
-                    });
+            window.addEventListener('mousemove', (e) => {
+                // 初回のみ表示 (ステルス起動)
+                if (!isVisible) {
+                    gsap.to(cursor, { autoAlpha: 1, duration: 0.3 });
+                    isVisible = true;
                 }
 
-                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1 }); 
+                // 座標更新 (GSAP)
+                setX(e.clientX);
+                setY(e.clientY);
+
+                // 数値更新 (生データ感を出すため毎フレーム更新)
+                if(cursorX) cursorX.innerText = e.clientX.toString().padStart(4, '0');
+                if(cursorY) cursorY.innerText = e.clientY.toString().padStart(4, '0');
             });
 
-            gsap.ticker.add(() => {
-                if (!isSystemActive) return; // Save resources until active
-
-                const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
-                const dx = mouseX - currentX; const dy = mouseY - currentY; currentX += dx * dt; currentY += dy * dt;
-                const velocity = Math.sqrt(dx * dx + dy * dy); const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                const stretch = Math.min(velocity * 0.005, 0.5); const scaleX = 1 + stretch; const scaleY = 1 - stretch * 0.5;
-                const distortion = Math.min(velocity * 0.5, 50); if(liquidFilter) liquidFilter.setAttribute('scale', distortion);
-                gsap.set(cursorLiquid, { x: currentX, y: currentY, rotation: angle, scaleX: scaleX, scaleY: scaleY });
-            });
-            
-            const hovers = document.querySelectorAll('.hover-trigger, a, button');
+            // ホバーエフェクトのトリガー設定
+            const hovers = document.querySelectorAll('.hover-trigger, a, button, .fragment-frame');
             hovers.forEach(el => {
-                el.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); gsap.to(cursorLiquid, { scale: 1.5, duration: 0.3 }); });
-                el.addEventListener('mouseleave', () => { document.body.classList.remove('hovering'); gsap.to(cursorLiquid, { scale: 1, duration: 0.3 }); });
+                el.addEventListener('mouseenter', () => { 
+                    document.body.classList.add('hovering'); 
+                    // ターゲット補足時の微細振動（対応端末のみ）
+                    if(typeof vibrateEngine === 'function') vibrateEngine(5); 
+                });
+                el.addEventListener('mouseleave', () => { 
+                    document.body.classList.remove('hovering'); 
+                });
             });
         }
 
@@ -2912,7 +2932,7 @@ body.is-scanning #mobile-orientation-lock *,
         function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
         function initSite() {
             startLenis(); 
-            initLiquidCursor();
+             initTacticalCursor();
              initTouchIntervention(); // タッチ介入プロトコルの起動
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
