@@ -2371,9 +2371,9 @@ body.is-scanning #mobile-orientation-lock *,
                                     <p class="text-xl font-bold text-neoBlue mb-4 lang-fade" data-key="work3Subtitle"><span class='scan-highlight'>TOP40 東京ビックサイト展示</span></p>
                                     <p class="text-sm text-gray-900 font-medium lang-fade cyber-readability" data-key="work3Body">...</p>
                                 </div>
-                                <a href="https://www.tokyo-yoshioka.co.jp/2023s_contest" target="_blank" class="group mt-6 block text-center bg-neoBlue text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoBlue transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work3Button" style="transform: translateZ(30px);">
-                                    作品を見る <span class="inline-block ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
-                                </a>
+                                <button id="trigger-work3-modal" class="group mt-6 w-full block text-center bg-neoBlue text-white py-3 font-bold border-[3px] border-black hover:bg-white hover:text-neoBlue transition-colors hover-trigger lang-fade shadow-[4px_4px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] smooth-border" data-key="work3Button" style="transform: translateZ(30px);">
+    作品データ解析 <span class="inline-block ml-1 transition-transform duration-300 group-hover:rotate-90">＋</span>
+</button>
                             </div>
                         </div>
                     </article>
@@ -2721,6 +2721,43 @@ body.is-scanning #mobile-orientation-lock *,
     </footer>
 </div>
 
+    <!-- ▼▼▼ ADDED: WORK 3 ARCHIVE MODAL ▼▼▼ -->
+<div id="work3-modal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4 md:p-8">
+    <div class="absolute inset-0 bg-black/95 backdrop-blur-md" id="work3-backdrop">
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.6%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.5%22/%3E%3C/svg%3E');"></div>
+    </div>
+    <div class="relative w-full max-w-6xl h-[90vh] flex flex-col">
+        <div class="flex justify-between items-end border-b-2 border-neoBlue pb-4 mb-6">
+            <div>
+                <h3 class="text-neoBlue font-black text-2xl md:text-4xl font-stylish italic tracking-tighter">PROJECT: ONESAGE</h3>
+                <p class="text-gray-400 font-mono text-[10px] md:text-xs tracking-widest mt-1">>> ACCESS_LEVEL: GRANTED // ID: 10TH_LABEL_CONTEST</p>
+            </div>
+            <button id="close-work3-modal" class="group flex items-center gap-2 text-white hover:text-neoBlue transition-colors">
+                <span class="font-mono text-xs">CLOSE_VIEWER</span>
+                <div class="w-8 h-8 border border-white group-hover:border-neoBlue flex items-center justify-center bg-black">✕</div>
+            </button>
+        </div>
+        <div class="flex-grow overflow-y-auto hide-scroll grid grid-cols-1 md:grid-cols-2 gap-6 pb-10">
+            <div class="flex flex-col gap-2 group">
+                <div class="relative border-2 border-white/20 group-hover:border-neoBlue transition-colors bg-black overflow-hidden">
+                    <div class="absolute top-0 left-0 bg-neoBlue text-black font-bold font-mono text-[10px] px-2 py-1 z-10">FIG.01: PROTOTYPE_DETAIL</div>
+                    <img src="./work3_detail.jpg" alt="ONESAGE Detail" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 border-[10px] border-transparent group-hover:border-neoBlue/10 pointer-events-none transition-colors duration-300"></div>
+                </div>
+                <p class="text-gray-400 text-xs font-mono leading-relaxed">[CONCEPT]: "ONESAGE" (Price Down + Sage). 3D printed using 100% biodegradable material.</p>
+            </div>
+            <div class="flex flex-col gap-2 group" style="transition-delay: 100ms;">
+                <div class="relative border-2 border-white/20 group-hover:border-neoBlue transition-colors bg-black overflow-hidden">
+                    <div class="absolute top-0 left-0 bg-white text-black font-bold font-mono text-[10px] px-2 py-1 z-10">FIG.02: EXHIBITION_VIEW</div>
+                    <img src="./work3_exhibition.jpg" alt="Tokyo Big Sight Exhibition" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 border-[10px] border-transparent group-hover:border-white/10 pointer-events-none transition-colors duration-300"></div>
+                </div>
+                <p class="text-gray-400 text-xs font-mono leading-relaxed">[STATUS]: SELECTED TOP 40. Exhibited at Tokyo Big Sight.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script>
         // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
         const lenis = new Lenis({ duration: 0.9, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
@@ -2943,6 +2980,7 @@ body.is-scanning #mobile-orientation-lock *,
             startLenis(); 
              initTacticalCursor();
              initTouchIntervention(); // タッチ介入プロトコルの起動
+             initWork3Modal();
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
@@ -3485,6 +3523,53 @@ function initOrientationGuard() {
             });
             requestAnimationFrame(animateMarquee);
         }
+
+        // --- WORK 3 MODAL LOGIC ---
+function initWork3Modal() {
+    const trigger = document.getElementById('trigger-work3-modal');
+    const modal = document.getElementById('work3-modal');
+    const closeBtn = document.getElementById('close-work3-modal');
+    const backdrop = document.getElementById('work3-backdrop');
+    
+    if(!trigger || !modal) return;
+
+    const openTimeline = gsap.timeline({ paused: true, onStart: () => { 
+        modal.classList.remove('hidden'); 
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }});
+
+    openTimeline
+        .fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.3 })
+        .fromTo(modal.querySelector('h3'), 
+            { y: 20, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }
+        )
+        .fromTo(modal.querySelectorAll('img'), 
+            { scale: 1.1, opacity: 0, filter: "blur(10px)" }, 
+            { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.1, ease: "power2.out" }, 
+            "-=0.2"
+        );
+
+    const closeModal = () => {
+        if(typeof vibrateEngine === 'function') vibrateEngine(10);
+        openTimeline.reverse().then(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        });
+    };
+
+    trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(typeof vibrateEngine === 'function') vibrateEngine(20);
+        openTimeline.play();
+    });
+
+    if(closeBtn) closeBtn.addEventListener('click', closeModal);
+    if(backdrop) backdrop.addEventListener('click', closeModal);
+}
+
         document.addEventListener("DOMContentLoaded", () => { detectLanguage(); initLoader(); });
     </script>
 </body>
