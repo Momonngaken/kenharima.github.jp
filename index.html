@@ -1897,6 +1897,17 @@ body.is-scanning #mobile-orientation-lock *,
             <p class="lock-msg-en">>> PLEASE ROTATE DEVICE TO LANDSCAPE</p>
         </div>
         <div class="lock-decor-line"></div>
+        <!-- ▼▼▼ 追加: 強制閲覧ボタン ▼▼▼ -->
+    <button id="force-unlock-btn" class="mt-8 group relative px-6 py-3 bg-transparent border border-gray-800 hover:border-neoRed transition-colors duration-300 overflow-hidden pointer-events-auto z-50 cursor-pointer">
+         <div class="absolute inset-0 bg-neoRed/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+         <div class="flex flex-col items-center relative z-10">
+             <span class="font-mono text-[10px] text-gray-500 tracking-[0.2em] group-hover:text-neoRed transition-colors">>> SYSTEM_WARNING</span>
+             <span class="font-bold text-xs text-white/60 tracking-widest mt-1 group-hover:text-white transition-colors">FORCE_VIEW_ANYWAY</span>
+         </div>
+    </button>
+    <!-- ▲▲▲ 追加ここまで ▲▲▲ -->
+
+        
         <div class="absolute bottom-8 font-mono text-[10px] text-gray-700 tracking-[0.3em]">
             ERR_VIEWPORT_UNSUPPORTED
         </div>
@@ -2033,7 +2044,7 @@ body.is-scanning #mobile-orientation-lock *,
     <div id="progress-bar"></div>
     <div class="grain-overlay"></div>
 
-    <button id="mobile-lang-float" class="md:hidden fixed bottom-8 right-6 z-[10000] group outline-none touch-manipulation">
+    <button id="mobile-lang-float" class="lg:hidden fixed bottom-8 right-6 z-[10000] group outline-none touch-manipulation">
         <div class="absolute inset-0 rounded-full bg-black translate-x-1 translate-y-1"></div>
         <div id="mobile-lang-bg" class="relative w-16 h-16 bg-neoYellow border-[3px] border-black rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out">
             <div id="mobile-lang-text-wrap" class="font-black font-stylish text-xl italic tracking-tighter">EN</div>
@@ -2047,7 +2058,7 @@ body.is-scanning #mobile-orientation-lock *,
             <div class="magnetic-btn bg-white neo-border px-5 py-2 neo-shadow transform -rotate-2 hover:rotate-0 transition-transform duration-300" id="nav-logo-container">
                 <a href="#" data-key="navLogo" class="text-3xl font-stylish italic hover-trigger lang-fade">KEN.H</a>
             </div>
-            <div class="hidden md:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
+            <div class="hidden lg:flex items-center gap-4 bg-white/90 backdrop-blur neo-border px-6 py-3 rounded-full neo-shadow">
                 <div class="magnetic-btn link-wrapper"><a href="#about" class="block text-sm font-bold uppercase hover:text-neoBlue transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navAbout">私について</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navWorks">活動・受賞歴</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade scramble-hover px-2" data-key="navSkills">保有資格</a></div>
@@ -2077,7 +2088,7 @@ body.is-scanning #mobile-orientation-lock *,
 </a>
                 <button id="open-contact-btn" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</button>
             </div>
-            <button id="mobile-menu-btn" class="md:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
+            <button id="mobile-menu-btn" class="lg:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
@@ -3292,71 +3303,119 @@ body.is-scanning #mobile-orientation-lock *,
          /* =========================================================
            [SYSTEM CORE] ORIENTATION GUARD (Animation Rebooter)
            ========================================================= */
-        function initOrientationGuard() {
-            const lockScreen = document.getElementById('orientation-lock');
-            const deviceFrame = document.querySelector('.device-frame');
-            const arrow = document.querySelector('.rotate-arrow');
+        /* 【ここからコピーして、既存の initOrientationGuard 関数を上書きしてください】 */
+
+function initOrientationGuard() {
+    const lockScreen = document.getElementById('orientation-lock');
+    const deviceFrame = document.querySelector('.device-frame');
+    const arrow = document.querySelector('.rotate-arrow');
+    const unlockBtn = document.getElementById('force-unlock-btn'); // 追加ボタン取得
+
+    if (!lockScreen || !deviceFrame || !arrow) return;
+
+    // ユーザーが強制解除したかどうかのフラグ
+    let isForcedUnlocked = false;
+
+    // --- 追加: 強制解除ボタンのロジック ---
+    if (unlockBtn) {
+        unlockBtn.addEventListener('click', () => {
+            // 効果音的バイブレーション
+            if (typeof vibrateEngine === 'function') vibrateEngine([50, 50, 100]);
             
-            if (!lockScreen || !deviceFrame || !arrow) return;
+            // 1. フラグを立てる
+            isForcedUnlocked = true;
 
-            // アニメーションを強制リセットする関数
-            const rebootAnimations = () => {
-                // 1. 定義を一時的に抹消
-                deviceFrame.style.animation = 'none';
-                arrow.style.animation = 'none';
-                deviceFrame.style.opacity = '0.99'; 
-                
-                // 2. Reflow（再描画計算）を強制
-                void deviceFrame.offsetWidth; 
-                
-                // 3. 定義を再注入（再起動）
-                deviceFrame.style.animation = ''; 
-                arrow.style.animation = '';
-                deviceFrame.style.opacity = '';
-
-                console.log(">> SYSTEM_EVENT: ANIMATION_REBOOT_SEQUENCE_EXECUTED");
-            };
-
-            // 監視用オブザーバー
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        const style = window.getComputedStyle(lockScreen);
-                        if (style.display !== 'none') {
-                            rebootAnimations();
-                        }
-                    }
-                });
+            // 2. 視覚的に消す (GSAPでカッコよく消す)
+            gsap.to(lockScreen, {
+                opacity: 0,
+                scale: 1.1,
+                filter: "blur(20px)",
+                duration: 0.5,
+                ease: "power4.in",
+                onComplete: () => {
+                    // 重要: display: none !important を直接styleに書き込んでCSSメディアクエリに勝つ
+                    lockScreen.style.setProperty('display', 'none', 'important');
+                    document.body.style.overflow = ''; // スクロールロック解除
+                }
             });
             
-            observer.observe(lockScreen, { attributes: true, attributeFilter: ['style'] });
+            console.log(">> SYSTEM_OVERRIDE: VIEWPORT_LOCK_DISABLED_BY_USER");
+        });
+    }
 
-            // 画面回転イベントの監視
-            const mediaQuery = window.matchMedia("(min-width: 768px) and (max-width: 1024px) and (orientation: portrait)");
-            
-            const handleOrientationChange = (e) => {
-                if (e.matches) {
-                    // ポートレートモードに入った瞬間、再起動
-                    setTimeout(rebootAnimations, 50);
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
+    // アニメーションを強制リセットする関数
+    const rebootAnimations = () => {
+        // もし強制解除済みなら何もしない
+        if (isForcedUnlocked) return;
+
+        // 1. 定義を一時的に抹消
+        deviceFrame.style.animation = 'none';
+        arrow.style.animation = 'none';
+        deviceFrame.style.opacity = '0.99'; 
+        
+        // 2. Reflow（再描画計算）を強制
+        void deviceFrame.offsetWidth; 
+        
+        // 3. 定義を再注入（再起動）
+        deviceFrame.style.animation = ''; 
+        arrow.style.animation = '';
+        deviceFrame.style.opacity = '';
+    };
+
+    // 監視用オブザーバー (CSSでの表示切り替えを検知)
+    const observer = new MutationObserver((mutations) => {
+        // 強制解除されていたら無視する
+        if (isForcedUnlocked) return;
+
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const style = window.getComputedStyle(lockScreen);
+                // 表示された瞬間を検知
+                if (style.display !== 'none') {
+                    rebootAnimations();
                 }
-            };
+            }
+        });
+    });
+    
+    observer.observe(lockScreen, { attributes: true, attributeFilter: ['style'] });
 
-            try {
-                mediaQuery.addEventListener('change', handleOrientationChange);
-            } catch (e1) {
-                try {
-                    mediaQuery.addListener(handleOrientationChange); 
-                } catch (e2) {}
-            }
-            
-            if (mediaQuery.matches) {
-                setTimeout(rebootAnimations, 100);
-            }
+    // 画面回転イベントの監視
+    // iPad Mini, Air, Pro (Portrait) などをターゲット
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (max-width: 1024px) and (orientation: portrait)");
+    
+    const handleOrientationChange = (e) => {
+        // 強制解除されていたら二度とロックしない
+        if (isForcedUnlocked) {
+            document.body.style.overflow = '';
+            lockScreen.style.setProperty('display', 'none', 'important');
+            return;
         }
 
+        if (e.matches) {
+            // ポートレートモードに入った瞬間、再起動
+            setTimeout(rebootAnimations, 50);
+            document.body.style.overflow = 'hidden';
+            // CSSメディアクエリでdisplay:flexになるが、念のためstyle属性もクリアしておく
+            lockScreen.style.removeProperty('display');
+        } else {
+            document.body.style.overflow = '';
+        }
+    };
+
+    try {
+        mediaQuery.addEventListener('change', handleOrientationChange);
+    } catch (e1) {
+        try {
+            mediaQuery.addListener(handleOrientationChange); 
+        } catch (e2) {}
+    }
+    
+    // 初期ロード時のチェック
+    if (mediaQuery.matches && !isForcedUnlocked) {
+        setTimeout(rebootAnimations, 100);
+    }
+}
         function initKineticMarquee() {
             const marqueeContainer = document.querySelector('.marquee-container'); const marqueeContents = gsap.utils.toArray('.marquee-content');
             if (!marqueeContainer || marqueeContents.length === 0) return;
