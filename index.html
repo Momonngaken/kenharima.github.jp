@@ -2388,24 +2388,33 @@ body.is-scanning #mobile-orientation-lock *,
                                     <p class="text-xl font-bold text-neoYellow mb-4 lang-fade" data-key="work4Subtitle"><span class='scan-highlight'>投資利益率532%</span></p>
                                     <p class="text-sm text-gray-300 font-medium lang-fade cyber-readability" data-key="work4Body">...</p>
 
+
+
+                                    
                                     <div class="mt-5 pt-3 border-t border-white/20 font-mono tracking-wide" style="transform: translateZ(25px);">
-    <!-- Header with Blinking Cursor -->
+    <!-- Header -->
     <div class="flex items-center gap-2 mb-2 text-[10px] md:text-[0.7rem] text-neoYellow font-bold leading-none">
         <span>>> FIELD_LOGS:</span>
-        <!-- ★修正箇所: w-[0.6em] h-[1em] flex-shrink-0 rounded-[1px] を追加 -->
         <span class="animate-pulse inline-block w-[0.6em] h-[1em] bg-neoYellow flex-shrink-0 rounded-[1px]"></span>
     </div>
     
-    <!-- Data Grid: Flexbox for adaptive layout -->
-    <div class="flex flex-wrap gap-x-3 gap-y-1.5 text-[10px] md:text-[0.65rem] text-gray-400 leading-none">
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇩🇪 Wiesbaden</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇩🇪 Berlin</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇩🇪 Baden-Baden</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇩🇪 Bad Neuenahr</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇫🇷 Paris</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇨🇭 Zürich</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇫🇮 Helsinki</span>
-        <span class="whitespace-nowrap hover:text-white transition-colors cursor-default">🇧🇬 Sofia</span>
+    <!-- Data Cluster -->
+    <div class="flex flex-col gap-1 text-[10px] md:text-[0.65rem] text-gray-400 leading-tight">
+        <!-- Germany Cluster -->
+        <div class="flex flex-wrap gap-x-1 items-baseline">
+            <span class="text-white font-bold mr-1">🇩🇪</span>
+            <span class="hover:text-white transition-colors cursor-default">Wiesbaden,</span>
+            <span class="hover:text-white transition-colors cursor-default">Berlin,</span>
+            <span class="hover:text-white transition-colors cursor-default">Baden-Baden,</span>
+            <span class="hover:text-white transition-colors cursor-default">Bad Neuenahr</span>
+        </div>
+        <!-- Other Countries Cluster -->
+        <div class="flex flex-wrap gap-x-3 gap-y-1">
+            <span class="whitespace-nowrap hover:text-white transition-colors cursor-default"><span class="text-white font-bold mr-1">🇫🇷</span>Paris</span>
+            <span class="whitespace-nowrap hover:text-white transition-colors cursor-default"><span class="text-white font-bold mr-1">🇨🇭</span>Zürich</span>
+            <span class="whitespace-nowrap hover:text-white transition-colors cursor-default"><span class="text-white font-bold mr-1">🇫🇮</span>Helsinki</span>
+            <span class="whitespace-nowrap hover:text-white transition-colors cursor-default"><span class="text-white font-bold mr-1">🇧🇬</span>Sofia</span>
+        </div>
     </div>
 </div>
                                 </div>
