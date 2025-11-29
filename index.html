@@ -3638,21 +3638,47 @@ body.is-scanning #mobile-orientation-lock *,
 
         const langToggle = document.getElementById('lang-toggle'); const langText = document.getElementById('lang-text'); const translatableElements = document.querySelectorAll('[data-key]'); const mobileLangBtn = document.getElementById('mobile-lang-float'); const mobileLangText = document.getElementById('mobile-lang-text-wrap'); const mobileLangBg = document.getElementById('mobile-lang-bg');
         function applyLanguage(animate = true) {
-            if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
+            // ボタン表示の更新
+            if (currentLang === 'en') { langText.innerHTML = `EN <span class="opacity-40 font-normal">/ JP</span>`; } 
+            else { langText.innerHTML = `JP <span class="opacity-40 font-normal">/ EN</span>`; }
+            
+            // モバイル用ボタンのアニメーション
             if(mobileLangBg && animate) {
                 mobileLangBg.animate([ { transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' } ], { duration: 500, easing: 'cubic-bezier(0.19, 1, 0.22, 1)' });
-                setTimeout(() => { if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); } }, 100);
+                setTimeout(() => { 
+                    if (currentLang === 'en') { mobileLangText.innerText = 'JP'; mobileLangBg.classList.remove('bg-neoYellow'); mobileLangBg.classList.add('bg-black', 'text-white'); } 
+                    else { mobileLangText.innerText = 'EN'; mobileLangBg.classList.remove('bg-black', 'text-white'); mobileLangBg.classList.add('bg-neoYellow'); } 
+                }, 100);
             }
+
+            // テキスト更新処理（スクランブル廃止 -> 光学ブラーフェード）
             translatableElements.forEach(el => {
-                const key = el.dataset.key; const newText = translations[currentLang][key];
+                const key = el.dataset.key; 
+                const newText = translations[currentLang][key];
+                
                 if(el.classList.contains('scramble-hover')) { el.dataset.originalText = newText; }
+                
                 if (animate) {
-                    // Do not scramble if it contains HTML tags (like scan-highlight spans)
-                    if (newText.length < 50 && !newText.includes('<')) { scrambler.scramble(el, newText); } 
-                    else { el.style.opacity = '0'; setTimeout(() => { el.innerHTML = newText; el.style.opacity = '1'; }, 300); }
-                } else { el.innerHTML = newText; }
+                    // GSAPを使って「文字が光に溶けて切り替わる」ような演出
+                    gsap.to(el, {
+                        duration: 0.2,
+                        opacity: 0,
+                        filter: "blur(8px)", // 文字をぼかす
+                        onComplete: () => {
+                            el.innerHTML = newText; // テキスト入れ替え
+                            gsap.to(el, {
+                                duration: 0.3,
+                                opacity: 1,
+                                filter: "blur(0px)", // 鮮明に戻す
+                                ease: "power2.out"
+                            });
+                        }
+                    });
+                } else { 
+                    el.innerHTML = newText; 
+                }
             });
-        }
+        }  
         function switchLanguage(animate = true) { 
             vibrateEngine(10);
             currentLang = currentLang === 'ja' ? 'en' : 'ja'; 
