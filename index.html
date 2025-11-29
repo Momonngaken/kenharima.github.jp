@@ -3420,27 +3420,35 @@ body.is-scanning #mobile-orientation-lock *,
             });
         }
 
-        /* --- [UPDATE] LOGS ANIMATION: RAPID DEPLOYMENT MODE --- */
+        /* --- [OPTIMIZED] LOGS ANIMATION: HYBRID TRAJECTORY --- */
+        // スマホかPCかを判定
+        const isMobile = window.innerWidth < 768;
+
+        // 共通設定: スマホならY軸（下から上）、PCならX軸（横から）
+        const getAnimConfig = (direction) => {
+            return {
+                scrollTrigger: { trigger: null, start: "top 85%" }, // triggerはループ内で設定
+                x: isMobile ? 0 : (direction === 'left' ? -50 : 50), // スマホは横移動なし
+                y: isMobile ? 30 : 0, // スマホは下から30px浮き上がる
+                opacity: 0,
+                duration: 0.6,
+                ease: "back.out(1.2)",
+                delay: (direction === 'right' && !isMobile) ? 0.1 : 0 // スマホは遅延なしで即時表示
+            };
+        };
+
         gsap.utils.toArray('.gs-reveal-left').forEach(elem => { 
-            gsap.from(elem, { 
-                scrollTrigger: { trigger: elem, start: "top 85%" }, // トリガー感度向上
-                x: -50, // ストローク短縮によるキレ
-                opacity: 0, 
-                duration: 0.6, // 展開速度アップ
-                ease: "back.out(1.2)" // 機械的な反動
-            }); 
+            const config = getAnimConfig('left');
+            config.scrollTrigger.trigger = elem;
+            gsap.from(elem, config); 
         });
 
         gsap.utils.toArray('.gs-reveal-right').forEach(elem => { 
-            gsap.from(elem, { 
-                scrollTrigger: { trigger: elem, start: "top 85%" }, 
-                x: 50, 
-                opacity: 0, 
-                duration: 0.6, 
-                ease: "back.out(1.2)", 
-                delay: 0.1 // 遅延最小化
-            }); 
+            const config = getAnimConfig('right');
+            config.scrollTrigger.trigger = elem;
+            gsap.from(elem, config); 
         });
+        
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
         function initContactModal() {
