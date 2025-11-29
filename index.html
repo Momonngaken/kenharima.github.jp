@@ -1909,70 +1909,136 @@ body.is-scanning #mobile-orientation-lock *,
         }
 
         /* --- [OPTIMIZED] LOGS STYLES (HIGH PERFORMANCE) --- */
-        /* カードのベース形状 */
-        .tactical-card {
-            clip-path: polygon(
-                0 0, 
-                100% 0, 
-                100% calc(100% - 20px), 
-                calc(100% - 20px) 100%, 
-                0 100%
-            );
-            /* Performance: transitionをallではなく必要なプロパティに限定し、GPUレイヤーを独立させる */
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-            will-change: transform; /* GPU合成を強制 */
-            transform: translateZ(0); /* ちらつき防止 */
-        }
-        .tactical-card:hover {
-            transform: translateY(-5px) translateZ(0);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-        }
-
-        /* 控えめな背景文字 */
-        .hollow-text {
-            -webkit-text-stroke: 1px #333;
-            color: transparent;
-            opacity: 0.05 !important;
-            transition: transform 0.5s ease, opacity 0.5s ease, color 0.5s ease;
-            will-change: transform, opacity; /* アニメーション最適化 */
-            pointer-events: none;
-            backface-visibility: hidden; /* 描画負荷軽減 */
-        }
-
-        .group:hover .hollow-text {
-            -webkit-text-stroke: 0px;
-            opacity: 0.1 !important;
-            transform: scale(1.05) rotate(-3deg) translateZ(0);
-        }
-
-        /* ホバー時の色 */
-        .group:hover .hollow-text.text-y { color: #5D5FEF; }
-        .group:hover .hollow-text.text-s { color: #B983FF; }
-        .group:hover .hollow-text.text-q { color: #FF4D4D; }
-
-        /* スキャンライン演出 */
-        .scan-line-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
-            background-size: 100% 4px; pointer-events: none; z-index: 10; opacity: 0.3;
-        }
+        /* =========================================
+           [RE-DESIGNED] HOLOGRAPHIC BIO-DATA PLATES
+           ========================================= */
         
-        /* ★最重要修正: topではなくtransformで動かす */
-        .active-scanner {
-            position: absolute; top: 0; left: 0; width: 100%; height: 20%;
-            background: linear-gradient(to bottom, transparent, rgba(214, 252, 82, 0.2), transparent);
-            /* GPU accelerated animation */
-            animation: scan-vertical-gpu 3s linear infinite; 
-            pointer-events: none; z-index: 5;
-            will-change: transform, opacity;
+        /* ベースプレート：ガラス質感と微細なグリッド */
+        .holo-plate {
+            position: relative;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px); /* すりガラス効果 */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 rgba(0,0,0,0);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow, border-color;
+            clip-path: polygon(
+                0 10px, 10px 0, 
+                100% 0, 100% calc(100% - 10px), 
+                calc(100% - 10px) 100%, 0 100%
+            );
         }
 
-        @keyframes scan-vertical-gpu {
-            0% { transform: translateY(-100%); opacity: 0; } 
-            10% { opacity: 1; } 
-            90% { opacity: 1; } 
-            100% { transform: translateY(500%); opacity: 0; } /* カードの高さ(100%)に対して移動量を調整 */
-        }     
+        /* ホバー時の発光強化 */
+        .holo-plate:hover {
+            transform: translateY(-5px) scale(1.01);
+            background: rgba(15, 15, 20, 0.8);
+            border-color: var(--holo-color);
+            box-shadow: 
+                0 10px 40px -10px rgba(0,0,0,0.8),
+                0 0 20px var(--holo-color-dim);
+        }
+
+        /* 内部のホログラムノイズ */
+        .holo-plate::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                transparent 1px,
+                rgba(255, 255, 255, 0.03) 2px,
+                transparent 3px
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        /* バイオメトリクス波形（心電図） */
+        .bio-waveform {
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            width: 200%;
+            height: 60px;
+            fill: none;
+            stroke: var(--holo-color);
+            stroke-width: 1.5;
+            stroke-opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+            animation: bio-scroll 4s linear infinite;
+            filter: drop-shadow(0 0 5px var(--holo-color));
+        }
+
+        .holo-plate:hover .bio-waveform {
+            stroke-opacity: 0.8;
+            animation-duration: 2s; /* 心拍数上昇 */
+        }
+
+        @keyframes bio-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* 生命維持装置のような点滅ライト */
+        .status-light {
+            width: 6px;
+            height: 6px;
+            background-color: var(--holo-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--holo-color);
+            animation: heartbeat 2s infinite;
+        }
+
+        .holo-plate:hover .status-light {
+            animation: heartbeat 0.8s infinite; /* 興奮状態 */
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            10% { opacity: 1; transform: scale(1.2); }
+            20% { opacity: 0.3; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* 背景の巨大文字（Y, S, K）をホログラム風に */
+        .hollow-text-holo {
+            -webkit-text-stroke: 0;
+            color: var(--holo-color);
+            opacity: 0.03 !important;
+            filter: blur(2px);
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+
+        .holo-plate:hover .hollow-text-holo {
+            opacity: 0.1 !important;
+            filter: blur(0px);
+            text-shadow: 0 0 30px var(--holo-color);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        /* テーマカラー定義 */
+        .holo-theme-blue { --holo-color: #5D5FEF; --holo-color-dim: rgba(93, 95, 239, 0.3); }
+        .holo-theme-purple { --holo-color: #B983FF; --holo-color-dim: rgba(185, 131, 255, 0.3); }
+        .holo-theme-red { --holo-color: #FF4D4D; --holo-color-dim: rgba(255, 77, 77, 0.3); }
+
+        /* データテキストの装飾 */
+        .holo-label {
+            font-family: 'monospace';
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--holo-color);
+            opacity: 0.7;
+            text-shadow: 0 0 5px var(--holo-color-dim);
+        }
+
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -2426,126 +2492,137 @@ body.is-scanning #mobile-orientation-lock *,
                     
                     <!-- カードグリッド -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10 px-4 md:px-0 max-w-7xl mx-auto">
-                        
                         <!-- LOG_01: Y (Fellow Expat) - Blue Theme -->
-                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoBlue/60 gs-reveal-left hover-trigger h-full overflow-hidden">
-                            <!-- Scanning Laser -->
-                            <div class="active-scanner"></div>
-                            <div class="scan-line-overlay"></div>
+                        <div class="holo-plate holo-theme-blue gs-reveal-left hover-trigger h-full flex flex-col group">
                             
-                            <!-- Corner Decors (Tactical Markers) -->
-                            <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-600 group-hover:border-neoBlue transition-colors duration-300"></div>
-                            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-600 group-hover:border-neoBlue transition-colors duration-300"></div>
+                            <!-- 背景: バイオメトリクス波形 (SVG) -->
+                            <svg class="bio-waveform" viewBox="0 0 600 60" preserveAspectRatio="none">
+                                <path d="M0,30 L50,30 L60,10 L70,50 L80,30 L150,30 L160,5 L170,55 L180,30 L250,30 L260,15 L270,45 L280,30 L350,30 L360,10 L370,50 L380,30 L450,30 L460,5 L470,55 L480,30 L600,30" vector-effect="non-scaling-stroke"></path>
+                            </svg>
 
-                            <!-- Background Initial -->
-                            <span class="hollow-text text-y absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">Y</span>
-                            
-                            <!-- 軽量化: backdrop-blur-[2px] を削除 -->
-                            <div class="relative z-10 p-8 h-full flex flex-col">
-                                <!-- Header -->
-                                <div class="flex justify-between items-start mb-8">
-                                    <div class="font-mono text-[10px] tracking-widest text-gray-400 border-l-2 border-neoBlue pl-3 group-hover:text-neoBlue transition-colors">
-                                        <span class="block font-bold text-lg mb-1 text-white group-hover:text-neoBlue">LOG_01</span>
-                                        ID: Y // MANNHEIM_DE
+                            <!-- 背景: 巨大文字 -->
+                            <span class="hollow-text-holo absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">Y</span>
+
+                            <!-- コンテンツエリア -->
+                            <div class="relative z-10 p-8 flex flex-col h-full">
+                                <!-- Header: HUD Style -->
+                                <div class="flex justify-between items-start mb-6 border-b border-gray-800/50 pb-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <div class="status-light"></div>
+                                            <span class="holo-label">SIGNAL: STABLE</span>
+                                        </div>
+                                        <div class="font-mono text-[10px] text-white/60 tracking-widest mt-1">
+                                            ID: Y // MANNHEIM_DE
+                                        </div>
                                     </div>
-                                    <!-- Icon Container (Diamond Shape) -->
-                                    <div class="w-10 h-10 border border-gray-700 rotate-45 flex items-center justify-center group-hover:bg-neoBlue/10 group-hover:border-neoBlue group-hover:shadow-[0_0_15px_rgba(93,95,239,0.4)] transition-all duration-300">
-                                        <i class="fa-solid fa-earth-europe text-xs -rotate-45 text-gray-400 group-hover:text-neoBlue transition-colors"></i>
+                                    <!-- Holographic Icon -->
+                                    <div class="text-2xl text-[var(--holo-color)] opacity-80 drop-shadow-[0_0_8px_var(--holo-color)]">
+                                        <i class="fa-solid fa-earth-europe"></i>
                                     </div>
                                 </div>
                                 
-                                <!-- Body -->
-                                <div class="flex-grow relative pl-3">
-                                    <p class="text-sm md:text-[0.9rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300" data-key="log1Text">...</p>
+                                <!-- Body Text (不変) -->
+                                <div class="flex-grow relative">
+                                    <p class="text-sm md:text-[0.9rem] text-gray-300 font-medium leading-loose lang-fade cyber-readability group-hover:text-white transition-colors duration-300" data-key="log1Text">...</p>
                                 </div>
 
-                                <!-- Footer Meta -->
-                                <div class="mt-8 pt-4 border-t border-dashed border-gray-800 flex justify-between items-center opacity-60 group-hover:opacity-100 transition-opacity">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-1.5 h-1.5 bg-neoBlue animate-pulse"></div>
-                                        <span class="font-mono text-[9px] text-neoBlue tracking-wider" data-key="log1Meta">RELATION: FELLOW EXPAT</span>
+                                <!-- Footer: Technical Data -->
+                                <div class="mt-8 pt-2 flex justify-between items-end">
+                                    <div class="flex flex-col">
+                                        <span class="holo-label block mb-1">>> RELATION_TYPE</span>
+                                        <span class="font-bold text-xs text-white lang-fade" data-key="log1Meta">RELATION: FELLOW EXPAT</span>
                                     </div>
-                                    <span class="font-mono text-[8px] text-gray-600">0x4A_2F</span>
+                                    <div class="font-mono text-[8px] text-[var(--holo-color)] opacity-50 text-right">
+                                        SYNC_RATE: 98.4%<br>0x4A_2F_DATA
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- LOG_02: S (Circle) - Purple Theme -->
-                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoPurple/60 gs-reveal-right hover-trigger h-full overflow-hidden" style="transition-delay: 25ms;">
-                            <div class="active-scanner" style="animation-delay: 0.1s;"></div>
-                            <div class="scan-line-overlay"></div>
-
-                            <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-600 group-hover:border-neoPurple transition-colors duration-300"></div>
-                            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-600 group-hover:border-neoPurple transition-colors duration-300"></div>
-
-                            <span class="hollow-text text-s absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">S</span>
+                        <div class="holo-plate holo-theme-purple gs-reveal-right hover-trigger h-full flex flex-col group" style="transition-delay: 50ms;">
                             
-                            <!-- 軽量化: backdrop-blur-[2px] を削除 -->
-                            <div class="relative z-10 p-8 h-full flex flex-col">
-                                <div class="flex justify-between items-start mb-8">
-                                    <div class="font-mono text-[10px] tracking-widest text-gray-400 border-l-2 border-neoPurple pl-3 group-hover:text-neoPurple transition-colors">
-                                        <span class="block font-bold text-lg mb-1 text-white group-hover:text-neoPurple">LOG_02</span>
-                                        ID: S // MODERN_CULTUAL_STUDIES_ORG
+                            <!-- 背景: バイオメトリクス波形 -->
+                            <svg class="bio-waveform" viewBox="0 0 600 60" preserveAspectRatio="none" style="animation-delay: -1s;">
+                                <path d="M0,30 L40,30 L50,15 L60,45 L70,30 L140,30 L150,5 L160,55 L170,30 L240,30 L250,20 L260,40 L270,30 L340,30 L350,15 L360,45 L370,30 L440,30 L450,5 L460,55 L470,30 L600,30" vector-effect="non-scaling-stroke"></path>
+                            </svg>
+
+                            <span class="hollow-text-holo absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">S</span>
+                            
+                            <div class="relative z-10 p-8 flex flex-col h-full">
+                                <div class="flex justify-between items-start mb-6 border-b border-gray-800/50 pb-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <div class="status-light"></div>
+                                            <span class="holo-label">SIGNAL: ACTIVE</span>
+                                        </div>
+                                        <div class="font-mono text-[10px] text-white/60 tracking-widest mt-1">
+                                            ID: S // MCS_ORG
+                                        </div>
                                     </div>
-                                    <div class="w-10 h-10 border border-gray-700 rotate-45 flex items-center justify-center group-hover:bg-neoPurple/10 group-hover:border-neoPurple group-hover:shadow-[0_0_15px_rgba(185,131,255,0.4)] transition-all duration-300">
-                                        <i class="fa-solid fa-users-viewfinder text-xs -rotate-45 text-gray-400 group-hover:text-neoPurple transition-colors"></i>
+                                    <div class="text-2xl text-[var(--holo-color)] opacity-80 drop-shadow-[0_0_8px_var(--holo-color)]">
+                                        <i class="fa-solid fa-users-viewfinder"></i>
                                     </div>
                                 </div>
                                 
-                                <div class="flex-grow relative pl-3">
-                                    <p class="text-sm md:text-[0.9rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300" data-key="log2Text">...</p>
+                                <div class="flex-grow relative">
+                                    <p class="text-sm md:text-[0.9rem] text-gray-300 font-medium leading-loose lang-fade cyber-readability group-hover:text-white transition-colors duration-300" data-key="log2Text">...</p>
                                 </div>
 
-                                <div class="mt-8 pt-4 border-t border-dashed border-gray-800 flex justify-between items-center opacity-60 group-hover:opacity-100 transition-opacity">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-1.5 h-1.5 bg-neoPurple animate-pulse"></div>
-                                        <span class="font-mono text-[9px] text-neoPurple tracking-wider" data-key="log2Meta">ROLE: FORMER REP.</span>
+                                <div class="mt-8 pt-2 flex justify-between items-end">
+                                    <div class="flex flex-col">
+                                        <span class="holo-label block mb-1">>> ROLE_DEFINITION</span>
+                                        <span class="font-bold text-xs text-white lang-fade" data-key="log2Meta">ROLE: FORMER REP.</span>
                                     </div>
-                                    <span class="font-mono text-[8px] text-gray-600">0x8B_9C</span>
+                                    <div class="font-mono text-[8px] text-[var(--holo-color)] opacity-50 text-right">
+                                        VITALITY: HIGH<br>0x8B_9C_DATA
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- LOG_03: K (Poker Rival) - Red Theme -->
-                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoRed/60 gs-reveal-left hover-trigger h-full overflow-hidden" style="transition-delay: 50ms;">
-                            <div class="active-scanner" style="animation-delay: 0.2s;"></div>
-                            <div class="scan-line-overlay"></div>
-
-                            <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-600 group-hover:border-neoRed transition-colors duration-300"></div>
-                            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-600 group-hover:border-neoRed transition-colors duration-300"></div>
-
-                            <span class="hollow-text text-q absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">K</span>
+                        <div class="holo-plate holo-theme-red gs-reveal-left hover-trigger h-full flex flex-col group" style="transition-delay: 100ms;">
                             
-                            <!-- 軽量化: backdrop-blur-[2px] を削除 -->
-                            <div class="relative z-10 p-8 h-full flex flex-col">
-                                <div class="flex justify-between items-start mb-8">
-                                    <div class="font-mono text-[10px] tracking-widest text-gray-400 border-l-2 border-neoRed pl-3 group-hover:text-neoRed transition-colors">
-                                        <span class="block font-bold text-lg mb-1 text-white group-hover:text-neoRed">LOG_03</span>
-                                        ID: K // STRATEGIC_RIVAL
+                            <!-- 背景: バイオメトリクス波形 (鋭いスパイク) -->
+                            <svg class="bio-waveform" viewBox="0 0 600 60" preserveAspectRatio="none" style="animation-delay: -2s;">
+                                <path d="M0,30 L30,30 L40,0 L50,60 L60,30 L130,30 L140,0 L150,60 L160,30 L230,30 L240,10 L250,50 L260,30 L330,30 L340,0 L350,60 L360,30 L430,30 L440,0 L450,60 L460,30 L600,30" vector-effect="non-scaling-stroke"></path>
+                            </svg>
+
+                            <span class="hollow-text-holo absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">K</span>
+                            
+                            <div class="relative z-10 p-8 flex flex-col h-full">
+                                <div class="flex justify-between items-start mb-6 border-b border-gray-800/50 pb-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <div class="status-light"></div>
+                                            <span class="holo-label">SIGNAL: DANGER</span>
+                                        </div>
+                                        <div class="font-mono text-[10px] text-white/60 tracking-widest mt-1">
+                                            ID: K // RIVAL_TARGET
+                                        </div>
                                     </div>
-                                    <!-- Icon Container (Diamond Shape) - Standardized Style -->
-                                    <div class="w-10 h-10 border border-gray-700 rotate-45 flex items-center justify-center group-hover:bg-neoRed/10 group-hover:border-neoRed group-hover:shadow-[0_0_15px_rgba(255,77,77,0.4)] transition-all duration-300">
-                                         <!-- Text-based Spade (Matches Work 4 style) -->
-                                    <span class="text-sm -rotate-45 text-white group-hover:text-neoRed transition-colors duration-300 leading-none font-sans">♠</span>
+                                    <div class="text-2xl text-[var(--holo-color)] opacity-80 drop-shadow-[0_0_8px_var(--holo-color)]">
+                                        <span class="font-sans leading-none block transform -rotate-12">♠</span>
                                     </div>
                                 </div>
                                 
-                                <div class="flex-grow relative pl-3">
-                                    <p class="text-sm md:text-[0.9rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300" data-key="log3Text">...</p>
+                                <div class="flex-grow relative">
+                                    <p class="text-sm md:text-[0.9rem] text-gray-300 font-medium leading-loose lang-fade cyber-readability group-hover:text-white transition-colors duration-300" data-key="log3Text">...</p>
                                 </div>
 
-                                <div class="mt-8 pt-4 border-t border-dashed border-gray-800 flex justify-between items-center opacity-60 group-hover:opacity-100 transition-opacity">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-1.5 h-1.5 bg-neoRed animate-pulse"></div>
-                                        <span class="font-mono text-[9px] text-neoRed tracking-wider" data-key="log3Meta">STYLE: MID-STAKES / ANALYTICAL-LAG</span>
+                                <div class="mt-8 pt-2 flex justify-between items-end">
+                                    <div class="flex flex-col">
+                                        <span class="holo-label block mb-1">>> PLAY_STYLE</span>
+                                        <span class="font-bold text-xs text-white lang-fade" data-key="log3Meta">STYLE: MID-STAKES / ANALYTICAL-LAG</span>
                                     </div>
-                                    <span class="font-mono text-[8px] text-gray-600">0x1A_7D</span>
+                                    <div class="font-mono text-[8px] text-[var(--holo-color)] opacity-50 text-right">
+                                        RISK_LV: EXTREME<br>0x1A_7D_DATA
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
 
                     
                     <!-- System Footer -->
