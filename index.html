@@ -3451,8 +3451,28 @@ body.is-scanning #mobile-orientation-lock *,
                 });
             });
         }
-        gsap.utils.toArray('.gs-reveal-left').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: -100, opacity: 0, duration: 1, ease: "power3.out" }); });
-        gsap.utils.toArray('.gs-reveal-right').forEach(elem => { gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 80%" }, x: 100, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 }); });
+
+        /* --- [UPDATE] LOGS ANIMATION: RAPID DEPLOYMENT MODE --- */
+        gsap.utils.toArray('.gs-reveal-left').forEach(elem => { 
+            gsap.from(elem, { 
+                scrollTrigger: { trigger: elem, start: "top 85%" }, // トリガー感度向上
+                x: -50, // ストローク短縮によるキレ
+                opacity: 0, 
+                duration: 0.6, // 展開速度アップ
+                ease: "back.out(1.2)" // 機械的な反動
+            }); 
+        });
+
+        gsap.utils.toArray('.gs-reveal-right').forEach(elem => { 
+            gsap.from(elem, { 
+                scrollTrigger: { trigger: elem, start: "top 85%" }, 
+                x: 50, 
+                opacity: 0, 
+                duration: 0.6, 
+                ease: "back.out(1.2)", 
+                delay: 0.1 // 遅延最小化
+            }); 
+        });
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
         function initContactModal() {
