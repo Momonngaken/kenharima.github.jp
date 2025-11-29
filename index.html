@@ -2535,7 +2535,7 @@ body.is-scanning #mobile-orientation-lock *,
 
                         <!-- LOG_03: K (Poker Rival) - Red Theme -->
                         <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoRed/60 transition-all duration-500 gs-reveal-left hover-trigger h-full overflow-hidden" style="transition-delay: 200ms;">
-                            <div class="active-scanner" style="animation-delay: 0.5s;"></div>
+                            <div class="active-scanner" style="animation-delay: 0.2s;"></div>
                             <div class="scan-line-overlay"></div>
 
                             <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-600 group-hover:border-neoRed transition-colors duration-300"></div>
@@ -2549,21 +2549,20 @@ body.is-scanning #mobile-orientation-lock *,
                                         <span class="block font-bold text-lg mb-1 text-white group-hover:text-neoRed">LOG_03</span>
                                         ID: K // STRATEGIC_RIVAL
                                     </div>
-                                    <!-- [MODIFIED] SPADE ICON: SVG Replacement for Tactical Visibility -->
-                                    <!-- 変更点: FontAwesomeをやめ、直接SVGで描画。常時白く発光させ、ホバーで赤く燃え上がらせる -->
                                     <div class="w-10 h-10 border border-gray-600 rotate-45 flex items-center justify-center bg-black transition-all duration-500 group-hover:border-neoRed group-hover:shadow-[0_0_20px_#FF4D4D] group-hover:bg-neoRed/10 z-20 relative overflow-hidden">
-                                        
-                                        <!-- Internal Glint (内部を走る光沢アニメーション) -->
-                                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                
+                <!-- Internal Glint -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-                                        <!-- SVG Icon -->
-                                        <!-- text-white を強制適用し、drop-shadowで視認性を確保 -->
-                                        <svg class="w-5 h-5 -rotate-45 text-white group-hover:text-neoRed transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#FF4D4D] group-hover:scale-110" viewBox="0 0 512 512" fill="currentColor">
-                                            <!-- Solid Spade Path -->
-                                            <path d="M266.6 20.3L256 7.6 245.4 20.3C154.2 132.8 77.2 189 77.2 260.6c0 45.1 36.6 81.7 81.7 81.7 27.2 0 51.3-13.4 66-33.9 0 .8 0 1.6 0 2.4l0 105.1L176 464c-17.7 0-32 14.3-32 32s14.3 32 32 32l160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-48.9 0 0-105.1c0-.8 0-1.6 0-2.4 14.7 20.5 38.8 33.9 66 33.9 45.1 0 81.7-36.6 81.7-81.7c0-71.6-77-127.8-168.2-240.3z"/>
-                                        </svg>
-                                    </div>
+                <!-- Corrected SVG Path: FontAwesome Standard Spade -->
+                <!-- 歪みを解消した完全なシンメトリー形状 -->
+                <svg class="w-5 h-5 -rotate-45 text-white group-hover:text-neoRed transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(255,77,77,0.8)] group-hover:scale-110" viewBox="0 0 512 512" fill="currentColor">
+                    <path d="M266.6 20.3L256 7.6 245.4 20.3C154.2 132.8 77.2 189 77.2 260.6c0 45.1 36.6 81.7 81.7 81.7 27.2 0 51.3-13.4 66-33.9 0 .8 0 1.6 0 2.4l0 105.1L176 464c-17.7 0-32 14.3-32 32s14.3 32 32 32l160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-48.9 0 0-105.1c0-.8 0-1.6 0-2.4 14.7 20.5 38.8 33.9 66 33.9 45.1 0 81.7-36.6 81.7-81.7c0-71.6-77-127.8-168.2-240.3z"/>
+                </svg>
+            </div>    
                                 </div>
+
+
                                 
                                 <div class="flex-grow relative pl-3">
                                     <p class="text-sm md:text-[0.9rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300" data-key="log3Text">...</p>
@@ -3500,7 +3499,7 @@ body.is-scanning #mobile-orientation-lock *,
                 aboutBody2: "学歴：<span class='scan-highlight'>早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）</span>、広尾学園中学・高等学校卒業",
                 log1Text: "彼に「観光」という概念は存在しない。ドイツの古都においても、彼が行っていたのは風景の鑑賞ではなく、歴史的文脈の「外科的解剖」だった。異文化という混沌を、鋭利な論理で構造化していくその知性は、同世代という枠組みには到底収まりきらない。",
                 log2Text: "(準備中）",
-                log3Text: "彼の一手は、狂気という皮を被った「数式」だ。ゴミのようなハンドでの暴力的なオールイン。だがそれは、こちらの精神的摩耗と撤退コストを極限まで計算し尽くした、冷徹なる執行人に他ならない。数値と心理。この二つの領域を完全支配する彼こそ、私が知る限り最も恐るべき「理性的怪物」だ。",
+                log3Text: "彼の一手は、狂気という皮を被った「数式」だ。ゴミのようなハンドでの暴力的なオールイン。だがそれは、こちらの精神的摩耗と撤退コスト（フォールド・エクイティ）を極限まで計算し尽くした、冷徹なる執行人に他ならない。数値と心理。この二つの領域を完全支配する彼こそ、私が知る限り最も恐るべき「理性的怪物」だ。",
                 log1Meta: "RELATION: 異国の戦友",
                 log2Meta: "ROLE: サークル元代表",
                 log3Meta: "STYLE: ミドルステークス / 分析型",
