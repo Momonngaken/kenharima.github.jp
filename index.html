@@ -1910,75 +1910,83 @@ body.is-scanning #mobile-orientation-lock *,
 
         /* --- [OPTIMIZED] LOGS STYLES (HIGH PERFORMANCE) --- */
         /* =========================================
-           [RE-DESIGNED] HOLOGRAPHIC BIO-DATA PLATES
+           [RE-DESIGNED] HOLOGRAPHIC BIO-DATA PLATES (Ver.2.0 Ultimate)
+           Concept: 生体信号を含む浮遊型ガラス端末
            ========================================= */
         
-        /* ベースプレート：ガラス質感と微細なグリッド */
+        /* プレート本体：曇りガラスのような質感と物理的な厚み */
         .holo-plate {
             position: relative;
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(10px); /* すりガラス効果 */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 0 rgba(0,0,0,0);
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            background: rgba(10, 15, 20, 0.65); /* 暗い青みがかった黒 */
+            backdrop-filter: blur(12px) saturate(180%); /* 強烈なぼかしと彩度強調 */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.2); /* 上部ハイライトで厚みを表現 */
+            box-shadow: 
+                0 4px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             overflow: hidden;
             transform-style: preserve-3d;
             will-change: transform, box-shadow, border-color;
+            
+            /* SFチックな面取り形状 */
             clip-path: polygon(
-                0 10px, 10px 0, 
-                100% 0, 100% calc(100% - 10px), 
-                calc(100% - 10px) 100%, 0 100%
+                0 15px, 15px 0, 
+                100% 0, 100% calc(100% - 15px), 
+                calc(100% - 15px) 100%, 0 100%
             );
         }
 
-        /* ホバー時の発光強化 */
+        /* ホバー時の起動状態：発光と浮上 */
         .holo-plate:hover {
-            transform: translateY(-5px) scale(1.01);
-            background: rgba(15, 15, 20, 0.8);
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(15, 20, 25, 0.85);
             border-color: var(--holo-color);
             box-shadow: 
-                0 10px 40px -10px rgba(0,0,0,0.8),
-                0 0 20px var(--holo-color-dim);
+                0 20px 50px -10px rgba(0,0,0,0.8),
+                0 0 30px var(--holo-color-dim), /* 環境光 */
+                inset 0 0 20px var(--holo-color-dim);
         }
 
-        /* 内部のホログラムノイズ */
-        .holo-plate::before {
+        /* 内部のホログラムノイズ（走査線ではなく、粒子のゆらぎ） */
+        .holo-plate::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent 0px,
-                transparent 1px,
-                rgba(255, 255, 255, 0.03) 2px,
-                transparent 3px
-            );
-            background-size: 100% 4px;
+            /* SVGノイズフィルターによるリアルな粒子感 */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.3;
             pointer-events: none;
-            z-index: 1;
-            opacity: 0.5;
+            mix-blend-mode: overlay;
+            z-index: 2;
         }
 
-        /* バイオメトリクス波形（心電図） */
+        /* バイオメトリクス波形（左右フェード付き） */
         .bio-waveform {
             position: absolute;
-            bottom: 20%;
+            bottom: 25%;
             left: 0;
-            width: 200%;
-            height: 60px;
+            width: 200%; /* 横スクロール用に倍の幅 */
+            height: 80px;
             fill: none;
             stroke: var(--holo-color);
-            stroke-width: 1.5;
-            stroke-opacity: 0.3;
+            stroke-width: 2;
+            stroke-opacity: 0.2;
+            stroke-linecap: round;
             z-index: 0;
             pointer-events: none;
-            animation: bio-scroll 4s linear infinite;
-            filter: drop-shadow(0 0 5px var(--holo-color));
+            animation: bio-scroll 6s linear infinite;
+            filter: drop-shadow(0 0 8px var(--holo-color));
+            /* 左右をぼかして空間に溶け込ませる */
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
+        /* ホバーで心拍数上昇（アニメーション高速化） */
         .holo-plate:hover .bio-waveform {
             stroke-opacity: 0.8;
-            animation-duration: 2s; /* 心拍数上昇 */
+            stroke-width: 2.5;
+            animation-duration: 3s; 
         }
 
         @keyframes bio-scroll {
@@ -1988,54 +1996,63 @@ body.is-scanning #mobile-orientation-lock *,
 
         /* 生命維持装置のような点滅ライト */
         .status-light {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: var(--holo-color);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--holo-color);
-            animation: heartbeat 2s infinite;
+            box-shadow: 0 0 10px var(--holo-color), 0 0 20px var(--holo-color);
+            position: relative;
+        }
+        /* ライトの波紋アニメーション */
+        .status-light::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid var(--holo-color);
+            opacity: 0;
+            animation: ripple 2s infinite;
         }
 
-        .holo-plate:hover .status-light {
-            animation: heartbeat 0.8s infinite; /* 興奮状態 */
+        .holo-plate:hover .status-light::after {
+            animation-duration: 0.8s; /* 興奮状態 */
         }
 
-        @keyframes heartbeat {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            10% { opacity: 1; transform: scale(1.2); }
-            20% { opacity: 0.3; transform: scale(0.8); }
-            30% { opacity: 1; transform: scale(1.1); }
+        @keyframes ripple {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
         }
 
-        /* 背景の巨大文字（Y, S, K）をホログラム風に */
+        /* 背景の巨大文字（Y, S, K）を光学迷彩風に */
         .hollow-text-holo {
             -webkit-text-stroke: 0;
             color: var(--holo-color);
-            opacity: 0.03 !important;
-            filter: blur(2px);
-            transition: all 0.5s ease;
+            opacity: 0.02 !important;
+            filter: blur(4px);
+            transition: all 0.6s ease;
             pointer-events: none;
+            mix-blend-mode: screen;
         }
 
         .holo-plate:hover .hollow-text-holo {
-            opacity: 0.1 !important;
+            opacity: 0.15 !important;
             filter: blur(0px);
-            text-shadow: 0 0 30px var(--holo-color);
-            transform: scale(1.1) rotate(-5deg);
+            text-shadow: 0 0 40px var(--holo-color);
+            transform: scale(1.15) rotate(-5deg);
         }
 
-        /* テーマカラー定義 */
-        .holo-theme-blue { --holo-color: #5D5FEF; --holo-color-dim: rgba(93, 95, 239, 0.3); }
-        .holo-theme-purple { --holo-color: #B983FF; --holo-color-dim: rgba(185, 131, 255, 0.3); }
-        .holo-theme-red { --holo-color: #FF4D4D; --holo-color-dim: rgba(255, 77, 77, 0.3); }
+        /* カラーテーマ定義 (CSS変数) */
+        .holo-theme-blue { --holo-color: #5D5FEF; --holo-color-dim: rgba(93, 95, 239, 0.4); }
+        .holo-theme-purple { --holo-color: #B983FF; --holo-color-dim: rgba(185, 131, 255, 0.4); }
+        .holo-theme-red { --holo-color: #FF4D4D; --holo-color-dim: rgba(255, 77, 77, 0.4); }
 
-        /* データテキストの装飾 */
+        /* データラベル（微細な文字情報） */
         .holo-label {
             font-family: 'monospace';
             font-size: 9px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: var(--holo-color);
-            opacity: 0.7;
+            opacity: 0.8;
             text-shadow: 0 0 5px var(--holo-color-dim);
         }
 
@@ -3648,7 +3665,7 @@ body.is-scanning #mobile-orientation-lock *,
                 log3Text: "His moves are <span class='scan-highlight'>equations disguised as madness.</span> Even with trash hands, he exploits my tells perfectly to launch a violent all-in. Yet, this is nothing less than a cold-blooded execution, calculated against my mental attrition and folding equity to the absolute limit. Dominating both numbers and psychology, he is the most terrifying 'Rational Monster' I have ever known.",
                 log1Meta: "RELATION: FELLOW EXPAT",
                 log2Meta: "ROLE: FORMER REPRESENTATIVE",
-                log3Meta: "STYLE: MID-STAKES / ANALYTICAL",
+                log3Meta: "STYLE: MID-STAKES / ANALYTICAL-LAG",
                 worksTitle: "Works & Awards",
                 work1Title: "<span class='scan-highlight'>Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition</span>", 
                 work1Subtitle: "<span class='scan-highlight'>Grand Prize</span>", 
