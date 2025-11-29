@@ -1907,6 +1907,101 @@ body.is-scanning #mobile-orientation-lock *,
                 color: #222222; 
             } */
         }
+         /* --- [UPDATED] LOGS STYLES (REFINED) --- */
+        /* カードのベース形状 */
+        .tactical-card {
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% calc(100% - 20px), 
+                calc(100% - 20px) 100%, 
+                0 100%
+            );
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .tactical-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        /* 控えめな背景文字（修正箇所） */
+        .hollow-text {
+            -webkit-text-stroke: 1px #333;
+            color: transparent;
+            opacity: 0.05 !important; /* 透明度を下げて主張を抑える */
+            transition: all 0.5s ease;
+        }
+
+        .group:hover .hollow-text {
+            -webkit-text-stroke: 0px;
+            opacity: 0.1 !important; /* ホバー時も控えめに */
+            transform: scale(1.05) rotate(-3deg); /* 回転と拡大をマイルドに */
+        }
+
+        /* ホバー時の色 */
+        .group:hover .hollow-text.text-y { color: #5D5FEF; }
+        .group:hover .hollow-text.text-s { color: #B983FF; }
+        .group:hover .hollow-text.text-q { color: #FF4D4D; }
+
+        /* スキャンライン演出 */
+        .scan-line-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
+            background-size: 100% 4px; pointer-events: none; z-index: 10; opacity: 0.3;
+        }
+        .active-scanner {
+            position: absolute; top: -100%; left: 0; width: 100%; height: 20%;
+            background: linear-gradient(to bottom, transparent, rgba(214, 252, 82, 0.2), transparent);
+            animation: scan-vertical 3s linear infinite; pointer-events: none; z-index: 5;
+        }
+        @keyframes scan-vertical {
+            0% { top: -20%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 120%; opacity: 0; }
+        } 
+        /* ▼▼▼ MOBILE OPTIMIZATION PATCH ▼▼▼ */
+        /* スマホ・タブレット（タッチデバイス）ではホバー効果を常時適用風にする */
+        @media (hover: none) {
+            /* 1. 背景文字を最初から表示させる */
+            .hollow-text {
+                opacity: 0.08 !important; /* PCのホバー時より少し薄めで常時表示 */
+                -webkit-text-stroke: 0px !important;
+                transform: scale(1.02) rotate(-2deg) !important;
+            }
+            /* 各色の適用 */
+            .hollow-text.text-y { color: #5D5FEF !important; }
+            .hollow-text.text-s { color: #B983FF !important; }
+            .hollow-text.text-q { color: #FF4D4D !important; }
+
+            /* 2. ヘッダーのボーダー色も常時表示 */
+            .tactical-card .border-b {
+                border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+            }
+            /* アイコンの発光も常時ON（控えめに） */
+            .tactical-card .w-8 {
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                color: white !important;
+                border-color: white !important;
+            }
+
+            /* 3. カード自体の枠線を発光させる（視認性向上） */
+            .tactical-card:nth-child(1) { border-left-color: #5D5FEF !important; }
+            .tactical-card:nth-child(2) { border-left-color: #B983FF !important; }
+            .tactical-card:nth-child(3) { border-left-color: #FF4D4D !important; }
+        }
+
+        /* スマホでの行間と文字サイズの微調整 */
+        @media (max-width: 767px) {
+            .tactical-card p[data-key^="log"] {
+                font-size: 0.85rem !important; /* 少し小さくして密度を下げる */
+                line-height: 1.9 !important;   /* 行間を広げて読みやすく */
+                opacity: 0.9 !important;       /* 白さを上げて視認性確保 */
+            }
+            /* イニシャルの位置調整（文字と被りすぎないように） */
+            .hollow-text {
+                bottom: -2rem !important;
+                right: -2rem !important;
+                font-size: 8rem !important;
+            }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -2303,7 +2398,7 @@ body.is-scanning #mobile-orientation-lock *,
                                         <!-- Text Content -->
                                         <div class="relative z-10 flex flex-col">
                                             <span class="text-neoYellow font-mono text-[0.6rem] md:text-xs mb-1 tracking-wider">/// SYSTEM DATA_V.2</span>
-                                            <span class="text-2xl md:text-3xl font-black italic text-white font-stylish tracking-tighter group-hover:text-neoYellow transition-colors lang-fade" data-key="resumeBtn">履歴書をDLする</span>
+                                            <span class="text-xl md:text-3xl font-black italic text-white font-stylish tracking-tighter group-hover:text-neoYellow transition-colors lang-fade whitespace-nowrap" data-key="resumeBtn">履歴書をDLする</span>
                                             <span class="text-[0.6rem] text-gray-400 font-mono mt-1 group-hover:text-white transition-colors">SIZE: PDF // UPDATED: 2025.11</span>
                                         </div>
                                         
@@ -2318,9 +2413,147 @@ body.is-scanning #mobile-orientation-lock *,
                         </div> 
                     </div>
                 </div>
+                 <!-- =========================================
+                     [NEW SECTION] CLASSIFIED LOGS (FINAL VER.)
+                ========================================== -->
+                <div class="w-full mt-40 border-t border-gray-900 pt-20 relative overflow-hidden">
+                    
+                    <!-- 背景装飾（グリッド＆スキャンライン） -->
+                    <div class="absolute inset-0 bg-[linear-gradient(rgba(20,20,20,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(20,20,20,0.5)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10"></div>
+                    <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-gray-700 writing-vertical-rl tracking-widest opacity-50">
+                        SECURE_CONNECTION_ESTABLISHED // DATA_RETRIEVED
+                    </div>
+
+                    <!-- ヘッダー -->
+                    <div class="flex flex-col md:flex-row items-start md:items-end gap-4 mb-16 relative z-10 px-4">
+                        <div class="flex items-center gap-3">
+                            <div class="relative w-4 h-4">
+                                <span class="absolute inset-0 rounded-full bg-neoRed opacity-75 animate-ping"></span>
+                                <span class="relative block w-4 h-4 bg-neoRed rounded-full border border-black"></span>
+                            </div>
+                            <h3 class="font-display font-black italic text-4xl md:text-5xl text-white tracking-tighter leading-none">
+                                LOGS <span class="text-stroke text-transparent">ARCHIVE</span>
+                            </h3>
+                        </div>
+                        <div class="font-mono text-[10px] text-neoYellow bg-gray-900 border border-gray-700 px-2 py-1 mb-1">
+                            >> PERMISSION: GRANTED // DECRYPTING...
+                        </div>
+                        <div class="h-[1px] flex-grow bg-gradient-to-r from-neoRed/50 to-transparent w-full md:w-auto mt-2 md:mt-0"></div>
+                    </div>
+
+                    <!-- カードグリッド -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10 px-4">
+                        
+                        <!-- LOG_01: K (Fellow Expat) -->
+                        <!-- Color: NeoBlue (Intellectual/Cool) -->
+                        <div class="group relative tactical-card bg-[#080808] border-l-4 border-gray-800 hover:border-neoBlue transition-colors duration-300 gs-reveal-left hover-trigger h-full overflow-hidden">
+                            <div class="active-scanner"></div>
+                            <div class="scan-line-overlay"></div>
+                            
+                            <!-- Background Initial: K -->
+                            <span class="hollow-text text-y absolute -right-4 -bottom-8 text-[10rem] font-black font-display select-none z-0 leading-none pointer-events-none">K</span>
+                            
+                            <div class="relative z-10 p-8 h-full flex flex-col backdrop-blur-[1px]">
+                                <!-- Header Info -->
+                                <div class="flex justify-between items-start mb-6 border-b border-gray-800 pb-4 group-hover:border-neoBlue/30 transition-colors">
+                                    <div class="font-mono text-[10px] tracking-widest text-gray-500">
+                                        <span class="block text-neoBlue font-bold text-lg mb-1">LOG_01</span>
+                                        ID: K // MANNHEIM, DE
+                                    </div>
+                                    <div class="w-8 h-8 border border-gray-700 flex items-center justify-center rounded-full group-hover:bg-neoBlue group-hover:text-black group-hover:border-neoBlue transition-all duration-300">
+                                        <i class="fa-solid fa-earth-europe text-xs"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Body Text -->
+                                <div class="flex-grow relative">
+                                    <p class="text-sm md:text-[0.95rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300 relative z-10" data-key="log1Text">...</p>
+                                </div>
+
+                                <!-- Footer Relation -->
+                                <div class="mt-6 pt-4 flex items-center gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                    <div class="w-2 h-2 bg-neoBlue rounded-sm animate-pulse"></div>
+                                    <span class="font-mono text-[9px] text-neoBlue tracking-wider" data-key="log1Meta">RELATION: FELLOW EXPAT</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LOG_02: S (Circle Colleague) -->
+                        <!-- Color: NeoPurple (Creative/Culture) -->
+                        <div class="group relative tactical-card bg-[#080808] border-l-4 border-gray-800 hover:border-neoPurple transition-colors duration-300 gs-reveal-right hover-trigger h-full overflow-hidden" style="transition-delay: 100ms;">
+                            <div class="active-scanner" style="animation-delay: 1s;"></div>
+                            <div class="scan-line-overlay"></div>
+
+                            <!-- Background Initial: S -->
+                            <span class="hollow-text text-s absolute -right-4 -bottom-8 text-[10rem] font-black font-display select-none z-0 leading-none pointer-events-none">S</span>
+                            
+                            <div class="relative z-10 p-8 h-full flex flex-col backdrop-blur-[1px]">
+                                <div class="flex justify-between items-start mb-6 border-b border-gray-800 pb-4 group-hover:border-neoPurple/30 transition-colors">
+                                    <div class="font-mono text-[10px] tracking-widest text-gray-500">
+                                        <span class="block text-neoPurple font-bold text-lg mb-1">LOG_02</span>
+                                        ID: S // MCS_ORG
+                                    </div>
+                                    <div class="w-8 h-8 border border-gray-700 flex items-center justify-center rounded-full group-hover:bg-neoPurple group-hover:text-black group-hover:border-neoPurple transition-all duration-300">
+                                        <i class="fa-solid fa-people-group text-xs"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow relative">
+                                    <p class="text-sm md:text-[0.95rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300 relative z-10" data-key="log2Text">...</p>
+                                </div>
+
+                                <div class="mt-6 pt-4 flex items-center gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                    <div class="w-2 h-2 bg-neoPurple rounded-sm animate-pulse"></div>
+                                    <span class="font-mono text-[9px] text-neoPurple tracking-wider" data-key="log2Meta">ROLE: FORMER REPRESENTATIVE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LOG_03: K (Poker Rival) -->
+                        <!-- Color: NeoRed (Aggressive/Analytical) -->
+                        <div class="group relative tactical-card bg-[#080808] border-l-4 border-gray-800 hover:border-neoRed transition-colors duration-300 gs-reveal-left hover-trigger h-full overflow-hidden" style="transition-delay: 200ms;">
+                            <div class="active-scanner" style="animation-delay: 0.5s;"></div>
+                            <div class="scan-line-overlay"></div>
+
+                            <!-- Background Initial: K -->
+                            <span class="hollow-text text-q absolute -right-4 -bottom-8 text-[10rem] font-black font-display select-none z-0 leading-none pointer-events-none">K</span>
+                            
+                            <div class="relative z-10 p-8 h-full flex flex-col backdrop-blur-[1px]">
+                                <div class="flex justify-between items-start mb-6 border-b border-gray-800 pb-4 group-hover:border-neoRed/30 transition-colors">
+                                    <div class="font-mono text-[10px] tracking-widest text-gray-500">
+                                        <span class="block text-neoRed font-bold text-lg mb-1">LOG_03</span>
+                                        ID: K // STRATEGIC_RIVAL
+                                    </div>
+                                    <div class="w-8 h-8 border border-gray-700 flex items-center justify-center rounded-full group-hover:bg-neoRed group-hover:text-black group-hover:border-neoRed transition-all duration-300">
+                                        <i class="fa-solid fa-chess-knight text-xs"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-grow relative">
+                                    <p class="text-sm md:text-[0.95rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300 relative z-10" data-key="log3Text">...</p>
+                                </div>
+
+                                <div class="mt-6 pt-4 flex items-center gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                    <div class="w-2 h-2 bg-neoRed rounded-sm animate-pulse"></div>
+                                    <span class="font-mono text-[9px] text-neoRed tracking-wider" data-key="log3Meta">STYLE: MID-STAKES / ANALYTICAL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="w-full flex justify-between items-end px-4 mt-8 opacity-40">
+                        <div class="flex gap-1">
+                            <div class="w-1 h-4 bg-gray-500"></div>
+                            <div class="w-1 h-3 bg-gray-500"></div>
+                            <div class="w-1 h-5 bg-gray-500"></div>
+                        </div>
+                        <span class="font-mono text-[9px] text-gray-500 tracking-[0.2em]">// END_OF_LOGS // ENCRYPTED_BY_KEN.H</span>
+                    </div>
+                </div>
             </div>
         </section>
-
+        
         <section id="works" class="py-32 px-4 md:px-8 overflow-hidden">
             <div class="container mx-auto">
                 <h2 class="text-6xl md:text-9xl font-black text-center mb-24 relative inline-block left-1/2 -translate-x-1/2 font-tight">
@@ -3224,6 +3457,12 @@ body.is-scanning #mobile-orientation-lock *,
                 aboutTitle: "私について",
                 aboutBody1: "",
                 aboutBody2: "学歴：<span class='scan-highlight'>早稲田大学社会科学部社会科学科卒業、独・マンハイム大学社会科学科社会学科（１年間交換留学）</span>、広尾学園中学・高等学校卒業",
+                log1Text: "彼は単なるサバイバーではない。異国のカフェで何時間も『存在論』について日本語で激論を交わした日々が懐かしい。現地の論理を吸収しつつ、独自の哲学を構築できる知的なタフネス（Intellectual Toughness）を持っている。",
+                log2Text: "彼がリーダーだった時、チームの熱量は最大化した。好きなコンテンツをただ消費するだけでなく、その構造や背景まで徹底的に分析する姿勢は、オタクというより研究者に近い。人を巻き込む引力が彼にはある。",
+                log3Text: "テーブル上の彼は、感情を排した確率論の怪物だ。リスクを正しく評価し、ここぞという場面で踏み込める胆力。対戦相手として、これほど嫌な（褒め言葉だ）プレイヤーはいない。",
+                log1Meta: "RELATION: 異国の戦友",
+                log2Meta: "ROLE: サークル元代表",
+                log3Meta: "STYLE: ミドルステークス / 分析型",
                 worksTitle: "活動・受賞歴",
                 work1Title: "<span class='scan-highlight'>野口ゼミ×理想科学工業株式会社マーケティング戦略コンペ</span>", 
                 work1Subtitle: "<span class='scan-highlight'>最優秀賞受賞</span>", 
@@ -3291,6 +3530,12 @@ body.is-scanning #mobile-orientation-lock *,
                 aboutTitle: "About Me",
                 aboutBody1: "",
                 aboutBody2: "Education: B.A. in Social Sciences, School of Social Sciences, <span class='scan-highlight'>Waseda University Department of Sociology, School of Social Sciences, University of Mannheim, Germany (one-year exchange)</span> Hiroo Gakuen Junior and Senior High School",
+                log1Text: "He is not just a survivor. I miss the days we spent hours debating 'Ontology' in Japanese at foreign cafes. He possesses the intellectual toughness to absorb local logic while constructing his own philosophy.",
+                log2Text: "When he was the leader, the team's energy was maximized. His stance of not just consuming content but thoroughly analyzing its structure and background is closer to a researcher than a fan. He has a gravitational pull that draws people in.",
+                log3Text: "At the table, he is a probability monster devoid of emotion. He correctly assesses risk and has the audacity to push when it matters most. As an opponent, there is no one more unpleasant (that's a compliment) to face.",
+                log1Meta: "RELATION: FELLOW EXPAT",
+                log2Meta: "ROLE: FORMER REPRESENTATIVE",
+                log3Meta: "STYLE: MID-STAKES / ANALYTICAL",
                 worksTitle: "Works & Awards",
                 work1Title: "<span class='scan-highlight'>Noguchi Seminar × Riso Kagaku Corporation Marketing Strategy Competition</span>", 
                 work1Subtitle: "<span class='scan-highlight'>Grand Prize</span>", 
