@@ -1908,71 +1908,166 @@ body.is-scanning #mobile-orientation-lock *,
             } */
         }
 
-        /* --- [OPTIMIZED] LOGS STYLES (HIGH PERFORMANCE) --- */
-        /* カードのベース形状 */
-        .tactical-card {
-            clip-path: polygon(
-                0 0, 
-                100% 0, 
-                100% calc(100% - 20px), 
-                calc(100% - 20px) 100%, 
-                0 100%
-            );
-            /* Performance: transitionをallではなく必要なプロパティに限定し、GPUレイヤーを独立させる */
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-            will-change: transform; /* GPU合成を強制 */
-            transform: translateZ(0); /* ちらつき防止 */
-        }
-        .tactical-card:hover {
-            transform: translateY(-5px) translateZ(0);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-        }
+         <!-- =========================================
+                     [NEW SECTION] CLASSIFIED LOGS (REFINED VER.)
+                ========================================== -->
+                <div class="w-full mt-24 md:mt-32 lg:mt-48 border-t border-gray-900/50 pt-12 md:pt-16 lg:pt-24 relative overflow-hidden">
+                    
+                    <!-- 背景装飾：静的なグリッドと極小の暗号文字 -->
+                    <div class="absolute inset-0 pointer-events-none -z-10">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwaDQwVjBIMHY0MHptMS0xVjFoMzh2MzhIMXoiIGZpbGw9IiMxYTFhMWEiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+                        <div class="absolute top-0 right-0 p-4 font-mono text-[9px] text-gray-600 writing-vertical-rl tracking-[0.3em] opacity-50 hidden lg:block">
+                            >> ARCHIVE_ENCRYPTION: AES-256 // ACCESS_GRANTED
+                        </div>
+                    </div>
 
-        /* 控えめな背景文字 */
-        .hollow-text {
-            -webkit-text-stroke: 1px #333;
-            color: transparent;
-            opacity: 0.05 !important;
-            transition: transform 0.5s ease, opacity 0.5s ease, color 0.5s ease;
-            will-change: transform, opacity; /* アニメーション最適化 */
-            pointer-events: none;
-            backface-visibility: hidden; /* 描画負荷軽減 */
-        }
+                    <!-- ヘッダーエリア -->
+                    <div class="flex flex-col md:flex-row items-start md:items-end gap-6 mb-16 relative z-10 px-4 md:px-0 max-w-7xl mx-auto">
+                        <div class="flex items-center gap-5">
+                            <!-- 唯一の動的要素：赤く点滅するRECランプのようなインジケーター -->
+                            <div class="relative flex h-4 w-4">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neoRed opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-4 w-4 bg-neoRed border border-black shadow-[0_0_15px_#FF4D4D]"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-black italic text-5xl md:text-7xl text-white tracking-tighter leading-none">
+                                    DATA <span class="text-transparent text-stroke-white opacity-40">LOGS</span>
+                                </h3>
+                                <p class="font-mono text-xs text-gray-500 mt-1 tracking-widest">>> 3 ENCRYPTED FILES DETECTED</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- カードグリッド -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10 relative z-10 px-4 md:px-0 max-w-7xl mx-auto">
+                        
+                        <!-- LOG_01: Y (Blue Theme) -->
+                        <div class="log-card group gs-reveal-left hover-trigger" style="--log-color: #5D5FEF; --log-color-dim: rgba(93, 95, 239, 0.2);">
+                            <!-- 背景の巨大文字 -->
+                            <div class="log-bg-char">Y</div>
+                            <!-- ノイズオーバーレイ -->
+                            <div class="log-scan-overlay"></div>
+                            
+                            <div class="relative z-20 p-8 h-full flex flex-col justify-between min-h-[400px]">
+                                <!-- Card Header -->
+                                <div class="flex justify-between items-start border-b border-white/10 pb-4 mb-6">
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="status-badge">LOCKED</span>
+                                            <span class="font-mono text-[10px] text-neoBlue opacity-0 group-hover:opacity-100 transition-opacity">>> DECRYPTING...</span>
+                                        </div>
+                                        <h4 class="font-bold text-white text-lg tracking-wider">LOG_01 <span class="text-gray-600 text-xs">// FELLOW_EXPAT</span></h4>
+                                    </div>
+                                    <!-- Audio Visualizer (Waveform) -->
+                                    <div class="audio-visualizer">
+                                        <div class="audio-bar" style="animation-delay: 0.1s; height: 40%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.3s; height: 80%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.5s; height: 30%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.2s; height: 60%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.4s; height: 90%;"></div>
+                                    </div>
+                                </div>
 
-        .group:hover .hollow-text {
-            -webkit-text-stroke: 0px;
-            opacity: 0.1 !important;
-            transform: scale(1.05) rotate(-3deg) translateZ(0);
-        }
+                                <!-- Body Text -->
+                                <div class="flex-grow">
+                                    <p class="text-sm md:text-[0.95rem] text-gray-400 font-medium leading-loose text-justify cyber-readability group-hover:text-white transition-colors duration-500" data-key="log1Text">
+                                        ...
+                                    </p>
+                                </div>
 
-        /* ホバー時の色 */
-        .group:hover .hollow-text.text-y { color: #5D5FEF; }
-        .group:hover .hollow-text.text-s { color: #B983FF; }
-        .group:hover .hollow-text.text-q { color: #FF4D4D; }
+                                <!-- Footer Meta -->
+                                <div class="mt-6 pt-4 border-t border-dashed border-white/10 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                                    <span class="group-hover:text-neoBlue transition-colors" data-key="log1Meta">RELATION: 異国の戦友</span>
+                                    <span>SIZE: 24TB</span>
+                                </div>
+                            </div>
+                        </div>
 
-        /* スキャンライン演出 */
-        .scan-line-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
-            background-size: 100% 4px; pointer-events: none; z-index: 10; opacity: 0.3;
-        }
-        
-        /* ★最重要修正: topではなくtransformで動かす */
-        .active-scanner {
-            position: absolute; top: 0; left: 0; width: 100%; height: 20%;
-            background: linear-gradient(to bottom, transparent, rgba(214, 252, 82, 0.2), transparent);
-            /* GPU accelerated animation */
-            animation: scan-vertical-gpu 3s linear infinite; 
-            pointer-events: none; z-index: 5;
-            will-change: transform, opacity;
-        }
+                        <!-- LOG_02: S (Purple Theme) -->
+                        <div class="log-card group gs-reveal-right hover-trigger" style="--log-color: #B983FF; --log-color-dim: rgba(185, 131, 255, 0.2); transition-delay: 0.1s;">
+                            <div class="log-bg-char">S</div>
+                            <div class="log-scan-overlay"></div>
+                            
+                            <div class="relative z-20 p-8 h-full flex flex-col justify-between min-h-[400px]">
+                                <div class="flex justify-between items-start border-b border-white/10 pb-4 mb-6">
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="status-badge">LOCKED</span>
+                                            <span class="font-mono text-[10px] text-neoPurple opacity-0 group-hover:opacity-100 transition-opacity">>> DECRYPTING...</span>
+                                        </div>
+                                        <h4 class="font-bold text-white text-lg tracking-wider">LOG_02 <span class="text-gray-600 text-xs">// FORMER_REP</span></h4>
+                                    </div>
+                                    <div class="audio-visualizer">
+                                        <div class="audio-bar" style="animation-delay: 0.2s; height: 50%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.4s; height: 90%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.1s; height: 20%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.5s; height: 70%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.3s; height: 40%;"></div>
+                                    </div>
+                                </div>
 
-        @keyframes scan-vertical-gpu {
-            0% { transform: translateY(-100%); opacity: 0; } 
-            10% { opacity: 1; } 
-            90% { opacity: 1; } 
-            100% { transform: translateY(500%); opacity: 0; } /* カードの高さ(100%)に対して移動量を調整 */
-        }     
+                                <div class="flex-grow">
+                                    <p class="text-sm md:text-[0.95rem] text-gray-400 font-medium leading-loose text-justify cyber-readability group-hover:text-white transition-colors duration-500" data-key="log2Text">
+                                        ...
+                                    </p>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-dashed border-white/10 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                                    <span class="group-hover:text-neoPurple transition-colors" data-key="log2Meta">ROLE: サークル元代表</span>
+                                    <span>SIZE: 48TB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LOG_03: M (Red Theme) -->
+                        <div class="log-card group gs-reveal-left hover-trigger" style="--log-color: #FF4D4D; --log-color-dim: rgba(255, 77, 77, 0.2); transition-delay: 0.2s;">
+                            <div class="log-bg-char">M</div>
+                            <div class="log-scan-overlay"></div>
+                            
+                            <div class="relative z-20 p-8 h-full flex flex-col justify-between min-h-[400px]">
+                                <div class="flex justify-between items-start border-b border-white/10 pb-4 mb-6">
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="status-badge">LOCKED</span>
+                                            <span class="font-mono text-[10px] text-neoRed opacity-0 group-hover:opacity-100 transition-opacity">>> DECRYPTING...</span>
+                                        </div>
+                                        <h4 class="font-bold text-white text-lg tracking-wider">LOG_03 <span class="text-gray-600 text-xs">// POKER_RIVAL</span></h4>
+                                    </div>
+                                    <div class="audio-visualizer">
+                                        <div class="audio-bar" style="animation-delay: 0.5s; height: 80%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.1s; height: 30%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.3s; height: 90%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.2s; height: 50%;"></div>
+                                        <div class="audio-bar" style="animation-delay: 0.4s; height: 20%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow">
+                                    <p class="text-sm md:text-[0.95rem] text-gray-400 font-medium leading-loose text-justify cyber-readability group-hover:text-white transition-colors duration-500" data-key="log3Text">
+                                        ...
+                                    </p>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-dashed border-white/10 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                                    <span class="group-hover:text-neoRed transition-colors" data-key="log3Meta">STYLE: 分析型</span>
+                                    <span>SIZE: 12TB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- System Footer -->
+                    <div class="w-full max-w-7xl mx-auto flex justify-between items-end px-4 mt-12 opacity-30 pointer-events-none">
+                        <div class="flex gap-1">
+                            <div class="w-1 h-4 bg-gray-500 animate-pulse"></div>
+                            <div class="w-1 h-8 bg-gray-500"></div>
+                            <div class="w-1 h-3 bg-gray-500"></div>
+                            <div class="w-1 h-5 bg-gray-500 animate-pulse" style="animation-duration:0.5s"></div>
+                        </div>
+                        <span class="font-mono text-[10px] text-neoYellow tracking-[0.3em]">// END_OF_LOGS // AUTH_REQUIRED_FOR_MORE</span>
+                    </div>
+                </div>
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
