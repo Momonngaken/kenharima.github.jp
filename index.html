@@ -1907,7 +1907,8 @@ body.is-scanning #mobile-orientation-lock *,
                 color: #222222; 
             } */
         }
-         /* --- [UPDATED] LOGS STYLES (REFINED) --- */
+
+        /* --- [OPTIMIZED] LOGS STYLES (HIGH PERFORMANCE) --- */
         /* カードのベース形状 */
         .tactical-card {
             clip-path: polygon(
@@ -1917,25 +1918,31 @@ body.is-scanning #mobile-orientation-lock *,
                 calc(100% - 20px) 100%, 
                 0 100%
             );
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Performance: transitionをallではなく必要なプロパティに限定し、GPUレイヤーを独立させる */
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            will-change: transform; /* GPU合成を強制 */
+            transform: translateZ(0); /* ちらつき防止 */
         }
         .tactical-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) translateZ(0);
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
         }
 
-        /* 控えめな背景文字（修正箇所） */
+        /* 控えめな背景文字 */
         .hollow-text {
             -webkit-text-stroke: 1px #333;
             color: transparent;
-            opacity: 0.05 !important; /* 透明度を下げて主張を抑える */
-            transition: all 0.5s ease;
+            opacity: 0.05 !important;
+            transition: transform 0.5s ease, opacity 0.5s ease, color 0.5s ease;
+            will-change: transform, opacity; /* アニメーション最適化 */
+            pointer-events: none;
+            backface-visibility: hidden; /* 描画負荷軽減 */
         }
 
         .group:hover .hollow-text {
             -webkit-text-stroke: 0px;
-            opacity: 0.1 !important; /* ホバー時も控えめに */
-            transform: scale(1.05) rotate(-3deg); /* 回転と拡大をマイルドに */
+            opacity: 0.1 !important;
+            transform: scale(1.05) rotate(-3deg) translateZ(0);
         }
 
         /* ホバー時の色 */
@@ -1949,59 +1956,23 @@ body.is-scanning #mobile-orientation-lock *,
             background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
             background-size: 100% 4px; pointer-events: none; z-index: 10; opacity: 0.3;
         }
+        
+        /* ★最重要修正: topではなくtransformで動かす */
         .active-scanner {
-            position: absolute; top: -100%; left: 0; width: 100%; height: 20%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 20%;
             background: linear-gradient(to bottom, transparent, rgba(214, 252, 82, 0.2), transparent);
-            animation: scan-vertical 3s linear infinite; pointer-events: none; z-index: 5;
-        }
-        @keyframes scan-vertical {
-            0% { top: -20%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 120%; opacity: 0; }
-        } 
-        /* ▼▼▼ MOBILE OPTIMIZATION PATCH ▼▼▼ */
-        /* スマホ・タブレット（タッチデバイス）ではホバー効果を常時適用風にする */
-        @media (hover: none) {
-            /* 1. 背景文字を最初から表示させる */
-            .hollow-text {
-                opacity: 0.08 !important; /* PCのホバー時より少し薄めで常時表示 */
-                -webkit-text-stroke: 0px !important;
-                transform: scale(1.02) rotate(-2deg) !important;
-            }
-            /* 各色の適用 */
-            .hollow-text.text-y { color: #5D5FEF !important; }
-            .hollow-text.text-s { color: #B983FF !important; }
-            .hollow-text.text-q { color: #FF4D4D !important; }
-
-            /* 2. ヘッダーのボーダー色も常時表示 */
-            .tactical-card .border-b {
-                border-bottom-color: rgba(255, 255, 255, 0.2) !important;
-            }
-            /* アイコンの発光も常時ON（控えめに） */
-            .tactical-card .w-8 {
-                background-color: rgba(255, 255, 255, 0.1) !important;
-                color: white !important;
-                border-color: white !important;
-            }
-
-            /* 3. カード自体の枠線を発光させる（視認性向上） */
-            .tactical-card:nth-child(1) { border-left-color: #5D5FEF !important; }
-            .tactical-card:nth-child(2) { border-left-color: #B983FF !important; }
-            .tactical-card:nth-child(3) { border-left-color: #FF4D4D !important; }
+            /* GPU accelerated animation */
+            animation: scan-vertical-gpu 3s linear infinite; 
+            pointer-events: none; z-index: 5;
+            will-change: transform, opacity;
         }
 
-        /* スマホでの行間と文字サイズの微調整 */
-        @media (max-width: 767px) {
-            .tactical-card p[data-key^="log"] {
-                font-size: 0.85rem !important; /* 少し小さくして密度を下げる */
-                line-height: 1.9 !important;   /* 行間を広げて読みやすく */
-                opacity: 0.9 !important;       /* 白さを上げて視認性確保 */
-            }
-            /* イニシャルの位置調整（文字と被りすぎないように） */
-            .hollow-text {
-                bottom: -2rem !important;
-                right: -2rem !important;
-                font-size: 8rem !important;
-            }
-        }
+        @keyframes scan-vertical-gpu {
+            0% { transform: translateY(-100%); opacity: 0; } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; } 
+            100% { transform: translateY(500%); opacity: 0; } /* カードの高さ(100%)に対して移動量を調整 */
+        }     
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -2452,12 +2423,12 @@ body.is-scanning #mobile-orientation-lock *,
                             <div class="h-[1px] bg-gradient-to-r from-neoRed via-neoRed/20 to-transparent w-full md:w-64 mt-2 md:mt-0 opacity-50"></div>
                         </div>
                     </div>
-
+                    
                     <!-- カードグリッド -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10 px-4 md:px-0 max-w-7xl mx-auto">
                         
                         <!-- LOG_01: Y (Fellow Expat) - Blue Theme -->
-                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoBlue/60 transition-all duration-500 gs-reveal-left hover-trigger h-full overflow-hidden">
+                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoBlue/60 gs-reveal-left hover-trigger h-full overflow-hidden">
                             <!-- Scanning Laser -->
                             <div class="active-scanner"></div>
                             <div class="scan-line-overlay"></div>
@@ -2467,9 +2438,10 @@ body.is-scanning #mobile-orientation-lock *,
                             <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-600 group-hover:border-neoBlue transition-colors duration-300"></div>
 
                             <!-- Background Initial -->
-                            <span class="hollow-text text-y absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none pointer-events-none">Y</span>
+                            <span class="hollow-text text-y absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">Y</span>
                             
-                            <div class="relative z-10 p-8 h-full flex flex-col backdrop-blur-[2px]">
+                            <!-- 軽量化: backdrop-blur-[2px] を削除 -->
+                            <div class="relative z-10 p-8 h-full flex flex-col">
                                 <!-- Header -->
                                 <div class="flex justify-between items-start mb-8">
                                     <div class="font-mono text-[10px] tracking-widest text-gray-400 border-l-2 border-neoBlue pl-3 group-hover:text-neoBlue transition-colors">
@@ -2499,16 +2471,17 @@ body.is-scanning #mobile-orientation-lock *,
                         </div>
 
                         <!-- LOG_02: S (Circle) - Purple Theme -->
-                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoPurple/60 transition-all duration-500 gs-reveal-right hover-trigger h-full overflow-hidden" style="transition-delay: 25ms;">
-    <div class="active-scanner" style="animation-delay: 0.1s;"></div>
+                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoPurple/60 gs-reveal-right hover-trigger h-full overflow-hidden" style="transition-delay: 25ms;">
+                            <div class="active-scanner" style="animation-delay: 0.1s;"></div>
                             <div class="scan-line-overlay"></div>
 
                             <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-600 group-hover:border-neoPurple transition-colors duration-300"></div>
                             <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-600 group-hover:border-neoPurple transition-colors duration-300"></div>
 
-                            <span class="hollow-text text-s absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none pointer-events-none">S</span>
+                            <span class="hollow-text text-s absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">S</span>
                             
-                            <div class="relative z-10 p-8 h-full flex flex-col backdrop-blur-[2px]">
+                            <!-- 軽量化: backdrop-blur-[2px] を削除 -->
+                            <div class="relative z-10 p-8 h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
                                     <div class="font-mono text-[10px] tracking-widest text-gray-400 border-l-2 border-neoPurple pl-3 group-hover:text-neoPurple transition-colors">
                                         <span class="block font-bold text-lg mb-1 text-white group-hover:text-neoPurple">LOG_02</span>
@@ -2534,16 +2507,17 @@ body.is-scanning #mobile-orientation-lock *,
                         </div>
 
                         <!-- LOG_03: K (Poker Rival) - Red Theme -->
-                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoRed/60 transition-all duration-500 gs-reveal-left hover-trigger h-full overflow-hidden" style="transition-delay: 50ms;">
-    <div class="active-scanner" style="animation-delay: 0.2s;"></div>
+                        <div class="group relative tactical-card bg-[#050505] border border-gray-800 hover:border-neoRed/60 gs-reveal-left hover-trigger h-full overflow-hidden" style="transition-delay: 50ms;">
+                            <div class="active-scanner" style="animation-delay: 0.2s;"></div>
                             <div class="scan-line-overlay"></div>
 
                             <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-600 group-hover:border-neoRed transition-colors duration-300"></div>
                             <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-600 group-hover:border-neoRed transition-colors duration-300"></div>
 
-                            <span class="hollow-text text-q absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none pointer-events-none">K</span>
+                            <span class="hollow-text text-q absolute -right-8 -bottom-12 text-[12rem] font-black font-display select-none z-0 leading-none">K</span>
                             
-                            <div class="relative z-10 p-8 h-full flex flex-col backdrop-blur-[2px]">
+                            <!-- 軽量化: backdrop-blur-[2px] を削除 -->
+                            <div class="relative z-10 p-8 h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
                                     <div class="font-mono text-[10px] tracking-widest text-gray-400 border-l-2 border-neoRed pl-3 group-hover:text-neoRed transition-colors">
                                         <span class="block font-bold text-lg mb-1 text-white group-hover:text-neoRed">LOG_03</span>
@@ -2554,8 +2528,6 @@ body.is-scanning #mobile-orientation-lock *,
                                         <i class="fa-solid fa-spade text-xs -rotate-45 text-gray-400 group-hover:text-neoRed transition-colors"></i>
                                     </div>
                                 </div>
-
-
                                 
                                 <div class="flex-grow relative pl-3">
                                     <p class="text-sm md:text-[0.9rem] text-gray-400 font-medium leading-loose lang-fade cyber-readability group-hover:text-gray-200 transition-colors duration-300" data-key="log3Text">...</p>
@@ -2572,6 +2544,8 @@ body.is-scanning #mobile-orientation-lock *,
                         </div>
 
                     </div>
+
+
                     
                     <!-- System Footer -->
                     <div class="w-full max-w-7xl mx-auto flex justify-between items-end px-4 mt-12 opacity-40">
