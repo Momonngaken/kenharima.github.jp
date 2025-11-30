@@ -28,10 +28,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Google Fonts -->
+    <!-- >> OPTIMIZATION: PRE-FETCH PROTOCOLS INITIATED -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ADDED: CDN Pre-connections -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://unpkg.com">
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -174,8 +181,10 @@
         /* Grain */
         .grain-overlay { 
             position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; 
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,...");
             transform: translateZ(0); 
+            /* >> OPTIMIZATION: GPU COMPOSITING LAYER LOCKED */
+            will-change: transform; 
         }
         
         /* --- CURSOR --- */
@@ -2930,7 +2939,9 @@ body.is-scanning #mobile-orientation-lock *,
                         <div class="frame-hud bottom-left"></div><div class="frame-hud bottom-right"></div>
                         
                         <div class="relative w-[80vw] lg:w-[25vw] aspect-[3/4] bg-black overflow-hidden border border-white/20">
-                            <img src="./IMG_6457.jpg" alt="Evidence 01" class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
+                            <img src="./IMG_6457.jpg" alt="Evidence 01" 
+     loading="lazy" decoding="async"
+     class="w-full h-full object-cover filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110">
                             <div class="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm p-2 border-t border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p class="text-neoYellow font-mono text-xs">2024@Tokyo, Japan</p>
                             </div>
@@ -3099,7 +3110,9 @@ body.is-scanning #mobile-orientation-lock *,
             <div class="flex flex-col gap-2 group">
                 <div class="relative border-2 border-white/20 group-hover:border-neoBlue transition-colors bg-black overflow-hidden">
                     <div class="absolute top-0 left-0 bg-neoBlue text-black font-bold font-mono text-[10px] px-2 py-1 z-10">FIG.01: PROTOTYPE_DETAIL</div>
-                    <img src="./work3_detail.jpg" alt="ONESAGE Detail" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="./work3_detail.jpg" alt="ONESAGE Detail" 
+     loading="lazy" decoding="async"
+     class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 border-[10px] border-transparent group-hover:border-neoBlue/10 pointer-events-none transition-colors duration-300"></div>
                 </div>
                 <p class="text-gray-400 text-xs font-mono leading-relaxed">[CONCEPT]: "ONESAGE" (Price Down + Sage). 3D printed using 100% biodegradable material.</p>
@@ -3117,13 +3130,15 @@ body.is-scanning #mobile-orientation-lock *,
 </div>
 
     <script>
-        // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
+       // --- 0. LENIS (SMOOTH SCROLL) SETUP ---
         const lenis = new Lenis({ duration: 0.9, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
+        
+        // >> OPTIMIZATION: CPU GOVERNANCE / ALLOW MICRO-SKIPS TO PREVENT FREEZE
+        gsap.ticker.lagSmoothing(1000, 16); 
+        
         function startLenis() { function raf(time) { lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf); }
-
         // --- 0.5 SCRAMBLE TEXT ---
         class ScrambleText {
             constructor(chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+") { this.chars = chars; }
