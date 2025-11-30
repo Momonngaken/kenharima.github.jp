@@ -2479,49 +2479,54 @@ body.is-scanning #mobile-orientation-lock *,
                         <div class="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:60px_60px] opacity-20"></div>
                      
                     </div>
-
                     <!-- ヘッダーエリア -->
-                    <!-- [MODIFIED] 余白微調整: mb-12 (Mobile) -> mb-20 (PC) -->
-                    <div class="flex flex-col md:flex-row items-start md:items-end gap-6 mb-12 md:mb-20 relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
-                        <div class="flex items-center gap-4">
-                            <div class="relative w-3 h-3">
-                                <span class="absolute inset-0 rounded-sm bg-neoRed opacity-75 animate-ping"></span>
-                                <span class="relative block w-3 h-3 bg-neoRed rounded-sm border border-black shadow-[0_0_10px_#FF4D4D]"></span>
-                            </div>
-                             <h3 class="font-display font-black italic text-5xl md:text-6xl text-white tracking-tighter leading-none">
-                                DATA <span class="text-stroke-white text-transparent opacity-50">LOGS</span>
-                            </h3>
-                        </div>
-                        <!-- ここから貼り付け -->
-<div class="mt-6 md:mt-0 md:ml-10 w-full max-w-lg relative group cursor-default">
-    <!-- Mobile Visual Anchor: 左側のネオンライン（スマホのみ表示） -->
-    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-neoYellow/50 md:hidden"></div>
+<div class="flex flex-col md:flex-row items-start md:items-end gap-6 mb-12 md:mb-20 relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
     
-    <!-- Content Wrapper -->
-    <div class="pl-4 md:pl-0 flex flex-col items-start font-mono text-left">
-        <!-- System Header Line -->
-        <div class="flex items-center gap-2 mb-1.5 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-            <span class="text-neoYellow text-[10px] tracking-widest uppercase">// SYSTEM_NOTICE: </span>
-            <span class="text-[10px] text-gray-400 tracking-wider">RAW_DATA_RECONSTRUCTED</span>
+    <!-- Title Section: THE GAZE -->
+    <div class="flex items-center gap-4">
+        <!-- Active Status Indicator -->
+        <div class="relative w-3 h-3">
+            <span class="absolute inset-0 rounded-sm bg-neoRed opacity-75 animate-ping"></span>
+            <span class="relative block w-3 h-3 bg-neoRed rounded-sm border border-black shadow-[0_0_10px_#FF4D4D]"></span>
         </div>
-        <!-- Body Text -->
-        <p class="text-[10px] md:text-[11px] leading-[1.8] text-gray-500 font-medium tracking-wide lang-fade" data-key="logNotice">
-            <span class="inline-block">※本ログはサイトの世界観との整合性を図るため、</span><br class="hidden sm:block">
-            <span class="inline-block">友人の原文から<span class="text-gray-400 border-b border-gray-700/50 pb-[1px] group-hover:border-neoYellow/50 group-hover:text-neoYellow transition-colors duration-300">本質を抽出・一部再構成</span>しています。</span>
-        </p>
-        <!-- Decorative Blinking Cursor (PC Only) -->
-        <div class="hidden md:block absolute -left-4 top-1 text-neoYellow animate-pulse opacity-50">></div>
+        <!-- Typography: "まなざし" -->
+        <h3 class="font-display font-black italic text-5xl md:text-6xl text-white tracking-tighter leading-none">
+            THE <span class="text-stroke-white text-transparent opacity-50">GAZE</span>
+        </h3>
+    </div>
+
+    <!-- System Notice: Subjective Narrative -->
+    <div class="mt-6 md:mt-0 md:ml-10 w-full max-w-lg relative group cursor-default">
+        <!-- Mobile Anchor Line -->
+        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-neoYellow/50 md:hidden"></div>
+        
+        <div class="pl-4 md:pl-0 flex flex-col items-start font-mono text-left">
+            <!-- Header: "RAW_DATA" を廃止し、人間の語りであることを強調 -->
+            <div class="flex items-center gap-2 mb-1.5 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="text-neoYellow text-[10px] tracking-widest uppercase">// SYSTEM_NOTICE: </span>
+                <span class="text-[10px] text-gray-400 tracking-wider">SUBJECTIVE_NARRATIVE</span>
+            </div>
+            
+            <!-- Notice Body -->
+            <p class="text-[10px] md:text-[11px] leading-[1.8] text-gray-500 font-medium tracking-wide lang-fade" data-key="logNotice">
+                <span class="inline-block">※本ログはサイトの世界観との整合性を図るため、</span><br class="hidden sm:block">
+                <span class="inline-block">友人の原文から<span class="text-gray-400 border-b border-gray-700/50 pb-[1px] group-hover:border-neoYellow/50 group-hover:text-neoYellow transition-colors duration-300">本質を抽出・一部再構成</span>しています。</span>
+            </p>
+            
+            <!-- Terminal Cursor -->
+            <div class="hidden md:block absolute -left-4 top-1 text-neoYellow animate-pulse opacity-50">></div>
+        </div>
+    </div>
+
+    <!-- Right Side Label: Intersubjective Records -->
+    <div class="w-full md:w-auto flex flex-col md:items-end md:ml-auto">
+        <div class="font-mono text-[10px] text-neoYellow bg-black/80 border border-neoYellow/30 px-3 py-1 mb-2 backdrop-blur-sm self-start md:self-auto">
+            >> INTERSUBJECTIVE_RECORDS
+        </div>
+        <!-- Decorative Line -->
+        <div class="h-[1px] bg-gradient-to-r from-neoRed via-neoRed/20 to-transparent w-full md:w-64 mt-2 md:mt-0 opacity-50"></div>
     </div>
 </div>
-                        <!-- モバイルでのみ表示順序や配置バランスを整えるためのラッパー -->
-                        <div class="w-full md:w-auto flex flex-col md:items-end md:ml-auto">
-                            <div class="font-mono text-[10px] text-neoYellow bg-black/80 border border-neoYellow/30 px-3 py-1 mb-2 backdrop-blur-sm self-start md:self-auto">
-                                >> EXTERNAL_EVALUATION_FILES
-                            </div>
-                            <!-- ライン装飾 -->
-                            <div class="h-[1px] bg-gradient-to-r from-neoRed via-neoRed/20 to-transparent w-full md:w-64 mt-2 md:mt-0 opacity-50"></div>
-                        </div>
-                    </div>
                     
                     <!-- カードグリッド -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
