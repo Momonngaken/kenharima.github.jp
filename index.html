@@ -2496,22 +2496,25 @@ body.is-scanning #mobile-orientation-lock *,
                                 DATA <span class="text-stroke-white text-transparent opacity-50">LOGS</span>
                             </h3>
                         </div>
-
-
-
-                        <div class="mt-4 md:mt-0 md:ml-8 font-mono text-[10px] md:text-xs text-gray-500 leading-relaxed max-w-lg">
-    <div class="flex items-start gap-2 opacity-70 hover:opacity-100 transition-opacity duration-300">
-        <span class="text-neoYellow mt-[2px]">>></span>
-        <p>
-            <span class="text-neoYellow font-bold">SYSTEM_NOTICE:</span> 
-            RAW_DATA_RECONSTRUCTED.
-            <br>
-            <!-- data-keyを追加しました -->
-            <span class="tracking-tight lang-fade" data-key="logNotice">
-                ※本ログはサイトの世界観との整合性を図るため、<br class="hidden md:block">
-                友人の原文から<span class="border-b border-gray-600 pb-[1px]">本質を抽出・再構成</span>しています。
-            </span>
+                        <!-- ここから貼り付け -->
+<div class="mt-6 md:mt-0 md:ml-10 w-full max-w-lg relative group cursor-default">
+    <!-- Mobile Visual Anchor: 左側のネオンライン（スマホのみ表示） -->
+    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-neoYellow/50 md:hidden"></div>
+    
+    <!-- Content Wrapper -->
+    <div class="pl-4 md:pl-0 flex flex-col items-start font-mono text-left">
+        <!-- System Header Line -->
+        <div class="flex items-center gap-2 mb-1.5 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-neoYellow text-[10px] tracking-widest uppercase">// SYSTEM_NOTICE: </span>
+            <span class="text-[10px] text-gray-400 tracking-wider">RAW_DATA_RECONSTRUCTED</span>
+        </div>
+        <!-- Body Text -->
+        <p class="text-[10px] md:text-[11px] leading-[1.8] text-gray-500 font-medium tracking-wide lang-fade" data-key="logNotice">
+            <span class="inline-block">※本ログはサイトの世界観との整合性を図るため、</span><br class="hidden sm:block">
+            <span class="inline-block">友人の原文から<span class="text-gray-400 border-b border-gray-700/50 pb-[1px] group-hover:border-neoYellow/50 group-hover:text-neoYellow transition-colors duration-300">本質を抽出・一部再構成</span>しています。</span>
         </p>
+        <!-- Decorative Blinking Cursor (PC Only) -->
+        <div class="hidden md:block absolute -left-4 top-1 text-neoYellow animate-pulse opacity-50">></div>
     </div>
 </div>
                         <!-- モバイルでのみ表示順序や配置バランスを整えるためのラッパー -->
