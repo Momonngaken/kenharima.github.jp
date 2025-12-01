@@ -2111,12 +2111,45 @@ body.is-scanning #mobile-orientation-lock *,
 .limit-op { font-size: 1.2rem; margin-bottom: 2px; }
 .limit-sub { font-size: 0.6rem; font-family: 'Inter', sans-serif; opacity: 0.8; }
 
-/* シグマ (∑) */
+/* --- 変更・追加するCSS --- */
+
+/* シグマとその上下の文字をまとめるコンテナ */
+.math-sigma-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.3rem; /* 前後の要素との間隔 */
+    line-height: 1;
+}
+
+/* 上下の文字 (n, i=1) のスタイル */
+.sigma-limit {
+    font-family: 'Times New Roman', serif;
+    font-size: 0.7rem;
+    opacity: 0.9;
+    font-style: italic;
+    line-height: 1;
+}
+
+/* 下付き文字の位置微調整 */
+.sigma-limit.bottom {
+    margin-top: -2px; /* シグマに近づける */
+}
+
+/* 上付き文字の位置微調整 */
+.sigma-limit.top {
+    margin-bottom: -2px; /* シグマに近づける */
+}
+
+/* シグマ記号本体 (マージンを親要素に移譲するため修正) */
 .math-sigma { 
-    font-size: 2.2rem; 
+    font-family: 'Times New Roman', serif;
+    font-size: 2.0rem; 
     font-weight: lighter; 
-    margin: 0 0.1rem;
-    transform: scaleY(1.1); /* 少し縦長にしてスタイリッシュに */
+    margin: 0; /* マージン削除 */
+    transform: scaleY(1.1); /* 縦長にスタイリッシュに */
+    line-height: 0.9;
 }
 
 /* 分数 (1/n) */
@@ -2761,8 +2794,12 @@ body.is-scanning #mobile-orientation-lock *,
                         <span class="frac-bottom">𝑛</span>
                     </div>
                     
-                    <!-- シグマ: ∑ -->
-                    <span class="math-sigma">∑</span>
+                    <!-- シグマ: ∑ (with limits) -->
+                    <div class="math-sigma-wrapper">
+                        <span class="sigma-limit top">𝑛</span>
+                        <span class="math-sigma">∑</span>
+                        <span class="sigma-limit bottom">𝑖=1</span>
+                    </div>
                     
                     <!-- 右辺: (Execution i) -->
                     <div class="flex items-baseline">
