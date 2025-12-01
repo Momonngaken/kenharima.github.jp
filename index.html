@@ -2208,22 +2208,18 @@ body.is-scanning #mobile-orientation-lock *,
             <div class="mnp-head-pulse"></div>
         </div>
     </div>
-
-   <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
+    
+    <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
     <div id="scan-toggle-container">
         <button id="scan-toggle-btn" class="scan-btn hover-trigger group">
-            <!-- 通常時: インジケーター -->
             <span class="scan-indicator group-hover:bg-neoBlue transition-colors"></span>
-            
-            <!-- ラベルテキスト -->
             <span class="font-mono text-[10px] tracking-widest" data-key="scanBtn">
                 // DECODE_SEMANTICS
             </span>
-            
-            <!-- ホバー時の背景エフェクト -->
             <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </button>
     </div>
+    
     <!-- Flash Overlay for Poker Win -->
     <div id="flash-overlay"></div>
     
@@ -3657,47 +3653,35 @@ body.is-scanning #mobile-orientation-lock *,
             let isAnimating = false;
             
             toggleBtn.addEventListener('click', () => {
-                if (isAnimating) return; // 連打防止
+                if (isAnimating) return; 
                 isAnimating = true;
 
                 const isActive = document.body.classList.contains('is-scanning');
                 
                 if (!isActive) {
-                    // 起動シーケンス
-                    vibrateEngine([10, 50, 10]); // メカニカルな振動
-                    
-                    // 1. テキストスクランブル "ANALYZING..."
-                    const originalText = btnText.innerText;
+                    vibrateEngine([10, 50, 10]); 
                     scrambler.scramble(btnText, ">> ANALYZING...", 400);
-                    toggleBtn.classList.add('animate-pulse'); // 点滅開始
+                    toggleBtn.classList.add('animate-pulse'); 
 
-                    // 2. 解析演出のための遅延
                     setTimeout(() => {
                         document.body.classList.add('is-scanning');
                         toggleBtn.classList.add('active');
                         toggleBtn.classList.remove('animate-pulse');
-                        
-                        // 完了後のテキスト
                         btnText.innerText = "// SEMANTICS_ACTIVE";
-                        
-                        // 強めの振動フィードバック
                         vibrateEngine([30, 100]);
                         isAnimating = false;
                     }, 500);
 
                 } else {
-                    // 解除シーケンス
                     vibrateEngine(20);
                     document.body.classList.remove('is-scanning');
                     toggleBtn.classList.remove('active');
-                    
-                    // テキストを元に戻す
                     scrambler.scramble(btnText, "// DECODE_SEMANTICS", 400);
                     isAnimating = false;
                 }
             });
         }
-
+        
         const translations = {
             ja: {
                 navLogo: "KEN.H", navAbout: "私について", navWorks: "活動・受賞歴", navSkills: "保有資格", navFragments: "断片", navContact: "連絡先", navButton: "コンタクトを取る",
@@ -3869,7 +3853,7 @@ body.is-scanning #mobile-orientation-lock *,
             translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
 
             // ボタンのテキスト設定
-            translations.ja.scanBtn = "// DECODE_SEMANTIC";
+            translations.ja.scanBtn = "// 核心を見る";
             translations.en.scanBtn = "// DECODE_SEMANTICS";
             
             const aboutBodyEl = document.querySelector('[data-key="aboutBody1"]');
