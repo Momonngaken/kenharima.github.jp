@@ -2735,6 +2735,46 @@ body.is-scanning #mobile-orientation-lock *,
                                         <span class="font-sans leading-none block transform -rotate-12">♠</span>
                                     </div>
                                 </div>
+                                <!-- ▼▼▼ 修正箇所: 本文と数式のコンテナ ▼▼▼ -->
+        <div class="flex-grow relative">
+            <!-- 1. 復活させた本文テキスト -->
+            <p class="text-sm md:text-[0.9rem] text-gray-300 font-medium leading-loose lang-fade cyber-readability group-hover:text-white transition-colors duration-300" data-key="log3Text">...</p>
+
+            <!-- 2. 数式モジュール -->
+            <div class="cyber-formula-wrapper">
+                <div class="math-row">
+                    <!-- 左辺: EV -->
+                    <span class="math-var">EV</span>
+                    <span class="mx-1 font-mono opacity-70">=</span>
+                    
+                    <!-- 極限: lim n->∞ -->
+                    <div class="math-limit">
+                        <span class="limit-op">lim</span>
+                        <span class="limit-sub">𝑛→∞</span>
+                    </div>
+                    
+                    <!-- 分数: 1/n -->
+                    <div class="math-frac">
+                        <span class="frac-top">1</span>
+                        <span class="frac-bottom">𝑛</span>
+                    </div>
+                    
+                    <!-- シグマ -->
+                    <span class="math-sigma">∑</span>
+                    
+                    <!-- 右辺: (Execution_i) -->
+                    <div class="flex items-baseline">
+                        <span class="math-term font-serif opacity-90">(Execution</span>
+                        <span class="sub-i">𝑖</span>
+                        <span class="math-term font-serif opacity-90">)</span>
+                    </div>
+                </div>
+                <!-- Decoration: Code hint -->
+                <div class="absolute bottom-1 right-2 font-mono text-[8px] text-[var(--holo-color)] opacity-40 tracking-widest">
+                    >> LAW_OF_LARGE_NUMBERS
+                </div>
+            </div>
+        </div>
 
                                 <!-- >> INSERT: EV FORMULA MODULE -->
 <div class="cyber-formula-wrapper">
