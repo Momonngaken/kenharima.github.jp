@@ -2163,6 +2163,48 @@ body.is-scanning #mobile-orientation-lock *,
 .frac-top { border-bottom: 1px solid currentColor; padding: 0 0.3rem; margin-bottom: 1px; width: 100%; text-align: center; }
 .frac-bottom { width: 100%; text-align: center; }
 
+        /* ▼▼▼ ここから追加・書き換え ▼▼▼ */
+
+/* シグマとその上下の文字をまとめるコンテナ */
+.math-sigma-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.2rem; /* 前後の要素との間隔 */
+    line-height: 1;
+}
+
+/* 上下の文字 (n, i=1) のスタイル */
+.sigma-limit {
+    font-family: 'Times New Roman', serif;
+    font-size: 0.7rem;
+    opacity: 0.9;
+    font-style: italic;
+    line-height: 1;
+    text-align: center;
+}
+
+/* 下付き文字 (i=1) の位置微調整 */
+.sigma-limit.bottom {
+    margin-top: -4px; /* シグマに近づける */
+}
+
+/* 上付き文字 (n) の位置微調整 */
+.sigma-limit.top {
+    margin-bottom: -2px; /* シグマに近づける */
+}
+
+/* シグマ記号本体 (マージンを親要素に移譲するため修正) */
+.math-sigma { 
+    font-family: 'Times New Roman', serif;
+    font-size: 2.0rem; 
+    font-weight: lighter; 
+    margin: 0; /* マージン削除 */
+    transform: scaleY(1.1); /* 縦長にスタイリッシュに */
+    line-height: 0.9;
+}
+
 /* 添字 (i) の位置調整 */
 .sub-i {
     font-size: 0.65rem;
