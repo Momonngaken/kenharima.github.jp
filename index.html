@@ -3383,21 +3383,97 @@ body.is-scanning #mobile-orientation-lock *,
                 gsap.to(chip, { y: window.innerHeight + 100, x: (Math.random() - 0.5) * 500, rotationX: Math.random() * 720, rotationY: Math.random() * 720, duration: Math.random() * 3 + 2, ease: "power1.in", delay: Math.random() * 0.5, onComplete: () => chip.remove() });
             }
         }
-
-        // --- GLOBAL VARS & INIT ---
-        const loader = document.getElementById('loader'); const loaderCounter = document.getElementById('loader-counter'); const loaderBar = document.getElementById('loader-bar');
-        let count = 0; let currentLang = 'ja';
         
-        function detectLanguage() { const userLang = navigator.language || navigator.userLanguage; if (userLang.startsWith('en')) { currentLang = 'en'; } else { currentLang = 'ja'; } applyLanguage(false); }
+        // --- GLOBAL VARS & INIT (SYSTEM PATCH APPLIED V.3.1) ---
+        const loader = document.getElementById('loader'); 
+        const loaderCounter = document.getElementById('loader-counter'); 
+        const loaderBar = document.getElementById('loader-bar');
+        let count = 0; 
+        let currentLang = 'ja';
+        
+        function detectLanguage() { 
+            const userLang = navigator.language || navigator.userLanguage; 
+            if (userLang.startsWith('en')) { currentLang = 'en'; } else { currentLang = 'ja'; } 
+            applyLanguage(false); 
+        }
+
         function initLoader() {
+            // >> SAFETY PROTOCOL: WATCHDOG TIMER
+            // 5秒経過してもロードが終わらない場合、強制的にシステムを起動させる
+            const safetyTimer = setTimeout(() => {
+                console.warn(">> SYSTEM_WARNING: BOOT_SEQUENCE_TIMEOUT // INITIATING FORCE_OVERRIDE");
+                
+                // 緊急時の演出: エラー表示と共に強制接続
+                if(loaderCounter) loaderCounter.innerText = "ERR";
+                const errorMsg = document.createElement('div');
+                errorMsg.innerHTML = ">> FORCE_OVERRIDE_ENABLED";
+                errorMsg.className = "absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-12 font-mono text-neoRed text-xs tracking-widest animate-pulse";
+                if(loader) loader.appendChild(errorMsg);
+
+                finishLoading(true); // Force Mode Activate
+            }, 5000);
+
             const hasVisited = sessionStorage.getItem('visited');
-            if (hasVisited) { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); } 
+            
+            // CHECK: 訪問済みなら即時展開
+            if (hasVisited) { 
+                clearTimeout(safetyTimer);
+                if(loader) loader.style.display = 'none'; 
+                document.body.classList.remove('is-loading'); 
+                // 遅延を防ぐため requestAnimationFrame でタイミングを調整して実行
+                requestAnimationFrame(() => initSite());
+            } 
             else {
                 sessionStorage.setItem('visited', 'true');
-                const interval = setInterval(() => { count += Math.floor(Math.random() * 3) + 1; if(count > 100) count = 100; loaderCounter.innerText = count.toString().padStart(3, '0'); loaderBar.style.width = `${count}%`; if(count === 100) { clearInterval(interval); finishLoading(); } }, 20);
+                
+                // LOADING ANIMATION LOOP
+                const interval = setInterval(() => {
+                    count += Math.floor(Math.random() * 5) + 2; // ランダム性を強化
+                    
+                    // 閾値判定を堅牢化 (count > 100 で無限ループするバグを修正)
+                    if(count >= 100) { 
+                        count = 100;
+                        if(loaderCounter) loaderCounter.innerText = "100";
+                        if(loaderBar) loaderBar.style.width = "100%";
+                        
+                        clearInterval(interval); 
+                        clearTimeout(safetyTimer); // 正常終了のため番犬を解除
+                        finishLoading(false); // Normal Mode
+                    } else {
+                        if(loaderCounter) loaderCounter.innerText = count.toString().padStart(3, '0');
+                        if(loaderBar) loaderBar.style.width = `${count}%`;
+                    }
+                }, 30);
             }
         }
-        function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
+
+        function finishLoading(isForceMode = false) { 
+            // GSAP依存の回避: ライブラリ未ロード時は即時開放
+            if (typeof gsap === 'undefined') {
+                if(loader) loader.style.display = 'none';
+                document.body.classList.remove('is-loading');
+                initSite();
+                return;
+            }
+
+            const tl = gsap.timeline(); 
+            const duration = isForceMode ? 0.5 : 1.2; // 強制時は高速展開
+            const ease = isForceMode ? "power4.out" : "power4.inOut";
+
+            tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" })
+              .to(loader, { 
+                  yPercent: -100, 
+                  duration: duration, 
+                  ease: ease, 
+                  onComplete: () => { 
+                      if(loader) loader.style.display = 'none'; 
+                      document.body.classList.remove('is-loading'); 
+                      // 最終安全装置: initSiteのエラーもキャッチ
+                      try { initSite(); } catch(e) { console.error(">> SYSTEM_CRITICAL: MAIN_PROCESS_FAILED", e); }
+                  }
+              }); 
+        }
+        
         function initSite() {
             startLenis(); 
              initTacticalCursor();
