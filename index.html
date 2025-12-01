@@ -3676,7 +3676,7 @@ body.is-scanning #mobile-orientation-lock *,
                     vibrateEngine(20);
                     document.body.classList.remove('is-scanning');
                     toggleBtn.classList.remove('active');
-                    scrambler.scramble(btnText, "// DECODE_SEMANTICS", 400);
+                    scrambler.scramble(btnText, translations[currentLang].scanBtn, 400);
                     isAnimating = false;
                 }
             });
