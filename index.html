@@ -2209,9 +2209,7 @@ body.is-scanning #mobile-orientation-lock *,
         </div>
     </div>
 
-    <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
-    <div id="scan-toggle-container">
-        <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
+   <!-- QUICK SCAN BUTTON (PC & Mobile Optimized) -->
     <div id="scan-toggle-container">
         <button id="scan-toggle-btn" class="scan-btn hover-trigger group">
             <!-- 通常時: インジケーター -->
@@ -2226,7 +2224,6 @@ body.is-scanning #mobile-orientation-lock *,
             <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </button>
     </div>
-
     <!-- Flash Overlay for Poker Win -->
     <div id="flash-overlay"></div>
     
@@ -3653,8 +3650,7 @@ body.is-scanning #mobile-orientation-lock *,
         }
         menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- QUICK SCAN PROTOCOL IMPLEMENTATION ---
-        function initScanProtocol() // --- [UPDATED] QUICK SCAN PROTOCOL IMPLEMENTATION ---
+        // --- [UPDATED] QUICK SCAN PROTOCOL IMPLEMENTATION ---
         function initScanProtocol() {
             const toggleBtn = document.getElementById('scan-toggle-btn');
             const btnText = toggleBtn.querySelector('span[data-key="scanBtn"]');
@@ -3873,12 +3869,9 @@ body.is-scanning #mobile-orientation-lock *,
             translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
 
             // ボタンのテキスト設定
-            translations.ja.scanBtn = "// DECODE_SEMANTICS";
+            translations.ja.scanBtn = "// DECODE_SEMANTIC";
             translations.en.scanBtn = "// DECODE_SEMANTICS";
             
-            
-            translations.ja.aboutBody1 = `${greetingJa}、${nameHtmlJa}${bioJa}`;
-            translations.en.aboutBody1 = `${greetingEn}${bioEn}`;
             const aboutBodyEl = document.querySelector('[data-key="aboutBody1"]');
             if (aboutBodyEl) { aboutBodyEl.innerHTML = translations.ja.aboutBody1; }
         }
