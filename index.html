@@ -2066,6 +2066,86 @@ body.is-scanning #mobile-orientation-lock *,
             text-shadow: 0 0 5px var(--holo-color-dim);
         }
 
+        /* --- CYBER FORMULA STYLING --- */
+.cyber-formula-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.math-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif; /* 数式の美しさを担保するためSerifを使用 */
+    font-size: 1.5rem; /* PC基準 */
+    color: #e0e0e0;
+    line-height: 1;
+    gap: 0.5rem;
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+/* ホバー時に数式がテーマカラー（赤）に発光 */
+.group:hover .math-row {
+    color: #fff;
+    text-shadow: 0 0 8px var(--holo-color), 0 0 15px var(--holo-color);
+}
+
+/* 各パーツの精密制御 */
+.math-var { font-style: normal; font-weight: bold; } /* EV */
+.math-term { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.02em; } /* Execution */
+
+/* 極限 (lim) の積み上げレイアウト */
+.math-limit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0.2rem;
+}
+.limit-op { font-size: 1.2rem; margin-bottom: 2px; }
+.limit-sub { font-size: 0.6rem; font-family: 'Inter', sans-serif; opacity: 0.8; }
+
+/* シグマ (∑) */
+.math-sigma { 
+    font-size: 2.2rem; 
+    font-weight: lighter; 
+    margin: 0 0.1rem;
+    transform: scaleY(1.1); /* 少し縦長にしてスタイリッシュに */
+}
+
+/* 分数 (1/n) */
+.math-frac {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9rem;
+    margin: 0 0.3rem;
+}
+.frac-top { border-bottom: 1px solid currentColor; padding: 0 0.3rem; margin-bottom: 1px; width: 100%; text-align: center; }
+.frac-bottom { width: 100%; text-align: center; }
+
+/* 添字 (i) の位置調整 */
+.sub-i {
+    font-size: 0.65rem;
+    vertical-align: sub;
+    margin-left: -1px; /* 文字間を詰める */
+    margin-bottom: -0.2em; /* ベースライン調整 */
+    color: var(--holo-color); /* iだけテーマカラーにして強調 */
+    font-style: italic;
+    font-family: 'Times New Roman', serif;
+}
+
+/* スマホ用調整 */
+@media (max-width: 767px) {
+    .math-row { font-size: 1.1rem; gap: 0.3rem; }
+    .math-sigma { font-size: 1.6rem; }
+}
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -2655,9 +2735,41 @@ body.is-scanning #mobile-orientation-lock *,
                                         <span class="font-sans leading-none block transform -rotate-12">♠</span>
                                     </div>
                                 </div>
-                                
-                                <div class="flex-grow relative">
-                                    <p class="text-sm md:text-[0.9rem] text-gray-300 font-medium leading-loose lang-fade cyber-readability group-hover:text-white transition-colors duration-300" data-key="log3Text">...</p>
+
+                                <!-- >> INSERT: EV FORMULA MODULE -->
+<div class="cyber-formula-wrapper">
+    <div class="math-row">
+        <!-- 左辺: EV -->
+        <span class="math-var">EV</span>
+        <span class="mx-1 font-mono opacity-70">=</span>
+        
+        <!-- 極限: lim n->∞ -->
+        <div class="math-limit">
+            <span class="limit-op">lim</span>
+            <span class="limit-sub">𝑛→∞</span>
+        </div>
+        
+        <!-- 分数: 1/n -->
+        <div class="math-frac">
+            <span class="frac-top">1</span>
+            <span class="frac-bottom">𝑛</span>
+        </div>
+        
+        <!-- シグマ -->
+        <span class="math-sigma">∑</span>
+        
+        <!-- 右辺: (Execution_i) -->
+        <div class="flex items-baseline">
+            <span class="math-term font-serif opacity-90">(Execution</span>
+            <span class="sub-i">𝑖</span>
+            <span class="math-term font-serif opacity-90">)</span>
+        </div>
+    </div>
+    <!-- Decoration: Code hint -->
+    <div class="absolute bottom-1 right-2 font-mono text-[8px] text-[var(--holo-color)] opacity-40 tracking-widest">
+        >> LAW_OF_LARGE_NUMBERS
+    </div>
+</div>
                                 </div>
 
                                 <div class="mt-8 pt-2 flex justify-between items-end">
