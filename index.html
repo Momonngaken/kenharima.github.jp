@@ -2658,6 +2658,65 @@ body.is-scanning #mobile-orientation-lock *,
                                 
                                 <div class="flex-grow relative">
                                     <p class="text-sm md:text-[0.9rem] text-gray-300 font-medium leading-loose lang-fade cyber-readability group-hover:text-white transition-colors duration-300" data-key="log3Text">...</p>
+                                    <!-- ▼▼▼ [INSERT START] HOLO-FORMULA INSERTION ▼▼▼ -->
+<div class="relative mt-auto mb-4 py-3 px-1 border-y border-white/5 bg-black/20 backdrop-blur-md group-hover:border-[var(--holo-color)]/30 transition-all duration-500 overflow-hidden">
+    
+    <!-- 背景のグリッド走査線演出 -->
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,var(--holo-color)_50%,transparent_100%)] opacity-0 group-hover:opacity-10 translate-x-[-100%] group-hover:animate-[scan-pass_2s_ease-in-out_infinite] pointer-events-none"></div>
+
+    <!-- 数式コンテナ -->
+    <div class="flex items-center justify-center gap-1 md:gap-3 font-serif text-lg md:text-xl text-gray-400 group-hover:text-white transition-colors duration-300 select-none">
+        
+        <!-- Term 1: f(Chaos) -->
+        <div class="italic tracking-tight relative">
+            <span class="font-bold font-stylish not-italic text-[var(--holo-color)]">f</span>
+            <span class="group-hover:text-white transition-colors">(Chaos)</span>
+        </div>
+
+        <!-- Arrow Section -->
+        <div class="relative flex flex-col items-center justify-center w-20 md:w-28 mx-1">
+            <!-- Label: Structure -->
+            <span class="text-[0.5rem] uppercase tracking-[0.2em] font-mono text-[var(--holo-color)] mb-[2px] opacity-70 group-hover:opacity-100 transition-opacity">Structure</span>
+            
+            <!-- Arrow Line -->
+            <div class="w-full h-[1px] bg-gray-700 relative overflow-hidden">
+                <!-- 内部を走るエネルギーライン -->
+                <div class="absolute inset-0 bg-[var(--holo-color)] translate-x-[-100%] group-hover:animate-[data-flow_1.5s_cubic-bezier(0.4,0,0.2,1)_infinite]"></div>
+            </div>
+            
+            <!-- Arrow Head -->
+            <div class="absolute right-0 bottom-[-3px] text-gray-700 group-hover:text-[var(--holo-color)] transition-colors text-[8px] leading-none">
+                ▶
+            </div>
+        </div>
+
+        <!-- Term 2: Execution -->
+        <div class="relative">
+            <span class="font-bold tracking-wide text-white group-hover:text-[var(--holo-color)] group-hover:drop-shadow-[0_0_8px_var(--holo-color)] transition-all duration-300">
+                Execution
+            </span>
+            <!-- Glitch Decor -->
+            <span class="absolute inset-0 font-bold tracking-wide text-[var(--holo-color)] opacity-0 group-hover:animate-ping" style="animation-duration: 2s;">Execution</span>
+        </div>
+    </div>
+
+    <!-- 四隅のターゲットマーカー装飾 -->
+    <div class="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-[var(--holo-color)] opacity-30 group-hover:opacity-100 transition-opacity"></div>
+    <div class="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-[var(--holo-color)] opacity-30 group-hover:opacity-100 transition-opacity"></div>
+</div>
+
+<!-- Custom Animation for Formula (Add only if not present elsewhere) -->
+<style>
+    @keyframes data-flow {
+        0% { transform: translateX(-100%); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateX(100%); opacity: 0; }
+    }
+    @keyframes scan-pass {
+        0% { transform: translateX(-100%) skewX(-20deg); }
+        100% { transform: translateX(200%) skewX(-20deg); }
+    }
+</style>
                                 </div>
 
                                 <div class="mt-8 pt-2 flex justify-between items-end">
