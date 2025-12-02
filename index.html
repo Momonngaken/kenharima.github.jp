@@ -2299,8 +2299,6 @@ body.is-scanning #mobile-orientation-lock *,
             color: #D6FC52;
             letter-spacing: 0.05em;
         }
-
-</style>
     </style>
 </head>
 <body class="antialiased selection:bg-neoYellow selection:text-black is-loading">
@@ -3913,8 +3911,12 @@ body.is-scanning #mobile-orientation-lock *,
             const scanHint = document.getElementById('mobile-scan-hint');
             const isMobile = window.innerWidth < 1024;
 
-            // モバイルかつヒント要素が存在する場合のみ実行
-            if (isMobile && scanHint) {
+            // モバイルかつヒント要素が存在し、まだヒントを見ていない場合のみ実行
+            // 修正: sessionStorageのチェックを追加
+            if (isMobile && scanHint && !sessionStorage.getItem('scanHintShown')) {
+                
+                // 表示済みフラグを保存
+                sessionStorage.setItem('scanHintShown', 'true');
                 
                 // 1. 初期表示アニメーション (少し遅れて登場)
                 gsap.to(scanHint, {
