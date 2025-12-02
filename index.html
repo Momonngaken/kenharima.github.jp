@@ -2687,11 +2687,37 @@ body.is-scanning #mobile-orientation-lock *,
         <section id="about" class="py-32 px-6 bg-black text-white relative clip-path-polygon">
             <div class="container mx-auto relative z-10">
                 <div class="flex flex-col md:flex-row gap-16 items-center">
-                    <div class="w-full md:w-1/2 aspect-square relative gs-reveal-left hover-trigger">
-                        <div class="absolute inset-0 bg-neoYellow border-4 border-white transform translate-x-4 translate-y-4"></div>
-                        <div class="absolute inset-0 bg-[url('./profile.jpg')] bg-cover bg-center grayscale contrast-125 border-4 border-white"><div class="absolute inset-0 bg-neoPurple/30 mix-blend-multiply"></div></div>
-                        <div class="absolute -bottom-8 -right-8 bg-white text-black p-4 font-black text-3xl border-4 border-black neo-shadow">WHO?</div>
-                    </div>
+    
+                    <!-- ▼ 変更後（新しいポーカー写真を使用・演出強化） -->
+<div class="w-full md:w-1/2 aspect-square relative gs-reveal-left hover-trigger group/image">
+    <!-- 背景の装飾（黄色い枠） -->
+    <div class="absolute inset-0 bg-neoYellow border-4 border-white transform translate-x-4 translate-y-4 transition-transform duration-500 group-hover/image:translate-x-2 group-hover/image:translate-y-2"></div>
+    
+    <!-- 画像コンテナ -->
+    <div class="absolute inset-0 border-4 border-white overflow-hidden bg-black">
+        <!-- 
+             新しい画像の設定:
+             1. grayscale: デフォルトで白黒
+             2. contrast-125: コントラストを上げて「強さ」を出す
+             3. group-hover:grayscale-0: ホバー時にカラーに戻す（服の赤が映える）
+             4. transition: ふわっと切り替える
+        -->
+        <img src="./your-new-poker-photo.jpg" alt="Ken Harima Playing Poker" 
+             class="w-full h-full object-cover object-top 
+                    grayscale contrast-125 brightness-90
+                    transition-all duration-700 ease-out
+                    group-hover/image:grayscale-0 group-hover/image:contrast-100 group-hover/image:scale-110 group-hover/image:brightness-100">
+        
+        <!-- 網掛けノイズ（サイバー感の演出） -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-30 pointer-events-none mix-blend-overlay"></div>
+    </div>
+
+    <!-- ラベル -->
+    <div class="absolute -bottom-8 -right-8 bg-white text-black p-4 font-black text-3xl border-4 border-black neo-shadow group-hover/image:bg-neoRed group-hover/image:text-white transition-colors duration-300">
+        WHO?
+    </div>
+</div>
+                    
                     <div class="w-full md:w-1/2 gs-reveal-right">
                         <h2 class="text-6xl md:text-8xl font-black mb-8 text-stroke-white lang-fade font-tight" data-key="aboutTitle">私について</h2>
                         <div class="space-y-6 text-lg leading-relaxed font-medium">
