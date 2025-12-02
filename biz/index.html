@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ken HARIMA | Business Profile</title>
+    
+    <meta name="description" content="Business Profile of Ken Harima. Waseda University, School of Social Sciences.">
+    <!-- OGP等は必要に応じて設定 -->
+    <meta name="robots" content="noindex, nofollow"> <!-- 限定公開用 -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        bizText: '#1a1a1a',
+                        bizGray: '#666666',
+                        bizLight: '#f4f4f5',
+                        bizAccent: '#0044AA', // Trustworthy Blue
+                        neoBlack: '#121212', // Link to original
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            opacity: 0; /* Fade in on load */
+        }
+        
+        /* Typography System */
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: #9ca3af; /* Gray-400 */
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: #e5e7eb; /* Gray-200 */
+        }
+
+        .biz-heading {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Interaction */
+        .hover-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 2px solid transparent;
+        }
+        .hover-card:hover {
+            background-color: #f9fafb;
+            border-left-color: #0044AA;
+            padding-left: 1rem;
+        }
+
+        /* Smooth Scrollbar Hide */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Developer View Button */
+        .dev-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+            background: #121212;
+            color: white;
+            font-family: 'Inter', monospace;
+            font-size: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .dev-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        .dev-btn:hover::before { transform: translateX(0); }
+        .dev-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+    </style>
+</head>
+<body class="antialiased selection:bg-gray-200 selection:text-black">
+
+    <!-- Wrapper -->
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-32">
+        
+        <!-- Header -->
+        <header class="mb-24 fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-tight biz-heading">
+                播磨 賢 <span class="text-gray-300 mx-2 font-light">|</span> <span class="text-3xl md:text-4xl text-gray-800">Ken HARIMA</span>
+            </h1>
+            <p class="text-sm md:text-base text-gray-500 font-medium tracking-wide">
+                Waseda University, School of Social Sciences
+            </p>
+        </header>
+
+        <main class="space-y-24">
+            
+            <!-- Profile -->
+            <section class="fade-in">
+                <div class="section-label">Profile</div>
+                <p class="text-base md:text-lg leading-relaxed text-gray-700 font-normal">
+                    シンガポール生まれ。日系マレーシア人の家族を持ち、多文化的な背景の中で育つ。
+                    早稲田大学社会科学部にて社会科学を専攻する傍ら、ドイツ・マンハイム大学へ交換留学（社会学部）。
+                    アカデミックな「ゲーム理論」と、実社会における「不確実性下での意思決定」の統合をテーマに活動。
+                    論理的な分析力と、Web開発・デザイン等のクリエイティブスキルを兼ね備え、課題解決に取り組む。
+                </p>
+            </section>
+
+            <!-- Education -->
+            <section class="fade-in">
+                <div class="section-label">Education</div>
+                <div class="space-y-8">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-baseline border-b border-gray-100 pb-4">
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">早稲田大学 社会科学部 社会科学科</h3>
+                            <p class="text-sm text-gray-500">Bachelor of Arts in Social Sciences</p>
+                        </div>
+                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">2026.03 卒業</div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-baseline border-b border-gray-100 pb-4">
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">University of Mannheim</h3>
+                            <p class="text-sm text-gray-500">School of Social Sciences (Exchange Program / Germany)</p>
+                        </div>
+                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">2023.09 - 2024.08</div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-baseline pb-4">
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">広尾学園 中学校・高等学校</h3>
+                            <p class="text-sm text-gray-500">High School Diploma</p>
+                        </div>
+                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">Graduated</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Competencies -->
+            <section class="fade-in">
+                <div class="section-label">Key Competencies</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <div class="hover-card p-4 -ml-4 rounded-lg">
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Quantitative Analysis & Strategy</h3>
+                        <p class="text-sm leading-relaxed text-gray-600">
+                            多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。
+                        </p>
+                    </div>
+
+                    <div class="hover-card p-4 -ml-4 rounded-lg">
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Decision Making under Uncertainty</h3>
+                        <p class="text-sm leading-relaxed text-gray-600">
+                            ゲーム理論に基づき、不完全情報環境下において期待値を最大化する意思決定プロセス（ポーカーにおけるROI 500%超の実績等による実証研究）。
+                        </p>
+                    </div>
+
+                    <div class="hover-card p-4 -ml-4 rounded-lg">
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Creative & Engineering</h3>
+                        <p class="text-sm leading-relaxed text-gray-600">
+                            Webデザイン・構築（HTML/CSS/JS）、生成AI（LLM）の活用、3Dプリンティングによるプロダクト制作。
+                        </p>
+                    </div>
+
+                    <div class="hover-card p-4 -ml-4 rounded-lg">
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Languages</h3>
+                        <p class="text-sm leading-relaxed text-gray-600">
+                            日本語（Native）、英語（Professional / 英検準1級）
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Projects & Awards -->
+            <section class="fade-in">
+                <div class="section-label">Selected Projects & Awards</div>
+                <div class="space-y-12">
+                    
+                    <!-- Group 1: Marketing -->
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Marketing & Strategy</h4>
+                        <div class="space-y-6">
+                            <div class="hover-card p-4 -ml-4 rounded-lg group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-lg font-bold">野口ゼミ × 理想科学工業 マーケティング戦略コンペティション</h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">最優秀賞</span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    SNSデータの多変量解析により、直感に頼らない「勝ちパターン」を導出。製品特性と市場ニーズを論理的に結びつけたプロモーション戦略を立案。
+                                </p>
+                            </div>
+
+                            <div class="hover-card p-4 -ml-4 rounded-lg group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-lg font-bold">第6回 高校生ビジネスプラン・グランプリ</h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">東京都産業労働局長賞</span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    日本政策金融公庫主催。応募総数4,359件より選出（トップ100入賞・東京大会準優勝）。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Group 2: Design -->
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Design & Media</h4>
+                        <div class="space-y-6">
+                            <div class="hover-card p-4 -ml-4 rounded-lg">
+                                <h3 class="text-lg font-bold mb-2">Waseda University x PIVOT Inc. 共同プロジェクト｜実行委員</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。
+                                </p>
+                            </div>
+
+                            <div class="hover-card p-4 -ml-4 rounded-lg group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-lg font-bold">第10回「あなたの考えるブランドラベル・コンテスト」</h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">Top 40 入選</span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    3Dプリンターと生分解性の天然素材を用いたアパレルブランドのコンセプト設計およびプロトタイプ制作。東京ビッグサイトにて展示。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Group 3: Academic -->
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
+                        <div class="space-y-6">
+                            <div class="hover-card p-4 -ml-4 rounded-lg group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-lg font-bold">第36回「働くってなんだろう」エッセイ</h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">勤労青少年躍進会理事長賞</span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    ハイデガーやサルトル等の実存哲学を背景に、現代における労働の本質を問うエッセイを執筆。応募総数1,112編より上位入賞。
+                                </p>
+                            </div>
+
+                            <div class="hover-card p-4 -ml-4 rounded-lg group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-lg font-bold">早稲田大学 社会科学部「ソーシャルデザイン論」</h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">優秀賞</span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    Web3技術を活用した新しいコワーキングスペースの概念実証・社会実装プランを提案。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="fade-in pt-12 pb-32">
+                <div class="section-label">Contact</div>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <a href="mailto:your-email@example.com" class="block w-full md:w-auto text-center px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-colors duration-300">
+                        Email Me
+                    </a>
+                    <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" class="block w-full md:w-auto text-center px-8 py-4 border border-gray-300 text-gray-900 font-bold rounded hover:bg-gray-50 transition-colors duration-300 flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 font-mono">
+            <p>© 2025 Ken HARIMA</p>
+            <p class="mt-2 md:mt-0">Professional Portfolio</p>
+        </footer>
+
+    </div>
+
+    <!-- Floating Developer Switch -->
+    <a href="../index.html" class="dev-btn group">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        > Developer View
+    </a>
+
+    <script>
+        // Init Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Init Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Fade in Body
+        gsap.to("body", { opacity: 1, duration: 1, ease: "power2.out" });
+
+        // Stagger Sections
+        gsap.utils.toArray('.fade-in').forEach(section => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 90%",
+                    once: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>
