@@ -56,7 +56,8 @@
             -webkit-font-smoothing: antialiased;
             opacity: 0; 
             width: 100%;
-            overflow-x: hidden;
+            /* overflow-x: hidden; 削除してLenisに委譲 */
+            overscroll-behavior: none;
         }
         
         .section-label {
@@ -182,25 +183,29 @@
                 <div class="section-label">Key Competencies</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Quantitative Analysis & Strategy</h3>
+                        <!-- 修正: leading-snug pb-1 を追加 -->
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Quantitative Analysis & Strategy</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Decision Making under Uncertainty</h3>
+                        <!-- 修正: leading-snug pb-1 を追加 -->
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Decision Making under Uncertainty</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             ゲーム理論に基づき、不完全情報環境下において期待値を最大化する意思決定プロセス（ポーカーにおけるROI 500%超の実績等による実証研究）。
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Creative & Engineering</h3>
+                        <!-- 修正: leading-snug pb-1 を追加 -->
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Creative & Engineering</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             Webデザイン・構築（HTML/CSS/JS）、生成AI（LLM）の活用、3Dプリンティングによるプロダクト制作。
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Languages</h3>
+                        <!-- 修正: leading-snug pb-1 を追加 -->
+                        <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Languages</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             日本語（Native）、英語（Professional / 英検準1級）
                         </p>
@@ -308,34 +313,32 @@
         > Developer View
     </a>
 
-    <!-- ★★★ 修正箇所: 完全なスクリプト実装 ★★★ -->
     <script>
-        // 1. Initialize Lenis (Smooth Scroll)
+        // 1. Initialize Lenis (Smooth Scroll) - Stability Focused
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true,
-            touchMultiplier: 2
+            mouseMultiplier: 1,
+            touchMultiplier: 2,
+            infinite: false,
         });
 
-        // 2. Initialize GSAP ScrollTrigger
+        // 2. Standard RAF Loop (Decoupled from GSAP Ticker for stability)
+        function raf(time) {
+            lenis.raf(time);
+            ScrollTrigger.update();
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 3. Initialize GSAP
         gsap.registerPlugin(ScrollTrigger);
 
-        // 3. Connect Lenis to ScrollTrigger (重要: これがないとスクロール位置が同期しない)
-        lenis.on('scroll', ScrollTrigger.update);
-
-        // 4. Add Lenis ticker to GSAP ticker
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-
-        // 5. Disable GSAP lag smoothing to prevent stutter
-        gsap.ticker.lagSmoothing(0);
-
-        // 6. Initial Body Fade-In
+        // 4. Initial Body Fade-In
         gsap.to("body", { opacity: 1, duration: 1, ease: "power2.out" });
 
-        // 7. Stagger Animations for Sections
+        // 5. Stagger Animations for Sections
         gsap.utils.toArray('.fade-in').forEach(section => {
             gsap.from(section, {
                 opacity: 0,
@@ -344,8 +347,8 @@
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 90%", // 画面の下10%に入ったら発火
-                    toggleActions: "play none none none", // 一度だけ再生
+                    start: "top 90%",
+                    toggleActions: "play none none none",
                     once: true
                 }
             });
