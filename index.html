@@ -2356,10 +2356,32 @@ body.is-scanning #mobile-orientation-lock *,
             </div>
         </div>
 
+        <!-- ▼▼▼ [ADDED] MOBILE ACCELERATION HINT ▼▼▼ -->
+    <div class="lg:hidden absolute bottom-24 w-full flex justify-center z-50 px-4 pointer-events-none">
+        <div class="relative bg-[#050505] border border-[#333] p-3 max-w-[280px] shadow-[0_0_20px_rgba(0,0,0,0.8)] overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[1px] bg-neoYellow opacity-30 animate-scan-pulse"></div>
+            <div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-neoYellow"></div>
+            <div class="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-neoYellow"></div>
+            <div class="flex flex-col items-start gap-1">
+                <div class="flex items-center gap-2 mb-1 border-b border-gray-800 pb-1 w-full">
+                    <span class="w-1.5 h-1.5 bg-neoRed rounded-full animate-ping"></span>
+                    <span class="font-mono text-[9px] text-gray-500 tracking-[0.2em]">>> SHORTCUT_PROTOCOL</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center justify-center w-8 h-8 border border-neoYellow/30 bg-neoYellow/10 rounded-full shrink-0 animate-pulse">
+                        <i class="fa-solid fa-bolt text-neoYellow text-sm"></i>
+                    </div>
+                    <p class="text-[10px] text-white font-bold leading-relaxed tracking-wide text-left">
+                        <span class="text-gray-400 text-[9px]">WAITING IS OPTIONAL.</span><br>
+                        お急ぎの方は、画面右下の<br>
+                        <span class="text-neoYellow inline-block border-b border-neoYellow/50 pb-[1px]">雷アイコン( ⚡ )</span> をTAP
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        
-        
-        <div class="mobile-warning-container">
+           <div class="mobile-warning-container">
             <div class="warning-box">
                 <div class="warning-title">
                     <span class="warning-blink"></span>
