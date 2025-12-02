@@ -3186,6 +3186,50 @@ body.is-scanning #mobile-orientation-lock *,
                     <div class="skill-pill bg-neoBlue text-white -rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-colors scan-highlight" data-key="skill4">生成AIパスポート</div>
                     <div class="skill-pill bg-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors scan-highlight" data-key="skill5">ITパスポート</div>
                 </div>
+
+                 <!-- ▼▼▼ 【追加】LANGUAGE MODULES START ▼▼▼ -->
+        <div class="mt-16 max-w-5xl mx-auto">
+            <!-- Divider -->
+            <div class="flex items-center justify-center gap-4 mb-10 opacity-40">
+                <div class="h-[2px] bg-black w-12"></div>
+                <span class="font-mono text-xs font-black tracking-[0.3em]">LANGUAGE_PROTOCOLS</span>
+                <div class="h-[2px] bg-black w-12"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+                
+                <!-- Japanese Module -->
+                <div class="relative group hover-trigger">
+                    <div class="absolute inset-0 bg-black translate-x-2 translate-y-2 transition-transform group-hover:translate-x-1 group-hover:translate-y-1"></div>
+                    <div class="relative bg-white border-[3px] border-black p-5 h-full flex flex-col items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                        <div class="text-[0.6rem] font-mono font-bold text-gray-400 mb-1 tracking-widest">PRIMARY</div>
+                        <div class="text-3xl font-display font-black italic mb-2">JP</div>
+                        <div class="font-bold text-sm lang-fade" data-key="langJP">日本語 (Native)</div>
+                    </div>
+                </div>
+
+                <!-- English Module -->
+                <div class="relative group hover-trigger">
+                    <div class="absolute inset-0 bg-neoBlue translate-x-2 translate-y-2 transition-transform group-hover:translate-x-1 group-hover:translate-y-1 border-[3px] border-black"></div>
+                    <div class="relative bg-black border-[3px] border-black p-5 h-full flex flex-col items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                        <div class="text-[0.6rem] font-mono font-bold text-neoBlue mb-1 tracking-widest">SECONDARY</div>
+                        <div class="text-3xl font-display font-black italic text-white mb-2">EN</div>
+                        <div class="font-bold text-sm text-white lang-fade" data-key="langEN">英語 (Professional / 英検準1級)</div>
+                    </div>
+                </div>
+
+                <!-- Chinese Module -->
+                <div class="relative group hover-trigger">
+                    <div class="absolute inset-0 bg-neoRed translate-x-2 translate-y-2 transition-transform group-hover:translate-x-1 group-hover:translate-y-1 border-[3px] border-black"></div>
+                    <div class="relative bg-white border-[3px] border-black p-5 h-full flex flex-col items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                        <div class="text-[0.6rem] font-mono font-bold text-neoRed mb-1 tracking-widest">EXPANSION</div>
+                        <div class="text-3xl font-display font-black italic mb-2">CN</div>
+                        <div class="font-bold text-sm text-center lang-fade" data-key="langCN">中国語 (Basic Conversation / HSK3級)</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
             </div>
         </section>
 
@@ -4056,6 +4100,9 @@ body.is-scanning #mobile-orientation-lock *,
                 work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
                 work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>。キャッシュゲームを主戦場としているため、あまりトーナメントは得意ではないものの、国内最大規模のトーナメントにおいて、2,511名のエントリーという巨大なフィールド（母数）に対し、<span class='scan-highlight'>分散を最小限に抑えるアジャストメント戦略</span>（相手のクセや状況の偏りを観察し、理論上の正解をあえて崩して、その相手・状況に特化した『最大の利益』を取りに行く戦い方）を実行。2日間にわたる長時間プレイの中で、<span class='scan-highlight'>ICM（Independent Chip Model）を考慮した生存戦略と、期待値最大化のバランスを維持し続けた</span>結果、上位4.2%にあたる107位入賞を果たした。短期的な運ではなく、長時間の意思決定精度が試される場での証明。",
                 skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
+                langJP: "日本語 (Native)",
+                langEN: "英語 (Professional / 英検準1級)",
+                langCN: "中国語 (Basic / HSK3級)",
                 fragmentsTitle: "断片",
                 resumeBtn: "履歴書をDLする",
                 scanBtn: "// 要点を表示",
@@ -4130,6 +4177,9 @@ body.is-scanning #mobile-orientation-lock *,
                 work9Subtitle: "<span class='scan-highlight'>107th Place (In the Money)</span>", 
                 work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished <span class='scan-highlight'>107th out of 2,511 entrants</span>. While primarily a cash game player with relatively less experience and expertise in tournament play, I participated in one of the largest domestic tournaments. Facing a massive field of 2,511 entries, <span class='scan-highlight'>I executed an adjustment strategy specifically designed to minimize variance.</span> This strategy involved observing opponent tendencies and situational biases, consciously deviating from Game Theory Optimal (GTO) play to adopt a Maximum Exploitative approach tailored to specific opponents and circumstances. Over the course of 2 days of extended play, <span class='scan-highlight'>I successfully balanced a survival strategy that factored in the Independent Chip Model (ICM) with Expected Value (EV) maximization.</span> This effort resulted in a top finish of 107th place, placing me in the top 4.2% of the field. This achievement serves as proof of sustained decision-making accuracy over a prolonged period, rather than short-term luck.",
                 skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Certification Exam, Grade 1", skill3: "Mental Arithmetic Test, Grade 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
+                langJP: "Japanese (Native)",
+                langEN: "English (Professional / EIKEN Pre-1)",
+                langCN: "Chinese (Basic / HSK Level 3)",
                 fragmentsTitle: "Fragments",
                 resumeBtn: "CV",
                 scanBtn: "// QUICK_VIEW",
