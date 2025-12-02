@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja" class="scroll-smooth">
+<html lang="ja"> <!-- 修正: class="scroll-smooth" を削除 -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ken HARIMA | Business Profile</title>
     
     <meta name="description" content="Business Profile of Ken Harima. Waseda University, School of Social Sciences.">
-    <!-- OGP等は必要に応じて設定 -->
-    <meta name="robots" content="noindex, nofollow"> <!-- 限定公開用 -->
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -35,8 +34,8 @@
                         bizText: '#1a1a1a',
                         bizGray: '#666666',
                         bizLight: '#f4f4f5',
-                        bizAccent: '#0044AA', // Trustworthy Blue
-                        neoBlack: '#121212', // Link to original
+                        bizAccent: '#0044AA', 
+                        neoBlack: '#121212', 
                     }
                 }
             }
@@ -44,11 +43,21 @@
     </script>
 
     <style>
+        /* --- 追加: LENIS RECOMMENDED CSS --- */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        /* ---------------------------------- */
+
         body {
             background-color: #ffffff;
             color: #1a1a1a;
             -webkit-font-smoothing: antialiased;
             opacity: 0; /* Fade in on load */
+            width: 100%;
+            overflow-x: hidden; /* 横スクロール防止 */
         }
         
         /* Typography System */
@@ -57,7 +66,7 @@
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.15em;
-            color: #9ca3af; /* Gray-400 */
+            color: #9ca3af;
             text-transform: uppercase;
             margin-bottom: 2rem;
             display: flex;
@@ -68,7 +77,7 @@
             content: '';
             flex-grow: 1;
             height: 1px;
-            background-color: #e5e7eb; /* Gray-200 */
+            background-color: #e5e7eb;
         }
 
         .biz-heading {
@@ -87,10 +96,6 @@
             border-left-color: #0044AA;
             padding-left: 1rem;
         }
-
-        /* Smooth Scrollbar Hide */
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* Developer View Button */
         .dev-btn {
@@ -330,17 +335,23 @@
     </a>
 
     <script>
-        // Init Smooth Scroll
+        // Init Smooth Scroll with Lenis
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smooth: true
+            smooth: true,
+            touchMultiplier: 2
         });
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+
+        // 修正: GSAPとLenisを同期させる
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        // パフォーマンス設定
+        gsap.ticker.lagSmoothing(0);
 
         // Init Animations
         gsap.registerPlugin(ScrollTrigger);
