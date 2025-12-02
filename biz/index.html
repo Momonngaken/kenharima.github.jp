@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja"> <!-- 修正: class="scroll-smooth" を削除 -->
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,24 +43,22 @@
     </script>
 
     <style>
-        /* --- 追加: LENIS RECOMMENDED CSS --- */
+        /* LENIS Recommended CSS */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-scrolling iframe { pointer-events: none; }
-        /* ---------------------------------- */
 
         body {
             background-color: #ffffff;
             color: #1a1a1a;
             -webkit-font-smoothing: antialiased;
-            opacity: 0; /* Fade in on load */
+            opacity: 0; 
             width: 100%;
-            overflow-x: hidden; /* 横スクロール防止 */
+            overflow-x: hidden;
         }
         
-        /* Typography System */
         .section-label {
             font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
@@ -86,7 +84,6 @@
             letter-spacing: -0.02em;
         }
 
-        /* Interaction */
         .hover-card {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border-left: 2px solid transparent;
@@ -97,7 +94,6 @@
             padding-left: 1rem;
         }
 
-        /* Developer View Button */
         .dev-btn {
             position: fixed;
             bottom: 2rem;
@@ -126,15 +122,12 @@
         }
         .dev-btn:hover::before { transform: translateX(0); }
         .dev-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
-
     </style>
 </head>
 <body class="antialiased selection:bg-gray-200 selection:text-black">
 
-    <!-- Wrapper -->
     <div class="max-w-4xl mx-auto px-6 py-20 md:py-32">
         
-        <!-- Header -->
         <header class="mb-24 fade-in">
             <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-tight biz-heading">
                 播磨 賢 <span class="text-gray-300 mx-2 font-light">|</span> <span class="text-3xl md:text-4xl text-gray-800">Ken HARIMA</span>
@@ -146,7 +139,6 @@
 
         <main class="space-y-24">
             
-            <!-- Profile -->
             <section class="fade-in">
                 <div class="section-label">Profile</div>
                 <p class="text-base md:text-lg leading-relaxed text-gray-700 font-normal">
@@ -157,7 +149,6 @@
                 </p>
             </section>
 
-            <!-- Education -->
             <section class="fade-in">
                 <div class="section-label">Education</div>
                 <div class="space-y-8">
@@ -187,48 +178,39 @@
                 </div>
             </section>
 
-            <!-- Key Competencies -->
             <section class="fade-in">
                 <div class="section-label">Key Competencies</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Quantitative Analysis & Strategy</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。
                         </p>
                     </div>
-
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Decision Making under Uncertainty</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             ゲーム理論に基づき、不完全情報環境下において期待値を最大化する意思決定プロセス（ポーカーにおけるROI 500%超の実績等による実証研究）。
                         </p>
                     </div>
-
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Creative & Engineering</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             Webデザイン・構築（HTML/CSS/JS）、生成AI（LLM）の活用、3Dプリンティングによるプロダクト制作。
                         </p>
                     </div>
-
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent">Languages</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             日本語（Native）、英語（Professional / 英検準1級）
                         </p>
                     </div>
-
                 </div>
             </section>
 
-            <!-- Projects & Awards -->
             <section class="fade-in">
                 <div class="section-label">Selected Projects & Awards</div>
                 <div class="space-y-12">
-                    
-                    <!-- Group 1: Marketing -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Marketing & Strategy</h4>
                         <div class="space-y-6">
@@ -241,7 +223,6 @@
                                     SNSデータの多変量解析により、直感に頼らない「勝ちパターン」を導出。製品特性と市場ニーズを論理的に結びつけたプロモーション戦略を立案。
                                 </p>
                             </div>
-
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="text-lg font-bold">第6回 高校生ビジネスプラン・グランプリ</h3>
@@ -254,7 +235,6 @@
                         </div>
                     </div>
 
-                    <!-- Group 2: Design -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Design & Media</h4>
                         <div class="space-y-6">
@@ -264,7 +244,6 @@
                                     ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。
                                 </p>
                             </div>
-
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="text-lg font-bold">第10回「あなたの考えるブランドラベル・コンテスト」</h3>
@@ -277,7 +256,6 @@
                         </div>
                     </div>
 
-                    <!-- Group 3: Academic -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
                         <div class="space-y-6">
@@ -290,7 +268,6 @@
                                     サルトルやハイデッガー等の実存哲学を背景に、現代における労働の本質を問うエッセイを執筆。応募総数1,112編より上位入賞。
                                 </p>
                             </div>
-
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="text-lg font-bold">早稲田大学 社会科学部「社会デザイン論入門」レポートコンペ</h3>
@@ -302,11 +279,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
-            <!-- Contact -->
             <section class="fade-in pt-12 pb-32">
                 <div class="section-label">Contact</div>
                 <div class="flex flex-col md:flex-row gap-6">
@@ -328,14 +303,14 @@
 
     </div>
 
-    <!-- Floating Developer Switch -->
     <a href="../index.html" class="dev-btn group">
         <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
         > Developer View
     </a>
 
+    <!-- ★★★ 修正箇所: 完全なスクリプト実装 ★★★ -->
     <script>
-        // Init Smooth Scroll with Lenis
+        // 1. Initialize Lenis (Smooth Scroll)
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -343,23 +318,24 @@
             touchMultiplier: 2
         });
 
-        // 修正: GSAPとLenisを同期させる
+        // 2. Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 3. Connect Lenis to ScrollTrigger (重要: これがないとスクロール位置が同期しない)
         lenis.on('scroll', ScrollTrigger.update);
 
+        // 4. Add Lenis ticker to GSAP ticker
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
         });
 
-        // パフォーマンス設定
+        // 5. Disable GSAP lag smoothing to prevent stutter
         gsap.ticker.lagSmoothing(0);
 
-        // Init Animations
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Fade in Body
+        // 6. Initial Body Fade-In
         gsap.to("body", { opacity: 1, duration: 1, ease: "power2.out" });
 
-        // Stagger Sections
+        // 7. Stagger Animations for Sections
         gsap.utils.toArray('.fade-in').forEach(section => {
             gsap.from(section, {
                 opacity: 0,
@@ -368,7 +344,8 @@
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 90%",
+                    start: "top 90%", // 画面の下10%に入ったら発火
+                    toggleActions: "play none none none", // 一度だけ再生
                     once: true
                 }
             });
