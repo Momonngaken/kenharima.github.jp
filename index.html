@@ -2258,11 +2258,12 @@ body.is-scanning #mobile-orientation-lock *,
         }
 
         /* 吹き出しのしっぽ（物理的な接続ライン） */
-        .hint-connector {
+       .hint-connector {
             position: absolute;
             bottom: -20px;
-            right: 26px; /* ボタンの中心へ向かう位置調整 */
-            width: 2px;
+            /* right: 26px; を下記に変更して微調整 */
+            right: 28px; /* ボタンサイズ(56px)の半分へ向かうよう調整 */
+            width: 1px;  /* 2pxだと太すぎるため、より繊細な1pxに変更 */
             height: 20px;
             background: linear-gradient(to bottom, #D6FC52, transparent);
             z-index: -1;
