@@ -1,46 +1,143 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <!-- ▼▼▼ 修正コード: 線を削除し、モバイルでの横並びレイアウトを適用 ▼▼▼ -->
-<header class="mb-16 fade-in flex flex-row items-center gap-5 md:gap-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ken HARIMA | Business Profile</title>
     
-    <!-- プロフィール写真エリア -->
-    <!-- モバイルでのサイズを少し調整(w-24→w-20)し、テキストエリアを確保 -->
-    <div class="relative group shrink-0">
-        <div class="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-white shadow-xl transition-transform duration-500 group-hover:scale-105">
-            <img src="./profile_biz.jpg" alt="Ken Harima" class="w-full h-full object-cover object-center">
-        </div>
-        <!-- ステータスドット -->
-        <div class="absolute bottom-1 right-1 w-3.5 h-3.5 md:w-4 md:h-4 bg-green-500 border-2 border-white rounded-full"></div>
-    </div>
+    <meta name="description" content="Business Profile of Ken Harima. Waseda University, School of Social Sciences.">
+    <meta name="robots" content="noindex, nofollow">
 
-    <!-- テキストエリア -->
-    <div class="flex flex-col justify-center min-w-0">
-        <!-- モバイルではフォントサイズを調整し、横並びでも崩れないように最適化 -->
-        <h1 class="text-[1.35rem] sm:text-3xl md:text-5xl font-bold mb-1.5 md:mb-3 tracking-tight biz-heading text-bizText leading-tight">
-            播磨 賢 
-            <span class="text-gray-300 mx-1 md:mx-2 font-light text-lg md:text-3xl align-middle">|</span> 
-            <span class="text-lg sm:text-2xl md:text-4xl text-gray-700 block sm:inline mt-0.5 sm:mt-0">Ken HARIMA</span>
-        </h1>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        bizText: '#1a1a1a',
+                        bizGray: '#666666',
+                        bizLight: '#f4f4f5',
+                        bizAccent: '#0044AA', 
+                        neoBlack: '#121212', 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* LENIS Recommended CSS */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            opacity: 0; 
+            width: 100%;
+            overscroll-behavior: none;
+        }
         
-        <div class="space-y-1 md:space-y-2">
-            <p class="text-xs md:text-base text-gray-800 font-bold tracking-wide flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span class="flex items-center gap-2">
-                    <span class="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center bg-blue-50 rounded-full text-bizAccent">
-                        <i class="fa-solid fa-building text-[0.6rem] md:text-xs"></i>
-                    </span>
-                    <span>ダイキン工業株式会社</span>
-                </span>
-                <span class="text-[0.65rem] md:text-xs text-gray-400 font-normal border-l border-gray-300 pl-2 ml-1 self-center">(2026.04 入社予定)</span>
-            </p>
-            <p class="text-[0.65rem] md:text-sm text-gray-400 font-mono tracking-wider pl-1">
-                // Portfolio: Business Edition
-            </p>
-        </div>
-    </div>
-</header>
-<!-- ▲▲▲ 修正終了 ▲▲▲ -->
-</header>
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: #9ca3af;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: #e5e7eb;
+        }
+
+        .biz-heading {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .hover-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 2px solid transparent;
+        }
+        .hover-card:hover {
+            background-color: #f9fafb;
+            border-left-color: #0044AA;
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gray-200 selection:text-black">
+
+    <div class="max-w-4xl mx-auto px-6 py-16 md:py-32">
+
+        <!-- ▼▼▼ Header Section (Revised) ▼▼▼ -->
+        <!-- 変更点: 横線(border-b)削除、行間調整(mb-16)、スマホ横並び(flex-row) -->
+        <header class="mb-16 fade-in flex flex-row items-center gap-5 md:gap-8">
+            
+            <!-- プロフィール写真エリア -->
+            <!-- スマホではw-20(80px)に縮小し、テキストスペースを確保 -->
+            <div class="relative group shrink-0">
+                <div class="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-white shadow-xl transition-transform duration-500 group-hover:scale-105">
+                    <img src="./profile_biz.jpg" alt="Ken Harima" class="w-full h-full object-cover object-center">
+                </div>
+                <!-- ステータスドット -->
+                <div class="absolute bottom-1 right-1 w-3.5 h-3.5 md:w-4 md:h-4 bg-green-500 border-2 border-white rounded-full"></div>
+            </div>
+
+            <!-- テキストエリア -->
+            <div class="flex flex-col justify-center min-w-0">
+                <!-- 名前: スマホでも1行～2行で綺麗に収まるようフォントサイズを緻密に調整 -->
+                <h1 class="text-[1.35rem] sm:text-3xl md:text-5xl font-bold mb-1.5 md:mb-3 tracking-tight biz-heading text-bizText leading-tight">
+                    播磨 賢 
+                    <span class="text-gray-300 mx-1 md:mx-2 font-light text-lg md:text-3xl align-middle">|</span> 
+                    <span class="text-lg sm:text-2xl md:text-4xl text-gray-700 block sm:inline mt-0.5 sm:mt-0">Ken HARIMA</span>
+                </h1>
+                
+                <div class="space-y-1 md:space-y-2">
+                    <p class="text-xs md:text-base text-gray-800 font-bold tracking-wide flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span class="flex items-center gap-2">
+                            <span class="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center bg-blue-50 rounded-full text-bizAccent">
+                                <i class="fa-solid fa-building text-[0.6rem] md:text-xs"></i>
+                            </span>
+                            <span>ダイキン工業株式会社</span>
+                        </span>
+                        <span class="text-[0.65rem] md:text-xs text-gray-400 font-normal border-l border-gray-300 pl-2 ml-1 self-center">(2026.04 入社予定)</span>
+                    </p>
+                    <p class="text-[0.65rem] md:text-sm text-gray-400 font-mono tracking-wider pl-1">
+                        // Portfolio: Business Edition
+                    </p>
+                </div>
+            </div>
+        </header>
 
         <main class="space-y-24">
             
@@ -86,28 +183,24 @@
                 <div class="section-label">Key Competencies</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <!-- 修正: leading-snug pb-1 を追加 -->
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Quantitative Analysis & Strategy</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <!-- 修正: leading-snug pb-1 を追加 -->
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Decision Making under Uncertainty</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             ゲーム理論に基づき、不完全情報環境下において期待値を最大化する意思決定プロセス（ポーカーにおけるROI 500%超の実績等による実証研究）。
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <!-- 修正: leading-snug pb-1 を追加 -->
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Creative & Engineering</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             Webデザイン・構築（HTML/CSS/JS）、生成AI（LLM）の活用、3Dプリンティングによるプロダクト制作。
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
-                        <!-- 修正: leading-snug pb-1 を追加 -->
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Languages</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
                             日本語（Native）、英語（Business Level / 英検準1級）、中国語（Daily Conversation / HSK3級）
@@ -212,7 +305,6 @@
     </div>
 
     <script>
-        // 1. Initialize Lenis (Smooth Scroll) - Stability Focused
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -222,7 +314,6 @@
             infinite: false,
         });
 
-        // 2. Standard RAF Loop (Decoupled from GSAP Ticker for stability)
         function raf(time) {
             lenis.raf(time);
             ScrollTrigger.update();
@@ -230,13 +321,10 @@
         }
         requestAnimationFrame(raf);
 
-        // 3. Initialize GSAP
         gsap.registerPlugin(ScrollTrigger);
 
-        // 4. Initial Body Fade-In
         gsap.to("body", { opacity: 1, duration: 1, ease: "power2.out" });
 
-        // 5. Stagger Animations for Sections
         gsap.utils.toArray('.fade-in').forEach(section => {
             gsap.from(section, {
                 opacity: 0,
