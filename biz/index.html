@@ -138,6 +138,36 @@
             </p>
         </header>
 
+
+        <!-- ▼▼▼ 変更後（写真Bを追加したレイアウト） ▼▼▼ -->
+<header class="mb-20 fade-in flex flex-col md:flex-row items-start md:items-center gap-8 border-b border-gray-100 pb-10">
+    <!-- プロフィール写真エリア -->
+    <div class="relative group shrink-0">
+        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-white shadow-lg transition-transform duration-500 group-hover:scale-105">
+            <!-- 画像パスは適宜調整してください -->
+            <img src="./profile_biz.jpg" alt="Ken Harima" class="w-full h-full object-cover object-center">
+        </div>
+        <!-- ステータスドット（オンライン/アクティブ感を演出） -->
+        <div class="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+    </div>
+
+    <!-- テキストエリア -->
+    <div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-3 tracking-tight biz-heading text-bizText">
+            播磨 賢 <span class="text-gray-300 mx-2 font-light text-2xl md:text-3xl">|</span> <span class="text-2xl md:text-4xl text-gray-700">Ken HARIMA</span>
+        </h1>
+        <div class="space-y-1">
+            <p class="text-sm md:text-base text-gray-500 font-medium tracking-wide flex items-center gap-2">
+                <i class="fa-solid fa-university text-gray-300"></i>
+                Waseda University, School of Social Sciences
+            </p>
+            <p class="text-xs md:text-sm text-gray-400 font-mono tracking-wider">
+                // Portfolio: Business Edition
+            </p>
+        </div>
+    </div>
+</header>
+
         <main class="space-y-24">
             
             <section class="fade-in">
