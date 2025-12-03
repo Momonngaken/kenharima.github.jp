@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ken HARIMA | Business Profile</title>
-    
-    <meta name="description" content="Business Profile of Ken Harima. Waseda University, School of Social Sciences.">
-    <meta name="robots" content="noindex, nofollow">
+    <!-- SEO & Metadata -->
+    <title>Ken HARIMA (播磨賢) | Business Portfolio</title>
+    <meta name="description" content="Official Business Portfolio of Ken HARIMA (播磨賢). Bridging Social Science & Data Strategy. Waseda University / University of Mannheim. Marketing, Game Theory, and Creative Engineering.">
+    <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
+    <link rel="canonical" href="https://あなたのドメインURL/">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://あなたのドメインURL/">
+    <meta property="og:title" content="Ken HARIMA (播磨賢) | Business Portfolio">
+    <meta property="og:description" content="Official Business Portfolio of Ken HARIMA. Bridging Social Science & Data Strategy.">
+    <meta property="og:image" content="https://あなたのドメインURL/ogp_image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Ken HARIMA (播磨賢) | Business Portfolio">
+    <meta property="twitter:description" content="Official Business Portfolio of Ken HARIMA. Bridging Social Science & Data Strategy.">
+    <meta property="twitter:image" content="https://あなたのドメインURL/ogp_image.jpg">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -129,6 +143,35 @@
             padding-left: 1rem;
         }
     </style>
+
+    <!-- Structured Data (JSON-LD) for Person Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ken Harima",
+      "alternateName": ["播磨 賢", "Harima Ken", "Ken HARIMA"],
+      "url": "https://あなたのドメインURL/",
+      "image": "https://あなたのドメインURL/profile_biz.jpg",
+      "jobTitle": "Student / Strategist",
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Waseda University"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Mannheim"
+        }
+      ],
+      "knowsAbout": ["Marketing Strategy", "Game Theory", "Data Analysis", "Web Engineering"],
+      "sameAs": [
+        "https://www.linkedin.com/in/ken-harima-29a846234/",
+        "https://github.com/あなたのID", 
+        "https://twitter.com/あなたのID"
+      ]
+    }
+    </script>
 </head>
 <body class="antialiased selection:bg-gray-200 selection:text-black">
 
@@ -139,7 +182,7 @@
             <!-- プロフィール写真エリア (Priority Loading) -->
             <div class="relative group shrink-0">
                 <div class="w-16 h-16 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-white shadow-xl transition-transform duration-500 group-hover:scale-105">
-                    <img src="./profile_biz.jpg" alt="Ken Harima" fetchpriority="high" class="w-full h-full object-cover object-center">
+                    <img src="./profile_biz.jpg" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" class="w-full h-full object-cover object-center">
                 </div>
                 <!-- ステータスドット -->
                 <div class="absolute bottom-0.5 right-0.5 w-3 h-3 md:w-4 md:h-4 bg-green-500 border-2 border-white rounded-full"></div>
