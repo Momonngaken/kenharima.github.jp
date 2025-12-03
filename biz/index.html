@@ -42,43 +42,28 @@
         }
     </script>
 
-
-    <!-- BEFORE: Tailwind CSS script tag の後あたり -->
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<!-- AFTER: 上記の後、Google Fontsの前に追加 -->
-<script>
-    // 即時実行関数で言語判定を行い、<html>タグにクラスを付与
-    (function() {
-        var lang = navigator.language || navigator.userLanguage; 
-        // 日本語環境以外（en, zh, fr...）はすべて英語モードにする
-        if (!lang.startsWith('ja')) {
-            document.documentElement.classList.add('is-global');
-        }
-    })();
-</script>
-
-<style>
-    /* 言語切り替え用スタイル */
-    /* デフォルト（日本語モード）: 英語を非表示 */
-    .lang-en { display: none; }
-    
-    /* グローバルモード: 日本語を非表示、英語を表示 */
-    html.is-global .lang-ja { display: none !important; }
-    html.is-global .lang-en { display: block !important; }
-
-    /* 英語フォントの最適化（よりスタイリッシュに見せる調整） */
-    html.is-global body {
-        font-family: 'Inter', 'Syne', sans-serif;
-        letter-spacing: -0.01em; /* 英語は少し詰めると知的に見える */
-    }
-    
-    /* 以下の既存スタイルはそのまま維持... */
-    /* LENIS Recommended CSS */
-    html.lenis, html.lenis body { height: auto; }
+    <!-- Language Detection Script -->
+    <script>
+        (function() {
+            var lang = navigator.language || navigator.userLanguage; 
+            if (!lang.startsWith('ja')) {
+                document.documentElement.classList.add('is-global');
+            }
+        })();
+    </script>
 
     <style>
+        /* Language Switching Styles */
+        .lang-en { display: none; }
+        
+        html.is-global .lang-ja { display: none !important; }
+        html.is-global .lang-en { display: block !important; }
+
+        html.is-global body {
+            font-family: 'Inter', 'Syne', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
         /* LENIS Recommended CSS */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -194,7 +179,7 @@
                         Born in Singapore to a Malaysian mother and a Japanese father, I grew up in a multicultural environment. 
                         Majoring in Social Sciences at Waseda University, I also studied Sociology at the University of Mannheim, Germany. 
                         My academic focus bridges "Game Theory" with practical "Decision Making under Uncertainty." 
-                        I combines logical analytical skills with creative proficiency in writing, web development, and design to provide innovative solutions to complex problems.
+                        I combine logical analytical skills with creative proficiency in writing, web development, and design to provide innovative solutions to complex problems.
                     </p>
                 </div>
             </section>
