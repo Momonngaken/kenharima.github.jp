@@ -42,6 +42,42 @@
         }
     </script>
 
+
+    <!-- BEFORE: Tailwind CSS script tag の後あたり -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- AFTER: 上記の後、Google Fontsの前に追加 -->
+<script>
+    // 即時実行関数で言語判定を行い、<html>タグにクラスを付与
+    (function() {
+        var lang = navigator.language || navigator.userLanguage; 
+        // 日本語環境以外（en, zh, fr...）はすべて英語モードにする
+        if (!lang.startsWith('ja')) {
+            document.documentElement.classList.add('is-global');
+        }
+    })();
+</script>
+
+<style>
+    /* 言語切り替え用スタイル */
+    /* デフォルト（日本語モード）: 英語を非表示 */
+    .lang-en { display: none; }
+    
+    /* グローバルモード: 日本語を非表示、英語を表示 */
+    html.is-global .lang-ja { display: none !important; }
+    html.is-global .lang-en { display: block !important; }
+
+    /* 英語フォントの最適化（よりスタイリッシュに見せる調整） */
+    html.is-global body {
+        font-family: 'Inter', 'Syne', sans-serif;
+        letter-spacing: -0.01em; /* 英語は少し詰めると知的に見える */
+    }
+    
+    /* 以下の既存スタイルはそのまま維持... */
+    /* LENIS Recommended CSS */
+    html.lenis, html.lenis body { height: auto; }
+
     <style>
         /* LENIS Recommended CSS */
         html.lenis, html.lenis body { height: auto; }
@@ -118,21 +154,28 @@
                     <span class="text-gray-300 mx-1 md:mx-2 font-light text-base sm:text-lg md:text-3xl align-middle">|</span> 
                     <span class="text-base sm:text-2xl md:text-4xl text-gray-700 inline">Ken HARIMA</span>
                 </h1>
-                
+
+                <!-- ▼▼▼ ここから書き換え ▼▼▼ -->
                 <div class="space-y-1 md:space-y-2">
                     <p class="text-xs md:text-base text-gray-800 font-bold tracking-wide flex flex-wrap items-center gap-x-2 gap-y-1">
 
                         <span class="flex items-center gap-2">
                            <span class="relative flex items-center justify-center w-8 h-8 md:w-11 md:h-11 shrink-0 select-none group-hover:scale-105 transition-transform duration-500 ease-out">
-                <img src="./daikin_logo.jpg" 
-                     alt="Daikin Logo" 
-                     class="w-full h-full object-contain object-center mix-blend-multiply opacity-90">
-            </span>
-            <span class="text-[0.7rem] md:text-base">ダイキン工業株式会社</span>
-        </span>       
-                        <span class="text-[0.6rem] md:text-xs text-gray-400 font-normal border-l border-gray-300 pl-2 ml-0 md:ml-1 self-center whitespace-nowrap">(2026.04 入社予定)</span>
+                                <img src="./daikin_logo.jpg" 
+                                     alt="Daikin Logo" 
+                                     class="w-full h-full object-contain object-center mix-blend-multiply opacity-90">
+                            </span>
+                            <span class="text-[0.7rem] md:text-base">
+                                <span class="lang-ja">ダイキン工業株式会社</span>
+                                <span class="lang-en font-medium tracking-tight">Daikin Industries, Ltd.</span>
+                            </span>
+                        </span>       
+                        <span class="text-[0.6rem] md:text-xs text-gray-400 font-normal border-l border-gray-300 pl-2 ml-0 md:ml-1 self-center whitespace-nowrap">
+                            <span class="lang-ja">(2026.04 入社予定)</span>
+                            <span class="lang-en">(Incoming Apr 2026)</span>
+                        </span>
                     </p>
-                </div>
+                </div>          
             </div>
         </header>
         
@@ -140,38 +183,67 @@
             
             <section class="fade-in">
                 <div class="section-label">Profile</div>
-                <p class="text-base md:text-lg leading-relaxed text-gray-700 font-normal">
-                    シンガポール生まれ。マレーシア人の母と日本人の父の元に生まれ、多文化的な背景の中で育つ。
-                    早稲田大学社会科学部にて社会科学を専攻する傍ら、ドイツ・マンハイム大学へ交換留学（社会学専攻）。
-                    アカデミックな「ゲーム理論」と、実社会における「不確実性下での意思決定」の統合をテーマに活動。
-                    論理的な分析力と、文学作品執筆・Web開発・デザイン等のクリエイティブスキルを兼ね備え、課題解決に取り組む。
-                </p>
+                 <div class="text-base md:text-lg leading-relaxed text-gray-700 font-normal">
+                    <p class="lang-ja">
+                        シンガポール生まれ。マレーシア人の母と日本人の父の元に生まれ、多文化的な背景の中で育つ。
+                        早稲田大学社会科学部にて社会科学を専攻する傍ら、ドイツ・マンハイム大学へ交換留学（社会学専攻）。
+                        アカデミックな「ゲーム理論」と、実社会における「不確実性下での意思決定」の統合をテーマに活動。
+                        論理的な分析力と、文学作品執筆・Web開発・デザイン等のクリエイティブスキルを兼ね備え、課題解決に取り組む。
+                    </p>
+                    <p class="lang-en text-gray-800">
+                        Born in Singapore to a Malaysian mother and a Japanese father, I grew up in a multicultural environment. 
+                        Majoring in Social Sciences at Waseda University, I also studied Sociology at the University of Mannheim, Germany. 
+                        My academic focus bridges "Game Theory" with practical "Decision Making under Uncertainty." 
+                        I combines logical analytical skills with creative proficiency in writing, web development, and design to provide innovative solutions to complex problems.
+                    </p>
+                </div>
             </section>
 
             <section class="fade-in">
                 <div class="section-label">Education</div>
-                <div class="space-y-8">
+               <div class="space-y-8">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-baseline border-b border-gray-100 pb-4">
                         <div>
-                            <h3 class="text-lg font-bold mb-1">早稲田大学 社会科学部 社会科学科</h3>
-                            <p class="text-sm text-gray-500">School of Social Sciences</p>
+                            <h3 class="text-lg font-bold mb-1">
+                                <span class="lang-ja">早稲田大学 社会科学部 社会科学科</span>
+                                <span class="lang-en">Waseda University</span>
+                            </h3>
+                            <p class="text-sm text-gray-500">
+                                <span class="lang-ja">School of Social Sciences</span>
+                                <span class="lang-en">B.A. in Social Sciences</span>
+                            </p>
                         </div>
-                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">2026.03 卒業</div>
+                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">
+                            <span class="lang-ja">2026.03 卒業</span>
+                            <span class="lang-en">Exp. Mar 2026</span>
+                        </div>
                     </div>
                     
                     <div class="flex flex-col md:flex-row md:justify-between md:items-baseline border-b border-gray-100 pb-4">
                         <div>
-                            <h3 class="text-lg font-bold mb-1">the University of Mannheim</h3>
-                            <p class="text-sm text-gray-500">Faculty of Social Sciences (Exchange Program / Germany)</p>
+                            <h3 class="text-lg font-bold mb-1">
+                                <span class="lang-ja">the University of Mannheim</span> <!-- 英語名はそのまま英語でOK -->
+                                <span class="lang-en">University of Mannheim</span>
+                            </h3>
+                            <p class="text-sm text-gray-500">
+                                <span class="lang-ja">Faculty of Social Sciences (Exchange Program / Germany)</span>
+                                <span class="lang-en">Faculty of Social Sciences (Exchange Program / Germany)</span>
+                            </p>
                         </div>
                         <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">2023.08 - 2024.08</div>
                     </div>
 
                     <div class="flex flex-col md:flex-row md:justify-between md:items-baseline pb-4">
                         <div>
-                            <h3 class="text-lg font-bold mb-1">広尾学園 中学校・高等学校</h3>
+                            <h3 class="text-lg font-bold mb-1">
+                                <span class="lang-ja">広尾学園 中学校・高等学校</span>
+                                <span class="lang-en">Hiroo Gakuen Junior & Senior High School</span>
+                            </h3>
                         </div>
-                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">2018.03,2021.03 卒業</div>
+                        <div class="text-sm font-mono text-gray-400 mt-2 md:mt-0">
+                            <span class="lang-ja">2018.03,2021.03 卒業</span>
+                            <span class="lang-en">Graduated Mar 2021</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -182,25 +254,29 @@
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Quantitative Analysis & Strategy</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
-                            多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。
+                            <span class="lang-ja">多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。</span>
+                            <span class="lang-en">Data analysis using multivariate analysis (e.g. Quantification Theory Type I) and formulation of evidence-based marketing strategies.</span>
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Decision Making under Uncertainty</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
-                            ゲーム理論に基づき、不完全情報環境下において期待値を最大化する意思決定プロセス（ポーカーにおけるROI 500%超の実績等による実証研究）。
+                            <span class="lang-ja">ゲーム理論に基づき、不完全情報環境下において期待値を最大化する意思決定プロセス（ポーカーにおけるROI 500%超の実績等による実証研究）。</span>
+                            <span class="lang-en">Decision-making processes based on game theory to maximize expected value under incomplete information (Empirically demonstrated by a poker ROI exceeding 500%).</span>
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Creative & Engineering</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
-                            Webデザイン・構築（HTML/CSS/JS）、生成AI（LLM）の活用、3Dプリンティングによるプロダクト制作。
+                            <span class="lang-ja">Webデザイン・構築（HTML/CSS/JS）、生成AI（LLM）の活用、3Dプリンティングによるプロダクト制作。</span>
+                            <span class="lang-en">Web Design & Engineering (HTML/CSS/JS), Generative AI (LLM) implementation, and product fabrication via 3D printing.</span>
                         </p>
                     </div>
                     <div class="hover-card p-4 -ml-4 rounded-lg">
                         <h3 class="text-lg font-bold biz-heading mb-2 text-bizAccent leading-snug pb-1">Languages</h3>
                         <p class="text-sm leading-relaxed text-gray-600">
-                            日本語（Native）、英語（Business Level / 英検準1級）、中国語（Daily Conversation / HSK3級）
+                            <span class="lang-ja">日本語（Native）、英語（Business Level / 英検準1級）、中国語（Daily Conversation / HSK3級）</span>
+                            <span class="lang-en">Japanese (Native), English (Business Proficiency / EIKEN Pre-1), Chinese (Daily Conversation / HSK Level3)</span>
                         </p>
                     </div>
                 </div>
@@ -214,20 +290,34 @@
                         <div class="space-y-6">
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-lg font-bold">野口ゼミ × 理想科学工業 マーケティング戦略コンペティション</h3>
-                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">最優秀賞</span>
+                                    <h3 class="text-lg font-bold">
+                                        <span class="lang-ja">野口ゼミ × 理想科学工業 マーケティング戦略コンペティション</span>
+                                        <span class="lang-en">Noguchi Seminar × Riso Kagaku Corp. Marketing Strategy Competition</span>
+                                    </h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">
+                                        <span class="lang-ja">最優秀賞</span>
+                                        <span class="lang-en">Grand Prize</span>
+                                    </span>
                                 </div>
                                 <p class="text-sm text-gray-600 leading-relaxed">
-                                    SNSデータの多変量解析により、直感に頼らない「勝ちパターン」を導出。製品特性と市場ニーズを論理的に結びつけたプロモーション戦略を立案。
+                                    <span class="lang-ja">SNSデータの多変量解析により、直感に頼らない「勝ちパターン」を導出。製品特性と市場ニーズを論理的に結びつけたプロモーション戦略を立案。</span>
+                                    <span class="lang-en">Derived "winning patterns" through multivariate analysis of social media data. Formulated a logical promotion strategy connecting product characteristics with market needs.</span>
                                 </p>
                             </div>
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-lg font-bold">第6回 創造力、無限大 高校生ビジネスプラン・グランプリ2018</h3>
-                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">東京都産業労働局長賞</span>
+                                    <h3 class="text-lg font-bold">
+                                        <span class="lang-ja">第6回 創造力、無限大 高校生ビジネスプラン・グランプリ2018</span>
+                                        <span class="lang-en">6th High School Business Plan Grand Prix 2018</span>
+                                    </h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">
+                                        <span class="lang-ja">東京都産業労働局長賞</span>
+                                        <span class="lang-en">Tokyo Bureau of Industrial Affairs Award</span>
+                                    </span>
                                 </div>
                                 <p class="text-sm text-gray-600 leading-relaxed">
-                                    日本政策金融公庫主催。応募総数4,359件より選出（トップ100入賞・東京大会準優勝）。
+                                    <span class="lang-ja">日本政策金融公庫主催。応募総数4,359件より選出（トップ100入賞・東京大会準優勝）。</span>
+                                    <span class="lang-en">Organized by JFC. Selected from 4,359 entries (Top 100 & Runner-up in Tokyo Tournament).</span>
                                 </p>
                             </div>
                         </div>
@@ -237,18 +327,29 @@
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Design & Media</h4>
                         <div class="space-y-6">
                             <div class="hover-card p-4 -ml-4 rounded-lg">
-                                <h3 class="text-lg font-bold mb-2">早稲田大学 x PIVOT Inc. 共同プロジェクト｜実行委員</h3>
+                                <h3 class="text-lg font-bold mb-2">
+                                    <span class="lang-ja">早稲田大学 x PIVOT Inc. 共同プロジェクト｜実行委員</span>
+                                    <span class="lang-en">Waseda Univ. x PIVOT Inc. Project | Executive Committee</span>
+                                </h3>
                                 <p class="text-sm text-gray-600 leading-relaxed">
-                                    ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。
+                                    <span class="lang-ja">ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。</span>
+                                    <span class="lang-en">Managed negotiations and project coordination between stakeholders for a collaboration between Waseda University and PIVOT, a business video media company.</span>
                                 </p>
                             </div>
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-lg font-bold">第10回「あなたの考えるブランドラベル・コンテスト」</h3>
-                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">Top 40 入選</span>
+                                    <h3 class="text-lg font-bold">
+                                        <span class="lang-ja">第10回「あなたの考えるブランドラベル・コンテスト」</span>
+                                        <span class="lang-en">10th “Design Your Own Brand Label” Contest</span>
+                                    </h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">
+                                        <span class="lang-ja">Top 40 入選</span>
+                                        <span class="lang-en">Selected Top 40</span>
+                                    </span>
                                 </div>
                                 <p class="text-sm text-gray-600 leading-relaxed">
-                                    3Dプリンターと生分解性の天然素材を用いたアパレルブランドのコンセプト設計およびプロトタイプ制作。東京ビッグサイトにて展示。
+                                    <span class="lang-ja">3Dプリンターと生分解性の天然素材を用いたアパレルブランドのコンセプト設計およびプロトタイプ制作。東京ビッグサイトにて展示。</span>
+                                    <span class="lang-en">Designed a concept and prototyped an apparel brand using 3D printing and biodegradable natural materials. Exhibited at Tokyo Big Sight.</span>
                                 </p>
                             </div>
                         </div>
@@ -259,20 +360,34 @@
                         <div class="space-y-6">
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-lg font-bold">第36回「働くってなんだろう」エッセイ</h3>
-                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">勤労青少年躍進会理事長賞</span>
+                                    <h3 class="text-lg font-bold">
+                                        <span class="lang-ja">第36回「働くってなんだろう」エッセイ</span>
+                                        <span class="lang-en">36th "What Does it Mean to Work?" Essay Contest</span>
+                                    </h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">
+                                        <span class="lang-ja">勤労青少年躍進会理事長賞</span>
+                                        <span class="lang-en">Chairman's Award</span>
+                                    </span>
                                 </div>
                                 <p class="text-sm text-gray-600 leading-relaxed">
-                                    サルトルやハイデガー、レヴィナス等の実存哲学を背景に、現代における労働の本質を問うエッセイを執筆。応募総数1,112編より上位入賞。
+                                    <span class="lang-ja">サルトルやハイデガー、レヴィナス等の実存哲学を背景に、現代における労働の本質を問うエッセイを執筆。応募総数1,112編より上位入賞。</span>
+                                    <span class="lang-en">Authored an essay examining the essence of modern labor through the lens of existential philosophies (Sartre, Heidegger, Levinas). Selected as a distinguished entry from 1,112 applications.</span>
                                 </p>
                             </div>
                             <div class="hover-card p-4 -ml-4 rounded-lg group">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-lg font-bold">早稲田大学 社会科学部「社会デザイン論入門」レポートコンペティション</h3>
-                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">優秀賞</span>
+                                    <h3 class="text-lg font-bold">
+                                        <span class="lang-ja">早稲田大学 社会科学部「社会デザイン論入門」レポートコンペティション</span>
+                                        <span class="lang-en">Waseda Univ. "Social Design 101" Report Competition</span>
+                                    </h3>
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded group-hover:bg-bizAccent group-hover:text-white transition-colors">
+                                        <span class="lang-ja">優秀賞</span>
+                                        <span class="lang-en">Excellence Award</span>
+                                    </span>
                                 </div>
                                 <p class="text-sm text-gray-600 leading-relaxed">
-                                    Web3技術を活用した新しいコワーキングスペースの概念実証・社会実装プランを提案。
+                                    <span class="lang-ja">Web3技術を活用した新しいコワーキングスペースの概念実証・社会実装プランを提案。</span>
+                                    <span class="lang-en">Proposed a plan for the Proof of Concept (PoC) and real-world deployment of a new coworking space leveraging Web3 technologies.</span>
                                 </p>
                             </div>
                         </div>
