@@ -3237,14 +3237,48 @@ body.is-scanning #mobile-orientation-lock *,
         <section id="skills" class="py-24 bg-neoYellow border-y-4 border-black">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 text-stroke font-tight lang-fade" data-key="skillsTitle">保有資格</h2>
-                <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl mx-auto">
-                    <div class="skill-pill bg-white rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors scan-highlight" data-key="skill1">実用英語技能検定準1級</div>
-                    <div class="skill-pill bg-neoRed text-white -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoRed transition-colors scan-highlight" data-key="skill2">珠算検定1級</div>
-                    <div class="skill-pill bg-black text-white rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-white hover-trigger hover:bg-white hover:text-black transition-colors scan-highlight" data-key="skill3">暗算検定1級</div>
-                    <div class="skill-pill bg-neoBlue text-white -rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-colors scan-highlight" data-key="skill4">生成AIパスポート</div>
-                    <div class="skill-pill bg-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-white transition-colors scan-highlight" data-key="skill5">ITパスポート</div>
-                </div>
 
+
+                
+                <!-- ▼▼▼ 変更箇所: 保有資格リストの刷新 (GA4/Femtech追加, ITパスポート削除) ▼▼▼ -->
+<div class="flex flex-wrap justify-center items-center gap-5 md:gap-8 max-w-6xl mx-auto">
+    
+    <!-- 1. Google Analytics (GA4) : Data & Tech (Clean White -> Hover NeoBlue) -->
+    <!-- スタイリッシュなデータ分析感を出すため、チャートアイコンを追加 -->
+    <div class="skill-pill bg-white text-black -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-neoBlue hover:text-white transition-all duration-300 scan-highlight group shadow-[4px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="skillGA4">
+        <i class="fa-solid fa-chart-pie mr-2 text-neoBlue group-hover:text-white transition-colors"></i>
+        Google アナリティクス認定資格 (GA4)
+    </div>
+
+    <!-- 2. JFA Femtech Ambassador : Social & Health (NeoPurple -> Hover White) -->
+    <!-- フェムテックの先進性を表現するため、紫ベースに女性性を象徴するアイコンを配置 -->
+    <div class="skill-pill bg-neoPurple text-white rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoPurple transition-all duration-300 scan-highlight group shadow-[4px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="skillFemtech">
+        <i class="fa-solid fa-heart-pulse mr-2 text-white group-hover:text-neoPurple transition-colors"></i>
+        JFA認定 フェムテックアンバサダー
+    </div>
+
+    <!-- 3. EIKEN (Language) : (NeoYellow -> Hover Black) -->
+    <!-- 配色のリズムを作るため、白からネオイエローに変更し視認性を強化 -->
+    <div class="skill-pill bg-neoYellow text-black -rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-neoYellow transition-all duration-300 scan-highlight" data-key="skill1">
+        実用英語技能検定準1級
+    </div>
+
+    <!-- 4. Abacus (Logic) : (NeoRed -> Hover White) -->
+    <div class="skill-pill bg-neoRed text-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoRed transition-all duration-300 scan-highlight" data-key="skill2">
+        珠算検定1級
+    </div>
+
+    <!-- 5. Mental Math (Logic) : (Black -> Hover White) -->
+    <div class="skill-pill bg-black text-white -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-white hover-trigger hover:bg-white hover:text-black transition-all duration-300 scan-highlight" data-key="skill3">
+        暗算検定1級
+    </div>
+
+    <!-- 6. Gen AI (Future Tech) : (NeoBlue -> Hover White) -->
+    <div class="skill-pill bg-neoBlue text-white rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-all duration-300 scan-highlight" data-key="skill4">
+        生成AIパスポート
+    </div>
+</div>
+<!-- ▲▲▲ 変更箇所ここまで ▲▲▲ -->
                  <!-- ▼▼▼ 【追加】LANGUAGE MODULES START ▼▼▼ -->
         <div class="mt-16 max-w-5xl mx-auto">
             <!-- Divider -->
@@ -4157,7 +4191,12 @@ body.is-scanning #mobile-orientation-lock *,
                 work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
                 work9Subtitle: "<span class='scan-highlight'>107位入賞</span>", 
                 work9Body: "日本最大のポーカー大会JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championshipにて<span class='scan-highlight'>2511人中107位に入賞</span>。キャッシュゲームを主戦場としているため、あまりトーナメントは得意ではないものの、国内最大規模のトーナメントにおいて、2,511名のエントリーという巨大なフィールド（母数）に対し、<span class='scan-highlight'>分散を最小限に抑えるアジャストメント戦略</span>（相手のクセや状況の偏りを観察し、理論上の正解をあえて崩して、その相手・状況に特化した『最大の利益』を取りに行く戦い方）を実行。2日間にわたる長時間プレイの中で、<span class='scan-highlight'>ICM（Independent Chip Model）を考慮した生存戦略と、期待値最大化のバランスを維持し続けた</span>結果、上位4.2%にあたる107位入賞を果たした。短期的な運ではなく、長時間の意思決定精度が試される場での証明。",
-                skillsTitle: "保有資格", skill1: "実用英語技能検定準1級", skill2: "珠算検定1級", skill3: "暗算検定1級", skill4: "生成AIパスポート", skill5: "ITパスポート",
+                skillGA4: "Google アナリティクス認定資格（GA4）",
+                skillFemtech: "JFA認定 フェムテックアンバサダー",
+                skill1: "実用英語技能検定準1級", 
+                skill2: "珠算検定1級", 
+                skill3: "暗算検定1級", 
+                skill4: "生成AIパスポート / HP Foundation (AI & Data Science)", 
                 langJP: "日本語 (Native)",
                 langEN: "英語 (Business Level / 英検準1級)",
                 langCN: "中国語 (Daily Conversation / HSK3級)",
@@ -4234,7 +4273,12 @@ body.is-scanning #mobile-orientation-lock *,
                 work9Title: "<span class='scan-highlight'>JAPAN OPEN POKER TOUR 2024 Tokyo #32 PPC</span>", 
                 work9Subtitle: "<span class='scan-highlight'>107th Place (In the Money)</span>", 
                 work9Body: "In Japan’s largest poker tournament series, JAPAN OPEN POKER TOUR 2024 Tokyo #32 Poker Players Championship, I finished <span class='scan-highlight'>107th out of 2,511 entrants</span>. While primarily a cash game player with relatively less experience and expertise in tournament play, I participated in one of the largest domestic tournaments. Facing a massive field of 2,511 entries, <span class='scan-highlight'>I executed an adjustment strategy specifically designed to minimize variance.</span> This strategy involved observing opponent tendencies and situational biases, consciously deviating from Game Theory Optimal (GTO) play to adopt a Maximum Exploitative approach tailored to specific opponents and circumstances. Over the course of 2 days of extended play, <span class='scan-highlight'>I successfully balanced a survival strategy that factored in the Independent Chip Model (ICM) with Expected Value (EV) maximization.</span> This effort resulted in a top finish of 107th place, placing me in the top 4.2% of the field. This achievement serves as proof of sustained decision-making accuracy over a prolonged period, rather than short-term luck.",
-                skillsTitle: "Certifications", skill1: "EIKEN Test, Pre-1st Grade", skill2: "Abacus Certification Exam, Grade 1", skill3: "Mental Arithmetic Test, Grade 1", skill4: "Generative AI Passport", skill5: "IT Passport (National Certification, Japan)",
+                skillGA4: "Google Analytics Certification (GA4)",
+                skillFemtech: "JFA Femtech Ambassador",
+                skill1: "EIKEN Test, Pre-1st Grade", 
+                skill2: "Abacus Certification Exam, Grade 1", 
+                skill3: "Mental Arithmetic Test, Grade 1", 
+                skill4: "Generative AI Passport / HP Foundation (AI & Data Science)", 
                 langJP: "Japanese (Native)",
                 langEN: "English (Business Fluency / EIKEN Pre-1)",
                 langCN: "Chinese (Daily Conversation / HSK Level 3)",
