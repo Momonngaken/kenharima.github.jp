@@ -3240,81 +3240,43 @@ body.is-scanning #mobile-orientation-lock *,
 
 
                 
-               <!-- ▼▼▼ 変更箇所: "THE MONOLITH" STYLE (Unified White Base / Neon Reveal) ▼▼▼ -->
-<!-- Design Logic: 背景がYellowのため、要素は「白ベース」で統一し視覚的ノイズを排除。
-     ホバー時にのみ隠された「色（才能）」が露出し、個性が発揮される仕様に変更。 -->
-<div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 max-w-6xl mx-auto">
+                <!-- ▼▼▼ 変更箇所: 保有資格リストの刷新 (GA4/Femtech追加, ITパスポート削除) ▼▼▼ -->
+<div class="flex flex-wrap justify-center items-center gap-5 md:gap-8 max-w-6xl mx-auto">
     
-    <!-- 1. Google Analytics (GA4) : [DATA] -->
-    <!-- Hover: Neon Blue (Intellectual/Tech) -->
-    <div class="group relative bg-white border-[3px] border-black px-8 py-4 rounded-none skew-x-[-10deg] hover:skew-x-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#5D5FEF] cursor-none" data-key="skillGA4">
-        <div class="flex items-center gap-3 relative z-10">
-            <!-- Icon Wrapper -->
-            <div class="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-xs group-hover:bg-[#5D5FEF] transition-colors duration-300">
-                <i class="fa-solid fa-chart-pie"></i>
-            </div>
-            <!-- Text -->
-            <span class="font-black font-mono text-sm tracking-tighter group-hover:text-[#5D5FEF] transition-colors duration-300">Google Analytics (GA4)</span>
-        </div>
-        <!-- Hover Background Fill -->
-        <div class="absolute inset-0 bg-black transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 -z-0 mix-blend-overlay opacity-10"></div>
+    <!-- 1. Google Analytics (GA4) : Data & Tech (Clean White -> Hover NeoBlue) -->
+    <!-- スタイリッシュなデータ分析感を出すため、チャートアイコンを追加 -->
+    <div class="skill-pill bg-white text-black -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-neoBlue hover:text-white transition-all duration-300 scan-highlight group shadow-[4px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="skillGA4">
+        <i class="fa-solid fa-chart-pie mr-2 text-neoBlue group-hover:text-white transition-colors"></i>
+        Google アナリティクス認定資格 (GA4)
     </div>
 
-    <!-- 2. JFA Femtech Ambassador : [SOCIAL] -->
-    <!-- Hover: Neon Purple (Sophisticated/Visionary) -->
-    <div class="group relative bg-white border-[3px] border-black px-8 py-4 rounded-none skew-x-[-10deg] hover:skew-x-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#B983FF] cursor-none" data-key="skillFemtech">
-        <div class="flex items-center gap-3 relative z-10">
-            <div class="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-xs group-hover:bg-[#B983FF] transition-colors duration-300">
-                <i class="fa-solid fa-heart-pulse"></i>
-            </div>
-            <span class="font-black font-mono text-sm tracking-tighter group-hover:text-[#B983FF] transition-colors duration-300">JFA Femtech Ambassador</span>
-        </div>
+    <!-- 2. JFA Femtech Ambassador : Social & Health (NeoPurple -> Hover White) -->
+    <!-- フェムテックの先進性を表現するため、紫ベースに女性性を象徴するアイコンを配置 -->
+    <div class="skill-pill bg-neoPurple text-white rotate-3 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoPurple transition-all duration-300 scan-highlight group shadow-[4px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]" data-key="skillFemtech">
+        <i class="fa-solid fa-heart-pulse mr-2 text-white group-hover:text-neoPurple transition-colors"></i>
+        JFA認定 フェムテックアンバサダー
     </div>
 
-    <!-- 3. EIKEN : [LANG] -->
-    <!-- Hover: Solid Black (Authority/Classic) -->
-    <div class="group relative bg-white border-[3px] border-black px-8 py-4 rounded-none skew-x-[-10deg] hover:skew-x-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] cursor-none" data-key="skill1">
-        <div class="flex items-center gap-3 relative z-10">
-            <div class="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-xs group-hover:bg-gray-800 transition-colors duration-300">
-                <span class="font-serif italic font-bold">En</span>
-            </div>
-            <span class="font-black font-mono text-sm tracking-tighter group-hover:text-black transition-colors duration-300">実用英語技能検定 準1級</span>
-        </div>
+    <!-- 3. EIKEN (Language) : (NeoYellow -> Hover Black) -->
+    <!-- 配色のリズムを作るため、白からネオイエローに変更し視認性を強化 -->
+    <div class="skill-pill bg-neoYellow text-black -rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-black hover:text-neoYellow transition-all duration-300 scan-highlight" data-key="skill1">
+        実用英語技能検定準1級
     </div>
 
-    <!-- 4. Abacus : [LOGIC] -->
-    <!-- Hover: Neon Red (Aggressive/Sharp) -->
-    <div class="group relative bg-white border-[3px] border-black px-8 py-4 rounded-none skew-x-[-10deg] hover:skew-x-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#FF4D4D] cursor-none" data-key="skill2">
-        <div class="flex items-center gap-3 relative z-10">
-            <div class="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-xs group-hover:bg-[#FF4D4D] transition-colors duration-300">
-                <i class="fa-solid fa-calculator"></i>
-            </div>
-            <span class="font-black font-mono text-sm tracking-tighter group-hover:text-[#FF4D4D] transition-colors duration-300">珠算検定 1級</span>
-        </div>
+    <!-- 4. Abacus (Logic) : (NeoRed -> Hover White) -->
+    <div class="skill-pill bg-neoRed text-white rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoRed transition-all duration-300 scan-highlight" data-key="skill2">
+        珠算検定1級
     </div>
 
-    <!-- 5. Mental Math : [SPEED] -->
-    <!-- Hover: Neon Red (Aggressive/Sharp) -->
-    <div class="group relative bg-white border-[3px] border-black px-8 py-4 rounded-none skew-x-[-10deg] hover:skew-x-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#FF4D4D] cursor-none" data-key="skill3">
-        <div class="flex items-center gap-3 relative z-10">
-            <div class="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-xs group-hover:bg-[#FF4D4D] transition-colors duration-300">
-                <i class="fa-solid fa-bolt"></i>
-            </div>
-            <span class="font-black font-mono text-sm tracking-tighter group-hover:text-[#FF4D4D] transition-colors duration-300">暗算検定 1級</span>
-        </div>
+    <!-- 5. Mental Math (Logic) : (Black -> Hover White) -->
+    <div class="skill-pill bg-black text-white -rotate-2 lang-fade px-6 py-3 rounded-full font-bold border-2 border-white hover-trigger hover:bg-white hover:text-black transition-all duration-300 scan-highlight" data-key="skill3">
+        暗算検定1級
     </div>
 
-    <!-- 6. Gen AI : [FUTURE] -->
-    <!-- Hover: Neon Blue (Technology) -->
-    <div class="group relative bg-white border-[3px] border-black px-8 py-4 rounded-none skew-x-[-10deg] hover:skew-x-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#5D5FEF] cursor-none" data-key="skill4">
-        <div class="flex items-center gap-3 relative z-10">
-            <div class="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-xs group-hover:bg-[#5D5FEF] transition-colors duration-300">
-                <i class="fa-solid fa-microchip"></i>
-            </div>
-            <span class="font-black font-mono text-sm tracking-tighter group-hover:text-[#5D5FEF] transition-colors duration-300">生成AIパスポート</span>
-        </div>
+    <!-- 6. Gen AI (Future Tech) : (NeoBlue -> Hover White) -->
+    <div class="skill-pill bg-neoBlue text-white rotate-1 lang-fade px-6 py-3 rounded-full font-bold border-2 border-black hover-trigger hover:bg-white hover:text-neoBlue transition-all duration-300 scan-highlight" data-key="skill4">
+        生成AIパスポート
     </div>
-
 </div>
 <!-- ▲▲▲ 変更箇所ここまで ▲▲▲ -->
                  <!-- ▼▼▼ 【追加】LANGUAGE MODULES START ▼▼▼ -->
