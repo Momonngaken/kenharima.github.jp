@@ -2423,17 +2423,16 @@ body.is-scanning #mobile-orientation-lock *,
 
     <!-- HUD (PC Only) -->
     <aside id="cyber-hud">
-        <div style="position: relative; height: 350px;">
-            <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
-            <div class="hud-point" style="top: 20%" data-target="about">BIO</div>
-            <div class="hud-point" style="top: 40%" data-target="works">WORK</div>
-            <div class="hud-point" style="top: 60%" data-target="skills">SKILLS</div>
-            <div class="hud-point" style="top: 80%" data-target="fragments">FRAGS</div>
-            <div class="hud-point" style="top: 100%" data-target="contact">CONTACT</div>
-            <div class="hud-track"><div class="hud-progress" id="hud-bar"></div></div>
-            <div class="hud-coords">Y-AXIS: <span id="y-val">0000</span></div>
-        </div>
-    </aside>
+    <div style="position: relative; height: 350px;">
+        <div class="hud-point" style="top: 0%" data-target="hero">TOP</div>
+        <div class="hud-point" style="top: 25%" data-target="about">BIO</div>
+        <div class="hud-point" style="top: 50%" data-target="works">WORK</div>
+        <div class="hud-point" style="top: 75%" data-target="skills">SKILLS</div>
+        <div class="hud-point" style="top: 100%" data-target="fragments">FRAGS</div>
+        <div class="hud-track"><div class="hud-progress" id="hud-bar"></div></div>
+        <div class="hud-coords">Y-AXIS: <span id="y-val">0000</span></div>
+    </div>
+</aside>
 
     <!-- MOBILE NAVY PROGRESS BAR -->
     <div id="mobile-navy-progress">
@@ -2569,7 +2568,7 @@ body.is-scanning #mobile-orientation-lock *,
                 <div class="magnetic-btn link-wrapper"><a href="#works" class="block text-sm font-bold uppercase hover:text-neoRed transition-colors hover-trigger lang-fade px-2" data-key="navWorks">活動・受賞歴</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#skills" class="block text-sm font-bold uppercase hover:text-neoPurple transition-colors hover-trigger lang-fade px-2" data-key="navSkills">保有資格</a></div>
                 <div class="magnetic-btn link-wrapper"><a href="#fragments" class="block text-sm font-bold uppercase hover:text-neoYellow transition-colors hover-trigger lang-fade px-2" data-key="navFragments">断片</a></div>
-                <div class="magnetic-btn link-wrapper"><a href="#contact" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade px-2" data-key="navContact">連絡先</a></div>
+                <div class="magnetic-btn link-wrapper"><a href="#" id="nav-contact-link" class="block text-sm font-bold uppercase hover:text-black transition-colors hover-trigger lang-fade px-2" data-key="navContact">連絡先</a></div>
                 
                 <button id="lang-toggle" class="magnetic-btn ml-4 flex items-center gap-2 font-black text-xs border-2 border-black rounded-full px-3 py-1 hover:bg-black hover:text-white transition-colors hover-trigger min-w-[80px] justify-center">
                     <span id="lang-text">JP <span class="opacity-40 font-normal">/ EN</span></span>
@@ -2601,7 +2600,7 @@ body.is-scanning #mobile-orientation-lock *,
             <a href="#works" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navWorks">活動・受賞歴</a>
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
             <a href="#fragments" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navFragments">断片</a>
-            <a href="#contact" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
+            <a href="#" id="mobile-nav-contact-link" class="text-4xl font-black neo-border bg-black text-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navContact">連絡先</a>
             <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
              <!-- SNS Links Container -->
 <div class="mt-8 flex items-center justify-center gap-6">
@@ -3467,25 +3466,6 @@ body.is-scanning #mobile-orientation-lock *,
             </div>
         </section>
 
-        <section id="contact" class="min-h-[80dvh] flex flex-col justify-center items-center bg-neoBg relative overflow-hidden p-6 border-t-4 border-black">
-            <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-transparent text-stroke opacity-5 pointer-events-none select-none font-tight tracking-tighter">WANTED</div>
-            <div class="container mx-auto text-center max-w-5xl relative z-10">
-                <h2 class="flex flex-col items-center justify-center mb-16 lang-fade" data-key="contactTitle"></h2>
-                <div class="mb-20 lang-fade w-full max-w-4xl mx-auto" data-key="contactBody">
-</div>
-                <div class="magnetic-btn inline-block">
-                    <button id="contact-btn-main" class="group relative inline-block hover-trigger">
-                        <span class="absolute inset-0 w-full h-full bg-neoRed transform translate-x-2 translate-y-2 border-2 border-black rounded-full transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                        <span class="relative block bg-black text-white text-xl md:text-3xl font-black border-2 border-black px-10 py-5 rounded-full transition-all duration-300 group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:bg-neoYellow group-hover:text-black lang-fade flex items-center gap-3" data-key="contactButton">
-                            今すぐコンタクトを取る
-                             <svg class="w-6 h-6 transform group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
         <section id="poker-game" class="py-32 border-t-4 border-black overflow-hidden relative">
             <div class="container mx-auto text-center relative z-10">
                 <h3 class="text-white text-xl md:text-2xl font-black mb-12 font-stylish italic opacity-80 tracking-widest">DEAL YOUR FATE <span class="text-xs font-sans font-normal block mt-2 opacity-60">Click all cards to reveal</span></h3>
@@ -3957,9 +3937,8 @@ body.is-scanning #mobile-orientation-lock *,
                 { id: "works", link: document.querySelector('a[data-key="navWorks"]').parentElement }, 
                 { id: "skills", link: document.querySelector('a[data-key="navSkills"]').parentElement }, 
                 { id: "fragments", link: document.querySelector('a[data-key="navFragments"]').parentElement },
-                { id: "contact", link: document.querySelector('a[data-key="navContact"]').parentElement }
             ];
-            const sections = ['hero', 'about', 'works', 'skills', 'fragments', 'contact'];
+            const sections = ['hero', 'about', 'works', 'skills', 'fragments'];
             
             sections.forEach(sectionId => {
                 const target = sectionId === 'hero' ? document.body : document.getElementById(sectionId);
@@ -4018,12 +3997,52 @@ body.is-scanning #mobile-orientation-lock *,
         
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
 
-        function initContactModal() {
-            const modal = document.getElementById('contact-modal'); const openBtns = [document.getElementById('open-contact-btn'), document.getElementById('mobile-contact-btn'), document.getElementById('contact-btn-main')]; const closeBtn = document.getElementById('close-modal'); const backdrop = document.getElementById('modal-backdrop'); const form = document.getElementById('contact-form'); const successMsg = document.getElementById('form-success');
-            function openModal() { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; vibrateEngine(10); } 
-            function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; vibrateEngine(10); }
-            openBtns.forEach(btn => { if(btn) btn.addEventListener('click', (e) => { e.preventDefault(); openModal(); }); });
-            closeBtn.addEventListener('click', closeModal); backdrop.addEventListener('click', closeModal);
+
+
+
+
+
+
+        
+       function initContactModal() {
+    const modal = document.getElementById('contact-modal');
+    
+    // 【変更】削除したセクション内のボタンを除外し、
+    // 新たにナビゲーション内のテキストリンク(ID付与したもの)をトリガーに追加
+    const openBtns = [
+        document.getElementById('open-contact-btn'),      // Header Button
+        document.getElementById('mobile-contact-btn'),    // Mobile Menu Button
+        document.getElementById('nav-contact-link'),      // Header Text Link (New)
+        document.getElementById('mobile-nav-contact-link')// Mobile Menu Text Link (New)
+    ]; 
+    
+    const closeBtn = document.getElementById('close-modal'); 
+    const backdrop = document.getElementById('modal-backdrop'); 
+    const form = document.getElementById('contact-form'); 
+    const successMsg = document.getElementById('form-success');
+
+    function openModal() { 
+        modal.classList.add('is-open'); 
+        document.body.style.overflow = 'hidden'; 
+        if(typeof vibrateEngine === 'function') vibrateEngine(10); 
+    } 
+    
+    function closeModal() { 
+        modal.classList.remove('is-open'); 
+        document.body.style.overflow = ''; 
+        if(typeof vibrateEngine === 'function') vibrateEngine(10); 
+    }
+
+    openBtns.forEach(btn => { 
+        if(btn) btn.addEventListener('click', (e) => { 
+            e.preventDefault(); // リンク遷移を無効化
+            openModal(); 
+        }); 
+    });
+    
+    closeBtn.addEventListener('click', closeModal); 
+    backdrop.addEventListener('click', closeModal);
+            
             form.addEventListener('submit', (e) => { e.preventDefault(); vibrateEngine(20); const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText; const formData = new FormData(form); submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }).then(response => { if (response.ok) { return response.json().catch(() => {}); } else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); } }).then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); }).catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }); });
         }
         document.querySelectorAll('.scramble-hover').forEach(el => { el.addEventListener('mouseenter', () => { const text = el.dataset.originalText || el.innerText; scrambler.scramble(el, text); }); });
