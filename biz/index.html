@@ -178,13 +178,13 @@
 </head>
 <body class="antialiased selection:bg-gray-200 selection:text-black">
 
-    <div class="max-w-4xl mx-auto px-6 py-16 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 py-10 md:py-32">
 
         <header class="mb-16 fade-in flex flex-row items-center gap-4 md:gap-8">
             
             <!-- プロフィール写真エリア (Priority Loading) -->
             <div class="relative group shrink-0">
-                <div class="w-16 h-16 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-white shadow-xl transition-transform duration-500 group-hover:scale-105">
+                <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-white shadow-xl transition-transform duration-500 group-hover:scale-105">
                     <img src="./profile_biz.jpg" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" class="w-full h-full object-cover object-center">
                 </div>
                 <!-- ステータスドット -->
@@ -194,30 +194,30 @@
             <!-- テキストエリア -->
             <div class="flex flex-col justify-center min-w-0">
                 <!-- 名前: 日英で構造を切り替え -->
-                <h1 class="text-lg sm:text-3xl md:text-5xl font-bold mb-1 md:mb-3 tracking-tight biz-heading text-bizText leading-tight whitespace-nowrap overflow-visible">
-                    <span class="lang-ja">
-                        播磨 賢 
-                        <span class="text-gray-300 mx-1 md:mx-2 font-light text-base sm:text-lg md:text-3xl align-middle">|</span> 
-                        <span class="text-base sm:text-2xl md:text-4xl text-gray-700 inline">Ken HARIMA</span>
-                    </span>
+                <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-1 md:mb-3 tracking-tight biz-heading text-bizText leading-tight whitespace-nowrap overflow-visible">
+    <span class="lang-ja">
+        播磨 賢 
+        <span class="text-gray-300 mx-1 md:mx-2 font-light text-lg sm:text-lg md:text-3xl align-middle">|</span> 
+        <span class="text-lg sm:text-2xl md:text-4xl text-gray-700 inline">Ken HARIMA</span>
+    </span>
                     <!-- 英語環境ではシンプルに名前とPortfolio表記へ -->
                     <span class="lang-en">
                         Ken HARIMA
                     </span>
                 </h1>
 
+               <!-- 修正箇所 -->
                 <div class="space-y-1 md:space-y-2">
-                    <p class="text-xs md:text-base text-gray-800 font-bold tracking-wide flex flex-wrap items-center gap-x-2 gap-y-1">
-
+                    <!-- text-xs を text-sm に変更 -->
+                    <p class="text-sm md:text-base text-gray-800 font-bold tracking-wide flex flex-wrap items-center gap-x-2 gap-y-1">
                         <span class="flex items-center gap-2">
-                           <span class="flex items-center gap-2">
-                               
-                           <span class="relative flex items-center justify-center w-8 h-8 md:w-11 md:h-11 shrink-0 rounded-full bg-gray-50 border border-gray-200 shadow-sm text-bizAccent select-none group-hover:scale-105 group-hover:border-bizAccent/30 transition-all duration-500 ease-out overflow-hidden">
-                                <i class="fa-solid fa-building text-xs md:text-lg opacity-90"></i>
-                            </span>
-
-                            <span class="text-[0.7rem] md:text-base">
-                                <span class="lang-ja">ダイキン工業株式会社</span>
+                            <span class="flex items-center gap-2">
+                                <!-- w-8 h-8 を w-10 h-10 に変更 -->
+                                <span class="relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 shrink-0 rounded-full bg-gray-50 border border-gray-200 shadow-sm text-bizAccent select-none group-hover:scale-105 group-hover:border-bizAccent/30 transition-all duration-500 ease-out overflow-hidden">
+                                    <i class="fa-solid fa-building text-xs md:text-lg opacity-90"></i>
+                                </span>
+                                <span class="text-[0.8rem] md:text-base">
+                                    <span class="lang-ja">ダイキン工業株式会社</span>
                                 <span class="lang-en font-medium tracking-tight">Daikin Industries, Ltd.</span>
                             </span>
                         </span>       
