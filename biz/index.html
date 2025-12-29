@@ -618,9 +618,29 @@
 
         </main>
 
-        <footer class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 font-mono">
-            <p>© 2025 Ken HARIMA</p>
-            <p class="mt-2 md:mt-0">Professional Portfolio</p>
+        <footer class="border-t border-gray-200 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
+            <p class="text-gray-400">© 2025 Ken HARIMA</p>
+            
+            <div class="flex items-center gap-6 mt-6 md:mt-0">
+                
+                <!-- Apple-style Segmented Control -->
+                <!-- 背景：薄いグレー、角丸：完全な丸、パディング：極小 -->
+                <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
+                    
+                    <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">
+                        JP
+                    </button>
+                    
+                    <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">
+                        EN
+                    </button>
+
+                </div>
+
+                <p class="hidden sm:block text-gray-200">|</p>
+                
+                <p class="text-gray-400">Professional Portfolio</p>
+            </div>
         </footer>
 
     </div>
@@ -659,6 +679,50 @@
                     once: true
                 }
             });
+        });
+
+        const langJpBtn = document.getElementById('lang-jp');
+        const langEnBtn = document.getElementById('lang-en');
+        const htmlEl = document.documentElement;
+
+        // アクティブな状態のクラス（白背景、少しの影、濃い黒文字）
+        const activeClass = "bg-white text-black shadow-sm";
+        // 非アクティブな状態のクラス（背景透明、薄いグレー文字、ホバーで少し濃く）
+        const inactiveClass = "text-gray-400 hover:text-gray-600";
+
+        function updateLangStyles() {
+            const isGlobal = htmlEl.classList.contains('is-global');
+            
+            if (isGlobal) {
+                // EN mode active
+                langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+            } else {
+                // JP mode active
+                langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+            }
+        }
+
+        // 初期化実行
+        updateLangStyles();
+
+        // クリックイベント
+        langJpBtn.addEventListener('click', () => {
+            if (htmlEl.classList.contains('is-global')) {
+                htmlEl.classList.remove('is-global');
+                updateLangStyles();
+                // レイアウト再計算
+                setTimeout(() => lenis.resize(), 100); 
+            }
+        });
+
+        langEnBtn.addEventListener('click', () => {
+            if (!htmlEl.classList.contains('is-global')) {
+                htmlEl.classList.add('is-global');
+                updateLangStyles();
+                setTimeout(() => lenis.resize(), 100);
+            }
         });
     </script>
 </body>
