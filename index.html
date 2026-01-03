@@ -464,48 +464,7 @@
         
         @keyframes hud-blink { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-        /* ▼▼▼ ADDED: TACTICAL CURSOR STYLES ▼▼▼ */
-        #custom-cursor {
-            transition: opacity 0.3s ease;
-            will-change: transform;
-        }
-
-        /* タッチデバイスでは強制非表示 */
-        @media (pointer: coarse), (hover: none) {
-            #custom-cursor { display: none !important; }
-            body, * { cursor: auto !important; }
-        }
-
-        /* ロックオン時のアニメーション */
-        body.hovering #custom-cursor .cursor-cross {
-            transform: translate(-50%, -50%) rotate(45deg) scale(1.5);
-            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        body.hovering #custom-cursor .cursor-cross div {
-            background-color: #D6FC52; /* ロックオン時にネオンカラーへ */
-            height: 4px;
-            width: 100%;
-        }
-        body.hovering #custom-cursor .cursor-cross div:nth-child(2) {
-            width: 4px;
-            height: 100%;
-        }
-
-        /* 通常時の戻りアニメーション */
-        #custom-cursor .cursor-cross {
-            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        /* Utility */
-        /* Utility - Force Hide Scrollbar but keep functionality */
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { 
-            -ms-overflow-style: none; 
-            scrollbar-width: none; 
-            /* Smooth momentum scrolling for iOS/iPad */
-            -webkit-overflow-scrolling: touch; 
-        }
-
+       
          /* =========================================
            ISOLATED SCROLL SECTOR (Fragments Fix)
            ページ全体の横揺れは殺しつつ、このエリアの操作性だけを極限まで高める
@@ -2305,6 +2264,109 @@ body.is-scanning #mobile-orientation-lock *,
             color: #D6FC52;
             letter-spacing: 0.05em;
         }
+
+        /* =========================================
+           METALAB STYLE INTERACTION UPDATES
+           ========================================= */
+
+        /* 1. NEW ORGANIC CURSOR (Metalab-inspired) */
+        #metalab-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 20000;
+            pointer-events: none;
+            mix-blend-mode: difference; /* 背景色に応じて反転 */
+            transform: translate(-50%, -50%);
+            display: none; /* JSで表示制御 */
+        }
+        
+        @media (min-width: 1025px) and (hover: hover) {
+            #metalab-cursor { display: block; }
+        }
+
+        .cursor-ball {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.1s cubic-bezier(0.19, 1, 0.22, 1); /* 位置の追従はJS, 変形はCSS */
+        }
+
+        /* ホバー時のステート */
+        body.hovering #metalab-cursor .cursor-ball {
+            transform: scale(3.5); /* 大きく拡大 */
+            background-color: #D6FC52; /* ネオンイエローに変化 */
+            mix-blend-mode: normal; /* 色を強調 */
+            opacity: 0.8;
+        }
+
+        /* 2. EXPANDING CONTACT BUTTON (Metalab-inspired) */
+        .metalab-contact-btn {
+            position: relative;
+            height: 44px; /* LinkedInボタンのサイズに合わせる */
+            min-width: 44px;
+            border-radius: 9999px;
+            background-color: #121212; /* Black */
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* リッチなイージング */
+            cursor: pointer;
+            border: 3px solid #121212;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+            padding: 0; /* 初期状態はパディングなし */
+        }
+
+        /* アイコンのコンテナ */
+        .btn-icon-container {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; /* 縮小させない */
+            z-index: 2;
+        }
+
+        /* テキストのコンテナ */
+        .btn-text-container {
+            width: 0; /* 初期幅0 */
+            opacity: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            padding-right: 0;
+        }
+
+        /* ホバー時の動作 */
+        .metalab-contact-btn:hover {
+            min-width: 160px; /* 幅を広げる */
+            background-color: #D6FC52; /* ホバー色 */
+            color: #121212;
+            border-color: #121212;
+            box-shadow: 6px 6px 0px #121212;
+            transform: translate(-2px, -2px);
+        }
+
+        .metalab-contact-btn:hover .btn-text-container {
+            width: auto;
+            opacity: 1;
+            padding-right: 20px; /* テキスト右の余白 */
+            margin-left: -5px;
+        }
+        
+        /* アイコンのアニメーション */
+        .metalab-contact-btn:hover i {
+            transform: scale(1.2) rotate(-10deg);
+            transition: transform 0.3s ease;
+        }
         
     </style>
     <!-- ▼▼▼ [INSERT] STRUCTURED DATA ENTITY: KEN_HARIMA ▼▼▼ -->
@@ -2407,17 +2469,9 @@ body.is-scanning #mobile-orientation-lock *,
         <div class="lock-error-code">ERR_bad_orientation_detected // 0x404</div>
     </div>
     
-    <!-- ▼▼▼ NEW: TACTICAL RETICLE CURSOR ▼▼▼ -->
-    <div id="custom-cursor" class="fixed top-0 left-0 z-[20000] pointer-events-none mix-blend-difference hidden lg:block">
-        <!-- Crosshair -->
-        <div class="cursor-cross relative flex items-center justify-center w-8 h-8 -translate-x-1/2 -translate-y-1/2">
-            <div class="absolute w-full h-[2px] bg-white"></div>
-            <div class="absolute h-full w-[2px] bg-white"></div>
-        </div>
-        <!-- Data Label -->
-        <div class="cursor-data absolute top-4 left-4 font-mono text-[9px] text-white tracking-widest whitespace-nowrap opacity-70">
-            X:<span id="cursor-x">0</span> Y:<span id="cursor-y">0</span>
-        </div>
+   <!-- ▼▼▼ REPLACED: METALAB STYLE CURSOR ▼▼▼ -->
+    <div id="metalab-cursor">
+        <div class="cursor-ball"></div>
     </div>
 
     <!-- HUD (PC Only) -->
@@ -2578,7 +2632,15 @@ body.is-scanning #mobile-orientation-lock *,
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
 
-                <button id="open-contact-btn" class="magnetic-btn ml-4 bg-neoYellow neo-border px-5 py-2 text-sm font-black uppercase neo-shadow hover:bg-black hover:text-neoYellow transition-all hover-trigger lang-fade" data-key="navButton">コンタクトを取る</button>
+               <!-- New Metalab Style Contact Button -->
+    <button id="open-contact-btn" class="metalab-contact-btn ml-4 hover-trigger" aria-label="Contact">
+        <div class="btn-icon-container">
+            <i class="fa-solid fa-envelope text-lg"></i>
+        </div>
+        <div class="btn-text-container">
+            Get in Touch
+        </div>
+    </button>
             </div>
             
             <button id="mobile-menu-btn" class="lg:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
@@ -3563,23 +3625,22 @@ body.is-scanning #mobile-orientation-lock *,
                 navigator.vibrate(pattern);
             }
         };
-
-         // --- 1. TACTICAL RETICLE CURSOR & MAGNETIC LOGIC ---
-        function initTacticalCursor() {
-            // --- SYSTEM PROTOCOL: INPUT CHECK ---
+        
+         // --- 1. METALAB STYLE CURSOR LOGIC ---
+        function initMetalabCursor() {
             // タッチデバイスまたはモバイル幅の場合は起動しない
             const isTouchInterface = window.matchMedia("(pointer: coarse)").matches;
             const isMobileWidth = window.innerWidth < 1024;
             
             if (isTouchInterface || isMobileWidth) return;
 
-            const cursor = document.getElementById('custom-cursor');
-            const cursorX = document.getElementById('cursor-x');
-            const cursorY = document.getElementById('cursor-y');
+            const cursor = document.getElementById('metalab-cursor');
+            const cursorBall = cursor.querySelector('.cursor-ball');
             
-            // GSAP Setters for high performance
-            const setX = gsap.quickTo(cursor, "x", {duration: 0.1, ease: "power3.out"});
-            const setY = gsap.quickTo(cursor, "y", {duration: 0.1, ease: "power3.out"});
+            // GSAP Setters for high performance movement
+            // quickToを使うことで遅延の少ない滑らかな追従を実現
+            const setX = gsap.quickTo(cursor, "x", {duration: 0.15, ease: "power3.out"});
+            const setY = gsap.quickTo(cursor, "y", {duration: 0.15, ease: "power3.out"});
 
             let isVisible = false;
 
@@ -3590,25 +3651,26 @@ body.is-scanning #mobile-orientation-lock *,
                     isVisible = true;
                 }
 
-                // 座標更新 (GSAP)
+                // 座標更新
                 setX(e.clientX);
                 setY(e.clientY);
-
-                // 数値更新 (生データ感を出すため毎フレーム更新)
-                if(cursorX) cursorX.innerText = e.clientX.toString().padStart(4, '0');
-                if(cursorY) cursorY.innerText = e.clientY.toString().padStart(4, '0');
             });
 
             // ホバーエフェクトのトリガー設定
-            const hovers = document.querySelectorAll('.hover-trigger, a, button, .fragment-frame');
+            // Metalabのように、リンクやボタンの上でカーソルが反応（拡大・変色）する
+            const hovers = document.querySelectorAll('.hover-trigger, a, button, .fragment-frame, .magnetic-btn');
+            
             hovers.forEach(el => {
                 el.addEventListener('mouseenter', () => { 
                     document.body.classList.add('hovering'); 
-                    // ターゲット補足時の微細振動（対応端末のみ）
-                    if(typeof vibrateEngine === 'function') vibrateEngine(5); 
+                    // ターゲット吸着感を出すために少し大きくするアニメーション
+                    gsap.to(cursorBall, { scale: 3.5, duration: 0.3, ease: "back.out(1.7)" });
                 });
+                
                 el.addEventListener('mouseleave', () => { 
                     document.body.classList.remove('hovering'); 
+                    // 元に戻す
+                    gsap.to(cursorBall, { scale: 1, duration: 0.3, ease: "power2.out" });
                 });
             });
         }
