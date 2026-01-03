@@ -23,7 +23,7 @@
 </head>
 <body class="antialiased">
     <header class="fixed top-0 w-full px-6 py-6 flex justify-between items-center bg-white/90 backdrop-blur-sm z-50">
-        <a href="./index.html" class="text-2xl font-display font-black italic tracking-tighter hover:opacity-50 transition-opacity">KEN.H</a>
+        <a id="site-logo" href="./index.html" class="text-2xl font-display font-black italic tracking-tighter hover:opacity-50 transition-opacity">KEN.H</a>
         <button id="lang-toggle" class="flex items-center gap-2 font-mono text-xs font-bold border border-gray-200 px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors"><span id="lang-display">JP / EN</span></button>
     </header>
     <main class="flex-grow flex items-center justify-center px-4 py-32">
@@ -59,15 +59,18 @@
             document.getElementById('lang-display').innerText = currentLang === 'ja' ? 'JP / EN' : 'EN / JP';
         }
         applyLanguage();
-        // ▼▼▼ 追加コード：ビジネス版から来た場合の戻り先変更処理 ▼▼▼
         if (urlParams.get('from') === 'biz') {
             // 1. 左上の「KEN.H」ロゴのリンク先をビジネス版に変更
-            const logoLink = document.querySelector('header a');
-            if (logoLink) logoLink.href = './biz/index.html';
+            const logoLink = document.getElementById('site-logo'); // ← IDで確実に取得
+            if (logoLink) {
+                logoLink.href = './biz/index.html';
+            }
 
             // 2. 送信完了後の「トップに戻る」ボタンもビジネス版に変更
             const backBtn = document.getElementById('back-btn');
-            if (backBtn) backBtn.href = './biz/index.html';
+            if (backBtn) {
+                backBtn.href = './biz/index.html';
+            }
         }
         document.getElementById('lang-toggle').addEventListener('click', () => { currentLang = currentLang === 'ja' ? 'en' : 'ja'; applyLanguage(); });
         const form = document.getElementById('contact-form'); const successDiv = document.getElementById('success-message'); const submitBtn = document.getElementById('btn-submit');
