@@ -3683,7 +3683,7 @@ body.is-scanning #mobile-orientation-lock *,
         */
         function initTouchIntervention() {
             const killSystem = () => {
-                const cursorWrapper = document.querySelector('#metalab-cursor'); // ← 新しいID名に変更
+                const cursorWrapper = document.querySelector('#metalab-cursor'); // ← ★新しいID（#metalab-cursor）に変更
                 if (cursorWrapper) {
                     // 視覚的なフェードアウト処理（GSAP）
                     gsap.to(cursorWrapper, {
