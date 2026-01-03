@@ -59,6 +59,16 @@
             document.getElementById('lang-display').innerText = currentLang === 'ja' ? 'JP / EN' : 'EN / JP';
         }
         applyLanguage();
+        // ▼▼▼ 追加コード：ビジネス版から来た場合の戻り先変更処理 ▼▼▼
+        if (urlParams.get('from') === 'biz') {
+            // 1. 左上の「KEN.H」ロゴのリンク先をビジネス版に変更
+            const logoLink = document.querySelector('header a');
+            if (logoLink) logoLink.href = './biz/index.html';
+
+            // 2. 送信完了後の「トップに戻る」ボタンもビジネス版に変更
+            const backBtn = document.getElementById('back-btn');
+            if (backBtn) backBtn.href = './biz/index.html';
+        }
         document.getElementById('lang-toggle').addEventListener('click', () => { currentLang = currentLang === 'ja' ? 'en' : 'ja'; applyLanguage(); });
         const form = document.getElementById('contact-form'); const successDiv = document.getElementById('success-message'); const submitBtn = document.getElementById('btn-submit');
         form.addEventListener('submit', async (e) => {
