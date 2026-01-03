@@ -3683,10 +3683,10 @@ body.is-scanning #mobile-orientation-lock *,
         */
         function initTouchIntervention() {
             const killSystem = () => {
-                const cursorWrapper = document.querySelector('.cursor-wrapper');
+                const cursorWrapper = document.querySelector('#metalab-cursor'); // ← 新しいID名に変更
                 if (cursorWrapper) {
                     // 視覚的なフェードアウト処理（GSAP）
-                    gsap.to(cursorWrapper, { 
+                    gsap.to(cursorWrapper, {
                         opacity: 0, 
                         scale: 0, 
                         duration: 0.3, 
@@ -3812,8 +3812,8 @@ body.is-scanning #mobile-orientation-lock *,
         function finishLoading() { const tl = gsap.timeline(); tl.to(loaderCounter, { y: -100, opacity: 0, duration: 0.5, ease: "power2.in" }).to(loader, { yPercent: -100, duration: 1.2, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; document.body.classList.remove('is-loading'); initSite(); }}); }
         function initSite() {
             startLenis(); 
-             initTacticalCursor();
-             initTouchIntervention(); // タッチ介入プロトコルの起動
+             initMetalabCursor(); // ← 定義した新しい関数名に変更
+             initTouchIntervention(); 
              initWork3Modal();
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
