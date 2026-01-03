@@ -739,20 +739,24 @@
                 setTimeout(() => lenis.resize(), 100);
             }
         });
-        // Contact Button Logic (Language Carry-over)
+        
+        // Contact Button Logic (Language Carry-over & Routing)
         const contactBtn = document.getElementById('biz-contact-btn');
         if (contactBtn) {
             contactBtn.addEventListener('click', (e) => {
-                e.preventDefault(); // デフォルトの遷移をキャンセル
+                e.preventDefault(); 
                 
-                // 現在の言語モードを確認 (is-globalクラスがあれば英語)
+                // 言語モード確認
                 const isGlobal = document.documentElement.classList.contains('is-global');
                 
-                // リンク先を決定 (英語なら ?lang=en を付与)
-                // ※ "../contact.html" は「一つ上の階層のcontact.html」を指します
-                const targetUrl = isGlobal ? '../contact.html?lang=en' : '../contact.html';
+                // URLパラメータの構築
+                const params = new URLSearchParams();
+                if (isGlobal) params.append('lang', 'en'); // 英語なら lang=en
+                params.append('from', 'biz');              // ★追加: ビジネス版から来た目印
                 
-                // ページ遷移
+                // リンク先生成 (../contact.html?lang=en&from=biz 等になる)
+                const targetUrl = '../contact.html?' + params.toString();
+                
                 window.location.href = targetUrl;
             });
         }
