@@ -3803,11 +3803,6 @@ body.is-scanning #mobile-orientation-lock *,
             startLenis(); 
              initMetalabCursor(); // ← 定義した新しい関数名に変更
              initTouchIntervention(); 
-             initWork3Modal();
-            document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
-            initMagneticButtons(); initInteractiveBackground();
-            document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
-            initKineticMarquee(); initScrollSpy(); initScrollHUD();
             initFragmentsGallery(); // NEW: Initialize Fragments Gallery
             initScanProtocol(); // Initialize Scan Mode
             initMobileCommandCenter(); // Initialize Mobile HUD
