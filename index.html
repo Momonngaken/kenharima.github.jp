@@ -2587,23 +2587,7 @@ body.is-scanning #mobile-orientation-lock *,
             </div>
         </div>
     </div>
-
-    <!-- Contact Modal -->
-    <div id="contact-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
-        <div class="modal-content relative bg-white w-full max-w-lg neo-border p-8 md:p-10 shadow-[10px_10px_0px_#D6FC52]">
-            <button id="close-modal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors">✕</button>
-            <h3 class="text-3xl md:text-4xl font-medium font-stylish italic mb-6 text-center">GET IN TOUCH</h3>
-            <form id="contact-form" action="https://formspree.io/f/xovrdzya" method="POST" class="space-y-6">
-                <div><label class="block font-bold text-sm mb-2 uppercase tracking-wider">Name</label><input type="text" name="name" required class="form-input" placeholder="Your Name"></div>
-                <div><label class="block font-bold text-sm mb-2 uppercase tracking-wider">Email</label><input type="email" name="email" required class="form-input" placeholder="your@email.com"></div>
-                <div><label class="block font-bold text-sm mb-2 uppercase tracking-wider">Message</label><textarea name="message" required rows="4" class="form-input" placeholder="What's on your mind?"></textarea></div>
-                <button type="submit" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-neoRed hover:shadow-[4px_4px_0px_#000] hover:-translate-y-1 transition-all">Send Message</button>
-            </form>
-            <div id="form-success" class="hidden text-center py-10"><p class="text-4xl font-black text-neoBlue mb-4">MESSAGE SENT!</p><p class="font-bold">お問い合わせありがとうございます。<br>確認次第ご連絡いたします。</p></div>
-        </div>
-    </div>
-
+    
     <div id="progress-bar"></div>
     <div class="grain-overlay"></div>
 
@@ -2639,14 +2623,14 @@ body.is-scanning #mobile-orientation-lock *,
                 </a>
 
                <!-- New Metalab Style Contact Button -->
-    <button id="open-contact-btn" class="metalab-contact-btn ml-4 hover-trigger" aria-label="Contact">
-        <div class="btn-icon-container">
-            <i class="fa-solid fa-envelope text-lg"></i>
-        </div>
-        <div class="btn-text-container">
-            Get in Touch
-        </div>
-    </button>
+    <a href="./contact.html" class="metalab-contact-btn ml-4 hover-trigger flex items-center justify-center no-underline" aria-label="Contact">
+    <div class="btn-icon-container">
+        <i class="fa-solid fa-envelope text-lg"></i>
+    </div>
+    <div class="btn-text-container">
+        Get in Touch
+    </div>
+</a>
             </div>
             
             <button id="mobile-menu-btn" class="lg:hidden bg-neoYellow neo-border p-2 neo-shadow pointer-events-auto">
@@ -2660,7 +2644,7 @@ body.is-scanning #mobile-orientation-lock *,
             <a href="#works" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-2 hover:rotate-0 transition-transform lang-fade" data-key="navWorks">活動・受賞歴</a>
             <a href="#skills" class="text-4xl font-black neo-border bg-white px-8 py-2 -rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navSkills">保有資格</a>
             <a href="#fragments" class="text-4xl font-black neo-border bg-white px-8 py-2 rotate-1 hover:rotate-0 transition-transform lang-fade" data-key="navFragments">断片</a>
-            <button id="mobile-contact-btn" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade" data-key="navButton">コンタクトを取る</button>
+            <a href="./contact.html" class="text-xl font-black neo-border bg-white px-8 py-2 rotate-3 hover:rotate-0 transition-transform lang-fade text-black no-underline" data-key="navButton">コンタクトを取る</a>
 
              <!-- SNS Links Container -->
 <div class="mt-8 flex items-center justify-center gap-6">
@@ -3824,7 +3808,7 @@ body.is-scanning #mobile-orientation-lock *,
             document.querySelectorAll('.scramble-on-load').forEach(el => { scrambler.scramble(el, el.innerText); });
             initMagneticButtons(); initInteractiveBackground();
             document.querySelectorAll('.scramble-hover').forEach(el => { el.dataset.originalText = el.innerText; });
-            initKineticMarquee(); initScrollSpy(); initContactModal(); initScrollHUD();
+            initKineticMarquee(); initScrollSpy(); initScrollHUD();
             initFragmentsGallery(); // NEW: Initialize Fragments Gallery
             initScanProtocol(); // Initialize Scan Mode
             initMobileCommandCenter(); // Initialize Mobile HUD
@@ -4046,55 +4030,10 @@ body.is-scanning #mobile-orientation-lock *,
         });
         
         gsap.from(".gs-card", { scrollTrigger: { trigger: "#works", start: "top 70%" }, y: 100, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.7)" });
-
-
-
-
-
+        
 
 
         
-       function initContactModal() {
-    const modal = document.getElementById('contact-modal');
-    
-    // 【変更】削除したセクション内のボタンを除外し、
-    // 新たにナビゲーション内のテキストリンク(ID付与したもの)をトリガーに追加
-    const openBtns = [
-        document.getElementById('open-contact-btn'),      // Header Button
-        document.getElementById('mobile-contact-btn'),    // Mobile Menu Button
-        document.getElementById('nav-contact-link'),      // Header Text Link (New)
-        document.getElementById('mobile-nav-contact-link')// Mobile Menu Text Link (New)
-    ]; 
-    
-    const closeBtn = document.getElementById('close-modal'); 
-    const backdrop = document.getElementById('modal-backdrop'); 
-    const form = document.getElementById('contact-form'); 
-    const successMsg = document.getElementById('form-success');
-
-    function openModal() { 
-        modal.classList.add('is-open'); 
-        document.body.style.overflow = 'hidden'; 
-        if(typeof vibrateEngine === 'function') vibrateEngine(10); 
-    } 
-    
-    function closeModal() { 
-        modal.classList.remove('is-open'); 
-        document.body.style.overflow = ''; 
-        if(typeof vibrateEngine === 'function') vibrateEngine(10); 
-    }
-
-    openBtns.forEach(btn => { 
-        if(btn) btn.addEventListener('click', (e) => { 
-            e.preventDefault(); // リンク遷移を無効化
-            openModal(); 
-        }); 
-    });
-    
-    closeBtn.addEventListener('click', closeModal); 
-    backdrop.addEventListener('click', closeModal);
-            
-            form.addEventListener('submit', (e) => { e.preventDefault(); vibrateEngine(20); const submitBtn = form.querySelector('button[type="submit"]'); const originalBtnText = submitBtn.innerText; const formData = new FormData(form); submitBtn.innerText = "SENDING..."; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }).then(response => { if (response.ok) { return response.json().catch(() => {}); } else { return response.json().then(data => { throw new Error(data["errors"] ? data["errors"].map(e => e["message"]).join(", ") : "Server error"); }); } }).then(() => { form.reset(); form.classList.add('hidden'); successMsg.classList.remove('hidden'); createChipConfetti(); }).catch(error => { alert("送信に失敗しました。"); submitBtn.innerText = originalBtnText; submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }); });
-        }
         document.querySelectorAll('.scramble-hover').forEach(el => { el.addEventListener('mouseenter', () => { const text = el.dataset.originalText || el.innerText; scrambler.scramble(el, text); }); });
         const menuBtn = document.getElementById('mobile-menu-btn'); const closeBtn = document.getElementById('close-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); const mobileLinks = mobileMenu.querySelectorAll('a, button');
         function toggleMenu() { 
