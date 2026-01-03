@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | KEN HARIMA</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['monospace'], 
+                    },
+                    colors: {
+                        neoBlack: '#121212',
+                        neoRed: '#FF4D4D',
+                        neoYellow: '#D6FC52'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #ffffff; color: #121212; min-height: 100vh; display: flex; flex-direction: column; }
+        .input-field {
+            width: 100%;
+            border-bottom: 2px solid #e5e5e5;
+            padding: 1rem 0;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            background: transparent;
+        }
+        .input-field:focus {
+            border-bottom-color: #121212;
+        }
+        .input-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #666;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full px-6 py-6 flex justify-between items-center bg-white/90 backdrop-blur-sm z-50">
+        <a href="./index.html" class="text-2xl font-display font-black italic tracking-tighter hover:opacity-50 transition-opacity">KEN.H</a>
+        
+        <!-- Language Toggle -->
+        <button id="lang-toggle" class="flex items-center gap-2 font-mono text-xs font-bold border border-gray-200 px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors">
+            <span id="lang-display">JP / EN</span>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center px-4 py-32">
+        <div class="w-full max-w-2xl fade-in">
+            
+            <h1 class="text-4xl md:text-6xl font-display font-black italic mb-16 text-center" id="page-title">お問い合わせ</h1>
+
+            <form id="contact-form" action="https://formspree.io/f/xovrdzya" method="POST" class="space-y-12">
+                
+                <!-- Name -->
+                <div class="group">
+                    <label class="input-label" for="name" id="label-name">お名前</label>
+                    <input type="text" id="name" name="name" required class="input-field placeholder-gray-300" placeholder="Type here...">
+                </div>
+
+                <!-- Email -->
+                <div class="group">
+                    <label class="input-label" for="email" id="label-email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required class="input-field placeholder-gray-300" placeholder="your@email.com">
+                </div>
+
+                <!-- Source (New Field) -->
+                <div class="group">
+                    <label class="input-label" for="source" id="label-source">当方を知ったきっかけ</label>
+                    <input type="text" id="source" name="source" class="input-field placeholder-gray-300" placeholder="SNS, Referral, etc...">
+                </div>
+
+                <!-- Message -->
+                <div class="group">
+                    <label class="input-label" for="message" id="label-message">メッセージ</label>
+                    <textarea id="message" name="message" required rows="1" class="input-field placeholder-gray-300 resize-none overflow-hidden" placeholder="Hello..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-8 text-center">
+                    <button type="submit" id="btn-submit" class="bg-black text-white font-display font-black italic text-xl px-12 py-4 hover:bg-neoRed hover:scale-105 transition-all duration-300 shadow-xl">
+                        送信する
+                    </button>
+                </div>
+            </form>
+
+            <!-- Success Message (Hidden by default) -->
+            <div id="success-message" class="hidden text-center py-20">
+                <p class="text-6xl mb-6">✉️</p>
+                <h2 class="text-2xl font-bold mb-4" id="success-title">送信完了</h2>
+                <p class="text-gray-600 leading-relaxed" id="success-body">
+                    お問い合わせありがとうございます。<br>確認次第ご連絡いたします。
+                </p>
+                <a href="./index.html" class="inline-block mt-12 text-sm font-bold border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition-colors" id="back-btn">
+                    トップに戻る
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-[10px] font-mono text-gray-400">
+        © 2025 Ken HARIMA.
+    </footer>
+
+    <script>
+        // Language Data
+        const content = {
+            ja: {
+                title: "お問い合わせ",
+                labelName: "お名前",
+                labelEmail: "メールアドレス",
+                labelSource: "当方を知ったきっかけ",
+                labelMessage: "メッセージ",
+                btnSubmit: "送信する",
+                successTitle: "送信完了",
+                successBody: "お問い合わせありがとうございます。<br>確認次第ご連絡いたします。",
+                backBtn: "トップに戻る"
+            },
+            en: {
+                title: "GET IN TOUCH",
+                labelName: "Name",
+                labelEmail: "Email",
+                labelSource: "How did you hear of me?",
+                labelMessage: "Message",
+                btnSubmit: "SEND MESSAGE",
+                successTitle: "MESSAGE SENT",
+                successBody: "Thank you for reaching out.<br>I will get back to you shortly.",
+                backBtn: "BACK TO HOME"
+            }
+        };
+
+        // State
+        let currentLang = 'ja';
+
+        // URLパラメータから言語を取得 (?lang=en)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('lang') === 'en') {
+            currentLang = 'en';
+        }
+
+        // Apply Language
+        function applyLanguage() {
+            const t = content[currentLang];
+            document.getElementById('page-title').innerText = t.title;
+            document.getElementById('label-name').innerText = t.labelName;
+            document.getElementById('label-email').innerText = t.labelEmail;
+            document.getElementById('label-source').innerText = t.labelSource;
+            document.getElementById('label-message').innerText = t.labelMessage;
+            document.getElementById('btn-submit').innerText = t.btnSubmit;
+            document.getElementById('success-title').innerText = t.successTitle;
+            document.getElementById('success-body').innerHTML = t.successBody;
+            document.getElementById('back-btn').innerText = t.backBtn;
+            
+            document.getElementById('lang-display').innerText = currentLang === 'ja' ? 'JP / EN' : 'EN / JP';
+        }
+
+        // Initialize
+        applyLanguage();
+
+        // Toggle Event
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            currentLang = currentLang === 'ja' ? 'en' : 'ja';
+            applyLanguage();
+        });
+
+        // Formspree Handling (No Redirect)
+        const form = document.getElementById('contact-form');
+        const successDiv = document.getElementById('success-message');
+        const submitBtn = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "SENDING...";
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50');
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    form.style.display = 'none';
+                    successDiv.classList.remove('hidden');
+                    document.getElementById('page-title').style.display = 'none';
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                alert("送信に失敗しました。もう一度お試しください。");
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50');
+            }
+        });
+    </script>
+</body>
+</html>
