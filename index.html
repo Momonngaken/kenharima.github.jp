@@ -2304,8 +2304,11 @@ body.is-scanning #mobile-orientation-lock *,
         /* 2. EXPANDING CONTACT BUTTON (Metalab-inspired) */
         .metalab-contact-btn {
             position: relative;
-            height: 44px; /* LinkedInボタンのサイズに合わせる */
-            min-width: 44px;
+            /* ▼▼▼ 変更前: height: 44px; min-width: 44px; ▼▼▼ */
+            height: 2.75rem;      /* Tailwind w-11 (LinkedInボタン) と同じサイズに統一 */
+            min-width: 2.75rem;   /* Tailwind w-11 (LinkedInボタン) と同じサイズに統一 */
+            /* ▲▲▲ 変更後 ▲▲▲ */
+            
             border-radius: 9999px;
             background-color: #121212; /* Black */
             color: #fff;
@@ -2322,15 +2325,18 @@ body.is-scanning #mobile-orientation-lock *,
 
         /* アイコンのコンテナ */
         .btn-icon-container {
-            width: 44px;
-            height: 44px;
+            /* ▼▼▼ 変更前: width: 44px; height: 44px; ▼▼▼ */
+            width: 2.75rem;       /* 親要素に合わせる */
+            height: 2.75rem;      /* 親要素に合わせる */
+            /* ▲▲▲ 変更後 ▲▲▲ */
+            
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0; /* 縮小させない */
             z-index: 2;
         }
-
+        
         /* テキストのコンテナ */
         .btn-text-container {
             width: 0; /* 初期幅0 */
@@ -4279,7 +4285,7 @@ body.is-scanning #mobile-orientation-lock *,
             },
             en: {
                 navLogo: "KEN.H", navAbout: "About Me", navWorks: "Works & Awards", navSkills: "Certifications", navFragments: "Fragments", navContact: "Contact", navButton: "Get in Touch",
-                heroTitle1: "Ken", heroTitle2: "HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
+                heroTitle1: "Ken", heroTitle2: "KEN HARIMA", heroSubtitle: "Daikin Industries, Ltd. | WASEDA University School of Social Sciences",
                 daikinRole: "/// DEPLOYMENT_PENDING", 
                 marquee1: "DIVING IN EXISTENTIALLY", marquee2: "ESSAY & NARRATIVE", marquee3: "SHATTERING CONVENTIONS", marquee4: "EXISTENTIALISM",
                 aboutTitle: "About Me",
