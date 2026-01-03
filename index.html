@@ -3820,6 +3820,21 @@ body.is-scanning #mobile-orientation-lock *,
                 btn.addEventListener('click', () => vibrateEngine(10));
             });
 
+            // [Smart Link Protocol] 言語設定を引き継いでページ遷移
+            const contactLinks = document.querySelectorAll('a[href="./contact.html"]');
+            contactLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // 通常の遷移を一旦キャンセル
+                    if(typeof vibrateEngine === 'function') vibrateEngine(10);
+                    
+                    // 現在の言語設定(currentLang)を確認してURLを決定
+                    const targetUrl = currentLang === 'en' ? './contact.html?lang=en' : './contact.html';
+                    
+                    // ページ遷移実行
+                    window.location.href = targetUrl;
+                });
+            });
+
             gsap.to(".fade-in-up", { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out" });
         }
         function initInteractiveBackground() {
