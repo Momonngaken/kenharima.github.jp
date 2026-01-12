@@ -698,18 +698,19 @@
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
-                            <!-- Project 5 -->
+                           <!-- Project 5 -->
 <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-    <!-- モバイルで flex-col (縦並び), デスクトップで flex-row (横並び) に変更 -->
-    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2 gap-2 md:gap-4">
-        <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
+    <!-- flex-row を維持し、justify-between で両端に配置 -->
+    <div class="flex flex-row justify-between items-start mb-2 gap-3">
+        <!-- min-w-0 と leading-tight で、長いタイトルが綺麗に折り返されるように調整 -->
+        <h3 class="text-base md:text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
             <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
             <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
         </h3>
-        <!-- self-start で左詰めを確定させ、whitespace-nowrap をデスクトップのみに限定 -->
-        <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider md:whitespace-nowrap shrink-0 self-start text-left">
+        <!-- shrink-0 でバッジが潰れるのを防ぎ、text-left でバッジ内を左詰めに -->
+        <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
             <span class="lang-ja">
-                勤労青少年<br class="md:hidden">躍進会理事長賞
+                勤労青少年<br>躍進会理事長賞
             </span>
             <span class="lang-en">Chairman's Award</span>
         </span>
