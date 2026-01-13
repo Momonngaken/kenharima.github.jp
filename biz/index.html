@@ -36,7 +36,7 @@
     <!-- Preload LCP Image -->
     <link rel="preload" as="image" href="./profile_biz.jpg">
 
-    <!-- Critical CSS: Prevents Layout Shift while Tailwind loads asynchronously -->
+    <!-- Critical CSS: Prevents Layout Shift & Fixes Colors while Tailwind loads asynchronously -->
     <style>
         /* Mobile First Critical Layout Styles to match Tailwind classes */
         body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -67,9 +67,19 @@
         .min-w-0 { min-width: 0; }
         .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
         .font-bold { font-weight: 700; }
+        
+        /* Fixed: Explicitly define Custom Colors here to prevent black text before Tailwind loads */
         .text-bizText { color: #0f172a; }
+        .text-bizAccent { color: #0f3c85; }
+        .bg-bizAccent { background-color: #0f3c85; }
+        .text-white { color: #ffffff; }
+        .text-gray-200 { color: #e5e7eb; } /* Forte Number Initial Color */
+        
         /* Reset display for fade-in elements to prevent flash before JS runs */
         .fade-in { opacity: 1; transform: none; }
+        
+        h1, h2, h3, h4 { text-wrap: balance; }
+        p { text-wrap: pretty; }
     </style>
 
     <!-- Tailwind Config -->
@@ -202,9 +212,6 @@
             box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08);
             border-color: rgba(15, 60, 133, 0.1);
         }
-        
-        h1, h2, h3, h4 { text-wrap: balance; }
-        p { text-wrap: pretty; }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
