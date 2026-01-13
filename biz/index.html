@@ -28,16 +28,51 @@
     <link rel="apple-touch-icon" href="./profile_biz.jpg">
 
     <!-- Performance Optimization: Preconnect & Preload -->
-    <!-- Preconnect to critical domains to speed up connection setup -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <!-- CRITICAL FIX: Preload LCP Image (This fixes the 6.9s delay) -->
+    <!-- Preload LCP Image -->
     <link rel="preload" as="image" href="./profile_biz.jpg">
 
-    <!-- Tailwind Config (Defined BEFORE the library loads to prevent recalc delay) -->
+    <!-- Critical CSS: Prevents Layout Shift while Tailwind loads asynchronously -->
+    <style>
+        /* Mobile First Critical Layout Styles to match Tailwind classes */
+        body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+        .max-w-4xl { max-width: 56rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-row { flex-direction: row; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-6 { gap: 1.5rem; }
+        .shrink-0 { flex-shrink: 0; }
+        .relative { position: relative; }
+        .w-28 { width: 7rem; }
+        .h-28 { height: 7rem; }
+        .rounded-full { border-radius: 9999px; }
+        .overflow-hidden { overflow: hidden; }
+        .border-2 { border-width: 2px; }
+        .border-white { border-color: #ffffff; }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .object-cover { object-fit: cover; }
+        .object-center { object-position: center; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .min-w-0 { min-width: 0; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .font-bold { font-weight: 700; }
+        .text-bizText { color: #0f172a; }
+        /* Reset display for fade-in elements to prevent flash before JS runs */
+        .fade-in { opacity: 1; transform: none; }
+    </style>
+
+    <!-- Tailwind Config -->
     <script>
         tailwind = {
             config: {
@@ -49,11 +84,11 @@
                             serif: ['Lora', 'serif'], 
                         },
                         colors: {
-                            bizText: '#0f172a', /* Deep Navy Black for Formality */
+                            bizText: '#0f172a',
                             bizGray: '#64748b',
                             bizLight: '#f8fafc',
-                            bizAccent: '#0f3c85', /* Intellectual Navy */
-                            bgBase: '#fafafa',   /* Soft Off-White for Paper-like feel */
+                            bizAccent: '#0f3c85',
+                            bgBase: '#fafafa',
                             neoBlack: '#121212', 
                         },
                         animation: {
@@ -71,14 +106,14 @@
         }
     </script>
 
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS (CDN) - Async to prevent Render Blocking -->
+    <script src="https://cdn.tailwindcss.com" async></script>
 
-    <!-- Font Awesome (Optimized non-blocking loading pattern) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
-    <!-- Google Fonts (Optimized non-blocking loading pattern) -->
+    <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap"></noscript>
     
@@ -93,7 +128,7 @@
     </script>
 
     <style>
-        /* --- Language Switching Logic (Preserved) --- */
+        /* --- Language Switching Logic --- */
         .lang-en { display: none; }
         html.is-global .lang-ja { display: none !important; }
         
@@ -168,16 +203,8 @@
             border-color: rgba(15, 60, 133, 0.1);
         }
         
-        /* Typography & Layout Logic */
-        h1, h2, h3, h4 {
-            text-wrap: balance;
-        }
-        
-        /* Fix for orphan lines and whitespace on mobile */
-        p {
-            text-wrap: pretty;
-        }
-
+        h1, h2, h3, h4 { text-wrap: balance; }
+        p { text-wrap: pretty; }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
@@ -217,14 +244,12 @@
             <!-- Profile Photo -->
             <div class="relative group shrink-0">
                 <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105">
-                    <!-- Optimized: width/height present (prevent CLS), Preloaded in Head (fix LCP) -->
                     <img src="./profile_biz.jpg" width="128" height="128" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" class="w-full h-full object-cover object-center">
                 </div>
             </div>
 
             <!-- Text Area -->
             <div class="flex flex-col justify-center min-w-0">
-                <!-- FIX: Allow wrapping on mobile, nowrap on desktop (md) -->
                 <h1 class="text-3xl sm:text-3xl md:text-5xl font-bold mb-1 md:mb-3 tracking-tight biz-heading text-bizText leading-tight whitespace-normal md:whitespace-nowrap overflow-visible">
                     <span class="lang-ja">
                         播磨 賢 
@@ -253,7 +278,6 @@
             </div>
         </header>
         
-        <!-- FIX: Adjusted space-y for mobile (16) vs desktop (24) -->
         <main class="space-y-16 md:space-y-24">
             
             <!-- ================= PROFILE ================= -->
@@ -273,13 +297,10 @@
             <section class="fade-in">
                 <div class="section-label">Education</div>
                 
-                <!-- Timeline Grid Layout -->
                 <div class="space-y-4 relative">
-                    <!-- Vertical Line Decoration -->
                     <div class="absolute left-[8.5rem] top-4 bottom-4 w-px bg-gray-100 hidden md:block"></div>
 
                     <!-- 1. Waseda University -->
-                    <!-- FIX: Removed -ml-4 on mobile to ensure symmetrical margins. md:-ml-4 restores it on desktop. -->
                     <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline z-10">
                         <div class="text-xs font-mono text-bizAccent font-semibold whitespace-nowrap md:text-right md:pr-4">
                             2022.04 - <span class="text-bizAccent">2026.03</span>
@@ -307,7 +328,6 @@
                                     <span class="lang-ja">マンハイム大学（ドイツ）</span>
                                     <span class="lang-en">University of Mannheim</span>
                                 </h3>
-                                <!-- FIX: Increased font size slightly for readability -->
                                 <span class="text-[10px] font-bold border border-gray-200 text-gray-500 px-2 py-0.5 rounded uppercase tracking-wider bg-white">
                                     Exchange
                                 </span>
@@ -319,119 +339,105 @@
                         </div>
                     </div>
 
-                    <!-- 3. Hiroo Gakuen Junior & Senior High School (Combined) -->
-<div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline opacity-80 hover:opacity-100 transition-opacity z-10">
-    <div class="text-xs font-mono text-gray-400 font-medium whitespace-nowrap md:text-right md:pr-4">
-        2015.04 - 2021.03
-    </div>
-    <div>
-        <h3 class="text-base md:text-lg font-bold mb-1 text-bizText">
-            <span class="lang-ja">広尾学園 中学校・高等学校</span>
-            <span class="lang-en">Hiroo Gakuen Junior & Senior High School</span>
-        </h3>
-    </div>
-</div>
-
+                    <!-- 3. Hiroo Gakuen -->
+                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline opacity-80 hover:opacity-100 transition-opacity z-10">
+                        <div class="text-xs font-mono text-gray-400 font-medium whitespace-nowrap md:text-right md:pr-4">
+                            2015.04 - 2021.03
+                        </div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold mb-1 text-bizText">
+                                <span class="lang-ja">広尾学園 中学校・高等学校</span>
+                                <span class="lang-en">Hiroo Gakuen Junior & Senior High School</span>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
-<div class="mt-12 md:mt-16 pt-10 border-t border-dashed border-gray-200">
-    
-    <div class="flex items-center gap-3 mb-8">
-        <span class="w-1.5 h-1.5 bg-gray-300 rounded-full"></span>
-        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">
-            Professional Development
-        </h4>
-    </div>
+                <div class="mt-12 md:mt-16 pt-10 border-t border-dashed border-gray-200">
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="w-1.5 h-1.5 bg-gray-300 rounded-full"></span>
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                            Professional Development
+                        </h4>
+                    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <!-- Module 1 -->
+                        <div class="group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-200 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-900/[0.04] flex flex-col h-full overflow-hidden">
+                            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-emerald-600 to-teal-400 w-[70%] group-hover:h-1 transition-all duration-300"></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100 shrink-0">
+                                    <i class="fa-solid fa-chart-pie text-sm"></i>
+                                </div>
+                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-200 shrink-0">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-breathe"></span>
+                                    In Progress
+                                </span>
+                            </div>
+                            <h5 class="font-bold text-gray-800 text-sm mb-1.5 leading-tight">
+                                <span class="lang-ja">日商簿記検定 2級</span>
+                                <span class="lang-en">Nissho Bookkeeping L2</span>
+                            </h5>
+                            <p class="text-xs text-gray-500 leading-relaxed">
+                                <span class="lang-ja">財務諸表分析と管理会計。経営数値を読み解く成長の基盤。</span>
+                                <span class="lang-en">Financial analysis & management accounting. The foundation of business growth.</span>
+                            </p>
+                        </div>
 
-        <!-- Module 1: Bookkeeping (Finance - Emerald/Growth) -->
-        <div class="group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-200 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-900/[0.04] flex flex-col h-full overflow-hidden">
-            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-emerald-600 to-teal-400 w-[70%] group-hover:h-1 transition-all duration-300"></div>
-            
-            <div class="flex justify-between items-start mb-4">
-                <div class="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100 shrink-0">
-                    <i class="fa-solid fa-chart-pie text-sm"></i>
+                        <!-- Module 2 -->
+                        <div class="group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-rose-200 transition-all duration-300 hover:shadow-xl hover:shadow-rose-900/[0.04] flex flex-col h-full overflow-hidden">
+                            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-rose-800 to-rose-400 w-[50%] group-hover:h-1 transition-all duration-300"></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center text-rose-800 border border-rose-100 shrink-0">
+                                    <i class="fa-solid fa-scale-balanced text-sm"></i>
+                                </div>
+                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-200 shrink-0">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-700 animate-breathe"></span>
+                                    In Progress
+                                </span>
+                            </div>
+                            <h5 class="font-bold text-gray-800 text-sm mb-1.5 leading-tight">
+                                <span class="lang-ja">ビジネス実務法務検定 2級</span>
+                                <span class="lang-en">Business Law Exam L2</span>
+                            </h5>
+                            <p class="text-xs text-gray-500 leading-relaxed">
+                                <span class="lang-ja">企業活動における法的リスク管理とコンプライアンスの遵守。</span>
+                                <span class="lang-en">Corporate legal risk management & uncompromising compliance.</span>
+                            </p>
+                        </div>
+
+                        <!-- Module 3 -->
+                        <div class="group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-indigo-200 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-900/[0.04] flex flex-col h-full overflow-hidden">
+                            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-indigo-700 to-violet-400 w-[30%] group-hover:h-1 transition-all duration-300"></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-700 border border-indigo-100 shrink-0">
+                                    <i class="fa-solid fa-chart-line text-sm"></i>
+                                </div>
+                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-200 shrink-0">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-breathe"></span>
+                                    In Progress
+                                </span>
+                            </div>
+                            <h5 class="font-bold text-gray-800 text-sm mb-1.5 leading-tight">
+                                <span class="lang-ja">統計検定 2級</span>
+                                <span class="lang-en">Statistics Exam Grade 2</span>
+                            </h5>
+                            <p class="text-xs text-gray-500 leading-relaxed">
+                                <span class="lang-ja">数理統計学に基づく客観的なデータ分析と高度な仮説検定。</span>
+                                <span class="lang-en">Objective data analysis & hypothesis testing based on mathematical logic.</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-200 shrink-0">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-breathe"></span>
-                    In Progress
-                </span>
-            </div>
-
-            <h5 class="font-bold text-gray-800 text-sm mb-1.5 leading-tight">
-                <span class="lang-ja">日商簿記検定 2級</span>
-                <span class="lang-en">Nissho Bookkeeping L2</span>
-            </h5>
-            <p class="text-xs text-gray-500 leading-relaxed">
-                <span class="lang-ja">財務諸表分析と管理会計。経営数値を読み解く成長の基盤。</span>
-                <span class="lang-en">Financial analysis & management accounting. The foundation of business growth.</span>
-            </p>
-        </div>
-
-        <!-- Module 2: Business Law (Legal - Bordeaux/Integrity) -->
-        <div class="group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-rose-200 transition-all duration-300 hover:shadow-xl hover:shadow-rose-900/[0.04] flex flex-col h-full overflow-hidden">
-            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-rose-800 to-rose-400 w-[50%] group-hover:h-1 transition-all duration-300"></div>
-            
-            <div class="flex justify-between items-start mb-4">
-                <div class="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center text-rose-800 border border-rose-100 shrink-0">
-                    <i class="fa-solid fa-scale-balanced text-sm"></i>
-                </div>
-                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-200 shrink-0">
-                    <span class="w-1.5 h-1.5 rounded-full bg-rose-700 animate-breathe"></span>
-                    In Progress
-                </span>
-            </div>
-
-            <h5 class="font-bold text-gray-800 text-sm mb-1.5 leading-tight">
-                <span class="lang-ja">ビジネス実務法務検定 2級</span>
-                <span class="lang-en">Business Law Exam L2</span>
-            </h5>
-            <p class="text-xs text-gray-500 leading-relaxed">
-                <span class="lang-ja">企業活動における法的リスク管理とコンプライアンスの遵守。</span>
-                <span class="lang-en">Corporate legal risk management & uncompromising compliance.</span>
-            </p>
-        </div>
-
-        <!-- Module 3: Statistics (Data - Indigo/Logic) -->
-        <div class="group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-indigo-200 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-900/[0.04] flex flex-col h-full overflow-hidden">
-            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-indigo-700 to-violet-400 w-[30%] group-hover:h-1 transition-all duration-300"></div>
-            
-            <div class="flex justify-between items-start mb-4">
-                <div class="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-700 border border-indigo-100 shrink-0">
-                    <i class="fa-solid fa-chart-line text-sm"></i>
-                </div>
-                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-200 shrink-0">
-                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-breathe"></span>
-                    In Progress
-                </span>
-            </div>
-
-            <h5 class="font-bold text-gray-800 text-sm mb-1.5 leading-tight">
-                <span class="lang-ja">統計検定 2級</span>
-                <span class="lang-en">Statistics Exam Grade 2</span>
-            </h5>
-            <p class="text-xs text-gray-500 leading-relaxed">
-                <span class="lang-ja">数理統計学に基づく客観的なデータ分析と高度な仮説検定。</span>
-                <span class="lang-en">Objective data analysis & hypothesis testing based on mathematical logic.</span>
-            </p>
-        </div>
-
-    </div>
-</div>
-                
             </section>
 
             <!-- ================= COMPETENCIES ================= -->
             <section class="fade-in">
                 <div class="section-label mb-10 md:mb-16">Key Competencies</div>
-                
-                <!-- FIX: Changed gap-y-12 to gap-y-5 for mobile to reduce excessive spacing -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 md:gap-y-16">
 
-                    <!-- 01: Quantitative Analysis -->
-                    <!-- FIX: Removed -ml-4 on mobile, used p-6 md:p-8 -->
+                    <!-- 01 -->
                     <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">01</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
@@ -440,36 +446,30 @@
                         <div class="text-[15px] md:text-base text-gray-700 leading-relaxed font-normal">
                             <p class="lang-ja">多変量解析（数量化I類など）を用いたデータ分析、およびエビデンスに基づくマーケティング戦略の立案。</p>
                             <p class="lang-en">Multivariate data analysis (e.g., Quantification Theory Type I) and evidence-based marketing strategy formulation.</p>
-
-                            <!-- 01: Quantitative Analysis 内の補足メッセージ -->
-<div class="mt-5 pt-3 border-t border-dashed border-gray-200 group-hover:border-indigo-200 transition-colors duration-500">
-    
-    <!-- JP Version -->
-    <p class="lang-ja text-[11px] leading-relaxed text-gray-500 font-medium">
-        <span class="text-indigo-500 mr-1">※</span>
-        実務におけるデータ解釈の精度を高めるべく
-        <span class="inline-flex items-center mx-0.5 px-1.5 py-0.5 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-700 align-baseline select-none">
-            <i class="fa-solid fa-microchip text-[9px] mr-1.5 text-indigo-400 animate-pulse"></i>
-            <span class="font-mono font-bold tracking-tighter text-[10px]">統計検定2級</span>
-        </span>
-        レベルの知識を体系化中。
-    </p>
-    
-    <!-- EN Version -->
-    <p class="lang-en text-[11px] leading-relaxed text-gray-500 font-medium">
-        <span class="text-indigo-500 mr-1">*</span>
-        Systematizing knowledge equivalent to 
-        <span class="inline-flex items-center mx-0.5 px-1.5 py-0.5 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-700 align-baseline select-none">
-            <i class="fa-solid fa-microchip text-[9px] mr-1.5 text-indigo-400 animate-pulse"></i>
-            <span class="font-mono font-bold tracking-tight text-[9px]">Statistics Gr.2</span>
-        </span>
-        to enhance precision in data interpretation.
-    </p>
-</div>
+                            <div class="mt-5 pt-3 border-t border-dashed border-gray-200 group-hover:border-indigo-200 transition-colors duration-500">
+                                <p class="lang-ja text-[11px] leading-relaxed text-gray-500 font-medium">
+                                    <span class="text-indigo-500 mr-1">※</span>
+                                    実務におけるデータ解釈の精度を高めるべく
+                                    <span class="inline-flex items-center mx-0.5 px-1.5 py-0.5 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-700 align-baseline select-none">
+                                        <i class="fa-solid fa-microchip text-[9px] mr-1.5 text-indigo-400 animate-pulse"></i>
+                                        <span class="font-mono font-bold tracking-tighter text-[10px]">統計検定2級</span>
+                                    </span>
+                                    レベルの知識を体系化中。
+                                </p>
+                                <p class="lang-en text-[11px] leading-relaxed text-gray-500 font-medium">
+                                    <span class="text-indigo-500 mr-1">*</span>
+                                    Systematizing knowledge equivalent to 
+                                    <span class="inline-flex items-center mx-0.5 px-1.5 py-0.5 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-700 align-baseline select-none">
+                                        <i class="fa-solid fa-microchip text-[9px] mr-1.5 text-indigo-400 animate-pulse"></i>
+                                        <span class="font-mono font-bold tracking-tight text-[9px]">Statistics Gr.2</span>
+                                    </span>
+                                    to enhance precision in data interpretation.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 02: Decision Making -->
+                    <!-- 02 -->
                     <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">02</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
@@ -481,7 +481,7 @@
                         </div>
                     </div>
 
-                    <!-- 03: Creativity & Engineering -->
+                    <!-- 03 -->
                     <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">03</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
@@ -493,13 +493,12 @@
                         </div>
                     </div>
 
-                    <!-- 04: Languages -->
+                    <!-- 04 -->
                     <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">04</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-6 tracking-tight leading-snug">
                             Languages
                         </h3>
-                        
                         <div class="space-y-5">
                             <!-- Japanese -->
                             <div class="border-b border-gray-100 pb-3">
@@ -518,7 +517,6 @@
                                     <span class="lang-en">Native Proficiency</span>
                                 </p>
                             </div>
-
                             <!-- English -->
                             <div class="border-b border-gray-100 pb-3">
                                 <div class="flex justify-between items-baseline mb-1">
@@ -541,7 +539,6 @@
                                     </span>
                                 </p>
                             </div>
-
                             <!-- Chinese -->
                             <div>
                                 <div class="flex justify-between items-baseline mb-1">
@@ -564,7 +561,6 @@
                                     </span>
                                 </p>
                             </div>
-
                             <!-- Spanish -->
                             <div class="relative mt-5 pt-4 border-t border-dashed border-gray-200">
                                 <div class="absolute -top-3 right-0">
@@ -576,7 +572,6 @@
                                         </span>
                                     </span>
                                 </div>
-
                                 <div class="flex justify-between items-baseline mb-2 mt-1">
                                     <span class="text-base font-bold text-gray-800 flex items-center gap-2">
                                         <span class="lang-ja">スペイン語</span>
@@ -587,7 +582,6 @@
                                         <span class="lang-en">Basic</span>
                                     </span>
                                 </div>
-                                
                                 <p class="text-xs text-gray-600 leading-relaxed relative z-0">
                                     <span class="absolute -left-2 -top-1 -bottom-1 w-1 bg-gradient-to-b from-orange-200 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                                     <span class="flex items-start gap-2">
@@ -602,7 +596,7 @@
                         </div>
                     </div>
 
-                    <!-- 05: Philosophy -->
+                    <!-- 05 -->
                     <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start md:col-span-2">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">05</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
@@ -621,10 +615,9 @@
             <section class="fade-in">
                 <div class="section-label">Selected Projects & Awards</div>
                 <div class="space-y-12">
-                    <!-- Category 1: Marketing & Strategy -->
+                    <!-- Marketing & Strategy -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Marketing & Strategy</h4>
-                        <!-- FIX: Replaced space-y with gap-5 for grid container logic -->
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
                             <!-- Project 1 -->
                             <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
@@ -643,7 +636,7 @@
                                     <span class="lang-en">Identified key success factors through multivariate analysis of social media data. Formulated a logical promotion strategy connecting product characteristics with market needs.</span>
                                 </p>
                             </div>
-                            <!-- Project 2 (改修版) -->
+                            <!-- Project 2 -->
                             <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
                                 <div class="flex flex-row justify-between items-start mb-2 gap-3">
                                     <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
@@ -651,12 +644,8 @@
                                         <span class="lang-en">6th High School Business Plan Grand Prix 2018</span>
                                     </h3>
                                     <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
-                                        <span class="lang-ja">
-                                            東京都産業<br class="md:hidden">労働局長賞
-                                        </span>
-                                        <span class="lang-en">
-                                            Tokyo Industrial<br class="md:hidden">Affairs Award
-                                        </span>
+                                        <span class="lang-ja">東京都産業<br class="md:hidden">労働局長賞</span>
+                                        <span class="lang-en">Tokyo Industrial<br class="md:hidden">Affairs Award</span>
                                     </span>
                                 </div>
                                 <p class="text-sm text-gray-600 leading-relaxed">
@@ -667,23 +656,22 @@
                         </div>
                     </div>
 
-                    <!-- Category 2: Design & Media -->
+                    <!-- Design & Media -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Design & Media</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
                             <!-- Project 3 -->
                             <div class="hover-card p-6 md:-ml-4 rounded-xl border border-transparent hover:border-gray-100">
-    <h3 class="text-lg font-bold mb-2">
-        <span class="lang-ja">
-            <span class="inline-block">早稲田大学 x PIVOT Inc.</span>
-            <span class="inline-block">共同プロジェクト｜実行委員</span>
-        </span>
-        <span class="lang-en">
-            <span class="inline-block">Waseda Univ. x PIVOT Inc. Project |</span>
-            <span class="inline-block">Executive Committee</span>
-        </span>
-    </h3>
-                                
+                                <h3 class="text-lg font-bold mb-2">
+                                    <span class="lang-ja">
+                                        <span class="inline-block">早稲田大学 x PIVOT Inc.</span>
+                                        <span class="inline-block">共同プロジェクト｜実行委員</span>
+                                    </span>
+                                    <span class="lang-en">
+                                        <span class="inline-block">Waseda Univ. x PIVOT Inc. Project |</span>
+                                        <span class="inline-block">Executive Committee</span>
+                                    </span>
+                                </h3>
                                 <p class="text-sm text-gray-600 leading-relaxed">
                                     <span class="lang-ja">ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。</span>
                                     <span class="lang-en">Managed negotiations and project coordination between stakeholders for a collaboration between Waseda University and PIVOT, a business video media company.</span>
@@ -709,32 +697,27 @@
                         </div>
                     </div>
 
-                    <!-- Category 3: Academic & Writing -->
+                    <!-- Academic & Writing -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
-                           <!-- Project 5 -->
-<div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-    <!-- flex-row を維持し、justify-between で両端に配置 -->
-    <div class="flex flex-row justify-between items-start mb-2 gap-3">
-        <!-- min-w-0 と leading-tight で、長いタイトルが綺麗に折り返されるように調整 -->
-        <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
-            <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
-            <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
-        </h3>
-        <!-- shrink-0 でバッジが潰れるのを防ぎ、text-left でバッジ内を左詰めに -->
-        <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
-            <span class="lang-ja">
-                勤労青少年<br>躍進会理事長賞
-            </span>
-            <span class="lang-en">Chairman's Award</span>
-        </span>
-    </div>
-    <p class="text-sm text-gray-600 leading-relaxed">
-        <span class="lang-ja">サルトルやハイデガー、レヴィナス等の実存哲学を背景に、現代における労働の本質を問うエッセイを執筆。応募総数1,112編より上位入賞。</span>
-        <span class="lang-en">Authored an essay examining the essence of modern labor through the lens of existential philosophies (Sartre, Heidegger, Levinas). Selected as a distinguished entry from 1,112 applications.</span>
-    </p>
-</div>
+                            <!-- Project 5 -->
+                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
+                                <div class="flex flex-row justify-between items-start mb-2 gap-3">
+                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
+                                        <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
+                                        <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
+                                    </h3>
+                                    <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
+                                        <span class="lang-ja">勤労青少年<br>躍進会理事長賞</span>
+                                        <span class="lang-en">Chairman's Award</span>
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    <span class="lang-ja">サルトルやハイデガー、レヴィナス等の実存哲学を背景に、現代における労働の本質を問うエッセイを執筆。応募総数1,112編より上位入賞。</span>
+                                    <span class="lang-en">Authored an essay examining the essence of modern labor through the lens of existential philosophies (Sartre, Heidegger, Levinas). Selected as a distinguished entry from 1,112 applications.</span>
+                                </p>
+                            </div>
                             <!-- Project 6 -->
                             <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
                                 <div class="flex justify-between items-start mb-2 gap-4">
@@ -763,7 +746,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-t border-b border-gray-200 py-12">
 
-                    <!-- 01. GRIT -->
+                    <!-- 01 -->
                     <div class="px-4 text-center group">
                         <div class="text-4xl font-display font-bold text-gray-200 mb-2 group-hover:text-bizAccent transition-colors">01</div>
                         <h3 class="text-xl md:text-2xl font-display font-bold text-bizText mb-1 tracking-tight">GRIT</h3>
@@ -774,7 +757,7 @@
                         </p>
                     </div>
 
-                    <!-- 02. LOGIC -->
+                    <!-- 02 -->
                     <div class="px-4 text-center group pt-6 md:pt-0">
                         <div class="text-4xl font-display font-bold text-gray-200 mb-2 group-hover:text-bizAccent transition-colors">02</div>
                         <h3 class="text-xl md:text-2xl font-display font-bold text-bizText mb-1 tracking-tight">LOGIC</h3>
@@ -785,7 +768,7 @@
                         </p>
                     </div>
 
-                    <!-- 03. INTEGRITY -->
+                    <!-- 03 -->
                     <div class="px-4 text-center group pt-6 md:pt-0">
                         <div class="text-4xl font-display font-bold text-gray-200 mb-2 group-hover:text-bizAccent transition-colors">03</div>
                         <h3 class="text-xl md:text-2xl font-display font-bold text-bizText mb-1 tracking-tight">INTEGRITY</h3>
@@ -816,38 +799,25 @@
 
         <footer class="border-t border-gray-200 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
             <p class="text-gray-400">© 2025 Ken HARIMA</p>
-            
             <div class="flex items-center gap-6 mt-6 md:mt-0">
-                
-                <!-- Apple-style Segmented Control -->
                 <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
-                    
-                    <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">
-                        JP
-                    </button>
-                    
-                    <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">
-                        EN
-                    </button>
-
+                    <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
+                    <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
                 </div>
-
                 <p class="hidden sm:block text-gray-200">|</p>
-                
                 <p class="text-gray-400">Professional Portfolio</p>
             </div>
         </footer>
 
     </div>
 
-    <!-- GSAP & Lenis Moved to Bottom with defer for Performance -->
+    <!-- GSAP & Lenis (Moved to bottom with defer to prevent render blocking) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer></script>
 
-    <script>
-        // Wrapped in DOMContentLoaded to ensure libraries are loaded
-        document.addEventListener("DOMContentLoaded", (event) => {
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
             const lenis = new Lenis({
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -890,19 +860,15 @@
 
             function updateLangStyles() {
                 const isGlobal = htmlEl.classList.contains('is-global');
-                
                 if (isGlobal) {
-                    // EN mode active
                     langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
                     langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
                 } else {
-                    // JP mode active
                     langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
                     langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
                 }
             }
 
-            // Initialize
             updateLangStyles();
 
             langJpBtn.addEventListener('click', () => {
@@ -929,7 +895,6 @@
                     const params = new URLSearchParams();
                     if (isGlobal) params.append('lang', 'en'); 
                     params.append('from', 'biz');              
-                    
                     const targetUrl = '../contact.html?' + params.toString();
                     window.location.href = targetUrl;
                 });
