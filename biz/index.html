@@ -75,11 +75,21 @@
         .text-white { color: #ffffff; }
         .text-gray-200 { color: #e5e7eb; } /* Forte Number Initial Color */
         
-        /* Initial state for fade-in elements: Hidden & Translated to prevent FOUC/Flicker */
+        /* Reset display for fade-in elements to prevent flash before JS runs */
         .fade-in { opacity: 0; transform: translateY(30px); }
         
         h1, h2, h3, h4 { text-wrap: balance; }
         p { text-wrap: pretty; }
+
+        /* --- Restore Animation: Breathe (Heartbeat Pulse) --- */
+        /* Tailwind Config経由で効かない場合に備え、直接CSSで定義 */
+        .animate-breathe {
+            animation: breathe 3s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
     </style>
     
     <!-- Fallback for users/bots without JavaScript -->
