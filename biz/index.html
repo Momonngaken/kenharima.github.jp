@@ -27,20 +27,20 @@
     <link rel="icon" type="image/jpeg" href="./profile_biz.jpg">
     <link rel="apple-touch-icon" href="./profile_biz.jpg">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (CDN) -->
+    <!-- Note: For production score of 100, compiling Tailwind via CLI is recommended, but this optimized order allows high scores with CDN. -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Font Awesome (Async Loading to prevent render blocking) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- GSAP & Lenis -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
-
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -72,7 +72,7 @@
         }
     </script>
 
-    <!-- Language Detection Script -->
+    <!-- Language Detection Script (Critical for preventing content flash, kept in head) -->
     <script>
         (function() {
             var lang = navigator.language || navigator.userLanguage; 
@@ -207,7 +207,8 @@
             <!-- Profile Photo -->
             <div class="relative group shrink-0">
                 <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105">
-                    <img src="./profile_biz.jpg" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" class="w-full h-full object-cover object-center">
+                    <!-- Added explicit width/height to prevent CLS -->
+                    <img src="./profile_biz.jpg" width="128" height="128" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" class="w-full h-full object-cover object-center">
                 </div>
             </div>
 
@@ -829,93 +830,101 @@
 
     </div>
 
-    <script>
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smooth: true,
-            mouseMultiplier: 1,
-            touchMultiplier: 2,
-            infinite: false,
-        });
+    <!-- GSAP & Lenis (Moved to bottom with defer to prevent render blocking) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer></script>
 
-        function raf(time) {
-            lenis.raf(time);
-            ScrollTrigger.update();
+    <!-- Main Logic Script (Runs after libraries are loaded) -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+                mouseMultiplier: 1,
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                ScrollTrigger.update();
+                requestAnimationFrame(raf);
+            }
             requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
 
-        gsap.registerPlugin(ScrollTrigger);
+            gsap.registerPlugin(ScrollTrigger);
 
-        gsap.utils.toArray('.fade-in').forEach(section => {
-            gsap.from(section, {
-                opacity: 0,
-                y: 30,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 95%", 
-                    toggleActions: "play none none none",
-                    once: true
+            gsap.utils.toArray('.fade-in').forEach(section => {
+                gsap.from(section, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 95%", 
+                        toggleActions: "play none none none",
+                        once: true
+                    }
+                });
+            });
+
+            const langJpBtn = document.getElementById('lang-jp');
+            const langEnBtn = document.getElementById('lang-en');
+            const htmlEl = document.documentElement;
+
+            const activeClass = "bg-white text-black shadow-sm";
+            const inactiveClass = "text-gray-400 hover:text-gray-600";
+
+            function updateLangStyles() {
+                const isGlobal = htmlEl.classList.contains('is-global');
+                
+                if (isGlobal) {
+                    // EN mode active
+                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                } else {
+                    // JP mode active
+                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                }
+            }
+
+            // Initialize
+            updateLangStyles();
+
+            langJpBtn.addEventListener('click', () => {
+                if (htmlEl.classList.contains('is-global')) {
+                    htmlEl.classList.remove('is-global');
+                    updateLangStyles();
+                    setTimeout(() => lenis.resize(), 100); 
                 }
             });
-        });
 
-        const langJpBtn = document.getElementById('lang-jp');
-        const langEnBtn = document.getElementById('lang-en');
-        const htmlEl = document.documentElement;
-
-        const activeClass = "bg-white text-black shadow-sm";
-        const inactiveClass = "text-gray-400 hover:text-gray-600";
-
-        function updateLangStyles() {
-            const isGlobal = htmlEl.classList.contains('is-global');
-            
-            if (isGlobal) {
-                // EN mode active
-                langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
-                langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
-            } else {
-                // JP mode active
-                langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
-                langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
-            }
-        }
-
-        // Initialize
-        updateLangStyles();
-
-        langJpBtn.addEventListener('click', () => {
-            if (htmlEl.classList.contains('is-global')) {
-                htmlEl.classList.remove('is-global');
-                updateLangStyles();
-                setTimeout(() => lenis.resize(), 100); 
-            }
-        });
-
-        langEnBtn.addEventListener('click', () => {
-            if (!htmlEl.classList.contains('is-global')) {
-                htmlEl.classList.add('is-global');
-                updateLangStyles();
-                setTimeout(() => lenis.resize(), 100);
-            }
-        });
-        
-        const contactBtn = document.getElementById('biz-contact-btn');
-        if (contactBtn) {
-            contactBtn.addEventListener('click', (e) => {
-                e.preventDefault(); 
-                const isGlobal = document.documentElement.classList.contains('is-global');
-                const params = new URLSearchParams();
-                if (isGlobal) params.append('lang', 'en'); 
-                params.append('from', 'biz');              
-                
-                const targetUrl = '../contact.html?' + params.toString();
-                window.location.href = targetUrl;
+            langEnBtn.addEventListener('click', () => {
+                if (!htmlEl.classList.contains('is-global')) {
+                    htmlEl.classList.add('is-global');
+                    updateLangStyles();
+                    setTimeout(() => lenis.resize(), 100);
+                }
             });
-        }
+            
+            const contactBtn = document.getElementById('biz-contact-btn');
+            if (contactBtn) {
+                contactBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const isGlobal = document.documentElement.classList.contains('is-global');
+                    const params = new URLSearchParams();
+                    if (isGlobal) params.append('lang', 'en'); 
+                    params.append('from', 'biz');              
+                    
+                    const targetUrl = '../contact.html?' + params.toString();
+                    window.location.href = targetUrl;
+                });
+            }
+        });
     </script>
 </body>
 </html>
