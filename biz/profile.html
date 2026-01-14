@@ -98,33 +98,43 @@
 
     <div class="flex-grow max-w-4xl mx-auto px-6 pt-32 md:pt-40 w-full">
 
-        <!-- ================= INTRO (REFINED BENTO GRID) ================= -->
+        <!-- ================= INTRO (EXTREME CREATIVE: LAB INTERFACE) ================= -->
     <section class="mb-24 fade-in-up relative pt-10">
         
+        <!-- Background Decor: Subtle Gradient Mesh -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[120%] h-full bg-gradient-to-b from-indigo-50/50 via-white to-white -z-10 pointer-events-none"></div>
+
         <!-- Section Header -->
-        <div class="mb-8">
-            <h2 class="text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.9] tracking-tighter">
+        <div class="mb-10 relative">
+            <h2 class="text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.9] tracking-tighter relative z-10 mix-blend-darken">
                 <span class="lang-ja block">
-                    なぜ、<br><span class="text-bizAccent">心理測定</span>なのか？
+                    なぜ、<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-bizAccent to-indigo-500">心理測定</span>なのか？
                 </span>
                 <span class="lang-en block">
-                    Why<br><span class="text-bizAccent">Psychometrics?</span>
+                    Why<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-bizAccent to-indigo-500">Psychometrics?</span>
                 </span>
             </h2>
+            <!-- Decorative Elements behind text -->
+            <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
         </div>
 
         <!-- Main Structure: Tech Spec Grid -->
-        <div class="border border-gray-200 bg-white shadow-2xl shadow-gray-200/50 rounded-none md:rounded-lg overflow-hidden flex flex-col lg:flex-row">
+        <div class="relative bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden flex flex-col lg:flex-row ring-1 ring-gray-900/5">
             
-            <!-- LEFT COLUMN: Manifesto (Text) -->
-            <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-gray-200 bg-gray-50/30 relative">
+            <!-- LEFT COLUMN: Manifesto (The Logic) -->
+            <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between relative group">
                 
-                <!-- Decorative Label -->
-                <div class="absolute top-0 left-0 bg-bizText text-white text-[10px] font-mono px-3 py-1 uppercase tracking-widest">
-                    Manifesto
+                <!-- Background Grid Pattern for Tech Feel -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+                <!-- Decorative Label: Tech Badge Style -->
+                <div class="absolute top-0 left-0">
+                    <div class="bg-bizText text-white text-[10px] font-mono font-bold px-4 py-1.5 uppercase tracking-[0.2em] rounded-br-lg shadow-sm">
+                        Manifesto
+                    </div>
                 </div>
 
-                <div class="prose prose-lg text-gray-800 font-serif leading-loose text-justify max-w-none">
+                <div class="prose prose-lg text-gray-700 font-serif leading-loose text-justify max-w-none relative z-10 mt-6">
                     <p class="lang-ja mb-8">
                         信頼の礎は、透明性と予測可能性にあります。私は主観的な自己PRではなく、科学的妥当性が確立された手法を通じて、「私」という人間を提示します。
                     </p>
@@ -140,10 +150,12 @@
                     </p>
                 </div>
 
-                <!-- Footnote: Tech Style -->
-                <div class="mt-12 pt-6 border-t border-gray-200">
+                <!-- Footnote: Tech Alert Style -->
+                <div class="mt-12 pt-6 border-t border-gray-200/60 relative z-10">
                     <div class="flex gap-4 items-start">
-                        <div class="text-bizAccent text-xl mt-[-4px]"><i class="fa-solid fa-circle-info"></i></div>
+                        <div class="shrink-0 w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs mt-0.5 animate-pulse">
+                            <i class="fa-solid fa-info"></i>
+                        </div>
                         <div class="text-xs md:text-sm text-gray-500 font-mono leading-relaxed">
                             <span class="lang-ja">
                                 ※このデータ公開は、私自身のメタ認知の証明であり、パートナーの皆様に対する「取扱説明書」としての役割を果たすことを目的としています。
@@ -157,28 +169,29 @@
             </div>
 
             <!-- RIGHT COLUMN: Frameworks (The Modules) -->
-            <div class="lg:w-5/12 flex flex-col bg-white">
+            <div class="lg:w-5/12 flex flex-col bg-white/60 backdrop-blur-sm border-l border-white/50 relative">
                 
                 <!-- Module 01: Big 5 -->
-                <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-200 overflow-hidden hover:bg-slate-50 transition-colors duration-500">
-                    <!-- Background Number (Watermark) -->
-                    <span class="absolute -top-4 -right-2 text-[10rem] font-bold text-gray-100 group-hover:text-gray-200/70 transition-colors duration-500 font-display select-none leading-none z-0 pointer-events-none">
+                <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-100 overflow-hidden transition-all duration-500 hover:bg-white">
+                    <!-- Background Number (Watermark with Stroke) -->
+                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #e2e8f0;">
                         01
                     </span>
 
                     <div class="relative z-10">
-                        <div class="flex items-center gap-4 mb-5">
-                            <div class="w-10 h-10 rounded-full bg-bizText text-white flex items-center justify-center text-lg shadow-lg">
+                        <div class="flex items-center gap-5 mb-5">
+                            <!-- Icon Container -->
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center text-xl shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                                 <i class="fa-solid fa-microchip"></i>
                             </div>
-                            <!-- Title with Space Grotesk -->
-                            <h3 class="text-3xl font-bold text-bizText tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
-                                Big 5
-                                <span class="block text-xs font-normal text-gray-400 font-sans tracking-normal mt-1">(Five Factor Model)</span>
+                            <!-- Title -->
+                            <h3 class="flex flex-col">
+                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors">Big 5</span>
+                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Five Factor Model)</span>
                             </h3>
                         </div>
                         
-                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1">
+                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-800 transition-colors">
                             <span class="lang-ja">
                                 Goldbergらが整理、McCraeとCostaが体系化した性格特性論。個人の「OS」に相当する基礎的な行動特性を測定する、世界的な主要指標です。
                             </span>
@@ -187,37 +200,41 @@
                             </span>
                         </p>
                     </div>
+                    <!-- Hover Accent Line -->
+                    <div class="absolute left-0 bottom-0 h-1 w-0 bg-bizAccent group-hover:w-full transition-all duration-700 ease-in-out"></div>
                 </div>
 
                 <!-- Module 02: PVQ -->
-                <div class="group relative flex-1 p-8 md:p-10 overflow-hidden hover:bg-slate-50 transition-colors duration-500">
-                    <!-- Background Number (Watermark) -->
-                    <span class="absolute -top-4 -right-2 text-[10rem] font-bold text-gray-100 group-hover:text-blue-50 transition-colors duration-500 font-display select-none leading-none z-0 pointer-events-none">
+                <div class="group relative flex-1 p-8 md:p-10 overflow-hidden transition-all duration-500 hover:bg-white">
+                    <!-- Background Number -->
+                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #bfdbfe;">
                         02
                     </span>
 
                     <div class="relative z-10">
-                        <div class="flex items-center gap-4 mb-5">
-                            <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg shadow-lg shadow-blue-200">
-                                <!-- Updated Icon to Heartbeat -->
-                                <i class="fa-solid fa-heart-pulse"></i>
+                        <div class="flex items-center gap-5 mb-5">
+                            <!-- Icon Container -->
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-100 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
+                                <i class="fa-solid fa-heart-pulse animate-[pulse_3s_ease-in-out_infinite]"></i>
                             </div>
-                            <!-- Title with Space Grotesk -->
-                            <h3 class="text-3xl font-bold text-bizText tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
-                                PVQ
-                                <span class="block text-xs font-normal text-gray-400 font-sans tracking-normal mt-1">(Portrait Values Questionnaire)</span>
+                            <!-- Title -->
+                            <h3 class="flex flex-col">
+                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors">PVQ</span>
+                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Portrait Values Questionnaire)</span>
                             </h3>
                         </div>
 
-                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1">
+                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-800 transition-colors">
                             <span class="lang-ja">
-                                S.Schwartzの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な「動機（Driver）」を説明します。
+                                S.Schwartzの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な動機を説明します。
                             </span>
                             <span class="lang-en">
                                 Based on Shalom H. Schwartz’s Theory of Basic Human Values. It measures value priorities—the motivational goals that help shape attitudes, decisions, and behavior.
                             </span>
                         </p>
                     </div>
+                    <!-- Hover Accent Line -->
+                    <div class="absolute left-0 bottom-0 h-1 w-0 bg-blue-500 group-hover:w-full transition-all duration-700 ease-in-out"></div>
                 </div>
 
             </div>
