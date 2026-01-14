@@ -565,6 +565,32 @@
             langJpBtn.addEventListener('click', () => setLanguage(false));
             langEnBtn.addEventListener('click', () => setLanguage(true));
         });
+        // ▼▼▼ ここから追加：ツールチップ制御ロジック ▼▼▼
+            window.toggleTooltip = function(e) {
+                e.stopPropagation(); // 親要素へのイベント伝播を止める
+                const tooltip = document.getElementById('tooltip-body');
+                
+                // クラスの有無で表示/非表示を切り替え
+                if (tooltip.classList.contains('opacity-0')) {
+                    // 表示 (opacity:1, visible, 位置リセット)
+                    tooltip.classList.remove('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
+                } else {
+                    // 非表示
+                    tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
+                }
+            };
+
+            // 画面のどこかをタップしたらツールチップを閉じる
+            document.addEventListener('click', function(e) {
+                const tooltip = document.getElementById('tooltip-body');
+                const container = document.getElementById('tooltip-container');
+                
+                // ツールチップが存在し、かつクリックされた場所がコンテナの外側なら閉じる
+                if (tooltip && container && !container.contains(e.target)) {
+                    tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
+                }
+            });
+            // ▲▲▲ 追加ここまで ▲▲▲
     </script>
 </body>
 </html>
