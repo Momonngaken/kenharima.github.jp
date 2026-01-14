@@ -699,7 +699,7 @@
             langJpBtn.addEventListener('click', () => setLanguage(false));
             langEnBtn.addEventListener('click', () => setLanguage(true));
         });
-        // ▼▼▼ ここから追加：ツールチップ制御ロジック ▼▼▼
+        
             window.toggleTooltip = function(e) {
                 e.stopPropagation(); // 親要素へのイベント伝播を止める
                 const tooltip = document.getElementById('tooltip-body');
@@ -724,7 +724,6 @@
                     tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 }
             });
-            // ▲▲▲ 追加ここまで ▲▲▲
     </script>
 </body>
 </html>
