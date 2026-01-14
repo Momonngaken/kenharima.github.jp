@@ -88,126 +88,180 @@
 
     <div class="flex-grow max-w-4xl mx-auto px-6 pt-32 md:pt-40 w-full">
 
-        <!-- ================= INTRO (CREATIVE REDESIGN) ================= -->
-        <section class="mb-32 fade-in-up relative isolate">
-            
-            <!-- 0. Ambient Background Elements (Subtle Depth) -->
-            <div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-gray-100 to-white rounded-full mix-blend-multiply filter blur-3xl opacity-60 pointer-events-none -z-10"></div>
-            <!-- Giant Watermark Typography -->
-            <div class="absolute top-0 -left-10 text-[10rem] md:text-[14rem] font-display font-bold text-gray-50 leading-none select-none -z-20 pointer-events-none overflow-hidden opacity-60">
-                WHY
+        <!-- ================= INTRO (REDESIGNED) ================= -->
+        <section class="mb-24 fade-in-up relative">
+            <!-- Background Decoration: Abstract Mental Shapes -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse pointer-events-none"></div>
+            <div class="absolute top-1/3 -right-24 w-72 h-72 bg-bizAccent/10 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none" style="animation-delay: 1s;"></div>
+
+            <!-- 1. Typography Heading -->
+            <div class="mb-12 relative z-10 border-b border-gray-200/60 pb-8">
+                <h2 class="text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.95] tracking-tighter">
+                    <span class="lang-ja block">
+                        なぜ、<br><span class="text-bizAccent">心理測定</span>なのか？
+                    </span>
+                    <span class="lang-en block">
+                        Why<br><span class="text-bizAccent">Psychometrics?</span>
+                    </span>
+                </h2>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16 relative">
+            <!-- 2. Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 relative z-10">
                 
-                <!-- 1. The Question (Heading) -->
-                <div class="lg:col-span-4 flex flex-col justify-start">
-                    <div class="sticky top-32"> <!-- Sticky effect on desktop -->
-                        <div class="w-12 h-1 bg-bizAccent mb-8"></div>
-                        <h2 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-bizText leading-[0.95] tracking-tighter mb-4">
-                            <span class="lang-ja">なぜ、<br>心理測定<br>なのか？</span>
-                            <span class="lang-en">Why<br>Psycho-<br>metrics?</span>
-                        </h2>
-                        <div class="hidden lg:block mt-8 text-xs font-mono text-gray-400 tracking-widest uppercase rotate-90 origin-top-left translate-y-24 translate-x-2">
-                            Transparency / Predictability
+                <!-- Left Column: Manifesto & Footnote (Flex Column for Alignment) -->
+                <!-- flex-col + justify-between ensures the footnote hits the bottom Y-coordinate matching the right column -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                    
+                    <!-- Top: Main Body Text -->
+                    <div class="prose prose-lg text-gray-700 font-serif leading-relaxed text-justify">
+                        <!-- Paragraph 1 -->
+                        <p class="lang-ja">
+                            信頼の礎は、透明性と予測可能性にあります。私は主観的な自己PRではなく、科学的妥当性が確立された客観的に体系化された心理測定モデルを通じて「私」という人間を提示します。
+                        </p>
+                        <p class="lang-en">
+                            Trust rests on transparency and predictability. Rather than relying on subjective self-promotion, I present who I am through well-validated psychometric measures.
+                        </p>
+
+                        <!-- Paragraph 2 -->
+                        <p class="lang-ja mt-6">
+                            本ページでは、社会科学分野で広く支持され、国際比較研究においても標準的に採用されている2つの枠組みを用いました。
+                        </p>
+                        <p class="lang-en mt-6">
+                            On this page, I use two prominent frameworks that are widely used in the social sciences and commonly adopted in cross-cultural research.
+                        </p>
+                    </div>
+
+                    <!-- Bottom: Technical Footnote (Aligned to bottom of Right Column) -->
+                    <div class="mt-10 lg:mt-0 relative group/note">
+                        <!-- Decorative Tech Line -->
+                        <div class="absolute -top-4 left-0 w-8 h-px bg-bizAccent/40 group-hover/note:w-full transition-all duration-700 ease-out"></div>
+                        
+                        <!-- JP Footnote -->
+                        <div class="lang-ja text-xs md:text-sm text-gray-500 font-sans leading-relaxed opacity-90">
+                            <span class="text-bizAccent font-bold mr-1 select-none">※</span>
+                            このデータ公開は、私自身のメタ認知の証明であり、パートナーの皆様に対する「取扱説明書」としての役割を果たすことを目的としています。
+                        </div>
+
+                        <!-- EN Footnote -->
+                        <div class="lang-en text-xs md:text-sm text-gray-500 font-sans leading-relaxed opacity-90">
+                            <span class="text-bizAccent font-bold mr-1 select-none">*</span>
+                            By sharing these results, I aim to practice metacognitive clarity and provide partners with a practical “user manual” for smooth collaboration.
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. The Answer (Content) -->
-                <div class="lg:col-span-8 flex flex-col gap-16 pt-2 lg:pt-4">
+                <!-- Right Column: Framework Cards (Engineering Modules) -->
+                <div class="lg:col-span-5 flex flex-col gap-5 justify-start pt-2">
                     
-                    <!-- Main Text Body -->
-                    <div class="relative">
-                        <!-- Vertical decorative line -->
-                        <div class="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-bizAccent/20 to-transparent hidden md:block"></div>
-                        
-                        <div class="md:pl-10 prose prose-lg text-gray-700 font-serif leading-relaxed text-justify">
-                            <p class="lang-ja">
-                                <span class="first-letter:text-5xl first-letter:font-display first-letter:font-bold first-letter:text-bizAccent first-letter:float-left first-letter:mr-3">信</span>頼の礎は、透明性と予測可能性にあります。私は主観的な自己PRではなく、科学的妥当性が確立された客観的に体系化された心理測定モデルを通じて「私」という人間を提示します。
-                            </p>
-                            <p class="lang-en">
-                                <span class="first-letter:text-5xl first-letter:font-display first-letter:font-bold first-letter:text-bizAccent first-letter:float-left first-letter:mr-3">T</span>rust rests on transparency and predictability. Rather than relying on subjective self-promotion, I present who I am through well-validated psychometric measures.
-                            </p>
-
-                            <p class="lang-ja mt-8">
-                                本ページでは、社会科学分野で広く支持され、国際比較研究においても標準的に採用されている2つの枠組みを用いました。
-                            </p>
-                            <p class="lang-en mt-8">
-                                On this page, I use two prominent frameworks that are widely used in the social sciences and commonly adopted in cross-cultural research.
-                            </p>
+                    <!-- Card 1: Big 5 -->
+                    <div class="group relative bg-white/60 backdrop-blur-md border border-white/60 rounded-xl p-6 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(15,60,133,0.08)] hover:border-bizAccent/20 transition-all duration-500">
+                        <div class="absolute top-4 right-4 text-4xl text-bizAccent opacity-5 group-hover:opacity-10 transition-opacity">
+                            <i class="fa-solid fa-layer-group"></i>
                         </div>
+                        <h3 class="font-display font-bold text-base md:text-lg text-bizText mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-microchip text-bizAccent text-sm"></i>
+                            <span class="lang-ja">Big 5 (Five Factor Model)</span>
+                            <span class="lang-en">Big Five (Five-Factor Model)</span>
+                        </h3>
+                        <p class="text-xs text-gray-600 leading-relaxed lang-ja">
+                            1960年代の研究に端を発し、Goldbergらが整理、McCraeとCostaが体系化した性格特性論。個人の「OS」に相当する基礎的な行動特性を測定する、世界的な主要指標です。
+                        </p>
+                        <p class="text-xs text-gray-600 leading-relaxed lang-en">
+                            Rooted in research from the 1960s and consolidated by Goldberg, McCrae, and Costa. It is one of the most widely used approaches for assessing fundamental personality traits—often likened to an individual’s “operating system.”
+                        </p>
                     </div>
 
-                    <!-- Framework Cards (Visual Modules) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <!-- Card 1: Big 5 -->
-                        <div class="group relative bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-[0_10px_40px_-10px_rgba(15,60,133,0.1)] hover:border-bizAccent/30 transition-all duration-500 overflow-hidden">
-                            <!-- Hover Gradient -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            
-                            <div class="relative z-10">
-                                <div class="flex justify-between items-start mb-4">
-                                    <h3 class="font-display font-bold text-lg text-bizText">
-                                        <span class="lang-ja">Big 5 <span class="text-sm font-normal text-gray-500 ml-1">(Five Factor Model)</span></span>
-                                        <span class="lang-en">Big Five <span class="text-sm font-normal text-gray-500 ml-1">(Five-Factor Model)</span></span>
-                                    </h3>
-                                    <i class="fa-solid fa-microchip text-bizAccent/80 text-xl group-hover:scale-110 transition-transform"></i>
-                                </div>
-                                <div class="h-px w-full bg-gray-100 mb-4 group-hover:bg-bizAccent/20 transition-colors"></div>
-                                <p class="text-xs leading-relaxed text-gray-600 lang-ja">
-                                    1960年代の研究に端を発し、Goldbergらが整理、McCraeとCostaが体系化した性格特性論。個人の「OS」に相当する基礎的な行動特性を測定する、世界的な主要指標です。
-                                </p>
-                                <p class="text-xs leading-relaxed text-gray-600 lang-en">
-                                    Rooted in research from the 1960s and consolidated by Goldberg, McCrae, and Costa. It is one of the most widely used approaches for assessing fundamental personality traits—often likened to an individual’s “operating system.”
-                                </p>
-                            </div>
+                    <!-- Card 2: PVQ -->
+                    <div class="group relative bg-white/60 backdrop-blur-md border border-white/60 rounded-xl p-6 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(59,130,246,0.08)] hover:border-blue-400/20 transition-all duration-500">
+                        <div class="absolute top-4 right-4 text-4xl text-blue-500 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <i class="fa-solid fa-compass"></i>
                         </div>
-
-                        <!-- Card 2: PVQ -->
-                        <div class="group relative bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-[0_10px_40px_-10px_rgba(59,130,246,0.1)] hover:border-blue-400/30 transition-all duration-500 overflow-hidden">
-                            <!-- Hover Gradient -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                            <div class="relative z-10">
-                                <div class="flex justify-between items-start mb-4">
-                                    <h3 class="font-display font-bold text-lg text-bizText">
-                                        <span class="lang-ja">PVQ <span class="text-sm font-normal text-gray-500 ml-1">(Portrait Values Questionnaire)</span></span>
-                                        <span class="lang-en">PVQ <span class="text-sm font-normal text-gray-500 ml-1">(Portrait Values Questionnaire)</span></span>
-                                    </h3>
-                                    <i class="fa-solid fa-compass text-blue-500/80 text-xl group-hover:scale-110 transition-transform"></i>
-                                </div>
-                                <div class="h-px w-full bg-gray-100 mb-4 group-hover:bg-blue-200 transition-colors"></div>
-                                <p class="text-xs leading-relaxed text-gray-600 lang-ja">
-                                    S.Schwartzの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な「動機（Driver）」を説明します。
-                                </p>
-                                <p class="text-xs leading-relaxed text-gray-600 lang-en">
-                                    Based on Shalom H. Schwartz’s Theory of Basic Human Values. It measures value priorities—the motivational goals that help shape attitudes, decisions, and behavior.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Technical Footnote (Aligned & Styled) -->
-                    <div class="mt-4 pt-6 border-t border-dashed border-gray-300">
-                        <div class="flex items-start gap-3 opacity-80 hover:opacity-100 transition-opacity duration-300">
-                            <span class="shrink-0 flex items-center justify-center w-5 h-5 rounded bg-gray-100 text-bizAccent text-[10px] font-bold mt-0.5">i</span>
-                            <div>
-                                <p class="lang-ja text-xs text-gray-500 font-sans leading-relaxed">
-                                    ※このデータ公開は、私自身のメタ認知の証明であり、パートナーの皆様に対する「取扱説明書」としての役割を果たすことを目的としています。
-                                </p>
-                                <p class="lang-en text-xs text-gray-500 font-sans leading-relaxed">
-                                    * By sharing these results, I aim to practice metacognitive clarity and provide partners with a practical “user manual” for smooth collaboration.
-                                </p>
-                            </div>
-                        </div>
+                        <h3 class="font-display font-bold text-base md:text-lg text-bizText mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse text-blue-500 text-sm"></i>
+                            <span class="lang-ja">PVQ (Portrait Values Questionnaire)</span>
+                            <span class="lang-en">PVQ (Portrait Values Questionnaire)</span>
+                        </h3>
+                        <p class="text-xs text-gray-600 leading-relaxed lang-ja">
+                            S.Schwartzの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な「動機（Driver）」を説明します。
+                        </p>
+                        <p class="text-xs text-gray-600 leading-relaxed lang-en">
+                            Based on Shalom H. Schwartz’s Theory of Basic Human Values. It measures value priorities—the motivational goals that help shape attitudes, decisions, and behavior.
+                        </p>
                     </div>
 
                 </div>
             </div>
         </section>
         
+        <!-- ================= BIG 5 (OS) ================= -->
+        <section class="mb-24 fade-in-up delay-100">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">01</span>
+                <div>
+                    <h3 class="text-xl font-bold text-bizText">Big 5 (The OS)</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Personality Traits</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center glass-card rounded-2xl p-6 md:p-10">
+                <!-- Chart Area -->
+                <div class="aspect-square w-full max-w-[400px] mx-auto relative">
+                    <canvas id="big5Chart"></canvas>
+                </div>
+
+                <!-- Interpretation / Scores -->
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 pb-2 mb-4">
+                         <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                            <span class="lang-ja">スコア詳細</span>
+                            <span class="lang-en">Score Breakdown</span>
+                         </h4>
+                    </div>
+
+                    <!-- Openness Highlight -->
+                    <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-4 relative overflow-hidden group">
+                        <div class="absolute right-0 top-0 p-2 opacity-10 text-bizAccent text-4xl"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="font-bold text-bizAccent">
+                                <span class="lang-ja">経験への解放性</span>
+                                <span class="lang-en">Openness</span>
+                            </span>
+                            <span class="text-2xl font-display font-bold text-bizText">0.88</span>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-snug">
+                            <span class="lang-ja">非常に高い知的好奇心と抽象思考力。新しいアイデアや美的感覚に対する強い受容性を示します。</span>
+                            <span class="lang-en">Indicates exceptional intellectual curiosity and abstract thinking capabilities. High receptivity to new ideas.</span>
+                        </p>
+                    </div>
+
+                    <!-- Other Scores List -->
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">誠実性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Conscientiousness</span>
+                            <span class="font-mono font-bold text-gray-700">0.79</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">協調性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Agreeableness</span>
+                            <span class="font-mono font-bold text-gray-700">0.77</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">外向性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Extraversion</span>
+                            <span class="font-mono font-bold text-gray-700">0.75</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">情緒安定性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Emotional Stability</span>
+                            <span class="font-mono font-bold text-gray-700">0.72</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ================= PVQ (Driver) ================= -->
         <section class="mb-24 fade-in-up delay-200">
             <div class="flex items-center gap-4 mb-8">
