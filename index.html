@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ja" class="h-full w-full overflow-hidden bg-[#020202]">
+<html lang="ja" class="h-full w-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM OFFLINE | Ken HARIMA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ken Harima | Moved</title>
     <meta name="robots" content="noindex, nofollow">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: 高級感のあるセリフ体と、清潔なサンセリフ体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=JetBrains+Mono:wght@100;400;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -23,39 +23,12 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Syne', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Playfair Display', 'serif'],
                     },
                     colors: {
-                        'void': '#050505',
-                        'alert': '#FF3333',
-                        'dim': '#333333',
-                        'neon': '#D6FC52'
-                    },
-                    animation: {
-                        'noise': 'noise 0.5s steps(5) infinite',
-                        'glitch': 'glitch 1s linear infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        noise: {
-                            '0%': { transform: 'translate(0,0)' },
-                            '10%': { transform: 'translate(-5%,-5%)' },
-                            '20%': { transform: 'translate(-10%,5%)' },
-                            '30%': { transform: 'translate(5%,-10%)' },
-                            '40%': { transform: 'translate(-5%,15%)' },
-                            '50%': { transform: 'translate(-10%,5%)' },
-                            '60%': { transform: 'translate(15%,0)' },
-                            '70%': { transform: 'translate(0,10%)' },
-                            '80%': { transform: 'translate(-15%,0)' },
-                            '90%': { transform: 'translate(10%,5%)' },
-                            '100%': { transform: 'translate(5%,0)' }
-                        },
-                        glitch: {
-                            '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
-                            '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
-                            '62%': { transform: 'translate(0,0) skew(5deg)' }
-                        }
+                        'sand': '#F9F9F7', // 紙のような優しい白
+                        'ink': '#1A1A1A',   // 真っ黒ではない、墨のような黒
+                        'gold': '#C5A059'   // 控えめなアクセント
                     }
                 }
             }
@@ -64,202 +37,123 @@
 
     <style>
         body {
-            cursor: crosshair;
-            background-color: #020202;
-            color: #333;
+            background-color: #F9F9F7;
+            color: #1A1A1A;
+            overflow: hidden; /* スクロールなし */
         }
 
-        /* --- NOISE & SCANLINES --- */
-        .scanlines {
-            position: fixed; inset: 0; pointer-events: none; z-index: 50;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
-            background-size: 100% 4px;
-            animation: scanline 10s linear infinite;
+        /* 優雅なラインアニメーション */
+        .line-link {
+            position: relative;
+            text-decoration: none;
+            display: inline-block;
         }
-        .noise-layer {
-            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.15"/%3E%3C/svg%3E');
-            animation: noise 0.2s infinite;
-            pointer-events: none; z-index: 40; opacity: 0.4;
+        .line-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #1A1A1A;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        /* --- GLITCH TEXT --- */
-        .glitch-wrapper { position: relative; display: inline-block; }
-        .glitch-wrapper::before, .glitch-wrapper::after {
-            content: attr(data-text);
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
-        }
-        .glitch-wrapper::before {
-            color: #FF3333; z-index: -1; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            animation: glitch 2s infinite linear alternate-reverse; transform: translate(-2px, -2px);
-        }
-        .glitch-wrapper::after {
-            color: #D6FC52; z-index: -2; clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-            animation: glitch 2.5s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94) alternate-reverse; transform: translate(2px, 2px);
+        .line-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
 
-        /* --- WARNING TAPE --- */
-        .hazard-tape {
-            background: repeating-linear-gradient(
-                45deg,
-                #D6FC52,
-                #D6FC52 20px,
-                #000 20px,
-                #000 40px
-            );
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-            filter: drop-shadow(0 0 5px rgba(214, 252, 82, 0.5));
-        }
-
-        /* --- INTERACTIVE BUTTON --- */
-        .redirect-btn {
-            position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .redirect-btn::before {
-            content: ''; position: absolute; inset: 0; background: #D6FC52;
-            transform: scaleX(0); transform-origin: right; transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        /* 背景の幾何学模様（ゆっくり動く） */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
             z-index: 0;
+            animation: float 20s infinite ease-in-out;
         }
-        .redirect-btn:hover::before { transform: scaleX(1); transform-origin: left; }
-        .redirect-btn:hover span { color: #000; }
-        
-        @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center h-screen w-screen selection:bg-alert selection:text-black">
+<body class="flex flex-col items-center justify-center h-screen w-screen px-6">
 
-    <!-- Visual Filters -->
-    <div class="scanlines"></div>
-    <div class="noise-layer"></div>
-    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#000_90%)] z-30 pointer-events-none"></div>
+    <!-- 背景装飾: 怖くない、優しい光のようなグラデーション -->
+    <div class="bg-shape w-96 h-96 bg-gray-200 top-[-10%] left-[-10%]"></div>
+    <div class="bg-shape w-[30rem] h-[30rem] bg-gray-100 bottom-[-10%] right-[-10%] animation-delay-2000"></div>
 
-    <!-- Background "GHOST" Text -->
-    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center z-0 pointer-events-none opacity-10 select-none">
-        <h1 class="text-[20vw] font-display font-black text-transparent leading-none" style="-webkit-text-stroke: 2px #333;">KEN.H</h1>
-        <p class="font-mono text-[2vw] tracking-[2em] text-[#333] mt-4">PORTFOLIO_LEGACY</p>
-    </div>
-
-    <!-- Hazard Tapes (Visual Barrier) -->
-    <div class="fixed top-20 left-[-10%] w-[120%] h-12 hazard-tape rotate-3 z-10 opacity-80 pointer-events-none mix-blend-hard-light"></div>
-    <div class="fixed bottom-32 left-[-10%] w-[120%] h-8 hazard-tape -rotate-2 z-10 opacity-60 pointer-events-none mix-blend-hard-light"></div>
-
-    <!-- MAIN CONTENT -->
-    <main class="relative z-40 flex flex-col items-center justify-center text-center px-4 max-w-4xl w-full">
+    <!-- コンテンツコンテナ -->
+    <main class="relative z-10 max-w-2xl w-full flex flex-col items-center text-center">
         
-        <!-- Status Indicator -->
-        <div class="mb-12 flex flex-col items-center animate-pulse-slow">
-            <div class="w-16 h-16 border-2 border-alert rounded-full flex items-center justify-center mb-4 relative">
-                <div class="absolute inset-0 bg-alert opacity-20 rounded-full animate-ping"></div>
-                <i class="fa-solid fa-power-off text-alert text-2xl"></i>
-                <!-- Close Icon drawn with CSS -->
-                <div class="relative w-6 h-6">
-                    <div class="absolute top-1/2 left-0 w-full h-[2px] bg-alert rotate-45 transform -translate-y-1/2"></div>
-                    <div class="absolute top-1/2 left-0 w-full h-[2px] bg-alert -rotate-45 transform -translate-y-1/2"></div>
+        <!-- 1. 小さな署名 -->
+        <div class="reveal-item mb-12 opacity-0">
+            <span class="font-sans text-xs tracking-[0.2em] text-gray-400 uppercase">Ken Harima — Portfolio</span>
+        </div>
+
+        <!-- 2. メインメッセージ -->
+        <!-- シンプルに「移動しました」とだけ伝える -->
+        <h1 class="reveal-item text-5xl md:text-7xl font-serif mb-8 opacity-0 leading-tight">
+            <span class="block italic text-gray-400 font-normal text-3xl md:text-4xl mb-2">This chapter has</span>
+            Concluded.
+        </h1>
+
+        <!-- 3. 説明文 -->
+        <p class="reveal-item font-sans text-sm md:text-base text-gray-500 leading-relaxed max-w-md mb-16 opacity-0">
+            本プライベートポートフォリオの公開は終了いたしました。<br class="hidden md:block">
+            現在はビジネス向けの活動に拠点を移行しています。
+        </p>
+
+        <!-- 4. 新しいサイトへの誘導ボタン -->
+        <!-- 押し付けがましくない、美しいリンク -->
+        <div class="reveal-item opacity-0">
+            <a href="./biz/index.html" class="group flex items-center gap-4 text-ink transition-colors duration-500">
+                <div class="relative w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-ink transition-colors duration-500 bg-white shadow-sm group-hover:shadow-md">
+                    <svg class="w-4 h-4 transform -rotate-45 group-hover:rotate-0 transition-transform duration-500 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
                 </div>
-            </div>
-            <div class="font-mono text-alert text-xs tracking-[0.5em] font-bold">SYSTEM_STATUS: TERMINATED</div>
-        </div>
-
-        <!-- Main Message -->
-        <h2 class="text-4xl md:text-7xl font-display font-black text-white mb-6 glitch-wrapper" data-text="PROJECT ARCHIVED">
-            PROJECT ARCHIVED
-        </h2>
-
-        <!-- Terminal Log -->
-        <div class="bg-[#0a0a0a] border border-[#333] p-6 md:p-8 rounded-sm max-w-xl w-full text-left font-mono text-xs md:text-sm text-gray-500 leading-relaxed shadow-2xl relative overflow-hidden group">
-            <div class="absolute top-0 left-0 w-full h-[1px] bg-white opacity-10 group-hover:animate-[scanline_2s_linear_infinite]"></div>
-            
-            <p class="mb-2"><span class="text-neon">root@ken-harima:~#</span> check_status --all</p>
-            <p class="mb-1 text-alert">> FATAL: Private portfolio core dump initiated.</p>
-            <p class="mb-1">> PROTOCOL: "KEN.H" legacy system has been frozen.</p>
-            <p class="mb-4">> REASON: Migration to Professional Sector complete.</p>
-            
-            <p class="mb-2"><span class="text-neon">root@ken-harima:~#</span> locate new_coordinates</p>
-            <p class="mb-1">> SCANNING...</p>
-            <p class="mb-1">> TARGET FOUND: <span class="text-white font-bold">/biz/index.html</span></p>
-            <p class="animate-pulse">> WAITING FOR USER INPUT_</p>
-        </div>
-
-        <!-- Navigation / Redirect -->
-        <div class="mt-12 flex flex-col items-center gap-6">
-            <a href="./biz/index.html" class="redirect-btn group relative px-8 py-4 bg-transparent border-2 border-neon text-neon font-display font-bold text-lg md:text-xl tracking-wider uppercase">
-                <span class="relative z-10 flex items-center gap-3">
-                    Initialize Biz Protocol
-                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </span>
+                <div class="text-left">
+                    <span class="block font-serif text-lg italic text-gray-400 group-hover:text-ink transition-colors duration-300">Visit new site</span>
+                    <span class="line-link font-sans text-xs font-bold tracking-widest uppercase">Business Portfolio</span>
+                </div>
             </a>
-            
-            <p class="font-mono text-[10px] text-[#444] mt-4">
-                SERVER TIME: <span id="clock">00:00:00</span> // UPTIME: <span class="text-alert">HALTED</span>
-            </p>
         </div>
 
     </main>
 
-    <!-- Footer Decoration -->
-    <div class="fixed bottom-4 right-6 font-mono text-[10px] text-[#222] text-right pointer-events-none z-20">
-        ID: 0xDEAD_BEEF<br>
-        MEMORY_LEAK_DETECTED
-    </div>
+    <!-- フッター: 極限までシンプルに -->
+    <footer class="fixed bottom-8 w-full text-center z-10 reveal-item opacity-0">
+        <p class="font-sans text-[10px] text-gray-300 tracking-widest">© 2026 KEN HARIMA</p>
+    </footer>
 
     <script>
-        // --- CLOCK SCRIPT (FROZEN TIME EFFECT) ---
-        // 時計は動いているが、時折「グリッチ」して時間が飛ぶ演出
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('en-GB', { hour12: false });
-            const clockEl = document.getElementById('clock');
-            
-            if(Math.random() > 0.9) {
-                // Glitch: Show random characters
-                clockEl.innerText = "88:88:88";
-                clockEl.style.color = "#FF3333";
-            } else {
-                clockEl.innerText = timeString;
-                clockEl.style.color = "#444";
-            }
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        // ページ読み込み時に、要素が下から順番にフワッと現れる演出
+        // これにより「静寂」と「品格」を表現します
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
 
-        // --- MOUSE PARALLAX FOR BACKGROUND ---
+            tl.to(".reveal-item", {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                stagger: 0.15, // 0.15秒ずつずらして表示
+                ease: "power3.out", // 自然な減速
+                from: { y: 20 } // 20px下から出現
+            });
+        });
+
+        // マウスの動きに合わせて、文字がわずかに動く（視差効果）
+        // 怖くない程度に、画面に「空気感」を持たせる
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            
-            gsap.to('.hazard-tape', {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 10;
+
+            gsap.to('h1', {
                 x: x,
                 y: y,
-                duration: 1,
+                duration: 1.5,
                 ease: "power2.out"
-            });
-            
-            gsap.to('.glitch-wrapper', {
-                x: -x * 0.5,
-                y: -y * 0.5,
-                duration: 1,
-                ease: "power2.out"
-            });
-        });
-
-        // --- ENTRANCE ANIMATION ---
-        gsap.from("main", {
-            opacity: 0,
-            scale: 0.95,
-            duration: 1.5,
-            ease: "power4.out",
-            delay: 0.2
-        });
-        
-        gsap.from(".hazard-tape", {
-            x: -2000,
-            opacity: 0,
-            duration: 1.5,
-            stagger: 0.2,
-            ease: "expo.out",
-            delay: 0.5
-        });
-
-    </script>
-</body>
-</html>
