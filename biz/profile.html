@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO & Metadata -->
+    <title>Psychometric Profile | Ken HARIMA</title>
+    <meta name="robots" content="noindex, nofollow"> <!-- 特定の相手に見せる前提のため検索除け推奨 -->
+    
+    <!-- CSS & Fonts (Same as index.html) -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Base Styles (Inherited) */
+        body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+        .font-display { font-family: 'Syne', sans-serif; }
+        .font-serif { font-family: 'Lora', serif; }
+        
+        /* Language Switching */
+        .lang-en { display: none; }
+        html.is-global .lang-ja { display: none !important; }
+        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global span.lang-en { display: block !important; }
+        html.is-global span.lang-en { display: inline !important; }
+
+        /* Animations */
+        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Custom Chart Containers */
+        .chart-container { position: relative; width: 100%; height: 100%; }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+
+    <!-- Tailwind Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            bizText: '#0f172a',
+                            bizAccent: '#0f3c85',
+                            bgBase: '#fafafa',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased selection:bg-bizAccent selection:text-white pb-24">
+
+    <!-- ================= HEADER ================= -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-6 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <!-- Back Button -->
+            <a href="./index.html" class="group flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-bizAccent transition-colors">
+                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-bizAccent/10 transition-colors">
+                    <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-0.5 transition-transform"></i>
+                </div>
+                <span class="hidden md:inline font-display tracking-wide">PORTFOLIO</span>
+            </a>
+
+            <!-- Title -->
+            <h1 class="text-sm md:text-base font-bold text-bizText tracking-tight text-right">
+                <span class="lang-ja">心理測定プロファイル</span>
+                <span class="lang-en">Psychometric Profile</span>
+                <span class="block text-[10px] text-gray-400 font-normal font-mono uppercase tracking-widest mt-0.5">Metacognition & Data</span>
+            </h1>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto px-6 pt-32 md:pt-40">
+
+        <!-- ================= INTRO ================= -->
+        <section class="mb-20 fade-in-up">
+            <div class="md:grid md:grid-cols-[200px_1fr] md:gap-12">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-bizText leading-tight">
+                        <span class="lang-ja">なぜ、<br>心理測定なのか？</span>
+                        <span class="lang-en">Why<br>Psychometrics?</span>
+                    </h2>
+                    <div class="h-1 w-12 bg-bizAccent mt-4 rounded-full"></div>
+                </div>
+                <div class="text-[15px] md:text-base leading-relaxed text-gray-700 font-serif">
+                    <!-- JP Text -->
+                    <div class="lang-ja space-y-4 text-justify">
+                        <p>
+                            信頼の礎は、透明性と予測可能性にあります。私は主観的な自己PRではなく、科学的妥当性が確立された客観的データを通じて「私」という人間を提示します。
+                        </p>
+                        <p>
+                            本ページでは、社会科学分野で広く支持され、国際比較研究においても標準的に採用されている2つの枠組みを用いました。
+                        </p>
+                        <ul class="list-none space-y-3 pl-2 border-l-2 border-gray-200 my-6 text-sm text-gray-600 font-sans">
+                            <li>
+                                <strong class="text-bizAccent block mb-1">Big 5 (Five Factor Model)</strong>
+                                1960年代の研究に端を発し、ゴールドバーグらが整理、マックレーとコスタが体系化した性格特性論。個人の「OS」に相当する基礎的な行動特性を測定する、世界的な主要指標です。
+                            </li>
+                            <li>
+                                <strong class="text-bizAccent block mb-1">PVQ (Portrait Values Questionnaire)</strong>
+                                S.シュワルツの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な「動機（Driver）」を説明します。
+                            </li>
+                        </ul>
+                        <p>
+                            このデータ公開は、私自身のメタ認知の証明であり、パートナーの皆様に対する「取扱説明書」としての役割を果たすことを目的としています。
+                        </p>
+                    </div>
+
+                    <!-- EN Text -->
+                    <div class="lang-en space-y-4">
+                        <p>
+                            Trust rests on transparency and predictability. Rather than relying on subjective self-promotion, I present who I am through well-validated psychometric measures.
+                        </p>
+                        <p>
+                            On this page, I use two prominent frameworks that are widely used in the social sciences and commonly adopted in cross-cultural research.
+                        </p>
+                        <ul class="list-none space-y-4 pl-4 border-l-2 border-gray-200 my-6 text-sm text-gray-600 font-sans">
+                            <li>
+                                <strong class="text-bizAccent block mb-1">Big Five (Five-Factor Model)</strong>
+                                Rooted in research from the 1960s and consolidated by Goldberg, McCrae, and Costa. It is one of the most widely used approaches for assessing fundamental personality traits—often likened to an individual’s “operating system.”
+                            </li>
+                            <li>
+                                <strong class="text-bizAccent block mb-1">PVQ (Portrait Values Questionnaire)</strong>
+                                Based on Shalom H. Schwartz’s Theory of Basic Human Values. It measures value priorities—the motivational goals that help shape attitudes, decisions, and behavior.
+                            </li>
+                        </ul>
+                        <p>
+                            By sharing these results, I aim to practice metacognitive clarity and provide partners with a practical “user manual” for smooth collaboration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= BIG 5 (OS) ================= -->
+        <section class="mb-24 fade-in-up delay-100">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">01</span>
+                <div>
+                    <h3 class="text-xl font-bold text-bizText">Big 5 (The OS)</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Personality Traits</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center glass-card rounded-2xl p-6 md:p-10">
+                <!-- Chart Area -->
+                <div class="aspect-square w-full max-w-[400px] mx-auto relative">
+                    <canvas id="big5Chart"></canvas>
+                </div>
+
+                <!-- Interpretation / Scores -->
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 pb-2 mb-4">
+                         <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                            <span class="lang-ja">スコア詳細</span>
+                            <span class="lang-en">Score Breakdown</span>
+                         </h4>
+                    </div>
+
+                    <!-- Openness Highlight -->
+                    <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-4 relative overflow-hidden group">
+                        <div class="absolute right-0 top-0 p-2 opacity-10 text-bizAccent text-4xl"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="font-bold text-bizAccent">
+                                <span class="lang-ja">経験への解放性</span>
+                                <span class="lang-en">Openness</span>
+                            </span>
+                            <span class="text-2xl font-display font-bold text-bizText">0.88</span>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-snug">
+                            <span class="lang-ja">非常に高い知的好奇心と抽象思考力。新しいアイデアや美的感覚に対する強い受容性を示します。</span>
+                            <span class="lang-en">Indicates exceptional intellectual curiosity and abstract thinking capabilities. High receptivity to new ideas.</span>
+                        </p>
+                    </div>
+
+                    <!-- Other Scores List -->
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">誠実性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Conscientiousness</span>
+                            <span class="font-mono font-bold text-gray-700">0.79</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">協調性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Agreeableness</span>
+                            <span class="font-mono font-bold text-gray-700">0.77</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">外向性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Extraversion</span>
+                            <span class="font-mono font-bold text-gray-700">0.75</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">情緒安定性</span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Stability</span>
+                            <span class="font-mono font-bold text-gray-700">0.72</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PVQ (Driver) ================= -->
+        <section class="mb-24 fade-in-up delay-200">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
+                <div>
+                    <h3 class="text-xl font-bold text-bizText">PVQ (The Driver)</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Schwartz Theory of Basic Values</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 md:p-10">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8 md:gap-12 items-center">
+                    
+                    <!-- Chart -->
+                    <div class="aspect-square w-full max-w-[500px] mx-auto relative order-2 md:order-1">
+                        <canvas id="pvqChart"></canvas>
+                    </div>
+
+                    <!-- Legend / Insight -->
+                    <div class="order-1 md:order-2 h-full flex flex-col justify-center">
+                        <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-200 pb-2">
+                            <span class="lang-ja">支配的な価値観</span>
+                            <span class="lang-en">Dominant Values</span>
+                        </h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Top Tier -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#0f3c85]"></span>
+                                    <span class="font-bold text-bizText text-lg">
+                                        <span class="lang-ja">自己主導 & 刺激</span>
+                                        <span class="lang-en">Self-Direction & Stimulation</span>
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    <span class="lang-ja">創造、探究、独立心、そして変化への渇望。自らの判断で道を切り拓き、知的な興奮を追求することを最優先します。</span>
+                                    <span class="lang-en">Creativity, freedom, and the pursuit of novelty. Prioritizes independent thought and intellectual excitement above all.</span>
+                                </p>
+                            </div>
+
+                            <!-- Second Tier -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#3b82f6]"></span>
+                                    <span class="font-bold text-bizText text-lg">
+                                        <span class="lang-ja">慈善 & 順応</span>
+                                        <span class="lang-en">Benevolence & Conformity</span>
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    <span class="lang-ja">周囲の人々の幸福と、社会的規範の尊重。革新的でありながら、決して独善的にならず、コミュニティとの調和を重視するバランス感覚を示します。</span>
+                                    <span class="lang-en">Preservation of the welfare of others and restraint of actions likely to upset others. A balance of innovation and harmony.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FOOTER CTA ================= -->
+        <section class="text-center pb-20 fade-in-up delay-300">
+             <p class="text-gray-500 mb-6 font-serif italic text-sm">
+                <span class="lang-ja">このデータに基づく詳細な対話をご希望ですか？</span>
+                <span class="lang-en">Interested in discussing these results further?</span>
+            </p>
+            <a href="../contact.html" class="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <span>Contact Form</span>
+                <i class="fa-solid fa-arrow-right text-sm"></i>
+            </a>
+        </section>
+
+    </div>
+
+    <!-- Script: Chart Configuration -->
+    <script>
+        // Language Toggle Logic (Borrowed from index)
+        (function() {
+            var lang = navigator.language || navigator.userLanguage; 
+            if (!lang.startsWith('ja')) {
+                document.documentElement.classList.add('is-global');
+            }
+        })();
+
+        // Chart Data & Config
+        document.addEventListener('DOMContentLoaded', () => {
+            const isJp = !document.documentElement.classList.contains('is-global');
+            const fontDisplay = "'Syne', sans-serif";
+            const fontBody = "'Inter', 'Noto Sans JP', sans-serif";
+            const colorPrimary = '#0f3c85'; 
+            
+            // --- 1. Big 5 Radar Chart ---
+            const ctxBig5 = document.getElementById('big5Chart').getContext('2d');
+            new Chart(ctxBig5, {
+                type: 'radar',
+                data: {
+                    labels: isJp 
+                        ? ['経験への解放性', '誠実性', '外向性', '協調性', '情緒安定性'] 
+                        : ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Stability'],
+                    datasets: [{
+                        label: 'Score',
+                        data: [0.875, 0.792, 0.750, 0.767, 0.723],
+                        fill: true,
+                        backgroundColor: 'rgba(15, 60, 133, 0.2)',
+                        borderColor: '#0f3c85',
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#0f3c85',
+                        pointHoverBackgroundColor: '#0f3c85',
+                        pointHoverBorderColor: '#fff',
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.05)' },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            pointLabels: {
+                                font: { size: 12, family: fontBody, weight: '600' },
+                                color: '#334155'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 1.0,
+                            ticks: { display: false, backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 12,
+                            bodyFont: { family: fontBody }
+                        }
+                    },
+                    animation: { duration: 2000, easing: 'easeOutQuart' }
+                }
+            });
+
+            // --- 2. PVQ Polar Area Chart ---
+            // Data sorted by Schwartz's approximate circle visually, but mapped to values
+            // Or simplified: Just sort by magnitude or standard circle order.
+            // Let's use Schwartz's standard circular order to show balance/skew.
+            // Order: Self-Direction -> Stimulation -> Hedonism -> Achievement -> Power -> Security -> Conformity -> Tradition -> Benevolence -> Universalism
+            
+            const pvqLabels = isJp
+                ? ['自己主導', '刺激', '快楽', '達成', '権力', '安全', '順応', '伝統', '慈善', '普遍性']
+                : ['Self-Dir.', 'Stimulation', 'Hedonism', 'Achievement', 'Power', 'Security', 'Conformity', 'Tradition', 'Benevolence', 'Universalism'];
+            
+            // Scores corresponding to the labels above
+            const pvqData = [
+                6.0,  // Self-Direction
+                6.0,  // Stimulation
+                4.33, // Hedonism
+                4.75, // Achievement
+                4.0,  // Power
+                5.8,  // Security
+                6.0,  // Conformity
+                2.0,  // Tradition
+                6.0,  // Benevolence
+                5.17  // Universalism
+            ];
+
+            // Colors mapping to the Motivational Spectrum roughly (Openness to Change vs Conservation etc)
+            // Using a sophisticated palette based on the primary blue but varying hues
+            const bgColors = [
+                'rgba(59, 130, 246, 0.8)',   // Self-Direction (Blue)
+                'rgba(99, 102, 241, 0.8)',   // Stimulation (Indigo)
+                'rgba(139, 92, 246, 0.7)',   // Hedonism (Purple)
+                'rgba(168, 85, 247, 0.6)',   // Achievement
+                'rgba(236, 72, 153, 0.5)',   // Power (Pinkish)
+                'rgba(100, 116, 139, 0.7)',  // Security (Slate)
+                'rgba(71, 85, 105, 0.8)',    // Conformity
+                'rgba(148, 163, 184, 0.5)',  // Tradition (Light Slate - low score)
+                'rgba(14, 165, 233, 0.8)',   // Benevolence (Sky)
+                'rgba(6, 182, 212, 0.7)'     // Universalism (Cyan)
+            ];
+
+            const ctxPvq = document.getElementById('pvqChart').getContext('2d');
+            new Chart(ctxPvq, {
+                type: 'polarArea',
+                data: {
+                    labels: pvqLabels,
+                    datasets: [{
+                        data: pvqData,
+                        backgroundColor: bgColors,
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            pointLabels: {
+                                display: true,
+                                centerPointLabels: true,
+                                font: { size: 10, family: fontBody, weight: 'bold' },
+                                color: '#475569'
+                            },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: { display: false, backdropColor: 'transparent' },
+                            suggestedMin: 0
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                         tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 10,
+                            bodyFont: { family: fontBody },
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    },
+                    animation: { duration: 2500, easing: 'easeOutQuart' }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
