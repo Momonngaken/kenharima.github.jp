@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
     <title>Psychometric Profile | Ken HARIMA</title>
-    <meta name="robots" content="noindex, nofollow"> <!-- 特定の相手に見せる前提のため検索除け推奨 -->
+    <meta name="robots" content="noindex, nofollow">
     
-    <!-- CSS & Fonts (Same as index.html) -->
+    <!-- CSS & Fonts -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,15 +18,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* Base Styles (Inherited) */
+        /* Base Styles */
         body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
         .font-display { font-family: 'Syne', sans-serif; }
         .font-serif { font-family: 'Lora', serif; }
         
-        /* Language Switching */
+        /* Language Switching Logic */
         .lang-en { display: none; }
         html.is-global .lang-ja { display: none !important; }
-        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global span.lang-en { display: block !important; }
+        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
         html.is-global span.lang-en { display: inline !important; }
 
         /* Animations */
@@ -37,9 +37,6 @@
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
 
-        /* Custom Chart Containers */
-        .chart-container { position: relative; width: 100%; height: 100%; }
-        
         /* Glassmorphism Card */
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
@@ -67,7 +64,7 @@
         }
     </script>
 </head>
-<body class="antialiased selection:bg-bizAccent selection:text-white pb-24">
+<body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
 
     <!-- ================= HEADER ================= -->
     <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-6 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
@@ -89,7 +86,7 @@
         </div>
     </header>
 
-    <div class="max-w-4xl mx-auto px-6 pt-32 md:pt-40">
+    <div class="flex-grow max-w-4xl mx-auto px-6 pt-32 md:pt-40 w-full">
 
         <!-- ================= INTRO ================= -->
         <section class="mb-20 fade-in-up">
@@ -224,7 +221,11 @@
             <div class="flex items-center gap-4 mb-8">
                 <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
                 <div>
-                    <h3 class="text-xl font-bold text-bizText">PVQ (The Driver)</h3>
+                    <!-- Updated Title with Translation -->
+                    <h3 class="text-xl font-bold text-bizText">
+                        <span class="lang-ja">PVQ (行動原理)</span>
+                        <span class="lang-en">PVQ (The Driver)</span>
+                    </h3>
                     <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Schwartz Theory of Basic Values</p>
                 </div>
             </div>
@@ -294,34 +295,56 @@
 
     </div>
 
-    <!-- Script: Chart Configuration -->
-    <script>
-        // Language Toggle Logic (Borrowed from index)
-        (function() {
-            var lang = navigator.language || navigator.userLanguage; 
-            if (!lang.startsWith('ja')) {
-                document.documentElement.classList.add('is-global');
-            }
-        })();
+    <!-- ================= FOOTER with LANG SWITCH ================= -->
+    <footer class="border-t border-gray-200 pt-8 pb-16 w-full max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
+        <p class="text-gray-400">© 2025 Ken HARIMA | Psychometrics</p>
+        <div class="flex items-center gap-6 mt-6 md:mt-0">
+            <!-- Language Switcher -->
+            <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
+                <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
+                <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
+            </div>
+        </div>
+    </footer>
 
-        // Chart Data & Config
+    <!-- Script: Chart Configuration & Language Logic -->
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const isJp = !document.documentElement.classList.contains('is-global');
+            const htmlEl = document.documentElement;
             const fontDisplay = "'Syne', sans-serif";
             const fontBody = "'Inter', 'Noto Sans JP', sans-serif";
-            const colorPrimary = '#0f3c85'; 
-            
-            // --- 1. Big 5 Radar Chart ---
-            const ctxBig5 = document.getElementById('big5Chart').getContext('2d');
-            new Chart(ctxBig5, {
+
+            // 1. Define Labels for Both Languages
+            const labels = {
+                big5: {
+                    ja: ['経験への解放性', '誠実性', '外向性', '協調性', '情緒安定性'],
+                    en: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Stability']
+                },
+                pvq: {
+                    ja: ['自己主導', '刺激', '快楽', '達成', '権力', '安全', '順応', '伝統', '慈善', '普遍性'],
+                    en: ['Self-Dir.', 'Stimulation', 'Hedonism', 'Achievement', 'Power', 'Security', 'Conformity', 'Tradition', 'Benevolence', 'Universalism']
+                }
+            };
+
+            // 2. Data Definition
+            const big5Data = [0.875, 0.792, 0.750, 0.767, 0.723];
+            const pvqDataValues = [6.0, 6.0, 4.33, 4.75, 4.0, 5.8, 6.0, 2.0, 6.0, 5.17];
+            const pvqColors = [
+                'rgba(59, 130, 246, 0.8)', 'rgba(99, 102, 241, 0.8)', 'rgba(139, 92, 246, 0.7)', 
+                'rgba(168, 85, 247, 0.6)', 'rgba(236, 72, 153, 0.5)', 'rgba(100, 116, 139, 0.7)', 
+                'rgba(71, 85, 105, 0.8)', 'rgba(148, 163, 184, 0.5)', 'rgba(14, 165, 233, 0.8)', 
+                'rgba(6, 182, 212, 0.7)'
+            ];
+
+            // 3. Initialize Charts
+            // Big 5
+            const big5Chart = new Chart(document.getElementById('big5Chart').getContext('2d'), {
                 type: 'radar',
                 data: {
-                    labels: isJp 
-                        ? ['経験への解放性', '誠実性', '外向性', '協調性', '情緒安定性'] 
-                        : ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Stability'],
+                    labels: [], // Initialized in updateCharts
                     datasets: [{
                         label: 'Score',
-                        data: [0.875, 0.792, 0.750, 0.767, 0.723],
+                        data: big5Data,
                         fill: true,
                         backgroundColor: 'rgba(15, 60, 133, 0.2)',
                         borderColor: '#0f3c85',
@@ -341,10 +364,7 @@
                         r: {
                             angleLines: { color: 'rgba(0,0,0,0.05)' },
                             grid: { color: 'rgba(0,0,0,0.05)' },
-                            pointLabels: {
-                                font: { size: 12, family: fontBody, weight: '600' },
-                                color: '#334155'
-                            },
+                            pointLabels: { font: { size: 12, family: fontBody, weight: '600' }, color: '#334155' },
                             suggestedMin: 0,
                             suggestedMax: 1.0,
                             ticks: { display: false, backdropColor: 'transparent' }
@@ -352,63 +372,20 @@
                     },
                     plugins: {
                         legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                            padding: 12,
-                            bodyFont: { family: fontBody }
-                        }
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, bodyFont: { family: fontBody } }
                     },
-                    animation: { duration: 2000, easing: 'easeOutQuart' }
+                    animation: { duration: 1000 }
                 }
             });
 
-            // --- 2. PVQ Polar Area Chart ---
-            // Data sorted by Schwartz's approximate circle visually, but mapped to values
-            // Or simplified: Just sort by magnitude or standard circle order.
-            // Let's use Schwartz's standard circular order to show balance/skew.
-            // Order: Self-Direction -> Stimulation -> Hedonism -> Achievement -> Power -> Security -> Conformity -> Tradition -> Benevolence -> Universalism
-            
-            const pvqLabels = isJp
-                ? ['自己主導', '刺激', '快楽', '達成', '権力', '安全', '順応', '伝統', '慈善', '普遍性']
-                : ['Self-Dir.', 'Stimulation', 'Hedonism', 'Achievement', 'Power', 'Security', 'Conformity', 'Tradition', 'Benevolence', 'Universalism'];
-            
-            // Scores corresponding to the labels above
-            const pvqData = [
-                6.0,  // Self-Direction
-                6.0,  // Stimulation
-                4.33, // Hedonism
-                4.75, // Achievement
-                4.0,  // Power
-                5.8,  // Security
-                6.0,  // Conformity
-                2.0,  // Tradition
-                6.0,  // Benevolence
-                5.17  // Universalism
-            ];
-
-            // Colors mapping to the Motivational Spectrum roughly (Openness to Change vs Conservation etc)
-            // Using a sophisticated palette based on the primary blue but varying hues
-            const bgColors = [
-                'rgba(59, 130, 246, 0.8)',   // Self-Direction (Blue)
-                'rgba(99, 102, 241, 0.8)',   // Stimulation (Indigo)
-                'rgba(139, 92, 246, 0.7)',   // Hedonism (Purple)
-                'rgba(168, 85, 247, 0.6)',   // Achievement
-                'rgba(236, 72, 153, 0.5)',   // Power (Pinkish)
-                'rgba(100, 116, 139, 0.7)',  // Security (Slate)
-                'rgba(71, 85, 105, 0.8)',    // Conformity
-                'rgba(148, 163, 184, 0.5)',  // Tradition (Light Slate - low score)
-                'rgba(14, 165, 233, 0.8)',   // Benevolence (Sky)
-                'rgba(6, 182, 212, 0.7)'     // Universalism (Cyan)
-            ];
-
-            const ctxPvq = document.getElementById('pvqChart').getContext('2d');
-            new Chart(ctxPvq, {
+            // PVQ
+            const pvqChart = new Chart(document.getElementById('pvqChart').getContext('2d'), {
                 type: 'polarArea',
                 data: {
-                    labels: pvqLabels,
+                    labels: [], // Initialized in updateCharts
                     datasets: [{
-                        data: pvqData,
-                        backgroundColor: bgColors,
+                        data: pvqDataValues,
+                        backgroundColor: pvqColors,
                         borderWidth: 1,
                         borderColor: '#ffffff'
                     }]
@@ -417,12 +394,7 @@
                     responsive: true,
                     scales: {
                         r: {
-                            pointLabels: {
-                                display: true,
-                                centerPointLabels: true,
-                                font: { size: 10, family: fontBody, weight: 'bold' },
-                                color: '#475569'
-                            },
+                            pointLabels: { display: true, centerPointLabels: true, font: { size: 10, family: fontBody, weight: 'bold' }, color: '#475569' },
                             grid: { color: 'rgba(0,0,0,0.05)' },
                             ticks: { display: false, backdropColor: 'transparent' },
                             suggestedMin: 0
@@ -430,20 +402,70 @@
                     },
                     plugins: {
                         legend: { display: false },
-                         tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                            padding: 10,
-                            bodyFont: { family: fontBody },
-                            callbacks: {
-                                label: function(context) {
-                                    return context.label + ': ' + context.raw;
-                                }
-                            }
+                        tooltip: { 
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 10, bodyFont: { family: fontBody },
+                            callbacks: { label: function(context) { return context.label + ': ' + context.raw; } }
                         }
                     },
-                    animation: { duration: 2500, easing: 'easeOutQuart' }
+                    animation: { duration: 1000 }
                 }
             });
+
+            // 4. Language Switcher Logic
+            const langJpBtn = document.getElementById('lang-jp');
+            const langEnBtn = document.getElementById('lang-en');
+            const activeClass = "bg-white text-black shadow-sm";
+            const inactiveClass = "text-gray-400 hover:text-gray-600";
+
+            function setLanguage(isGlobal) {
+                // Update HTML class
+                if (isGlobal) {
+                    htmlEl.classList.add('is-global');
+                } else {
+                    htmlEl.classList.remove('is-global');
+                }
+
+                // Update Button Styles
+                if (isGlobal) {
+                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                } else {
+                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                }
+
+                // Update Charts
+                updateCharts(isGlobal);
+            }
+
+            function updateCharts(isGlobal) {
+                const langKey = isGlobal ? 'en' : 'ja';
+                
+                // Update Big 5
+                big5Chart.data.labels = labels.big5[langKey];
+                big5Chart.update();
+
+                // Update PVQ
+                pvqChart.data.labels = labels.pvq[langKey];
+                pvqChart.update();
+            }
+
+            // Initialization
+            (function init() {
+                var lang = navigator.language || navigator.userLanguage; 
+                let isGlobal = htmlEl.classList.contains('is-global');
+                
+                // Initial check if not explicitly set by class but by navigator
+                if (!isGlobal && !lang.startsWith('ja')) {
+                    isGlobal = true;
+                }
+                
+                setLanguage(isGlobal);
+            })();
+
+            // Event Listeners
+            langJpBtn.addEventListener('click', () => setLanguage(false));
+            langEnBtn.addEventListener('click', () => setLanguage(true));
         });
     </script>
 </body>
