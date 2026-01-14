@@ -258,25 +258,44 @@
 
                     <!-- Other Scores List -->
                     <div class="grid grid-cols-2 gap-4 text-sm">
+                        <!-- 1. 誠実性 -->
                         <div>
                             <span class="block text-gray-400 text-xs mb-0.5 lang-ja">誠実性</span>
                             <span class="block text-gray-400 text-xs mb-0.5 lang-en">Conscientiousness</span>
                             <span class="font-mono font-bold text-gray-700">0.79</span>
                         </div>
+
+                        <!-- 2. 協調性 -->
                         <div>
                             <span class="block text-gray-400 text-xs mb-0.5 lang-ja">協調性</span>
                             <span class="block text-gray-400 text-xs mb-0.5 lang-en">Agreeableness</span>
                             <span class="font-mono font-bold text-gray-700">0.77</span>
                         </div>
+
+                        <!-- 3. 外向性 -->
                         <div>
                             <span class="block text-gray-400 text-xs mb-0.5 lang-ja">外向性</span>
                             <span class="block text-gray-400 text-xs mb-0.5 lang-en">Extraversion</span>
                             <span class="font-mono font-bold text-gray-700">0.75</span>
                         </div>
-                        <div>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">情緒安定性</span>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Emotional Stability</span>
+
+                        <!-- 4. 情緒安定性 (注釈付き) -->
+                        <div class="relative group/tooltip cursor-help">
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">
+                                情緒安定性 <i class="fa-solid fa-circle-info text-[9px] text-gray-300 ml-0.5"></i>
+                            </span>
+                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">
+                                Emotional Stability <i class="fa-solid fa-circle-info text-[9px] text-gray-300 ml-0.5"></i>
+                            </span>
                             <span class="font-mono font-bold text-gray-700">0.72</span>
+
+                            <!-- ホバー時に表示される注釈 -->
+                            <div class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-gray-800 text-white text-[10px] rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-20 text-right leading-tight shadow-lg">
+                                <span class="lang-ja block">※神経症傾向(0.28)の<br>逆数(1-n)として算出</span>
+                                <span class="lang-en block">*Calculated as the inverse (1-n)<br>of Neuroticism (0.28)</span>
+                                <!-- 吹き出しの矢印 -->
+                                <div class="absolute top-full right-4 border-4 border-transparent border-t-gray-800"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
