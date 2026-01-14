@@ -232,75 +232,134 @@
                 </div>
 
                 <!-- Interpretation / Scores -->
-                <div class="space-y-6">
-                    <div class="border-b border-gray-200 pb-2 mb-4">
-                         <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest">
-                            <span class="lang-ja">スコア詳細</span>
-                            <span class="lang-en">Score Breakdown</span>
+                <div class="h-full flex flex-col justify-center">
+                    <div class="border-b border-gray-200 pb-2 mb-6">
+                         <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest flex justify-between items-end">
+                            <span>
+                                <span class="lang-ja">スコア詳細</span>
+                                <span class="lang-en">Score Breakdown</span>
+                            </span>
+                            <span class="text-[10px] font-normal text-gray-300 normal-case">Normalized (0-1.0)</span>
                          </h4>
                     </div>
 
-                    <!-- Openness Highlight -->
-                    <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-4 relative overflow-hidden group">
-                        <div class="absolute right-0 top-0 p-2 opacity-10 text-bizAccent text-4xl"><i class="fa-solid fa-lightbulb"></i></div>
-                        <div class="flex justify-between items-end mb-1">
-                            <span class="font-bold text-bizAccent">
-                                <span class="lang-ja">経験への解放性</span>
-                                <span class="lang-en">Openness</span>
-                            </span>
-                            <span class="text-2xl font-display font-bold text-bizText">0.88</span>
-                        </div>
-                        <p class="text-xs text-gray-600 leading-snug">
-                            <span class="lang-ja">非常に高い知的好奇心と抽象思考力。新しいアイデアや美的感覚に対する強い受容性を示します。</span>
-                            <span class="lang-en">Indicates exceptional intellectual curiosity and abstract thinking capabilities. High receptivity to new ideas.</span>
-                        </p>
-                    </div>
+                    <!-- Traits List (Vertical Stack) -->
+                    <div class="space-y-3">
 
-                    <!-- Other Scores List -->
-                    <div class="grid grid-cols-2 gap-4 text-sm">
-                        <!-- 1. 誠実性 -->
-                        <div>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">誠実性</span>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Conscientiousness</span>
-                            <span class="font-mono font-bold text-gray-700">0.79</span>
-                        </div>
-
-                        <!-- 2. 協調性 -->
-                        <div>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">協調性</span>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Agreeableness</span>
-                            <span class="font-mono font-bold text-gray-700">0.77</span>
-                        </div>
-
-                        <!-- 3. 外向性 -->
-                        <div>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-ja">外向性</span>
-                            <span class="block text-gray-400 text-xs mb-0.5 lang-en">Extraversion</span>
-                            <span class="font-mono font-bold text-gray-700">0.75</span>
-                        </div>
-
-                        <!-- 4. 情緒安定性 (JS制御・スマホ対応版) -->
-                        <div class="relative" id="tooltip-container">
-                            <!-- タップ/クリック対象 -->
-                            <div class="cursor-help select-none" onclick="toggleTooltip(event)">
-                                <span class="block text-gray-400 text-xs mb-0.5 lang-ja">
-                                    情緒安定性 <i class="fa-solid fa-circle-info text-[9px] text-gray-300 ml-0.5"></i>
+                        <!-- 1. Openness (0.88) -->
+                        <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-bizAccent text-sm">
+                                    <span class="lang-ja">経験への解放性</span>
+                                    <span class="lang-en">Openness</span>
                                 </span>
-                                <span class="block text-gray-400 text-xs mb-0.5 lang-en">
-                                    Emotional Stability <i class="fa-solid fa-circle-info text-[9px] text-gray-300 ml-0.5"></i>
-                                </span>
-                                <span class="font-mono font-bold text-gray-700">0.72</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[10px] font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                        <span class="lang-ja">極めて高い</span>
+                                        <span class="lang-en">Very High</span>
+                                    </span>
+                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.88</span>
+                                </div>
                             </div>
+                            <p class="text-xs text-gray-600 leading-snug">
+                                <span class="lang-ja">非常に高い知的好奇心と抽象思考力。新しいアイデアや美的感覚に対する強い受容性を示します。</span>
+                                <span class="lang-en">Exceptional intellectual curiosity and abstract thinking. High receptivity to new ideas and aesthetics.</span>
+                            </p>
+                        </div>
 
-                            <!-- ツールチップ本体 (初期状態: 非表示) -->
-                            <div id="tooltip-body" class="absolute bottom-full right-0 mb-2 w-48 p-2 bg-gray-800 text-white text-[10px] rounded opacity-0 invisible transition-all duration-200 z-20 text-left leading-tight shadow-lg transform translate-y-1 pointer-events-none">
-                                <!-- 言語ごとのテキスト (divタグで囲み、余計なclassをつけないことでCSS制御を有効化) -->
+                        <!-- 2. Conscientiousness (0.79) -->
+                        <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-gray-700 text-sm">
+                                    <span class="lang-ja">誠実性</span>
+                                    <span class="lang-en">Conscientiousness</span>
+                                </span>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                        <span class="lang-ja">高い</span>
+                                        <span class="lang-en">High</span>
+                                    </span>
+                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.79</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 leading-snug">
+                                <span class="lang-ja">目標達成への強い意志と自制心。計画的に物事を進め、細部まで責任を持って完遂する能力です。</span>
+                                <span class="lang-en">Strong will and self-discipline. The ability to plan ahead and complete tasks with responsibility and attention to detail.</span>
+                            </p>
+                        </div>
+
+                        <!-- 3. Agreeableness (0.77) -->
+                        <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-gray-700 text-sm">
+                                    <span class="lang-ja">協調性</span>
+                                    <span class="lang-en">Agreeableness</span>
+                                </span>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                        <span class="lang-ja">高い</span>
+                                        <span class="lang-en">High</span>
+                                    </span>
+                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.77</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 leading-snug">
+                                <span class="lang-ja">他者への共感と利他的な関心。対立を避け、チームの調和と信頼関係の構築を優先する傾向があります。</span>
+                                <span class="lang-en">Empathy and altruistic concern. Prioritizes harmony and building trust within teams over conflict.</span>
+                            </p>
+                        </div>
+
+                        <!-- 4. Extraversion (0.75) -->
+                        <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-gray-700 text-sm">
+                                    <span class="lang-ja">外向性</span>
+                                    <span class="lang-en">Extraversion</span>
+                                </span>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                        <span class="lang-ja">高い</span>
+                                        <span class="lang-en">High</span>
+                                    </span>
+                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.75</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 leading-snug">
+                                <span class="lang-ja">社会的刺激への積極性。人との交流からエネルギーを得て、周囲を巻き込みながら行動する力強さを示します。</span>
+                                <span class="lang-en">Active engagement with the external world. Gains energy from social interaction and leads with enthusiasm.</span>
+                            </p>
+                        </div>
+
+                        <!-- 5. Emotional Stability (0.72) -->
+                        <!-- ツールチップ機能付き -->
+                        <div class="relative bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300" id="tooltip-container">
+                            <div class="flex justify-between items-center mb-1 cursor-help select-none" onclick="toggleTooltip(event)">
+                                <span class="font-bold text-gray-700 text-sm flex items-center gap-1">
+                                    <span class="lang-ja">情緒安定性</span>
+                                    <span class="lang-en">Emotional Stability</span>
+                                    <i class="fa-solid fa-circle-info text-[10px] text-gray-300"></i>
+                                </span>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                        <span class="lang-ja">高い</span>
+                                        <span class="lang-en">High</span>
+                                    </span>
+                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.72</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 leading-snug">
+                                <span class="lang-ja">ストレス耐性と感情の恒常性。プレッシャーのかかる状況下でも冷静さを保ち、論理的な判断を下せます。</span>
+                                <span class="lang-en">Resilience and emotional constancy. Maintains composure and logical decision-making under pressure.</span>
+                            </p>
+
+                            <!-- Tooltip Body -->
+                            <div id="tooltip-body" class="absolute bottom-full right-0 mb-2 w-56 p-2 bg-gray-800 text-white text-[10px] rounded opacity-0 invisible transition-all duration-200 z-20 text-left leading-tight shadow-lg transform translate-y-1 pointer-events-none">
                                 <div class="lang-ja mb-1">※神経症傾向(0.28)の<br>逆数(1-n)として算出</div>
                                 <div class="lang-en">*Calculated as the inverse (1-n)<br>of Neuroticism (0.28)</div>
-                                <!-- 吹き出しの矢印 -->
-                                <div class="absolute top-full right-4 border-4 border-transparent border-t-gray-800"></div>
+                                <div class="absolute top-full right-6 border-4 border-transparent border-t-gray-800"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
