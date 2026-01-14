@@ -427,11 +427,19 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    // ★ここが追加・変更した部分です（余白確保と文字サイズ調整）
+                    layout: {
+                        padding: 20 
+                    },
                     scales: {
                         r: {
                             angleLines: { color: 'rgba(0,0,0,0.05)' },
                             grid: { color: 'rgba(0,0,0,0.05)' },
-                            pointLabels: { font: { size: 12, family: fontBody, weight: '600' }, color: '#334155' },
+                            pointLabels: { 
+                                // フォントサイズを12pxから10pxに小さくして、スマホで見切れにくくしました
+                                font: { size: 10, family: fontBody, weight: '600' }, 
+                                color: '#334155' 
+                            },
                             suggestedMin: 0,
                             suggestedMax: 1.0,
                             ticks: { display: false, backdropColor: 'transparent' }
