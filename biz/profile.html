@@ -54,6 +54,25 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
         }
+        .creative-highlight {
+            /* グラデーションマーカー（シアンから薄いインディゴへ） */
+            background-image: linear-gradient(120deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-position: 0% 85%; /* 下寄りに配置 */
+            background-size: 0% 40%; /* 初期状態は幅0、高さ40% */
+            /* アニメーション: 0.8秒待ってから1.2秒かけて引く */
+            animation: drawHighlight 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
+            /* 行をまたいだ時の挙動を自然にする */
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            padding: 0 2px;
+            font-weight: 700; /* 文字を太くして強調 */
+            color: #0f3c85; /* 文字色をアクセントカラーに */
+        }
+
+        @keyframes drawHighlight {
+            to { background-size: 100% 40%; }
+        }
     </style>
 
     <!-- Tailwind Config -->
