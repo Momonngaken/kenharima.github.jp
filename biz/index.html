@@ -717,45 +717,72 @@
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
                             <!-- Project 5 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-                                <div class="flex flex-row justify-between items-start mb-2 gap-3">
-                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
-                                        <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
-                                        <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
-                                    </h3>
-                                    <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
-                                        <span class="lang-ja">勤労青少年<br>躍進会理事長賞</span>
-                                        <span class="lang-en">Chairman's Award</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">サルトル、ハイデガー、レヴィナスら実存哲学を援用し、現代における「労働」の本質を問うエッセイを執筆。応募総数1,112編より「特選」を受賞。</span>
-                                    <span class="lang-en">Authored an essay interrogating the essence of modern labor by drawing upon the existential philosophies of Sartre, Heidegger, and Levinas. Awarded "Special Selection" out of 1,112 entries.</span>
-                                </p>
-                                <div class="mt-5 flex justify-end relative z-20">
+<div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative overflow-hidden">
+    <!-- 背景にうっすらと浮かぶ哲学的な装飾（無意識への訴求） -->
+    <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-[0.03] text-bizAccent font-serif italic pointer-events-none select-none group-hover:opacity-[0.07] transition-opacity duration-700">
+        "
+    </div>
+
+    <div class="flex flex-row justify-between items-start mb-2 gap-3 relative z-10">
+        <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
+            <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
+            <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
+        </h3>
+        <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
+            <span class="lang-ja">勤労青少年<br>躍進会理事長賞</span>
+            <span class="lang-en">Chairman's Award</span>
+        </span>
+    </div>
+    <p class="text-sm text-gray-600 leading-relaxed relative z-10">
+        <span class="lang-ja">サルトル、ハイデガー、レヴィナスら実存哲学を援用し、現代における「労働」の本質を問うエッセイを執筆。応募総数1,112編より「特選」を受賞。</span>
+        <span class="lang-en">Authored an essay interrogating the essence of modern labor by drawing upon the existential philosophies of Sartre, Heidegger, and Levinas. Awarded "Special Selection" out of 1,112 entries.</span>
+    </p>
+
+    <!-- ▼▼▼▼▼ 修正・追加コード START（極限クリエイティブ版） ▼▼▼▼▼ -->
+    <div class="mt-6 flex justify-end items-end relative z-20">
         <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" rel="noopener noreferrer" 
-           class="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white border border-gray-200 pl-4 pr-3 py-2 text-xs font-bold text-gray-500 transition-all duration-300 hover:border-bizAccent hover:text-bizAccent hover:shadow-[0_4px_20px_-5px_rgba(15,60,133,0.15)] hover:-translate-y-0.5 active:scale-95 active:translate-y-0">
+           class="group/nudge relative inline-flex items-center p-1 pr-2 rounded-full bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-bizAccent/30 hover:bg-white hover:shadow-[0_8px_30px_-6px_rgba(15,60,133,0.2)] hover:-translate-y-0.5">
             
-            <!-- 背景の淡いグラデーション（ホバー時のみ出現） -->
-            <span class="absolute inset-0 bg-gradient-to-r from-indigo-50/50 to-blue-50/50 opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100"></span>
-            
-            <!-- 本のアイコン -->
-            <span class="relative z-10 flex items-center justify-center w-5 h-5 rounded-full bg-gray-100 group-hover/btn:bg-white transition-colors duration-300">
-                <i class="fa-solid fa-book-open text-[10px] text-gray-400 transition-colors group-hover/btn:text-bizAccent"></i>
+            <!-- 1. 左側のアイコンサークル（常に微弱に発光・鼓動） -->
+            <span class="relative w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-sm border border-slate-100 overflow-hidden shrink-0 group-hover/nudge:border-bizAccent/20 transition-colors duration-500">
+                <!-- 光の波紋アニメーション -->
+                <span class="absolute inset-0 bg-bizAccent/10 rounded-full animate-ping opacity-0 group-hover/nudge:opacity-100 duration-1000"></span>
+                
+                <!-- アイコン：通常時は羽ペン、ホバー時は目のアイコンへ変化 -->
+                <i class="fa-solid fa-pen-nib text-slate-400 text-sm absolute transition-all duration-300 group-hover/nudge:opacity-0 group-hover/nudge:scale-50"></i>
+                <i class="fa-solid fa-eye text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
             </span>
 
-            <!-- テキスト -->
-            <span class="relative z-10 tracking-wide">
-                <span class="lang-ja">作品を読む</span>
-                <span class="lang-en">Read Essay</span>
-            </span>
-            
-            <!-- スライドして現れる矢印アイコン -->
-            <span class="relative z-10 overflow-hidden w-0 opacity-0 -ml-2 group-hover/btn:w-auto group-hover/btn:ml-0 group-hover/btn:opacity-100 transition-all duration-300 ease-out flex items-center">
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1.5"></i>
-            </span>
+            <!-- 2. テキストエリア -->
+            <div class="ml-3 mr-2 flex flex-col justify-center">
+                <!-- 上段：マイクロコピー（読むハードルを下げる） -->
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 flex items-center gap-1.5">
+                    <i class="fa-regular fa-clock text-[8px]"></i> 
+                    <span>5 MIN READ</span>
+                </span>
+                
+                <!-- 下段：アクションコピー（「作品」としての価値を強調） -->
+                <span class="text-xs font-bold text-slate-700 leading-none group-hover/nudge:text-bizAccent transition-colors duration-300 flex items-center gap-1">
+                    <span class="lang-ja">受賞作品を閲覧する</span>
+                    <span class="lang-en">Read the Masterpiece</span>
+                    <!-- 矢印がにゅっと伸びる -->
+                    <i class="fa-solid fa-arrow-right-long opacity-0 -ml-2 text-bizAccent group-hover/nudge:opacity-100 group-hover/nudge:ml-1 transition-all duration-300 ease-out"></i>
+                </span>
+            </div>
+
+            <!-- 3. プレミアムな光の走査（Shimmer Effect） -->
+            <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                <div class="absolute top-0 bottom-0 left-[-100%] w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12 group-hover/nudge:animate-[shimmer_1.5s_infinite]"></div>
+            </div>
         </a>
     </div>
+
+    <!-- カスタムアニメーションの定義（Tailwindの設定外のためインラインで補完） -->
+    <style>
+        @keyframes shimmer {
+            100% { left: 200%; }
+        }
+    </style>
                             </div>
                             <!-- Project 6 -->
                             <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
