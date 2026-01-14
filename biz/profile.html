@@ -227,75 +227,121 @@
             <!-- RIGHT COLUMN: Frameworks (The Modules) -->
             <div class="lg:w-5/12 flex flex-col bg-white/60 backdrop-blur-sm border-l border-white/50 relative">
                 
-                <!-- Module 01: Big Five -->
-                <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-100 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <!-- Background Number (Watermark with Stroke) -->
-                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #e2e8f0;">
+                <!-- Module 01: Big Five (Interactive Console) -->
+                <div class="group relative flex-1 p-8 border-b border-gray-100 overflow-hidden transition-all duration-500 hover:bg-white cursor-default">
+                    
+                    <!-- Decorative: Corner Brackets -->
+                    <div class="absolute top-4 left-4 w-2 h-2 border-t-2 border-l-2 border-gray-300 group-hover:border-bizAccent transition-colors"></div>
+                    <div class="absolute top-4 right-4 w-2 h-2 border-t-2 border-r-2 border-gray-300 group-hover:border-bizAccent transition-colors"></div>
+                    
+                    <!-- Background Number (Watermark) -->
+                    <span class="absolute -bottom-10 -right-6 text-[8rem] font-display font-bold text-transparent stroke-text opacity-5 group-hover:opacity-10 group-hover:-translate-y-4 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 1px #94a3b8;">
                         01
                     </span>
 
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-5 mb-5">
-                            <!-- Icon Container -->
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center text-xl shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                                <i class="fa-solid fa-microchip"></i>
+                    <div class="relative z-10 h-full flex flex-col justify-center">
+                        <div class="flex items-start gap-5 mb-4">
+                            <!-- Animated Icon -->
+                            <div class="relative shrink-0">
+                                <div class="w-14 h-14 rounded-2xl bg-gray-900 text-white flex items-center justify-center text-2xl shadow-xl shadow-gray-300/50 group-hover:scale-105 group-hover:shadow-indigo-900/20 transition-all duration-500 z-10 relative">
+                                    <i class="fa-solid fa-microchip group-hover:text-indigo-300 transition-colors"></i>
+                                </div>
+                                <!-- Pulse Ring -->
+                                <div class="absolute inset-0 rounded-2xl border-2 border-indigo-500/0 group-hover:border-indigo-500/30 group-hover:scale-125 transition-all duration-500 delay-75"></div>
                             </div>
-                            <!-- Title -->
-                            <h3 class="flex flex-col">
-                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors">Big Five</span>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Five Factor Model)</span>
-                            </h3>
+                            
+                            <!-- Title & Subtitle -->
+                            <div class="flex flex-col pt-1">
+                                <h3 class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors leading-none mb-1">
+                                    Big Five
+                                </h3>
+                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-green-400 transition-colors"></span>
+                                    Five Factor Model
+                                </span>
+                            </div>
                         </div>
                         
-                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-800 transition-colors">
+                        <!-- Description -->
+                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-900 transition-colors">
                             <span class="lang-ja">
-                                ゴールドバーグ（Goldberg）らが提唱し、マックレーとコスタ（McCrae & Costa）が体系化した性格特性モデル。個人の『OS』に相当する基礎的な行動傾向を測定する、現代心理学の標準的な枠組みです。
+                                個人の『OS』に相当する基礎的な行動傾向を測定する、現代心理学の標準規格。ゴールドバーグらが提唱し、マックレーとコスタが体系化。
                             </span>
                             <span class="lang-en">
-                                Systematized by researchers including Goldberg and McCrae & Costa. It serves as the standard framework in modern psychology for assessing fundamental personality traits—equivalent to an individual’s 'Operating System'.
+                                The global standard for assessing fundamental personality traits—the individual's 'Operating System'. Consolidated by Goldberg, McCrae, and Costa.
                             </span>
                         </p>
+
+                        <!-- Hidden Tags (Reveal on Hover) -->
+                        <div class="flex flex-wrap gap-2 mt-4 opacity-60 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                            <span class="text-[9px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded border border-gray-200 group-hover:bg-indigo-50 group-hover:text-indigo-600 group-hover:border-indigo-100 transition-colors">Openness</span>
+                            <span class="text-[9px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded border border-gray-200 group-hover:bg-indigo-50 group-hover:text-indigo-600 group-hover:border-indigo-100 transition-colors">Conscientiousness</span>
+                            <span class="text-[9px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded border border-gray-200 group-hover:bg-indigo-50 group-hover:text-indigo-600 group-hover:border-indigo-100 transition-colors">+3 More</span>
+                        </div>
                     </div>
-                    <!-- Hover Accent Line -->
-                    <div class="absolute left-0 bottom-0 h-1 w-0 bg-bizAccent group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                    
+                    <!-- Active Status Bar -->
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></div>
                 </div>
 
-                <!-- Module 02: PVQ -->
-                <div class="group relative flex-1 p-8 md:p-10 overflow-hidden transition-all duration-500 hover:bg-white">
+                <!-- Module 02: PVQ (Interactive Console) -->
+                <div class="group relative flex-1 p-8 overflow-hidden transition-all duration-500 hover:bg-white cursor-default">
+                    
+                    <!-- Decorative: Corner Brackets -->
+                    <div class="absolute bottom-4 left-4 w-2 h-2 border-b-2 border-l-2 border-gray-300 group-hover:border-blue-500 transition-colors"></div>
+                    <div class="absolute bottom-4 right-4 w-2 h-2 border-b-2 border-r-2 border-gray-300 group-hover:border-blue-500 transition-colors"></div>
+
                     <!-- Background Number -->
-                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #bfdbfe;">
+                    <span class="absolute -bottom-10 -right-6 text-[8rem] font-display font-bold text-transparent stroke-text opacity-5 group-hover:opacity-10 group-hover:-translate-y-4 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 1px #93c5fd;">
                         02
                     </span>
 
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-5 mb-5">
-                            <!-- Icon Container -->
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-100 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
-                                <i class="fa-solid fa-heart-pulse animate-[pulse_3s_ease-in-out_infinite]"></i>
+                    <div class="relative z-10 h-full flex flex-col justify-center">
+                        <div class="flex items-start gap-5 mb-4">
+                            <!-- Animated Icon -->
+                            <div class="relative shrink-0">
+                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-xl shadow-blue-200/50 group-hover:scale-105 group-hover:shadow-blue-600/30 transition-all duration-500 z-10 relative">
+                                    <i class="fa-solid fa-compass group-hover:animate-[spin_4s_linear_infinite] group-hover:text-blue-100"></i>
+                                </div>
+                                <!-- Pulse Ring -->
+                                <div class="absolute inset-0 rounded-2xl border-2 border-blue-400/0 group-hover:border-blue-400/30 group-hover:scale-125 transition-all duration-500 delay-75"></div>
                             </div>
-                            <!-- Title -->
-                            <h3 class="flex flex-col">
-                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors">PVQ</span>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Portrait Values Questionnaire)</span>
-                            </h3>
+
+                            <!-- Title & Subtitle -->
+                            <div class="flex flex-col pt-1">
+                                <h3 class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors leading-none mb-1">
+                                    PVQ
+                                </h3>
+                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-blue-400 transition-colors"></span>
+                                    Portrait Values Questionnaire
+                                </span>
+                            </div>
                         </div>
 
-                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-800 transition-colors">
+                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-900 transition-colors">
                             <span class="lang-ja">
-                                S.シュワルツ（Schwartz）の基本価値理論に基づき開発された測定モデル。行動や意思決定の根底にある、文化普遍的な『動機（Motivational Goals）』を特定します。
+                                行動や意思決定の根底にある、文化普遍的な『動機（Driver）』を特定するモデル。S.シュワルツの基本価値理論に基づく。
                             </span>
                             <span class="lang-en">
-                                Based on Shalom H. Schwartz’s Theory of Basic Human Values. This model identifies the universal 'motivational goals' that underlie attitudes, behavior, and decision-making.
+                                Identifies the universal 'motivational drivers' behind decisions. Based on Shalom H. Schwartz’s Theory of Basic Human Values.
                             </span>
                         </p>
+
+                        <!-- Hidden Tags (Reveal on Hover) -->
+                        <div class="flex flex-wrap gap-2 mt-4 opacity-60 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                            <span class="text-[9px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded border border-gray-200 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-100 transition-colors">Self-Direction</span>
+                            <span class="text-[9px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded border border-gray-200 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-100 transition-colors">Stimulation</span>
+                            <span class="text-[9px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded border border-gray-200 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-100 transition-colors">+8 More</span>
+                        </div>
                     </div>
-                    <!-- Hover Accent Line -->
-                    <div class="absolute left-0 bottom-0 h-1 w-0 bg-blue-500 group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                    
+                    <!-- Active Status Bar -->
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></div>
                 </div>
 
             </div>
-        </div>
-    </section>
+        
         
         <!-- ================= Big Five (OS) ================= -->
         <section class="mb-24 fade-in-up delay-100">
