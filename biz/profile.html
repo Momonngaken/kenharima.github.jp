@@ -89,7 +89,7 @@
 
     <div class="flex-grow max-w-4xl mx-auto px-6 pt-32 md:pt-40 w-full">
 
-        <!-- ================= INTRO (EXTREME REDESIGN) ================= -->
+        <!-- ================= INTRO (REFINED BENTO GRID) ================= -->
     <section class="mb-24 fade-in-up relative pt-10">
         
         <!-- Section Header -->
@@ -105,12 +105,10 @@
         </div>
 
         <!-- Main Structure: Tech Spec Grid -->
-        <!-- 余白を埋めるため、全体を一つの大きなボーダーボックスとして定義 -->
-        <div class="border border-gray-300 bg-white shadow-xl rounded-none md:rounded-lg overflow-hidden flex flex-col lg:flex-row">
+        <div class="border border-gray-200 bg-white shadow-2xl shadow-gray-200/50 rounded-none md:rounded-lg overflow-hidden flex flex-col lg:flex-row">
             
             <!-- LEFT COLUMN: Manifesto (Text) -->
-            <!-- 背景色をわずかに変え、「文書」としての存在感を強調 -->
-            <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-gray-200 bg-gray-50/50 relative">
+            <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-gray-200 bg-gray-50/30 relative">
                 
                 <!-- Decorative Label -->
                 <div class="absolute top-0 left-0 bg-bizText text-white text-[10px] font-mono px-3 py-1 uppercase tracking-widest">
@@ -134,7 +132,7 @@
                 </div>
 
                 <!-- Footnote: Tech Style -->
-                <div class="mt-12 pt-6 border-t border-gray-300/50">
+                <div class="mt-12 pt-6 border-t border-gray-200">
                     <div class="flex gap-4 items-start">
                         <div class="text-bizAccent text-xl mt-[-4px]"><i class="fa-solid fa-circle-info"></i></div>
                         <div class="text-xs md:text-sm text-gray-500 font-mono leading-relaxed">
@@ -150,49 +148,67 @@
             </div>
 
             <!-- RIGHT COLUMN: Frameworks (The Modules) -->
-            <!-- 2つのカードを縦に積み上げ、左側と高さを合わせることで密度を出す -->
             <div class="lg:w-5/12 flex flex-col bg-white">
                 
-                <!-- Module 1: Big 5 -->
-                <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-200 hover:bg-blue-50/30 transition-colors duration-500">
-                    <div class="flex items-start justify-between mb-4">
-                        <!-- New Font Applied Here -->
-                        <h3 class="text-2xl font-bold text-bizText flex flex-col" style="font-family: 'Space Grotesk', sans-serif;">
-                            <span class="text-sm text-bizAccent font-mono uppercase tracking-widest mb-1 opacity-70">The OS</span>
-                            <span>Big 5 <span class="text-lg font-normal text-gray-400 block sm:inline">(Five Factor Model)</span></span>
-                        </h3>
-                        <i class="fa-solid fa-microchip text-2xl text-gray-300 group-hover:text-bizAccent transition-colors"></i>
+                <!-- Module 01: Big 5 -->
+                <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-200 overflow-hidden hover:bg-slate-50 transition-colors duration-500">
+                    <!-- Background Number (Watermark) -->
+                    <span class="absolute -top-4 -right-2 text-[10rem] font-bold text-gray-100 group-hover:text-gray-200/70 transition-colors duration-500 font-display select-none leading-none z-0 pointer-events-none">
+                        01
+                    </span>
+
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-10 h-10 rounded-full bg-bizText text-white flex items-center justify-center text-lg shadow-lg">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                            <!-- Title with Space Grotesk -->
+                            <h3 class="text-3xl font-bold text-bizText tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
+                                Big 5
+                                <span class="block text-xs font-normal text-gray-400 font-sans tracking-normal mt-1">(Five Factor Model)</span>
+                            </h3>
+                        </div>
+                        
+                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1">
+                            <span class="lang-ja">
+                                1960年代の研究に端を発し、Goldbergらが整理、McCraeとCostaが体系化した性格特性論。個人の「OS」に相当する基礎的な行動特性を測定する、世界的な主要指標です。
+                            </span>
+                            <span class="lang-en">
+                                Rooted in research from the 1960s and consolidated by Goldberg, McCrae, and Costa. It is one of the most widely used approaches for assessing fundamental personality traits—often likened to an individual’s “operating system.”
+                            </span>
+                        </p>
                     </div>
-                    
-                    <p class="text-sm text-gray-600 leading-relaxed font-sans">
-                        <span class="lang-ja">
-                            1960年代の研究に端を発し、Goldbergらが整理、McCraeとCostaが体系化した性格特性論。個人の「OS」に相当する基礎的な行動特性を測定する、世界的な主要指標です。
-                        </span>
-                        <span class="lang-en">
-                            Rooted in research from the 1960s and consolidated by Goldberg, McCrae, and Costa. It is one of the most widely used approaches for assessing fundamental personality traits—often likened to an individual’s “operating system.”
-                        </span>
-                    </p>
                 </div>
 
-                <!-- Module 2: PVQ -->
-                <div class="group relative flex-1 p-8 md:p-10 hover:bg-blue-50/30 transition-colors duration-500">
-                    <div class="flex items-start justify-between mb-4">
-                        <!-- New Font Applied Here -->
-                        <h3 class="text-2xl font-bold text-bizText flex flex-col" style="font-family: 'Space Grotesk', sans-serif;">
-                            <span class="text-sm text-blue-500 font-mono uppercase tracking-widest mb-1 opacity-70">The Driver</span>
-                            <span>PVQ <span class="text-lg font-normal text-gray-400 block sm:inline">(Portrait Values Questionnaire)</span></span>
-                        </h3>
-                        <i class="fa-solid fa-compass text-2xl text-gray-300 group-hover:text-blue-500 transition-colors"></i>
-                    </div>
+                <!-- Module 02: PVQ -->
+                <div class="group relative flex-1 p-8 md:p-10 overflow-hidden hover:bg-slate-50 transition-colors duration-500">
+                    <!-- Background Number (Watermark) -->
+                    <span class="absolute -top-4 -right-2 text-[10rem] font-bold text-gray-100 group-hover:text-blue-50 transition-colors duration-500 font-display select-none leading-none z-0 pointer-events-none">
+                        02
+                    </span>
 
-                    <p class="text-sm text-gray-600 leading-relaxed font-sans">
-                        <span class="lang-ja">
-                            S.Schwartzの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な「動機（Driver）」を説明します。
-                        </span>
-                        <span class="lang-en">
-                            Based on Shalom H. Schwartz’s Theory of Basic Human Values. It measures value priorities—the motivational goals that help shape attitudes, decisions, and behavior.
-                        </span>
-                    </p>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg shadow-lg shadow-blue-200">
+                                <!-- Updated Icon to Heartbeat -->
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <!-- Title with Space Grotesk -->
+                            <h3 class="text-3xl font-bold text-bizText tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
+                                PVQ
+                                <span class="block text-xs font-normal text-gray-400 font-sans tracking-normal mt-1">(Portrait Values Questionnaire)</span>
+                            </h3>
+                        </div>
+
+                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1">
+                            <span class="lang-ja">
+                                S.Schwartzの基本価値理論に基づいて開発された質問紙。行動の根底にある普遍的な「動機（Driver）」を説明します。
+                            </span>
+                            <span class="lang-en">
+                                Based on Shalom H. Schwartz’s Theory of Basic Human Values. It measures value priorities—the motivational goals that help shape attitudes, decisions, and behavior.
+                            </span>
+                        </p>
+                    </div>
                 </div>
 
             </div>
