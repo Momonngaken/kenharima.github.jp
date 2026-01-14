@@ -308,46 +308,62 @@
                 </div>
             </section>
 
-            <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
-<div class="fade-in mb-20 md:mb-24">
-    <a href="./profile.html" class="group relative block overflow-hidden rounded-xl bg-gradient-to-br from-gray-900 to-bizText shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(15,60,133,0.3)] hover:-translate-y-1">
-        <!-- Abstract Background Decoration -->
-        <div class="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-white/5 blur-3xl transition-all duration-700 group-hover:bg-white/10 group-hover:scale-110"></div>
-        <div class="absolute bottom-0 left-0 -ml-16 -mb-16 h-64 w-64 rounded-full bg-bizAccent/20 blur-3xl transition-all duration-700 group-hover:bg-bizAccent/30"></div>
-        
-        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 p-6 md:p-8">
-            <!-- Icon & Text -->
-            <div class="flex items-start gap-5">
-                <div class="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-sm group-hover:bg-white/20 transition-colors">
-                    <i class="fa-solid fa-fingerprint text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="text-white text-lg md:text-xl font-display font-bold mb-1 tracking-tight">
-                        <span class="lang-ja">心理測定プロファイル (Big 5 / PVQ)</span>
-                        <span class="lang-en">Psychometric Profile (Big 5 / PVQ)</span>
-                    </h3>
-                    <p class="text-gray-300 text-xs md:text-sm font-light leading-relaxed max-w-lg">
-                        <span class="lang-ja">
-                            「人となり」というブラックボックスを可視化し、予測可能なパートナーシップを築く。私の性格特性(OS)と行動原理(Driver)を、客観的な数値データとして公開しています。
-                        </span>
-                        <span class="lang-en">
-                            Visualizing the "black box" of personality to build trust and predictability. I openly share my OS and motivational drivers as objective, quantitative data to facilitate seamless and transparent partnerships.
-                        </span>
-                    </p>
-                </div>
-            </div>
+            <!-- ▼▼▼▼▼ 差し替え開始 (PSYCHOMETRIC DATA LINK) ▼▼▼▼▼ -->
+            <div class="fade-in mb-20 md:mb-24">
+                <a href="./profile.html" class="group relative block overflow-hidden rounded-2xl bg-[#0B0F19] shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_-12px_rgba(15,60,133,0.4)] border border-gray-800/50">
+                    
+                    <!-- 1. Technical Grid Background (Data Feel) -->
+                    <div class="absolute inset-0 opacity-[0.08]" 
+                         style="background-image: linear-gradient(#475569 1px, transparent 1px), linear-gradient(90deg, #475569 1px, transparent 1px); background-size: 40px 40px;">
+                    </div>
+                    
+                    <!-- 2. Ambient Glow (Deep Blue & Indigo) -->
+                    <div class="absolute -right-20 -top-20 w-96 h-96 bg-bizAccent/30 rounded-full blur-[100px] mix-blend-screen transition-all duration-700 group-hover:bg-bizAccent/40 group-hover:scale-110"></div>
+                    <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-900/30 rounded-full blur-[80px] mix-blend-screen transition-all duration-700 group-hover:bg-indigo-800/40"></div>
 
-            <!-- Action Button visual -->
-            <div class="shrink-0">
-                <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-bizText text-xs font-bold uppercase tracking-wider transition-transform duration-300 group-hover:scale-105">
-                    <span class="lang-ja">データを見る</span>
-                    <span class="lang-en">View Data</span>
-                    <i class="fa-solid fa-arrow-right ml-1 text-bizAccent"></i>
-                </span>
+                    <!-- 3. Watermark Icon (Fingerprint) -->
+                    <i class="fa-solid fa-fingerprint absolute -right-8 -bottom-16 text-[12rem] text-white/[0.02] group-hover:text-white/[0.05] group-hover:rotate-[-10deg] group-hover:scale-110 transition-all duration-700 ease-out pointer-events-none"></i>
+
+                    <!-- Content Container -->
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-10">
+                        <!-- Icon & Text -->
+                        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left">
+                            
+                            <!-- Icon with Pulse Effect -->
+                            <div class="relative shrink-0">
+                                <div class="absolute inset-0 bg-indigo-500/20 rounded-full animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                <div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-white/5 border border-white/10 text-white backdrop-blur-md shadow-inner group-hover:bg-white/10 group-hover:border-indigo-400/30 transition-all duration-300">
+                                    <i class="fa-solid fa-chart-radar text-2xl group-hover:text-indigo-200 transition-colors"></i>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <h3 class="text-white text-xl md:text-2xl font-display font-bold tracking-tight leading-tight group-hover:text-indigo-100 transition-colors">
+                                    <span class="lang-ja">心理測定プロファイル <span class="hidden md:inline text-sm font-normal text-gray-500 ml-2 font-mono tracking-wider">Big 5 & PVQ</span></span>
+                                    <span class="lang-en">Psychometric Profile <span class="hidden md:inline text-sm font-normal text-gray-500 ml-2 font-mono tracking-wider">Big 5 & PVQ</span></span>
+                                </h3>
+                                <p class="text-gray-400 text-sm font-light leading-relaxed max-w-lg">
+                                    <span class="lang-ja">
+                                        「人となり」というブラックボックスを可視化し、予測可能なパートナーシップを築く。性格特性(OS)と行動原理(Driver)を、客観的な数値データとして公開しています。
+                                    </span>
+                                    <span class="lang-en">
+                                        Visualizing the "black box" of personality to build trust. Openly sharing my OS and motivational drivers as objective data to facilitate transparent partnerships.
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <div class="shrink-0">
+                            <span class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white text-bizText text-xs font-bold uppercase tracking-widest transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                                <span class="lang-ja">データを見る</span>
+                                <span class="lang-en">View Data</span>
+                                <i class="fa-solid fa-arrow-right text-bizAccent group-hover:translate-x-1 transition-transform"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
-    </a>
-</div>
             
             <!-- ================= EDUCATION ================= -->
             <section class="fade-in">
