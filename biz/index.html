@@ -1213,9 +1213,11 @@
             <!-- 変更点: flex-1, min-h-0 でスクロール領域を確保。overscroll-containで親スクロールへの伝播を防止 -->
             <div class="modal-scroll flex-1 min-h-0 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain" tabindex="0">
                 
+                <!-- ▼▼▼▼▼ 変更: 透かし要素（Watermark）を削除しました ▼▼▼▼▼ -->
+
                 <!-- Content Container -->
-                <!-- ▼▼▼▼▼ 変更: 余計なマージン(mt-5)を完全に削除し、pt-4で最適な開始位置に調整 ▼▼▼▼▼ -->
-                <div id="modal-content" class="relative z-10 px-6 pt-4 pb-12 md:px-8 md:pt-5 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
+                <!-- 変更点: pt-6 を pt-0 に変更し、mt-5 でボーダーとの適度な距離（余計な空白なし）を設定 -->
+                <div id="modal-content" class="relative z-10 px-6 pt-0 mt-5 pb-12 md:px-8 md:mt-6 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
                     <!-- Dynamic Content -->
                 </div>
             </div>
