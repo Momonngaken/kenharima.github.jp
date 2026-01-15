@@ -1421,9 +1421,15 @@
                     // Ignore clicks on inner links if any
                     if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
                     
+                    // ▼▼▼ 追加: ここで即座にLenisとScrollを停止 (最優先処理) ▼▼▼
+                    if (typeof lenis !== 'undefined') lenis.stop();
+                    document.body.style.overflow = 'hidden';
+                    // ▲▲▲ 追加ここまで ▲▲▲
+
                     const id = trigger.getAttribute('data-modal-id');
                     const data = modalData[id];
                     if (!data) return;
+
 
                     // A. Inject Header (JP & EN wrapped)
                     // ▼▼▼▼▼ 変更: タイトル下のマージンを調整 (mb-1程度に留める) ▼▼▼▼▼
@@ -1501,13 +1507,17 @@
                     onComplete: () => {
                         modal.classList.add('hidden');
                         modal.classList.remove('flex');
+                        
+                        // ▼▼▼ 確認: アニメーション完了後にスクロールロック解除 ▼▼▼
                         document.body.style.overflow = '';
                         if(typeof lenis !== 'undefined') lenis.start();
+                        // ▲▲▲ 確認ここまで ▲▲▲
+
                         isModalOpen = false;
                     }
                 });
             };
-
+            
             // 5. Event Listeners for Close
             modalCloseBtn.addEventListener('click', closeModal);
             modalBg.addEventListener('click', closeModal);
