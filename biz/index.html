@@ -1195,7 +1195,7 @@
 
         <!-- 2. Modal Card -->
         <!-- ▼▼▼▼▼ 変更: tabindex="-1" と outline-none を追加し、JSからのフォーカスを可能に ▼▼▼▼▼ -->
-        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none">
+        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain">
             
             <!-- Top Gradient Line -->
             <div class="h-1.5 w-full bg-gradient-to-r from-bizAccent via-indigo-500 to-cyan-400 shrink-0 z-30"></div>
@@ -1457,12 +1457,6 @@
 
                     // C. Reset Scroll
                     document.querySelector('.modal-scroll').scrollTop = 0;
-
-                    // D. Show & Animate
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-                    document.body.style.overflow = 'hidden'; // Lock Body Scroll
-                    if(typeof lenis !== 'undefined') lenis.stop(); // Stop Smooth Scroll
 
                     // GSAP Entrance
                     gsap.killTweensOf([modalBg, modalPanel]);
