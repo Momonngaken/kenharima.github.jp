@@ -1468,7 +1468,6 @@
             const headerContent = document.getElementById('modal-header-content');
             const modalContent = document.getElementById('modal-content');
             const modalCloseBtn = document.getElementById('modal-close-btn');
-            const triggers = document.querySelectorAll('.js-modal-trigger');
             
             // New Nudge Elements
             const modalScrollContainer = document.getElementById('modal-scroll-container');
@@ -1477,20 +1476,29 @@
 
             let isModalOpen = false;
 
-            // Scroll Progress Logic (Nudge)
+            // OPTIMIZATION: IntersectionObserver for "Highlighter" Nudge
+            // スクロールイベント内でのDOM計算(getBoundingClientRect)を排除し、CPU負荷を極限まで下げる
+            const markerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('nudge-marker', 'active');
+                        markerObserver.unobserve(entry.target); // 一度発火したら監視解除（メモリ節約）
+                    }
+                });
+            }, { root: modalScrollContainer, threshold: 0.8 });
+
+            // Scroll Progress Logic (Purely for Bar & Hint)
             const updateScrollProgress = () => {
                 const scrollTop = modalScrollContainer.scrollTop;
                 const scrollHeight = modalScrollContainer.scrollHeight;
                 const clientHeight = modalScrollContainer.clientHeight;
-                
-                // Calculate percentage
                 const scrollableHeight = scrollHeight - clientHeight;
-                const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
                 
                 // Update Bar
+                const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
                 modalProgressBar.style.width = `${percentage}%`;
 
-                // Update Hint Visibility (Hide when near bottom)
+                // Update Hint Visibility
                 if (scrollableHeight - scrollTop < 40 || scrollableHeight <= 0) {
                     modalScrollHint.style.opacity = '0';
                     modalScrollHint.style.pointerEvents = 'none';
@@ -1498,93 +1506,84 @@
                     modalScrollHint.style.opacity = '1';
                     modalScrollHint.style.pointerEvents = 'auto';
                 }
-
-                // Trigger Highlighter Animation for <strong> tags inside view
-                const markers = modalContent.querySelectorAll('strong');
-                markers.forEach(marker => {
-                    const rect = marker.getBoundingClientRect();
-                    const containerRect = modalScrollContainer.getBoundingClientRect();
-                    // Check if element is within the modal viewport
-                    if (rect.top < containerRect.bottom - 50 && rect.bottom > containerRect.top + 50) {
-                        marker.classList.add('nudge-marker', 'active');
-                    }
-                });
             };
+            modalScrollContainer.addEventListener('scroll', updateScrollProgress); // Throttling excluded for smoothness, but logic is now lightweight.
 
-            modalScrollContainer.addEventListener('scroll', updateScrollProgress);
+            // 3. Open Function (Event Delegation for Performance)
+            // 個別の要素にリスナーを貼らず、bodyで一括監視することでメモリ消費を抑える
+            document.body.addEventListener('click', (e) => {
+                const trigger = e.target.closest('.js-modal-trigger');
+                if (!trigger) return;
+                
+                // Ignore clicks on inner links
+                if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
 
-            // 3. Open Function
-            triggers.forEach(trigger => {
-                trigger.addEventListener('click', (e) => {
-                    // Ignore clicks on inner links if any
-                    if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
-                    
-                    // Lenis stop
-                    if (typeof lenis !== 'undefined') lenis.stop();
-                    document.body.style.overflow = 'hidden';
+                // Stop Lenis & Scroll
+                if (typeof lenis !== 'undefined') lenis.stop();
+                document.body.style.overflow = 'hidden';
 
-                    const id = trigger.getAttribute('data-modal-id');
-                    const data = modalData[id];
-                    if (!data) return;
+                const id = trigger.getAttribute('data-modal-id');
+                const data = modalData[id];
+                if (!data) return;
 
-                    // A. Inject Header
-                    headerContent.innerHTML = `
-                        <div class="lang-ja">
-                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p>
-                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3>
-                        </div>
-                        <div class="lang-en">
-                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p>
-                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3>
-                        </div>
-                    `;
+                // A. Inject Header
+                headerContent.innerHTML = `
+                    <div class="lang-ja">
+                        <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p>
+                        <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3>
+                    </div>
+                    <div class="lang-en">
+                        <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p>
+                        <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3>
+                    </div>
+                `;
 
-                    // B. Inject Body with "Highlighter" preparation
-                    // <strong>タグを自動的に装飾用クラス付きに変換する処理を含めることも可能ですが、
-                    // ここではCSSの .modal-text-body strong と JSのスクロール検知で対応します。
-                    modalContent.innerHTML = `
-                        <div class="lang-ja first:mt-0 pb-8">
-                            ${data.body_ja.replace(/\n/g, '<br>')}
-                        </div>
-                        <div class="lang-en first:mt-0 pb-8">
-                            ${data.body_en.replace(/\n/g, '<br>')}
-                        </div>
-                    `;
+                // B. Inject Body
+                modalContent.innerHTML = `
+                    <div class="lang-ja first:mt-0">
+                        ${data.body_ja.replace(/\n/g, '<br>')}
+                    </div>
+                    <div class="lang-en first:mt-0">
+                        ${data.body_en.replace(/\n/g, '<br>')}
+                    </div>
+                `;
 
-                    // C. Force Scroll Reset (Critical Fix)
-                    // RequestAnimationFrameを使って描画直前に確実にリセット
-                    modalScrollContainer.scrollTop = 0;
-                    modalProgressBar.style.width = '0%';
-                    modalScrollHint.style.opacity = '1';
-
-                    // D. Show & Animate
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-
-                    // GSAP Entrance
-                    gsap.killTweensOf([modalBg, modalPanel]);
-                    gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
-                    gsap.fromTo(modalPanel, 
-                        { opacity: 0, scale: 0.95, y: 20 },
-                        { 
-                            opacity: 1, 
-                            scale: 1, 
-                            y: 0, 
-                            duration: 0.5, 
-                            ease: "power3.out",
-                            onComplete: () => {
-                                modalPanel.focus();
-                                // アニメーション完了後にもう一度スクロール判定を走らせて初期表示範囲のハイライトを有効化
-                                updateScrollProgress();
-                            }
-                        }
-                    );
-                    
-                    // 初期化時のハイライト適用
-                    setTimeout(updateScrollProgress, 100);
-
-                    isModalOpen = true;
+                // C. Initialize Nudge Markers (Observer)
+                // コンテンツ注入後にstrongタグを監視対象に登録
+                requestAnimationFrame(() => {
+                    const markers = modalContent.querySelectorAll('strong');
+                    markers.forEach(marker => {
+                        marker.classList.remove('active'); // Reset
+                        marker.classList.add('nudge-marker');
+                        markerObserver.observe(marker);
+                    });
                 });
+
+                // D. Reset Scroll & States
+                modalScrollContainer.scrollTop = 0;
+                modalProgressBar.style.width = '0%';
+                modalScrollHint.style.opacity = '1';
+
+                // E. Show & Animate (Using the "Creative" Back.out easing from the original 2nd block)
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+
+                gsap.killTweensOf([modalBg, modalPanel]);
+                gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
+                gsap.fromTo(modalPanel, 
+                    { opacity: 0, scale: 0.9, y: 30, rotationX: 10 },
+                    { 
+                        opacity: 1, 
+                        scale: 1, 
+                        y: 0, 
+                        rotationX: 0, 
+                        duration: 0.6, 
+                        ease: "back.out(1.2)",
+                        onComplete: () => { modalPanel.focus(); }
+                    }
+                );
+
+                isModalOpen = true;
             });
 
             // 3. Open Function
