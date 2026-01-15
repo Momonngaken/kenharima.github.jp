@@ -1334,14 +1334,72 @@
                 });
             }
 
-             // ▼▼▼▼▼ ここに貼り付け ▼▼▼▼▼
-            
-            // 1. Data Source (JP / EN Separate)
+             // 1. Data Source (JP / EN Separate)
             const modalData = {
                 "poker": {
-                    // ... (長いデータ定義) ...
+                    sub_ja: "ゲーム理論 / 確率統計",
+                    sub_en: "Game Theory / Statistics",
+                    title_ja: "海外ポーカー実践\n投資利益率 532%",
+                    title_en: "Overseas Poker Implementation\n532% ROI",
+                    body_ja: `2023年10月〜2024年2月にかけて、欧州留学中の私は「不確実な状況下における最適解の導出」をテーマに、ポーカー（ノーリミット・テキサスホールデム）を実践的なプロジェクトとして遂行しました。これは単なる遊興ではなく、確率・統計に基づくゲーム理論と、数十万ハンドの解析データに裏打ちされた戦略的投資です。\n\n学業という本分を遵守するため、「総プレイ時間 175時間52分」という厳格なリソース制限を設けつつ、世界8都市の異なるフィールド特性に適応しながら計26セッションを展開しました。結果、一時的な最高ROI（投資利益率）は927.125%を記録し、最終的に532%のROI、計€5,056（約90万8千円）の純利益を計上。時給換算で約5,200円（€28.75）という高水準なパフォーマンスを維持しました。\n\n感情を排し、期待値（EV）を積み上げるこのプロセスで培った冷徹な判断力とリスク管理能力は、現在のビジネスにおける戦略立案の礎となっています。\n\n<strong>>> 実践した国々と都市:</strong>\n🇩🇪 Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr\n🇫🇷 Paris 🇨🇭 Zürich 🇫🇮 Helsinki 🇧🇬 Sofia`,
+                    body_en: `From October 2023 to February 2024, while studying abroad in Europe, I executed a practical project centered on "deriving optimal solutions under uncertainty" through No-Limit Texas Hold'em. This was not mere gambling, but a strategic investment grounded in Game Theory, probability, statistics, and the analysis of hundreds of thousands of hands.\n\nStrictly adhering to my academic responsibilities, I set a rigid resource cap of "175 hours and 52 minutes of total play." I adapted to the specific field characteristics of eight different global cities across 26 sessions. The project yielded a temporary peak ROI (Return on Investment) of 927.125%, finishing with a final ROI of 532% and a net profit of €5,056 (approx. 908,000 JPY). This translated to a high-performance hourly rate of approximately €28.75.\n\nThe process of eliminating emotion to consistently accumulate expected value honed the cold judgment and risk management skills that now form the foundation of my business strategy formulation.\n\n<strong>>> FIELD_LOGS:</strong>\n🇩🇪 Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr\n🇫🇷 Paris 🇨🇭 Zürich 🇫🇮 Helsinki 🇧🇬 Sofia`
                 },
-                // ... (他のデータ) ...
+                "noguchi": {
+                    sub_ja: "マーケティング戦略 / データ分析",
+                    sub_en: "Marketing Strategy / Data Analysis",
+                    title_ja: "野口ゼミ×理想科学工業\nマーケティング戦略コンペティション",
+                    title_en: "Noguchi Seminar × Riso Kagaku\nMarketing Strategy Competition",
+                    body_ja: `2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社様の「MiScreen A4」マーケティング戦略コンペティションに取り組みました。 このプロジェクトにおいて私たちは、感覚的なアイデア出しに依存せず、確固たる「根拠」に基づく戦略立案を徹底しました。\n\nまず、チーム全体で、理想科学工業株式会社様が行っているSNSでの広報活動状況に関する膨大なデータを収集・整理。動画のクリエイティブ要素を詳細に分解。その中でも既存のSNS投稿におけるPV数やリアクションの違いに着目し、多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出しました。これにより、感覚に頼らない客観的根拠のある勝ちパターンを導出し、チームの共通認識として確立しました。\n\nそのデータを基に、「MiScreen A4」の強みである「ものづくり体験価値」と最も合致する市場として、国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。`,
+                    body_en: `In 2024, as part of the Tomoo Noguchi Seminar at the Waseda University School of Social Sciences, I participated in a marketing strategy competition for Riso Kagaku Corporation’s "MiScreen A4." Our project was defined by a rigorous commitment to evidence-based strategy, rejecting reliance on purely intuitive brainstorming.\n\nOur team began by collecting and organizing a vast amount of data regarding the client's existing social media presence. We deconstructed the creative elements of their video content and focused on the variance in page views (PV) and engagement metrics across existing posts. Utilizing Quantification Theory Type I (a method of multivariate analysis), we calculated the specific impact of each creative element. This allowed us to derive an objective "winning pattern" backed by data, establishing a unified strategic vision for the team.\n\nBased on this analysis, we identified art museums (both domestic and international) as the market that best aligned with the product's unique value proposition of "creative manufacturing experiences." We developed a targeted strategy for this niche, ultimately winning the Grand Prix.`
+                },
+                "essay": {
+                    sub_ja: "エッセイ / 哲学",
+                    sub_en: "Essay / Philosophy",
+                    title_ja: "第36回「働くってなんだろう」\nエッセイコンテスト",
+                    title_en: "36th 'What is Work?' Essay Contest",
+                    body_ja: `2023年、「働くってなんだろう」エッセイコンテストにて、総応募数1,112編の中から特選として「勤労青少年躍進会理事長賞」を受賞。GPT-4と私の共作を示すペンネーム、「風織ケン」を使用しました。\n\n本作は、ゴミが散乱する早朝の新宿を目撃した際の実体験から構想を得たフィクションです。物語の舞台は、都市の喧騒と静寂が入れ替わる夜明け前。誰にも見とめられることのない「清掃員」という労働に、実存的な光を当てました。\n\n執筆にあたっては、単なる労働賛歌に留まらないよう、サルトルの他者論、ハイデガーの存在論、レヴィナスの倫理や西田幾多郎の「純粋経験」といった哲学的要素を物語の骨格に採用。「汚れたものを片付ける」という行為を、他者への根源的な責任や、意識が介在する前の、行為そのものと完全に一体化する体験を描写し、労働が持つ「愛」と「尊厳」を描き出しました。\n\n<a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-3 bg-gray-100 rounded-lg text-bizAccent font-bold hover:bg-gray-200 transition-colors"><i class="fa-solid fa-external-link-alt"></i> 受賞作品を読む (公式サイト)</a>`,
+                    body_en: `In 2023, my essay was selected for the "Special Selection: Chairman’s Award" from 1,112 entries in the "What is Work?" essay contest. I submitted the piece under the pen name "Ken Kazaori" to signify a co-authorship with GPT-4.\n\nThe work is a piece of fiction inspired by a real-life experience witnessing the scattered trash of Shinjuku in the early morning. Set in the fleeting moments before dawn—where the city’s bustle swaps places with silence—the story casts an existential light on the often-overlooked labor of sanitation workers.\n\nTo ensure the piece transcended a simple ode to labor, I integrated philosophical frameworks into the narrative backbone, drawing on Sartre’s theory of the Other, Heidegger’s ontology, Levinas’s ethics, and Kitaro Nishida’s concept of "Pure Experience." I depicted the act of "cleaning away the dirty" not just as a job, but as a fundamental responsibility to others and a state of complete unity between action and consciousness. Through this, I aimed to portray the intrinsic love and dignity found within labor.\n\n<a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-3 bg-gray-100 rounded-lg text-bizAccent font-bold hover:bg-gray-200 transition-colors"><i class="fa-solid fa-external-link-alt"></i> Read Original (Official Site)</a>`
+                },
+                "brand": {
+                    sub_ja: "プロダクトデザイン / 3D",
+                    sub_en: "Product Design / 3D Printing",
+                    title_ja: "第10回 あなたが考える\nブランドラベルコンテスト",
+                    title_en: "10th 'Design Your Own Brand Label' Contest",
+                    body_ja: `2023年、東京吉岡株式会社主催「第10回あなたが考えるブランドラベルコンテスト」において、応募総数520点の中からTOP40に入選し、東京ビッグサイトにて展示されました。\n\n制作したのは、架空のアパレルブランド「ONESAGE」のブランドタグです。ブランド名は「お値下げ（O-nesage）」と、賢者を意味する「Sage」を掛け合わせたダブルミーニング。素材には生分解性プラスチックを100%使用し、環境にやさしい素材を用いたブランドを購入する顧客を「1人の賢人（One sage)」として讃えました。\n\nその方面に精通している友人の力も借り、3Dプリンターによる積層造形で「朽ちていく美しさ」を表現。デジタルファブリケーション技術を用いて、環境負荷とデザインの融合を試みました。本番の展示では、輸送中のトラブルにより塗装の一部が剥がれるアクシデントに見舞われ、受賞を逃しました。しかし、完全な状態で展示できなかった悔しさは、フィジカルなプロダクトにおける「耐久性」や「物流」までを含めたデザインの重要性を学ぶ、何よりの経験となりました。`,
+                    body_en: `In 2023, my submission for the "Design Your Own Brand Label Contest," hosted by Tokyo Yoshioka Co., Ltd., was selected as one of the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight.\n\nI designed a brand tag for a fictional apparel brand named "ONESAGE." The name is a double entendre combining the Japanese word for price reduction (O-nesage) with the English word Sage (a wise person). The concept honored customers who choose eco-friendly materials as "One Sage." Utilizing 100% biodegradable plastic, I collaborated with an expert in the field to use 3D printing (additive manufacturing) to express "decaying beauty." The project was an attempt to fuse environmental consciousness with design using digital fabrication technology.\n\nAlthough an accident during transport caused some paint to peel before the final exhibition—costing me a higher award—the frustration of not being able to exhibit the product in its perfect state became a valuable lesson. It taught me that design for physical products extends beyond aesthetics to include durability and logistics.`
+                },
+                "pivot": {
+                    sub_ja: "プロジェクトマネジメント",
+                    sub_en: "Project Management",
+                    title_ja: "早稲田大学✕PIVOT株式会社\nコラボ企画動画実行委員",
+                    title_en: "Waseda University × PIVOT Inc.\nCollaboration Project Executive Committee",
+                    body_ja: `2022年、起業家精神（アントレプレナーシップ）の醸成を目的とする早稲田大学公認サークル「BEYOND 2020 NEXT PROJECT」の幹部として、ビジネス映像メディア「PIVOT」とのコラボレーション企画を主導しました。担当したのは、リアル投資ドキュメンタリー番組『ANGELS』の大学初となる公開収録イベントです。\n\n開催までの約4ヶ月間、実行委員としてPIVOT株式会社様および大学側との折衝を担当。企業が求める「クオリティ」と、大学という組織の「制約」の間に立ち、会場選定（井深大記念ホール）、集客導線の設計、当日のオペレーション構築までを完遂しました。三浦崇宏氏をはじめとする一流投資家と学生起業家が対峙したこのイベントは、満席となる約200名を動員。単なるイベント運営に留まらず、熱量の高い空間を創り出す「場づくり」のプロジェクトマネジメントに貢献しました。`,
+                    body_en: `In 2022, as a core member of the Waseda University officially recognized circle "BEYOND 2020 NEXT PROJECT," which focuses on fostering entrepreneurship, I led a collaboration with the business video media company PIVOT. I was responsible for organizing the university’s first public recording event for the real-investment documentary program, ANGELS.\n\nOver four months, I served as the liaison between PIVOT Inc. and the university administration. My role required bridging the gap between the "quality" demanded by a media enterprise and the "constraints" inherent to an academic institution. I successfully managed venue selection (Ibuka Masaru Memorial Hall), audience flow design, and on-the-day operations. The event, featuring top-tier investors like Takahiro Miura and student entrepreneurs, mobilized a full house of approximately 200 attendees. This experience went beyond event operations; it was a project in "placemaking"—creating a high-energy space where professional and academic worlds collide.`
+                },
+                "social": {
+                    sub_ja: "社会デザイン / Web3",
+                    sub_en: "Social Design / Web3",
+                    title_ja: "「社会デザイン論入門」\nレポートコンペティション",
+                    title_en: "\"Introduction to Social Design\"\nReport Competition",
+                    body_ja: `2022年、早稲田大学社会科学部の学部長・教授陣が主催する「社会デザイン論入門」のレポートコンペティションにおいて、優秀賞を受賞しました。\n\nこのレポートでは、物理的なコワーキングスペースが抱える「ユーザーと運営者間の非対称性」という課題に焦点を当て、その解決策としてWeb3技術の統合を提唱しました。提案したモデルは、DAO（自律分散型組織）を運営の根幹に据えるものです。利用者がトークンエコノミーを通じてオーナーシップとガバナンスを獲得することで、空間の価値向上に主体的に参画。これにより、従来の「場を借りる」関係から脱却し、コミュニティの活性度そのものが資産として持続的に循環する新しいエコシステムを設計しました。\n\nWeb3の「信頼の分散」という思想をリアルの空間に実装し、「場所」と「コミュニティ」の境界線を再定義したこの提案は、技術のトレンドを単に追うのではなく、「テクノロジーで社会をどうデザインし直すか」という視点が評価されたものです。`,
+                    body_en: `In 2022, I received the Excellent Award in the report competition for "Introduction to Social Design," hosted by the Dean and professors of the Waseda University School of Social Sciences.\n\nMy report focused on the "asymmetry between users and operators" in physical coworking spaces. To resolve this, I proposed the integration of Web3 technology, specifically a model centered on a DAO (Decentralized Autonomous Organization). By acquiring ownership and governance rights through a token economy, users would proactively participate in increasing the space's value. This design aimed to dismantle the traditional "tenant-landlord" relationship, creating a new ecosystem where community activity itself circulates as a sustainable asset. This proposal was highly evaluated not for merely chasing technology trends, but for its perspective on "how to redesign society through technology," implementing the Web3 philosophy of "distributed trust" into a physical space.`
+                },
+                "hiroo": {
+                    sub_ja: "学術 / プレゼンテーション",
+                    sub_en: "Academic / Presentation",
+                    title_ja: "広尾学園中学校学年プレゼンテーション大会\n最優秀賞",
+                    title_en: "Hiroo Gakuen Junior High School\nPresentation Competition Grand Prize",
+                    body_ja: `2017年、広尾学園中学校の全学年プレゼンテーション大会に出場し、1学年302名の中から最高位「プレゼン大賞」を受賞しました。\n\n発表タイトルは「『常識』から見る『進歩』とは何か」。このプレゼンテーションの核は、「常識」と見なされている集合知がいかに脆く、絶対的なものではないか、という強烈な問題提起でした。歴史的な事例として、アルフレッド・ウェゲナーが提唱した大陸移動説が、当初学会で門前払いであった事実や、科学的真実が時の権威に否定されたガリレオ・ガリレイの地動説をめぐる宗教裁判を取り上げました。これらの具体例を丹念に検証することで、「常識」がいかに人の視界を狭めるトンネルビジョンであるかを、聴衆に5分間にわたって訴えかけました。\n\nそして、既存の知識や価値観を疑い、根拠をもって真実を追求する批判的思考力を身につける教育の重要性を力強く説きました。「当たり前」を問う深い洞察力と、歴史的事実に基づく論理的な説得力、加えてスティーブ・ジョブズ風の、背面のスライドを一度たりとも見ることなく、壇上を左右に闊歩しながら観衆に抑揚交えながら訴えかける独創的なプレゼンスタイルが、最高位受賞の要因となりました。`,
+                    body_en: `In 2017, I competed in the Hiroo Gakuen all-grade presentation tournament and won the top honor, the "Presentation Award," out of 302 students in my grade.\n\nMy title was "What is 'Progress' viewed through 'Common Sense'?" The core of the presentation was a strong provocation regarding how fragile collective "common sense" actually is. I utilized historical examples, such as Alfred Wegener’s Continental Drift theory (initially rejected by the scientific community) and the trial of Galileo Galilei regarding heliocentrism. By carefully examining these cases, I spent five minutes illustrating to the audience how "common sense" often acts as tunnel vision that narrows human perspective.\n\nI passionately argued for the importance of education that fosters critical thinking—the ability to doubt existing values and pursue truth with evidence. The award was granted due to the depth of insight in questioning the "obvious," the logical persuasion based on historical fact, and a unique presentation style inspired by Steve Jobs—never looking at the screen behind me, but pacing the stage and engaging the audience with dynamic intonation.`
+                },
+                "bizplan": {
+                    sub_ja: "ビジネスプラン / UI/UX",
+                    sub_en: "Business Plan / UI/UX",
+                    title_ja: "第6回 創造力、無限大∞\n高校生ビジネスプラン・グランプリ2018",
+                    title_en: "6th High School Business Plan Grand Prix (2018)",
+                    body_ja: `2018年、日本政策金融公庫主催の第6回 創造力、無限大∞ 高校生ビジネスプラン・グランプリにおいて、総応募数4,359件の中から私がコンセプト立案とプロダクトデザインを担当したビジネスプランがTOP100に選出されました。さらに都大会では、東京都産業労働局長賞（都知事賞に次ぐ2位）を受賞。\n\n提案したビジネスプランは、「’presst」と名付けた勉強型SNSサービスです 。私たちは、「スマートフォンが近くにあるだけで人間の認知能力は低下する」という認知科学の知見に着目し、従来のSNSが抱える学習妨害という問題を解決することを目指しました。コンセプトは「勉強を、表現する。」。友人とのコミュニケーションを断ち切るのではなく、「SNSを学習の推進力に変える」という逆説的なアプローチを採用しました 。\n\n「'presst」は、集中を妨げる要素を極力排除しつつ、勉強の開始と終了時間を自動で記録し 、学習時間や内容をハッシュタグと共に公開する仕組みを核としています 。これにより、ユーザーは「友人が今、頑張っている姿」を可視化でき、自律的な学習意欲をピア効果で喚起するUXを設計しました 。プレゼンテーションでは、このプロダクトのモックアップ提示に加え、5年目で5,000万円の売上を見込む具体的な収益モデルと財務計画を提示しました 。単なるアイデアではなく、プロダクトデザイン能力と事業計画能力を両立させた点が、高く評価されました。`,
+                    body_en: `In 2018, in the "6th High School Business Plan Grand Prix" hosted by the Japan Finance Corporation, the business plan for which I handled concept creation and product design was selected in the TOP 100 out of 4,359 entries. Additionally, at the Tokyo metropolitan level, we received the Tokyo Bureau of Industrial and Labor Affairs Director General’s Award (2nd place).\n\nOur proposal was a study-focused SNS service named "'presst." Focusing on cognitive science findings that "the mere presence of a smartphone reduces human cognitive capacity," we aimed to solve the issue of learning obstruction caused by traditional social media. Our concept was "Expressing Study." Rather than cutting off communication with friends, we adopted the paradoxical approach of "turning SNS into a driving force for learning."\n\nThe core mechanism of "'presst" automatically recorded study start and end times while eliminating distracting elements, allowing users to publish their learning time and content via hashtags. This visualized "friends working hard right now," designing a UX that stimulated autonomous motivation through the peer effect. In the presentation, alongside a product mockup, I presented a concrete revenue model and financial plan projecting 50 million yen in sales by the fifth year. The project was highly praised for balancing creative product design capabilities with realistic business planning.`
+                }
             };
 
             // 2. Elements & Logic
@@ -1358,12 +1416,14 @@
             // 3. Open Function
             triggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
+                    // Ignore clicks on inner links if any
                     if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
                     
                     const id = trigger.getAttribute('data-modal-id');
                     const data = modalData[id];
                     if (!data) return;
 
+                    // A. Inject Header (JP & EN wrapped)
                     headerContent.innerHTML = `
                         <div class="lang-ja">
                             <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-2">${data.sub_ja}</p>
@@ -1375,6 +1435,7 @@
                         </div>
                     `;
 
+                    // B. Inject Body (JP & EN wrapped)
                     modalContent.innerHTML = `
                         <div class="lang-ja">
                             ${data.body_ja.replace(/\n/g, '<br>')}
@@ -1384,13 +1445,16 @@
                         </div>
                     `;
 
+                    // C. Reset Scroll
                     document.querySelector('.modal-scroll').scrollTop = 0;
 
+                    // D. Show & Animate
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
-                    document.body.style.overflow = 'hidden'; 
-                    if(typeof lenis !== 'undefined') lenis.stop(); 
+                    document.body.style.overflow = 'hidden'; // Lock Body Scroll
+                    if(typeof lenis !== 'undefined') lenis.stop(); // Stop Smooth Scroll
 
+                    // GSAP Entrance
                     gsap.killTweensOf([modalBg, modalPanel]);
                     gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
                     gsap.fromTo(modalPanel, 
@@ -1423,13 +1487,12 @@
                 });
             };
 
+            // 5. Event Listeners for Close
             modalCloseBtn.addEventListener('click', closeModal);
             modalBg.addEventListener('click', closeModal);
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && isModalOpen) closeModal();
             });
-
-            // ▲▲▲▲▲ ここまで貼り付け ▲▲▲▲▲
         });
         
     </script>
