@@ -173,27 +173,21 @@
             -webkit-backdrop-filter: blur(16px);
         }
 
-        /* Modal Scrollbar: ミニマルで未来的 */
-        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        /* ▼▼▼▼▼ 変更: スクロールバーの視認性と操作性を向上 ▼▼▼▼▼ */
+        /* 以前の細すぎる4pxから、操作しやすい幅へ変更し、ホバー効果を追加 */
+        .modal-scroll::-webkit-scrollbar { width: 8px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
-        .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.4); border-radius: 10px; }
-
-        /* ▼▼▼▼▼ 変更: 透かし（Watermark）のスタイル定義を追加 ▼▼▼▼▼ */
-        .modal-watermark {
-            position: absolute;
-            bottom: -2rem;
-            right: 1rem;
-            font-family: 'Lora', serif;
-            font-style: italic;
-            font-size: 12rem;
-            line-height: 1;
-            color: #0f3c85; /* bizAccent */
-            opacity: 0.04;
-            pointer-events: none;
-            z-index: 0;
-            user-select: none;
+        .modal-scroll::-webkit-scrollbar-thumb { 
+            background-color: rgba(15, 60, 133, 0.3); 
+            border-radius: 10px; 
+            border: 2px solid transparent; 
+            background-clip: content-box; /* 余白を作って美しく */
         }
-        /* ▲▲▲▲▲ */
+        .modal-scroll::-webkit-scrollbar-thumb:hover { 
+            background-color: rgba(15, 60, 133, 0.6); /* ホバー時に濃くする */
+        }
+
+        /* ▼▼▼▼▼ 削除: .modal-watermark の定義を削除しました ▼▼▼▼▼ */
         
         /* Modal Language Logic: サイト全体の言語設定(.is-global)と連動 */
         /* Default (Japanese Mode): Hide English */
@@ -1200,7 +1194,6 @@
         <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
         <!-- 2. Modal Card -->
-        <!-- 変更点: flex-col と max-h を維持しつつ、内部スクロールを確実に動作させる構造へ -->
         <div id="modal-panel" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5">
             
             <!-- Top Gradient Line -->
@@ -1217,27 +1210,20 @@
             </div>
 
             <!-- Scrollable Body -->
-            <!-- 変更点: flex-1 と min-h-0 を追加してFlexbox内でのスクロールを強制 -->
-            <!-- 変更点: 透かし(Watermark)をここへ移動し、absolute配置 -->
-            <div class="modal-scroll flex-1 min-h-0 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain">
+            <!-- 変更点: flex-1, min-h-0 でスクロール領域を確保。overscroll-containで親スクロールへの伝播を防止 -->
+            <div class="modal-scroll flex-1 min-h-0 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain" tabindex="0">
                 
-                <!-- Background Decoration (Watermark) -->
-                <!-- 変更点: CSSクラス modal-watermark を適用 -->
-                <div class="modal-watermark">"</div>
+                <!-- ▼▼▼▼▼ 変更: 透かし要素（Watermark）を削除しました ▼▼▼▼▼ -->
 
                 <!-- Content Container -->
-                <!-- 変更点: 上部の余白を調整 (py-6 -> pt-6 pb-12) -->
-                <div id="modal-content" class="relative z-10 px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
+                <!-- 変更点: pt-6 を pt-0 に変更し、mt-5 でボーダーとの適度な距離（余計な空白なし）を設定 -->
+                <div id="modal-content" class="relative z-10 px-6 pt-0 mt-5 pb-12 md:px-8 md:mt-6 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
                     <!-- Dynamic Content -->
                 </div>
             </div>
-
-            <!-- Footer Area Removed -->
-            <!-- フッター削除済み -->
         </div>
     </div>
     <!-- ▲▲▲▲▲ INSERT END ▲▲▲▲▲ -->
-
 
     <!-- GSAP & Lenis (Defer loading) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
