@@ -166,6 +166,30 @@
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-scrolling iframe { pointer-events: none; }
 
+        /* Modal Backdrop: 深淵なボケとノイズ */
+        .modal-backdrop {
+            background: rgba(5, 10, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Modal Scrollbar: ミニマルで未来的 */
+        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.4); border-radius: 10px; }
+
+        /* Modal Language Logic: サイト全体の言語設定(.is-global)と連動 */
+        /* Default (Japanese Mode): Hide English */
+        #modal-content .lang-en { display: none; }
+        #modal-content .lang-ja { display: block; }
+
+        /* Global (English Mode): Hide Japanese, Show English */
+        html.is-global #modal-content .lang-ja { display: none !important; }
+        html.is-global #modal-content .lang-en { display: block !important; }
+
+        /* Interactive Cursor for Triggers */
+        .js-modal-trigger { cursor: pointer; }
+
         /* Responsive Critical Styles (simulating Tailwind MD breakpoint) */
         @media (min-width: 768px) {
             .md\:py-32 { padding-top: 8rem; padding-bottom: 8rem; }
@@ -510,24 +534,25 @@
                     </div>
 
                     <!-- 02 -->
-                    <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
+                    <div data-modal-id="poker" class="js-modal-trigger group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start transition-all duration-300 hover:border-bizAccent/30">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">02</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
                             Game Theory & Strategic Decision
                         </h3>
-                        <div class="text-[15px] md:text-base text-gray-700 leading-relaxed font-normal">
-                            <!-- (中略: テキストそのまま) -->
-                            <p class="lang-ja">不確実性に耐え、ネガティブケイパビリティを醸成し...（略）</p>
-                            <p class="lang-en">I endure uncertainty, cultivate negative capability...（略）</p>
+                        <div class="text-[15px] md:text-base text-gray-700 leading-relaxed font-normal flex-grow">
+                            <p class="lang-ja">不確実性に耐え、ネガティブケイパビリティを醸成し、ゲーム理論と確率統計に基づく「冷徹な推論」の実践を行う。情報の非対称性が支配する環境下で、認知バイアスを排除し、数学的な期待値を最大化する意思決定プロセスを構築。ポーカーという「不完全情報の実験室」における成果（ROI 500%超）は、この論理的アプローチの堅牢さと、実社会への応用可能性を実証している。</p>
+                            <p class="lang-en">I endure uncertainty, cultivate negative capability, and practice "cold reasoning" grounded in game theory and probability statistics. In environments defined by information asymmetry, I construct decision-making processes that eliminate cognitive bias and maximize mathematical expected value. My performance in the "laboratory of incomplete information" known as poker (ROI >500%) demonstrates the robustness of this logical approach and its practical applicability to real-world strategy.</p>
                         </div>
-                        <!-- View More Badge -->
-                        <div class="mt-auto pt-4 flex justify-end">
-                            <span class="text-[10px] font-bold text-bizAccent border border-bizAccent/20 bg-bizAccent/5 px-2 py-1 rounded transition-colors group-hover:bg-bizAccent group-hover:text-white">
-                                <i class="fa-solid fa-plus mr-1"></i> VIEW CASE STUDY
+                        
+                        <!-- Visual Hint: View Case Study -->
+                        <div class="mt-6 pt-4 border-t border-dashed border-gray-100 flex justify-end">
+                            <span class="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest text-bizAccent uppercase opacity-70 group-hover:opacity-100 transition-opacity">
+                                <span class="w-1.5 h-1.5 bg-bizAccent rounded-full animate-pulse"></span>
+                                View Case Study
+                                <i class="fa-solid fa-expand ml-1"></i>
                             </span>
                         </div>
                     </div>
-
                     <!-- 03 -->
                     <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">03</span>
@@ -756,99 +781,105 @@
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Marketing & Strategy</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
-                            <!-- Project 1 -->
-                            <div data-modal-id="noguchi" class="js-modal-trigger cursor-pointer hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-                                <div class="flex justify-between items-start mb-2 gap-4">
-                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
-                                        <span class="lang-ja">野口ゼミ x 理想科学工業株式会社マーケティング戦略コンペティション</span>
-                                        <span class="lang-en">Noguchi Seminar x Riso Kagaku Corp. Marketing Strategy Competition</span>
-                                    </h3>
-                                    <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider whitespace-nowrap shrink-0">
-                                        <span class="lang-ja">最優秀賞</span>
-                                        <span class="lang-en">First Prize</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">SNSデータの多変量解析により、直感に頼らない「勝ちパターン」を導出。製品特性と市場ニーズを論理的に結びつけたプロモーション戦略を立案。</span>
-                                    <span class="lang-en">Identified key success factors through multivariate analysis of social media data. Formulated a logical promotion strategy connecting product characteristics with market needs.</span>
-                                </p>
-                            </div>
-                            <!-- Project 2 -->
-                             <div data-modal-id="bizplan" class="js-modal-trigger cursor-pointer hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-                                <div class="flex flex-row justify-between items-start mb-2 gap-3">
-                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
-                                        <span class="lang-ja">第6回 創造力、無限大 高校生ビジネスプラン・グランプリ2018</span>
-                                        <span class="lang-en">6th High School Business Plan Grand Prix 2018</span>
-                                    </h3>
-                                    <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
-                                        <span class="lang-ja">東京都産業<br class="md:hidden">労働局長賞</span>
-                                        <span class="lang-en">Tokyo Industrial<br class="md:hidden">Affairs Award</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">日本政策金融公庫主催。応募総数4,359件より選出（トップ100入賞・東京大会準優勝）。</span>
-                                    <span class="lang-en">Organized by Japan Finance Corporation (JFC). Selected from 4,359 entries (Top 100 & Runner-up in Tokyo Tournament).</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Design & Media -->
-                    <div>
-                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Design & Media</h4>
-                        <div class="grid grid-cols-1 gap-5 md:gap-6">
-                            <!-- Project 3 -->
-                            <div data-modal-id="pivot" class="js-modal-trigger cursor-pointer hover-card p-6 md:-ml-4 rounded-xl border border-transparent hover:border-gray-100 group">
-                                <h3 class="text-lg font-bold mb-2 group-hover:text-bizAccent transition-colors">
-                                    <span class="lang-ja">
-                                        <span class="inline-block">早稲田大学 x PIVOT Inc.</span>
-                                        <span class="inline-block">共同プロジェクト｜実行委員</span>
-                                    </span>
-                                    <span class="lang-en">
-                                        <span class="inline-block">Waseda Univ. x PIVOT Inc. Project |</span>
-                                        <span class="inline-block">Executive Committee</span>
-                                    </span>
-                                </h3>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。</span>
-                                    <span class="lang-en">Managed negotiations and project coordination between stakeholders for a collaboration between Waseda University and PIVOT, a business video media company.</span>
-                                </p>
-                            </div>
-                            <!-- Project 4 -->
-                            <div data-modal-id="brand" class="js-modal-trigger cursor-pointer hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-                                <div class="flex justify-between items-start mb-2 gap-4">
-                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
-                                        <span class="lang-ja">第10回「あなたの考えるブランドラベル・コンテスト」</span>
-                                        <span class="lang-en">10th “Design Your Own Brand Label” Contest</span>
-                                    </h3>
-                                    <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider whitespace-nowrap shrink-0">
-                                        <span class="lang-ja">Top 40 入選</span>
-                                        <span class="lang-en">Selected Top 40</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">3Dプリンターと生分解性の天然素材を用いたアパレルブランドのコンセプト設計およびプロトタイプ制作。東京ビッグサイトにて展示。</span>
-                                    <span class="lang-en">Designed a concept and prototyped an apparel brand using 3D printing and biodegradable natural materials. Exhibited at Tokyo Big Sight.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Academic & Writing -->
-                    <div>
-                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
-                        <div class="grid grid-cols-1 gap-5 md:gap-6">
-                            <!-- Project 5: Essay Contest -->
-<!-- ▼▼▼▼▼ 変更: <a>タグから <div>タグへ変更。hrefを削除し、data-modal-idを追加 ▼▼▼▼▼ -->
-<div data-modal-id="essay" class="js-modal-trigger cursor-pointer hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative overflow-hidden">
-    
-    <!-- 背景の装飾（そのまま） -->
-    <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-[0.03] text-bizAccent font-serif italic pointer-events-none select-none group-hover:opacity-[0.07] transition-opacity duration-700">
-        "
+                            <!-- Project 1 (野口ゼミ) -->
+    <!-- ▼▼▼▼▼ ここを書き換えます ▼▼▼▼▼ -->
+    <div data-modal-id="noguchi" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative cursor-pointer">
+        <!-- Click Feedback Overlay (追加) -->
+        <div class="absolute inset-0 bg-bizAccent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+        
+        <div class="flex justify-between items-start mb-2 gap-4">
+            <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
+                <span class="lang-ja">野口ゼミ x 理想科学工業株式会社マーケティング戦略コンペティション</span>
+                <span class="lang-en">Noguchi Seminar x Riso Kagaku Corp. Marketing Strategy Competition</span>
+            </h3>
+            <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider whitespace-nowrap shrink-0">
+                <span class="lang-ja">最優秀賞</span>
+                <span class="lang-en">First Prize</span>
+            </span>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">
+            <span class="lang-ja">SNSデータの多変量解析により、直感に頼らない「勝ちパターン」を導出。製品特性と市場ニーズを論理的に結びつけたプロモーション戦略を立案。</span>
+            <span class="lang-en">Identified key success factors through multivariate analysis of social media data. Formulated a logical promotion strategy connecting product characteristics with market needs.</span>
+        </p>
+        <!-- Visual Icon (追加) -->
+        <i class="fa-solid fa-plus absolute bottom-4 right-4 text-gray-200 group-hover:text-bizAccent transition-colors text-sm"></i>
     </div>
+                            <!-- Project 2 -->
+                             <div data-modal-id="bizplan" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative cursor-pointer">
+         <!-- Click Feedback Overlay (追加) -->
+        <div class="absolute inset-0 bg-bizAccent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
 
-    <!-- タイトルと受賞バッジ（そのまま） -->
+        <div class="flex flex-row justify-between items-start mb-2 gap-3">
+            <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
+                <span class="lang-ja">第6回 創造力、無限大 高校生ビジネスプラン・グランプリ2018</span>
+                <span class="lang-en">6th High School Business Plan Grand Prix 2018</span>
+            </h3>
+            <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
+                <span class="lang-ja">東京都産業<br class="md:hidden">労働局長賞</span>
+                <span class="lang-en">Tokyo Industrial<br class="md:hidden">Affairs Award</span>
+            </span>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">
+            <span class="lang-ja">日本政策金融公庫主催。応募総数4,359件より選出（トップ100入賞・東京大会準優勝）。</span>
+            <span class="lang-en">Organized by Japan Finance Corporation (JFC). Selected from 4,359 entries (Top 100 & Runner-up in Tokyo Tournament).</span>
+        </p>
+        <!-- Visual Icon (追加) -->
+        <i class="fa-solid fa-plus absolute bottom-4 right-4 text-gray-200 group-hover:text-bizAccent transition-colors text-sm"></i>
+    </div>
+</div> <!-- gridの閉じタグ -->
+                            <!-- Project 3 -->
+                           <div data-modal-id="pivot" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl border border-transparent hover:border-gray-100 group relative cursor-pointer">
+        <!-- Click Feedback Overlay (追加) -->
+        <div class="absolute inset-0 bg-bizAccent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+        
+        <h3 class="text-lg font-bold mb-2 group-hover:text-bizAccent transition-colors">
+            <span class="lang-ja">
+                <span class="inline-block">早稲田大学 x PIVOT Inc.</span>
+                <span class="inline-block">共同プロジェクト｜実行委員</span>
+            </span>
+            <span class="lang-en">
+                <span class="inline-block">Waseda Univ. x PIVOT Inc. Project |</span>
+                <span class="inline-block">Executive Committee</span>
+            </span>
+        </h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+            <span class="lang-ja">ビジネス映像メディアPIVOTと早稲田大学のコラボレーション企画において、ステークホルダー間の交渉・調整およびプロジェクトマネジメントを担当。</span>
+            <span class="lang-en">Managed negotiations and project coordination between stakeholders for a collaboration between Waseda University and PIVOT, a business video media company.</span>
+        </p>
+        <!-- Visual Icon (追加) -->
+        <i class="fa-solid fa-plus absolute bottom-4 right-4 text-gray-200 group-hover:text-bizAccent transition-colors text-sm"></i>
+    </div>
+                            <!-- Project 4 -->
+                           <div data-modal-id="brand" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative cursor-pointer">
+        <!-- Click Feedback Overlay (追加) -->
+        <div class="absolute inset-0 bg-bizAccent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+        
+        <div class="flex justify-between items-start mb-2 gap-4">
+            <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
+                <span class="lang-ja">第10回「あなたの考えるブランドラベル・コンテスト」</span>
+                <span class="lang-en">10th “Design Your Own Brand Label” Contest</span>
+            </h3>
+            <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider whitespace-nowrap shrink-0">
+                <span class="lang-ja">Top 40 入選</span>
+                <span class="lang-en">Selected Top 40</span>
+            </span>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">
+            <span class="lang-ja">3Dプリンターと生分解性の天然素材を用いたアパレルブランドのコンセプト設計およびプロトタイプ制作。東京ビッグサイトにて展示。</span>
+            <span class="lang-en">Designed a concept and prototyped an apparel brand using 3D printing and biodegradable natural materials. Exhibited at Tokyo Big Sight.</span>
+        </p>
+        <!-- Visual Icon (追加) -->
+        <i class="fa-solid fa-plus absolute bottom-4 right-4 text-gray-200 group-hover:text-bizAccent transition-colors text-sm"></i>
+    </div>
+</div> <!-- gridの閉じタグ -->
+                            <!-- Project 5: Essay Contest -->
+<!-- ▼▼▼▼▼ 変更: <a>タグから<div>へ変更、href削除、js-modal-trigger追加 ▼▼▼▼▼ -->
+<div data-modal-id="essay" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative overflow-hidden cursor-pointer">
+    <!-- 背景装飾 -->
+    <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-[0.03] text-bizAccent font-serif italic pointer-events-none select-none group-hover:opacity-[0.07] transition-opacity duration-700">"</div>
+
     <div class="flex flex-row justify-between items-start mb-2 gap-3 relative z-10">
+        <!-- (タイトル等はそのまま) -->
         <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
             <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
             <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
@@ -858,75 +889,61 @@
             <span class="lang-en">Chairman's Award</span>
         </span>
     </div>
-
-    <!-- 本文（そのまま） -->
     <p class="text-sm text-gray-600 leading-relaxed relative z-10">
         <span class="lang-ja">サルトル、ハイデガー、レヴィナスら実存哲学を援用し、現代における「労働」の本質を問うエッセイを執筆。応募総数1,112編より「特選」を受賞。</span>
         <span class="lang-en">Authored an essay interrogating the essence of modern labor by drawing upon the existential philosophies of Sartre, Heidegger, and Levinas. Awarded "Special Selection" out of 1,112 entries.</span>
     </p>
 
-    <!-- ▼▼▼▼▼ 下部のアクションボタン部分（リンクではなくモーダル起動用の見た目に変更） ▼▼▼▼▼ -->
+    <!-- 下部ボタン：<a>から<div>へ変更 -->
     <div class="mt-6 flex justify-end items-end relative z-20">
-        <!-- 元は <a> でしたが、親要素がクリックを受け付けるので、ここは単なる見た目上の装飾（div）にします -->
         <div class="group/nudge relative inline-flex items-center p-1 pr-2 rounded-full bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-bizAccent/30 hover:bg-white hover:shadow-[0_8px_30px_-6px_rgba(15,60,133,0.2)] hover:-translate-y-0.5">
-            
-            <!-- アイコンサークル -->
+            <!-- (アイコン・テキスト部分はそのまま) -->
             <span class="relative w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-sm border border-slate-100 overflow-hidden shrink-0 group-hover/nudge:border-bizAccent/20 transition-colors duration-500">
                 <span class="absolute inset-0 bg-bizAccent/10 rounded-full animate-ping opacity-0 group-hover/nudge:opacity-100 duration-1000"></span>
-                <!-- アイコン: ペン → 拡大アイコンへ変更 -->
                 <i class="fa-solid fa-pen-nib text-slate-400 text-sm absolute transition-all duration-300 group-hover/nudge:opacity-0 group-hover/nudge:scale-50"></i>
-                <i class="fa-solid fa-expand text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
+                <i class="fa-solid fa-book-open text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
             </span>
-
-            <!-- テキストエリア -->
             <div class="ml-3 mr-2 flex flex-col justify-center">
                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 flex items-center gap-1.5">
-                    <i class="fa-regular fa-file-lines text-[8px]"></i> 
-                    <span>SYNOPSIS</span>
+                    <i class="fa-regular fa-clock text-[8px]"></i> <span>READ ESSAY</span>
                 </span>
-                
                 <span class="text-xs font-bold text-slate-700 leading-none group-hover/nudge:text-bizAccent transition-colors duration-300 flex items-center gap-1">
-                    <span class="lang-ja">詳細を読む</span>
-                    <span class="lang-en">Read More</span>
-                    <i class="fa-solid fa-plus opacity-0 -ml-2 text-bizAccent group-hover/nudge:opacity-100 group-hover/nudge:ml-1 transition-all duration-300 ease-out"></i>
+                    <span class="lang-ja">作品を読む</span>
+                    <span class="lang-en">Read Work</span>
+                    <i class="fa-solid fa-arrow-right-long opacity-0 -ml-2 text-bizAccent group-hover/nudge:opacity-100 group-hover/nudge:ml-1 transition-all duration-300 ease-out"></i>
                 </span>
             </div>
-
-            <!-- 光のシマーエフェクト -->
+            <!-- Shimmer -->
             <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                 <div class="absolute top-0 bottom-0 left-[-100%] w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12 group-hover/nudge:animate-[shimmer_1.5s_infinite]"></div>
             </div>
         </div>
     </div>
-    
-    <!-- ここにあった <style> タグはHTMLの他の場所（head内など）にあれば削除しても動きますが、念のため残しておいても問題ありません -->
-    <style>
-        @keyframes shimmer {
-            100% { left: 200%; }
-        }
-    </style>
 </div>
                             <!-- Project 6 -->
-                            <div data-modal-id="social" class="js-modal-trigger cursor-pointer hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
-                                <div class="flex justify-between items-start mb-2 gap-4">
-                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
-                                        <span class="lang-ja">早稲田大学 社会科学部「社会デザイン論入門」レポートコンペティション</span>
-                                        <span class="lang-en">Waseda Univ. "Social Design 101" Report Competition</span>
-                                    </h3>
-                                    <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider whitespace-nowrap shrink-0">
-                                        <span class="lang-ja">優秀賞</span>
-                                        <span class="lang-en">Excellence Award</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">Web3技術を活用した新しいコワーキングスペースの概念実証・社会実装プランを提案。</span>
-                                    <span class="lang-en">Proposed a plan for the Proof of Concept (PoC) and real-world deployment of a new coworking space leveraging Web3 technologies.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+<div data-modal-id="social" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative cursor-pointer">
+    <!-- クリック時のフィードバック用オーバーレイ -->
+    <div class="absolute inset-0 bg-bizAccent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+    
+    <div class="flex justify-between items-start mb-2 gap-4">
+        <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
+            <span class="lang-ja">早稲田大学 社会科学部「社会デザイン論入門」レポートコンペティション</span>
+            <span class="lang-en">Waseda Univ. "Social Design 101" Report Competition</span>
+        </h3>
+        <span class="text-[10px] md:text-xs font-bold bg-bizAccent text-white px-3 py-1 rounded shadow-sm tracking-wider whitespace-nowrap shrink-0">
+            <span class="lang-ja">優秀賞</span>
+            <span class="lang-en">Excellence Award</span>
+        </span>
+    </div>
+    <p class="text-sm text-gray-600 leading-relaxed">
+        <span class="lang-ja">Web3技術を活用した新しいコワーキングスペースの概念実証・社会実装プランを提案。</span>
+        <span class="lang-en">Proposed a plan for the Proof of Concept (PoC) and real-world deployment of a new coworking space leveraging Web3 technologies.</span>
+    </p>
+    
+    <!-- 右下のプラスアイコン -->
+    <i class="fa-solid fa-plus absolute bottom-4 right-4 text-gray-200 group-hover:text-bizAccent transition-colors text-sm"></i>
+</div>
+    </section>
 
            <!-- ================= FORTE ================= -->
             <section class="fade-in pt-12">
@@ -1158,41 +1175,43 @@
 
     </div>
 
+    <!-- ▼▼▼▼▼ INSERT START: GLOBAL MODAL SYSTEM ▼▼▼▼▼ -->
     <div id="global-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" aria-hidden="true">
-        <!-- Backdrop -->
-        <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500"></div>
+        
+        <!-- 1. Blur Backdrop (Glassmorphism) -->
+        <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
-        <!-- Modal Card -->
-        <div id="modal-panel" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 transform transition-all duration-500 flex flex-col max-h-[85vh] md:max-h-[80vh]">
+        <!-- 2. Modal Card -->
+        <div id="modal-panel" class="relative w-full max-w-2xl bg-[#ffffff] rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5">
             
-            <!-- Decorative Top Line -->
-            <div class="h-1.5 w-full bg-gradient-to-r from-bizAccent via-indigo-500 to-cyan-400"></div>
+            <!-- Top Gradient Line -->
+            <div class="h-1.5 w-full bg-gradient-to-r from-bizAccent via-indigo-500 to-cyan-400 shrink-0"></div>
 
-            <!-- Header -->
-            <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white z-10 shrink-0">
-                <div class="pr-8">
-                    <p id="modal-subtitle" class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-2"></p>
-                    <h3 id="modal-title" class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight"></h3>
+            <!-- Header Area -->
+            <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white/80 backdrop-blur-sm z-20 shrink-0 relative">
+                <div class="pr-8" id="modal-header-content">
+                    <!-- JS Injects Title Here -->
                 </div>
-                <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 shrink-0 outline-none">
+                <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all duration-300 shrink-0 outline-none border border-transparent hover:border-red-100">
                     <i class="fa-solid fa-xmark text-lg transition-transform duration-300 group-hover:rotate-90"></i>
                 </button>
             </div>
 
-            <!-- Scrollable Content -->
-            <div class="modal-scroll overflow-y-auto px-6 py-6 md:px-8 md:py-8 bg-[#fdfdfd] relative overscroll-contain">
-                <!-- Watermark (Decorative) -->
-                <div class="absolute top-10 right-10 text-[8rem] opacity-[0.02] font-serif font-bold text-bizAccent pointer-events-none select-none">
-                    "
+            <!-- Scrollable Body -->
+            <div class="modal-scroll overflow-y-auto px-6 py-6 md:px-8 md:py-8 bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain flex-grow">
+                <!-- Background Decoration (Watermark) -->
+                <div class="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none select-none">
+                    <i class="fa-solid fa-quote-right text-8xl text-bizAccent"></i>
                 </div>
 
-                <div id="modal-body" class="relative z-10 text-[15px] leading-7 md:text-base md:leading-8 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line">
-                    <!-- Content injected by JS -->
+                <!-- Content Container (JS Injects Here) -->
+                <div id="modal-content" class="relative z-10 text-[15px] leading-7 md:text-[16px] md:leading-8 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
+                    <!-- Dynamic Content -->
                 </div>
             </div>
 
-            <!-- Footer / Action Area -->
-            <div class="px-6 py-4 md:px-8 bg-gray-50 border-t border-gray-100 flex justify-between items-center shrink-0 text-xs text-gray-400 font-mono">
+            <!-- Footer Area -->
+            <div class="px-6 py-3 md:px-8 bg-gray-50 border-t border-gray-100 flex justify-between items-center shrink-0 text-[10px] text-gray-400 font-mono uppercase tracking-widest">
                 <span>// PROJECT_ARCHIVE</span>
                 <span class="flex items-center gap-2">
                     <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
@@ -1201,6 +1220,7 @@
             </div>
         </div>
     </div>
+    <!-- ▲▲▲▲▲ INSERT END ▲▲▲▲▲ -->
 
 
     <!-- GSAP & Lenis (Defer loading) -->
@@ -1315,140 +1335,79 @@
                 });
             }
 
-            // --- ▼▼▼▼▼ 追加コード START: Modal Logic ▼▼▼▼▼ ---
+             // ▼▼▼▼▼ ここに貼り付け ▼▼▼▼▼
             
-            // 1. Content Data (Provided Text)
+            // 1. Data Source (JP / EN Separate)
             const modalData = {
-                "noguchi": {
-                    subtitle: { ja: "マーケティング戦略", en: "Marketing Strategy" },
-                    title: { ja: "野口ゼミ×理想科学工業\nマーケティング戦略コンペティション", en: "Noguchi Seminar × Riso Kagaku\nMarketing Strategy Competition" },
-                    body: {
-                        ja: `2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社様の「MiScreen A4」マーケティング戦略コンペティションに取り組みました。このプロジェクトにおいて私たちは、感覚的なアイデア出しに依存せず、確固たる「根拠」に基づく戦略立案を徹底しました。\n\nまず、チーム全体で、理想科学工業株式会社様が行っているSNSでの広報活動状況に関する膨大なデータを収集・整理。動画のクリエイティブ要素を詳細に分解。その中でも既存のSNS投稿におけるPV数やリアクションの違いに着目し、多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出しました。これにより、感覚に頼らない客観的根拠のある勝ちパターンを導出し、チームの共通認識として確立しました。\n\nそのデータを基に、「MiScreen A4」の強みである「ものづくり体験価値」と最も合致する市場として、国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。`,
-                        en: `In 2024, as part of the Tomoo Noguchi Seminar at the Waseda University School of Social Sciences, I participated in a marketing strategy competition for Riso Kagaku Corporation’s "MiScreen A4." Our project was defined by a rigorous commitment to evidence-based strategy, rejecting reliance on purely intuitive brainstorming.\n\nOur team began by collecting and organizing a vast amount of data regarding the client's existing social media presence. We deconstructed the creative elements of their video content and focused on the variance in page views (PV) and engagement metrics across existing posts. Utilizing Quantification Theory Type I (a method of multivariate analysis), we calculated the specific impact of each creative element. This allowed us to derive an objective "winning pattern" backed by data, establishing a unified strategic vision for the team.\n\nBased on this analysis, we identified art museums (both domestic and international) as the market that best aligned with the product's unique value proposition of "creative manufacturing experiences." We developed a targeted strategy for this niche, ultimately winning the Grand Prix.`
-                    }
-                },
-                "essay": {
-                    subtitle: { ja: "エッセイコンテスト", en: "Essay Contest" },
-                    title: { ja: "第36回「働くってなんだろう」\nエッセイコンテスト", en: "36th 'What is Work?' Essay Contest" },
-                    body: {
-                        ja: `2023年、「働くってなんだろう」エッセイコンテストにて、総応募数1,112編の中から特選として「勤労青少年躍進会理事長賞」を受賞。GPT-4と私の共作を示すペンネーム、「風織ケン」を使用しました。\n\n本作は、ゴミが散乱する早朝の新宿を目撃した際の実体験から構想を得たフィクションです。物語の舞台は、都市の喧騒と静寂が入れ替わる夜明け前。誰にも見とめられることのない「清掃員」という労働に、実存的な光を当てました。\n\n執筆にあたっては、単なる労働賛歌に留まらないよう、サルトルの他者論、ハイデガーの存在論、レヴィナスの倫理や西田幾多郎の「純粋経験」といった哲学的要素を物語の骨格に採用。「汚れたものを片付ける」という行為を、他者への根源的な責任や、意識が介在する前の、行為そのものと完全に一体化する体験を描写し、労働が持つ「愛」と「尊厳」を描き出しました。\n\n<a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="inline-flex items-center gap-2 mt-4 text-bizAccent font-bold hover:underline"><i class="fa-solid fa-external-link-alt"></i> 原文を読む (Official Site)</a>`,
-                        en: `In 2023, my essay was selected for the "Special Selection: Chairman’s Award" from 1,112 entries in the "What is Work?" essay contest. I submitted the piece under the pen name "Ken Kazaori" to signify a co-authorship with GPT-4.\n\nThe work is a piece of fiction inspired by a real-life experience witnessing the scattered trash of Shinjuku in the early morning. Set in the fleeting moments before dawn—where the city’s bustle swaps places with silence—the story casts an existential light on the often-overlooked labor of sanitation workers.\n\nTo ensure the piece transcended a simple ode to labor, I integrated philosophical frameworks into the narrative backbone, drawing on Sartre’s theory of the Other, Heidegger’s ontology, Levinas’s ethics, and Kitaro Nishida’s concept of "Pure Experience." I depicted the act of "cleaning away the dirty" not just as a job, but as a fundamental responsibility to others and a state of complete unity between action and consciousness. Through this, I aimed to portray the intrinsic love and dignity found within labor.\n\n<a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" class="inline-flex items-center gap-2 mt-4 text-bizAccent font-bold hover:underline"><i class="fa-solid fa-external-link-alt"></i> Read Original (Japanese)</a>`
-                    }
-                },
-                "brand": {
-                    subtitle: { ja: "プロダクトデザイン", en: "Product Design" },
-                    title: { ja: "第10回 あなたが考える\nブランドラベルコンテスト", en: "10th 'Design Your Own Brand Label' Contest" },
-                    body: {
-                        ja: `2023年、東京吉岡株式会社主催「第10回あなたが考えるブランドラベルコンテスト」において、応募総数520点の中からTOP40に入選し、東京ビッグサイトにて展示されました。\n\n制作したのは、架空のアパレルブランド「ONESAGE」のブランドタグです。ブランド名は「お値下げ（O-nesage）」と、賢者を意味する「Sage」を掛け合わせたダブルミーニング。素材には生分解性プラスチックを100%使用し、環境にやさしい素材を用いたブランドを購入する顧客を「1人の賢人（One sage)」として讃えました。\n\nその方面に精通している友人の力も借り、3Dプリンターによる積層造形で「朽ちていく美しさ」を表現。デジタルファブリケーション技術を用いて、環境負荷とデザインの融合を試みました。本番の展示では、輸送中のトラブルにより塗装の一部が剥がれるアクシデントに見舞われ、受賞を逃しました。しかし、完全な状態で展示できなかった悔しさは、フィジカルなプロダクトにおける「耐久性」や「物流」までを含めたデザインの重要性を学ぶ、何よりの経験となりました。`,
-                        en: `In 2023, my submission for the "Design Your Own Brand Label Contest," hosted by Tokyo Yoshioka Co., Ltd., was selected as one of the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight.\n\nI designed a brand tag for a fictional apparel brand named "ONESAGE." The name is a double entendre combining the Japanese word for price reduction (O-nesage) with the English word Sage (a wise person). The concept honored customers who choose eco-friendly materials as "One Sage." Utilizing 100% biodegradable plastic, I collaborated with an expert in the field to use 3D printing (additive manufacturing) to express "decaying beauty." The project was an attempt to fuse environmental consciousness with design using digital fabrication technology.\n\nAlthough an accident during transport caused some paint to peel before the final exhibition—costing me a higher award—the frustration of not being able to exhibit the product in its perfect state became a valuable lesson. It taught me that design for physical products extends beyond aesthetics to include durability and logistics.`
-                    }
-                },
                 "poker": {
-                    subtitle: { ja: "ゲーム理論の実践", en: "Game Theory in Practice" },
-                    title: { ja: "海外ポーカー実践\n投資利益率 532%", en: "Overseas Poker Implementation\n532% ROI" },
-                    body: {
-                        ja: `2023年10月〜2024年2月にかけて、欧州留学中の私は「不確実な状況下における最適解の導出」をテーマに、ポーカー（ノーリミット・テキサスホールデム）を実践的なプロジェクトとして遂行しました。これは単なる遊興ではなく、確率・統計に基づくゲーム理論と、数十万ハンドの解析データに裏打ちされた戦略的投資です。\n\n学業という本分を遵守するため、「総プレイ時間 175時間52分」という厳格なリソース制限を設けつつ、世界8都市の異なるフィールド特性に適応しながら計26セッションを展開しました。結果、一時的な最高ROI（投資利益率）は927.125%を記録し、最終的に532%のROI、計€5,056（約90万8千円）の純利益を計上。時給換算で約5,200円（€28.75）という高水準なパフォーマンスを維持しました。感情を排し、期待値（EV）を積み上げるこのプロセスで培った冷徹な判断力とリスク管理能力は、現在のビジネスにおける戦略立案の礎となっています。\n\n<strong>>> FIELD_LOGS:</strong>\n🇩🇪 Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr\n🇫🇷 Paris 🇨🇭 Zürich 🇫🇮 Helsinki 🇧🇬 Sofia`,
-                        en: `From October 2023 to February 2024, while studying abroad in Europe, I executed a practical project centered on "deriving optimal solutions under uncertainty" through No-Limit Texas Hold'em. This was not mere gambling, but a strategic investment grounded in Game Theory, probability, statistics, and the analysis of hundreds of thousands of hands.\n\nStrictly adhering to my academic responsibilities, I set a rigid resource cap of "175 hours and 52 minutes of total play." I adapted to the specific field characteristics of eight different global cities across 26 sessions. The project yielded a temporary peak ROI (Return on Investment) of 927.125%, finishing with a final ROI of 532% and a net profit of €5,056 (approx. 908,000 JPY). This translated to a high-performance hourly rate of approximately €28.75. The process of eliminating emotion to consistently accumulate expected value honed the cold judgment and risk management skills that now form the foundation of my business strategy formulation.\n\n<strong>>> FIELD_LOGS:</strong>\n🇩🇪 Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr\n🇫🇷 Paris 🇨🇭 Zürich 🇫🇮 Helsinki 🇧🇬 Sofia`
-                    }
+                    // ... (長いデータ定義) ...
                 },
-                "pivot": {
-                    subtitle: { ja: "プロジェクトマネジメント", en: "Project Management" },
-                    title: { ja: "早稲田大学✕PIVOT株式会社\nコラボ企画動画実行委員", en: "Waseda University × PIVOT Inc.\nCollaboration Project Executive Committee" },
-                    body: {
-                        ja: `2022年、起業家精神（アントレプレナーシップ）の醸成を目的とする早稲田大学公認サークル「BEYOND 2020 NEXT PROJECT」の幹部として、ビジネス映像メディア「PIVOT」とのコラボレーション企画を主導しました。担当したのは、リアル投資ドキュメンタリー番組『ANGELS』の大学初となる公開収録イベントです。\n\n開催までの約4ヶ月間、実行委員としてPIVOT株式会社様および大学側との折衝を担当。企業が求める「クオリティ」と、大学という組織の「制約」の間に立ち、会場選定（井深大記念ホール）、集客導線の設計、当日のオペレーション構築までを完遂しました。三浦崇宏氏をはじめとする一流投資家と学生起業家が対峙したこのイベントは、満席となる約200名を動員。単なるイベント運営に留まらず、熱量の高い空間を創り出す「場づくり」のプロジェクトマネジメントに貢献しました。`,
-                        en: `In 2022, as a core member of the Waseda University officially recognized circle "BEYOND 2020 NEXT PROJECT," which focuses on fostering entrepreneurship, I led a collaboration with the business video media company PIVOT. I was responsible for organizing the university’s first public recording event for the real-investment documentary program, ANGELS.\n\nOver four months, I served as the liaison between PIVOT Inc. and the university administration. My role required bridging the gap between the "quality" demanded by a media enterprise and the "constraints" inherent to an academic institution. I successfully managed venue selection (Ibuka Masaru Memorial Hall), audience flow design, and on-the-day operations. The event, featuring top-tier investors like Takahiro Miura and student entrepreneurs, mobilized a full house of approximately 200 attendees. This experience went beyond event operations; it was a project in "placemaking"—creating a high-energy space where professional and academic worlds collide.`
-                    }
-                },
-                "social": {
-                    subtitle: { ja: "社会デザイン / Web3", en: "Social Design / Web3" },
-                    title: { ja: "「社会デザイン論入門」\nレポートコンペティション", en: "\"Introduction to Social Design\"\nReport Competition" },
-                    body: {
-                        ja: `2022年、早稲田大学社会科学部の学部長・教授陣が主催する「社会デザイン論入門」のレポートコンペティションにおいて、優秀賞を受賞しました。\n\nこのレポートでは、物理的なコワーキングスペースが抱える「ユーザーと運営者間の非対称性」という課題に焦点を当て、その解決策としてWeb3技術の統合を提唱しました。提案したモデルは、DAO（自律分散型組織）を運営の根幹に据えるものです。利用者がトークンエコノミーを通じてオーナーシップとガバナンスを獲得することで、空間の価値向上に主体的に参画。これにより、従来の「場を借りる」関係から脱却し、コミュニティの活性度そのものが資産として持続的に循環する新しいエコシステムを設計しました。\n\nWeb3の「信頼の分散」という思想をリアルの空間に実装し、「場所」と「コミュニティ」の境界線を再定義したこの提案は、技術のトレンドを単に追うのではなく、「テクノロジーで社会をどうデザインし直すか」という視点が評価されたものです。`,
-                        en: `In 2022, I received the Excellent Award in the report competition for "Introduction to Social Design," hosted by the Dean and professors of the Waseda University School of Social Sciences.\n\nMy report focused on the "asymmetry between users and operators" in physical coworking spaces. To resolve this, I proposed the integration of Web3 technology, specifically a model centered on a DAO (Decentralized Autonomous Organization). By acquiring ownership and governance rights through a token economy, users would proactively participate in increasing the space's value. This design aimed to dismantle the traditional "tenant-landlord" relationship, creating a new ecosystem where community activity itself circulates as a sustainable asset. This proposal was highly evaluated not for merely chasing technology trends, but for its perspective on "how to redesign society through technology," implementing the Web3 philosophy of "distributed trust" into a physical space.`
-                    }
-                },
-                "hiroo": {
-                    subtitle: { ja: "学術・プレゼンテーション", en: "Academic Presentation" },
-                    title: { ja: "広尾学園中学校学年プレゼンテーション大会\n最優秀賞", en: "Hiroo Gakuen Junior High School\nPresentation Competition Grand Prize" },
-                    body: {
-                        ja: `2017年、広尾学園中学校の全学年プレゼンテーション大会に出場し、1学年302名の中から最高位「プレゼン大賞」を受賞しました。\n\n発表タイトルは「『常識』から見る『進歩』とは何か」。このプレゼンテーションの核は、「常識」と見なされている集合知がいかに脆く、絶対的なものではないか、という強烈な問題提起でした。歴史的な事例として、ウェゲナーの大陸移動説や、ガリレオの地動説をめぐる宗教裁判を取り上げ、「常識」がいかに人の視界を狭めるトンネルビジョンであるかを訴えかけました。\n\nそして、既存の知識を疑い、根拠をもって真実を追求する批判的思考力の重要性を説きました。「当たり前」を問う洞察力と、歴史的事実に基づく論理的な説得力、加えてスライドを一度も見ずに観衆に語りかける独創的なプレゼンスタイルが、最高位受賞の要因となりました。`,
-                        en: `In 2017, I competed in the Hiroo Gakuen all-grade presentation tournament and won the top honor, the "Presentation Award," out of 302 students in my grade.\n\nMy title was "What is 'Progress' viewed through 'Common Sense'?" The core of the presentation was a strong provocation regarding how fragile collective "common sense" actually is. I utilized historical examples, such as Alfred Wegener’s Continental Drift theory and the trial of Galileo Galilei, to illustrate how "common sense" often acts as tunnel vision.\n\nI passionately argued for the importance of critical thinking—the ability to doubt existing values and pursue truth with evidence. The award was granted due to the depth of insight, logical persuasion based on historical fact, and a unique presentation style—never looking at the screen behind me, but engaging the audience directly.`
-                    }
-                },
-                "bizplan": {
-                    subtitle: { ja: "ビジネスプランコンテスト", en: "Business Plan Contest" },
-                    title: { ja: "第6回 創造力、無限大∞\n高校生ビジネスプラン・グランプリ2018", en: "6th High School Business Plan Grand Prix (2018)" },
-                    body: {
-                        ja: `2018年、日本政策金融公庫主催の大会において、総応募数4,359件の中からTOP100に選出。さらに東京都産業労働局長賞（2位）を受賞しました。\n\n提案したビジネスプランは、「'presst」と名付けた勉強型SNSサービスです。「スマートフォンが近くにあるだけで認知能力は低下する」という課題に対し、「SNSを学習の推進力に変える」という逆説的なアプローチを採用しました。\n\n「'presst」は、勉強の開始と終了時間を自動記録し、ハッシュタグと共に公開する仕組みを核としています。ユーザーは「友人が今、頑張っている姿」を可視化でき、ピア効果によって自律的な学習意欲を喚起します。プレゼンテーションでは、モックアップに加え、5年目で5,000万円の売上を見込む具体的な収益モデルと財務計画を提示。単なるアイデアではなく、プロダクトデザイン能力と事業計画能力を両立させた点が高く評価されました。`,
-                        en: `In 2018, in the "6th High School Business Plan Grand Prix" hosted by the Japan Finance Corporation, our business plan was selected in the TOP 100 out of 4,359 entries and received the Tokyo Bureau of Industrial and Labor Affairs Director General’s Award.\n\nOur proposal was a study-focused SNS named "'presst." Addressing the issue that smartphones reduce cognitive capacity, we adopted a paradoxical approach: "turning SNS into a driving force for learning."\n\nThe core mechanism automatically recorded study times and published them via hashtags. This visualized "friends working hard right now," stimulating autonomous motivation through the peer effect. In the presentation, alongside a product mockup, I presented a concrete revenue model projecting 50 million yen in sales by the fifth year. The project was highly praised for balancing creative product design capabilities with realistic business planning.`
-                    }
-                }
+                // ... (他のデータ) ...
             };
 
-            // 2. Elements
+            // 2. Elements & Logic
             const modal = document.getElementById('global-modal');
             const modalBg = document.getElementById('modal-bg');
             const modalPanel = document.getElementById('modal-panel');
-            const modalTitle = document.getElementById('modal-title');
-            const modalSubtitle = document.getElementById('modal-subtitle');
-            const modalBody = document.getElementById('modal-body');
+            const headerContent = document.getElementById('modal-header-content');
+            const modalContent = document.getElementById('modal-content');
             const modalCloseBtn = document.getElementById('modal-close-btn');
             const triggers = document.querySelectorAll('.js-modal-trigger');
 
             let isModalOpen = false;
 
-            // 3. Open Logic
+            // 3. Open Function
             triggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
-                    // もしトリガーの中にリンクやボタンがあれば、そちらの動作を優先したい場合は条件分岐
                     if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
                     
                     const id = trigger.getAttribute('data-modal-id');
                     const data = modalData[id];
                     if (!data) return;
 
-                    // Populate Content
-                    modalSubtitle.innerHTML = `
-                        <span class="lang-ja">${data.subtitle.ja}</span>
-                        <span class="lang-en">${data.subtitle.en}</span>
-                    `;
-                    modalTitle.innerHTML = `
-                        <span class="lang-ja">${data.title.ja.replace(/\n/g, '<br>')}</span>
-                        <span class="lang-en">${data.title.en.replace(/\n/g, '<br>')}</span>
-                    `;
-                    modalBody.innerHTML = `
-                        <span class="lang-ja block">${data.body.ja.replace(/\n/g, '<br>')}</span>
-                        <span class="lang-en block">${data.body.en.replace(/\n/g, '<br>')}</span>
+                    headerContent.innerHTML = `
+                        <div class="lang-ja">
+                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-2">${data.sub_ja}</p>
+                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight">${data.title_ja.replace(/\n/g, '<br>')}</h3>
+                        </div>
+                        <div class="lang-en">
+                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-2">${data.sub_en}</p>
+                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight">${data.title_en.replace(/\n/g, '<br>')}</h3>
+                        </div>
                     `;
 
-                    // Ensure lang visibility handles correctly
-                    const isGlobal = document.documentElement.classList.contains('is-global');
-                    // CSS handles visibility based on .is-global on html, so no extra JS needed here usually.
-                    // But we might need to scroll top
+                    modalContent.innerHTML = `
+                        <div class="lang-ja">
+                            ${data.body_ja.replace(/\n/g, '<br>')}
+                        </div>
+                        <div class="lang-en">
+                            ${data.body_en.replace(/\n/g, '<br>')}
+                        </div>
+                    `;
+
                     document.querySelector('.modal-scroll').scrollTop = 0;
 
-                    // Animation Open
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
-                    document.body.style.overflow = 'hidden'; // Stop background scroll
-                    if(typeof lenis !== 'undefined') lenis.stop(); // Stop Lenis
+                    document.body.style.overflow = 'hidden'; 
+                    if(typeof lenis !== 'undefined') lenis.stop(); 
 
-                    // GSAP Animation
-                    gsap.to(modalBg, { opacity: 1, duration: 0.4, ease: "power2.out" });
+                    gsap.killTweensOf([modalBg, modalPanel]);
+                    gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
                     gsap.fromTo(modalPanel, 
-                        { opacity: 0, scale: 0.95, y: 20 },
-                        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.2)" }
+                        { opacity: 0, scale: 0.9, y: 30, rotationX: 10 },
+                        { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: 0.6, ease: "back.out(1.2)" }
                     );
 
                     isModalOpen = true;
                 });
             });
 
-            // 4. Close Logic
+            // 4. Close Function
             const closeModal = () => {
                 if (!isModalOpen) return;
                 
-                gsap.to(modalBg, { opacity: 0, duration: 0.3, ease: "power2.in" });
+                gsap.to(modalBg, { opacity: 0, duration: 0.4, ease: "power2.in" });
                 gsap.to(modalPanel, { 
                     opacity: 0, 
                     scale: 0.95, 
@@ -1471,7 +1430,7 @@
                 if (e.key === 'Escape' && isModalOpen) closeModal();
             });
 
-            // --- ▲▲▲▲▲ 追加コード END ▲▲▲▲▲ ---
+            // ▲▲▲▲▲ ここまで貼り付け ▲▲▲▲▲
         });
         
     </script>
