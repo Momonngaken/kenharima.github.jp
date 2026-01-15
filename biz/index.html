@@ -218,6 +218,47 @@
             .md\:h-11 { height: 2.75rem; }
             .md\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
         }
+        /* ▼▼▼ 追加: クリエイティブ・ナッジデザイン ▼▼▼ */
+        
+        /* 1. テキスト選択色: 視認性の高いシアンと濃紺のコントラスト */
+        ::selection { background-color: #a5f3fc; color: #0f172a; } 
+        ::-moz-selection { background-color: #a5f3fc; color: #0f172a; }
+
+        /* 2. 読了プログレスバー */
+        .reading-progress-bar {
+            position: absolute; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, #0f3c85, #06b6d4);
+            width: 0%; z-index: 50; transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        /* 3. 蛍光マーカー風ハイライト (スクロールで発火させるための準備) */
+        .nudge-marker {
+            background: linear-gradient(120deg, rgba(165, 243, 252, 0) 0%, rgba(165, 243, 252, 0) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background 0.8s ease-out;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .nudge-marker.active {
+            background: linear-gradient(120deg, rgba(165, 243, 252, 0.6) 0%, rgba(6, 182, 212, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+        }
+
+        /* 4. スクロールヒント (続きがあることを示唆) */
+        .scroll-hint-overlay {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.95));
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* モーダル本文の可読性向上 */
+        .modal-text-body p { margin-bottom: 1.5em; letter-spacing: 0.03em; }
+        .modal-text-body strong { color: #0f3c85; font-weight: 700; }
     </style>
     
     <noscript>
@@ -307,8 +348,7 @@
     }
     </script>
 </head>
-<body class="antialiased selection:bg-bizAccent selection:text-white">
-
+<body class="antialiased">
     <div class="max-w-4xl mx-auto px-6 py-12 md:py-32">
 
         <!-- ================= HEADER ================= -->
@@ -1194,12 +1234,14 @@
         <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
         <!-- 2. Modal Card -->
-        <!-- ▼▼▼▼▼ 変更: tabindex="-1" と outline-none を追加し、JSからのフォーカスを可能に ▼▼▼▼▼ -->
-        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain">
+        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu">
             
-            <!-- Top Gradient Line -->
-            <div class="h-1.5 w-full bg-gradient-to-r from-bizAccent via-indigo-500 to-cyan-400 shrink-0 z-30"></div>
+            <!-- ▼▼▼ 追加: 読了プログレスバー (Reading Progress) ▼▼▼ -->
+            <div id="modal-progress-bar" class="reading-progress-bar"></div>
 
+            <!-- Top Gradient Line (装飾用) -->
+            <div class="h-1.5 w-full bg-gray-100 shrink-0 z-30 opacity-50"></div>
+            
             <!-- Header Area -->
             <!-- 変更: py-5/py-6 を維持しつつ、下部は border で区切る -->
             <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white/95 backdrop-blur-sm z-20 shrink-0 relative shadow-sm">
@@ -1211,10 +1253,25 @@
                 </button>
             </div>
 
-            <!-- Scrollable Body -->
-            <!-- flex-1 min-h-0 でスクロール領域確保。overscroll-contain で背景スクロール連鎖防止 -->
-            <div class="modal-scroll flex-1 min-h-0 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain" tabindex="0">
-                
+           <!-- Scrollable Body -->
+            <div class="relative flex-1 min-h-0 overflow-hidden flex flex-col">
+                <!-- スクロール領域 -->
+                <div id="modal-scroll-container" class="modal-scroll flex-1 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain custom-scrollbar" tabindex="0">
+                    
+                    <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
+                    <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-8 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide modal-text-body [&>div:first-child]:mt-0">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+                <!-- ▼▼▼ 追加: スクロールヒント (Zeigarnik Effect) ▼▼▼ -->
+                <div id="modal-scroll-hint" class="scroll-hint-overlay absolute bottom-0 left-0 right-0 h-24 z-20 flex items-end justify-center pb-6 transition-opacity duration-300">
+                    <span class="text-[10px] font-bold text-bizAccent uppercase tracking-widest animate-bounce bg-white/80 px-3 py-1 rounded-full shadow-sm border border-gray-100 backdrop-blur-sm">
+                        Read More <i class="fa-solid fa-chevron-down ml-1"></i>
+                    </span>
+                </div>
+            </div>
+            
                 <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
 <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide [&>div:first-child]:mt-0">
     <!-- Dynamic Content -->
@@ -1412,8 +1469,123 @@
             const modalContent = document.getElementById('modal-content');
             const modalCloseBtn = document.getElementById('modal-close-btn');
             const triggers = document.querySelectorAll('.js-modal-trigger');
+            
+            // New Nudge Elements
+            const modalScrollContainer = document.getElementById('modal-scroll-container');
+            const modalProgressBar = document.getElementById('modal-progress-bar');
+            const modalScrollHint = document.getElementById('modal-scroll-hint');
 
             let isModalOpen = false;
+
+            // Scroll Progress Logic (Nudge)
+            const updateScrollProgress = () => {
+                const scrollTop = modalScrollContainer.scrollTop;
+                const scrollHeight = modalScrollContainer.scrollHeight;
+                const clientHeight = modalScrollContainer.clientHeight;
+                
+                // Calculate percentage
+                const scrollableHeight = scrollHeight - clientHeight;
+                const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+                
+                // Update Bar
+                modalProgressBar.style.width = `${percentage}%`;
+
+                // Update Hint Visibility (Hide when near bottom)
+                if (scrollableHeight - scrollTop < 40 || scrollableHeight <= 0) {
+                    modalScrollHint.style.opacity = '0';
+                    modalScrollHint.style.pointerEvents = 'none';
+                } else {
+                    modalScrollHint.style.opacity = '1';
+                    modalScrollHint.style.pointerEvents = 'auto';
+                }
+
+                // Trigger Highlighter Animation for <strong> tags inside view
+                const markers = modalContent.querySelectorAll('strong');
+                markers.forEach(marker => {
+                    const rect = marker.getBoundingClientRect();
+                    const containerRect = modalScrollContainer.getBoundingClientRect();
+                    // Check if element is within the modal viewport
+                    if (rect.top < containerRect.bottom - 50 && rect.bottom > containerRect.top + 50) {
+                        marker.classList.add('nudge-marker', 'active');
+                    }
+                });
+            };
+
+            modalScrollContainer.addEventListener('scroll', updateScrollProgress);
+
+            // 3. Open Function
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    // Ignore clicks on inner links if any
+                    if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
+                    
+                    // Lenis stop
+                    if (typeof lenis !== 'undefined') lenis.stop();
+                    document.body.style.overflow = 'hidden';
+
+                    const id = trigger.getAttribute('data-modal-id');
+                    const data = modalData[id];
+                    if (!data) return;
+
+                    // A. Inject Header
+                    headerContent.innerHTML = `
+                        <div class="lang-ja">
+                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p>
+                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3>
+                        </div>
+                        <div class="lang-en">
+                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p>
+                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3>
+                        </div>
+                    `;
+
+                    // B. Inject Body with "Highlighter" preparation
+                    // <strong>タグを自動的に装飾用クラス付きに変換する処理を含めることも可能ですが、
+                    // ここではCSSの .modal-text-body strong と JSのスクロール検知で対応します。
+                    modalContent.innerHTML = `
+                        <div class="lang-ja first:mt-0 pb-8">
+                            ${data.body_ja.replace(/\n/g, '<br>')}
+                        </div>
+                        <div class="lang-en first:mt-0 pb-8">
+                            ${data.body_en.replace(/\n/g, '<br>')}
+                        </div>
+                    `;
+
+                    // C. Force Scroll Reset (Critical Fix)
+                    // RequestAnimationFrameを使って描画直前に確実にリセット
+                    modalScrollContainer.scrollTop = 0;
+                    modalProgressBar.style.width = '0%';
+                    modalScrollHint.style.opacity = '1';
+
+                    // D. Show & Animate
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+
+                    // GSAP Entrance
+                    gsap.killTweensOf([modalBg, modalPanel]);
+                    gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
+                    gsap.fromTo(modalPanel, 
+                        { opacity: 0, scale: 0.95, y: 20 },
+                        { 
+                            opacity: 1, 
+                            scale: 1, 
+                            y: 0, 
+                            duration: 0.5, 
+                            ease: "power3.out",
+                            onComplete: () => {
+                                modalPanel.focus();
+                                // アニメーション完了後にもう一度スクロール判定を走らせて初期表示範囲のハイライトを有効化
+                                updateScrollProgress();
+                            }
+                        }
+                    );
+                    
+                    // 初期化時のハイライト適用
+                    setTimeout(updateScrollProgress, 100);
+
+                    isModalOpen = true;
+                });
+            });
 
             // 3. Open Function
             triggers.forEach(trigger => {
