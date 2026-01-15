@@ -1231,10 +1231,14 @@
 
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
+            // ▼▼▼ 追加: lenisを外側のスコープで定義し、どこからでもアクセス可能にする ▼▼▼
+            let lenis; 
+
             // Delay initialization to prioritize painting
             requestAnimationFrame(() => {
                 if (typeof Lenis !== 'undefined') {
-                    const lenis = new Lenis({
+                    // ▼▼▼ 変更: const lenis = ... ではなく、外側の変数に代入 ▼▼▼
+                    lenis = new Lenis({
                         duration: 1.2,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                         smooth: true,
@@ -1296,7 +1300,7 @@
                     htmlEl.classList.remove('is-global');
                     updateLangStyles();
                     // Slight delay to allow layout shift before resize recalculation
-                    setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100); 
+                    setTimeout(() => { if (lenis) lenis.resize(); }, 100); 
                 }
             });
 
@@ -1304,7 +1308,7 @@
                 if (!htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.add('is-global');
                     updateLangStyles();
-                    setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100);
+                    setTimeout(() => { if (lenis) lenis.resize(); }, 100);
                 }
             });
             
@@ -1422,7 +1426,7 @@
                     if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
                     
                     // ▼▼▼ 追加: ここで即座にLenisとScrollを停止 (最優先処理) ▼▼▼
-                    if (typeof lenis !== 'undefined') lenis.stop();
+                    if (lenis) lenis.stop(); // 修正: 変数scopeを修正し、lenisインスタンスがある場合のみ実行
                     document.body.style.overflow = 'hidden';
                     // ▲▲▲ 追加ここまで ▲▲▲
 
@@ -1508,7 +1512,7 @@
                         
                         // ▼▼▼ 確認: アニメーション完了後にスクロールロック解除 ▼▼▼
                         document.body.style.overflow = '';
-                        if(typeof lenis !== 'undefined') lenis.start();
+                        if (lenis) lenis.start(); // 修正: 変数scopeを修正
                         // ▲▲▲ 確認ここまで ▲▲▲
 
                         isModalOpen = false;
