@@ -178,6 +178,23 @@
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
         .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.4); border-radius: 10px; }
 
+        /* ▼▼▼▼▼ 変更: 透かし（Watermark）のスタイル定義を追加 ▼▼▼▼▼ */
+        .modal-watermark {
+            position: absolute;
+            bottom: -2rem;
+            right: 1rem;
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 12rem;
+            line-height: 1;
+            color: #0f3c85; /* bizAccent */
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+        /* ▲▲▲▲▲ */
+        
         /* Modal Language Logic: サイト全体の言語設定(.is-global)と連動 */
         /* Default (Japanese Mode): Hide English */
         #modal-content .lang-en { display: none; }
@@ -894,13 +911,15 @@
                                     <span class="lang-ja">サルトル、ハイデガー、レヴィナスら実存哲学を援用し、現代における「労働」の本質を問うエッセイを執筆。応募総数1,112編より「特選」を受賞。</span>
                                     <span class="lang-en">Authored an essay interrogating the essence of modern labor by drawing upon the existential philosophies of Sartre, Heidegger, and Levinas. Awarded "Special Selection" out of 1,112 entries.</span>
                                 </p>
-                                <!-- Button Area -->
+                                
+                                <!-- ▼▼▼▼▼ 変更: Button Area (div -> aタグへ変更し、hrefを設定) ▼▼▼▼▼ -->
                                 <div class="mt-6 flex justify-end items-end relative z-20">
-                                    <div class="group/nudge relative inline-flex items-center p-1 pr-2 rounded-full bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-bizAccent/30 hover:bg-white hover:shadow-[0_8px_30px_-6px_rgba(15,60,133,0.2)] hover:-translate-y-0.5">
+                                    <!-- z-30を追加してクリックを確実に拾う -->
+                                    <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" rel="noopener noreferrer" class="group/nudge relative z-30 inline-flex items-center p-1 pr-2 rounded-full bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-bizAccent/30 hover:bg-white hover:shadow-[0_8px_30px_-6px_rgba(15,60,133,0.2)] hover:-translate-y-0.5">
                                         <span class="relative w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-sm border border-slate-100 overflow-hidden shrink-0 group-hover/nudge:border-bizAccent/20 transition-colors duration-500">
                                             <span class="absolute inset-0 bg-bizAccent/10 rounded-full animate-ping opacity-0 group-hover/nudge:opacity-100 duration-1000"></span>
                                             <i class="fa-solid fa-pen-nib text-slate-400 text-sm absolute transition-all duration-300 group-hover/nudge:opacity-0 group-hover/nudge:scale-50"></i>
-                                            <i class="fa-solid fa-book-open text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
+                                            <i class="fa-solid fa-eye text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
                                         </span>
                                         <div class="ml-3 mr-2 flex flex-col justify-center">
                                             <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 flex items-center gap-1.5">
@@ -915,9 +934,9 @@
                                         <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                                             <div class="absolute top-0 bottom-0 left-[-100%] w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12 group-hover/nudge:animate-[shimmer_1.5s_infinite]"></div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                            </div>
+                                <!-- ▲▲▲▲▲ 変更ここまで ▲▲▲▲▲ -->
 
                             <!-- Project 6: Social Design -->
                             <div data-modal-id="social" class="js-modal-trigger hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative cursor-pointer">
@@ -1177,46 +1196,44 @@
     <!-- ▼▼▼▼▼ INSERT START: GLOBAL MODAL SYSTEM ▼▼▼▼▼ -->
     <div id="global-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" aria-hidden="true">
         
-        <!-- 1. Blur Backdrop (Glassmorphism) -->
+        <!-- 1. Blur Backdrop -->
         <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
         <!-- 2. Modal Card -->
-        <div id="modal-panel" class="relative w-full max-w-2xl bg-[#ffffff] rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5">
+        <!-- 変更点: flex-col と max-h を維持しつつ、内部スクロールを確実に動作させる構造へ -->
+        <div id="modal-panel" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5">
             
             <!-- Top Gradient Line -->
-            <div class="h-1.5 w-full bg-gradient-to-r from-bizAccent via-indigo-500 to-cyan-400 shrink-0"></div>
+            <div class="h-1.5 w-full bg-gradient-to-r from-bizAccent via-indigo-500 to-cyan-400 shrink-0 z-30"></div>
 
             <!-- Header Area -->
-            <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white/80 backdrop-blur-sm z-20 shrink-0 relative">
+            <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white/95 backdrop-blur-sm z-20 shrink-0 relative shadow-sm">
                 <div class="pr-8" id="modal-header-content">
                     <!-- JS Injects Title Here -->
                 </div>
-                <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all duration-300 shrink-0 outline-none border border-transparent hover:border-red-100">
+                <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 shrink-0 outline-none border border-transparent">
                     <i class="fa-solid fa-xmark text-lg transition-transform duration-300 group-hover:rotate-90"></i>
                 </button>
             </div>
 
             <!-- Scrollable Body -->
-            <div class="modal-scroll overflow-y-auto px-6 py-6 md:px-8 md:py-8 bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain flex-grow">
+            <!-- 変更点: flex-1 と min-h-0 を追加してFlexbox内でのスクロールを強制 -->
+            <!-- 変更点: 透かし(Watermark)をここへ移動し、absolute配置 -->
+            <div class="modal-scroll flex-1 min-h-0 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain">
+                
                 <!-- Background Decoration (Watermark) -->
-                <div class="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none select-none">
-                    <i class="fa-solid fa-quote-right text-8xl text-bizAccent"></i>
-                </div>
+                <!-- 変更点: CSSクラス modal-watermark を適用 -->
+                <div class="modal-watermark">"</div>
 
-                <!-- Content Container (JS Injects Here) -->
-                <div id="modal-content" class="relative z-10 text-[15px] leading-7 md:text-[16px] md:leading-8 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
+                <!-- Content Container -->
+                <!-- 変更点: 上部の余白を調整 (py-6 -> pt-6 pb-12) -->
+                <div id="modal-content" class="relative z-10 px-6 pt-6 pb-12 md:px-8 md:pt-8 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
                     <!-- Dynamic Content -->
                 </div>
             </div>
 
-            <!-- Footer Area -->
-            <div class="px-6 py-3 md:px-8 bg-gray-50 border-t border-gray-100 flex justify-between items-center shrink-0 text-[10px] text-gray-400 font-mono uppercase tracking-widest">
-                <span>// PROJECT_ARCHIVE</span>
-                <span class="flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                    VERIFIED
-                </span>
-            </div>
+            <!-- Footer Area Removed -->
+            <!-- フッター削除済み -->
         </div>
     </div>
     <!-- ▲▲▲▲▲ INSERT END ▲▲▲▲▲ -->
