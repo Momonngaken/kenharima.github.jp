@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ECXCCZF93D');
-    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ECXCCZF93D');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
@@ -41,21 +42,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <!-- Preload LCP Image (Critical for Mobile Speed) -->
-    <link rel="preload" as="image" href="./profile_biz.jpg" fetchpriority="high">
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="./profile_biz.jpg">
 
-    <!-- Critical CSS: Optimized for FCP & LCP (Inline to bypass Tailwind delay) -->
+    <!-- Critical CSS: Optimized for FCP & LCP -->
     <style>
         /* Base Reset & Layout */
         body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; width: 100%; overscroll-behavior: none; }
         
-        /* Container & Spacing (Critical Layout) */
-        .max-w-4xl { max-width: 56rem; margin-left: auto; margin-right: auto; }
+        /* Container & Spacing (Matching Tailwind) */
+        .max-w-4xl { max-width: 56rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
         .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
         .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
         .mb-12 { margin-bottom: 3rem; }
+        .md\:py-32 { } /* Placeholder for media queries handled below */
         
-        /* Flexbox Utilities (Critical) */
+        /* Flexbox Utilities */
         .flex { display: flex; }
         .flex-col { flex-direction: column; }
         .flex-row { flex-direction: row; }
@@ -64,8 +67,9 @@
         .gap-6 { gap: 1.5rem; }
         .shrink-0 { flex-shrink: 0; }
         .relative { position: relative; }
+        .min-w-0 { min-width: 0; }
         
-        /* Header Profile Image (Critical LCP) */
+        /* Header Profile Image */
         .w-28 { width: 7rem; }
         .h-28 { height: 7rem; }
         .rounded-full { border-radius: 9999px; }
@@ -94,15 +98,61 @@
         .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
         .tracking-tight { letter-spacing: -0.025em; }
         .leading-tight { line-height: 1.25; }
+        .whitespace-nowrap { white-space: nowrap; }
         
-        /* Utility */
+        /* Font Awesome Placeholder (before load) */
+        .fa-solid, .fa-building { display: inline-block; }
+
+        /* Animations & Interactive */
         .fade-in { opacity: 0; transform: translateY(30px); }
+        h1, h2, h3, h4 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+
+        .animate-breathe { animation: breathe 3s ease-in-out infinite; }
+        @keyframes breathe { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes slide-hint {
+            0% { transform: translateX(-10px); opacity: 0; }
+            20% { transform: translateX(0); opacity: 0.8; }
+            50% { transform: translateX(10px); opacity: 0; }
+            100% { transform: translateX(10px); opacity: 0; }
+        }
+        .animate-gesture { animation: slide-hint 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+        
+        .natural-fade-mask { background: linear-gradient(90deg, transparent 0%, rgba(250,250,250,0) 50%, rgba(250,250,250,0.9) 100%); pointer-events: none; }
+
+        /* Custom Styles */
+        .section-label {
+            font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+            color: #94a3b8; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
+        }
+        .section-label::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(90deg, #e2e8f0 0%, transparent 100%); }
+        .biz-heading { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+        .hover-card {
+            background-color: white; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            -webkit-tap-highlight-color: transparent; outline: none;
+        }
+        .hover-card:hover { transform: translateY(-2px); background-color: white; box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08); border-color: rgba(15, 60, 133, 0.1); }
+        
+        /* Language Switching */
         .lang-en { display: none; }
         html.is-global .lang-ja { display: none !important; }
         html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
         html.is-global span.lang-en { display: inline !important; }
+        html.is-global body { font-family: 'Inter', 'Syne', sans-serif; letter-spacing: -0.01em; }
 
-        /* Media Queries for Critical CSS */
+        /* Lenis */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* Responsive Critical Styles (simulating Tailwind MD breakpoint) */
         @media (min-width: 768px) {
             .md\:py-32 { padding-top: 8rem; padding-bottom: 8rem; }
             .md\:mb-16 { margin-bottom: 4rem; }
@@ -113,11 +163,12 @@
             .md\:mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
             .md\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
             .md\:text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+            .md\:space-y-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(0.5rem * var(--tw-space-y-reverse)); }
             .md\:text-base { font-size: 1rem; line-height: 1.5rem; }
+            .md\:w-11 { width: 2.75rem; }
+            .md\:h-11 { height: 2.75rem; }
+            .md\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
         }
-        
-        /* Font Awesome Placeholder */
-        .fa-solid, .fa-building { display: inline-block; }
     </style>
     
     <noscript>
@@ -160,10 +211,10 @@
         }
     </script>
 
-    <!-- Tailwind CSS (CDN) - DEFER added for performance -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Tailwind CSS (CDN) - Async to prevent Render Blocking -->
+    <script src="https://cdn.tailwindcss.com" async></script>
 
-    <!-- CSS Loading Optimization: Non-blocking load pattern -->
+    <!-- CSS Loading Optimization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
@@ -255,7 +306,7 @@
             
             <!-- ================= PROFILE ================= -->
             <section class="fade-in">
-                <div class="section-label flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-8 after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Profile</div>
+                <div class="section-label">Profile</div>
                 <div class="text-[15px] leading-relaxed tracking-wide md:text-lg md:leading-relaxed text-gray-700 font-normal">
                     <p class="lang-ja text-justify">
                         シンガポール生。日本とマレーシアに背景を持ち、早大・独マンハイム大にて社会学と哲学を修める。強みは、倫理学的思考に基づく「ナラティブ構築」と「高度な言語化」。マルクス・ガブリエルの「新しい啓蒙」をテーマに掲げ、複雑な事象を構造化し、共鳴と行動を生む論理と文脈を設計する。
@@ -267,13 +318,13 @@
 
             <!-- ================= EDUCATION ================= -->
             <section class="fade-in">
-                <div class="section-label flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-8 after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Education</div>
+                <div class="section-label">Education</div>
                 
                 <div class="space-y-4 relative">
                     <div class="absolute left-[8.5rem] top-4 bottom-4 w-px bg-gray-100 hidden md:block"></div>
 
                     <!-- 1. Waseda University -->
-                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline z-10 bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline z-10">
                         <div class="text-xs font-mono text-bizAccent font-semibold whitespace-nowrap md:text-right md:pr-4">
                             2022.04 - <span class="text-bizAccent">2026.03</span>
                         </div>
@@ -290,7 +341,7 @@
                     </div>
 
                     <!-- 2. University of Mannheim -->
-                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline z-10 bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline z-10">
                         <div class="text-xs font-mono text-gray-400 font-medium whitespace-nowrap md:text-right md:pr-4">
                             2023.08 - 2024.08
                         </div>
@@ -312,7 +363,7 @@
                     </div>
 
                     <!-- 3. Hiroo Gakuen -->
-                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline opacity-80 hover:opacity-100 transition-opacity z-10 bg-white border border-transparent hover:border-gray-100 hover:shadow-lg">
+                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline opacity-80 hover:opacity-100 transition-opacity z-10">
                         <div class="text-xs font-mono text-gray-400 font-medium whitespace-nowrap md:text-right md:pr-4">
                             2015.04 - 2021.03
                         </div>
@@ -406,11 +457,11 @@
 
             <!-- ================= COMPETENCIES ================= -->
             <section class="fade-in">
-                <div class="section-label flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-10 md:mb-16 after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Key Competencies</div>
+                <div class="section-label mb-10 md:mb-16">Key Competencies</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 md:gap-y-16">
 
                     <!-- 01 -->
-                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">01</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
                             Quantitative Analysis <br class="hidden md:block"> & Strategy
@@ -442,7 +493,7 @@
                     </div>
 
                     <!-- 02 -->
-                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">02</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
                             Game Theory & Strategic Decision
@@ -454,7 +505,7 @@
                     </div>
 
                     <!-- 03 -->
-                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">03</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
                             Narrative Architecture & Design
@@ -466,7 +517,7 @@
                     </div>
 
                     <!-- 04 -->
-                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">04</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-6 tracking-tight leading-snug">
                             Languages
@@ -569,7 +620,7 @@
                     </div>
 
                     <!-- 05 -->
-                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start md:col-span-2 bg-white border border-transparent hover:border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div class="group hover-card p-6 md:p-8 md:-ml-4 rounded-xl relative h-full flex flex-col justify-start md:col-span-2">
                         <span class="absolute top-6 right-6 text-4xl font-display font-bold text-gray-100 -z-10 group-hover:text-gray-200 transition-colors select-none">05</span>
                         <h3 class="text-xl md:text-2xl font-serif italic font-semibold text-bizAccent mb-4 tracking-tight leading-snug">
                             Philosophy & <br class="hidden md:block"> Ethical Judgement
@@ -583,105 +634,106 @@
                 </div>
             </section>
 
-            <!-- ================= PSYCHOMETRIC DATA LINK ================= -->
-            <div class="fade-in mb-20 md:mb-24">
-                <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1">
+            <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
+<div class="fade-in mb-20 md:mb-24">
+    <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1">
+        
+        <!-- 1. Background: Deep Space & Grid -->
+        <div class="absolute inset-0 z-0">
+            <!-- Subtle Grid -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50"></div>
+            <!-- Dynamic Glow Orb -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] mix-blend-screen group-hover:bg-indigo-500/20 transition-colors duration-700"></div>
+        </div>
+
+        <!-- 2. Content Container -->
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-10">
+            
+            <!-- Left: "The Cognitive Radar" Visual & Text -->
+            <div class="flex flex-col md:flex-row items-center md:items-center gap-8 text-center md:text-left w-full md:w-auto">
+                
+                <!-- ▼▼▼ EXTREME CREATIVE ICON: COGNITIVE RADAR ▼▼▼ -->
+                <div class="relative shrink-0 w-24 h-24 flex items-center justify-center">
                     
-                    <!-- 1. Background: Deep Space & Grid -->
-                    <div class="absolute inset-0 z-0">
-                        <!-- Subtle Grid -->
-                        <div class="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50"></div>
-                        <!-- Dynamic Glow Orb -->
-                        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] mix-blend-screen group-hover:bg-indigo-500/20 transition-colors duration-700"></div>
+                    <!-- Layer A: Outer Rotating Ring (Data Stream) -->
+                    <div class="absolute inset-0 rounded-full border border-dashed border-indigo-500/20 animate-[spin_10s_linear_infinite] group-hover:border-indigo-400/40 transition-colors"></div>
+                    
+                    <!-- Layer B: Reverse Rotating Ring (Verification) -->
+                    <div class="absolute inset-2 rounded-full border border-dotted border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse] group-hover:border-cyan-400/40 transition-colors"></div>
+
+                    <!-- Layer C: Radar Sweep (The Scanner) -->
+                    <div class="absolute inset-1 rounded-full overflow-hidden opacity-30">
+                        <div class="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-indigo-400 to-transparent origin-top-left -translate-y-1/2 animate-[spin_3s_linear_infinite]"></div>
                     </div>
 
-                    <!-- 2. Content Container -->
-                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-10">
-                        
-                        <!-- Left: "The Cognitive Radar" Visual & Text -->
-                        <div class="flex flex-col md:flex-row items-center md:items-center gap-8 text-center md:text-left w-full md:w-auto">
-                            
-                            <!-- EXTREME CREATIVE ICON: COGNITIVE RADAR -->
-                            <div class="relative shrink-0 w-24 h-24 flex items-center justify-center">
-                                
-                                <!-- Layer A: Outer Rotating Ring -->
-                                <div class="absolute inset-0 rounded-full border border-dashed border-indigo-500/20 animate-[spin_10s_linear_infinite] group-hover:border-indigo-400/40 transition-colors"></div>
-                                
-                                <!-- Layer B: Reverse Rotating Ring -->
-                                <div class="absolute inset-2 rounded-full border border-dotted border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse] group-hover:border-cyan-400/40 transition-colors"></div>
+                    <!-- Layer D: Central Core (The Brain) -->
+                    <div class="relative z-10 w-12 h-12 rounded-full bg-[#0f172a] border border-indigo-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-500">
+                        <i class="fa-solid fa-brain text-lg text-indigo-300 group-hover:text-cyan-200 transition-colors"></i>
+                    </div>
 
-                                <!-- Layer C: Radar Sweep -->
-                                <div class="absolute inset-1 rounded-full overflow-hidden opacity-30">
-                                    <div class="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-indigo-400 to-transparent origin-top-left -translate-y-1/2 animate-[spin_3s_linear_infinite]"></div>
-                                </div>
+                    <!-- Layer E: Orbiting Particles (Active Nodes) -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_10px_currentColor] animate-ping"></div>
+                    <div class="absolute bottom-4 right-1 w-1 h-1 bg-indigo-400 rounded-full animate-pulse"></div>
 
-                                <!-- Layer D: Central Core -->
-                                <div class="relative z-10 w-12 h-12 rounded-full bg-[#0f172a] border border-indigo-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-500">
-                                    <i class="fa-solid fa-brain text-lg text-indigo-300 group-hover:text-cyan-200 transition-colors"></i>
-                                </div>
+                </div>
+                <!-- ▲▲▲ END ICON ▲▲▲ -->
 
-                                <!-- Layer E: Orbiting Particles -->
-                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_10px_currentColor] animate-ping"></div>
-                                <div class="absolute bottom-4 right-1 w-1 h-1 bg-indigo-400 rounded-full animate-pulse"></div>
-                            </div>
-                            <!-- END ICON -->
-
-                            <!-- Copy -->
-                            <div class="flex flex-col gap-2">
-                                <div class="flex flex-col md:flex-row items-center md:items-baseline gap-3 justify-center md:justify-start">
-                                    <h3 class="text-xl md:text-2xl font-display font-bold text-white tracking-tight">
-                                        <span class="lang-ja">思考プロファイル</span>
-                                        <span class="lang-en">Cognitive Profile</span>
-                                    </h3>
-                                    <!-- Tech Tag -->
-                                    <div class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-cyan-300 uppercase tracking-wider shadow-[0_0_10px_rgba(34,211,238,0.1)]">
-                                            Big 5
-                                        </span>
-                                        <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-indigo-300 uppercase tracking-wider shadow-[0_0_10px_rgba(99,102,241,0.1)]">
-                                            PVQ
-                                        </span>
-                                    </div>
-                                </div>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed max-w-lg mx-auto md:mx-0">
-                                    <span class="lang-ja">
-                                        「個人の内面」を、Big 5とPVQの二層構造で解析。主観を排し、社会科学的根拠に基づく透明性と予測可能性を提示します。
-                                    </span>
-                                    <span class="lang-en">
-                                        Analyzing the 'inner self' through the dual layers of Big 5 and PVQ. I strip away subjectivity to present transparency and predictability grounded in social scientific evidence.
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Right: Action Button -->
-                        <div class="shrink-0 relative">
-                            <div class="h-12 px-8 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-white font-bold text-xs uppercase tracking-widest flex items-center gap-3 transition-all duration-300 group-hover:bg-indigo-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md">
-                                <span class="relative z-10 flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                                    <span class="lang-ja">思考プロファイルを見る</span>
-                                    <span class="lang-en">View Cognitive Profile</span>
-                                </span>
-                                <i class="fa-solid fa-chevron-right text-[10px] text-cyan-400 group-hover:translate-x-1 transition-transform"></i>
-                            </div>
+                <!-- Copy -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex flex-col md:flex-row items-center md:items-baseline gap-3 justify-center md:justify-start">
+                        <h3 class="text-xl md:text-2xl font-display font-bold text-white tracking-tight">
+                            <span class="lang-ja">思考プロファイル</span>
+                            <span class="lang-en">Cognitive Profile</span>
+                        </h3>
+                        <!-- Tech Tag -->
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-cyan-300 uppercase tracking-wider shadow-[0_0_10px_rgba(34,211,238,0.1)]">
+                                Big 5
+                            </span>
+                            <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-indigo-300 uppercase tracking-wider shadow-[0_0_10px_rgba(99,102,241,0.1)]">
+                                PVQ
+                            </span>
                         </div>
                     </div>
-                    
-                    <!-- 3. Holographic Scan Line -->
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[50%] w-full -translate-y-[150%] group-hover:translate-y-[250%] transition-transform duration-1000 ease-in-out pointer-events-none mix-blend-color-dodge z-20"></div>
-                </a>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed max-w-lg mx-auto md:mx-0">
+                        <span class="lang-ja">
+                            「個人の内面」を、Big 5とPVQの二層構造で解析。主観を排し、社会科学的根拠に基づく透明性と予測可能性を提示します。
+                        </span>
+                        <span class="lang-en">
+                            Analyzing the 'inner self' through the dual layers of Big 5 and PVQ. I strip away subjectivity to present transparency and predictability grounded in social scientific evidence.
+                        </span>
+                    </p>
+                </div>
             </div>
+
+            <!-- Right: Action (Holographic Button) -->
+            <div class="shrink-0 relative">
+                <div class="h-12 px-8 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-white font-bold text-xs uppercase tracking-widest flex items-center gap-3 transition-all duration-300 group-hover:bg-indigo-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span class="lang-ja">思考プロファイルを見る</span>
+                        <span class="lang-en">View Cognitive Profile</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-cyan-400 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. Holographic Scan Line (Overlay Animation) -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[50%] w-full -translate-y-[150%] group-hover:translate-y-[250%] transition-transform duration-1000 ease-in-out pointer-events-none mix-blend-color-dodge z-20"></div>
+    </a>
+</div>
 
             <!-- ================= PROJECTS & AWARDS ================= -->
             <section class="fade-in">
-                <div class="section-label flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-8 after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Selected Projects & Awards</div>
+                <div class="section-label">Selected Projects & Awards</div>
                 <div class="space-y-12">
                     <!-- Marketing & Strategy -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Marketing & Strategy</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
                             <!-- Project 1 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
                                 <div class="flex justify-between items-start mb-2 gap-4">
                                     <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
                                         <span class="lang-ja">野口ゼミ x 理想科学工業株式会社マーケティング戦略コンペティション</span>
@@ -698,7 +750,7 @@
                                 </p>
                             </div>
                             <!-- Project 2 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
                                 <div class="flex flex-row justify-between items-start mb-2 gap-3">
                                     <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
                                         <span class="lang-ja">第6回 創造力、無限大 高校生ビジネスプラン・グランプリ2018</span>
@@ -722,7 +774,7 @@
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Design & Media</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
                             <!-- Project 3 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl border border-transparent hover:border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="hover-card p-6 md:-ml-4 rounded-xl border border-transparent hover:border-gray-100">
                                 <h3 class="text-lg font-bold mb-2">
                                     <span class="lang-ja">
                                         <span class="inline-block">早稲田大学 x PIVOT Inc.</span>
@@ -739,7 +791,7 @@
                                 </p>
                             </div>
                             <!-- Project 4 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
                                 <div class="flex justify-between items-start mb-2 gap-4">
                                     <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
                                         <span class="lang-ja">第10回「あなたの考えるブランドラベル・コンテスト」</span>
@@ -763,65 +815,75 @@
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Academic & Writing</h4>
                         <div class="grid grid-cols-1 gap-5 md:gap-6">
                             <!-- Project 5 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                                <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-[0.03] text-bizAccent font-serif italic pointer-events-none select-none group-hover:opacity-[0.07] transition-opacity duration-700">
-                                    "
-                                </div>
+<div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 relative overflow-hidden">
+    <!-- 背景にうっすらと浮かぶ哲学的な装飾（無意識への訴求） -->
+    <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-[0.03] text-bizAccent font-serif italic pointer-events-none select-none group-hover:opacity-[0.07] transition-opacity duration-700">
+        "
+    </div>
 
-                                <div class="flex flex-row justify-between items-start mb-2 gap-3 relative z-10">
-                                    <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
-                                        <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
-                                        <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
-                                    </h3>
-                                    <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
-                                        <span class="lang-ja">勤労青少年<br>躍進会理事長賞</span>
-                                        <span class="lang-en">Chairman's Award</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed relative z-10">
-                                    <span class="lang-ja">サルトル、ハイデガー、レヴィナスら実存哲学を援用し、現代における「労働」の本質を問うエッセイを執筆。応募総数1,112編より「特選」を受賞。</span>
-                                    <span class="lang-en">Authored an essay interrogating the essence of modern labor by drawing upon the existential philosophies of Sartre, Heidegger, and Levinas. Awarded "Special Selection" out of 1,112 entries.</span>
-                                </p>
+    <div class="flex flex-row justify-between items-start mb-2 gap-3 relative z-10">
+        <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors leading-tight min-w-0">
+            <span class="lang-ja">第36回「働くってなんだろう」エッセイコンテスト</span>
+            <span class="lang-en">36th Essay Contest: “The Essence of Work”</span>
+        </h3>
+        <span class="text-[9px] md:text-xs font-bold bg-bizAccent text-white px-2 py-1 rounded shadow-sm tracking-wider shrink-0 text-left leading-tight mt-0.5">
+            <span class="lang-ja">勤労青少年<br>躍進会理事長賞</span>
+            <span class="lang-en">Chairman's Award</span>
+        </span>
+    </div>
+    <p class="text-sm text-gray-600 leading-relaxed relative z-10">
+        <span class="lang-ja">サルトル、ハイデガー、レヴィナスら実存哲学を援用し、現代における「労働」の本質を問うエッセイを執筆。応募総数1,112編より「特選」を受賞。</span>
+        <span class="lang-en">Authored an essay interrogating the essence of modern labor by drawing upon the existential philosophies of Sartre, Heidegger, and Levinas. Awarded "Special Selection" out of 1,112 entries.</span>
+    </p>
 
-                                <div class="mt-6 flex justify-end items-end relative z-20">
-                                    <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" rel="noopener noreferrer" 
-                                       class="group/nudge relative inline-flex items-center p-1 pr-2 rounded-full bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-bizAccent/30 hover:bg-white hover:shadow-[0_8px_30px_-6px_rgba(15,60,133,0.2)] hover:-translate-y-0.5">
-                                        
-                                        <!-- 1. Icon Circle -->
-                                        <span class="relative w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-sm border border-slate-100 overflow-hidden shrink-0 group-hover/nudge:border-bizAccent/20 transition-colors duration-500">
-                                            <span class="absolute inset-0 bg-bizAccent/10 rounded-full animate-ping opacity-0 group-hover/nudge:opacity-100 duration-1000"></span>
-                                            <i class="fa-solid fa-pen-nib text-slate-400 text-sm absolute transition-all duration-300 group-hover/nudge:opacity-0 group-hover/nudge:scale-50"></i>
-                                            <i class="fa-solid fa-eye text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
-                                        </span>
+    <!-- ▼▼▼▼▼ 修正・追加コード START（極限クリエイティブ版） ▼▼▼▼▼ -->
+    <div class="mt-6 flex justify-end items-end relative z-20">
+        <a href="http://yakushinkai.or.jp/tsudoi/2023/a-06.html" target="_blank" rel="noopener noreferrer" 
+           class="group/nudge relative inline-flex items-center p-1 pr-2 rounded-full bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-bizAccent/30 hover:bg-white hover:shadow-[0_8px_30px_-6px_rgba(15,60,133,0.2)] hover:-translate-y-0.5">
+            
+            <!-- 1. 左側のアイコンサークル（常に微弱に発光・鼓動） -->
+            <span class="relative w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-sm border border-slate-100 overflow-hidden shrink-0 group-hover/nudge:border-bizAccent/20 transition-colors duration-500">
+                <!-- 光の波紋アニメーション -->
+                <span class="absolute inset-0 bg-bizAccent/10 rounded-full animate-ping opacity-0 group-hover/nudge:opacity-100 duration-1000"></span>
+                
+                <!-- アイコン：通常時は羽ペン、ホバー時は目のアイコンへ変化 -->
+                <i class="fa-solid fa-pen-nib text-slate-400 text-sm absolute transition-all duration-300 group-hover/nudge:opacity-0 group-hover/nudge:scale-50"></i>
+                <i class="fa-solid fa-eye text-bizAccent text-sm absolute opacity-0 scale-50 transition-all duration-300 group-hover/nudge:opacity-100 group-hover/nudge:scale-100"></i>
+            </span>
 
-                                        <!-- 2. Text -->
-                                        <div class="ml-3 mr-2 flex flex-col justify-center">
-                                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 flex items-center gap-1.5">
-                                                <i class="fa-regular fa-clock text-[8px]"></i> 
-                                                <span>4 MIN READ</span>
-                                            </span>
-                                            <span class="text-xs font-bold text-slate-700 leading-none group-hover/nudge:text-bizAccent transition-colors duration-300 flex items-center gap-1">
-                                                <span class="lang-ja">作品を見る</span>
-                                                <span class="lang-en">View Work</span>
-                                                <i class="fa-solid fa-arrow-right-long opacity-0 -ml-2 text-bizAccent group-hover/nudge:opacity-100 group-hover/nudge:ml-1 transition-all duration-300 ease-out"></i>
-                                            </span>
-                                        </div>
+            <!-- 2. テキストエリア -->
+            <div class="ml-3 mr-2 flex flex-col justify-center">
+                <!-- 上段：マイクロコピー（読むハードルを下げる） -->
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 flex items-center gap-1.5">
+                    <i class="fa-regular fa-clock text-[8px]"></i> 
+                    <span>4 MIN READ</span>
+                </span>
+                
+                <!-- 下段：アクションコピー（「作品」としての価値を強調） -->
+                <span class="text-xs font-bold text-slate-700 leading-none group-hover/nudge:text-bizAccent transition-colors duration-300 flex items-center gap-1">
+                    <span class="lang-ja">作品を見る</span>
+                    <span class="lang-en">View Work</span>
+                    <!-- 矢印がにゅっと伸びる -->
+                    <i class="fa-solid fa-arrow-right-long opacity-0 -ml-2 text-bizAccent group-hover/nudge:opacity-100 group-hover/nudge:ml-1 transition-all duration-300 ease-out"></i>
+                </span>
+            </div>
 
-                                        <!-- 3. Shimmer Effect -->
-                                        <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                                            <div class="absolute top-0 bottom-0 left-[-100%] w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12 group-hover/nudge:animate-[shimmer_1.5s_infinite]"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <style>
-                                    @keyframes shimmer {
-                                        100% { left: 200%; }
-                                    }
-                                </style>
+            <!-- 3. プレミアムな光の走査（Shimmer Effect） -->
+            <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                <div class="absolute top-0 bottom-0 left-[-100%] w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12 group-hover/nudge:animate-[shimmer_1.5s_infinite]"></div>
+            </div>
+        </a>
+    </div>
+
+    <!-- カスタムアニメーションの定義（Tailwindの設定外のためインラインで補完） -->
+    <style>
+        @keyframes shimmer {
+            100% { left: 200%; }
+        }
+    </style>
                             </div>
-
                             <!-- Project 6 -->
-                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="hover-card p-6 md:-ml-4 rounded-xl group border border-transparent hover:border-gray-100">
                                 <div class="flex justify-between items-start mb-2 gap-4">
                                     <h3 class="text-lg font-bold group-hover:text-bizAccent transition-colors">
                                         <span class="lang-ja">早稲田大学 社会科学部「社会デザイン論入門」レポートコンペティション</span>
@@ -844,7 +906,7 @@
 
            <!-- ================= FORTE ================= -->
             <section class="fade-in pt-12">
-                <div class="section-label flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-8 after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Forte</div>
+                <div class="section-label">Forte</div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-t border-b border-gray-200 py-12">
 
@@ -887,7 +949,7 @@
            <!-- ================= INTELECTUAL ROOTS ================= -->
             <section class="fade-in pt-12 md:pt-20">
                 <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-8 md:mb-16 gap-2">
-                    <div class="section-label mb-0 flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Intellectual Roots</div>
+                    <div class="section-label mb-0">Intellectual Roots</div>
                     <div class="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
                         <p class="text-xs md:text-sm font-serif italic text-gray-400">
                             The sources of my philosophy.
@@ -903,18 +965,26 @@
                         <i class="fa-solid fa-arrow-right-long text-2xl text-bizAccent/80 animate-gesture drop-shadow-sm filter"></i>
                     </div>
 
-                    <!-- Mobile: Horizontal Flex + Snap Scroll + Hide Scrollbar -->
+                    <!-- 
+                        Mobile: Horizontal Flex + Snap Scroll + Hide Scrollbar
+                        Desktop: Grid Layout
+                    -->
                     <div id="roots-container" class="flex md:grid md:grid-cols-2 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none gap-5 md:gap-x-8 md:gap-y-12 pb-12 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide relative z-10">
                     <!-- 01. 論語と算盤 -->
                     <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
+                        <!-- Background Number -->
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">01</span>
+                        
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
+                            <!-- Book Cover -->
                             <div class="shrink-0 w-24 sm:w-28 mx-auto sm:mx-0 relative perspective-1000">
                                 <div class="relative w-full aspect-[2/3] rounded shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:rotate-y-[-10deg] transition-all duration-500 ease-out bg-gray-200 overflow-hidden">
-                                    <img src="./book_rongo.jpg" alt="論語と算盤" loading="lazy" decoding="async" width="200" height="300" class="w-full h-full object-cover">
+                                    <!-- Lazy Load & Async Decoding Added -->
+                                    <img src="./book_rongo.jpg" alt="論語と算盤" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
+                            <!-- Text -->
                             <div class="flex-1 text-center sm:text-left flex flex-col h-full">
                                 <h3 class="text-lg font-serif font-bold text-gray-800 mb-1 group-hover:text-bizAccent transition-colors">
                                     <span class="lang-ja">論語と算盤</span>
@@ -939,10 +1009,11 @@
                     <!-- 02. 世界は贈与でできている -->
                     <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">02</span>
+                        
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
                             <div class="shrink-0 w-24 sm:w-28 mx-auto sm:mx-0 relative perspective-1000">
                                 <div class="relative w-full aspect-[2/3] rounded shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:rotate-y-[-10deg] transition-all duration-500 ease-out bg-gray-200 overflow-hidden">
-                                    <img src="./book_gift.jpg" alt="世界は贈与でできている" loading="lazy" decoding="async" width="200" height="300" class="w-full h-full object-cover">
+                                    <img src="./book_gift.jpg" alt="世界は贈与でできている" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
@@ -970,10 +1041,11 @@
                     <!-- 03. 存在と無 -->
                     <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">03</span>
+                        
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
                             <div class="shrink-0 w-24 sm:w-28 mx-auto sm:mx-0 relative perspective-1000">
                                 <div class="relative w-full aspect-[2/3] rounded shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:rotate-y-[-10deg] transition-all duration-500 ease-out bg-gray-200 overflow-hidden">
-                                    <img src="./book_sartre.jpg" alt="存在と無" loading="lazy" decoding="async" width="200" height="300" class="w-full h-full object-cover">
+                                    <img src="./book_sartre.jpg" alt="存在と無" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
@@ -1001,10 +1073,11 @@
                     <!-- 04. ペスト -->
                     <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">04</span>
+                        
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
                             <div class="shrink-0 w-24 sm:w-28 mx-auto sm:mx-0 relative perspective-1000">
                                 <div class="relative w-full aspect-[2/3] rounded shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:rotate-y-[-10deg] transition-all duration-500 ease-out bg-gray-200 overflow-hidden">
-                                    <img src="./book_pest.jpg" alt="ペスト" loading="lazy" decoding="async" width="200" height="300" class="w-full h-full object-cover">
+                                    <img src="./book_pest.jpg" alt="ペスト" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
@@ -1034,7 +1107,7 @@
             
             <!-- ================= CONTACT ================= -->
             <section class="fade-in pt-12 pb-32">
-                <div class="section-label flex items-center gap-4 text-xs font-semibold text-slate-400 uppercase tracking-widest mb-8 after:content-[''] after:flex-grow after:h-px after:bg-gradient-to-r after:from-slate-200 after:to-transparent">Contact</div>
+                <div class="section-label">Contact</div>
                 <div class="flex flex-col md:flex-row gap-6">
                     <a id="biz-contact-btn" href="../contact.html" class="block w-full md:w-auto text-center px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-colors duration-300 cursor-pointer">
                         Contact
@@ -1068,46 +1141,44 @@
 
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
-            // Wait for main window load to ensure critical rendering is done
-            window.addEventListener('load', () => {
-                requestAnimationFrame(() => {
-                    if (typeof Lenis !== 'undefined') {
-                        const lenis = new Lenis({
-                            duration: 1.2,
-                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                            smooth: true,
-                            mouseMultiplier: 1,
-                            touchMultiplier: 2,
-                            infinite: false,
-                        });
+            // Delay initialization to prioritize painting
+            requestAnimationFrame(() => {
+                if (typeof Lenis !== 'undefined') {
+                    const lenis = new Lenis({
+                        duration: 1.2,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                        smooth: true,
+                        mouseMultiplier: 1,
+                        touchMultiplier: 2,
+                        infinite: false,
+                    });
 
-                        function raf(time) {
-                            lenis.raf(time);
-                            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-                            requestAnimationFrame(raf);
-                        }
+                    function raf(time) {
+                        lenis.raf(time);
+                        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
                         requestAnimationFrame(raf);
                     }
+                    requestAnimationFrame(raf);
+                }
 
-                    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                        gsap.registerPlugin(ScrollTrigger);
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    gsap.registerPlugin(ScrollTrigger);
 
-                        gsap.utils.toArray('.fade-in').forEach(section => {
-                            gsap.to(section, {
-                                opacity: 1,
-                                y: 0,
-                                duration: 1,
-                                ease: "power3.out",
-                                scrollTrigger: {
-                                    trigger: section,
-                                    start: "top 95%", 
-                                    toggleActions: "play none none none",
-                                    once: true
-                                }
-                            });
+                    gsap.utils.toArray('.fade-in').forEach(section => {
+                        gsap.to(section, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: section,
+                                start: "top 95%", 
+                                toggleActions: "play none none none",
+                                once: true
+                            }
                         });
-                    }
-                });
+                    });
+                }
             });
 
             const langJpBtn = document.getElementById('lang-jp');
