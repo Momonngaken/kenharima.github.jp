@@ -1,34 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <!-- Resource Hints: DNS Prefetch & Preconnect -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    <!-- Delayed Google Tag Manager (Non-Blocking) -->
-    <script>
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            var script = document.createElement('script');
-            script.src = "https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D";
-            script.async = true;
-            document.head.appendChild(script);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ECXCCZF93D');
-        }, 3500); /* Delay to prioritize LCP & TTI */
-    });
-    </script>
-
+  gtag('config', 'G-ECXCCZF93D');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
@@ -55,10 +36,16 @@
     <link rel="icon" type="image/jpeg" href="./profile_biz.jpg">
     <link rel="apple-touch-icon" href="./profile_biz.jpg">
 
-    <!-- Preload LCP Image (Critical for Speed Score) -->
-    <link rel="preload" as="image" href="./profile_biz.jpg" fetchpriority="high">
+    <!-- Performance Optimization: Preconnect -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <!-- Critical CSS: Optimized for FCP & LCP (Inline) -->
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="./profile_biz.jpg">
+
+    <!-- Critical CSS: Optimized for FCP & LCP -->
     <style>
         /* Base Reset & Layout */
         body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; width: 100%; overscroll-behavior: none; }
@@ -69,7 +56,7 @@
         .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
         .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
         .mb-12 { margin-bottom: 3rem; }
-        .md\:py-32 { } 
+        .md\:py-32 { } /* Placeholder for media queries handled below */
         
         /* Flexbox Utilities */
         .flex { display: flex; }
@@ -190,7 +177,7 @@
         </style>
     </noscript>
 
-    <!-- Tailwind Config (Sync execution required for config object) -->
+    <!-- Tailwind Config -->
     <script>
         tailwind = {
             config: {
@@ -224,10 +211,10 @@
         }
     </script>
 
-    <!-- Tailwind CSS (CDN) - DEFER to allow HTML Parsing first -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Tailwind CSS (CDN) - Async to prevent Render Blocking -->
+    <script src="https://cdn.tailwindcss.com" async></script>
 
-    <!-- CSS Loading Optimization: Load non-critical CSS as print, then swap to all -->
+    <!-- CSS Loading Optimization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
@@ -281,7 +268,6 @@
             <!-- Profile Photo -->
             <div class="relative group shrink-0">
                 <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105">
-                    <!-- Added fetchpriority="high" and decoding="sync" for LCP optimization -->
                     <img src="./profile_biz.jpg" width="128" height="128" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-center">
                 </div>
             </div>
@@ -1148,17 +1134,15 @@
 
     </div>
 
-    <!-- GSAP & Lenis (Defer loading to Prevent TBT) -->
-    <!-- Optimization: Changed from async to defer and moved initialization to window.load -->
+    <!-- GSAP & Lenis (Defer loading) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer></script>
 
     <script defer>
-        // Optimization: Use window.load to ensure main thread is free for initial render (LCP)
-        window.addEventListener('load', () => {
-            // Slight delay to prioritize paint
-            setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Delay initialization to prioritize painting
+            requestAnimationFrame(() => {
                 if (typeof Lenis !== 'undefined') {
                     const lenis = new Lenis({
                         duration: 1.2,
@@ -1195,9 +1179,8 @@
                         });
                     });
                 }
-            }, 100);
+            });
 
-            // Existing Logic
             const langJpBtn = document.getElementById('lang-jp');
             const langEnBtn = document.getElementById('lang-en');
             const htmlEl = document.documentElement;
@@ -1222,6 +1205,7 @@
                 if (htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.remove('is-global');
                     updateLangStyles();
+                    // Slight delay to allow layout shift before resize recalculation
                     setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100); 
                 }
             });
@@ -1262,760 +1246,6 @@
                 });
             }
         });
-    </script>
-</body>
-</html>
-```
-
-### 2. `profile.html` (修正版)
-
-```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <!-- Resource Hints -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO & Metadata -->
-    <title>Psychometric Profile | Ken HARIMA</title>
-    <meta name="robots" content="noindex, nofollow">
-    
-    <!-- CSS & Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap"></noscript>
-
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    
-    <!-- Chart.js - Defer loading -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-
-    <style>
-        /* Base Styles */
-        body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
-        .font-display { font-family: 'Syne', sans-serif; }
-        .font-serif { font-family: 'Lora', serif; }
-        
-        /* Language Switching Logic */
-        .lang-en { display: none; }
-        html.is-global .lang-ja { display: none !important; }
-        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
-        html.is-global span.lang-en { display: inline !important; }
-
-        /* Animations */
-        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        }
-        .creative-highlight {
-            /* グラデーションマーカー（シアンから薄いインディゴへ） */
-            background-image: linear-gradient(120deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
-            background-repeat: no-repeat;
-            background-position: 0% 85%; /* 下寄りに配置 */
-            background-size: 0% 40%; /* 初期状態は幅0、高さ40% */
-            /* アニメーション: 0.8秒待ってから1.2秒かけて引く */
-            animation: drawHighlight 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
-            /* 行をまたいだ時の挙動を自然にする */
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-            padding: 0 2px;
-            font-weight: 700; /* 文字を太くして強調 */
-            color: #0f3c85; /* 文字色をアクセントカラーに */
-        }
-
-        @keyframes drawHighlight {
-            to { background-size: 100% 40%; }
-        }
-
-        .smart-reveal {
-            /* ぼかしながら浮き上がるアニメーション */
-            animation: smartReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0; /* 初期状態 */
-        }
-
-        .text-shimmer {
-            /* 光沢が流れるグラデーション */
-            background-size: 200% auto;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: shimmerFlow 6s linear infinite;
-        }
-
-        @keyframes smartReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(15px) scale(0.98);
-                filter: blur(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-        }
-
-        @keyframes shimmerFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-    </style>
-
-    <!-- Tailwind Config -->
-    <script>
-        tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        colors: {
-                            bizText: '#0f172a',
-                            bizAccent: '#0f3c85',
-                            bgBase: '#fafafa',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Defer Tailwind to unblock rendering -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
-
-    <!-- Delayed Google Tag Manager -->
-    <script>
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            var script = document.createElement('script');
-            script.src = "https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D";
-            script.async = true;
-            document.head.appendChild(script);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ECXCCZF93D');
-        }, 3500);
-    });
-    </script>
-</head>
-<body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
-
-    <!-- ================= HEADER ================= -->
-    <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-6 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <!-- Back Button -->
-            <a href="./index.html" class="group flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-bizAccent transition-colors">
-                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-bizAccent/10 transition-colors">
-                    <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-0.5 transition-transform"></i>
-                </div>
-                <span class="hidden md:inline font-display tracking-wide">PORTFOLIO</span>
-            </a>
-
-            <!-- Title -->
-            <h1 class="text-sm md:text-base font-bold text-bizText tracking-tight text-right">
-                <span class="lang-ja">心理測定プロファイル</span>
-                <span class="lang-en">Psychometric Profile</span>
-            </h1>
-        </div>
-    </header>
-
-    <div class="flex-grow max-w-4xl mx-auto px-6 pt-24 md:pt-32 w-full">
-
-        <!-- ================= INTRO (EXTREME CREATIVE: LAB INTERFACE) ================= -->
-    <section class="mb-24 fade-in-up relative">
-        
-        <!-- Background Decor: Subtle Gradient Mesh -->
-        <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[120%] h-full bg-gradient-to-b from-indigo-50/50 via-white to-white -z-10 pointer-events-none"></div>
-
-       <!-- Section Header -->
-        <div class="mb-10 relative">
-            <!-- Japanese Title -->
-            <h2 class="lang-ja text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.95] tracking-tighter relative z-10 smart-reveal">
-                なぜ、<br>
-                <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">心理測定</span>なのか？
-            </h2>
-
-            <!-- English Title -->
-            <h2 class="lang-en text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.9] tracking-tighter relative z-10 smart-reveal">
-                Why<br>
-                <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">Psychometrics?</span>
-            </h2>
-
-            <!-- Decorative Elements behind text -->
-            <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
-        </div>
-
-        <!-- Main Structure: Tech Spec Grid -->
-        <div class="relative bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden flex flex-col lg:flex-row ring-1 ring-gray-900/5">
-            
-            <!-- LEFT COLUMN: Manifesto (The Logic) -->
-            <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between relative group">
-                
-                <!-- Background Grid Pattern for Tech Feel -->
-                <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
-
-                <!-- Decorative Label: Tech Badge Style -->
-                <div class="absolute top-0 left-0">
-                    <div class="bg-bizText text-white text-[10px] font-mono font-bold px-4 py-1.5 uppercase tracking-[0.2em] rounded-br-lg shadow-sm">
-                        Manifesto
-                    </div>
-                </div>
-
-                <div class="prose prose-lg text-gray-700 font-serif leading-loose text-justify max-w-none relative z-10 mt-6">
-                    <p class="lang-ja mb-8">
-                       信頼の礎は、透明性と予測可能性にあります。 私は主観的な言葉で自身を飾るのではなく、<span class="creative-highlight">科学的妥当性が検証された客観的データ</span>を通じて「私」という人間を提示します。
-                    </p>
-                    <p class="lang-en mb-8">
-                        Trust is built on transparency and predictability. Rather than relying on subjective rhetoric, I present "who I am" through <span class="creative-highlight">objective data grounded in established scientific validity</span>.
-                    </p>
-
-                    <p class="lang-ja">
-                        本ページでは、社会科学分野において広く支持され、国際比較研究（Cross-cultural research）でも標準的に採用されている2つの枠組みを採用しました。
-                    </p>
-                    <p class="lang-en">
-                        To this end, I have adopted two prominent frameworks that are widely accepted in the social sciences and standardly used in cross-cultural research.
-                    </p>
-                </div>
-
-                <!-- Footnote: Tech Alert Style -->
-                <div class="mt-12 pt-6 border-t border-gray-200/60 relative z-10">
-                    <div class="flex gap-4 items-start">
-                        <div class="shrink-0 w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs mt-0.5 animate-pulse">
-                            <i class="fa-solid fa-info"></i>
-                        </div>
-                        <div class="text-xs md:text-sm text-gray-500 font-mono leading-relaxed">
-                            <span class="lang-ja">
-                                このデータ公開は、メタ認知（自己客観視）へのコミットメントを示すものであり、パートナーの皆様との協働を円滑にする『取扱説明書』としての役割を果たすことを目的としています。
-                            </span>
-                            <span class="lang-en">
-                                This disclosure demonstrates my commitment to metacognition and serves as a practical 'User Manual' to facilitate seamless collaboration with my partners.
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RIGHT COLUMN: Frameworks (The Modules) -->
-            <div class="lg:w-5/12 flex flex-col bg-white/60 backdrop-blur-sm border-l border-white/50 relative">
-                
-                <!-- Module 01: Big Five -->
-                <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-100 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <!-- Background Number (Watermark with Stroke) -->
-                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #e2e8f0;">
-                        01
-                    </span>
-
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-5 mb-5">
-                            <!-- Icon Container -->
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center text-xl shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                                <i class="fa-solid fa-microchip"></i>
-                            </div>
-                            <!-- Title -->
-                            <h3 class="flex flex-col">
-                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors">Big Five</span>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Five Factor Model)</span>
-                            </h3>
-                        </div>
-                        
-                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-800 transition-colors">
-                            <span class="lang-ja">
-                                ゴールドバーグ（Goldberg）らが提唱し、マックレーとコスタ（McCrae & Costa）が体系化した性格特性モデル。個人の『OS』に相当する基礎的な行動傾向を測定する、現代心理学の標準的な枠組みです。
-                            </span>
-                            <span class="lang-en">
-                                Systematized by researchers including Goldberg and McCrae & Costa. It serves as the standard framework in modern psychology for assessing fundamental personality traits—equivalent to an individual’s 'Operating System'.
-                            </span>
-                        </p>
-                    </div>
-                    <!-- Hover Accent Line -->
-                    <div class="absolute left-0 bottom-0 h-1 w-0 bg-bizAccent group-hover:w-full transition-all duration-700 ease-in-out"></div>
-                </div>
-
-                <!-- Module 02: PVQ -->
-                <div class="group relative flex-1 p-8 md:p-10 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <!-- Background Number -->
-                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #bfdbfe;">
-                        02
-                    </span>
-
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-5 mb-5">
-                            <!-- Icon Container -->
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-100 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
-                                <i class="fa-solid fa-heart-pulse animate-[pulse_3s_ease-in-out_infinite]"></i>
-                            </div>
-                            <!-- Title -->
-                            <h3 class="flex flex-col">
-                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors">PVQ</span>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Portrait Values Questionnaire)</span>
-                            </h3>
-                        </div>
-
-                        <p class="text-sm text-gray-600 leading-relaxed font-sans pl-1 group-hover:text-gray-800 transition-colors">
-                            <span class="lang-ja">
-                                S.シュワルツ（Schwartz）の基本価値理論に基づき開発された測定モデル。行動や意思決定の根底にある、文化普遍的な『動機（Motivational Goals）』を特定します。
-                            </span>
-                            <span class="lang-en">
-                                Based on Shalom H. Schwartz’s Theory of Basic Human Values. This model identifies the universal 'motivational goals' that underlie attitudes, behavior, and decision-making.
-                            </span>
-                        </p>
-                    </div>
-                    <!-- Hover Accent Line -->
-                    <div class="absolute left-0 bottom-0 h-1 w-0 bg-blue-500 group-hover:w-full transition-all duration-700 ease-in-out"></div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-        
-        <!-- ================= Big Five (OS) ================= -->
-        <section class="mb-24 fade-in-up delay-100">
-            <div class="flex items-center gap-4 mb-8">
-                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">01</span>
-                <div>
-                    <h3 class="text-xl font-bold text-bizText">Big Five</h3>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center glass-card rounded-2xl p-6 md:p-10">
-                <!-- Chart Area -->
-                <div class="aspect-square w-full max-w-[400px] mx-auto relative">
-                    <canvas id="big5Chart"></canvas>
-                </div>
-
-                <!-- Interpretation / Scores -->
-                <div class="h-full flex flex-col justify-center">
-                    <div class="border-b border-gray-200 pb-2 mb-6">
-                         <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest flex justify-between items-end">
-                            <span>
-                                <span class="lang-ja">スコア詳細</span>
-                                <span class="lang-en">Score Breakdown</span>
-                            </span>
-                            <span class="text-[10px] font-normal text-gray-300 normal-case">Normalized (0-1.0)</span>
-                         </h4>
-                    </div>
-
-                    <!-- Traits List (Vertical Stack) -->
-                    <div class="space-y-3">
-
-                        <!-- 1. Openness (0.88) -->
-                        <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold text-bizAccent text-sm">
-                                    <span class="lang-ja">経験への解放性</span>
-                                    <span class="lang-en">Openness</span>
-                                </span>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                        <span class="lang-ja">極めて高い</span>
-                                        <span class="lang-en">Very High</span>
-                                    </span>
-                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.88</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600 leading-snug">
-                                <span class="lang-ja">非常に高い知的好奇心と抽象思考力。新しいアイデアや美的感覚に対する強い受容性を示します。</span>
-                                <span class="lang-en">Exceptional intellectual curiosity and abstract thinking. High receptivity to new ideas and aesthetics.</span>
-                            </p>
-                        </div>
-
-                        <!-- 2. Conscientiousness (0.82) -->
-                        <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold text-bizAccent text-sm">
-                                    <span class="lang-ja">誠実性</span>
-                                    <span class="lang-en">Conscientiousness</span>
-                                </span>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                        <span class="lang-ja">極めて高い</span>
-                                        <span class="lang-en">Very High</span>
-                                    </span>
-                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.82</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600 leading-snug">
-                                <span class="lang-ja">目標達成に向けた自己規律と計画性が高い。細部への注意を怠らず、責任を持ってプロジェクトを完遂するグリットがある。</span>
-                                <span class="lang-en">High self-discipline and planning skills geared toward goal achievement. Possesses the "grit" to execute projects with meticulous attention to detail and responsibility.</span>
-                            </p>
-                        </div>
-
-                        <!-- 3. Agreeableness (0.77) -->
-                        <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold text-gray-700 text-sm">
-                                    <span class="lang-ja">協調性</span>
-                                    <span class="lang-en">Agreeableness</span>
-                                </span>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                        <span class="lang-ja">高い</span>
-                                        <span class="lang-en">High</span>
-                                    </span>
-                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.77</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600 leading-snug">
-                                <span class="lang-ja">他者への共感性が高く、協力的。利害関係の調整や信頼関係の構築に長けており、組織の心理的安全性を高める。</span>
-                                <span class="lang-en">Highly empathetic and cooperative. Skilled in stakeholder management and building trust, enhancing the "Psychological Safety" of the organization.</span>
-                            </p>
-                        </div>
-
-                        <!-- 4. Extraversion (0.75) -->
-                        <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold text-gray-700 text-sm">
-                                    <span class="lang-ja">外向性</span>
-                                    <span class="lang-en">Extraversion</span>
-                                </span>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                        <span class="lang-ja">高い</span>
-                                        <span class="lang-en">High</span>
-                                    </span>
-                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.75</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600 leading-snug">
-                                <span class="lang-ja">社交性と内省的な側面を併せ持つバランス型。状況に応じてリーダーシップを発揮しつつ、他者の意見に深く耳を傾けることもできる。</span>
-                                <span class="lang-en">A balanced "Ambivert" combining sociability with introspection. Capable of taking leadership when needed while maintaining the ability to listen deeply to others.</span>
-                            </p>
-                        </div>
-
-                        <!-- 5. Emotional Stability (0.79) -->
-                        <!-- ツールチップ機能付き -->
-                        <div class="relative bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300" id="tooltip-container">
-                            <div class="flex justify-between items-center mb-1 cursor-help select-none" onclick="toggleTooltip(event)">
-                                <span class="font-bold text-gray-700 text-sm flex items-center gap-1">
-                                    <span class="lang-ja">情緒安定性</span>
-                                    <span class="lang-en">Emotional Stability</span>
-                                    <i class="fa-solid fa-circle-info text-[10px] text-gray-300"></i>
-                                </span>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                                        <span class="lang-ja">高い</span>
-                                        <span class="lang-en">High</span>
-                                    </span>
-                                    <span class="font-mono font-bold text-bizText w-8 text-right">0.79</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-600 leading-snug">
-                                <span class="lang-ja">感情の起伏が少なく、ストレス耐性が極めて高い。危機的な状況やプレッシャー下においても、冷静かつ事実に基づいた意思決定を行える。</span>
-                                <span class="lang-en">Exceptional stress tolerance with low emotional volatility. Maintains composure under pressure to make fact-based decisions even in critical situations.</span>
-                            </p>
-
-                            <!-- Tooltip Body -->
-                            <div id="tooltip-body" class="absolute bottom-full right-0 mb-2 w-56 p-2 bg-gray-800 text-white text-[10px] rounded opacity-0 invisible transition-all duration-200 z-20 text-left leading-tight shadow-lg transform translate-y-1 pointer-events-none">
-                                <div class="lang-ja mb-1">※神経症傾向(0.21)の<br>逆数(1-n)として算出</div>
-                                <div class="lang-en">*Calculated as the inverse (1-n)<br>of Neuroticism (0.21)</div>
-                                <div class="absolute top-full right-6 border-4 border-transparent border-t-gray-800"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= PVQ (Driver) ================= -->
-        <section class="mb-24 fade-in-up delay-200">
-            <div class="flex items-center gap-4 mb-8">
-                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
-                <div>
-                    <!-- Updated Title with Translation -->
-                    <h3 class="text-xl font-bold text-bizText">
-                        <span class="lang-ja">PVQ</span>
-                        <span class="lang-en">PVQ</span>
-                    </h3>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6 md:p-10">
-                <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8 md:gap-12 items-center">
-                    
-                    <!-- Chart -->
-                    <div class="aspect-square w-full max-w-[500px] mx-auto relative order-2 md:order-1">
-                        <canvas id="pvqChart"></canvas>
-                    </div>
-
-                    <!-- Legend / Insight -->
-                    <div class="order-1 md:order-2 h-full flex flex-col justify-center">
-                        <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-200 pb-2">
-                            <span class="lang-ja">支配的な価値観</span>
-                            <span class="lang-en">Dominant Values</span>
-                        </h4>
-                        
-                        <div class="space-y-6">
-                            <!-- Top Tier -->
-                            <div>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="w-3 h-3 rounded-full bg-[#0f3c85]"></span>
-                                    <span class="font-bold text-bizText text-lg">
-                                        <span class="lang-ja">自己主導 & 刺激</span>
-                                        <span class="lang-en">Self-Direction & Stimulation</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">創造、探究、独立心、そして変化への渇望。自らの判断で道を切り拓き、知的な興奮を追求することを最優先する。</span>
-                                    <span class="lang-en">Creativity, exploration, independence, and a drive for change. I prioritize the autonomy to forge new paths and the pursuit of intellectual stimulation.</span>
-                                </p>
-                            </div>
-
-                            <!-- Second Tier -->
-                            <div>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="w-3 h-3 rounded-full bg-[#3b82f6]"></span>
-                                    <span class="font-bold text-bizText text-lg">
-                                        <span class="lang-ja">慈善 & 順応</span>
-                                        <span class="lang-en">Benevolence & Conformity</span>
-                                    </span>
-                                </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
-                                    <span class="lang-ja">周囲の人々の幸福と、社会的規範の尊重。革新的でありながら、決して独善的にならず、コミュニティとの調和を重視するバランス感覚を示している。</span>
-                                    <span class="lang-en">Commitment to the welfare of others and respect for social norms. Innovative yet never self-righteous, demonstrating a balanced approach that prioritizes harmony within the community.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= FOOTER CTA ================= -->
-        <section class="text-center pb-20 fade-in-up delay-300">
-            <a href="../contact.html" class="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
-                <span>Contact</span>
-                <i class="fa-solid fa-arrow-right text-sm"></i>
-            </a>
-        </section>
-
-    </div>
-
-    <!-- ================= FOOTER with LANG SWITCH ================= -->
-    <footer class="border-t border-gray-200 pt-8 pb-16 w-full max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
-        <p class="text-gray-400">© 2025 Ken HARIMA | Psychometrics</p>
-        <div class="flex items-center gap-6 mt-6 md:mt-0">
-            <!-- Language Switcher -->
-            <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
-                <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
-                <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Script: Chart Configuration & Language Logic -->
-    <script>
-        // Use window.load instead of DOMContentLoaded to prioritize paint
-        window.addEventListener('load', () => {
-            const htmlEl = document.documentElement;
-            const fontDisplay = "'Syne', sans-serif";
-            const fontBody = "'Inter', 'Noto Sans JP', sans-serif";
-
-            // 1. Define Labels for Both Languages
-            const labels = {
-                big5: {
-                    ja: ['経験への解放性', '誠実性', '外向性', '協調性', '情緒安定性'],
-                    en: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Stability']
-                },
-                pvq: {
-                    ja: ['自己主導', '刺激', '快楽', '達成', '権力', '安全', '順応', '伝統', '慈善', '普遍性'],
-                    en: ['Self-Direction', 'Stimulation', 'Hedonism', 'Achievement', 'Power', 'Security', 'Conformity', 'Tradition', 'Benevolence', 'Universalism']
-                }
-            };
-
-            // 2. Data Definition
-            const big5Data = [0.875, 0.825, 0.750, 0.767, 0.792];
-            const pvqDataValues = [6.0, 6.0, 4.33, 4.75, 4.0, 5.8, 6.0, 2.0, 6.0, 5.17];
-            const pvqColors = [
-                'rgba(59, 130, 246, 0.8)', 'rgba(99, 102, 241, 0.8)', 'rgba(139, 92, 246, 0.7)', 
-                'rgba(168, 85, 247, 0.6)', 'rgba(236, 72, 153, 0.5)', 'rgba(100, 116, 139, 0.7)', 
-                'rgba(71, 85, 105, 0.8)', 'rgba(148, 163, 184, 0.5)', 'rgba(14, 165, 233, 0.8)', 
-                'rgba(6, 182, 212, 0.7)'
-            ];
-
-            // 3. Initialize Charts
-            // Big Five
-            const big5Chart = new Chart(document.getElementById('big5Chart').getContext('2d'), {
-                type: 'radar',
-                data: {
-                    labels: [], // Initialized in updateCharts
-                    datasets: [{
-                        label: 'Score',
-                        data: big5Data,
-                        fill: true,
-                        backgroundColor: 'rgba(15, 60, 133, 0.2)',
-                        borderColor: '#0f3c85',
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#0f3c85',
-                        pointHoverBackgroundColor: '#0f3c85',
-                        pointHoverBorderColor: '#fff',
-                        borderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    layout: {
-                        padding: 5
-                    },
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(0,0,0,0.05)' },
-                            grid: { color: 'rgba(0,0,0,0.05)' },
-                            pointLabels: { 
-                                font: { size: 10, family: fontBody, weight: '600' }, 
-                                color: '#334155' 
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 1.0,
-                            ticks: { display: false, backdropColor: 'transparent' }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, bodyFont: { family: fontBody } }
-                    },
-                    animation: { duration: 1000 }
-                }
-            });
-
-            // PVQ
-            const pvqChart = new Chart(document.getElementById('pvqChart').getContext('2d'), {
-                type: 'polarArea',
-                data: {
-                    labels: [], // Initialized in updateCharts
-                    datasets: [{
-                        data: pvqDataValues,
-                        backgroundColor: pvqColors,
-                        borderWidth: 1,
-                        borderColor: '#ffffff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            pointLabels: { display: true, centerPointLabels: true, font: { size: 10, family: fontBody, weight: 'bold' }, color: '#475569' },
-                            grid: { color: 'rgba(0,0,0,0.05)' },
-                            ticks: { display: false, backdropColor: 'transparent' },
-                            suggestedMin: 0
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { 
-                            backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 10, bodyFont: { family: fontBody },
-                            callbacks: { label: function(context) { return context.label + ': ' + context.raw; } }
-                        }
-                    },
-                    animation: { duration: 1000 }
-                }
-            });
-
-            // 4. Language Switcher Logic
-            const langJpBtn = document.getElementById('lang-jp');
-            const langEnBtn = document.getElementById('lang-en');
-            const activeClass = "bg-white text-black shadow-sm";
-            const inactiveClass = "text-gray-400 hover:text-gray-600";
-
-            function setLanguage(isGlobal) {
-                // Update HTML class
-                if (isGlobal) {
-                    htmlEl.classList.add('is-global');
-                } else {
-                    htmlEl.classList.remove('is-global');
-                }
-
-                // Update Button Styles
-                if (isGlobal) {
-                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
-                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
-                } else {
-                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
-                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
-                }
-
-                // Update Charts
-                updateCharts(isGlobal);
-            }
-
-            function updateCharts(isGlobal) {
-                const langKey = isGlobal ? 'en' : 'ja';
-                
-                // Update Big Five
-                big5Chart.data.labels = labels.big5[langKey];
-                big5Chart.update();
-
-                // Update PVQ
-                pvqChart.data.labels = labels.pvq[langKey];
-                pvqChart.update();
-            }
-
-            // Initialization
-            (function init() {
-                var lang = navigator.language || navigator.userLanguage; 
-                let isGlobal = htmlEl.classList.contains('is-global');
-                
-                // Initial check if not explicitly set by class but by navigator
-                if (!isGlobal && !lang.startsWith('ja')) {
-                    isGlobal = true;
-                }
-                
-                setLanguage(isGlobal);
-            })();
-
-            // Event Listeners
-            langJpBtn.addEventListener('click', () => setLanguage(false));
-            langEnBtn.addEventListener('click', () => setLanguage(true));
-        });
-        
-            // Explicitly attach to window so onclick="toggleTooltip()" works
-            window.toggleTooltip = function(e) {
-                e.stopPropagation(); // 親要素へのイベント伝播を止める
-                const tooltip = document.getElementById('tooltip-body');
-                
-                // クラスの有無で表示/非表示を切り替え
-                if (tooltip.classList.contains('opacity-0')) {
-                    // 表示 (opacity:1, visible, 位置リセット)
-                    tooltip.classList.remove('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
-                } else {
-                    // 非表示
-                    tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
-                }
-            };
-
-            // 画面のどこかをタップしたらツールチップを閉じる
-            document.addEventListener('click', function(e) {
-                const tooltip = document.getElementById('tooltip-body');
-                const container = document.getElementById('tooltip-container');
-                
-                // ツールチップが存在し、かつクリックされた場所がコンテナの外側なら閉じる
-                if (tooltip && container && !container.contains(e.target)) {
-                    tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
-                }
-            });
     </script>
 </body>
 </html>
