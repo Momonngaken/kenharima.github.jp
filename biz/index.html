@@ -1215,11 +1215,10 @@
             <!-- flex-1 min-h-0 でスクロール領域確保。overscroll-contain で背景スクロール連鎖防止 -->
             <div class="modal-scroll flex-1 min-h-0 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain" tabindex="0">
                 
-                <!-- Content Container -->
-                <!-- ▼▼▼▼▼ 変更: mt-5等の余計なマージンを排除 (mt-0)。pt-5で適度な余白のみ確保 ▼▼▼▼▼ -->
-                <div id="modal-content" class="relative z-10 px-6 pt-5 pb-12 md:px-8 md:pt-6 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide">
-                    <!-- Dynamic Content -->
-                </div>
+                <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
+<div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide [&>div:first-child]:mt-0">
+    <!-- Dynamic Content -->
+</div>
             </div>
         </div>
     </div>
