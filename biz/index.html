@@ -1243,26 +1243,24 @@
                     <i class="fa-solid fa-xmark text-lg transition-transform duration-300 group-hover:rotate-90"></i>
                 </button>
             </div>
-
-           <!-- Scrollable Body -->
             <div class="relative flex-1 min-h-0 overflow-hidden flex flex-col">
                 <!-- スクロール領域 -->
                 <div id="modal-scroll-container" class="modal-scroll flex-1 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain custom-scrollbar" tabindex="0">
                     
+                    <!-- コンテンツ本体（スクロール領域の中に配置） -->
+                    <!-- pt-0 と [&>div:first-child]:mt-0 で上部余白を削除 -->
+                    <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-8 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide modal-text-body [&>div:first-child]:mt-0">
+                        <!-- Dynamic Content -->
+                    </div>
+
                 </div>
 
-                <!-- ▼▼▼ 追加: スクロールヒント (Zeigarnik Effect) ▼▼▼ -->
+                <!-- スクロールヒント -->
                 <div id="modal-scroll-hint" class="scroll-hint-overlay absolute bottom-0 left-0 right-0 h-24 z-20 flex items-end justify-center pb-6 transition-opacity duration-300">
                     <span class="text-[10px] font-bold text-bizAccent uppercase tracking-widest animate-bounce bg-white/80 px-3 py-1 rounded-full shadow-sm border border-gray-100 backdrop-blur-sm">
                         Read More <i class="fa-solid fa-chevron-down ml-1"></i>
                     </span>
                 </div>
-            </div>
-            
-                <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
-<div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide [&>div:first-child]:mt-0">
-    <!-- Dynamic Content -->
-</div>
             </div>
         </div>
     </div>
