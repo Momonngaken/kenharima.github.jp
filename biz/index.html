@@ -1612,11 +1612,9 @@
                         modal.classList.add('hidden');
                         modal.classList.remove('flex');
                         
-                        // ▼▼▼ 確認: アニメーション完了後にスクロールロック解除 ▼▼▼
-                        document.documentElement.style.overflow = ''; // HTMLロック解除
+                        document.documentElement.style.overflow = '';
                         document.body.style.overflow = '';
                         if(typeof lenis !== 'undefined') lenis.start();
-                        // ▲▲▲ 確認ここまで ▲▲▲
 
                         isModalOpen = false;
                     }
