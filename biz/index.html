@@ -135,7 +135,6 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        /* モーダル内のスクロールバーを美しく */
         .modal-scroll::-webkit-scrollbar { width: 6px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
         .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.2); border-radius: 20px; }
@@ -165,9 +164,6 @@
             -webkit-backdrop-filter: blur(16px);
         }
 
-        /* ▼▼▼▼▼ 変更: スクロールバーの視認性と操作性を向上 ▼▼▼▼▼ */
-        /* 以前の細すぎる4pxから、操作しやすい幅へ変更し、ホバー効果を追加 */
-        /* overscroll-behavior-y: contain を追加し、運動エネルギーの連鎖を物理的に遮断 */
         .modal-scroll { overscroll-behavior-y: contain; } 
         .modal-scroll::-webkit-scrollbar { width: 8px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -175,20 +171,15 @@
             background-color: rgba(15, 60, 133, 0.3); 
             border-radius: 10px; 
             border: 2px solid transparent; 
-            background-clip: content-box; /* 余白を作って美しく */
+            background-clip: content-box; 
         }
         .modal-scroll::-webkit-scrollbar-thumb:hover { 
-            background-color: rgba(15, 60, 133, 0.6); /* ホバー時に濃くする */
+            background-color: rgba(15, 60, 133, 0.6);
         }
 
-        /* ▼▼▼▼▼ 削除: .modal-watermark の定義を削除しました ▼▼▼▼▼ */
-        
-        /* Modal Language Logic: サイト全体の言語設定(.is-global)と連動 */
-        /* Default (Japanese Mode): Hide English */
         #modal-content .lang-en { display: none; }
         #modal-content .lang-ja { display: block; }
 
-        /* Global (English Mode): Hide Japanese, Show English */
         html.is-global #modal-content .lang-ja { display: none !important; }
         html.is-global #modal-content .lang-en { display: block !important; }
 
@@ -212,13 +203,10 @@
             .md\:h-11 { height: 2.75rem; }
             .md\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
         }
-        /* ▼▼▼ 追加: クリエイティブ・ナッジデザイン ▼▼▼ */
-        
-        /* 1. テキスト選択色: 視認性の高いシアンと濃紺のコントラスト */
+
         ::selection { background-color: #a5f3fc; color: #0f172a; } 
         ::-moz-selection { background-color: #a5f3fc; color: #0f172a; }
 
-        /* 2. 読了プログレスバー */
         .reading-progress-bar {
             position: absolute; top: 0; left: 0; height: 3px;
             background: linear-gradient(90deg, #0f3c85, #06b6d4);
@@ -226,7 +214,6 @@
             box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
-        /* 3. 蛍光マーカー風ハイライト (スクロールで発火させるための準備) */
         .nudge-marker {
             background: linear-gradient(120deg, rgba(165, 243, 252, 0) 0%, rgba(165, 243, 252, 0) 100%);
             background-repeat: no-repeat;
@@ -243,14 +230,12 @@
             background-position: 0 88%;
         }
 
-        /* 4. スクロールヒント (続きがあることを示唆) */
         .scroll-hint-overlay {
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.95));
             pointer-events: none;
             transition: opacity 0.5s ease;
         }
         
-        /* モーダル本文の可読性向上 */
         .modal-text-body p { margin-bottom: 1.5em; letter-spacing: 0.03em; }
         .modal-text-body strong { color: #0f3c85; font-weight: 700; }
     </style>
@@ -971,7 +956,6 @@
     </div>
 
     <!-- 5. 新規追加：クリエイティブ「+」アイコン（右下に配置） -->
-    <!-- 単なるアイコンではなく、ホバー時に背景が浮かび上がり、アイコンが回転するマイクロインタラクションを実装 -->
     <div class="absolute bottom-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full transition-all duration-500 group-hover:bg-bizAccent/5">
         <i class="fa-solid fa-plus text-gray-200 text-sm transition-all duration-500 transform group-hover:text-bizAccent group-hover:rotate-90 group-hover:scale-110"></i>
     </div>
@@ -1232,7 +1216,6 @@
 
     </div>
 
-    <!-- ▼▼▼▼▼ INSERT START: GLOBAL MODAL SYSTEM ▼▼▼▼▼ -->
     <div id="global-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" aria-hidden="true">
         
         <!-- 1. Blur Backdrop -->
@@ -1241,14 +1224,11 @@
         <!-- 2. Modal Card -->
         <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu">
             
-            <!-- ▼▼▼ 追加: 読了プログレスバー (Reading Progress) ▼▼▼ -->
             <div id="modal-progress-bar" class="reading-progress-bar"></div>
 
-            <!-- Top Gradient Line (装飾用) -->
             <div class="h-1.5 w-full bg-gray-100 shrink-0 z-30 opacity-50"></div>
             
             <!-- Header Area -->
-            <!-- 変更: py-5/py-6 を維持しつつ、下部は border で区切る -->
             <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white/95 backdrop-blur-sm z-20 shrink-0 relative shadow-sm">
                 <div class="pr-8" id="modal-header-content">
                     <!-- JS Injects Title Here -->
@@ -1260,31 +1240,27 @@
 
            <!-- Scrollable Body -->
             <div class="relative flex-1 min-h-0 overflow-hidden flex flex-col">
-                <!-- スクロール領域 -->
-                <!-- data-lenis-prevent属性により、スムーススクロールの干渉を排除し、指先の感覚に忠実なスクロールを実現 -->
                 <div id="modal-scroll-container" data-lenis-prevent class="modal-scroll flex-1 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain custom-scrollbar" tabindex="0">
-                    <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
+
                     <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-8 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide modal-text-body [&>div:first-child]:mt-0">
                         <!-- Dynamic Content -->
                     </div>
                 </div>
 
-                <!-- ▼▼▼ 追加: スクロールヒント (Zeigarnik Effect) ▼▼▼ -->
                 <div id="modal-scroll-hint" class="scroll-hint-overlay absolute bottom-0 left-0 right-0 h-24 z-20 flex items-end justify-center pb-6 transition-opacity duration-300">
                     <span class="text-[10px] font-bold text-bizAccent uppercase tracking-widest animate-bounce bg-white/80 px-3 py-1 rounded-full shadow-sm border border-gray-100 backdrop-blur-sm">
                         Read More <i class="fa-solid fa-chevron-down ml-1"></i>
                     </span>
                 </div>
             </div>
-            
-                <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
+
 <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-7 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide [&>div:first-child]:mt-0">
     <!-- Dynamic Content -->
 </div>
             </div>
         </div>
     </div>
-    <!-- ▲▲▲▲▲ INSERT END ▲▲▲▲▲ -->
+
 
     <!-- GSAP & Lenis (Defer loading) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
@@ -1481,13 +1457,11 @@
 
             let isModalOpen = false;
 
-            // OPTIMIZATION: IntersectionObserver for "Highlighter" Nudge
-            // スクロールイベント内でのDOM計算(getBoundingClientRect)を排除し、CPU負荷を極限まで下げる
             const markerObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('nudge-marker', 'active');
-                        markerObserver.unobserve(entry.target); // 一度発火したら監視解除（メモリ節約）
+                        markerObserver.unobserve(entry.target);
                     }
                 });
             }, { root: modalScrollContainer, threshold: 0.8 });
@@ -1515,7 +1489,7 @@
             modalScrollContainer.addEventListener('scroll', updateScrollProgress); // Throttling excluded for smoothness, but logic is now lightweight.
 
             // 3. Open Function (Event Delegation for Performance)
-            // 個別の要素にリスナーを貼らず、bodyで一括監視することでメモリ消費を抑える
+
             document.body.addEventListener('click', (e) => {
                 const trigger = e.target.closest('.js-modal-trigger');
                 if (!trigger) return;
