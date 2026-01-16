@@ -167,6 +167,8 @@
 
         /* ▼▼▼▼▼ 変更: スクロールバーの視認性と操作性を向上 ▼▼▼▼▼ */
         /* 以前の細すぎる4pxから、操作しやすい幅へ変更し、ホバー効果を追加 */
+        /* overscroll-behavior-y: contain を追加し、運動エネルギーの連鎖を物理的に遮断 */
+        .modal-scroll { overscroll-behavior-y: contain; } 
         .modal-scroll::-webkit-scrollbar { width: 8px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
         .modal-scroll::-webkit-scrollbar-thumb { 
@@ -1259,8 +1261,8 @@
            <!-- Scrollable Body -->
             <div class="relative flex-1 min-h-0 overflow-hidden flex flex-col">
                 <!-- スクロール領域 -->
-                <div id="modal-scroll-container" class="modal-scroll flex-1 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain custom-scrollbar" tabindex="0">
-                    
+                <!-- data-lenis-prevent属性により、スムーススクロールの干渉を排除し、指先の感覚に忠実なスクロールを実現 -->
+                <div id="modal-scroll-container" data-lenis-prevent class="modal-scroll flex-1 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain custom-scrollbar" tabindex="0">
                     <!-- ▼▼▼▼▼ 変更: pt-5/md:pt-6 を pt-0 に変更し、先頭要素のマージンを強制削除するクラスを追加 ▼▼▼▼▼ -->
                     <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-8 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide modal-text-body [&>div:first-child]:mt-0">
                         <!-- Dynamic Content -->
@@ -1523,8 +1525,10 @@
 
                 // Stop Lenis & Scroll
                 if (typeof lenis !== 'undefined') lenis.stop();
+                // BodyだけでなくdocumentElement(html)もロックすることで、モバイルやLenis環境下での「背景漏れ」を完全封鎖
+                document.documentElement.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
-
+                
                 const id = trigger.getAttribute('data-modal-id');
                 const data = modalData[id];
                 if (!data) return;
@@ -1582,7 +1586,11 @@
                         rotationX: 0, 
                         duration: 0.6, 
                         ease: "back.out(1.2)",
-                        onComplete: () => { modalPanel.focus(); }
+                        // ユーザーの意識(フォーカス)をスクロール領域へ即座に接続
+                        onComplete: () => { 
+                            modalPanel.focus(); 
+                            if(modalScrollContainer) modalScrollContainer.focus();
+                        }
                     }
                 );
 
@@ -1605,6 +1613,7 @@
                         modal.classList.remove('flex');
                         
                         // ▼▼▼ 確認: アニメーション完了後にスクロールロック解除 ▼▼▼
+                        document.documentElement.style.overflow = ''; // HTMLロック解除
                         document.body.style.overflow = '';
                         if(typeof lenis !== 'undefined') lenis.start();
                         // ▲▲▲ 確認ここまで ▲▲▲
