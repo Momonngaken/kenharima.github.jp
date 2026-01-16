@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
-    <title>Ken HARIMA (播磨賢) | Professional Portfolio</title>
+    <title>Ken HARIMA (播磨賢) | Business Portfolio</title>
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     <meta name="description" content="Official Business Portfolio of Ken HARIMA (播磨賢). Bridging Social Science & Data Strategy. Waseda University / University of Mannheim. Marketing, Game Theory, and Creative Engineering.">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
@@ -1214,14 +1214,14 @@
         </main>
 
         <footer class="border-t border-gray-200 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
-            <p class="text-gray-400">© 2025 Ken HARIMA</p>
+            <p class="text-gray-400">© 2026 Ken HARIMA</p>
             <div class="flex items-center gap-6 mt-6 md:mt-0">
                 <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
                     <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
                     <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
                 </div>
                 <p class="hidden sm:block text-gray-200">|</p>
-                <p class="text-gray-400">Professional Portfolio</p>
+                <p class="text-gray-400">Business Portfolio</p>
             </div>
         </footer>
 
@@ -1584,82 +1584,6 @@
                 );
 
                 isModalOpen = true;
-            });
-
-            // 3. Open Function
-            triggers.forEach(trigger => {
-                trigger.addEventListener('click', (e) => {
-                    // Ignore clicks on inner links if any
-                    if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
-                    
-                    // ▼▼▼ 追加: ここで即座にLenisとScrollを停止 (最優先処理) ▼▼▼
-                    if (typeof lenis !== 'undefined') lenis.stop();
-                    document.body.style.overflow = 'hidden';
-                    // ▲▲▲ 追加ここまで ▲▲▲
-
-                    const id = trigger.getAttribute('data-modal-id');
-                    const data = modalData[id];
-                    if (!data) return;
-
-
-                    // A. Inject Header (JP & EN wrapped)
-                    // ▼▼▼▼▼ 変更: タイトル下のマージンを調整 (mb-1程度に留める) ▼▼▼▼▼
-                    headerContent.innerHTML = `
-                        <div class="lang-ja">
-                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p>
-                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3>
-                        </div>
-                        <div class="lang-en">
-                            <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p>
-                            <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3>
-                        </div>
-                    `;
-
-                    // B. Inject Body (JP & EN wrapped)
-                    // ▼▼▼▼▼ 変更: 先頭要素の余白を打ち消すユーティリティを追加 ▼▼▼▼▼
-                    modalContent.innerHTML = `
-                        <div class="lang-ja first:mt-0">
-                            ${data.body_ja.replace(/\n/g, '<br>')}
-                        </div>
-                        <div class="lang-en first:mt-0">
-                            ${data.body_en.replace(/\n/g, '<br>')}
-                        </div>
-                    `;
-
-                    // C. Reset Scroll
-                    document.querySelector('.modal-scroll').scrollTop = 0;
-
-                    // D. Show & Animate
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-
-                    // GSAP Entrance
-                    gsap.killTweensOf([modalBg, modalPanel]);
-                    gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
-                    gsap.fromTo(modalPanel, 
-                        { opacity: 0, scale: 0.9, y: 30, rotationX: 10 },
-                        { 
-                            opacity: 1, 
-                            scale: 1, 
-                            y: 0, 
-                            rotationX: 0, 
-                            duration: 0.6, 
-                            ease: "back.out(1.2)",
-                            onComplete: () => {
-                                // ▼▼▼▼▼ 追加: アニメーション完了後または即座にフォーカスを移動 ▼▼▼▼▼
-                                // これによりmacOS等で矢印キーでのスクロールが即座に効くようになります
-                                modalPanel.focus();
-                            }
-                        }
-                    );
-                    
-                    // アニメーションを待たずにフォーカスを試みる（UX向上）
-                    requestAnimationFrame(() => {
-                        modalPanel.focus();
-                    });
-
-                    isModalOpen = true;
-                });
             });
 
             // 4. Close Function
