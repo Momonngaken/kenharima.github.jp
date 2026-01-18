@@ -7,15 +7,31 @@
     <title>Contact | KEN HARIMA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+
+
+
+    
     <script>
         tailwind.config = {
-            theme: { extend: { fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], display: ['Syne', 'sans-serif'], mono: ['monospace'] }, colors: { neoBlack: '#121212', neoRed: '#FF4D4D' } } }
+            theme: { 
+                extend: { 
+                    fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], display: ['Syne', 'sans-serif'], mono: ['monospace'] }, 
+                    colors: { 
+                        bizText: '#0f172a',
+                        bizAccent: '#0f3c85',
+                        neoBlack: '#121212', 
+                        neoRed: '#FF4D4D' 
+                    } 
+                } 
+            }
         }
     </script>
     <style>
-        body { background-color: #ffffff; color: #121212; min-height: 100vh; display: flex; flex-direction: column; }
+        body { background-color: #fafafa; color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; }
         .input-field { width: 100%; border-bottom: 2px solid #e5e5e5; padding: 1rem 0; font-size: 1rem; font-weight: 500; outline: none; transition: all 0.3s ease; background: transparent; border-radius: 0; }
-        .input-field:focus { border-bottom-color: #121212; }
+        .input-field:focus { border-bottom-color: #0f3c85; }
+        
         .input-label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; color: #666; margin-bottom: 0.5rem; text-transform: uppercase; }
         .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
@@ -23,8 +39,8 @@
 </head>
 <body class="antialiased">
     <header class="fixed top-0 w-full px-6 py-6 flex justify-between items-center bg-white/90 backdrop-blur-sm z-50">
-        <a id="site-logo" href="./biz/index.html" class="text-2xl font-display font-black italic tracking-tighter hover:opacity-50 transition-opacity">KEN.H</a>
-        <button id="lang-toggle" class="flex items-center gap-2 font-mono text-xs font-bold border border-gray-200 px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors"><span id="lang-display">JP / EN</span></button>
+        <a id="site-logo" href="./index.html" class="text-2xl font-display font-black italic tracking-tighter text-bizText hover:opacity-50 transition-opacity">KEN.H</a>
+        <button id="lang-toggle" class="flex items-center gap-2 font-mono text-xs font-bold border border-gray-200 px-4 py-2 rounded-full hover:bg-bizAccent hover:text-white transition-colors"><span id="lang-display">JP / EN</span></button>
     </header>
     <main class="flex-grow flex items-center justify-center px-4 py-32">
         <div class="w-full max-w-2xl fade-in">
@@ -36,13 +52,14 @@
                 <!-- 変更箇所: 会社名 / 組織名 -->
                 <div class="group"><label class="input-label" for="organization" id="label-organization">会社名 / 組織名</label><input type="text" id="organization" name="organization" class="input-field placeholder-gray-300"></div>
                 
-                <div class="group"><label class="input-label" for="message" id="label-message">メッセージ</label><textarea id="message" name="message" required rows="1" class="input-field placeholder-gray-300 resize-none overflow-hidden" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea></div>
-                <div class="pt-8 text-center"><button type="submit" id="btn-submit" class="bg-black text-white font-display font-black italic text-xl px-12 py-4 hover:bg-neoRed hover:scale-105 transition-all duration-300 shadow-xl">送信する</button></div>
+                <div class="group"><label class="input-label" for="message" id="label-message">メッセージ</label><textarea id="message" name="message" required rows="1" class="input-field placeholder-gray-300 resize-none overflow-hidden" placeholder="Hello..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea></div>
+                <div class="pt-8 text-center"><button type="submit" id="btn-submit" class="bg-gray-900 text-white font-display font-black italic text-xl px-12 py-4 hover:bg-bizAccent hover:scale-105 transition-all duration-300 shadow-xl">送信する</button></div>
             </form>
+            
             <div id="success-message" class="hidden text-center py-20">
-                <p class="text-6xl mb-6">✉️</p><h2 class="text-2xl font-bold mb-4" id="success-title">送信完了</h2>
+                <p class="text-6xl mb-6">✉️</p><h2 class="text-2xl font-bold mb-4" id="success-title">送信完了</h2>       
                 <p class="text-gray-600 leading-relaxed" id="success-body">お問い合わせありがとうございます。<br>確認次第ご連絡いたします。</p>
-                <a href="./index.html" class="inline-block mt-12 text-sm font-bold border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition-colors" id="back-btn">トップに戻る</a>
+                <a href="./index.html" class="inline-block mt-12 text-sm font-bold border-b border-gray-900 pb-1 hover:text-bizAccent hover:border-bizAccent transition-colors" id="back-btn">トップに戻る</a>
             </div>
         </div>
     </main>
