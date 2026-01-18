@@ -39,6 +39,30 @@
         html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
         html.is-global span.lang-en { display: inline !important; }
 
+        /* --- 追加: スキャニングアニメーション --- */
+        .animate-scan-text {
+            background: linear-gradient(to right, 
+                rgba(255,255,255,0) 0%, 
+                rgba(99, 102, 241, 0.5) 50%, 
+                rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: scanText 3s linear infinite;
+        }
+        
+        @keyframes scanText {
+            0% { background-position: 200% 50%; }
+            100% { background-position: -200% 50%; }
+        }
+
+        /* 輪郭線文字のユーティリティ */
+        .text-stroke-sm {
+            -webkit-text-stroke: 1px rgba(15, 60, 133, 0.15);
+            color: transparent;
+        }
+
         /* Animations */
         .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
@@ -155,13 +179,83 @@
         <!-- Background Decor: Subtle Gradient Mesh -->
         <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[120%] h-full bg-gradient-to-b from-indigo-50/50 via-white to-white -z-10 pointer-events-none"></div>
 
-       <!-- Section Header -->
-        <div class="mb-10 relative">
-            <!-- Japanese Title -->
-            <h2 class="lang-ja text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.95] tracking-tighter relative z-10 smart-reveal">
-                なぜ、<br>
-                <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">心理測定</span>なのか？
-            </h2>
+      <!-- Section Header: Psychometrics Art Header -->
+        <div class="mb-16 relative w-full group">
+            
+            <!-- 1. Background Visuals (Abstract Grid) -->
+            <div class="absolute inset-0 -z-10 overflow-hidden rounded-3xl opacity-30">
+                <div class="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(15,60,133,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(15,60,133,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_40%,transparent_100%)]"></div>
+            </div>
+
+            <!-- 2. Main Typography Container -->
+            <div class="relative z-10 flex flex-col items-center justify-center py-10 md:py-16">
+                
+                <!-- "Why" Label (Floating Tag) -->
+                <div class="absolute top-0 left-4 md:left-10 fade-in-up delay-100">
+                    <div class="flex items-center gap-2">
+                        <span class="h-px w-8 bg-bizAccent"></span>
+                        <span class="font-mono text-xs md:text-sm font-bold tracking-widest text-bizAccent uppercase">The Question</span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-display font-bold text-bizText mt-2">
+                        Why?
+                    </h3>
+                </div>
+
+                <!-- GIANT ENGLISH TITLE (Visual Anchor) -->
+                <!-- レイヤリングで奥行きとスキャン演出を作成 -->
+                <div class="relative mt-8 md:mt-0 smart-reveal">
+                    <!-- Layer 1: Outline (Background) -->
+                    <h2 class="text-[13vw] md:text-[8.5rem] leading-[0.8] font-display font-bold select-none text-stroke-sm blur-[1px] opacity-60 absolute top-2 left-2 w-full text-center pointer-events-none">
+                        PSYCHO<br>METRICS
+                    </h2>
+                    
+                    <!-- Layer 2: Main Fill (Foreground) -->
+                    <h2 class="text-[13vw] md:text-[8.5rem] leading-[0.8] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-slate-800 via-slate-600 to-slate-400 select-none relative z-10 text-center mix-blend-darken">
+                        PSYCHO<br>METRICS
+                    </h2>
+
+                    <!-- Layer 3: Scanning Light Effect (Overlay) -->
+                    <h2 class="text-[13vw] md:text-[8.5rem] leading-[0.8] font-display font-bold absolute top-0 left-0 w-full text-center pointer-events-none z-20 animate-scan-text opacity-70 mix-blend-overlay">
+                        PSYCHO<br>METRICS
+                    </h2>
+                </div>
+
+                <!-- JAPANESE SUBTITLE (Tech Caption Style) -->
+                <!-- 英語の下に配置し、システムログのような精密なデザインで補足 -->
+                <div class="mt-8 relative z-30 fade-in-up delay-200">
+                    <div class="flex flex-col md:flex-row items-center gap-4 bg-white/70 backdrop-blur-md border border-white/60 shadow-lg px-6 py-3 rounded-full ring-1 ring-gray-100">
+                        <!-- Icon -->
+                        <div class="w-2 h-2 rounded-full bg-bizAccent animate-pulse"></div>
+                        
+                        <!-- Text -->
+                        <div class="flex flex-col md:flex-row items-baseline gap-2 text-center">
+                            <span class="text-sm md:text-base font-bold text-bizText tracking-widest font-sans">
+                                計量心理学的アプローチ
+                            </span>
+                            <span class="hidden md:inline text-[10px] text-gray-400 font-mono tracking-tight uppercase">
+                                // Quantitative Personality Assessment
+                            </span>
+                        </div>
+
+                        <!-- Decor line -->
+                        <div class="hidden md:block w-px h-4 bg-gray-300 mx-2"></div>
+                        
+                        <!-- Coordinates (Visual Fluff) -->
+                        <div class="hidden md:block font-mono text-[10px] text-gray-400">
+                            FIG. 01-A
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 3. Decorative Elements -->
+            <!-- Corner Brackets -->
+            <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gray-200 rounded-tl-xl"></div>
+            <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-gray-200 rounded-tr-xl"></div>
+            <div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-gray-200 rounded-bl-xl"></div>
+            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gray-200 rounded-br-xl"></div>
+        </div>
 
             <!-- English Title -->
             <h2 class="lang-en text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.9] tracking-tighter relative z-10 smart-reveal">
