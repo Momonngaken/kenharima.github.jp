@@ -130,18 +130,9 @@
         }
         .hover-card:hover { transform: translateY(-2px); background-color: white; box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08); border-color: rgba(15, 60, 133, 0.1); }
 
-        .modal-backdrop {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
         .modal-scroll::-webkit-scrollbar { width: 6px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
         .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.2); border-radius: 20px; }
-        /* Language Switching in Modal (継承ロジック) */
-        .modal-container .lang-en { display: none; }
-        html.is-global .modal-container .lang-ja { display: none !important; }
-        html.is-global .modal-container .lang-en { display: block !important; }
         
         /* Language Switching */
         .lang-en { display: none; }
