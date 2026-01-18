@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ECXCCZF93D');
-    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ECXCCZF93D');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
@@ -19,13 +20,93 @@
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
-    <!-- Minified CSS for Performance -->
-    <style>body{margin:0;background-color:#fafafa;color:#0f172a;font-family:'Inter','Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased}.font-display{font-family:'Syne',sans-serif}.font-serif{font-family:'Lora',serif}.lang-en{display:none}html.is-global .lang-ja{display:none!important}html.is-global div.lang-en,html.is-global p.lang-en,html.is-global h1.lang-en,html.is-global h2.lang-en,html.is-global h3.lang-en,html.is-global h4.lang-en,html.is-global span.lang-en{display:block!important}html.is-global span.lang-en{display:inline!important}.fade-in-up{opacity:0;transform:translateY(20px);animation:fadeInUp .8s cubic-bezier(.16,1,.3,1) forwards}@keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}.delay-100{animation-delay:.1s}.delay-200{animation-delay:.2s}.delay-300{animation-delay:.3s}.glass-card{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);box-shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03)}.creative-highlight{background-image:linear-gradient(120deg,rgba(6,182,212,.2) 0,rgba(99,102,241,.2) 100%);background-repeat:no-repeat;background-position:0 85%;background-size:0 40%;animation:drawHighlight 1.2s cubic-bezier(.22,.61,.36,1) .8s forwards;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 2px;font-weight:700;color:#0f3c85}@keyframes drawHighlight{to{background-size:100% 40%}}.smart-reveal{animation:smartReveal 1.2s cubic-bezier(.16,1,.3,1) forwards;opacity:0}.text-shimmer{background-size:200% auto;background-clip:text;-webkit-background-clip:text;color:transparent;animation:shimmerFlow 6s linear infinite}@keyframes smartReveal{0%{opacity:0;transform:translateY(15px) scale(.98);filter:blur(12px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}@keyframes shimmerFlow{0%{background-position:0 50%}100%{background-position:200% 50%}}</style>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Base Styles */
+        body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+        .font-display { font-family: 'Syne', sans-serif; }
+        .font-serif { font-family: 'Lora', serif; }
+        
+        /* Language Switching Logic */
+        .lang-en { display: none; }
+        html.is-global .lang-ja { display: none !important; }
+        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
+        html.is-global span.lang-en { display: inline !important; }
+
+        /* Animations */
+        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .creative-highlight {
+            /* グラデーションマーカー（シアンから薄いインディゴへ） */
+            background-image: linear-gradient(120deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-position: 0% 85%; /* 下寄りに配置 */
+            background-size: 0% 40%; /* 初期状態は幅0、高さ40% */
+            /* アニメーション: 0.8秒待ってから1.2秒かけて引く */
+            animation: drawHighlight 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
+            /* 行をまたいだ時の挙動を自然にする */
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            padding: 0 2px;
+            font-weight: 700; /* 文字を太くして強調 */
+            color: #0f3c85; /* 文字色をアクセントカラーに */
+        }
+
+        @keyframes drawHighlight {
+            to { background-size: 100% 40%; }
+        }
+
+        .smart-reveal {
+            /* ぼかしながら浮き上がるアニメーション */
+            animation: smartReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; /* 初期状態 */
+        }
+
+        .text-shimmer {
+            /* 光沢が流れるグラデーション */
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: shimmerFlow 6s linear infinite;
+        }
+
+        @keyframes smartReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+                filter: blur(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes shimmerFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+    </style>
 
     <!-- Tailwind Config -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -68,30 +149,40 @@
 
     <div class="flex-grow max-w-4xl mx-auto px-6 pt-24 md:pt-32 w-full">
 
-        <!-- ================= INTRO ================= -->
+        <!-- ================= INTRO (EXTREME CREATIVE: LAB INTERFACE) ================= -->
     <section class="mb-24 fade-in-up relative">
+        
+        <!-- Background Decor: Subtle Gradient Mesh -->
         <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[120%] h-full bg-gradient-to-b from-indigo-50/50 via-white to-white -z-10 pointer-events-none"></div>
 
        <!-- Section Header -->
         <div class="mb-10 relative">
+            <!-- Japanese Title -->
             <h2 class="lang-ja text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.95] tracking-tighter relative z-10 smart-reveal">
                 なぜ、<br>
                 <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">心理測定</span>なのか？
             </h2>
+
+            <!-- English Title -->
             <h2 class="lang-en text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.9] tracking-tighter relative z-10 smart-reveal">
                 Why<br>
                 <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">Psychometrics?</span>
             </h2>
+
+            <!-- Decorative Elements behind text -->
             <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
         </div>
 
-        <!-- Main Structure -->
+        <!-- Main Structure: Tech Spec Grid -->
         <div class="relative bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden flex flex-col lg:flex-row ring-1 ring-gray-900/5">
             
-            <!-- LEFT COLUMN -->
+            <!-- LEFT COLUMN: Manifesto (The Logic) -->
             <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between relative group">
+                
+                <!-- Background Grid Pattern for Tech Feel -->
                 <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
+                <!-- Decorative Label: Tech Badge Style -->
                 <div class="absolute top-0 left-0">
                     <div class="bg-bizText text-white text-[10px] font-mono font-bold px-4 py-1.5 uppercase tracking-[0.2em] rounded-br-lg shadow-sm">
                         Manifesto
@@ -114,6 +205,7 @@
                     </p>
                 </div>
 
+                <!-- Footnote: Tech Alert Style -->
                 <div class="mt-12 pt-6 border-t border-gray-200/60 relative z-10">
                     <div class="flex gap-4 items-start">
                         <div class="shrink-0 w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs mt-0.5 animate-pulse">
@@ -131,18 +223,23 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN -->
+            <!-- RIGHT COLUMN: Frameworks (The Modules) -->
             <div class="lg:w-5/12 flex flex-col bg-white/60 backdrop-blur-sm border-l border-white/50 relative">
                 
-                <!-- Module 01 -->
+                <!-- Module 01: Big Five -->
                 <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-100 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #e2e8f0;">01</span>
+                    <!-- Background Number (Watermark with Stroke) -->
+                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #e2e8f0;">
+                        01
+                    </span>
 
                     <div class="relative z-10">
                         <div class="flex items-center gap-5 mb-5">
+                            <!-- Icon Container -->
                             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center text-xl shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                                 <i class="fa-solid fa-microchip"></i>
                             </div>
+                            <!-- Title -->
                             <h3 class="flex flex-col">
                                 <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors">Big Five</span>
                                 <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Five Factor Model)</span>
@@ -158,18 +255,24 @@
                             </span>
                         </p>
                     </div>
+                    <!-- Hover Accent Line -->
                     <div class="absolute left-0 bottom-0 h-1 w-0 bg-bizAccent group-hover:w-full transition-all duration-700 ease-in-out"></div>
                 </div>
 
-                <!-- Module 02 -->
+                <!-- Module 02: PVQ -->
                 <div class="group relative flex-1 p-8 md:p-10 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #bfdbfe;">02</span>
+                    <!-- Background Number -->
+                    <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #bfdbfe;">
+                        02
+                    </span>
 
                     <div class="relative z-10">
                         <div class="flex items-center gap-5 mb-5">
+                            <!-- Icon Container -->
                             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-100 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
                                 <i class="fa-solid fa-heart-pulse animate-[pulse_3s_ease-in-out_infinite]"></i>
                             </div>
+                            <!-- Title -->
                             <h3 class="flex flex-col">
                                 <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors">PVQ</span>
                                 <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Portrait Values Questionnaire)</span>
@@ -185,6 +288,7 @@
                             </span>
                         </p>
                     </div>
+                    <!-- Hover Accent Line -->
                     <div class="absolute left-0 bottom-0 h-1 w-0 bg-blue-500 group-hover:w-full transition-all duration-700 ease-in-out"></div>
                 </div>
 
@@ -192,7 +296,7 @@
         </div>
     </section>
         
-        <!-- ================= Big Five ================= -->
+        <!-- ================= Big Five (OS) ================= -->
         <section class="mb-24 fade-in-up delay-100">
             <div class="flex items-center gap-4 mb-8">
                 <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">01</span>
@@ -207,7 +311,7 @@
                     <canvas id="big5Chart"></canvas>
                 </div>
 
-                <!-- Interpretation -->
+                <!-- Interpretation / Scores -->
                 <div class="h-full flex flex-col justify-center">
                     <div class="border-b border-gray-200 pb-2 mb-6">
                          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest flex justify-between items-end">
@@ -219,8 +323,10 @@
                          </h4>
                     </div>
 
+                    <!-- Traits List (Vertical Stack) -->
                     <div class="space-y-3">
-                        <!-- 1. Openness -->
+
+                        <!-- 1. Openness (0.88) -->
                         <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-bizAccent text-sm">
@@ -241,7 +347,7 @@
                             </p>
                         </div>
 
-                        <!-- 2. Conscientiousness -->
+                        <!-- 2. Conscientiousness (0.82) -->
                         <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-bizAccent text-sm">
@@ -262,7 +368,7 @@
                             </p>
                         </div>
 
-                        <!-- 3. Agreeableness -->
+                        <!-- 3. Agreeableness (0.77) -->
                         <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-gray-700 text-sm">
@@ -283,7 +389,7 @@
                             </p>
                         </div>
 
-                        <!-- 4. Extraversion -->
+                        <!-- 4. Extraversion (0.75) -->
                         <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-gray-700 text-sm">
@@ -304,7 +410,8 @@
                             </p>
                         </div>
 
-                        <!-- 5. Emotional Stability -->
+                        <!-- 5. Emotional Stability (0.79) -->
+                        <!-- ツールチップ機能付き -->
                         <div class="relative bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300" id="tooltip-container">
                             <div class="flex justify-between items-center mb-1 cursor-help select-none" onclick="toggleTooltip(event)">
                                 <span class="font-bold text-gray-700 text-sm flex items-center gap-1">
@@ -343,6 +450,7 @@
             <div class="flex items-center gap-4 mb-8">
                 <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
                 <div>
+                    <!-- Updated Title with Translation -->
                     <h3 class="text-xl font-bold text-bizText">
                         <span class="lang-ja">PVQ</span>
                         <span class="lang-en">PVQ</span>
@@ -423,12 +531,199 @@
         </div>
     </footer>
 
-    <!-- Moved Chart.js to bottom for performance -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-
-    <!-- Script: Chart Configuration & Language Logic (Minified) -->
+    <!-- Script: Chart Configuration & Language Logic -->
     <script>
-    document.addEventListener('DOMContentLoaded',()=>{const t=document.documentElement,e="'Syne', sans-serif",a="'Inter', 'Noto Sans JP', sans-serif",n={big5:{ja:["経験への解放性","誠実性","外向性","協調性","情緒安定性"],en:["Openness","Conscientiousness","Extraversion","Agreeableness","Stability"]},pvq:{ja:["自己主導","刺激","快楽","達成","権力","安全","順応","伝統","慈善","普遍性"],en:["Self-Direction","Stimulation","Hedonism","Achievement","Power","Security","Conformity","Tradition","Benevolence","Universalism"]}},o=[.875,.825,.75,.767,.792],r=[6,6,4.33,4.75,4,5.8,6,2,6,5.17],i=["rgba(59, 130, 246, 0.8)","rgba(99, 102, 241, 0.8)","rgba(139, 92, 246, 0.7)","rgba(168, 85, 247, 0.6)","rgba(236, 72, 153, 0.5)","rgba(100, 116, 139, 0.7)","rgba(71, 85, 105, 0.8)","rgba(148, 163, 184, 0.5)","rgba(14, 165, 233, 0.8)","rgba(6, 182, 212, 0.7)"],c=new Chart(document.getElementById("big5Chart").getContext("2d"),{type:"radar",data:{labels:[],datasets:[{label:"Score",data:o,fill:!0,backgroundColor:"rgba(15, 60, 133, 0.2)",borderColor:"#0f3c85",pointBackgroundColor:"#fff",pointBorderColor:"#0f3c85",pointHoverBackgroundColor:"#0f3c85",pointHoverBorderColor:"#fff",borderWidth:2,pointRadius:4,pointHoverRadius:6}]},options:{responsive:!0,maintainAspectRatio:!1,layout:{padding:5},scales:{r:{angleLines:{color:"rgba(0,0,0,0.05)"},grid:{color:"rgba(0,0,0,0.05)"},pointLabels:{font:{size:10,family:a,weight:"600"},color:"#334155"},suggestedMin:0,suggestedMax:1,ticks:{display:!1,backdropColor:"transparent"}}},plugins:{legend:{display:!1},tooltip:{backgroundColor:"rgba(15, 23, 42, 0.9)",padding:12,bodyFont:{family:a}}},animation:{duration:1e3}}}),l=new Chart(document.getElementById("pvqChart").getContext("2d"),{type:"polarArea",data:{labels:[],datasets:[{data:r,backgroundColor:i,borderWidth:1,borderColor:"#ffffff"}]},options:{responsive:!0,scales:{r:{pointLabels:{display:!0,centerPointLabels:!0,font:{size:10,family:a,weight:"bold"},color:"#475569"},grid:{color:"rgba(0,0,0,0.05)"},ticks:{display:!1,backdropColor:"transparent"},suggestedMin:0}},plugins:{legend:{display:!1},tooltip:{backgroundColor:"rgba(15, 23, 42, 0.9)",padding:10,bodyFont:{family:a},callbacks:{label:function(t){return t.label+": "+t.raw}}}},animation:{duration:1e3}}}),s=document.getElementById("lang-jp"),d=document.getElementById("lang-en"),g="bg-white text-black shadow-sm",u="text-gray-400 hover:text-gray-600";function m(t){t?htmlEl.classList.add("is-global"):htmlEl.classList.remove("is-global"),t?(s.className=`relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${u}`,d.className=`relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${g}`):(s.className=`relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${g}`,d.className=`relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${u}`),function(t){const e=t?"en":"ja";c.data.labels=n.big5[e],c.update(),l.data.labels=n.pvq[e],l.update()}(t)}const htmlEl=document.documentElement;!function(){var t=navigator.language||navigator.userLanguage;let e=htmlEl.classList.contains("is-global");!e&&!t.startsWith("ja")&&(e=!0),m(e)}(),s.addEventListener("click",()=>m(!1)),d.addEventListener("click",()=>m(!0))});window.toggleTooltip=function(e){e.stopPropagation();const t=document.getElementById("tooltip-body");t.classList.contains("opacity-0")?t.classList.remove("opacity-0","invisible","translate-y-1","pointer-events-none"):t.classList.add("opacity-0","invisible","translate-y-1","pointer-events-none")},document.addEventListener("click",function(e){const t=document.getElementById("tooltip-body");const n=document.getElementById("tooltip-container");t&&n&&!n.contains(e.target)&&t.classList.add("opacity-0","invisible","translate-y-1","pointer-events-none")});
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlEl = document.documentElement;
+            const fontDisplay = "'Syne', sans-serif";
+            const fontBody = "'Inter', 'Noto Sans JP', sans-serif";
+
+            // 1. Define Labels for Both Languages
+            const labels = {
+                big5: {
+                    ja: ['経験への解放性', '誠実性', '外向性', '協調性', '情緒安定性'],
+                    en: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Stability']
+                },
+                pvq: {
+                    ja: ['自己主導', '刺激', '快楽', '達成', '権力', '安全', '順応', '伝統', '慈善', '普遍性'],
+                    en: ['Self-Direction', 'Stimulation', 'Hedonism', 'Achievement', 'Power', 'Security', 'Conformity', 'Tradition', 'Benevolence', 'Universalism']
+                }
+            };
+
+            // 2. Data Definition
+            const big5Data = [0.875, 0.825, 0.750, 0.767, 0.792];
+            const pvqDataValues = [6.0, 6.0, 4.33, 4.75, 4.0, 5.8, 6.0, 2.0, 6.0, 5.17];
+            const pvqColors = [
+                'rgba(59, 130, 246, 0.8)', 'rgba(99, 102, 241, 0.8)', 'rgba(139, 92, 246, 0.7)', 
+                'rgba(168, 85, 247, 0.6)', 'rgba(236, 72, 153, 0.5)', 'rgba(100, 116, 139, 0.7)', 
+                'rgba(71, 85, 105, 0.8)', 'rgba(148, 163, 184, 0.5)', 'rgba(14, 165, 233, 0.8)', 
+                'rgba(6, 182, 212, 0.7)'
+            ];
+
+            // 3. Initialize Charts
+            // Big Five
+            const big5Chart = new Chart(document.getElementById('big5Chart').getContext('2d'), {
+                type: 'radar',
+                data: {
+                    labels: [], // Initialized in updateCharts
+                    datasets: [{
+                        label: 'Score',
+                        data: big5Data,
+                        fill: true,
+                        backgroundColor: 'rgba(15, 60, 133, 0.2)',
+                        borderColor: '#0f3c85',
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#0f3c85',
+                        pointHoverBackgroundColor: '#0f3c85',
+                        pointHoverBorderColor: '#fff',
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    // ★ここが追加・変更した部分です（余白確保と文字サイズ調整）
+                    layout: {
+                        padding: 5
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.05)' },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            pointLabels: { 
+                                // フォントサイズを12pxから10pxに小さくして、スマホで見切れにくくしました
+                                font: { size: 10, family: fontBody, weight: '600' }, 
+                                color: '#334155' 
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 1.0,
+                            ticks: { display: false, backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, bodyFont: { family: fontBody } }
+                    },
+                    animation: { duration: 1000 }
+                }
+            });
+
+            // PVQ
+            const pvqChart = new Chart(document.getElementById('pvqChart').getContext('2d'), {
+                type: 'polarArea',
+                data: {
+                    labels: [], // Initialized in updateCharts
+                    datasets: [{
+                        data: pvqDataValues,
+                        backgroundColor: pvqColors,
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            pointLabels: { display: true, centerPointLabels: true, font: { size: 10, family: fontBody, weight: 'bold' }, color: '#475569' },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: { display: false, backdropColor: 'transparent' },
+                            suggestedMin: 0
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { 
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 10, bodyFont: { family: fontBody },
+                            callbacks: { label: function(context) { return context.label + ': ' + context.raw; } }
+                        }
+                    },
+                    animation: { duration: 1000 }
+                }
+            });
+
+            // 4. Language Switcher Logic
+            const langJpBtn = document.getElementById('lang-jp');
+            const langEnBtn = document.getElementById('lang-en');
+            const activeClass = "bg-white text-black shadow-sm";
+            const inactiveClass = "text-gray-400 hover:text-gray-600";
+
+            function setLanguage(isGlobal) {
+                // Update HTML class
+                if (isGlobal) {
+                    htmlEl.classList.add('is-global');
+                } else {
+                    htmlEl.classList.remove('is-global');
+                }
+
+                // Update Button Styles
+                if (isGlobal) {
+                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                } else {
+                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
+                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
+                }
+
+                // Update Charts
+                updateCharts(isGlobal);
+            }
+
+            function updateCharts(isGlobal) {
+                const langKey = isGlobal ? 'en' : 'ja';
+                
+                // Update Big Five
+                big5Chart.data.labels = labels.big5[langKey];
+                big5Chart.update();
+
+                // Update PVQ
+                pvqChart.data.labels = labels.pvq[langKey];
+                pvqChart.update();
+            }
+
+            // Initialization
+            (function init() {
+                var lang = navigator.language || navigator.userLanguage; 
+                let isGlobal = htmlEl.classList.contains('is-global');
+                
+                // Initial check if not explicitly set by class but by navigator
+                if (!isGlobal && !lang.startsWith('ja')) {
+                    isGlobal = true;
+                }
+                
+                setLanguage(isGlobal);
+            })();
+
+            // Event Listeners
+            langJpBtn.addEventListener('click', () => setLanguage(false));
+            langEnBtn.addEventListener('click', () => setLanguage(true));
+        });
+        
+            window.toggleTooltip = function(e) {
+                e.stopPropagation(); // 親要素へのイベント伝播を止める
+                const tooltip = document.getElementById('tooltip-body');
+                
+                // クラスの有無で表示/非表示を切り替え
+                if (tooltip.classList.contains('opacity-0')) {
+                    // 表示 (opacity:1, visible, 位置リセット)
+                    tooltip.classList.remove('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
+                } else {
+                    // 非表示
+                    tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
+                }
+            };
+
+            // 画面のどこかをタップしたらツールチップを閉じる
+            document.addEventListener('click', function(e) {
+                const tooltip = document.getElementById('tooltip-body');
+                const container = document.getElementById('tooltip-container');
+                
+                // ツールチップが存在し、かつクリックされた場所がコンテナの外側なら閉じる
+                if (tooltip && container && !container.contains(e.target)) {
+                    tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
+                }
+            });
     </script>
 </body>
 </html>
