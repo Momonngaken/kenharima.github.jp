@@ -679,7 +679,6 @@
                 var lang = navigator.language || navigator.userLanguage; 
                 let isGlobal = htmlEl.classList.contains('is-global');
                 
-                // Initial check if not explicitly set by class but by navigator
                 if (!isGlobal && !lang.startsWith('ja')) {
                     isGlobal = true;
                 }
@@ -687,40 +686,51 @@
                 setLanguage(isGlobal);
             })();
 
-            // Event Listeners
             langJpBtn.addEventListener('click', () => setLanguage(false));
             langEnBtn.addEventListener('click', () => setLanguage(true));
         });
         
             window.toggleTooltip = function(e) {
-                e.stopPropagation(); // 親要素へのイベント伝播を止める
+                e.stopPropagation();
                 const tooltip = document.getElementById('tooltip-body');
                 
-                // クラスの有無で表示/非表示を切り替え
                 if (tooltip.classList.contains('opacity-0')) {
-                    // 表示 (opacity:1, visible, 位置リセット)
                     tooltip.classList.remove('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 } else {
-                    // 非表示
                     tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 }
             };
 
-            // 画面のどこかをタップしたらツールチップを閉じる
             document.addEventListener('click', function(e) {
                 const tooltip = document.getElementById('tooltip-body');
                 const container = document.getElementById('tooltip-container');
-                
-                // ツールチップが存在し、かつクリックされた場所がコンテナの外側なら閉じる
+
                 if (tooltip && container && !container.contains(e.target)) {
                     tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 }
             });
     </script>
 <style>
-    #cookie-banner { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: calc(100% - 48px); max-width: 400px; transform: translateY(150%); transition: transform 0.6s ease; will-change: transform; }
-    #cookie-banner.show { transform: translateY(0); }
-    .glass-panel { background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); }
+    /* --- Cookie Banner Optimized (Matches Index) --- */
+    #cookie-banner {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        width: calc(100% - 48px);
+        max-width: 400px;
+        transform: translateY(120%) translateZ(0); /* GPU */
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+    }
+    #cookie-banner.show { transform: translateY(0) translateZ(0); }
+    .glass-panel {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        -webkit-backface-visibility: hidden;
+        backdrop-filter: blur(10px);
+    }
     html.is-global #cookie-banner .lang-ja { display: none !important; }
     html:not(.is-global) #cookie-banner .lang-en { display: none !important; }
 </style>
@@ -728,50 +738,74 @@
 <div id="cookie-banner" class="glass-panel rounded-2xl p-6 text-white">
     <div class="flex flex-col gap-4">
         <div class="text-sm leading-relaxed text-gray-300">
-            <p class="lang-ja">サイト体験向上のためアクセス解析(Cookie)に協力をお願いします。<br><span class="text-[11px] opacity-70">※個人情報は取得しません。</span></p>
-            <p class="lang-en">Help improve this site by allowing analytics (Cookies)?<br><span class="text-[11px] opacity-70">No personal data collected.</span></p>
+            <p class="lang-ja">
+                より良いサイト体験のため、アクセス解析（Cookie）にご協力いただけませんか？<br>
+                <span class="text-[11px] opacity-70">※氏名・メールアドレス等の個人情報は一切取得しません。</span>
+            </p>
+            <p class="lang-en">
+                Would you help improve this site by allowing anonymous analytics (Cookies)?<br>
+                <span class="text-[11px] opacity-70">No personally identifiable information is collected.</span>
+            </p>
         </div>
         <div class="flex gap-3 text-xs font-bold tracking-widest uppercase">
-            <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all">OK</button>
-            <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all">No</button>
+            <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-300 transform active:scale-95">
+                <span class="lang-ja">改善に協力する</span>
+                <span class="lang-en">Yes, Allow</span>
+            </button>
+            <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all duration-300 transform active:scale-95">
+                <span class="lang-ja">協力しない</span>
+                <span class="lang-en">Decline</span>
+            </button>
         </div>
     </div>
 </div>
 
 <script>
-(function(){
-    const GA_ID='G-ECXCCZF93D'; const k='cookie_consent_status';
-    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
-    
-    // GA起動関数
-    function startGA(){
-        if(document.querySelector(`script[src*="${GA_ID}"]`))return;
-        const s=document.createElement('script'); s.async=true;
-        s.src=`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-        document.head.appendChild(s);
-        gtag('js',new Date()); gtag('config',GA_ID);
-    }
+    (function() {
+        const GA_ID = 'G-ECXCCZF93D';
+        const consentKey = 'cookie_consent_status';
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
 
-    const st=localStorage.getItem(k);
-    const banner=document.getElementById('cookie-banner');
+        const banner = document.getElementById('cookie-banner');
+        const acceptBtn = document.getElementById('cookie-accept');
+        const declineBtn = document.getElementById('cookie-decline');
 
-    if(st==='accepted'){
-        startGA(); 
-    } else if(st!=='declined'){
-        setTimeout(()=>{ if(banner) banner.classList.add('show'); }, 1000);
-    }
+        function activateGA() {
+            if (document.querySelector(`script[src*="${GA_ID}"]`)) return;
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+            document.head.appendChild(script);
+            gtag('js', new Date());
+            gtag('config', GA_ID);
+        }
 
-    // ボタン動作
-    document.getElementById('cookie-accept')?.addEventListener('click',()=>{
-        localStorage.setItem(k,'accepted');
-        banner.classList.remove('show');
-        startGA();
-    });
-    document.getElementById('cookie-decline')?.addEventListener('click',()=>{
-        localStorage.setItem(k,'declined');
-        banner.classList.remove('show');
-    });
-})();
+        const consentStatus = localStorage.getItem(consentKey);
+
+        if (consentStatus === 'accepted') {
+            activateGA();
+        } else if (consentStatus !== 'declined') {
+            setTimeout(() => {
+                if(banner) banner.classList.add('show');
+            }, 2000);
+        }
+
+        if(acceptBtn){
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem(consentKey, 'accepted');
+                banner.classList.remove('show');
+                activateGA();
+            });
+        }
+        if(declineBtn){
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem(consentKey, 'declined');
+                banner.classList.remove('show');
+            });
+        }
+    })();
 </script>
 </body>
 </html>
