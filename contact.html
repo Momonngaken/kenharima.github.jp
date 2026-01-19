@@ -1,4 +1,4 @@
-<!-- contact.html (ファイル名: contact.html) -->
+<!-- contact.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,11 +7,6 @@
     <title>Contact | KEN HARIMA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-
-
-
-
-    
     <script>
         tailwind.config = {
             theme: { 
@@ -49,7 +44,6 @@
                 <div class="group"><label class="input-label" for="name" id="label-name">お名前</label><input type="text" id="name" name="name" required class="input-field placeholder-gray-300"></div>
                 <div class="group"><label class="input-label" for="email" id="label-email">メールアドレス</label><input type="email" id="email" name="email" required class="input-field placeholder-gray-300"></div>
                 
-                <!-- 変更箇所: 会社名 / 組織名 -->
                 <div class="group"><label class="input-label" for="organization" id="label-organization">会社名 / 組織名</label><input type="text" id="organization" name="organization" class="input-field placeholder-gray-300"></div>
                 
                 <div class="group"><label class="input-label" for="message" id="label-message">メッセージ</label><textarea id="message" name="message" required rows="1" class="input-field placeholder-gray-300 resize-none overflow-hidden" placeholder="Hello..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea></div>
