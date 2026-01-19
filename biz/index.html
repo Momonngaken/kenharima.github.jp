@@ -1296,11 +1296,35 @@
             <section class="fade-in pt-12 pb-32 cv-auto">
                 <div class="section-label">Contact</div>
                 <div class="flex flex-col md:flex-row gap-6">
-                    <a id="biz-contact-btn" href="../contact.html" class="block w-full md:w-auto text-center px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-colors duration-300 cursor-pointer">
+                    <!-- 1. Contact Form Button -->
+                    <a id="biz-contact-btn" href="../contact.html" class="block w-full md:w-auto text-center px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-colors duration-300 cursor-pointer shadow-lg shadow-gray-900/10">
                         Contact
                     </a>
+
+                    <!-- 2. LinkedIn Button -->
                     <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" class="block w-full md:w-auto text-center px-8 py-4 border border-gray-300 text-gray-900 font-bold rounded hover:bg-gray-50 transition-colors duration-300 flex items-center justify-center gap-2">
                         <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    </a>
+
+                    <!-- 3. [NEW] Resume Download Button -->
+                    <a href="./resume.pdf" download="Ken_Harima_Resume.pdf" class="group relative block w-full md:w-auto text-center px-8 py-4 border border-gray-300 text-gray-900 font-bold rounded overflow-hidden transition-all duration-300 hover:border-bizAccent hover:text-bizAccent hover:shadow-[0_10px_40px_-10px_rgba(15,60,133,0.15)] flex items-center justify-center gap-3 bg-white">
+                        
+                        <!-- Smart Animation: Slide Up Background -->
+                        <div class="absolute inset-0 bg-bizAccent/5 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 will-change-transform"></div>
+
+                        <!-- Icon & Text -->
+                        <span class="relative z-10 flex items-center gap-2">
+                            <i class="fa-solid fa-file-arrow-down text-lg text-gray-400 transition-colors duration-300 group-hover:text-bizAccent group-hover:animate-pulse"></i>
+                            <span>
+                                <span class="lang-ja">履歴書</span>
+                                <span class="lang-en">Resume</span>
+                            </span>
+                        </span>
+
+                        <!-- Tech Badge (PDF) -->
+                        <span class="relative z-10 ml-1 text-[9px] font-mono tracking-widest border border-gray-300 px-1.5 py-0.5 rounded text-gray-400 group-hover:text-bizAccent group-hover:border-bizAccent/50 transition-colors duration-300">
+                            PDF
+                        </span>
                     </a>
                 </div>
             </section>
