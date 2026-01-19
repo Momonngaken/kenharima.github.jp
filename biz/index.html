@@ -1730,7 +1730,7 @@
             });
         })();
     </script>
-    <!-- Cookie Consent Banner -->
+    <!-- 1. Cookie Consent Banner (デザイン) -->
     <div id="cookie-banner" class="glass-panel rounded-2xl p-6 text-white">
         <div class="flex flex-col gap-4">
             <div class="text-sm leading-relaxed text-gray-300">
@@ -1744,16 +1744,65 @@
                 </p>
             </div>
             <div class="flex gap-3 text-xs font-bold tracking-widest uppercase">
-                <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors duration-300">
+                <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-300 transform active:scale-95">
                     <span class="lang-ja">改善に協力する</span>
                     <span class="lang-en">Yes, Allow</span>
                 </button>
-                <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-colors duration-300">
+                <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all duration-300 transform active:scale-95">
                     <span class="lang-ja">協力しない</span>
                     <span class="lang-en">Decline</span>
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- 2. Google Analytics 同意制御ロジック -->
+    <script>
+        (function() {
+            const GA_ID = 'G-ECXCCZF93D';
+            const consentKey = 'cookie_consent_status';
+            
+            // 同意前にボタン等が押されてもエラーにならないようgtagを定義しておく
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
+
+            const banner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const declineBtn = document.getElementById('cookie-decline');
+
+            // Google Analyticsを実際に読み込む関数
+            function activateGA() {
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                document.head.appendChild(script);
+
+                gtag('js', new Date());
+                gtag('config', GA_ID);
+            }
+
+            const consentStatus = localStorage.getItem(consentKey);
+
+            if (consentStatus === 'accepted') {
+                activateGA(); // 同意済みなら即座にGA開始
+            } else if (consentStatus !== 'declined') {
+                // 初めての訪問なら2秒後にバナーを表示
+                setTimeout(() => {
+                    if(banner) banner.classList.add('show');
+                }, 2000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem(consentKey, 'accepted');
+                banner.classList.remove('show');
+                activateGA(); // その場でGA開始
+            });
+
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem(consentKey, 'declined');
+                banner.classList.remove('show');
+            });
+        })();
+    </script>
 </body>
 </html>
