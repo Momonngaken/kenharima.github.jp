@@ -23,9 +23,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         /* Base Styles */
@@ -107,24 +104,6 @@
             100% { background-position: 200% 50%; }
         }
     </style>
-
-    <!-- Tailwind Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        colors: {
-                            bizText: '#0f172a',
-                            bizAccent: '#0f3c85',
-                            bgBase: '#fafafa',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
 
@@ -530,6 +509,27 @@
         </div>
     </footer>
 
+     <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Config & CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            bizText: '#0f172a',
+                            bizAccent: '#0f3c85',
+                            bgBase: '#fafafa',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
     <!-- Script: Chart Configuration & Language Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
