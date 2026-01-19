@@ -252,11 +252,6 @@
         /* バナー内の言語切り替え制御 */
         html.is-global #cookie-banner .lang-ja { display: none !important; }
         html:not(.is-global) #cookie-banner .lang-en { display: none !important; }
-        /* --- Daikin Creative Icon Animation --- */
-        @keyframes air-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes air-flow { 0%, 100% { transform: translateX(-2px); opacity: 0.8; } 50% { transform: translateX(2px); opacity: 1; } }
-        .animate-air-spin { animation: air-spin 8s linear infinite; }
-        .animate-air-flow { animation: air-flow 3s ease-in-out infinite; }
     </style>
     
     <noscript>
@@ -375,14 +370,10 @@
                 <div class="space-y-1 md:space-y-2">
                     <p class="text-sm md:text-base text-gray-800 font-bold tracking-wide flex flex-wrap items-center gap-x-2 gap-y-1">
                         <span class="flex items-center gap-2">
-                           <span class="relative flex items-center justify-center w-11 h-11 md:w-11 md:h-11 shrink-0 rounded-full bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-[0_4px_12px_rgba(15,60,133,0.08)] text-bizAccent group-hover:shadow-blue-200/50 transition-all duration-500 overflow-hidden">
-                               <!-- 外周：空気の循環を表現する回転リング -->
-                               <div class="absolute inset-1 rounded-full border border-dashed border-blue-300/40 animate-air-spin"></div>
-                               <!-- 背景：柔らかな空気の広がり -->
-                               <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.1),transparent_70%)]"></div>
-                               <!-- 中央：風のアイコン -->   
-                               <i class="fa-solid fa-wind text-xs md:text-sm relative z-10 animate-air-flow"></i>
-                           </span>
+                            <!-- Icon Container -->
+                            <span class="relative flex items-center justify-center w-11 h-11 md:w-11 md:h-11 shrink-0 rounded-full bg-white border border-gray-200 shadow-sm text-bizAccent select-none transition-all duration-300 group-hover:border-bizAccent/30">
+                                <i class="fa-solid fa-building text-sm md:text-lg opacity-90"></i>
+                            </span>
                             <span class="text-sm md:text-base">
                                 <span class="lang-ja">ダイキン工業株式会社</span>
                                 <span class="lang-en">Daikin Industries, Ltd.</span>
