@@ -97,8 +97,8 @@
         /* Animations & Interactive - GPU Optimized */
         .fade-in { 
             opacity: 0; 
-            transform: translateY(30px) translateZ(0); /* Force GPU */
-            will-change: opacity, transform; /* Hint browser */
+            transform: translate3d(0, 30px, 0); /* Safari Optimized */
+            will-change: opacity, transform; 
         }
         h1, h2, h3, h4 { text-wrap: balance; }
         p { text-wrap: pretty; }
@@ -120,8 +120,9 @@
         .natural-fade-mask { 
             background: linear-gradient(90deg, transparent 0%, rgba(250,250,250,0) 50%, rgba(250,250,250,0.9) 100%); 
             pointer-events: none; 
-            /* Fix Safari Gradient Banding */
+            /* Fix Safari Gradient Banding & Performance */
             -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
         }
 
         /* Custom Styles - Optimized */
@@ -138,8 +139,9 @@
             border: 1px solid rgba(0,0,0,0.03); 
             box-shadow: 0 1px 2px rgba(0,0,0,0.02);
             -webkit-tap-highlight-color: transparent; outline: none;
-            /* Performance Fixes */
-            will-change: transform, box-shadow;
+            /* Performance Fixes for Safari */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             transform: translateZ(0);
         }
         .hover-card:hover { transform: translateY(-2px) translateZ(0); background-color: white; box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08); border-color: rgba(15, 60, 133, 0.1); }
@@ -171,6 +173,7 @@
             will-change: opacity;
             transform: translate3d(0,0,0);
             -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         .modal-scroll { overscroll-behavior-y: contain; } 
@@ -264,6 +267,9 @@
             transform: translateY(120%) translateZ(0); /* GPU */
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
+            /* Safari Fix */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         #cookie-banner.show { transform: translateY(0) translateZ(0); }
         .glass-panel {
@@ -274,6 +280,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             /* Safari Perf */
             -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             transform: translate3d(0,0,0);
         }
         /* バナー内の言語切り替え制御 */
@@ -1381,8 +1388,8 @@
                         duration: 1.2,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                         smooth: true,
-                        mouseMultiplier: 1,
-                        touchMultiplier: 2,
+                        mouseMultiplier: 1, // Adjusted for Safari touch sensitivity
+                        touchMultiplier: 1.5, // Adjusted for Safari touch sensitivity
                         infinite: false,
                     });
 
@@ -1618,7 +1625,6 @@
 
                 // Stop Lenis & Scroll
                 if (typeof lenis !== 'undefined') lenis.stop();
-                // BodyだけでなくdocumentElement(html)もロックすることで、モバイルやLenis環境下での「背景漏れ」を完全封鎖
                 document.documentElement.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
                 
@@ -1649,7 +1655,6 @@
                 `;
 
                 // C. Initialize Nudge Markers (Observer)
-                // コンテンツ注入後にstrongタグを監視対象に登録
                 requestAnimationFrame(() => {
                     const markers = modalContent.querySelectorAll('strong');
                     markers.forEach(marker => {
@@ -1679,7 +1684,7 @@
                         rotationX: 0, 
                         duration: 0.6, 
                         ease: "back.out(1.2)",
-                        // ユーザーの意識(フォーカス)をスクロール領域へ即座に接続
+
                         onComplete: () => { 
                             modalPanel.focus(); 
                             if(modalScrollContainer) modalScrollContainer.focus();
@@ -1724,54 +1729,7 @@
         
     </script>
    <!-- Google Analytics with Consent Logic -->
-    <script>
-        (function() {
-            const GA_ID = 'G-ECXCCZF93D';
-            const banner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('cookie-accept');
-            const declineBtn = document.getElementById('cookie-decline');
-            const consentKey = 'cookie_consent_status';
-
-            // 1. Google Analyticsの初期化関数
-            function initGtag() {
-                const script = document.createElement('script');
-                script.async = true;
-                script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                document.head.appendChild(script);
-
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', GA_ID);
-                console.log('Analytics initialized.');
-            }
-
-            // 2. 同意状態の確認
-            const consentStatus = localStorage.getItem(consentKey);
-
-            if (consentStatus === 'accepted') {
-                initGtag(); // 同意済みなら即座に発火
-            } else if (consentStatus === null) {
-                // 未回答ならバナーを表示（少し遅らせて上品に）
-                setTimeout(() => {
-                    banner.classList.add('show');
-                }, 2000);
-            }
-
-            // 3. ボタンイベント
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem(consentKey, 'accepted');
-                banner.classList.remove('show');
-                initGtag(); // その場で発火
-            });
-
-            declineBtn.addEventListener('click', () => {
-                localStorage.setItem(consentKey, 'declined');
-                banner.classList.remove('show');
-            });
-        })();
-    </script>
-    <!-- 1. Cookie Consent Banner (デザイン) -->
+   <!-- 1. Cookie Consent Banner (デザイン) -->
     <div id="cookie-banner" class="glass-panel rounded-2xl p-6 text-white">
         <div class="flex flex-col gap-4">
             <div class="text-sm leading-relaxed text-gray-300">
@@ -1803,7 +1761,6 @@
             const GA_ID = 'G-ECXCCZF93D';
             const consentKey = 'cookie_consent_status';
             
-            // 同意前にボタン等が押されてもエラーにならないようgtagを定義しておく
             window.dataLayer = window.dataLayer || [];
             window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
 
@@ -1811,7 +1768,6 @@
             const acceptBtn = document.getElementById('cookie-accept');
             const declineBtn = document.getElementById('cookie-decline');
 
-            // Google Analyticsを実際に読み込む関数
             function activateGA() {
                 const script = document.createElement('script');
                 script.async = true;
@@ -1825,9 +1781,8 @@
             const consentStatus = localStorage.getItem(consentKey);
 
             if (consentStatus === 'accepted') {
-                activateGA(); // 同意済みなら即座にGA開始
+                activateGA();
             } else if (consentStatus !== 'declined') {
-                // 初めての訪問なら2秒後にバナーを表示
                 setTimeout(() => {
                     if(banner) banner.classList.add('show');
                 }, 2000);
@@ -1836,7 +1791,7 @@
             acceptBtn.addEventListener('click', () => {
                 localStorage.setItem(consentKey, 'accepted');
                 banner.classList.remove('show');
-                activateGA(); // その場でGA開始
+                activateGA();
             });
 
             declineBtn.addEventListener('click', () => {
