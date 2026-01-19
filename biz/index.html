@@ -37,10 +37,10 @@
     <!-- Preload LCP Image -->
     <link rel="preload" as="image" href="./profile_biz_new.jpg">
 
-    <!-- Critical CSS: Optimized for FCP & LCP -->
+    <!-- Critical CSS: Optimized for FCP & LCP & Safari Performance -->
     <style>
         /* Base Reset & Layout */
-        body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; width: 100%; overscroll-behavior: none; }
+        body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; width: 100%; overscroll-behavior: none; }
         
         /* Container & Spacing (Matching Tailwind) */
         .max-w-4xl { max-width: 56rem; }
@@ -48,7 +48,6 @@
         .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
         .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
         .mb-12 { margin-bottom: 3rem; }
-        .md\:py-32 { } /* Placeholder for media queries handled below */
         
         /* Flexbox Utilities */
         .flex { display: flex; }
@@ -74,7 +73,7 @@
         .w-full { width: 100%; }
         .h-full { height: 100%; }
 
-        /* Typography & Colors (Critical for LCP text) */
+        /* Typography & Colors */
         .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
         .font-bold { font-weight: 700; }
         .font-light { font-weight: 300; }
@@ -92,15 +91,19 @@
         .leading-tight { line-height: 1.25; }
         .whitespace-nowrap { white-space: nowrap; }
         
-        /* Font Awesome Placeholder (before load) */
+        /* Font Awesome Placeholder */
         .fa-solid, .fa-building { display: inline-block; }
 
-        /* Animations & Interactive */
-        .fade-in { opacity: 0; transform: translateY(30px); }
+        /* Animations & Interactive - GPU Optimized */
+        .fade-in { 
+            opacity: 0; 
+            transform: translateY(30px) translateZ(0); /* Force GPU */
+            will-change: opacity, transform; /* Hint browser */
+        }
         h1, h2, h3, h4 { text-wrap: balance; }
         p { text-wrap: pretty; }
 
-        .animate-breathe { animation: breathe 3s ease-in-out infinite; }
+        .animate-breathe { animation: breathe 3s ease-in-out infinite; will-change: opacity; }
         @keyframes breathe { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -112,23 +115,34 @@
             50% { transform: translateX(10px); opacity: 0; }
             100% { transform: translateX(10px); opacity: 0; }
         }
-        .animate-gesture { animation: slide-hint 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+        .animate-gesture { animation: slide-hint 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; will-change: transform, opacity; }
         
-        .natural-fade-mask { background: linear-gradient(90deg, transparent 0%, rgba(250,250,250,0) 50%, rgba(250,250,250,0.9) 100%); pointer-events: none; }
+        .natural-fade-mask { 
+            background: linear-gradient(90deg, transparent 0%, rgba(250,250,250,0) 50%, rgba(250,250,250,0.9) 100%); 
+            pointer-events: none; 
+            /* Fix Safari Gradient Banding */
+            -webkit-transform: translate3d(0,0,0);
+        }
 
-        /* Custom Styles */
+        /* Custom Styles - Optimized */
         .section-label {
             font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
             color: #94a3b8; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
         }
         .section-label::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(90deg, #e2e8f0 0%, transparent 100%); }
         .biz-heading { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+        
         .hover-card {
-            background-color: white; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            background-color: white; 
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.03); 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
             -webkit-tap-highlight-color: transparent; outline: none;
+            /* Performance Fixes */
+            will-change: transform, box-shadow;
+            transform: translateZ(0);
         }
-        .hover-card:hover { transform: translateY(-2px); background-color: white; box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08); border-color: rgba(15, 60, 133, 0.1); }
+        .hover-card:hover { transform: translateY(-2px) translateZ(0); background-color: white; box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08); border-color: rgba(15, 60, 133, 0.1); }
 
         .modal-scroll::-webkit-scrollbar { width: 6px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -148,11 +162,15 @@
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-scrolling iframe { pointer-events: none; }
 
-        /* Modal Backdrop: 深淵なボケとノイズ */
+        /* Modal Backdrop: Optimized for Safari */
         .modal-backdrop {
             background: rgba(5, 10, 20, 0.6);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
+            /* Force GPU layer to prevent repaint of underlying page */
+            will-change: opacity;
+            transform: translate3d(0,0,0);
+            -webkit-backface-visibility: hidden;
         }
 
         .modal-scroll { overscroll-behavior-y: contain; } 
@@ -177,7 +195,7 @@
         /* Interactive Cursor for Triggers */
         .js-modal-trigger { cursor: pointer; }
 
-        /* Responsive Critical Styles (simulating Tailwind MD breakpoint) */
+        /* Responsive Critical Styles */
         @media (min-width: 768px) {
             .md\:py-32 { padding-top: 8rem; padding-bottom: 8rem; }
             .md\:mb-16 { margin-bottom: 4rem; }
@@ -203,6 +221,9 @@
             background: linear-gradient(90deg, #0f3c85, #06b6d4);
             width: 0%; z-index: 50; transition: width 0.1s ease-out;
             box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+            /* Optimize */
+            will-change: width;
+            transform: translateZ(0);
         }
 
         .nudge-marker {
@@ -225,12 +246,14 @@
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.95));
             pointer-events: none;
             transition: opacity 0.5s ease;
+            /* Safari Fix */
+            transform: translateZ(0);
         }
         
         .modal-text-body p { margin-bottom: 1.5em; letter-spacing: 0.03em; }
         .modal-text-body strong { color: #0f3c85; font-weight: 700; }
 
-        /* --- Cookie Consent Banner --- */
+        /* --- Cookie Consent Banner Optimized --- */
         #cookie-banner {
             position: fixed;
             bottom: 24px;
@@ -238,16 +261,20 @@
             z-index: 9999;
             width: calc(100% - 48px);
             max-width: 400px;
-            transform: translateY(120%);
+            transform: translateY(120%) translateZ(0); /* GPU */
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
-        #cookie-banner.show { transform: translateY(0); }
+        #cookie-banner.show { transform: translateY(0) translateZ(0); }
         .glass-panel {
             background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            /* Safari Perf */
+            -webkit-backface-visibility: hidden;
+            transform: translate3d(0,0,0);
         }
         /* バナー内の言語切り替え制御 */
         html.is-global #cookie-banner .lang-ja { display: none !important; }
@@ -349,7 +376,7 @@
             
             <!-- Profile Photo -->
             <div class="relative group shrink-0">
-                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105">
+                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105 will-change-transform">
                     <img src="./profile_biz_new.jpg" width="128" height="128" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%]">
                 </div>
             </div>
@@ -798,14 +825,14 @@
 
             <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
 <div class="fade-in mb-20 md:mb-24">
-    <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1">
+    <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1" style="transform: translateZ(0);">
         
         <!-- 1. Background: Deep Space & Grid -->
         <div class="absolute inset-0 z-0">
             <!-- Subtle Grid -->
             <div class="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50"></div>
             <!-- Dynamic Glow Orb -->
-            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] mix-blend-screen group-hover:bg-indigo-500/20 transition-colors duration-700"></div>
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] mix-blend-screen group-hover:bg-indigo-500/20 transition-colors duration-700 will-change-transform" style="transform: translateZ(0);"></div>
         </div>
 
         <!-- 2. Content Container -->
@@ -818,14 +845,14 @@
                 <div class="relative shrink-0 w-24 h-24 flex items-center justify-center">
                     
                     <!-- Layer A: Outer Rotating Ring (Data Stream) -->
-                    <div class="absolute inset-0 rounded-full border border-dashed border-indigo-500/20 animate-[spin_10s_linear_infinite] group-hover:border-indigo-400/40 transition-colors"></div>
+                    <div class="absolute inset-0 rounded-full border border-dashed border-indigo-500/20 animate-[spin_10s_linear_infinite] group-hover:border-indigo-400/40 transition-colors" style="will-change: transform;"></div>
                     
                     <!-- Layer B: Reverse Rotating Ring (Verification) -->
-                    <div class="absolute inset-2 rounded-full border border-dotted border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse] group-hover:border-cyan-400/40 transition-colors"></div>
+                    <div class="absolute inset-2 rounded-full border border-dotted border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse] group-hover:border-cyan-400/40 transition-colors" style="will-change: transform;"></div>
 
                     <!-- Layer C: Radar Sweep (The Scanner) -->
                     <div class="absolute inset-1 rounded-full overflow-hidden opacity-30">
-                        <div class="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-indigo-400 to-transparent origin-top-left -translate-y-1/2 animate-[spin_3s_linear_infinite]"></div>
+                        <div class="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-indigo-400 to-transparent origin-top-left -translate-y-1/2 animate-[spin_3s_linear_infinite]" style="will-change: transform;"></div>
                     </div>
 
                     <!-- Layer D: Central Core (The Brain) -->
@@ -882,7 +909,7 @@
         </div>
         
         <!-- 3. Holographic Scan Line (Overlay Animation) -->
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[50%] w-full -translate-y-[150%] group-hover:translate-y-[250%] transition-transform duration-1000 ease-in-out pointer-events-none mix-blend-color-dodge z-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[50%] w-full -translate-y-[150%] group-hover:translate-y-[250%] transition-transform duration-1000 ease-in-out pointer-events-none mix-blend-color-dodge z-20 will-change-transform"></div>
     </a>
 </div>
 
@@ -1136,7 +1163,7 @@
                     -->
                     <div id="roots-container" class="flex md:grid md:grid-cols-2 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none gap-5 md:gap-x-8 md:gap-y-12 pb-12 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide relative z-10">
                     <!-- 01. 論語と算盤 -->
-                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
+                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col hover-card">
                         <!-- Background Number -->
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">01</span>
                         
@@ -1172,7 +1199,7 @@
                     </div>
 
                     <!-- 02. 世界は贈与でできている -->
-                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
+                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col hover-card">
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">02</span>
                         
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
@@ -1204,7 +1231,7 @@
                     </div>
 
                     <!-- 03. 存在と無 -->
-                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
+                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col hover-card">
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">03</span>
                         
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
@@ -1236,7 +1263,7 @@
                     </div>
 
                     <!-- 04. ペスト -->
-                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col">
+                    <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center group relative bg-white rounded-xl p-6 border border-gray-100 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-gray-200 h-full flex flex-col hover-card">
                         <span class="absolute top-2 right-4 text-6xl font-display font-bold text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors select-none -z-0">04</span>
                         
                         <div class="relative z-10 flex flex-col sm:flex-row gap-6 items-start h-full">
@@ -1305,7 +1332,7 @@
         <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
         <!-- 2. Modal Card -->
-        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu">
+        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu will-change-transform">
             
             <div id="modal-progress-bar" class="reading-progress-bar"></div>
 
@@ -1437,19 +1464,26 @@
                 });
             }
 
-            // --- Scroll Nudge Fade Logic ---
+            // --- Scroll Nudge Fade Logic (Optimized for Scroll Performance) ---
             const rootsContainer = document.getElementById('roots-container');
             const scrollNudge = document.getElementById('scroll-nudge');
+            let rootsTicking = false;
 
             if (rootsContainer && scrollNudge) {
                 rootsContainer.addEventListener('scroll', () => {
-                    const remaining = rootsContainer.scrollWidth - rootsContainer.scrollLeft - rootsContainer.clientWidth;
-                    if (remaining <= 20) {
-                        scrollNudge.style.opacity = '0';
-                    } else {
-                        scrollNudge.style.opacity = '1';
+                    if (!rootsTicking) {
+                        window.requestAnimationFrame(() => {
+                            const remaining = rootsContainer.scrollWidth - rootsContainer.scrollLeft - rootsContainer.clientWidth;
+                            if (remaining <= 20) {
+                                scrollNudge.style.opacity = '0';
+                            } else {
+                                scrollNudge.style.opacity = '1';
+                            }
+                            rootsTicking = false;
+                        });
+                        rootsTicking = true;
                     }
-                });
+                }, { passive: true });
             }
 
              // 1. Data Source (JP / EN Separate)
@@ -1544,27 +1578,34 @@
                 });
             }, { root: modalScrollContainer, threshold: 0.8 });
 
-            // Scroll Progress Logic (Purely for Bar & Hint)
+            // Scroll Progress Logic (Purely for Bar & Hint) - Optimized with RequestAnimationFrame
+            let modalScrollTicking = false;
             const updateScrollProgress = () => {
-                const scrollTop = modalScrollContainer.scrollTop;
-                const scrollHeight = modalScrollContainer.scrollHeight;
-                const clientHeight = modalScrollContainer.clientHeight;
-                const scrollableHeight = scrollHeight - clientHeight;
-                
-                // Update Bar
-                const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
-                modalProgressBar.style.width = `${percentage}%`;
+                if (!modalScrollTicking) {
+                    window.requestAnimationFrame(() => {
+                        const scrollTop = modalScrollContainer.scrollTop;
+                        const scrollHeight = modalScrollContainer.scrollHeight;
+                        const clientHeight = modalScrollContainer.clientHeight;
+                        const scrollableHeight = scrollHeight - clientHeight;
+                        
+                        // Update Bar
+                        const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+                        modalProgressBar.style.width = `${percentage}%`;
 
-                // Update Hint Visibility
-                if (scrollableHeight - scrollTop < 40 || scrollableHeight <= 0) {
-                    modalScrollHint.style.opacity = '0';
-                    modalScrollHint.style.pointerEvents = 'none';
-                } else {
-                    modalScrollHint.style.opacity = '1';
-                    modalScrollHint.style.pointerEvents = 'auto';
+                        // Update Hint Visibility
+                        if (scrollableHeight - scrollTop < 40 || scrollableHeight <= 0) {
+                            modalScrollHint.style.opacity = '0';
+                            modalScrollHint.style.pointerEvents = 'none';
+                        } else {
+                            modalScrollHint.style.opacity = '1';
+                            modalScrollHint.style.pointerEvents = 'auto';
+                        }
+                        modalScrollTicking = false;
+                    });
+                    modalScrollTicking = true;
                 }
             };
-            modalScrollContainer.addEventListener('scroll', updateScrollProgress); // Throttling excluded for smoothness, but logic is now lightweight.
+            modalScrollContainer.addEventListener('scroll', updateScrollProgress, { passive: true });
 
             // 3. Open Function (Event Delegation for Performance)
 
