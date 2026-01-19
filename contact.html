@@ -117,6 +117,7 @@
             document.getElementById('back-btn').innerText = t.backBtn;
             
             document.getElementById('lang-display').innerText = currentLang === 'ja' ? 'JP / EN' : 'EN / JP';
+            document.documentElement.classList.toggle('is-global', currentLang === 'en');
         }
 
         applyLanguage();
@@ -164,58 +165,104 @@
             }
         });
     </script>
+
 <style>
-    #cookie-banner { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: calc(100% - 48px); max-width: 400px; transform: translateY(150%); transition: transform 0.6s ease; will-change: transform; }
-    #cookie-banner.show { transform: translateY(0); }
-    .glass-panel { background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); }
-    #cookie-banner .lang-en { display: none; }
+    #cookie-banner {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        width: calc(100% - 48px);
+        max-width: 400px;
+        transform: translateY(120%) translateZ(0);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+    }
+    #cookie-banner.show { transform: translateY(0) translateZ(0); }
+    .glass-panel {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        -webkit-backface-visibility: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    html.is-global #cookie-banner .lang-ja { display: none !important; }
+    html:not(.is-global) #cookie-banner .lang-en { display: none !important; }
 </style>
 
 <div id="cookie-banner" class="glass-panel rounded-2xl p-6 text-white">
     <div class="flex flex-col gap-4">
         <div class="text-sm leading-relaxed text-gray-300">
-            <p class="lang-ja">サイト体験向上のためアクセス解析(Cookie)に協力をお願いします。<br><span class="text-[11px] opacity-70">※個人情報は取得しません。</span></p>
-            <p class="lang-en">Help improve this site by allowing analytics (Cookies)?<br><span class="text-[11px] opacity-70">No personal data collected.</span></p>
+            <p class="lang-ja">
+                より良いサイト体験のため、アクセス解析（Cookie）にご協力いただけませんか？<br>
+                <span class="text-[11px] opacity-70">※氏名・メールアドレス等の個人情報は一切取得しません。</span>
+            </p>
+            <p class="lang-en">
+                Would you help improve this site by allowing anonymous analytics (Cookies)?<br>
+                <span class="text-[11px] opacity-70">No personally identifiable information is collected.</span>
+            </p>
         </div>
         <div class="flex gap-3 text-xs font-bold tracking-widest uppercase">
-            <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all">OK</button>
-            <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all">No</button>
+            <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-300 transform active:scale-95">
+                <span class="lang-ja">改善に協力する</span>
+                <span class="lang-en">Yes, Allow</span>
+            </button>
+            <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all duration-300 transform active:scale-95">
+                <span class="lang-ja">協力しない</span>
+                <span class="lang-en">Decline</span>
+            </button>
         </div>
     </div>
 </div>
 
 <script>
-(function(){
-    const GA_ID='G-ECXCCZF93D'; const k='cookie_consent_status';
-    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
-    
-    function startGA(){
-        if(document.querySelector(`script[src*="${GA_ID}"]`))return;
-        const s=document.createElement('script'); s.async=true;
-        s.src=`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-        document.head.appendChild(s);
-        gtag('js',new Date()); gtag('config',GA_ID);
-    }
-    const st=localStorage.getItem(k);
-    const banner=document.getElementById('cookie-banner');
+    (function() {
+        const GA_ID = 'G-ECXCCZF93D';
+        const consentKey = 'cookie_consent_status';
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
 
-    if(st==='accepted'){
-        startGA();
-    } else if(st!=='declined'){
-        setTimeout(()=>{ if(banner) banner.classList.add('show'); }, 1000);
-    }
+        const banner = document.getElementById('cookie-banner');
+        const acceptBtn = document.getElementById('cookie-accept');
+        const declineBtn = document.getElementById('cookie-decline');
 
-    // ボタン動作
-    document.getElementById('cookie-accept')?.addEventListener('click',()=>{
-        localStorage.setItem(k,'accepted');
-        banner.classList.remove('show');
-        startGA();
-    });
-    document.getElementById('cookie-decline')?.addEventListener('click',()=>{
-        localStorage.setItem(k,'declined');
-        banner.classList.remove('show');
-    });
-})();
+        function activateGA() {
+            // 重複防止
+            if (document.querySelector(`script[src*="${GA_ID}"]`)) return;
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+            document.head.appendChild(script);
+            gtag('js', new Date());
+            gtag('config', GA_ID);
+        }
+
+        const consentStatus = localStorage.getItem(consentKey);
+
+        if (consentStatus === 'accepted') {
+            activateGA();
+        } else if (consentStatus !== 'declined') {
+            setTimeout(() => {
+                if(banner) banner.classList.add('show');
+            }, 2000);
+        }
+
+        if(acceptBtn){
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem(consentKey, 'accepted');
+                banner.classList.remove('show');
+                activateGA();
+            });
+        }
+        if(declineBtn){
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem(consentKey, 'declined');
+                banner.classList.remove('show');
+            });
+        }
+    })();
 </script>
 </body>
 </html>
