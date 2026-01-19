@@ -161,12 +161,14 @@
         .lenis.lenis-scrolling iframe { pointer-events: none; }
 
         /* Modal Backdrop: Optimized for Safari */
-       .modal-backdrop {
+.modal-backdrop {
     background: rgba(5, 10, 20, 0.9); 
     will-change: opacity;
     -webkit-backface-visibility: hidden;
     width: 100vw;
-    height: 100dvh; 
+    height: 120vh; 
+    top: -10vh;
+    left: 0;
 }
 
         .modal-scroll { overscroll-behavior-y: contain; } 
