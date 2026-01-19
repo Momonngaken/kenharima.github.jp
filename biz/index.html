@@ -119,8 +119,6 @@
         .natural-fade-mask { 
             background: linear-gradient(90deg, transparent 0%, rgba(250,250,250,0) 50%, rgba(250,250,250,0.9) 100%); 
             pointer-events: none; 
-            /* Fix Safari Gradient Banding */
-            -webkit-transform: translate3d(0,0,0);
         }
 
         /* Custom Styles - Optimized */
@@ -164,14 +162,10 @@
 
         /* Modal Backdrop: Optimized for Safari */
         .modal-backdrop {
-            background: rgba(5, 10, 20, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            /* Force GPU layer to prevent repaint of underlying page */
-            will-change: opacity;
-            transform: translate3d(0,0,0);
-            -webkit-backface-visibility: hidden;
-        }
+    background: rgba(5, 10, 20, 0.9); 
+    will-change: opacity;
+    -webkit-backface-visibility: hidden;
+}
 
         .modal-scroll { overscroll-behavior-y: contain; } 
         .modal-scroll::-webkit-scrollbar { width: 8px; }
