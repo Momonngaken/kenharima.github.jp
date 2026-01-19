@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <!-- Google Consent Mode (Privacy) -->
+    <script>
+        // データレイヤーの初期化
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        // 【重要】デフォルトで統計データの取得を「拒否」に設定
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied', // ここが拒否されているとGAは発火しません
+            'wait_for_update': 500
+        });
+        
+        gtag('js', new Date());
+        gtag('config', 'G-ECXCCZF93D');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
     <!-- Google tag (gtag.js) moved to body end for performance -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -229,6 +249,18 @@
         
         .modal-text-body p { margin-bottom: 1.5em; letter-spacing: 0.03em; }
         .modal-text-body strong { color: #0f3c85; font-weight: 700; }
+        .cookie-banner-enter {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .cookie-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px -10px rgba(15, 60, 133, 0.15);
+        }
     </style>
     
     <noscript>
@@ -1657,15 +1689,128 @@
                 if (e.key === 'Escape' && isModalOpen) closeModal();
             });
         });
+        <!-- ================= COOKIE CONSENT BANNER ================= -->
+    <div id="cookie-consent" class="fixed bottom-6 right-6 z-[9999] w-[calc(100%-3rem)] max-w-[400px] translate-y-24 opacity-0 pointer-events-none transition-all duration-1000 cubic-bezier(0.16, 1, 0.3, 1)">
         
-    </script>
-    <!-- Google tag (gtag.js) - Deferred -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
+        <div class="cookie-glass rounded-2xl p-6 relative overflow-hidden group">
+            <!-- Decorative Glow -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors duration-700"></div>
+            
+            <!-- Content Container -->
+            <div class="relative z-10 flex flex-col gap-5">
+                
+                <!-- Icon & Text -->
+                <div class="flex gap-4 items-start">
+                    <div class="shrink-0 w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg border border-indigo-100">
+                        <i class="fa-solid fa-cookie-bite"></i>
+                    </div>
+                    <div class="text-sm text-gray-600 leading-relaxed font-medium">
+                        <!-- JP Text -->
+                        <div class="lang-ja block">
+                            <p class="mb-2 text-gray-800 font-bold">より良いサイト体験のため、アクセス解析（Cookie）にご協力いただけませんか？</p>
+                            <p class="text-xs text-gray-500">氏名・メールアドレス等の個人情報は一切取得しません。</p>
+                        </div>
+                        <!-- EN Text -->
+                        <div class="lang-en hidden">
+                            <p class="mb-2 text-gray-800 font-bold">Would you help improve this site by allowing anonymous analytics (Cookies)?</p>
+                            <p class="text-xs text-gray-500">No personally identifiable information is collected.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-3 justify-end">
+                    <!-- Decline Button -->
+                    <button id="cookie-decline" class="px-4 py-2.5 rounded-lg text-xs font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-all duration-300">
+                        <span class="lang-ja block">協力しない</span>
+                        <span class="lang-en hidden">Decline</span>
+                    </button>
+                    <!-- Allow Button -->
+                    <button id="cookie-allow" class="relative overflow-hidden px-6 py-2.5 rounded-lg text-xs font-bold text-white bg-bizAccent hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 group/btn">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:animate-[shimmer_1.5s_infinite]"></div>
+                        <span class="relative z-10 lang-ja block">改善に協力する</span>
+                        <span class="relative z-10 lang-en hidden">Yes, Allow</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script: Cookie Consent Logic -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ECXCCZF93D');
+        document.addEventListener('DOMContentLoaded', () => {
+            const banner = document.getElementById('cookie-consent');
+            const allowBtn = document.getElementById('cookie-allow');
+            const declineBtn = document.getElementById('cookie-decline');
+            const storageKey = 'kenharima_cookie_consent';
+
+            // 1. 言語切り替え連動 (Global flag check)
+            const updateBannerLang = () => {
+                const isGlobal = document.documentElement.classList.contains('is-global');
+                if (isGlobal) {
+                    banner.querySelectorAll('.lang-ja').forEach(el => { el.style.display = 'none'; el.classList.remove('block'); });
+                    banner.querySelectorAll('.lang-en').forEach(el => { el.style.display = 'block'; el.classList.remove('hidden'); });
+                } else {
+                    banner.querySelectorAll('.lang-en').forEach(el => { el.style.display = 'none'; el.classList.remove('block'); });
+                    banner.querySelectorAll('.lang-ja').forEach(el => { el.style.display = 'block'; el.classList.remove('hidden'); });
+                }
+            };
+
+            // 既存の言語切り替えボタンにイベントリスナーを追加
+            const langBtns = document.querySelectorAll('#lang-jp, #lang-en');
+            langBtns.forEach(btn => btn.addEventListener('click', () => setTimeout(updateBannerLang, 50)));
+            // 初期実行
+            updateBannerLang();
+
+            // 2. 同意状態の確認とバナー表示
+            const consentState = localStorage.getItem(storageKey);
+
+            if (!consentState) {
+                // まだ選択していない場合のみ表示 (少し遅らせて優雅に登場)
+                setTimeout(() => {
+                    banner.classList.add('cookie-banner-enter');
+                }, 1500);
+            } else if (consentState === 'granted') {
+                // 既に許可済みの場合はGAを有効化
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted',
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted'
+                });
+            }
+
+            // 3. アクション処理
+            const hideBanner = () => {
+                banner.classList.remove('cookie-banner-enter');
+                // アニメーション後にDOMから消す（誤クリック防止）
+                setTimeout(() => { banner.style.display = 'none'; }, 1000);
+            };
+
+            allowBtn.addEventListener('click', () => {
+                localStorage.setItem(storageKey, 'granted');
+                // 同意信号を送信
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted',
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted'
+                });
+                hideBanner();
+            });
+
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem(storageKey, 'denied');
+                // 拒否信号送信（念の為明示的にdenied）
+                gtag('consent', 'update', {
+                    'analytics_storage': 'denied',
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied'
+                });
+                hideBanner();
+            });
+        });
     </script>
 </body>
 </html>
