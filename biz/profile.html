@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ECXCCZF93D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ECXCCZF93D');
-</script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
@@ -725,5 +717,61 @@
                 }
             });
     </script>
+<style>
+    #cookie-banner { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: calc(100% - 48px); max-width: 400px; transform: translateY(150%); transition: transform 0.6s ease; will-change: transform; }
+    #cookie-banner.show { transform: translateY(0); }
+    .glass-panel { background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); }
+    html.is-global #cookie-banner .lang-ja { display: none !important; }
+    html:not(.is-global) #cookie-banner .lang-en { display: none !important; }
+</style>
+
+<div id="cookie-banner" class="glass-panel rounded-2xl p-6 text-white">
+    <div class="flex flex-col gap-4">
+        <div class="text-sm leading-relaxed text-gray-300">
+            <p class="lang-ja">サイト体験向上のためアクセス解析(Cookie)に協力をお願いします。<br><span class="text-[11px] opacity-70">※個人情報は取得しません。</span></p>
+            <p class="lang-en">Help improve this site by allowing analytics (Cookies)?<br><span class="text-[11px] opacity-70">No personal data collected.</span></p>
+        </div>
+        <div class="flex gap-3 text-xs font-bold tracking-widest uppercase">
+            <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all">OK</button>
+            <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all">No</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const GA_ID='G-ECXCCZF93D'; const k='cookie_consent_status';
+    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
+    
+    // GA起動関数
+    function startGA(){
+        if(document.querySelector(`script[src*="${GA_ID}"]`))return;
+        const s=document.createElement('script'); s.async=true;
+        s.src=`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+        document.head.appendChild(s);
+        gtag('js',new Date()); gtag('config',GA_ID);
+    }
+
+    const st=localStorage.getItem(k);
+    const banner=document.getElementById('cookie-banner');
+
+    if(st==='accepted'){
+        startGA(); 
+    } else if(st!=='declined'){
+        setTimeout(()=>{ if(banner) banner.classList.add('show'); }, 1000);
+    }
+
+    // ボタン動作
+    document.getElementById('cookie-accept')?.addEventListener('click',()=>{
+        localStorage.setItem(k,'accepted');
+        banner.classList.remove('show');
+        startGA();
+    });
+    document.getElementById('cookie-decline')?.addEventListener('click',()=>{
+        localStorage.setItem(k,'declined');
+        banner.classList.remove('show');
+    });
+})();
+</script>
 </body>
 </html>
