@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         /* Base Styles */
@@ -79,7 +82,6 @@
 
         .text-shimmer {
             /* 光沢が流れるグラデーション */
-            background-image: linear-gradient(90deg, #0f3c85, #3b82f6, #0f3c85);
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
@@ -105,6 +107,24 @@
             100% { background-position: 200% 50%; }
         }
     </style>
+
+    <!-- Tailwind Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            bizText: '#0f172a',
+                            bizAccent: '#0f3c85',
+                            bgBase: '#fafafa',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
 
@@ -276,7 +296,7 @@
         </div>
     </section>
         
-        <!-- ================= Big Five ================= -->
+        <!-- ================= Big Five (OS) ================= -->
         <section class="mb-24 fade-in-up delay-100">
             <div class="flex items-center gap-4 mb-8">
                 <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">01</span>
@@ -391,6 +411,7 @@
                         </div>
 
                         <!-- 5. Emotional Stability (0.79) -->
+                        <!-- ツールチップ機能付き -->
                         <div class="relative bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300" id="tooltip-container">
                             <div class="flex justify-between items-center mb-1 cursor-help select-none" onclick="toggleTooltip(event)">
                                 <span class="font-bold text-gray-700 text-sm flex items-center gap-1">
@@ -424,7 +445,7 @@
             </div>
         </section>
 
-        <!-- ================= PVQ ================= -->
+        <!-- ================= PVQ (Driver) ================= -->
         <section class="mb-24 fade-in-up delay-200">
             <div class="flex items-center gap-4 mb-8">
                 <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
@@ -510,27 +531,6 @@
         </div>
     </footer>
 
-     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Tailwind Config & CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        colors: {
-                            bizText: '#0f172a',
-                            bizAccent: '#0f3c85',
-                            bgBase: '#fafafa',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
     <!-- Script: Chart Configuration & Language Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -584,6 +584,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    // ★ここが追加・変更した部分です（余白確保と文字サイズ調整）
                     layout: {
                         padding: 5
                     },
@@ -592,6 +593,7 @@
                             angleLines: { color: 'rgba(0,0,0,0.05)' },
                             grid: { color: 'rgba(0,0,0,0.05)' },
                             pointLabels: { 
+                                // フォントサイズを12pxから10pxに小さくして、スマホで見切れにくくしました
                                 font: { size: 10, family: fontBody, weight: '600' }, 
                                 color: '#334155' 
                             },
@@ -612,7 +614,7 @@
             const pvqChart = new Chart(document.getElementById('pvqChart').getContext('2d'), {
                 type: 'polarArea',
                 data: {
-                    labels: [],
+                    labels: [], // Initialized in updateCharts
                     datasets: [{
                         data: pvqDataValues,
                         backgroundColor: pvqColors,
@@ -648,12 +650,14 @@
             const inactiveClass = "text-gray-400 hover:text-gray-600";
 
             function setLanguage(isGlobal) {
+                // Update HTML class
                 if (isGlobal) {
                     htmlEl.classList.add('is-global');
                 } else {
                     htmlEl.classList.remove('is-global');
                 }
-                
+
+                // Update Button Styles
                 if (isGlobal) {
                     langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
                     langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
@@ -661,24 +665,29 @@
                     langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
                     langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
                 }
-                
+
+                // Update Charts
                 updateCharts(isGlobal);
             }
 
             function updateCharts(isGlobal) {
                 const langKey = isGlobal ? 'en' : 'ja';
-              
+                
+                // Update Big Five
                 big5Chart.data.labels = labels.big5[langKey];
                 big5Chart.update();
 
+                // Update PVQ
                 pvqChart.data.labels = labels.pvq[langKey];
                 pvqChart.update();
             }
 
+            // Initialization
             (function init() {
                 var lang = navigator.language || navigator.userLanguage; 
                 let isGlobal = htmlEl.classList.contains('is-global');
-            
+                
+                // Initial check if not explicitly set by class but by navigator
                 if (!isGlobal && !lang.startsWith('ja')) {
                     isGlobal = true;
                 }
@@ -692,20 +701,25 @@
         });
         
             window.toggleTooltip = function(e) {
-                e.stopPropagation();
+                e.stopPropagation(); // 親要素へのイベント伝播を止める
                 const tooltip = document.getElementById('tooltip-body');
                 
+                // クラスの有無で表示/非表示を切り替え
                 if (tooltip.classList.contains('opacity-0')) {
+                    // 表示 (opacity:1, visible, 位置リセット)
                     tooltip.classList.remove('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 } else {
+                    // 非表示
                     tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 }
             };
 
+            // 画面のどこかをタップしたらツールチップを閉じる
             document.addEventListener('click', function(e) {
                 const tooltip = document.getElementById('tooltip-body');
                 const container = document.getElementById('tooltip-container');
                 
+                // ツールチップが存在し、かつクリックされた場所がコンテナの外側なら閉じる
                 if (tooltip && container && !container.contains(e.target)) {
                     tooltip.classList.add('opacity-0', 'invisible', 'translate-y-1', 'pointer-events-none');
                 }
