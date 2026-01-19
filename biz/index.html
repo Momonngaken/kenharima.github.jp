@@ -1322,11 +1322,10 @@
     <div id="global-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" aria-hidden="true">
         
         <!-- 1. Blur Backdrop -->
-        <div id="modal-bg" class="absolute inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
+        <div id="modal-bg" class="fixed inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
         <!-- 2. Modal Card -->
-        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu will-change-transform">
-            
+        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu will-change-transform">            
             <div id="modal-progress-bar" class="reading-progress-bar"></div>
 
             <div class="h-1.5 w-full bg-gray-100 shrink-0 z-30 opacity-50"></div>
