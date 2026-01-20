@@ -1326,6 +1326,28 @@
                             PDF
                         </span>
                     </a>
+                    <!-- 4. [NEW] Resume (PDF) Smart Button (Added Here) -->
+                    <!-- Note: Replace href="./resume_en.pdf" with the actual English/Global resume file path -->
+                    <a href="./resume_en.pdf" download="Ken_Harima_Resume_EN.pdf" class="group relative block w-full md:w-auto overflow-hidden rounded bg-[#0b1121] px-8 py-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(6,182,212,0.3)] border border-white/10 hover:border-cyan-500/50 flex items-center justify-center gap-4">
+                        
+                        <!-- Animated Background Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-900/20 via-indigo-900/20 to-cyan-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <!-- Scan Line Animation (Top) -->
+                        <div class="absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent -translate-x-full transition-transform duration-1000 group-hover:translate-x-full ease-in-out"></div>
+
+                        <!-- Icon Container -->
+                        <div class="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 border border-white/10 text-cyan-400 transition-all duration-300 group-hover:scale-110 group-hover:bg-cyan-500/10 group-hover:border-cyan-400/30">
+                            <i class="fa-solid fa-download text-xs"></i>
+                        </div>
+
+                        <!-- Text Block -->
+                        <div class="relative z-10 flex flex-col items-start leading-none">
+                            <span class="mb-1 text-[9px] font-mono font-bold uppercase tracking-widest text-cyan-600/80 group-hover:text-cyan-400 transition-colors">Global</span>
+                            <span class="text-sm font-bold text-white tracking-wide group-hover:text-cyan-50 transition-colors whitespace-nowrap">Resume (PDF)</span>
+                        </div>
+                    </a>
+
                 </div>
             </section>
 
