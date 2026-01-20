@@ -1294,41 +1294,69 @@
             
             <!-- ================= CONTACT ================= -->
             <section class="fade-in pt-12 pb-32 cv-auto">
-                <div class="section-label">Contact</div>
-                <div class="flex flex-col md:flex-row gap-6">
+                <div class="section-label">Contact & Resume</div>
+                
+                <!-- Layout: Grid for 4 items (Mobile: 1col, Tablet: 2cols, Desktop: 4cols) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    
                     <!-- 1. Contact Form Button -->
-                    <a id="biz-contact-btn" href="../contact.html" class="block w-full md:w-auto text-center px-8 py-4 bg-gray-900 text-white font-bold rounded hover:bg-bizAccent transition-colors duration-300 cursor-pointer shadow-lg shadow-gray-900/10">
-                        Contact
+                    <a id="biz-contact-btn" href="../contact.html" class="group relative w-full text-center px-6 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-bizAccent transition-all duration-300 cursor-pointer shadow-lg shadow-gray-900/10 hover:shadow-bizAccent/20 hover:-translate-y-0.5 flex items-center justify-center gap-2 overflow-hidden">
+                        <span class="relative z-10">Contact Form</span>
+                        <i class="fa-solid fa-envelope relative z-10 text-gray-400 group-hover:text-white transition-colors"></i>
+                        <!-- Hover Shine Effect -->
+                        <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     </a>
 
                     <!-- 2. LinkedIn Button -->
-                    <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" class="block w-full md:w-auto text-center px-8 py-4 border border-gray-300 text-gray-900 font-bold rounded hover:bg-gray-50 transition-colors duration-300 flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" class="group w-full text-center px-6 py-4 border border-gray-200 bg-white text-gray-700 font-bold rounded-lg hover:border-blue-300 hover:text-[#0077b5] hover:shadow-[0_10px_30px_-10px_rgba(0,119,181,0.15)] transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-linkedin text-xl text-gray-400 group-hover:text-[#0077b5] transition-colors"></i> 
+                        <span>LinkedIn</span>
                     </a>
 
-                    <!-- 3. [NEW] Resume Download Button -->
-                    <a href="./resume.pdf" download="Ken_Harima_Resume.pdf" class="group relative block w-full md:w-auto text-center px-8 py-4 border border-gray-300 text-gray-900 font-bold rounded overflow-hidden transition-all duration-300 hover:border-bizAccent hover:text-bizAccent hover:shadow-[0_10px_40px_-10px_rgba(15,60,133,0.15)] flex items-center justify-center gap-3 bg-white">
-                        
-                        <!-- Smart Animation: Slide Up Background -->
+                    <!-- 3. Resume (JP) Button -->
+                    <a href="./resume.pdf" download="Ken_Harima_Resume_JP.pdf" class="group relative w-full text-center px-4 py-4 border border-gray-200 bg-white text-gray-800 font-bold rounded-lg overflow-hidden transition-all duration-300 hover:border-bizAccent hover:text-bizAccent hover:shadow-[0_10px_40px_-10px_rgba(15,60,133,0.15)] flex items-center justify-center gap-2">
+                        <!-- Smart Animation: Slide Up -->
                         <div class="absolute inset-0 bg-bizAccent/5 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 will-change-transform"></div>
 
-                        <!-- Icon & Text -->
-                        <span class="relative z-10 flex items-center gap-2">
-                            <i class="fa-solid fa-file-arrow-down text-lg text-gray-400 transition-colors duration-300 group-hover:text-bizAccent group-hover:animate-pulse"></i>
-                            <span>
+                        <!-- Icon -->
+                        <i class="fa-solid fa-file-invoice relative z-10 text-lg text-gray-300 transition-colors duration-300 group-hover:text-bizAccent"></i>
+                        
+                        <!-- Text -->
+                        <div class="relative z-10 flex flex-col items-start leading-none gap-0.5">
+                            <span class="text-[10px] font-mono text-gray-400 uppercase tracking-wider group-hover:text-bizAccent/70">PDF Format</span>
+                            <span class="text-sm">
                                 <span class="lang-ja">履歴書</span>
                                 <span class="lang-en">Resume (JP)</span>
                             </span>
-                        </span>
+                        </div>
 
-                        <!-- Tech Badge (PDF) -->
-                        <span class="relative z-10 ml-1 text-[9px] font-mono tracking-widest border border-gray-300 px-1.5 py-0.5 rounded text-gray-400 group-hover:text-bizAccent group-hover:border-bizAccent/50 transition-colors duration-300">
-                            PDF
-                        </span>
+                        <!-- DL Icon -->
+                        <i class="fa-solid fa-download relative z-10 ml-auto text-xs text-gray-300 group-hover:text-bizAccent group-hover:animate-bounce transition-colors"></i>
                     </a>
+
+                    <!-- 4. [NEW] Resume (US) Button -->
+                    <a href="./resume_us.pdf" download="Ken_Harima_Resume_US.pdf" class="group relative w-full text-center px-4 py-4 border border-gray-200 bg-white text-gray-800 font-bold rounded-lg overflow-hidden transition-all duration-300 hover:border-emerald-600 hover:text-emerald-700 hover:shadow-[0_10px_40px_-10px_rgba(5,150,105,0.15)] flex items-center justify-center gap-2">
+                        <!-- Smart Animation: Slide Up (Emerald Accent for Global/US) -->
+                        <div class="absolute inset-0 bg-emerald-600/5 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 will-change-transform"></div>
+
+                        <!-- Icon -->
+                        <i class="fa-solid fa-earth-americas relative z-10 text-lg text-gray-300 transition-colors duration-300 group-hover:text-emerald-600"></i>
+                        
+                        <!-- Text -->
+                        <div class="relative z-10 flex flex-col items-start leading-none gap-0.5">
+                            <span class="text-[10px] font-mono text-gray-400 uppercase tracking-wider group-hover:text-emerald-600/70">Global Format</span>
+                            <span class="text-sm">
+                                <span class="lang-ja">履歴書（米国）</span>
+                                <span class="lang-en">Resume (US)</span>
+                            </span>
+                        </div>
+
+                        <!-- DL Icon -->
+                        <i class="fa-solid fa-download relative z-10 ml-auto text-xs text-gray-300 group-hover:text-emerald-600 group-hover:animate-bounce transition-colors"></i>
+                    </a>
+
                 </div>
             </section>
-
         </main>
 
         <footer class="border-t border-gray-200 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
