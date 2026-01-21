@@ -1314,46 +1314,71 @@
                         <span>LinkedIn</span>
                     </a>
 
-                    <!-- 3. Resume (JP) Button -->
-                    <a href="./resume.pdf" download="Ken_Harima_Resume_JP.pdf" class="group relative w-full text-center px-4 py-4 border border-gray-200 bg-white text-gray-800 font-bold rounded-lg overflow-hidden transition-all duration-300 hover:border-bizAccent hover:text-bizAccent hover:shadow-[0_10px_40px_-10px_rgba(15,60,133,0.15)] flex items-center justify-center gap-2">
-                        <!-- Smart Animation: Slide Up -->
-                        <div class="absolute inset-0 bg-bizAccent/5 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 will-change-transform"></div>
 
-                        <!-- Icon -->
-                        <i class="fa-solid fa-file-invoice relative z-10 text-lg text-gray-300 transition-colors duration-300 group-hover:text-bizAccent"></i>
+
+                    
+                    <!-- 3. Resume (JP) Button -->
+                    <a href="./resume.pdf" download="Ken_Harima_Resume_JP.pdf" class="group relative w-full px-5 py-4 border border-gray-200 bg-[#fdfdfd] rounded-xl overflow-hidden transition-all duration-500 hover:border-[#E61610]/40 hover:shadow-[0_20px_40px_-10px_rgba(230,22,16,0.15)] flex items-center gap-4">
+                        <!-- Left Adobe Red Accent Strip -->
+                        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#E61610] z-20 transition-all duration-500 group-hover:w-2"></div>
                         
-                        <!-- Text -->
-                        <div class="relative z-10 flex flex-col items-start leading-none gap-0.5">
-                            <span class="text-[10px] font-mono text-gray-400 uppercase tracking-wider group-hover:text-bizAccent/70">PDF Format</span>
-                            <span class="text-sm">
-                                <span class="lang-ja">履歴書</span>
-                                <span class="lang-en">Resume (JP)</span>
+                        <!-- Subtle Pattern/Red Tint Background -->
+                        <div class="absolute inset-0 bg-[#E61610]/[0.02] opacity-100 transition-opacity duration-500 group-hover:bg-[#E61610]/[0.05]"></div>
+                        
+                        <!-- PDF Icon Visual -->
+                        <div class="relative z-10 w-11 h-11 shrink-0 flex items-center justify-center rounded-lg bg-white border border-gray-100 shadow-sm group-hover:bg-[#E61610] group-hover:border-[#E61610] group-hover:scale-110 transition-all duration-500">
+                            <i class="fa-solid fa-file-pdf text-xl text-[#E61610] group-hover:text-white transition-colors duration-500"></i>
+                        </div>
+
+                        <!-- Text Info -->
+                        <div class="relative z-10 flex flex-col items-start min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[10px] font-black text-[#E61610] tracking-tighter flex items-center gap-1">
+                                    <span class="w-1 h-1 bg-[#E61610] rounded-full animate-pulse"></span>
+                                    PDF DOCUMENT
+                                </span>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900 group-hover:text-[#E61610] transition-colors duration-300">
+                                <span class="lang-ja text-[15px]">履歴書 (JP) <span class="ml-1 text-[10px] opacity-40 font-normal">Download</span></span>
+                                <span class="lang-en text-[15px]">Resume (JP) <span class="ml-1 text-[10px] opacity-40 font-normal">Download</span></span>
                             </span>
                         </div>
 
-                        <!-- DL Icon -->
-                        <i class="fa-solid fa-download relative z-10 ml-auto text-xs text-gray-300 group-hover:text-bizAccent group-hover:animate-bounce transition-colors"></i>
+                        <!-- Side Action Visual -->
+                        <div class="ml-auto relative z-10 opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500">
+                            <i class="fa-solid fa-circle-arrow-down text-lg text-gray-400 group-hover:text-[#E61610]"></i>
+                        </div>
                     </a>
 
                     <!-- 4. [NEW] Resume (US) Button -->
-                    <a href="./resume_us.pdf" download="Ken_Harima_Resume_US.pdf" class="group relative w-full text-center px-4 py-4 border border-gray-200 bg-white text-gray-800 font-bold rounded-lg overflow-hidden transition-all duration-300 hover:border-emerald-600 hover:text-emerald-700 hover:shadow-[0_10px_40px_-10px_rgba(5,150,105,0.15)] flex items-center justify-center gap-2">
-                        <!-- Smart Animation: Slide Up (Emerald Accent for Global/US) -->
-                        <div class="absolute inset-0 bg-emerald-600/5 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 will-change-transform"></div>
-
-                        <!-- Icon -->
-                        <i class="fa-solid fa-earth-americas relative z-10 text-lg text-gray-300 transition-colors duration-300 group-hover:text-emerald-600"></i>
+                    <a href="./resume_us.pdf" download="Ken_Harima_Resume_US.pdf" class="group relative w-full px-5 py-4 border-2 border-gray-100 bg-[#0f172a] rounded-xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(15,60,133,0.4)] flex items-center gap-4">
+                        <!-- Dynamic Glow Background -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-bizAccent/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         
-                        <!-- Text -->
-                        <div class="relative z-10 flex flex-col items-start leading-none gap-0.5">
-                            <span class="text-[10px] font-mono text-gray-400 uppercase tracking-wider group-hover:text-emerald-600/70">Global Format</span>
-                            <span class="text-sm">
-                                <span class="lang-ja">履歴書（欧米）</span>
-                                <span class="lang-en">Resume</span>
+                        <!-- PDF Icon Visual (Global Variant) -->
+                        <div class="relative z-10 w-12 h-12 shrink-0 flex items-center justify-center rounded-lg bg-gray-800 group-hover:bg-[#E61610] transition-colors duration-500">
+                            <div class="relative">
+                                <i class="fa-solid fa-file-pdf text-2xl text-gray-500 group-hover:text-white transition-colors duration-500"></i>
+                                <i class="fa-solid fa-earth-americas absolute -bottom-1 -right-1 text-[10px] text-bizAccent group-hover:text-white"></i>
+                            </div>
+                        </div>
+
+                        <!-- Text Info -->
+                        <div class="relative z-10 flex flex-col items-start min-w-0">
+                            <div class="flex items-center gap-1.5 mb-0.5">
+                                <span class="text-[9px] font-black bg-bizAccent text-white px-1.5 py-0.5 rounded tracking-tighter">GLOBAL</span>
+                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">US Format</span>
+                            </div>
+                            <span class="text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#E61610]">
+                                <span class="lang-ja text-base text-gray-200">履歴書 (欧米形式)</span>
+                                <span class="lang-en">Download CV (US)</span>
                             </span>
                         </div>
 
-                        <!-- DL Icon -->
-                        <i class="fa-solid fa-download relative z-10 ml-auto text-xs text-gray-300 group-hover:text-emerald-600 group-hover:animate-bounce transition-colors"></i>
+                        <!-- Animated Arrow Icon -->
+                        <div class="ml-auto relative z-10 flex items-center justify-center w-8 h-8 rounded-full border border-gray-700 group-hover:border-[#E61610]/50 group-hover:bg-[#E61610] transition-all duration-500 shadow-inner">
+                            <i class="fa-solid fa-download text-xs text-gray-500 group-hover:text-white group-hover:animate-bounce"></i>
+                        </div>
                     </a>
 
                 </div>
