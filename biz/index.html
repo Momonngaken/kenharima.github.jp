@@ -1959,22 +1959,23 @@
             </div>
             
             <!-- Banner Buttons -->
-            <div class="flex flex-col sm:flex-row gap-3 text-xs font-bold tracking-wider">
-                <button id="btn-open-settings" class="px-4 py-3 border border-gray-600 hover:bg-gray-700/50 hover:text-white text-gray-300 rounded-lg transition-all duration-300">
-                    <span class="lang-ja">設定</span>
-                    <span class="lang-en">Settings</span>
-                </button>
-                <div class="flex gap-3 flex-1">
-                    <button id="btn-reject-all-banner" class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-300">
-                        <span class="lang-ja">すべて拒否</span>
-                        <span class="lang-en">Decline All</span>
-                    </button>
-                    <button id="btn-accept-all-banner" class="flex-1 px-4 py-3 bg-bizAccent hover:bg-blue-700 text-white rounded-lg shadow-lg shadow-blue-900/30 transition-all duration-300">
-                        <span class="lang-ja">OK</span>
-                        <span class="lang-en">OK</span>
-                    </button>
-                </div>
-            </div>
+<div class="flex flex-col sm:flex-row gap-3 text-[10px] sm:text-xs font-bold tracking-wider">
+    <!-- 設定：枠線のみ -->
+    <button id="btn-open-settings" class="flex-1 px-2 py-3 border border-gray-500 hover:bg-gray-800 text-gray-300 rounded-lg transition-all duration-300">
+        <span class="lang-ja">設定</span>
+        <span class="lang-en">Settings</span>
+    </button>
+    <!-- すべて拒否：白背景 -->
+    <button id="btn-reject-all-banner" class="flex-1 px-2 py-3 bg-white hover:bg-gray-200 text-gray-900 rounded-lg transition-all duration-300">
+        <span class="lang-ja">拒否する</span>
+        <span class="lang-en">Decline</span>
+    </button>
+    <!-- OK：白背景 -->
+    <button id="btn-accept-all-banner" class="flex-1 px-2 py-3 bg-white hover:bg-gray-200 text-gray-900 rounded-lg shadow-lg shadow-black/20 transition-all duration-300">
+        <span class="lang-ja">OK</span>
+        <span class="lang-en">OK</span>
+    </button>
+</div>
         </div>
     </div>
 
