@@ -870,37 +870,40 @@
     
     <!-- 1. Initial Banner (Bottom Right) -->
     <div id="cookie-banner" class="glass-panel rounded-xl p-6 text-white shadow-2xl">
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-5">
             <div class="text-sm leading-relaxed text-gray-200 font-medium">
                 <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2">
                     <i class="fa-solid fa-cookie-bite text-bizAccent"></i> 
                     <span class="lang-ja">プライバシー設定</span>
                     <span class="lang-en">Privacy Settings</span>
                 </h4>
-                <p class="lang-ja text-xs text-gray-400">
-                    当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「すべて許可」をクリックすると、すべてのCookieの使用に同意したことになります。設定から詳細な管理が可能です。
+                <p class="lang-ja text-xs text-gray-300">
+                    当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「OK」をクリックすると、すべてのCookieの使用に同意したことになります。
                 </p>
-                <p class="lang-en text-xs text-gray-400">
-                    We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies. You can manage detailed preferences in Settings.
+                <p class="lang-en text-xs text-gray-300">
+                    We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies.
                 </p>
             </div>
             
-            <!-- Banner Buttons -->
+            <!-- Banner Buttons (Equal Size & Udemy Style) -->
             <div class="flex flex-col sm:flex-row gap-3 text-xs font-bold tracking-wider">
-                <button id="btn-open-settings" class="px-4 py-3 border border-gray-600 hover:bg-gray-700/50 hover:text-white text-gray-300 rounded-lg transition-all duration-300">
+                <!-- 1. Settings (Bordered) -->
+                <button id="btn-open-settings" class="flex-1 px-2 py-3 border border-gray-400 hover:border-white hover:bg-white/10 text-white rounded-lg transition-all duration-300 whitespace-nowrap">
                     <span class="lang-ja">設定</span>
                     <span class="lang-en">Settings</span>
                 </button>
-                <div class="flex gap-3 flex-1">
-                    <button id="btn-reject-all-banner" class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-300">
-                        <span class="lang-ja">すべて拒否</span>
-                        <span class="lang-en">Decline All</span>
-                    </button>
-                    <button id="btn-accept-all-banner" class="flex-1 px-4 py-3 bg-bizAccent hover:bg-blue-700 text-white rounded-lg shadow-lg shadow-blue-900/30 transition-all duration-300">
-                        <span class="lang-ja">OK</span>
-                        <span class="lang-en">OK</span>
-                    </button>
-                </div>
+                
+                <!-- 2. Decline (White bg, Black text) -->
+                <button id="btn-reject-all-banner" class="flex-1 px-2 py-3 bg-white text-gray-900 hover:bg-gray-200 rounded-lg transition-all duration-300 whitespace-nowrap shadow-md">
+                    <span class="lang-ja">拒否する</span>
+                    <span class="lang-en">Decline</span>
+                </button>
+                
+                <!-- 3. OK (White bg, Black text) -->
+                <button id="btn-accept-all-banner" class="flex-1 px-2 py-3 bg-white text-gray-900 hover:bg-gray-200 rounded-lg transition-all duration-300 whitespace-nowrap shadow-md">
+                    <span class="lang-ja">OK</span>
+                    <span class="lang-en">OK</span>
+                </button>
             </div>
         </div>
     </div>
