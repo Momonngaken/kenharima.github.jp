@@ -513,7 +513,13 @@
 
     <!-- ================= FOOTER with LANG SWITCH ================= -->
     <footer class="border-t border-gray-200 pt-8 pb-16 w-full max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
-        <p class="text-gray-400">© 2025 Ken HARIMA | Psychometrics</p>
+        <div class="flex items-center gap-4">
+            <p class="text-gray-400">© 2025 Ken HARIMA | Psychometrics</p>
+            <button id="btn-reopen-settings" class="text-gray-300 hover:text-bizAccent transition-colors flex items-center gap-1.5 group cursor-pointer">
+                <i class="fa-solid fa-cookie-bite text-[10px] group-hover:rotate-12 transition-transform"></i>
+                <span class="underline decoration-dotted underline-offset-2">Privacy</span>
+            </button>
+        </div>
         <div class="flex items-center gap-6 mt-6 md:mt-0">
             <!-- Language Switcher -->
             <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
