@@ -386,11 +386,14 @@
     }
     
     /* Scrollbar for Modal */
+    .privacy-scroll {
+        overscroll-behavior-y: contain;
+    }
     .privacy-scroll::-webkit-scrollbar { width: 6px; }
     .privacy-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
     .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
+        
     /* Language Switching for Cookie Components */
     html.is-global #cookie-banner .lang-ja,
     html.is-global #privacy-modal .lang-ja { display: none !important; }
@@ -1999,7 +2002,7 @@
             </div>
 
             <!-- Scrollable Body -->
-            <div class="privacy-scroll flex-1 overflow-y-auto p-6 space-y-6">
+            <div class="privacy-scroll flex-1 overflow-y-auto p-6 space-y-6 overscroll-contain" data-lenis-prevent>
                 
                 <!-- Description -->
                 <p class="text-sm text-gray-600 leading-relaxed">
