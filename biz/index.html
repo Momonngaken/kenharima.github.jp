@@ -2008,11 +2008,33 @@
                         あなたのプライバシーを尊重します。以下のパネルを使用して、同意するCookieのカテゴリをカスタマイズできます。必須Cookie以外の同意はいつでも変更可能です。
                     </span>
                     <span class="lang-en">
-                        We respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.
+                        I respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.
                     </span>
                 </p>
 
-                <!-- Category 1: Strictly Necessary (Locked) -->
+                <!-- Category 1: Strictly Necessary  -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div class="bg-white/80 px-5 py-4 flex justify-between items-center backdrop-blur-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
+                                <i class="fa-solid fa-lock text-xs"></i>
+                            </div>
+                            <span class="text-gray-800 font-bold text-sm">
+                                <span class="lang-ja">不可欠なクッキー</span>
+                                <span class="lang-en">Strictly Necessary</span>
+                            </span>
+                        </div>
+                        <!-- Creative Toggle -->
+                        <label class="creative-toggle-wrapper">
+                            <input type="checkbox" checked disabled class="creative-toggle-checkbox">
+                            <span class="creative-toggle-track"></span>
+                        </label>
+                    </div>
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                        <span class="lang-ja">ウェブサイトが正常に機能するために必要なクッキーです。これらを無効にすることはできません。</span>
+                        <span class="lang-en">These cookies are necessary for the website to function and cannot be switched off.</span>
+                    </div>
+                </div>
 
                 <!-- Category 2: Performance (Analytics) -->
                 <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
