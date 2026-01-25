@@ -654,6 +654,15 @@
                 showBanner();
             }
 
+            const reopenBtn = document.getElementById('btn-reopen-settings');
+            if(reopenBtn) {
+                reopenBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            }
+
+
             // --- Event Listeners (Banner) ---
             document.getElementById('btn-open-settings').addEventListener('click', () => {
                 hideBanner();
