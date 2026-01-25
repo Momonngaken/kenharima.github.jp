@@ -405,12 +405,12 @@
         </div>
     </div>
 
-    <!-- 3. Logic Script -->
+   <!-- 3. Logic Script (Updated with Feedback & Better Logic) -->
     <script>
         (function() {
             // Configuration
             const GA_ID = 'G-ECXCCZF93D';
-            const STORAGE_KEY = 'cookie_consent_preferences'; // Stores JSON object
+            const STORAGE_KEY = 'cookie_consent_preferences';
             
             // Elements
             const banner = document.getElementById('cookie-banner');
@@ -418,7 +418,11 @@
             const togglePerf = document.getElementById('toggle-performance');
             const toggleFunc = document.getElementById('toggle-functional');
             const toggleTarget = document.getElementById('toggle-targeting');
+            const saveBtn = document.getElementById('btn-save-preferences');
             
+            // Language Detection for JS Text
+            const isJp = !document.documentElement.classList.contains('is-global');
+
             // Default State
             let consentState = {
                 necessary: true,
@@ -428,41 +432,48 @@
                 timestamp: null
             };
 
-            // --- Google Analytics Activation ---
-            function activateGA() {
-                // Check if already active
-                if (window['ga-disable-' + GA_ID] === false) return; // Already active
-
-                console.log('✨ [System] Analytics Activated');
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', GA_ID);
+            // --- Google Analytics Control ---
+            function updateGALogic(isAllowed) {
+                const disableStr = 'ga-disable-' + GA_ID;
                 
-                // Inject Script if not present
-                if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
-                    const script = document.createElement('script');
-                    script.async = true;
-                    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                    document.head.appendChild(script);
+                if (isAllowed) {
+                    // ENABLE: Remove disable flag if exists
+                    window[disableStr] = false;
+                    console.log('📈 [Cookie] Analytics: ENABLED');
+
+                    // Insert Script if not present
+                    if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
+                        const script = document.createElement('script');
+                        script.async = true;
+                        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                        document.head.appendChild(script);
+                        
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', GA_ID);
+                    }
+                } else {
+                    // DISABLE: Set disable flag (stops data sending immediately)
+                    window[disableStr] = true;
+                    console.log('🛑 [Cookie] Analytics: DISABLED');
                 }
             }
 
             // --- Apply Consents ---
             function applyConsents(state) {
                 // 1. Performance (GA)
-                if (state.performance) {
-                    activateGA();
-                } else {
-                    // Note: Cannot easily remove GA once loaded without reload, 
-                    // but we can set a flag to disable future tracking
-                    window['ga-disable-' + GA_ID] = true;
-                    console.log('🚫 [System] Analytics Disabled');
+                updateGALogic(state.performance);
+
+                // 2. Functional (Placeholder)
+                if (state.functional) {
+                    console.log('🔧 [Cookie] Functional: Allowed (No active scripts yet)');
                 }
 
-                // 2. Functional & Targeting (Placeholders for future features)
-                // if (state.functional) { ... }
-                // if (state.targeting) { ... }
+                // 3. Targeting (Placeholder)
+                if (state.targeting) {
+                    console.log('🎯 [Cookie] Targeting: Allowed (No active scripts yet)');
+                }
 
                 // Save to Storage
                 state.timestamp = new Date().toISOString();
@@ -471,11 +482,15 @@
 
             // --- UI Control ---
             function showBanner() {
-                setTimeout(() => { banner.classList.add('show'); }, 1500); // Slight delay for smooth entry
+                // Only show if no preference saved
+                if (!localStorage.getItem(STORAGE_KEY)) {
+                    setTimeout(() => { banner.classList.add('show'); }, 1500);
+                }
             }
             function hideBanner() {
                 banner.classList.remove('show');
             }
+            
             function openModal() {
                 // Sync toggles with current state
                 togglePerf.checked = consentState.performance;
@@ -484,23 +499,53 @@
                 
                 modal.classList.remove('hidden-modal');
                 modal.classList.add('show-modal');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                document.body.style.overflow = 'hidden'; 
             }
+            
             function closeModal() {
                 modal.classList.remove('show-modal');
                 modal.classList.add('hidden-modal');
                 document.body.style.overflow = '';
             }
 
-            // --- Logic Initialization ---
+            // --- Button Feedback Animation ---
+            function animateSaveAndClose() {
+                // 1. Change Button Text
+                const originalTextJp = "選択内容を確認";
+                const originalTextEn = "Confirm My Choices";
+                
+                // Current Language Check (Dynamic)
+                const currentIsJp = !document.documentElement.classList.contains('is-global');
+                
+                saveBtn.innerHTML = currentIsJp 
+                    ? '<i class="fa-solid fa-check mr-2"></i>保存しました' 
+                    : '<i class="fa-solid fa-check mr-2"></i>Saved';
+                
+                saveBtn.classList.remove('bg-bizAccent', 'hover:bg-blue-800');
+                saveBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+
+                // 2. Wait and Close
+                setTimeout(() => {
+                    closeModal();
+                    hideBanner();
+                    
+                    // 3. Reset Button (after modal is hidden)
+                    setTimeout(() => {
+                        saveBtn.innerHTML = `<span class="lang-ja">${originalTextJp}</span><span class="lang-en">${originalTextEn}</span>`;
+                        saveBtn.classList.add('bg-bizAccent', 'hover:bg-blue-800');
+                        saveBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                    }, 300);
+                }, 600);
+            }
+
+            // --- Initialization ---
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
                 try {
                     consentState = JSON.parse(stored);
-                    applyConsents(consentState);
+                    applyConsents(consentState); // Re-apply on reload
                 } catch(e) { console.error('Consent Parse Error', e); }
             } else {
-                // No consent yet -> Show Banner
                 showBanner();
             }
 
@@ -525,22 +570,19 @@
             // --- Event Listeners (Modal) ---
             document.getElementById('btn-close-modal').addEventListener('click', () => {
                 closeModal();
-                // If banner was hidden and no choice made, maybe show banner again? 
-                // For UX, let's keep banner hidden but assume no changes if closed via X without save.
-                // Or better: show banner again if no consent is stored.
-                if(!localStorage.getItem(STORAGE_KEY)) showBanner();
+                // Show banner again if nothing was saved ever
+                if(!localStorage.getItem(STORAGE_KEY)) banner.classList.add('show');
             });
             document.getElementById('privacy-backdrop').addEventListener('click', closeModal);
 
             // 1. Save Preferences (Selected Toggles)
-            document.getElementById('btn-save-preferences').addEventListener('click', () => {
+            saveBtn.addEventListener('click', () => {
                 consentState.performance = togglePerf.checked;
                 consentState.functional = toggleFunc.checked;
                 consentState.targeting = toggleTarget.checked;
                 
                 applyConsents(consentState);
-                closeModal();
-                hideBanner(); // Ensure banner is gone
+                animateSaveAndClose(); // Trigger visual feedback
             });
 
             // 2. Reject All (Modal)
@@ -551,8 +593,7 @@
                 toggleTarget.checked = false;
                 
                 applyConsents(consentState);
-                closeModal();
-                hideBanner();
+                animateSaveAndClose();
             });
 
             // 3. Accept All (Modal)
@@ -563,8 +604,7 @@
                 toggleTarget.checked = true;
                 
                 applyConsents(consentState);
-                closeModal();
-                hideBanner();
+                animateSaveAndClose();
             });
 
         })();
