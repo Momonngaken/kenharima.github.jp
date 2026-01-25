@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
     <head>
     <!-- Google tag (gtag.js) moved to body end for performance -->
@@ -386,14 +386,11 @@
     }
     
     /* Scrollbar for Modal */
-    .privacy-scroll {
-        overscroll-behavior-y: contain;
-    }
     .privacy-scroll::-webkit-scrollbar { width: 6px; }
     .privacy-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
     .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
+
     /* Language Switching for Cookie Components */
     html.is-global #cookie-banner .lang-ja,
     html.is-global #privacy-modal .lang-ja { display: none !important; }
@@ -1944,42 +1941,39 @@
     </script>
     <!-- ================= ADVANCED COOKIE CONSENT SYSTEM ================= -->
     
-   <!-- 1. Initial Banner (Bottom Right) -->
+    <!-- 1. Initial Banner (Bottom Right) -->
     <div id="cookie-banner" class="glass-panel rounded-xl p-6 text-white shadow-2xl">
-        <div class="flex flex-col gap-5">
+        <div class="flex flex-col gap-4">
             <div class="text-sm leading-relaxed text-gray-200 font-medium">
                 <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2">
                     <i class="fa-solid fa-cookie-bite text-bizAccent"></i> 
                     <span class="lang-ja">プライバシー設定</span>
                     <span class="lang-en">Privacy Settings</span>
                 </h4>
-                <p class="lang-ja text-xs text-gray-300">
-                    当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「OK」をクリックすると、すべてのCookieの使用に同意したことになります。
+                <p class="lang-ja text-xs text-gray-400">
+                    当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「すべて許可」をクリックすると、すべてのCookieの使用に同意したことになります。設定から詳細な管理が可能です。
                 </p>
-                <p class="lang-en text-xs text-gray-300">
-                    We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies.
+                <p class="lang-en text-xs text-gray-400">
+                    We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies. You can manage detailed preferences in Settings.
                 </p>
             </div>
             
-            <!-- Banner Buttons (Equal Size & Udemy Style) -->
+            <!-- Banner Buttons -->
             <div class="flex flex-col sm:flex-row gap-3 text-xs font-bold tracking-wider">
-                <!-- 1. Settings (Bordered) -->
-                <button id="btn-open-settings" class="flex-1 px-2 py-3 border border-gray-400 hover:border-white hover:bg-white/10 text-white rounded-lg transition-all duration-300 whitespace-nowrap">
+                <button id="btn-open-settings" class="px-4 py-3 border border-gray-600 hover:bg-gray-700/50 hover:text-white text-gray-300 rounded-lg transition-all duration-300">
                     <span class="lang-ja">設定</span>
                     <span class="lang-en">Settings</span>
                 </button>
-                
-                <!-- 2. Decline (White bg, Black text) -->
-                <button id="btn-reject-all-banner" class="flex-1 px-2 py-3 bg-white text-gray-900 hover:bg-gray-200 rounded-lg transition-all duration-300 whitespace-nowrap shadow-md">
-                    <span class="lang-ja">拒否する</span>
-                    <span class="lang-en">Decline</span>
-                </button>
-                
-                <!-- 3. OK (White bg, Black text) -->
-                <button id="btn-accept-all-banner" class="flex-1 px-2 py-3 bg-white text-gray-900 hover:bg-gray-200 rounded-lg transition-all duration-300 whitespace-nowrap shadow-md">
-                    <span class="lang-ja">OK</span>
-                    <span class="lang-en">OK</span>
-                </button>
+                <div class="flex gap-3 flex-1">
+                    <button id="btn-reject-all-banner" class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-300">
+                        <span class="lang-ja">すべて拒否</span>
+                        <span class="lang-en">Decline All</span>
+                    </button>
+                    <button id="btn-accept-all-banner" class="flex-1 px-4 py-3 bg-bizAccent hover:bg-blue-700 text-white rounded-lg shadow-lg shadow-blue-900/30 transition-all duration-300">
+                        <span class="lang-ja">OK</span>
+                        <span class="lang-en">OK</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -2005,7 +1999,7 @@
             </div>
 
             <!-- Scrollable Body -->
-            <div class="privacy-scroll flex-1 overflow-y-auto p-6 space-y-6 overscroll-contain" data-lenis-prevent>
+            <div class="privacy-scroll flex-1 overflow-y-auto p-6 space-y-6">
                 
                 <!-- Description -->
                 <p class="text-sm text-gray-600 leading-relaxed">
@@ -2013,7 +2007,7 @@
                         あなたのプライバシーを尊重します。以下のパネルを使用して、同意するCookieのカテゴリをカスタマイズできます。必須Cookie以外の同意はいつでも変更可能です。
                     </span>
                     <span class="lang-en">
-                        I respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.
+                        We respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.
                     </span>
                 </p>
 
