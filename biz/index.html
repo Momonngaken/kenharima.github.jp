@@ -1473,8 +1473,15 @@
 </section>
         </main>
 
-        <footer class="border-t border-gray-200 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
-            <p class="text-gray-400">© 2026 Ken HARIMA</p>
+       <footer class="border-t border-gray-200 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center text-xs font-mono">
+            <div class="flex items-center gap-4">
+                <p class="text-gray-400">© 2026 Ken HARIMA</p>
+                <!-- ★追加: 再設定用トリガー -->
+                <button id="btn-reopen-settings" class="text-gray-300 hover:text-bizAccent transition-colors flex items-center gap-1.5 group cursor-pointer" title="Cookie Settings">
+                    <i class="fa-solid fa-cookie-bite text-[10px] group-hover:animate-spin"></i>
+                    <span class="underline decoration-dotted underline-offset-2">Privacy</span>
+                </button>
+            </div>
             <div class="flex items-center gap-6 mt-6 md:mt-0">
                 <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
                     <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
@@ -1873,6 +1880,7 @@
                     }
                 });
             };
+
             
             // 5. Event Listeners for Close
             modalCloseBtn.addEventListener('click', closeModal);
@@ -2214,6 +2222,15 @@
                 applyConsents(consentState);
                 hideBanner();
             });
+
+            const reopenBtn = document.getElementById('btn-reopen-settings');
+            if(reopenBtn) {
+                reopenBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            }
+
 
             // --- Event Listeners (Modal) ---
             document.getElementById('btn-close-modal').addEventListener('click', () => {
