@@ -288,17 +288,101 @@
         pointer-events: auto;
     }
     
-    /* Custom Toggle Switch */
-    .toggle-checkbox:checked {
-        right: 0;
-        border-color: #0f3c85;
+    /* --- Extreme Creative Toggle: Cognitive Flow Switch --- */
+    
+    /* Wrapper */
+    .creative-toggle-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 56px;
+        height: 32px;
+        vertical-align: middle;
     }
-    .toggle-checkbox:checked + .toggle-label {
-        background-color: #0f3c85;
+
+    /* Hidden Checkbox */
+    .creative-toggle-checkbox {
+        opacity: 0;
+        width: 0;
+        height: 0;
     }
-    .toggle-checkbox:disabled + .toggle-label {
-        opacity: 0.5;
+
+    /* The Track (Background) */
+    .creative-toggle-track {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #cbd5e1; /* OFF State: Neutral Gray */
+        border-radius: 34px;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        border: 2px solid transparent; /* Container for border transition */
+    }
+
+    /* The Knob (Handle) */
+    .creative-toggle-track::before {
+        content: "";
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring Physics */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        z-index: 2;
+    }
+
+    /* The "Data Light" (Inner Glow Element) */
+    .creative-toggle-track::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 100%;
+        height: 100%;
+        border-radius: 34px;
+        background: linear-gradient(135deg, #0f3c85 0%, #3b82f6 100%); /* BizAccent Gradient */
+        opacity: 0;
+        transition: all 0.5s ease;
+        z-index: 0;
+    }
+
+    /* --- ON State --- */
+    .creative-toggle-checkbox:checked + .creative-toggle-track {
+        border-color: #0f3c85; /* Slight border highlight */
+    }
+
+    .creative-toggle-checkbox:checked + .creative-toggle-track::after {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1); /* Fill animation */
+    }
+
+    .creative-toggle-checkbox:checked + .creative-toggle-track::before {
+        transform: translateX(24px) rotate(90deg); /* Move & Rotate */
+        box-shadow: -2px 2px 8px rgba(15, 60, 133, 0.4); /* Dynamic Shadow */
+    }
+
+    /* --- Disabled / Locked State (Strictly Necessary) --- */
+    .creative-toggle-checkbox:disabled + .creative-toggle-track {
         cursor: not-allowed;
+        opacity: 0.8;
+        background: #e2e8f0;
+    }
+    
+    /* Locked & Checked State (Blue Gray Aesthetic) */
+    .creative-toggle-checkbox:disabled:checked + .creative-toggle-track::after {
+        background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    }
+    
+    /* Lock Icon Overlay for Disabled */
+    .creative-toggle-checkbox:disabled + .creative-toggle-track::before {
+        background-color: #f1f5f9;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/%3E%3C/svg%3E");
+        background-size: 14px;
+        background-repeat: no-repeat;
+        background-position: center;
     }
     
     /* Scrollbar for Modal */
@@ -1920,86 +2004,78 @@
                 </p>
 
                 <!-- Category 1: Strictly Necessary (Locked) -->
-                <div class="border border-gray-200 rounded-xl overflow-hidden">
-                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">不可欠なクッキー</span>
-                                <span class="lang-en">Strictly Necessary Cookies</span>
-                            </span>
-                        </div>
-                        <span class="text-[10px] font-bold text-bizAccent bg-blue-50 px-2 py-1 rounded border border-blue-100">
-                            <span class="lang-ja">常にアクティブ</span>
-                            <span class="lang-en">Always Active</span>
-                        </span>
-                    </div>
-                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
-                        <span class="lang-ja">ウェブサイトが正常に機能するために必要なクッキーです。これらを無効にすることはできません。</span>
-                        <span class="lang-en">These cookies are necessary for the website to function and cannot be switched off in our systems.</span>
-                    </div>
-                </div>
 
                 <!-- Category 2: Performance (Analytics) -->
-                <div class="border border-gray-200 rounded-xl overflow-hidden">
-                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+                    <div class="bg-white px-5 py-4 flex justify-between items-center">
                         <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-bizAccent group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-chart-simple text-xs"></i>
+                            </div>
                             <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">パフォーマンスクッキー</span>
-                                <span class="lang-en">Performance Cookies</span>
+                                <span class="lang-ja">パフォーマンス</span>
+                                <span class="lang-en">Performance</span>
                             </span>
                         </div>
-                        <!-- Custom Toggle -->
-                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                            <input type="checkbox" name="toggle" id="toggle-performance" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 transition-all duration-300 ease-in-out top-0 left-0"/>
-                            <label for="toggle-performance" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300"></label>
-                        </div>
+                        <!-- Creative Toggle (ID assigned here) -->
+                        <label class="creative-toggle-wrapper">
+                            <input type="checkbox" id="toggle-performance" class="creative-toggle-checkbox">
+                            <span class="creative-toggle-track"></span>
+                        </label>
                     </div>
-                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
                         <span class="lang-ja">Google Analytics等を使用し、訪問者数や通信トラフィックソースをカウントしてサイトのパフォーマンスを測定・改善します。</span>
-                        <span class="lang-en">Allows us to count visits and traffic sources so we can measure and improve the performance of our site (e.g., Google Analytics).</span>
+                        <span class="lang-en">Allows us to count visits and traffic sources so we can measure and improve the performance of our site.</span>
                     </div>
                 </div>
 
                 <!-- Category 3: Functional -->
-                <div class="border border-gray-200 rounded-xl overflow-hidden">
-                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+                    <div class="bg-white px-5 py-4 flex justify-between items-center">
                         <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-sliders text-xs"></i>
+                            </div>
                             <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">機能性クッキー</span>
-                                <span class="lang-en">Functional Cookies</span>
+                                <span class="lang-ja">機能性</span>
+                                <span class="lang-en">Functional</span>
                             </span>
                         </div>
-                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
-                            <input type="checkbox" name="toggle" id="toggle-functional" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 transition-all duration-300 ease-in-out top-0 left-0"/>
-                            <label for="toggle-functional" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300"></label>
-                        </div>
+                        <!-- Creative Toggle -->
+                        <label class="creative-toggle-wrapper">
+                            <input type="checkbox" id="toggle-functional" class="creative-toggle-checkbox">
+                            <span class="creative-toggle-track"></span>
+                        </label>
                     </div>
-                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
                         <span class="lang-ja">ウェブサイトの機能強化やパーソナライゼーション（言語設定の保存など）を可能にします。</span>
                         <span class="lang-en">Enable the website to provide enhanced functionality and personalisation (e.g., saving language settings).</span>
                     </div>
                 </div>
-
+                
                  <!-- Category 4: Targeting/Social -->
-                 <div class="border border-gray-200 rounded-xl overflow-hidden">
-                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                 <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+                    <div class="bg-white px-5 py-4 flex justify-between items-center">
                         <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-bullseye text-xs"></i>
+                            </div>
                             <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">ターゲティング / ソーシャル</span>
-                                <span class="lang-en">Targeting / Social Media</span>
+                                <span class="lang-ja">ターゲティング</span>
+                                <span class="lang-en">Targeting</span>
                             </span>
                         </div>
-                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
-                            <input type="checkbox" name="toggle" id="toggle-targeting" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 transition-all duration-300 ease-in-out top-0 left-0"/>
-                            <label for="toggle-targeting" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300"></label>
-                        </div>
+                        <!-- Creative Toggle -->
+                        <label class="creative-toggle-wrapper">
+                            <input type="checkbox" id="toggle-targeting" class="creative-toggle-checkbox">
+                            <span class="creative-toggle-track"></span>
+                        </label>
                     </div>
-                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
                         <span class="lang-ja">ソーシャルメディア機能の提供や、ユーザーの興味関心に基づいた広告表示に使用される場合があります。</span>
                         <span class="lang-en">Used to deliver advertisements more relevant to you and your interests, or to integrate with social media platforms.</span>
                     </div>
                 </div>
-            </div>
 
             <!-- Footer Buttons -->
             <div class="px-6 py-5 border-t border-gray-100 bg-gray-50 flex flex-col md:flex-row gap-3 justify-between items-center text-xs font-bold tracking-wide">
