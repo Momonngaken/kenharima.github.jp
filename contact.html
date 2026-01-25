@@ -57,7 +57,13 @@
             </div>
         </div>
     </main>
-    <footer class="text-center py-8 text-[10px] font-mono text-gray-400">© 2025 Ken HARIMA.</footer>
+     <footer class="text-center py-8 text-[10px] font-mono text-gray-400 flex flex-col gap-2 items-center">
+        <span>© 2025 Ken HARIMA.</span>
+        <button id="btn-reopen-settings" class="text-gray-300 hover:text-bizAccent transition-colors flex items-center gap-1.5 group cursor-pointer px-4 py-2">
+            <i class="fa-solid fa-shield-halved text-[10px]"></i>
+            <span class="underline decoration-dotted underline-offset-2">Privacy Settings</span>
+        </button>
+    </footer>
     <script>
         const content = {
             ja: { 
