@@ -167,102 +167,407 @@
     </script>
 
 <style>
+    /* --- Advanced Cookie Consent System --- */
     #cookie-banner {
         position: fixed;
         bottom: 24px;
         right: 24px;
         z-index: 9999;
         width: calc(100% - 48px);
-        max-width: 400px;
+        max-width: 480px; /* 少し幅を広げました */
         transform: translateY(120%) translateZ(0);
         transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         will-change: transform;
     }
     #cookie-banner.show { transform: translateY(0) translateZ(0); }
+    
     .glass-panel {
-        background: rgba(15, 23, 42, 0.9);
+        background: rgba(15, 23, 42, 0.95); /* 視認性を高めるため少し濃く */
         border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         -webkit-backface-visibility: hidden;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
     }
 
-    html.is-global #cookie-banner .lang-ja { display: none !important; }
-    html:not(.is-global) #cookie-banner .lang-en { display: none !important; }
+    /* Privacy Modal Styles */
+    #privacy-modal {
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #privacy-modal.hidden-modal {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    #privacy-modal.show-modal {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+    /* Custom Toggle Switch */
+    .toggle-checkbox:checked {
+        right: 0;
+        border-color: #0f3c85;
+    }
+    .toggle-checkbox:checked + .toggle-label {
+        background-color: #0f3c85;
+    }
+    .toggle-checkbox:disabled + .toggle-label {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    /* Scrollbar for Modal */
+    .privacy-scroll::-webkit-scrollbar { width: 6px; }
+    .privacy-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Language Switching for Cookie Components */
+    html.is-global #cookie-banner .lang-ja,
+    html.is-global #privacy-modal .lang-ja { display: none !important; }
+    html:not(.is-global) #cookie-banner .lang-en,
+    html:not(.is-global) #privacy-modal .lang-en { display: none !important; }
 </style>
 
-<div id="cookie-banner" class="glass-panel rounded-2xl p-6 text-white">
-    <div class="flex flex-col gap-4">
-        <div class="text-sm leading-relaxed text-gray-300">
-            <p class="lang-ja">
-                より良いサイト体験のため、アクセス解析（Cookie）にご協力いただけませんか？<br>
-                <span class="text-[11px] opacity-70">※氏名・メールアドレス等の個人情報は一切取得しません。</span>
-            </p>
-            <p class="lang-en">
-                Would you help improve this site by allowing anonymous analytics (Cookies)?<br>
-                <span class="text-[11px] opacity-70">No personally identifiable information is collected.</span>
-            </p>
-        </div>
-        <div class="flex gap-3 text-xs font-bold tracking-widest uppercase">
-            <button id="cookie-accept" class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all duration-300 transform active:scale-95">
-                <span class="lang-ja">改善に協力する</span>
-                <span class="lang-en">Yes, Allow</span>
-            </button>
-            <button id="cookie-decline" class="px-4 py-3 border border-white/20 hover:bg-white/10 rounded-lg transition-all duration-300 transform active:scale-95">
-                <span class="lang-ja">協力しない</span>
-                <span class="lang-en">Decline</span>
-            </button>
+    <!-- ================= ADVANCED COOKIE CONSENT SYSTEM ================= -->
+    
+    <!-- 1. Initial Banner (Bottom Right) -->
+    <div id="cookie-banner" class="glass-panel rounded-xl p-6 text-white shadow-2xl">
+        <div class="flex flex-col gap-4">
+            <div class="text-sm leading-relaxed text-gray-200 font-medium">
+                <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-cookie-bite text-bizAccent"></i> 
+                    <span class="lang-ja">プライバシー設定</span>
+                    <span class="lang-en">Privacy Settings</span>
+                </h4>
+                <p class="lang-ja text-xs text-gray-400">
+                    当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「すべて許可」をクリックすると、すべてのCookieの使用に同意したことになります。設定から詳細な管理が可能です。
+                </p>
+                <p class="lang-en text-xs text-gray-400">
+                    We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies. You can manage detailed preferences in Settings.
+                </p>
+            </div>
+            
+            <!-- Banner Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 text-xs font-bold tracking-wider">
+                <button id="btn-open-settings" class="px-4 py-3 border border-gray-600 hover:bg-gray-700/50 hover:text-white text-gray-300 rounded-lg transition-all duration-300">
+                    <span class="lang-ja">設定</span>
+                    <span class="lang-en">Settings</span>
+                </button>
+                <div class="flex gap-3 flex-1">
+                    <button id="btn-reject-all-banner" class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-300">
+                        <span class="lang-ja">すべて拒否</span>
+                        <span class="lang-en">Decline All</span>
+                    </button>
+                    <button id="btn-accept-all-banner" class="flex-1 px-4 py-3 bg-bizAccent hover:bg-blue-700 text-white rounded-lg shadow-lg shadow-blue-900/30 transition-all duration-300">
+                        <span class="lang-ja">OK</span>
+                        <span class="lang-en">OK</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    (function() {
-        const GA_ID = 'G-ECXCCZF93D';
-        const consentKey = 'cookie_consent_status';
+    <!-- 2. Privacy Settings Modal (Center Overlay) -->
+    <div id="privacy-modal" class="hidden-modal fixed inset-0 z-[10000] flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div id="privacy-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
         
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        <!-- Modal Content -->
+        <div class="relative bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden transform transition-all scale-100">
+            
+            <!-- Header -->
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-bizAccent"></i>
+                    <span class="lang-ja">プライバシー設定センター</span>
+                    <span class="lang-en">Privacy Preference Center</span>
+                </h3>
+                <button id="btn-close-modal" class="text-gray-400 hover:text-gray-800 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
 
-        const banner = document.getElementById('cookie-banner');
-        const acceptBtn = document.getElementById('cookie-accept');
-        const declineBtn = document.getElementById('cookie-decline');
+            <!-- Scrollable Body -->
+            <div class="privacy-scroll flex-1 overflow-y-auto p-6 space-y-6">
+                
+                <!-- Description -->
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    <span class="lang-ja">
+                        あなたのプライバシーを尊重します。以下のパネルを使用して、同意するCookieのカテゴリをカスタマイズできます。必須Cookie以外の同意はいつでも変更可能です。
+                    </span>
+                    <span class="lang-en">
+                        We respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.
+                    </span>
+                </p>
 
-        function activateGA() {
-            // 重複防止
-            if (document.querySelector(`script[src*="${GA_ID}"]`)) return;
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-            document.head.appendChild(script);
-            gtag('js', new Date());
-            gtag('config', GA_ID);
-        }
+                <!-- Category 1: Strictly Necessary (Locked) -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="text-gray-800 font-bold text-sm">
+                                <span class="lang-ja">不可欠なクッキー</span>
+                                <span class="lang-en">Strictly Necessary Cookies</span>
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-bold text-bizAccent bg-blue-50 px-2 py-1 rounded border border-blue-100">
+                            <span class="lang-ja">常にアクティブ</span>
+                            <span class="lang-en">Always Active</span>
+                        </span>
+                    </div>
+                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                        <span class="lang-ja">ウェブサイトが正常に機能するために必要なクッキーです。これらを無効にすることはできません。</span>
+                        <span class="lang-en">These cookies are necessary for the website to function and cannot be switched off in our systems.</span>
+                    </div>
+                </div>
 
-        const consentStatus = localStorage.getItem(consentKey);
+                <!-- Category 2: Performance (Analytics) -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="text-gray-800 font-bold text-sm">
+                                <span class="lang-ja">パフォーマンスクッキー</span>
+                                <span class="lang-en">Performance Cookies</span>
+                            </span>
+                        </div>
+                        <!-- Custom Toggle -->
+                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="toggle-performance" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 transition-all duration-300 ease-in-out top-0 left-0"/>
+                            <label for="toggle-performance" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                    </div>
+                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                        <span class="lang-ja">Google Analytics等を使用し、訪問者数や通信トラフィックソースをカウントしてサイトのパフォーマンスを測定・改善します。</span>
+                        <span class="lang-en">Allows us to count visits and traffic sources so we can measure and improve the performance of our site (e.g., Google Analytics).</span>
+                    </div>
+                </div>
 
-        if (consentStatus === 'accepted') {
-            activateGA();
-        } else if (consentStatus !== 'declined') {
-            setTimeout(() => {
-                if(banner) banner.classList.add('show');
-            }, 2000);
-        }
+                <!-- Category 3: Functional -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="text-gray-800 font-bold text-sm">
+                                <span class="lang-ja">機能性クッキー</span>
+                                <span class="lang-en">Functional Cookies</span>
+                            </span>
+                        </div>
+                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                            <input type="checkbox" name="toggle" id="toggle-functional" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 transition-all duration-300 ease-in-out top-0 left-0"/>
+                            <label for="toggle-functional" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                    </div>
+                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                        <span class="lang-ja">ウェブサイトの機能強化やパーソナライゼーション（言語設定の保存など）を可能にします。</span>
+                        <span class="lang-en">Enable the website to provide enhanced functionality and personalisation (e.g., saving language settings).</span>
+                    </div>
+                </div>
 
-        if(acceptBtn){
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem(consentKey, 'accepted');
+                 <!-- Category 4: Targeting/Social -->
+                 <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="bg-gray-50 px-5 py-4 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="text-gray-800 font-bold text-sm">
+                                <span class="lang-ja">ターゲティング / ソーシャル</span>
+                                <span class="lang-en">Targeting / Social Media</span>
+                            </span>
+                        </div>
+                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                            <input type="checkbox" name="toggle" id="toggle-targeting" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 transition-all duration-300 ease-in-out top-0 left-0"/>
+                            <label for="toggle-targeting" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                    </div>
+                    <div class="px-5 py-3 bg-white text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
+                        <span class="lang-ja">ソーシャルメディア機能の提供や、ユーザーの興味関心に基づいた広告表示に使用される場合があります。</span>
+                        <span class="lang-en">Used to deliver advertisements more relevant to you and your interests, or to integrate with social media platforms.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="px-6 py-5 border-t border-gray-100 bg-gray-50 flex flex-col md:flex-row gap-3 justify-between items-center text-xs font-bold tracking-wide">
+                <button id="btn-save-preferences" class="w-full md:w-auto px-6 py-3 bg-bizAccent text-white rounded-lg hover:bg-blue-800 transition-all shadow-md">
+                    <span class="lang-ja">選択内容を確認</span>
+                    <span class="lang-en">Confirm My Choices</span>
+                </button>
+                
+                <div class="flex gap-3 w-full md:w-auto">
+                    <button id="btn-reject-all-modal" class="flex-1 md:flex-none px-4 py-3 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-100 transition-all">
+                        <span class="lang-ja">すべて拒否</span>
+                        <span class="lang-en">Reject All</span>
+                    </button>
+                    <button id="btn-accept-all-modal" class="flex-1 md:flex-none px-4 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all">
+                        <span class="lang-ja">すべて許可</span>
+                        <span class="lang-en">Allow All</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Logic Script -->
+    <script>
+        (function() {
+            // Configuration
+            const GA_ID = 'G-ECXCCZF93D';
+            const STORAGE_KEY = 'cookie_consent_preferences'; // Stores JSON object
+            
+            // Elements
+            const banner = document.getElementById('cookie-banner');
+            const modal = document.getElementById('privacy-modal');
+            const togglePerf = document.getElementById('toggle-performance');
+            const toggleFunc = document.getElementById('toggle-functional');
+            const toggleTarget = document.getElementById('toggle-targeting');
+            
+            // Default State
+            let consentState = {
+                necessary: true,
+                performance: false,
+                functional: false,
+                targeting: false,
+                timestamp: null
+            };
+
+            // --- Google Analytics Activation ---
+            function activateGA() {
+                // Check if already active
+                if (window['ga-disable-' + GA_ID] === false) return; // Already active
+
+                console.log('✨ [System] Analytics Activated');
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', GA_ID);
+                
+                // Inject Script if not present
+                if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                    document.head.appendChild(script);
+                }
+            }
+
+            // --- Apply Consents ---
+            function applyConsents(state) {
+                // 1. Performance (GA)
+                if (state.performance) {
+                    activateGA();
+                } else {
+                    // Note: Cannot easily remove GA once loaded without reload, 
+                    // but we can set a flag to disable future tracking
+                    window['ga-disable-' + GA_ID] = true;
+                    console.log('🚫 [System] Analytics Disabled');
+                }
+
+                // 2. Functional & Targeting (Placeholders for future features)
+                // if (state.functional) { ... }
+                // if (state.targeting) { ... }
+
+                // Save to Storage
+                state.timestamp = new Date().toISOString();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            }
+
+            // --- UI Control ---
+            function showBanner() {
+                setTimeout(() => { banner.classList.add('show'); }, 1500); // Slight delay for smooth entry
+            }
+            function hideBanner() {
                 banner.classList.remove('show');
-                activateGA();
+            }
+            function openModal() {
+                // Sync toggles with current state
+                togglePerf.checked = consentState.performance;
+                toggleFunc.checked = consentState.functional;
+                toggleTarget.checked = consentState.targeting;
+                
+                modal.classList.remove('hidden-modal');
+                modal.classList.add('show-modal');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+            function closeModal() {
+                modal.classList.remove('show-modal');
+                modal.classList.add('hidden-modal');
+                document.body.style.overflow = '';
+            }
+
+            // --- Logic Initialization ---
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    consentState = JSON.parse(stored);
+                    applyConsents(consentState);
+                } catch(e) { console.error('Consent Parse Error', e); }
+            } else {
+                // No consent yet -> Show Banner
+                showBanner();
+            }
+
+            // --- Event Listeners (Banner) ---
+            document.getElementById('btn-open-settings').addEventListener('click', () => {
+                hideBanner();
+                openModal();
             });
-        }
-        if(declineBtn){
-            declineBtn.addEventListener('click', () => {
-                localStorage.setItem(consentKey, 'declined');
-                banner.classList.remove('show');
+
+            document.getElementById('btn-reject-all-banner').addEventListener('click', () => {
+                consentState = { ...consentState, performance: false, functional: false, targeting: false };
+                applyConsents(consentState);
+                hideBanner();
             });
-        }
-    })();
-</script>
+
+            document.getElementById('btn-accept-all-banner').addEventListener('click', () => {
+                consentState = { ...consentState, performance: true, functional: true, targeting: true };
+                applyConsents(consentState);
+                hideBanner();
+            });
+
+            // --- Event Listeners (Modal) ---
+            document.getElementById('btn-close-modal').addEventListener('click', () => {
+                closeModal();
+                // If banner was hidden and no choice made, maybe show banner again? 
+                // For UX, let's keep banner hidden but assume no changes if closed via X without save.
+                // Or better: show banner again if no consent is stored.
+                if(!localStorage.getItem(STORAGE_KEY)) showBanner();
+            });
+            document.getElementById('privacy-backdrop').addEventListener('click', closeModal);
+
+            // 1. Save Preferences (Selected Toggles)
+            document.getElementById('btn-save-preferences').addEventListener('click', () => {
+                consentState.performance = togglePerf.checked;
+                consentState.functional = toggleFunc.checked;
+                consentState.targeting = toggleTarget.checked;
+                
+                applyConsents(consentState);
+                closeModal();
+                hideBanner(); // Ensure banner is gone
+            });
+
+            // 2. Reject All (Modal)
+            document.getElementById('btn-reject-all-modal').addEventListener('click', () => {
+                consentState = { ...consentState, performance: false, functional: false, targeting: false };
+                togglePerf.checked = false;
+                toggleFunc.checked = false;
+                toggleTarget.checked = false;
+                
+                applyConsents(consentState);
+                closeModal();
+                hideBanner();
+            });
+
+            // 3. Accept All (Modal)
+            document.getElementById('btn-accept-all-modal').addEventListener('click', () => {
+                consentState = { ...consentState, performance: true, functional: true, targeting: true };
+                togglePerf.checked = true;
+                toggleFunc.checked = true;
+                toggleTarget.checked = true;
+                
+                applyConsents(consentState);
+                closeModal();
+                hideBanner();
+            });
+
+        })();
+    </script>
 </body>
 </html>
