@@ -251,128 +251,63 @@
         .modal-text-body p { margin-bottom: 1.5em; letter-spacing: 0.03em; }
         .modal-text-body strong { color: #0f3c85; font-weight: 700; }
 
-        /* ================= SYSTEM: TRUST PROTOCOL UI ================= */
-    
-    /* 1. Base Container & Animation */
+        /* --- Advanced Cookie Consent System --- */
     #cookie-banner {
         position: fixed;
         bottom: 24px;
         right: 24px;
         z-index: 9999;
         width: calc(100% - 48px);
-        max-width: 420px;
-        font-family: 'Inter', sans-serif;
-        
-        /* Initial State */
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-        pointer-events: none;
-        
-        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        will-change: transform, opacity;
+        max-width: 480px; /* 少し幅を広げました */
+        transform: translateY(120%) translateZ(0);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+    }
+    #cookie-banner.show { transform: translateY(0) translateZ(0); }
+    
+    .glass-panel {
+        background: rgba(15, 23, 42, 0.95); /* 視認性を高めるため少し濃く */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        -webkit-backface-visibility: hidden;
+        backdrop-filter: blur(12px);
     }
 
-    #cookie-banner.show {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        pointer-events: auto;
-    }
-
-    /* 2. Glassmorphism Panel (The Card) */
-    .cyber-card {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 
-            0 20px 40px -10px rgba(15, 60, 133, 0.15),
-            0 0 0 1px rgba(15, 60, 133, 0.05) inset;
-        border-radius: 16px;
-        overflow: hidden;
-    }
-
-    /* 3. Decorative "Scan Line" (Top Border) */
-    .cyber-scan-line {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, #0f3c85, #3b82f6, #06b6d4);
-        opacity: 0.8;
-    }
-
-    /* 4. Tech Toggle Switch */
-    .tech-toggle-wrapper {
-        position: relative;
-        width: 44px;
-        height: 24px;
-    }
-    .tech-toggle-input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-    .tech-toggle-track {
-        position: absolute;
-        cursor: pointer;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: #e2e8f0;
-        transition: .4s cubic-bezier(0.23, 1, 0.32, 1);
-        border-radius: 34px;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .tech-toggle-track:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 3px;
-        background-color: white;
-        transition: .4s cubic-bezier(0.23, 1, 0.32, 1);
-        border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .tech-toggle-input:checked + .tech-toggle-track {
-        background-color: #0f3c85; /* bizAccent */
-    }
-    .tech-toggle-input:checked + .tech-toggle-track:before {
-        transform: translateX(20px);
-    }
-    .tech-toggle-input:disabled + .tech-toggle-track {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background-color: #cbd5e1;
-    }
-
-    /* 5. Modal Transitions */
+    /* Privacy Modal Styles */
     #privacy-modal {
-        transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
     }
     #privacy-modal.hidden-modal {
         opacity: 0;
+        visibility: hidden;
         pointer-events: none;
-    }
-    #privacy-modal.hidden-modal .modal-panel-inner {
-        transform: scale(0.95) translateY(10px);
     }
     #privacy-modal.show-modal {
         opacity: 1;
+        visibility: visible;
         pointer-events: auto;
     }
-    #privacy-modal.show-modal .modal-panel-inner {
-        transform: scale(1) translateY(0);
-    }
-    .modal-panel-inner {
-        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-    /* 6. Utility & Language Control */
-    .privacy-scroll::-webkit-scrollbar { width: 4px; }
-    .privacy-scroll::-webkit-scrollbar-track { background: transparent; }
-    .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     
+    /* Custom Toggle Switch */
+    .toggle-checkbox:checked {
+        right: 0;
+        border-color: #0f3c85;
+    }
+    .toggle-checkbox:checked + .toggle-label {
+        background-color: #0f3c85;
+    }
+    .toggle-checkbox:disabled + .toggle-label {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    /* Scrollbar for Modal */
+    .privacy-scroll::-webkit-scrollbar { width: 6px; }
+    .privacy-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Language Switching for Cookie Components */
     html.is-global #cookie-banner .lang-ja,
     html.is-global #privacy-modal .lang-ja { display: none !important; }
     html:not(.is-global) #cookie-banner .lang-en,
@@ -1953,8 +1888,8 @@
 
     <!-- 2. Privacy Settings Modal (Center Overlay) -->
     <div id="privacy-modal" class="hidden-modal fixed inset-0 z-[10000] flex items-center justify-center p-4">
-        <!-- Backdrop (Clicking this will NO LONGER close the modal to ensure choice) -->
-        <div id="privacy-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"></div>
+        <!-- Backdrop -->
+        <div id="privacy-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
         
         <!-- Modal Content -->
         <div class="relative bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden transform transition-all scale-100">
@@ -1966,8 +1901,7 @@
                     <span class="lang-ja">プライバシー設定センター</span>
                     <span class="lang-en">Privacy Preference Center</span>
                 </h3>
-                <!-- Close Button: Now returns to Banner instead of closing completely -->
-                <button id="btn-close-modal" class="text-gray-400 hover:text-gray-800 transition-colors p-2">
+                <button id="btn-close-modal" class="text-gray-400 hover:text-gray-800 transition-colors">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
@@ -2093,7 +2027,7 @@
         (function() {
             // Configuration
             const GA_ID = 'G-ECXCCZF93D';
-            const STORAGE_KEY = 'cookie_consent_preferences';
+            const STORAGE_KEY = 'cookie_consent_preferences'; // Stores JSON object
             
             // Elements
             const banner = document.getElementById('cookie-banner');
@@ -2105,61 +2039,47 @@
             // Default State
             let consentState = {
                 necessary: true,
-                performance: false, // Default OFF
+                performance: false,
                 functional: false,
                 targeting: false,
                 timestamp: null
             };
 
-            // --- Helper: Delete GA Cookies (Strict Clean-up) ---
-            function deleteGACookies() {
-                const cookies = document.cookie.split(';');
-                const domain = "." + document.domain;
+            // --- Google Analytics Activation ---
+            function activateGA() {
+                // Check if already active
+                if (window['ga-disable-' + GA_ID] === false) return; // Already active
+
+                console.log('✨ [System] Analytics Activated');
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', GA_ID);
                 
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i];
-                    const eqPos = cookie.indexOf('=');
-                    const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
-                    
-                    // GA related cookies usually start with _ga
-                    if (name.startsWith('_ga') || name.startsWith('_gid')) {
-                        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + domain;
-                        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-                        console.log(`[System] Deleted cookie: ${name}`);
-                    }
+                // Inject Script if not present
+                if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                    document.head.appendChild(script);
                 }
             }
 
-            // --- Apply Consents Logic ---
+            // --- Apply Consents ---
             function applyConsents(state) {
-                const disableStr = 'ga-disable-' + GA_ID;
-
                 // 1. Performance (GA)
                 if (state.performance) {
-                    console.log('✨ [System] Analytics Enabled');
-                    // Enable: Remove disable flag and inject script
-                    window[disableStr] = false;
-                    
-                    // Inject Script if not present
-                    if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
-                        const script = document.createElement('script');
-                        script.async = true;
-                        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                        document.head.appendChild(script);
-                        
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        window.gtag = gtag; // Make global
-                        gtag('js', new Date());
-                        gtag('config', GA_ID);
-                    }
+                    activateGA();
                 } else {
+                    // Note: Cannot easily remove GA once loaded without reload, 
+                    // but we can set a flag to disable future tracking
+                    window['ga-disable-' + GA_ID] = true;
                     console.log('🚫 [System] Analytics Disabled');
-                    // Disable: Set disable flag true (Official Method)
-                    window[disableStr] = true;
-                    // Clean up cookies immediately
-                    deleteGACookies();
                 }
+
+                // 2. Functional & Targeting (Placeholders for future features)
+                // if (state.functional) { ... }
+                // if (state.targeting) { ... }
 
                 // Save to Storage
                 state.timestamp = new Date().toISOString();
@@ -2168,19 +2088,11 @@
 
             // --- UI Control ---
             function showBanner() {
-                // Ensure banner is visible
-                banner.style.display = 'block';
-                // Trigger animation
-                requestAnimationFrame(() => {
-                    banner.classList.add('show');
-                });
+                setTimeout(() => { banner.classList.add('show'); }, 1500); // Slight delay for smooth entry
             }
             function hideBanner() {
                 banner.classList.remove('show');
-                // Optional: remove from DOM after transition to avoid clicks? 
-                // For now just hiding via CSS transform is enough.
             }
-            
             function openModal() {
                 // Sync toggles with current state
                 togglePerf.checked = consentState.performance;
@@ -2191,30 +2103,22 @@
                 modal.classList.add('show-modal');
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
             }
-            
-            function closeModal(returnToBanner = false) {
+            function closeModal() {
                 modal.classList.remove('show-modal');
                 modal.classList.add('hidden-modal');
                 document.body.style.overflow = '';
-                
-                if (returnToBanner) {
-                    showBanner();
-                }
             }
 
-            // --- Initialization ---
+            // --- Logic Initialization ---
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
                 try {
                     consentState = JSON.parse(stored);
                     applyConsents(consentState);
-                } catch(e) { 
-                    console.error('Consent Parse Error', e); 
-                    showBanner(); // Fallback
-                }
+                } catch(e) { console.error('Consent Parse Error', e); }
             } else {
-                // No consent yet -> Show Banner with slight delay
-                setTimeout(showBanner, 1000);
+                // No consent yet -> Show Banner
+                showBanner();
             }
 
             // --- Event Listeners (Banner) ---
@@ -2236,23 +2140,23 @@
             });
 
             // --- Event Listeners (Modal) ---
-            
-            // X Button: Returns to Banner (Does NOT confirm consent)
             document.getElementById('btn-close-modal').addEventListener('click', () => {
-                closeModal(true); // True = show banner again
+                closeModal();
+                // If banner was hidden and no choice made, maybe show banner again? 
+                // For UX, let's keep banner hidden but assume no changes if closed via X without save.
+                // Or better: show banner again if no consent is stored.
+                if(!localStorage.getItem(STORAGE_KEY)) showBanner();
             });
-            
-            // Backdrop Click: Removed close functionality to force choice
-            // document.getElementById('privacy-backdrop').addEventListener('click', ...); // DELETED
+            document.getElementById('privacy-backdrop').addEventListener('click', closeModal);
 
-            // 1. Save Preferences (Confirm Choices)
+            // 1. Save Preferences (Selected Toggles)
             document.getElementById('btn-save-preferences').addEventListener('click', () => {
                 consentState.performance = togglePerf.checked;
                 consentState.functional = toggleFunc.checked;
                 consentState.targeting = toggleTarget.checked;
                 
                 applyConsents(consentState);
-                closeModal(false); // Do not show banner
+                closeModal();
                 hideBanner(); // Ensure banner is gone
             });
 
@@ -2264,7 +2168,7 @@
                 toggleTarget.checked = false;
                 
                 applyConsents(consentState);
-                closeModal(false);
+                closeModal();
                 hideBanner();
             });
 
@@ -2276,7 +2180,7 @@
                 toggleTarget.checked = true;
                 
                 applyConsents(consentState);
-                closeModal(false);
+                closeModal();
                 hideBanner();
             });
 
