@@ -90,6 +90,8 @@
         .tracking-tight { letter-spacing: -0.025em; }
         .leading-tight { line-height: 1.25; }
         .whitespace-nowrap { white-space: nowrap; }
+
+        .writing-vertical-rl { writing-mode: vertical-rl; text-orientation: mixed; }
         
         /* Font Awesome Placeholder */
         .fa-solid, .fa-building { display: inline-block; }
@@ -626,27 +628,51 @@
       Mobile: 3x3 Matrix Scroll (Vertical Stack x Horizontal Scroll)
       Desktop: 3-Column Grid
     -->
-    <div class="relative">
+    <div class="relative group/matrix">
         
-        <!-- Mobile Scroll Hint Overlay (Right Fade & Animated Icon) -->
-        <!-- CHANGE: Added ID and enhanced animation -->
-        <div id="dev-nudge" class="md:hidden absolute -right-6 top-0 bottom-0 w-24 z-20 flex items-center justify-end pr-8 natural-fade-mask pointer-events-none transition-opacity duration-500">
-            <div class="relative w-8 h-12 flex flex-col items-center justify-center gap-1 animate-gesture opacity-80">
-                 <span class="text-[9px] font-mono font-bold text-bizAccent tracking-tighter rotate-90 whitespace-nowrap mb-2">SCROLL</span>
-                 <i class="fa-solid fa-chevron-right text-xl text-bizAccent drop-shadow-sm"></i>
-                 <i class="fa-solid fa-chevron-right text-xl text-bizAccent/50 -ml-2 -mt-5"></i>
+        <!-- 
+           ★ REDESIGNED NUDGE: "The Kinetic Glass-Edge" 
+           Extremely creative visual cue imitating a futuristic UI control strip.
+        -->
+        <div id="dev-nudge" class="md:hidden absolute right-0 top-0 bottom-0 w-16 z-20 pointer-events-none transition-all duration-700 ease-out flex items-center justify-end pr-2 overflow-hidden mix-blend-multiply">
+            
+            <!-- 1. The Glass Track (Blurry Background Strip) -->
+            <div class="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-gray-200/80 via-gray-100/50 to-transparent backdrop-blur-[2px]"></div>
+
+            <!-- 2. The Floating Control Pill -->
+            <div class="relative z-10 w-8 h-32 rounded-full border border-white/40 bg-white/30 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-3 overflow-hidden">
+                
+                <!-- Inner Glow -->
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bizAccent/5 to-transparent animate-pulse"></div>
+
+                <!-- Animated Data Stream Arrows (Sequence) -->
+                <div class="flex flex-col items-center gap-1 opacity-80">
+                    <!-- Top Arrow -->
+                    <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent/40 animate-[bounce_1s_infinite] delay-0"></i>
+                    <!-- Middle Arrow (Main) -->
+                    <i class="fa-solid fa-chevron-right text-xs text-bizAccent animate-[bounce_1s_infinite_100ms] scale-125"></i>
+                    <!-- Bottom Arrow -->
+                    <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent/40 animate-[bounce_1s_infinite_200ms]"></i>
+                </div>
+
+                <!-- Vertical Text Label -->
+                <div class="writing-vertical-rl text-[9px] font-mono font-bold text-bizAccent/60 tracking-widest uppercase py-2 select-none">
+                    NEXT
+                </div>
             </div>
         </div>
 
-        <!-- CHANGE: Changed from flex to grid rows-3 flow-col for mobile matrix layout -->
+        <!-- 
+           ★ MATRIX CONTAINER 
+           Layout: 3 Rows x N Columns (Auto Flow)
+        -->
         <div id="dev-scroll-container" class="grid grid-rows-3 grid-flow-col auto-cols-[85vw] md:grid-cols-3 md:grid-rows-auto md:grid-flow-row md:auto-cols-auto gap-3 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
 
             <!-- ============ CREDENTIALS (COMPLETED) ============ -->
 
             <!-- 1. JDLA G-Certificate (Cyan/AI) -->
-            <!-- CHANGE: Removed min-w-[260px], added h-full for grid consistency -->
             <div class="h-full md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-cyan-200 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-900/[0.05] hover:-translate-y-1 flex flex-col overflow-hidden">
-            <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 w-full opacity-80 group-hover:h-1 transition-all duration-300"></div>
+                <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 w-full opacity-80 group-hover:h-1 transition-all duration-300"></div>
                 <div class="flex justify-between items-start mb-4">
                     <div class="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 border border-cyan-100 shrink-0 group-hover:rotate-12 transition-transform duration-500 shadow-sm">
                         <i class="fa-solid fa-brain text-base"></i>
@@ -664,7 +690,6 @@
                     <span class="lang-en">Strategic DX literacy bridging Deep Learning theory with business implementation.</span>
                 </p>
             </div>
-
             <!-- 2. Google Analytics (Orange/Data) -->
             <div class="min-w-[260px] md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-orange-200 transition-all duration-300 hover:shadow-xl hover:shadow-orange-900/[0.05] hover:-translate-y-1 flex flex-col h-full overflow-hidden">
                 <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 w-full opacity-80 group-hover:h-1 transition-all duration-300"></div>
