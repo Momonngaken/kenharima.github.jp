@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
+<head>
     <!-- Google tag (gtag.js) moved to body end for performance -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +42,9 @@
         /* Base Reset & Layout */
         body { margin: 0; background-color: #fafafa; color: #0f172a; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; width: 100%; overscroll-behavior: none; }
         
+        /* Rendering Optimization for Long Content */
+        .cv-auto { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
+
         /* Container & Spacing (Matching Tailwind) */
         .max-w-4xl { max-width: 56rem; }
         .mx-auto { margin-left: auto; margin-right: auto; }
@@ -100,6 +103,7 @@
         .fade-in { 
             opacity: 0; 
             transform: translateY(30px);
+            will-change: opacity, transform;
         }
         h1, h2, h3, h4 { text-wrap: balance; }
         p { text-wrap: pretty; }
@@ -107,8 +111,20 @@
         .animate-breathe { animation: breathe 3s ease-in-out infinite; will-change: opacity; }
         @keyframes breathe { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
+        /* Unified Scrollbar Logic (Optimization) */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .modal-scroll::-webkit-scrollbar, .privacy-scroll::-webkit-scrollbar { width: 6px; }
+        .modal-scroll::-webkit-scrollbar-track, .privacy-scroll::-webkit-scrollbar-track { background: transparent; }
+        
+        .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.3); border-radius: 20px; border: 2px solid transparent; background-clip: content-box; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background-color: rgba(15, 60, 133, 0.6); }
+
+        .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .modal-scroll { overscroll-behavior-y: contain; }
 
         @keyframes slide-hint {
             0% { transform: translateX(-10px); opacity: 0; }
@@ -144,9 +160,6 @@
             box-shadow: 0 10px 30px -10px rgba(15, 60, 133, 0.08); 
             border-color: rgba(15, 60, 133, 0.1); 
         }
-        .modal-scroll::-webkit-scrollbar { width: 6px; }
-        .modal-scroll::-webkit-scrollbar-track { background: transparent; }
-        .modal-scroll::-webkit-scrollbar-thumb { background-color: rgba(15, 60, 133, 0.2); border-radius: 20px; }
         
         /* Language Switching */
         .lang-en { display: none; }
@@ -163,27 +176,14 @@
         .lenis.lenis-scrolling iframe { pointer-events: none; }
 
         /* Modal Backdrop: Optimized for Safari */
-.modal-backdrop {
-    background: rgba(5, 10, 20, 0.9); 
-    will-change: opacity;
-    -webkit-backface-visibility: hidden;
-    width: 100vw;
-    height: 120vh; 
-    top: -10vh;
-    left: 0;
-}
-
-        .modal-scroll { overscroll-behavior-y: contain; } 
-        .modal-scroll::-webkit-scrollbar { width: 8px; }
-        .modal-scroll::-webkit-scrollbar-track { background: transparent; }
-        .modal-scroll::-webkit-scrollbar-thumb { 
-            background-color: rgba(15, 60, 133, 0.3); 
-            border-radius: 10px; 
-            border: 2px solid transparent; 
-            background-clip: content-box; 
-        }
-        .modal-scroll::-webkit-scrollbar-thumb:hover { 
-            background-color: rgba(15, 60, 133, 0.6);
+        .modal-backdrop {
+            background: rgba(5, 10, 20, 0.9); 
+            will-change: opacity;
+            -webkit-backface-visibility: hidden;
+            width: 100vw;
+            height: 120vh; 
+            top: -10vh;
+            left: 0;
         }
 
         #modal-content .lang-en { display: none; }
@@ -386,12 +386,6 @@
         background-repeat: no-repeat;
         background-position: center;
     }
-    
-    /* Scrollbar for Modal */
-    .privacy-scroll::-webkit-scrollbar { width: 6px; }
-    .privacy-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
-    .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
     /* Language Switching for Cookie Components */
     html.is-global #cookie-banner .lang-ja,
@@ -609,7 +603,7 @@
                 </div>
                     
                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
-<div class="mt-12 md:mt-20 pt-10 border-t border-dashed border-gray-200 relative group/section">
+<div class="mt-12 md:mt-20 pt-10 border-t border-dashed border-gray-200 relative group/section cv-auto">
     
     <!-- Section Header with Count -->
     <div class="flex items-center justify-between mb-8 px-1">
@@ -623,53 +617,28 @@
             9 MODULES
         </span>
     </div>
-    <!-- 
-      Responsive Layout Strategy:
-      Mobile: 3x3 Matrix Scroll (Vertical Stack x Horizontal Scroll)
-      Desktop: 3-Column Grid
-    -->
+
     <div class="relative group/matrix">
         
-        <!-- 
-           ★ REDESIGNED NUDGE: "The Kinetic Glass-Edge" 
-           Extremely creative visual cue imitating a futuristic UI control strip.
-        -->
+        <!-- Nudge -->
         <div id="dev-nudge" class="md:hidden absolute right-0 top-0 bottom-0 w-16 z-20 pointer-events-none transition-all duration-700 ease-out flex items-center justify-end pr-2 overflow-hidden mix-blend-multiply">
-            
-            <!-- 1. The Glass Track (Blurry Background Strip) -->
             <div class="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-gray-200/80 via-gray-100/50 to-transparent backdrop-blur-[2px]"></div>
-
-            <!-- 2. The Floating Control Pill -->
             <div class="relative z-10 w-8 h-32 rounded-full border border-white/40 bg-white/30 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-3 overflow-hidden">
-                
-                <!-- Inner Glow -->
                 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bizAccent/5 to-transparent animate-pulse"></div>
-
-                <!-- Animated Data Stream Arrows (Sequence) -->
                 <div class="flex flex-col items-center gap-1 opacity-80">
-                    <!-- Top Arrow -->
                     <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent/40 animate-[bounce_1s_infinite] delay-0"></i>
-                    <!-- Middle Arrow (Main) -->
                     <i class="fa-solid fa-chevron-right text-xs text-bizAccent animate-[bounce_1s_infinite_100ms] scale-125"></i>
-                    <!-- Bottom Arrow -->
                     <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent/40 animate-[bounce_1s_infinite_200ms]"></i>
                 </div>
-
-                <!-- Vertical Text Label -->
                 <div class="writing-vertical-rl text-[9px] font-mono font-bold text-bizAccent/60 tracking-widest uppercase py-2 select-none">
                     NEXT
                 </div>
             </div>
         </div>
 
-        <!-- 
-           ★ MATRIX CONTAINER 
-           Layout: 3 Rows x N Columns (Auto Flow)
-        -->
         <div id="dev-scroll-container" class="grid grid-rows-3 grid-flow-col auto-cols-[85vw] md:grid-cols-3 md:grid-rows-auto md:grid-flow-row md:auto-cols-auto gap-3 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
 
             <!-- ============ CREDENTIALS (COMPLETED) ============ -->
-
             <!-- 1. JDLA G-Certificate (Cyan/AI) -->
             <div class="h-full md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-200 rounded-xl p-5 hover:border-cyan-200 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-900/[0.05] hover:-translate-y-1 flex flex-col overflow-hidden">
                 <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 w-full opacity-80 group-hover:h-1 transition-all duration-300"></div>
@@ -796,7 +765,6 @@
             </div>
 
             <!-- ============ IN PROGRESS ============ -->
-
             <!-- 7. Bookkeeping (Emerald) -->
             <div class="min-w-[260px] md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-xl p-5 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-900/[0.03] flex flex-col h-full overflow-hidden">
                 <div class="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-emerald-600 to-teal-400 w-[70%] group-hover:h-1 transition-all duration-300"></div>
@@ -859,7 +827,7 @@
                 </h5>
                 <p class="text-[11px] text-gray-400 leading-relaxed mt-auto">
                     <span class="lang-ja">データのバラつきや不確実性を定量化し、意思決定に「統計的根拠」を与える実務解析力。</span>
-                    <span class="lang-en">tatistical literacy to eliminate uncertainty & drive evidence-based decision making</span>
+                    <span class="lang-en">Statistical literacy to eliminate uncertainty & drive evidence-based decision making</span>
                 </p>
             </div>
 
@@ -1056,7 +1024,7 @@
             </section>
 
             <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
-<div class="fade-in mb-20 md:mb-24">
+<div class="fade-in mb-20 md:mb-24 cv-auto">
     <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1" style="transform: translateZ(0);">
         
         <!-- 1. Background: Deep Space & Grid -->
@@ -1647,7 +1615,6 @@
         </div>
     </div>
 
-
     <!-- GSAP & Lenis (Defer loading) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
@@ -1655,75 +1622,36 @@
 
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
-            // Delay initialization to prioritize painting
-            requestAnimationFrame(() => {
-                if (typeof Lenis !== 'undefined') {
-                    const lenis = new Lenis({
-                        duration: 1.2,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                        smooth: true,
-                        mouseMultiplier: 1,
-                        touchMultiplier: 2,
-                        infinite: false,
-                    });
-
-                    function raf(time) {
-                        lenis.raf(time);
-                        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-                        requestAnimationFrame(raf);
-                    }
-                    requestAnimationFrame(raf);
-                }
-
-                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                    gsap.registerPlugin(ScrollTrigger);
-
-                    gsap.utils.toArray('.fade-in').forEach(section => {
-                        gsap.to(section, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 1,
-                            ease: "power3.out",
-                            scrollTrigger: {
-                                trigger: section,
-                                start: "top 95%", 
-                                toggleActions: "play none none none",
-                                once: true
-                            }
-                        });
-                    });
-                }
-            });
-
+            // Priority 1: Init Interactions Immediately
             const langJpBtn = document.getElementById('lang-jp');
             const langEnBtn = document.getElementById('lang-en');
             const htmlEl = document.documentElement;
+            const contactBtn = document.getElementById('biz-contact-btn');
+            
+            // Language Switcher (Optimized: ClassList Toggling)
+            const activeClasses = ['bg-white', 'text-black', 'shadow-sm', 'cursor-default'];
+            const inactiveClasses = ['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
+            const baseClass = "relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out";
 
-            const activeClass = "bg-white text-black shadow-sm";
-            const inactiveClass = "text-gray-400 hover:text-gray-600";
+            const setBtnState = (btn, isActive) => {
+                btn.className = baseClass;
+                btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
+            };
 
-            function updateLangStyles() {
+            const updateLangStyles = () => {
                 const isGlobal = htmlEl.classList.contains('is-global');
-                if (isGlobal) {
-                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
-                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
-                } else {
-                    langJpBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-default ${activeClass}`;
-                    langEnBtn.className = `relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out cursor-pointer ${inactiveClass}`;
-                }
-            }
-
+                setBtnState(langJpBtn, !isGlobal);
+                setBtnState(langEnBtn, isGlobal);
+            };
             updateLangStyles();
 
             langJpBtn.addEventListener('click', () => {
                 if (htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.remove('is-global');
                     updateLangStyles();
-                    // Slight delay to allow layout shift before resize recalculation
                     setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100); 
                 }
             });
-
             langEnBtn.addEventListener('click', () => {
                 if (!htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.add('is-global');
@@ -1731,64 +1659,56 @@
                     setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100);
                 }
             });
-            
-            const contactBtn = document.getElementById('biz-contact-btn');
+
             if (contactBtn) {
                 contactBtn.addEventListener('click', (e) => {
                     e.preventDefault(); 
-                    const isGlobal = document.documentElement.classList.contains('is-global');
-                    const params = new URLSearchParams();
-                    if (isGlobal) params.append('lang', 'en'); 
-                    params.append('from', 'biz');              
-                    const targetUrl = '../contact.html?' + params.toString();
+                    const isGlobal = htmlEl.classList.contains('is-global');
+                    const targetUrl = '../contact.html?from=biz' + (isGlobal ? '&lang=en' : '');
                     window.location.href = targetUrl;
                 });
             }
 
-           // --- Scroll Nudge Fade Logic (Optimized for Scroll Performance) ---
-            const rootsContainer = document.getElementById('roots-container');
-            const scrollNudge = document.getElementById('scroll-nudge');
-            let rootsTicking = false;
+            // Priority 2: Visuals (Defer to Idle)
+            const initVisuals = () => {
+                if (typeof Lenis !== 'undefined') {
+                    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+                    function raf(time) { lenis.raf(time); if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update(); requestAnimationFrame(raf); }
+                    requestAnimationFrame(raf);
+                }
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    gsap.registerPlugin(ScrollTrigger);
+                    gsap.utils.toArray('.fade-in').forEach(section => {
+                        gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
+                    });
+                }
+            };
+            if ('requestIdleCallback' in window) requestIdleCallback(initVisuals);
+            else requestAnimationFrame(initVisuals);
 
-            if (rootsContainer && scrollNudge) {
-                rootsContainer.addEventListener('scroll', () => {
-                    if (!rootsTicking) {
+            // Optimized Scroll Hint Logic (Factory Function)
+            const setupScrollFade = (containerId, nudgeId, isEndDetection = true) => {
+                const container = document.getElementById(containerId);
+                const nudge = document.getElementById(nudgeId);
+                if (!container || !nudge) return;
+                let ticking = false;
+                container.addEventListener('scroll', () => {
+                    if (!ticking) {
                         window.requestAnimationFrame(() => {
-                            const remaining = rootsContainer.scrollWidth - rootsContainer.scrollLeft - rootsContainer.clientWidth;
-                            if (remaining <= 20) {
-                                scrollNudge.style.opacity = '0';
-                            } else {
-                                scrollNudge.style.opacity = '1';
-                            }
-                            rootsTicking = false;
+                            const val = isEndDetection ? (container.scrollWidth - container.scrollLeft - container.clientWidth) : container.scrollLeft;
+                            // EndDetection: Hide if remaining < 20. StartDetection: Hide if scrolled > 20
+                            const shouldHide = isEndDetection ? (val <= 20) : (val > 20);
+                            nudge.style.opacity = shouldHide ? '0' : '1';
+                            ticking = false;
                         });
-                        rootsTicking = true;
+                        ticking = true;
                     }
                 }, { passive: true });
-            }
+            };
+            setupScrollFade('roots-container', 'scroll-nudge', true);
+            setupScrollFade('dev-scroll-container', 'dev-nudge', false);
 
-            // INSERTED: New Logic for Professional Development Matrix Scroll
-            const devContainer = document.getElementById('dev-scroll-container');
-            const devNudge = document.getElementById('dev-nudge');
-            let devTicking = false;
-
-            if (devContainer && devNudge) {
-                devContainer.addEventListener('scroll', () => {
-                    if (!devTicking) {
-                        window.requestAnimationFrame(() => {
-                            // Calculate if scrolled past the first column (approx 10px buffer)
-                            if (devContainer.scrollLeft > 20) {
-                                devNudge.style.opacity = '0';
-                            } else {
-                                devNudge.style.opacity = '1';
-                            }
-                            devTicking = false;
-                        });
-                        devTicking = true;
-                    }
-                }, { passive: true });
-            }
-             // 1. Data Source (JP / EN Separate)
+            // Modal Logic
             const modalData = {
                 "poker": {
                     sub_ja: "ゲーム理論 / 確率統計",
@@ -1856,7 +1776,6 @@
                 }
             };
 
-            // 2. Elements & Logic
             const modal = document.getElementById('global-modal');
             const modalBg = document.getElementById('modal-bg');
             const modalPanel = document.getElementById('modal-panel');
@@ -1864,13 +1783,12 @@
             const modalContent = document.getElementById('modal-content');
             const modalCloseBtn = document.getElementById('modal-close-btn');
             
-            // New Nudge Elements
             const modalScrollContainer = document.getElementById('modal-scroll-container');
             const modalProgressBar = document.getElementById('modal-progress-bar');
             const modalScrollHint = document.getElementById('modal-scroll-hint');
 
             let isModalOpen = false;
-
+            
             const markerObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1880,9 +1798,8 @@
                 });
             }, { root: modalScrollContainer, threshold: 0.8 });
 
-            // Scroll Progress Logic (Purely for Bar & Hint) - Optimized with RequestAnimationFrame
             let modalScrollTicking = false;
-            const updateScrollProgress = () => {
+            modalScrollContainer.addEventListener('scroll', () => {
                 if (!modalScrollTicking) {
                     window.requestAnimationFrame(() => {
                         const scrollTop = modalScrollContainer.scrollTop;
@@ -1890,11 +1807,9 @@
                         const clientHeight = modalScrollContainer.clientHeight;
                         const scrollableHeight = scrollHeight - clientHeight;
                         
-                        // Update Bar
                         const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
                         modalProgressBar.style.width = `${percentage}%`;
 
-                        // Update Hint Visibility
                         if (scrollableHeight - scrollTop < 40 || scrollableHeight <= 0) {
                             modalScrollHint.style.opacity = '0';
                             modalScrollHint.style.pointerEvents = 'none';
@@ -1906,21 +1821,28 @@
                     });
                     modalScrollTicking = true;
                 }
-            };
-            modalScrollContainer.addEventListener('scroll', updateScrollProgress, { passive: true });
+            }, { passive: true });
 
-            // 3. Open Function (Event Delegation for Performance)
+            const closeModal = () => {
+                if (!isModalOpen) return;
+                gsap.to(modalBg, { opacity: 0, duration: 0.4, ease: "power2.in" });
+                gsap.to(modalPanel, { 
+                    opacity: 0, scale: 0.95, y: 10, duration: 0.3, ease: "power2.in",
+                    onComplete: () => {
+                        modal.classList.add('hidden'); modal.classList.remove('flex');
+                        document.documentElement.style.overflow = ''; document.body.style.overflow = '';
+                        if(typeof lenis !== 'undefined') lenis.start();
+                        isModalOpen = false;
+                    }
+                });
+            };
 
             document.body.addEventListener('click', (e) => {
                 const trigger = e.target.closest('.js-modal-trigger');
                 if (!trigger) return;
-                
-                // Ignore clicks on inner links
                 if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
 
-                // Stop Lenis & Scroll
                 if (typeof lenis !== 'undefined') lenis.stop();
-                // BodyだけでなくdocumentElement(html)もロックすることで、モバイルやLenis環境下での「背景漏れ」を完全封鎖
                 document.documentElement.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
                 
@@ -1928,513 +1850,159 @@
                 const data = modalData[id];
                 if (!data) return;
 
-                // A. Inject Header
                 headerContent.innerHTML = `
-                    <div class="lang-ja">
-                        <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p>
-                        <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3>
-                    </div>
-                    <div class="lang-en">
-                        <p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p>
-                        <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3>
-                    </div>
-                `;
+                    <div class="lang-ja"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3></div>
+                    <div class="lang-en"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3></div>`;
 
-                // B. Inject Body
                 modalContent.innerHTML = `
-                    <div class="lang-ja first:mt-0">
-                        ${data.body_ja.replace(/\n/g, '<br>')}
-                    </div>
-                    <div class="lang-en first:mt-0">
-                        ${data.body_en.replace(/\n/g, '<br>')}
-                    </div>
-                `;
+                    <div class="lang-ja first:mt-0">${data.body_ja.replace(/\n/g, '<br>')}</div>
+                    <div class="lang-en first:mt-0">${data.body_en.replace(/\n/g, '<br>')}</div>`;
 
-                // C. Initialize Nudge Markers (Observer)
-                // コンテンツ注入後にstrongタグを監視対象に登録
                 requestAnimationFrame(() => {
                     const markers = modalContent.querySelectorAll('strong');
-                    markers.forEach(marker => {
-                        marker.classList.remove('active'); // Reset
-                        marker.classList.add('nudge-marker');
-                        markerObserver.observe(marker);
-                    });
+                    markers.forEach(marker => { marker.classList.remove('active'); marker.classList.add('nudge-marker'); markerObserver.observe(marker); });
                 });
 
-                // D. Reset Scroll & States
-                modalScrollContainer.scrollTop = 0;
-                modalProgressBar.style.width = '0%';
-                modalScrollHint.style.opacity = '1';
-
-                // E. Show & Animate (Using the "Creative" Back.out easing from the original 2nd block)
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
+                modalScrollContainer.scrollTop = 0; modalProgressBar.style.width = '0%'; modalScrollHint.style.opacity = '1';
+                modal.classList.remove('hidden'); modal.classList.add('flex');
 
                 gsap.killTweensOf([modalBg, modalPanel]);
                 gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
-                gsap.fromTo(modalPanel, 
-                    { opacity: 0, scale: 0.9, y: 30, rotationX: 10 },
-                    { 
-                        opacity: 1, 
-                        scale: 1, 
-                        y: 0, 
-                        rotationX: 0, 
-                        duration: 0.6, 
-                        ease: "back.out(1.2)",
-                        // ユーザーの意識(フォーカス)をスクロール領域へ即座に接続
-                        onComplete: () => { 
-                            modalPanel.focus(); 
-                            if(modalScrollContainer) modalScrollContainer.focus();
-                        }
-                    }
-                );
-
+                gsap.fromTo(modalPanel, { opacity: 0, scale: 0.9, y: 30, rotationX: 10 }, { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: 0.6, ease: "back.out(1.2)", onComplete: () => { modalPanel.focus(); if(modalScrollContainer) modalScrollContainer.focus(); } });
                 isModalOpen = true;
             });
 
-            // 4. Close Function
-            const closeModal = () => {
-                if (!isModalOpen) return;
-                
-                gsap.to(modalBg, { opacity: 0, duration: 0.4, ease: "power2.in" });
-                gsap.to(modalPanel, { 
-                    opacity: 0, 
-                    scale: 0.95, 
-                    y: 10, 
-                    duration: 0.3, 
-                    ease: "power2.in",
-                    onComplete: () => {
-                        modal.classList.add('hidden');
-                        modal.classList.remove('flex');
-                        
-                        document.documentElement.style.overflow = '';
-                        document.body.style.overflow = '';
-                        if(typeof lenis !== 'undefined') lenis.start();
-
-                        isModalOpen = false;
-                    }
-                });
-            };
-
-            
-            // 5. Event Listeners for Close
             modalCloseBtn.addEventListener('click', closeModal);
             modalBg.addEventListener('click', closeModal);
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && isModalOpen) closeModal();
-            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isModalOpen) closeModal(); });
         });
-        
     </script>
-   <!-- Google Analytics with Consent Logic -->
-    <script>
-        (function() {
-            const GA_ID = 'G-ECXCCZF93D';
-            const banner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('cookie-accept');
-            const declineBtn = document.getElementById('cookie-decline');
-            const consentKey = 'cookie_consent_status';
 
-            // 1. Google Analyticsの初期化関数
-            function initGtag() {
-                const script = document.createElement('script');
-                script.async = true;
-                script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                document.head.appendChild(script);
-
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', GA_ID);
-                console.log('Analytics initialized.');
-            }
-
-            // 2. 同意状態の確認
-            const consentStatus = localStorage.getItem(consentKey);
-
-            if (consentStatus === 'accepted') {
-                initGtag(); // 同意済みなら即座に発火
-            } else if (consentStatus === null) {
-                // 未回答ならバナーを表示（少し遅らせて上品に）
-                setTimeout(() => {
-                    banner.classList.add('show');
-                }, 2000);
-            }
-
-            // 3. ボタンイベント
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem(consentKey, 'accepted');
-                banner.classList.remove('show');
-                initGtag(); // その場で発火
-            });
-
-            declineBtn.addEventListener('click', () => {
-                localStorage.setItem(consentKey, 'declined');
-                banner.classList.remove('show');
-            });
-        })();
-    </script>
-    <!-- ================= ADVANCED COOKIE CONSENT SYSTEM ================= -->
-    
-    <!-- 1. Initial Banner (Bottom Right) -->
+    <!-- Optimized Advanced Cookie Consent -->
     <div id="cookie-banner" class="glass-panel rounded-xl p-6 text-white shadow-2xl">
         <div class="flex flex-col gap-4">
             <div class="text-sm leading-relaxed text-gray-200 font-medium">
                 <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2">
                     <i class="fa-solid fa-cookie-bite text-bizAccent"></i> 
-                    <span class="lang-ja">プライバシー設定</span>
-                    <span class="lang-en">Privacy Settings</span>
+                    <span class="lang-ja">プライバシー設定</span><span class="lang-en">Privacy Settings</span>
                 </h4>
-                <p class="lang-ja text-xs text-gray-400">
-                    当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「OK」をクリックすると、すべてのCookieの使用に同意したことになります。設定から詳細な管理が可能です。
-                </p>
-                <p class="lang-en text-xs text-gray-400">
-                    We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies. You can manage detailed preferences in Settings.
-                </p>
+                <p class="lang-ja text-xs text-gray-400">当サイトでは、サービスの向上やパフォーマンス測定のためにCookieを使用しています。「すべて許可」をクリックすると、すべてのCookieの使用に同意したことになります。設定から詳細な管理が可能です。</p>
+                <p class="lang-en text-xs text-gray-400">We use cookies to enhance your experience and analyze performance. By clicking "OK", you agree to the use of all cookies. You can manage detailed preferences in Settings.</p>
             </div>
-            
-            <!-- Banner Buttons -->
-<div class="flex flex-col sm:flex-row gap-3 text-[10px] sm:text-xs font-bold tracking-wider">
-    <!-- 設定：枠線のみ -->
-    <button id="btn-open-settings" class="flex-1 px-2 py-3 border border-gray-500 hover:bg-gray-800 text-gray-300 rounded-lg transition-all duration-300">
-        <span class="lang-ja">設定</span>
-        <span class="lang-en">Settings</span>
-    </button>
-    <!-- すべて拒否：白背景 -->
-    <button id="btn-reject-all-banner" class="flex-1 px-2 py-3 bg-white hover:bg-gray-200 text-gray-900 rounded-lg transition-all duration-300">
-        <span class="lang-ja">拒否する</span>
-        <span class="lang-en">Decline</span>
-    </button>
-    <!-- OK：白背景 -->
-    <button id="btn-accept-all-banner" class="flex-1 px-2 py-3 bg-white hover:bg-gray-200 text-gray-900 rounded-lg shadow-lg shadow-black/20 transition-all duration-300">
-        <span class="lang-ja">OK</span>
-        <span class="lang-en">OK</span>
-    </button>
-</div>
+            <div class="flex flex-col sm:flex-row gap-3 text-[10px] sm:text-xs font-bold tracking-wider">
+                <button id="btn-open-settings" class="flex-1 px-2 py-3 border border-gray-500 hover:bg-gray-800 text-gray-300 rounded-lg transition-all duration-300"><span class="lang-ja">設定</span><span class="lang-en">Settings</span></button>
+                <button id="btn-reject-all-banner" class="flex-1 px-2 py-3 bg-white hover:bg-gray-200 text-gray-900 rounded-lg transition-all duration-300"><span class="lang-ja">拒否する</span><span class="lang-en">Decline</span></button>
+                <button id="btn-accept-all-banner" class="flex-1 px-2 py-3 bg-white hover:bg-gray-200 text-gray-900 rounded-lg shadow-lg shadow-black/20 transition-all duration-300"><span class="lang-ja">OK</span><span class="lang-en">OK</span></button>
+            </div>
         </div>
     </div>
-
-    <!-- 2. Privacy Settings Modal (Center Overlay) -->
     <div id="privacy-modal" class="hidden-modal fixed inset-0 z-[10000] flex items-center justify-center p-4">
-        <!-- Backdrop -->
         <div id="privacy-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
-        
-        <!-- Modal Content -->
         <div class="relative bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden transform transition-all scale-100">
-            
-            <!-- Header -->
             <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-bizAccent"></i>
-                    <span class="lang-ja">プライバシー設定センター</span>
-                    <span class="lang-en">Privacy Preference Center</span>
-                </h3>
-                <button id="btn-close-modal" class="text-gray-400 hover:text-gray-800 transition-colors">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-bizAccent"></i><span class="lang-ja">プライバシー設定センター</span><span class="lang-en">Privacy Preference Center</span></h3>
+                <button id="btn-close-modal" class="text-gray-400 hover:text-gray-800 transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-
-            <!-- Scrollable Body -->
             <div class="privacy-scroll flex-1 overflow-y-auto p-6 space-y-6">
-                
-                <!-- Description -->
-                <p class="text-sm text-gray-600 leading-relaxed">
-                    <span class="lang-ja">
-                        あなたのプライバシーを尊重します。以下のパネルを使用して、同意するCookieのカテゴリをカスタマイズできます。必須Cookie以外の同意はいつでも変更可能です。
-                    </span>
-                    <span class="lang-en">
-                        I respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.
-                    </span>
-                </p>
-
-                <!-- Category 1: Strictly Necessary  -->
+                <p class="text-sm text-gray-600 leading-relaxed"><span class="lang-ja">あなたのプライバシーを尊重します。以下のパネルを使用して、同意するCookieのカテゴリをカスタマイズできます。必須Cookie以外の同意はいつでも変更可能です。</span><span class="lang-en">I respect your privacy. You can use the panels below to customize which categories of cookies you agree to. You can change your preferences at any time.</span></p>
                 <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
                     <div class="bg-white/80 px-5 py-4 flex justify-between items-center backdrop-blur-sm">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                                <i class="fa-solid fa-lock text-xs"></i>
-                            </div>
-                            <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">不可欠なクッキー</span>
-                                <span class="lang-en">Strictly Necessary</span>
-                            </span>
-                        </div>
-                        <!-- Creative Toggle -->
-                        <label class="creative-toggle-wrapper">
-                            <input type="checkbox" checked disabled class="creative-toggle-checkbox">
-                            <span class="creative-toggle-track"></span>
-                        </label>
+                        <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500"><i class="fa-solid fa-lock text-xs"></i></div><span class="text-gray-800 font-bold text-sm"><span class="lang-ja">不可欠なクッキー</span><span class="lang-en">Strictly Necessary</span></span></div>
+                        <label class="creative-toggle-wrapper"><input type="checkbox" checked disabled class="creative-toggle-checkbox"><span class="creative-toggle-track"></span></label>
                     </div>
-                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
-                        <span class="lang-ja">ウェブサイトが正常に機能するために必要なクッキーです。これらを無効にすることはできません。</span>
-                        <span class="lang-en">These cookies are necessary for the website to function and cannot be switched off.</span>
-                    </div>
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed"><span class="lang-ja">ウェブサイトが正常に機能するために必要なクッキーです。これらを無効にすることはできません。</span><span class="lang-en">These cookies are necessary for the website to function and cannot be switched off.</span></div>
                 </div>
-
-                <!-- Category 2: Performance (Analytics) -->
                 <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
                     <div class="bg-white px-5 py-4 flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-bizAccent group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-chart-simple text-xs"></i>
-                            </div>
-                            <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">パフォーマンス</span>
-                                <span class="lang-en">Performance</span>
-                            </span>
-                        </div>
-                        <!-- Creative Toggle (ID assigned here) -->
-                        <label class="creative-toggle-wrapper">
-                            <input type="checkbox" id="toggle-performance" class="creative-toggle-checkbox">
-                            <span class="creative-toggle-track"></span>
-                        </label>
+                        <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-bizAccent group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-chart-simple text-xs"></i></div><span class="text-gray-800 font-bold text-sm"><span class="lang-ja">パフォーマンス</span><span class="lang-en">Performance</span></span></div>
+                        <label class="creative-toggle-wrapper"><input type="checkbox" id="toggle-performance" class="creative-toggle-checkbox"><span class="creative-toggle-track"></span></label>
                     </div>
-                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
-                        <span class="lang-ja">Google Analytics等を使用し、訪問者数や通信トラフィックソースをカウントしてサイトのパフォーマンスを測定・改善します。</span>
-                        <span class="lang-en">Allows us to count visits and traffic sources so we can measure and improve the performance of our site.</span>
-                    </div>
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed"><span class="lang-ja">Google Analytics等を使用し、訪問者数や通信トラフィックソースをカウントしてサイトのパフォーマンスを測定・改善します。</span><span class="lang-en">Allows us to count visits and traffic sources so we can measure and improve the performance of our site.</span></div>
                 </div>
-
-                <!-- Category 3: Functional -->
                 <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
                     <div class="bg-white px-5 py-4 flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-sliders text-xs"></i>
-                            </div>
-                            <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">機能性</span>
-                                <span class="lang-en">Functional</span>
-                            </span>
-                        </div>
-                        <!-- Creative Toggle -->
-                        <label class="creative-toggle-wrapper">
-                            <input type="checkbox" id="toggle-functional" class="creative-toggle-checkbox">
-                            <span class="creative-toggle-track"></span>
-                        </label>
+                        <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-sliders text-xs"></i></div><span class="text-gray-800 font-bold text-sm"><span class="lang-ja">機能性</span><span class="lang-en">Functional</span></span></div>
+                        <label class="creative-toggle-wrapper"><input type="checkbox" id="toggle-functional" class="creative-toggle-checkbox"><span class="creative-toggle-track"></span></label>
                     </div>
-                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
-                        <span class="lang-ja">ウェブサイトの機能強化やパーソナライゼーション（言語設定の保存など）を可能にします。</span>
-                        <span class="lang-en">Enable the website to provide enhanced functionality and personalisation (e.g., saving language settings).</span>
-                    </div>
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed"><span class="lang-ja">ウェブサイトの機能強化やパーソナライゼーション（言語設定の保存など）を可能にします。</span><span class="lang-en">Enable the website to provide enhanced functionality and personalisation (e.g., saving language settings).</span></div>
                 </div>
-                
-                 <!-- Category 4: Targeting/Social -->
                  <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
                     <div class="bg-white px-5 py-4 flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid fa-bullseye text-xs"></i>
-                            </div>
-                            <span class="text-gray-800 font-bold text-sm">
-                                <span class="lang-ja">ターゲティング</span>
-                                <span class="lang-en">Targeting</span>
-                            </span>
-                        </div>
-                        <!-- Creative Toggle -->
-                        <label class="creative-toggle-wrapper">
-                            <input type="checkbox" id="toggle-targeting" class="creative-toggle-checkbox">
-                            <span class="creative-toggle-track"></span>
-                        </label>
+                        <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-bullseye text-xs"></i></div><span class="text-gray-800 font-bold text-sm"><span class="lang-ja">ターゲティング</span><span class="lang-en">Targeting</span></span></div>
+                        <label class="creative-toggle-wrapper"><input type="checkbox" id="toggle-targeting" class="creative-toggle-checkbox"><span class="creative-toggle-track"></span></label>
                     </div>
-                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed">
-                        <span class="lang-ja">ソーシャルメディア機能の提供や、ユーザーの興味関心に基づいた広告表示に使用される場合があります。</span>
-                        <span class="lang-en">Used to deliver advertisements more relevant to you and your interests, or to integrate with social media platforms.</span>
-                    </div>
+                    <div class="px-5 py-3 bg-gray-50/50 text-xs text-gray-500 border-t border-gray-100 leading-relaxed"><span class="lang-ja">ソーシャルメディア機能の提供や、ユーザーの興味関心に基づいた広告表示に使用される場合があります。</span><span class="lang-en">Used to deliver advertisements more relevant to you and your interests, or to integrate with social media platforms.</span></div>
                 </div>
-
-            <!-- Footer Buttons -->
             <div class="px-6 py-5 border-t border-gray-100 bg-gray-50 flex flex-col md:flex-row gap-3 justify-between items-center text-xs font-bold tracking-wide">
-                <button id="btn-save-preferences" class="w-full md:w-auto px-6 py-3 bg-bizAccent text-white rounded-lg hover:bg-blue-800 transition-all shadow-md">
-                    <span class="lang-ja">選択内容を確認</span>
-                    <span class="lang-en">Confirm My Choices</span>
-                </button>
-                
+                <button id="btn-save-preferences" class="w-full md:w-auto px-6 py-3 bg-bizAccent text-white rounded-lg hover:bg-blue-800 transition-all shadow-md"><span class="lang-ja">選択内容を確認</span><span class="lang-en">Confirm My Choices</span></button>
                 <div class="flex gap-3 w-full md:w-auto">
-                    <button id="btn-reject-all-modal" class="flex-1 md:flex-none px-4 py-3 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-100 transition-all">
-                        <span class="lang-ja">すべて拒否</span>
-                        <span class="lang-en">Reject All</span>
-                    </button>
-                    <button id="btn-accept-all-modal" class="flex-1 md:flex-none px-4 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all">
-                        <span class="lang-ja">すべて許可</span>
-                        <span class="lang-en">Allow All</span>
-                    </button>
+                    <button id="btn-reject-all-modal" class="flex-1 md:flex-none px-4 py-3 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-100 transition-all"><span class="lang-ja">すべて拒否</span><span class="lang-en">Reject All</span></button>
+                    <button id="btn-accept-all-modal" class="flex-1 md:flex-none px-4 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all"><span class="lang-ja">すべて許可</span><span class="lang-en">Allow All</span></button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- 3. Logic Script -->
     <script>
         (function() {
-            // Configuration
             const GA_ID = 'G-ECXCCZF93D';
-            const STORAGE_KEY = 'cookie_consent_preferences'; // Stores JSON object
-            
-            // Elements
-            const banner = document.getElementById('cookie-banner');
-            const modal = document.getElementById('privacy-modal');
-            const togglePerf = document.getElementById('toggle-performance');
-            const toggleFunc = document.getElementById('toggle-functional');
-            const toggleTarget = document.getElementById('toggle-targeting');
-            
-            // Default State
-            let consentState = {
-                necessary: true,
-                performance: false,
-                functional: false,
-                targeting: false,
-                timestamp: null
+            const STORAGE_KEY = 'cookie_consent_preferences';
+            const getKey = (k) => localStorage.getItem(k);
+            const setKey = (k, v) => localStorage.setItem(k, v);
+            const getEl = (id) => document.getElementById(id);
+            const banner = getEl('cookie-banner');
+            const modal = getEl('privacy-modal');
+            const toggles = { perf: getEl('toggle-performance'), func: getEl('toggle-functional'), target: getEl('toggle-targeting') };
+            let state = { necessary: true, performance: false, functional: false, targeting: false, timestamp: null };
+
+            const activateGA = () => {
+                if (window['ga-disable-' + GA_ID] === false) return;
+                const script = document.createElement('script'); script.async = true; script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                document.head.appendChild(script);
+                window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date()); gtag('config', GA_ID);
             };
 
-            // --- Google Analytics Activation ---
-            function activateGA() {
-                // Check if already active
-                if (window['ga-disable-' + GA_ID] === false) return; // Already active
+            const apply = (s) => {
+                if (s.performance) activateGA();
+                else window['ga-disable-' + GA_ID] = true;
+                s.timestamp = new Date().toISOString();
+                setKey(STORAGE_KEY, JSON.stringify(s));
+            };
 
-                console.log('✨ [System] Analytics Activated');
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', GA_ID);
-                
-                // Inject Script if not present
-                if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
-                    const script = document.createElement('script');
-                    script.async = true;
-                    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                    document.head.appendChild(script);
-                }
-            }
-
-            // --- Apply Consents ---
-            function applyConsents(state) {
-                // 1. Performance (GA)
-                if (state.performance) {
-                    activateGA();
+            const toggleModal = (show) => {
+                if(show) {
+                    toggles.perf.checked = state.performance; toggles.func.checked = state.functional; toggles.target.checked = state.targeting;
+                    modal.classList.remove('hidden-modal'); modal.classList.add('show-modal'); document.body.style.overflow = 'hidden';
                 } else {
-                    // Note: Cannot easily remove GA once loaded without reload, 
-                    // but we can set a flag to disable future tracking
-                    window['ga-disable-' + GA_ID] = true;
-                    console.log('🚫 [System] Analytics Disabled');
+                    modal.classList.remove('show-modal'); modal.classList.add('hidden-modal'); document.body.style.overflow = '';
                 }
+            };
+            
+            const init = () => {
+                const stored = getKey(STORAGE_KEY);
+                if (stored) { try { state = JSON.parse(stored); apply(state); } catch(e){} } 
+                else setTimeout(() => banner.classList.add('show'), 1500);
 
-                // 2. Functional & Targeting (Placeholders for future features)
-                // if (state.functional) { ... }
-                // if (state.targeting) { ... }
+                getEl('btn-open-settings').onclick = () => { banner.classList.remove('show'); toggleModal(true); };
+                getEl('btn-reopen-settings').onclick = (e) => { e.preventDefault(); toggleModal(true); };
+                getEl('btn-close-modal').onclick = () => toggleModal(false);
+                getEl('privacy-backdrop').onclick = () => toggleModal(false);
 
-                // Save to Storage
-                state.timestamp = new Date().toISOString();
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            }
-
-            // --- UI Control ---
-            function showBanner() {
-                setTimeout(() => { banner.classList.add('show'); }, 1500); // Slight delay for smooth entry
-            }
-            function hideBanner() {
-                banner.classList.remove('show');
-            }
-            function openModal() {
-                // Sync toggles with current state
-                togglePerf.checked = consentState.performance;
-                toggleFunc.checked = consentState.functional;
-                toggleTarget.checked = consentState.targeting;
+                const handleAll = (allow) => {
+                    state = { necessary: true, performance: allow, functional: allow, targeting: allow };
+                    apply(state); banner.classList.remove('show'); toggleModal(false);
+                };
+                getEl('btn-accept-all-banner').onclick = () => handleAll(true);
+                getEl('btn-reject-all-banner').onclick = () => handleAll(false);
+                getEl('btn-accept-all-modal').onclick = () => handleAll(true);
+                getEl('btn-reject-all-modal').onclick = () => handleAll(false);
                 
-                modal.classList.remove('hidden-modal');
-                modal.classList.add('show-modal');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
-            function closeModal() {
-                modal.classList.remove('show-modal');
-                modal.classList.add('hidden-modal');
-                document.body.style.overflow = '';
-            }
-
-            // --- Logic Initialization ---
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                try {
-                    consentState = JSON.parse(stored);
-                    applyConsents(consentState);
-                } catch(e) { console.error('Consent Parse Error', e); }
-            } else {
-                // No consent yet -> Show Banner
-                showBanner();
-            }
-
-            // --- Event Listeners (Banner) ---
-            document.getElementById('btn-open-settings').addEventListener('click', () => {
-                hideBanner();
-                openModal();
-            });
-
-            document.getElementById('btn-reject-all-banner').addEventListener('click', () => {
-                consentState = { ...consentState, performance: false, functional: false, targeting: false };
-                applyConsents(consentState);
-                hideBanner();
-            });
-
-            document.getElementById('btn-accept-all-banner').addEventListener('click', () => {
-                consentState = { ...consentState, performance: true, functional: true, targeting: true };
-                applyConsents(consentState);
-                hideBanner();
-            });
-
-            const reopenBtn = document.getElementById('btn-reopen-settings');
-            if(reopenBtn) {
-                reopenBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openModal();
-                });
-            }
-
-
-            // --- Event Listeners (Modal) ---
-            document.getElementById('btn-close-modal').addEventListener('click', () => {
-                closeModal();
-                // If banner was hidden and no choice made, maybe show banner again? 
-                // For UX, let's keep banner hidden but assume no changes if closed via X without save.
-                // Or better: show banner again if no consent is stored.
-                if(!localStorage.getItem(STORAGE_KEY)) showBanner();
-            });
-            document.getElementById('privacy-backdrop').addEventListener('click', closeModal);
-
-            // 1. Save Preferences (Selected Toggles)
-            document.getElementById('btn-save-preferences').addEventListener('click', () => {
-                consentState.performance = togglePerf.checked;
-                consentState.functional = toggleFunc.checked;
-                consentState.targeting = toggleTarget.checked;
-                
-                applyConsents(consentState);
-                closeModal();
-                hideBanner(); // Ensure banner is gone
-            });
-
-            // 2. Reject All (Modal)
-            document.getElementById('btn-reject-all-modal').addEventListener('click', () => {
-                consentState = { ...consentState, performance: false, functional: false, targeting: false };
-                togglePerf.checked = false;
-                toggleFunc.checked = false;
-                toggleTarget.checked = false;
-                
-                applyConsents(consentState);
-                closeModal();
-                hideBanner();
-            });
-
-            // 3. Accept All (Modal)
-            document.getElementById('btn-accept-all-modal').addEventListener('click', () => {
-                consentState = { ...consentState, performance: true, functional: true, targeting: true };
-                togglePerf.checked = true;
-                toggleFunc.checked = true;
-                toggleTarget.checked = true;
-                
-                applyConsents(consentState);
-                closeModal();
-                hideBanner();
-            });
-
+                getEl('btn-save-preferences').onclick = () => {
+                    state.performance = toggles.perf.checked; state.functional = toggles.func.checked; state.targeting = toggles.target.checked;
+                    apply(state); toggleModal(false); banner.classList.remove('show');
+                };
+            };
+            init();
         })();
     </script>
 </body>
