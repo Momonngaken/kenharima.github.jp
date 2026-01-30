@@ -7,28 +7,128 @@
     <!-- SEO & Metadata -->
     <title>Psychometric Profile | Ken HARIMA</title>
     <meta name="robots" content="noindex, nofollow">
+    
     <!-- CSS & Fonts -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    
-    <!-- Critical UX: Prefetch Home for Instant Back Navigation -->
-    <link rel="prefetch" href="./index.html">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
-    <!-- Chart.js (Defer loading for FCP) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Optimized Critical CSS -->
-    <style>html{overflow-x:hidden;scrollbar-gutter:stable}body{margin:0;background-color:#fafafa;color:#0f172a;font-family:'Inter','Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased;width:100%;overflow-x:hidden;position:relative}.font-display{font-family:'Syne',sans-serif}.lang-en{display:none}html.is-global .lang-ja{display:none!important}html.is-global div.lang-en,html.is-global p.lang-en,html.is-global h1.lang-en,html.is-global h2.lang-en,html.is-global h3.lang-en,html.is-global h4.lang-en,html.is-global span.lang-en{display:block!important}html.is-global span.lang-en{display:inline!important}.fade-in-up{opacity:0;transform:translateY(20px);animation:fadeInUp .8s cubic-bezier(.16,1,.3,1) forwards}@keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}.delay-100{animation-delay:.1s}.delay-200{animation-delay:.2s}.delay-300{animation-delay:.3s}.glass-card{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);box-shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03)}.creative-highlight{background-image:linear-gradient(120deg,rgba(6,182,212,.2) 0,rgba(99,102,241,.2) 100%);background-repeat:no-repeat;background-position:0 85%;background-size:0 40%;animation:drawHighlight 1.2s cubic-bezier(.22,.61,.36,1) .8s forwards;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 2px;font-weight:700;color:#0f3c85}@keyframes drawHighlight{to{background-size:100% 40%}}.smart-reveal{animation:smartReveal 1.2s cubic-bezier(.16,1,.3,1) forwards;opacity:0}.text-shimmer{background-size:200% auto;background-clip:text;-webkit-background-clip:text;color:transparent;animation:shimmerFlow 6s linear infinite}@keyframes smartReveal{0%{opacity:0;transform:translateY(15px) scale(.98);filter:blur(12px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}@keyframes shimmerFlow{0%{background-position:0 50%}100%{background-position:200% 50%}}</style>
+    <style>
+        /* Base Styles */
+html { 
+    overflow-x: hidden; 
+    scrollbar-gutter: stable;
+}
+body { 
+    margin: 0; 
+    background-color: #fafafa; 
+    color: #0f172a; 
+    font-family: 'Inter', 'Noto Sans JP', sans-serif; 
+    -webkit-font-smoothing: antialiased; 
+    width: 100%; 
+    overflow-x: hidden; 
+    position: relative; 
+}
+.font-display { font-family: 'Syne', sans-serif; }
+        
+        /* Language Switching Logic */
+        .lang-en { display: none; }
+        html.is-global .lang-ja { display: none !important; }
+        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
+        html.is-global span.lang-en { display: inline !important; }
 
-    <!-- Tailwind Config (Minified) -->
-    <script>tailwind={config:{theme:{extend:{colors:{bizText:'#0f172a',bizAccent:'#0f3c85',bgBase:'#fafafa'}}}}}</script>
-    <script src="https://cdn.tailwindcss.com" async></script>
+        /* Animations */
+        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .creative-highlight {
+            /* グラデーションマーカー（シアンから薄いインディゴへ） */
+            background-image: linear-gradient(120deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-position: 0% 85%; /* 下寄りに配置 */
+            background-size: 0% 40%; /* 初期状態は幅0、高さ40% */
+            /* アニメーション: 0.8秒待ってから1.2秒かけて引く */
+            animation: drawHighlight 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
+            /* 行をまたいだ時の挙動を自然にする */
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            padding: 0 2px;
+            font-weight: 700; /* 文字を太くして強調 */
+            color: #0f3c85; /* 文字色をアクセントカラーに */
+        }
+
+        @keyframes drawHighlight {
+            to { background-size: 100% 40%; }
+        }
+
+        .smart-reveal {
+            /* ぼかしながら浮き上がるアニメーション */
+            animation: smartReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; /* 初期状態 */
+        }
+
+        .text-shimmer {
+            /* 光沢が流れるグラデーション */
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: shimmerFlow 6s linear infinite;
+        }
+
+        @keyframes smartReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+                filter: blur(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes shimmerFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+    </style>
+
+    <!-- Tailwind Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            bizText: '#0f172a',
+                            bizAccent: '#0f3c85',
+                            bgBase: '#fafafa',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
 
@@ -629,7 +729,152 @@
             });
     </script>
 <style>
-   <style>#cookie-banner{position:fixed;bottom:24px;right:24px;z-index:9999;width:calc(100% - 48px);max-width:480px;transform:translateY(120%) translateZ(0);transition:transform .6s cubic-bezier(.16,1,.3,1);will-change:transform}#cookie-banner.show{transform:translateY(0) translateZ(0)}.glass-panel{background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.4);-webkit-backface-visibility:hidden;backdrop-filter:blur(12px)}#privacy-modal{transition:opacity .4s ease,visibility .4s ease}#privacy-modal.hidden-modal{opacity:0;visibility:hidden;pointer-events:none}#privacy-modal.show-modal{opacity:1;visibility:visible;pointer-events:auto}.creative-toggle-wrapper{position:relative;display:inline-block;width:56px;height:32px;vertical-align:middle}.creative-toggle-checkbox{opacity:0;width:0;height:0}.creative-toggle-track{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#cbd5e1;border-radius:34px;transition:all .5s cubic-bezier(.23,1,.32,1);box-shadow:inset 0 2px 4px rgba(0,0,0,.1);border:2px solid transparent}.creative-toggle-track::before{content:"";position:absolute;height:24px;width:24px;left:2px;bottom:2px;background-color:#fff;border-radius:50%;transition:all .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);z-index:2}.creative-toggle-track::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);width:100%;height:100%;border-radius:34px;background:linear-gradient(135deg,#0f3c85 0,#3b82f6 100%);opacity:0;transition:all .5s ease;z-index:0}.creative-toggle-checkbox:checked+.creative-toggle-track{border-color:#0f3c85}.creative-toggle-checkbox:checked+.creative-toggle-track::after{opacity:1;transform:translate(-50%,-50%) scale(1)}.creative-toggle-checkbox:checked+.creative-toggle-track::before{transform:translateX(24px) rotate(90deg);box-shadow:-2px 2px 8px rgba(15,60,133,.4)}.creative-toggle-checkbox:disabled+.creative-toggle-track{cursor:not-allowed;opacity:.8;background:#e2e8f0}.creative-toggle-checkbox:disabled:checked+.creative-toggle-track::after{background:linear-gradient(135deg,#475569 0,#64748b 100%)}.creative-toggle-checkbox:disabled+.creative-toggle-track::before{background-color:#f1f5f9;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/%3E%3C/svg%3E");background-size:14px;background-repeat:no-repeat;background-position:center}.privacy-scroll::-webkit-scrollbar{width:6px}.privacy-scroll::-webkit-scrollbar-track{background:#f1f5f9}.privacy-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}.privacy-scroll::-webkit-scrollbar-thumb:hover{background:#94a3b8}html.is-global #cookie-banner .lang-ja,html.is-global #privacy-modal .lang-ja{display:none!important}html:not(.is-global) #cookie-banner .lang-en,html:not(.is-global) #privacy-modal .lang-en{display:none!important}</style>
+   /* --- Advanced Cookie Consent System --- */
+    #cookie-banner {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        width: calc(100% - 48px);
+        max-width: 480px; /* 少し幅を広げました */
+        transform: translateY(120%) translateZ(0);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+    }
+    #cookie-banner.show { transform: translateY(0) translateZ(0); }
+    
+    .glass-panel {
+        background: rgba(15, 23, 42, 0.95); /* 視認性を高めるため少し濃く */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        -webkit-backface-visibility: hidden;
+        backdrop-filter: blur(12px);
+    }
+
+    /* Privacy Modal Styles */
+    #privacy-modal {
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #privacy-modal.hidden-modal {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    #privacy-modal.show-modal {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+   /* --- Extreme Creative Toggle: Cognitive Flow Switch --- */
+    
+    /* Wrapper */
+    .creative-toggle-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 56px;
+        height: 32px;
+        vertical-align: middle;
+    }
+
+    /* Hidden Checkbox */
+    .creative-toggle-checkbox {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The Track (Background) */
+    .creative-toggle-track {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #cbd5e1; /* OFF State: Neutral Gray */
+        border-radius: 34px;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        border: 2px solid transparent; /* Container for border transition */
+    }
+
+    /* The Knob (Handle) */
+    .creative-toggle-track::before {
+        content: "";
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring Physics */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        z-index: 2;
+    }
+
+    /* The "Data Light" (Inner Glow Element) */
+    .creative-toggle-track::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 100%;
+        height: 100%;
+        border-radius: 34px;
+        background: linear-gradient(135deg, #0f3c85 0%, #3b82f6 100%); /* BizAccent Gradient */
+        opacity: 0;
+        transition: all 0.5s ease;
+        z-index: 0;
+    }
+
+    /* --- ON State --- */
+    .creative-toggle-checkbox:checked + .creative-toggle-track {
+        border-color: #0f3c85; /* Slight border highlight */
+    }
+
+    .creative-toggle-checkbox:checked + .creative-toggle-track::after {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1); /* Fill animation */
+    }
+
+    .creative-toggle-checkbox:checked + .creative-toggle-track::before {
+        transform: translateX(24px) rotate(90deg); /* Move & Rotate */
+        box-shadow: -2px 2px 8px rgba(15, 60, 133, 0.4); /* Dynamic Shadow */
+    }
+
+    /* --- Disabled / Locked State (Strictly Necessary) --- */
+    .creative-toggle-checkbox:disabled + .creative-toggle-track {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: #e2e8f0;
+    }
+    
+    /* Locked & Checked State (Blue Gray Aesthetic) */
+    .creative-toggle-checkbox:disabled:checked + .creative-toggle-track::after {
+        background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    }
+    
+    /* Lock Icon Overlay for Disabled */
+    .creative-toggle-checkbox:disabled + .creative-toggle-track::before {
+        background-color: #f1f5f9;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/%3E%3C/svg%3E");
+        background-size: 14px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    
+    /* Scrollbar for Modal */
+    .privacy-scroll::-webkit-scrollbar { width: 6px; }
+    .privacy-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .privacy-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .privacy-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Language Switching for Cookie Components */
+    html.is-global #cookie-banner .lang-ja,
+    html.is-global #privacy-modal .lang-ja { display: none !important; }
+    html:not(.is-global) #cookie-banner .lang-en,
+    html:not(.is-global) #privacy-modal .lang-en { display: none !important; }
+</style>
 
     <!-- ================= ADVANCED COOKIE CONSENT SYSTEM ================= -->
     
@@ -820,132 +1065,219 @@
             </div>
         </div>
     </div>
-        <!-- 3. Logic Script (Optimized) -->
+
+   <!-- 3. Logic Script (Updated with Feedback & Better Logic) -->
     <script>
-    (function(){
-        // DOM要素の取得を高速化するためのヘルパー
-        const doc=document,$=id=>doc.getElementById(id);
-        const GA_ID='G-ECXCCZF93D', KEY='cookie_consent_preferences';
-        
-        // 要素のキャッシュ
-        const banner=$('cookie-banner'), modal=$('privacy-modal'), saveBtn=$('btn-save-preferences');
-        const toggles={perf:$('toggle-performance'), func:$('toggle-functional'), target:$('toggle-targeting')};
-        
-        // 言語判定
-        const isJp = !doc.documentElement.classList.contains('is-global');
-        
-        // 状態管理
-        let state={necessary:true, performance:false, functional:false, targeting:false, timestamp:null};
+        (function() {
+            // Configuration
+            const GA_ID = 'G-ECXCCZF93D';
+            const STORAGE_KEY = 'cookie_consent_preferences';
+            
+            // Elements
+            const banner = document.getElementById('cookie-banner');
+            const modal = document.getElementById('privacy-modal');
+            const togglePerf = document.getElementById('toggle-performance');
+            const toggleFunc = document.getElementById('toggle-functional');
+            const toggleTarget = document.getElementById('toggle-targeting');
+            const saveBtn = document.getElementById('btn-save-preferences');
+            
+            // Language Detection for JS Text
+            const isJp = !document.documentElement.classList.contains('is-global');
 
-        // Google Analytics制御（無駄なチェックを排除して高速化）
-        const setGA = (active) => {
-            window['ga-disable-'+GA_ID] = !active;
-            if(active && !doc.querySelector(`script[src*="${GA_ID}"]`)){
-                const s = doc.createElement('script');
-                s.async = true;
-                s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                doc.head.appendChild(s);
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', GA_ID);
+            // Default State
+            let consentState = {
+                necessary: true,
+                performance: false,
+                functional: false,
+                targeting: false,
+                timestamp: null
+            };
+
+            // --- Google Analytics Control ---
+            function updateGALogic(isAllowed) {
+                const disableStr = 'ga-disable-' + GA_ID;
+                
+                if (isAllowed) {
+                    // ENABLE: Remove disable flag if exists
+                    window[disableStr] = false;
+                    console.log('📈 [Cookie] Analytics: ENABLED');
+
+                    // Insert Script if not present
+                    if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
+                        const script = document.createElement('script');
+                        script.async = true;
+                        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                        document.head.appendChild(script);
+                        
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', GA_ID);
+                    }
+                } else {
+                    // DISABLE: Set disable flag (stops data sending immediately)
+                    window[disableStr] = true;
+                    console.log('🛑 [Cookie] Analytics: DISABLED');
+                }
             }
-        };
 
-        // 設定の保存と適用
-        const apply = (s) => {
-            setGA(s.performance);
-            s.timestamp = new Date().toISOString();
-            localStorage.setItem(KEY, JSON.stringify(s));
-        };
+            // --- Apply Consents ---
+            function applyConsents(state) {
+                // 1. Performance (GA)
+                updateGALogic(state.performance);
 
-        // モーダルの開閉（CSSクラス操作のみで軽量化）
-        const toggleModal = (show) => {
-            if(show){
-                // 現在の状態をトグルに反映
-                toggles.perf.checked = state.performance;
-                toggles.func.checked = state.functional;
-                toggles.target.checked = state.targeting;
+                // 2. Functional (Placeholder)
+                if (state.functional) {
+                    console.log('🔧 [Cookie] Functional: Allowed (No active scripts yet)');
+                }
+
+                // 3. Targeting (Placeholder)
+                if (state.targeting) {
+                    console.log('🎯 [Cookie] Targeting: Allowed (No active scripts yet)');
+                }
+
+                // Save to Storage
+                state.timestamp = new Date().toISOString();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            }
+
+            // --- UI Control ---
+            function showBanner() {
+                // Only show if no preference saved
+                if (!localStorage.getItem(STORAGE_KEY)) {
+                    setTimeout(() => { banner.classList.add('show'); }, 1500);
+                }
+            }
+            function hideBanner() {
+                banner.classList.remove('show');
+            }
+            
+            function openModal() {
+                // Sync toggles with current state
+                togglePerf.checked = consentState.performance;
+                toggleFunc.checked = consentState.functional;
+                toggleTarget.checked = consentState.targeting;
                 
                 modal.classList.remove('hidden-modal');
                 modal.classList.add('show-modal');
-                doc.body.style.overflow = 'hidden';
-            } else {
+                document.body.style.overflow = 'hidden'; 
+            }
+            
+            function closeModal() {
                 modal.classList.remove('show-modal');
                 modal.classList.add('hidden-modal');
-                doc.body.style.overflow = '';
-            }
-        };
-
-        // 保存時のアニメーションと処理（冗長なコードを圧縮）
-        const animSave = () => {
-            const orgHtml = saveBtn.innerHTML;
-            saveBtn.innerHTML = isJp ? '<i class="fa-solid fa-check mr-2"></i>保存しました' : '<i class="fa-solid fa-check mr-2"></i>Saved';
-            saveBtn.classList.replace('bg-bizAccent', 'bg-emerald-600');
-            
-            setTimeout(() => {
-                toggleModal(false);
-                banner.classList.remove('show');
-                setTimeout(() => {
-                    saveBtn.innerHTML = orgHtml;
-                    saveBtn.classList.replace('bg-emerald-600', 'bg-bizAccent');
-                }, 300);
-            }, 600);
-        };
-
-        // 初期化とイベントリスナー（即時実行）
-        (function init() {
-            // 保存された設定の読み込み
-            const stored = localStorage.getItem(KEY);
-            if (stored) {
-                try { state = JSON.parse(stored); apply(state); } catch(e) {}
-            } else {
-                setTimeout(() => banner.classList.add('show'), 1500);
+                document.body.style.overflow = '';
             }
 
-            // バナーボタン
-            $('btn-open-settings').onclick = () => { banner.classList.remove('show'); toggleModal(true); };
-            
-            // フッター内の再設定ボタン（存在確認付き）
-            const reopen = $('btn-reopen-settings');
-            if(reopen) reopen.onclick = (e) => { e.preventDefault(); toggleModal(true); };
-
-            // モーダル閉じるボタン
-            $('btn-close-modal').onclick = $('privacy-backdrop').onclick = () => {
-                toggleModal(false);
-                // まだ同意していない場合はバナーを再表示
-                if(!localStorage.getItem(KEY)) banner.classList.add('show');
-            };
-
-            // 一括許可・拒否の共通ハンドラ
-            const handleAll = (allow) => {
-                state = { necessary:true, performance:allow, functional:allow, targeting:allow };
-                // トグルの見た目も更新（保存ボタンを押したときのために）
-                toggles.perf.checked = toggles.func.checked = toggles.target.checked = allow;
-                apply(state);
+            // --- Button Feedback Animation ---
+            function animateSaveAndClose() {
+                // 1. Change Button Text
+                const originalTextJp = "選択内容を確認";
+                const originalTextEn = "Confirm My Choices";
                 
-                // モーダルが開いていればアニメーション、バナーなら即閉じ
-                if (modal.classList.contains('show-modal')) {
-                    animSave();
-                } else {
-                    banner.classList.remove('show');
-                }
-            };
-            
-            // 各ボタンへのイベント割り当て
-            $('btn-reject-all-banner').onclick = $('btn-reject-all-modal').onclick = () => handleAll(false);
-            $('btn-accept-all-banner').onclick = $('btn-accept-all-modal').onclick = () => handleAll(true);
-            
-            // 個別設定の保存ボタン
-            saveBtn.onclick = () => {
-                state.performance = toggles.perf.checked;
-                state.functional = toggles.func.checked;
-                state.targeting = toggles.target.checked;
-                apply(state);
-                animSave();
-            };
+                // Current Language Check (Dynamic)
+                const currentIsJp = !document.documentElement.classList.contains('is-global');
+                
+                saveBtn.innerHTML = currentIsJp 
+                    ? '<i class="fa-solid fa-check mr-2"></i>保存しました' 
+                    : '<i class="fa-solid fa-check mr-2"></i>Saved';
+                
+                saveBtn.classList.remove('bg-bizAccent', 'hover:bg-blue-800');
+                saveBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+
+                // 2. Wait and Close
+                setTimeout(() => {
+                    closeModal();
+                    hideBanner();
+                    
+                    // 3. Reset Button (after modal is hidden)
+                    setTimeout(() => {
+                        saveBtn.innerHTML = `<span class="lang-ja">${originalTextJp}</span><span class="lang-en">${originalTextEn}</span>`;
+                        saveBtn.classList.add('bg-bizAccent', 'hover:bg-blue-800');
+                        saveBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                    }, 300);
+                }, 600);
+            }
+
+            // --- Initialization ---
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    consentState = JSON.parse(stored);
+                    applyConsents(consentState); // Re-apply on reload
+                } catch(e) { console.error('Consent Parse Error', e); }
+            } else {
+                showBanner();
+            }
+
+            const reopenBtn = document.getElementById('btn-reopen-settings');
+            if(reopenBtn) {
+                reopenBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            }
+
+
+            // --- Event Listeners (Banner) ---
+            document.getElementById('btn-open-settings').addEventListener('click', () => {
+                hideBanner();
+                openModal();
+            });
+
+            document.getElementById('btn-reject-all-banner').addEventListener('click', () => {
+                consentState = { ...consentState, performance: false, functional: false, targeting: false };
+                applyConsents(consentState);
+                hideBanner();
+            });
+
+            document.getElementById('btn-accept-all-banner').addEventListener('click', () => {
+                consentState = { ...consentState, performance: true, functional: true, targeting: true };
+                applyConsents(consentState);
+                hideBanner();
+            });
+
+            // --- Event Listeners (Modal) ---
+            document.getElementById('btn-close-modal').addEventListener('click', () => {
+                closeModal();
+                // Show banner again if nothing was saved ever
+                if(!localStorage.getItem(STORAGE_KEY)) banner.classList.add('show');
+            });
+            document.getElementById('privacy-backdrop').addEventListener('click', closeModal);
+
+            // 1. Save Preferences (Selected Toggles)
+            saveBtn.addEventListener('click', () => {
+                consentState.performance = togglePerf.checked;
+                consentState.functional = toggleFunc.checked;
+                consentState.targeting = toggleTarget.checked;
+                
+                applyConsents(consentState);
+                animateSaveAndClose(); // Trigger visual feedback
+            });
+
+            // 2. Reject All (Modal)
+            document.getElementById('btn-reject-all-modal').addEventListener('click', () => {
+                consentState = { ...consentState, performance: false, functional: false, targeting: false };
+                togglePerf.checked = false;
+                toggleFunc.checked = false;
+                toggleTarget.checked = false;
+                
+                applyConsents(consentState);
+                animateSaveAndClose();
+            });
+
+            // 3. Accept All (Modal)
+            document.getElementById('btn-accept-all-modal').addEventListener('click', () => {
+                consentState = { ...consentState, performance: true, functional: true, targeting: true };
+                togglePerf.checked = true;
+                toggleFunc.checked = true;
+                toggleTarget.checked = true;
+                
+                applyConsents(consentState);
+                animateSaveAndClose();
+            });
+
         })();
-    })();
     </script>
 </body>
 </html>
