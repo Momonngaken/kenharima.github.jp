@@ -420,8 +420,13 @@ button:active, a.group:active{transform:scale(0.96);transition:transform 0.1s ea
 /* 6. スクロールスナップの強化 */
 #dev-scroll-container{scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
 #dev-scroll-container > div{scroll-snap-align:start;scroll-snap-stop:always}
-    html:not(.is-global) #privacy-modal .lang-en { display: none !important; }
-    </style>
+html:not(.is-global) #privacy-modal .lang-en { display: none !important; }
+/* View Transitions Animations */
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }
+::view-transition-old(root) { animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out; }
+::view-transition-new(root) { animation: 210ms cubic-bezier(0, 0, 0.2, 1) both fade-in; }
+</style>
     
     <noscript>
         <style>
@@ -471,8 +476,7 @@ button:active, a.group:active{transform:scale(0.96);transition:transform 0.1s ea
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@400;700&family=Syne:wght@700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap"></noscript>
-    
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@400;700&family=Syne:wght@700&display=swap"></noscript>
     <!-- Language Detection Script -->
     <script>
         (function() {
@@ -1681,62 +1685,45 @@ button:active, a.group:active{transform:scale(0.96);transition:transform 0.1s ea
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer></script>
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
-            // Delay initialization to prioritize painting
+            // 初期表示を優先し、重いライブラリの初期化を次のフレームへ
             requestAnimationFrame(() => {
                 if (typeof Lenis !== 'undefined') {
                     const lenis = new Lenis({
                         duration: 1.2,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                         smooth: true,
-                        mouseMultiplier: 1,
-                        touchMultiplier: 2,
-                        infinite: false,
                     });
-
                     function raf(time) {
                         lenis.raf(time);
                         if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
                         requestAnimationFrame(raf);
                     }
                     requestAnimationFrame(raf);
+                    window.lenis = lenis; // グローバル参照
                 }
 
                 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                     gsap.registerPlugin(ScrollTrigger);
-                    // 視覚的なリズムを作るため、一括ではなく順次表示（スタガード）を適用
-                    const sections = gsap.utils.toArray('.fade-in');
-                    sections.forEach((section, i) => {
+                    // UX改善: スタガード（順次）表示アニメーション
+                    gsap.utils.toArray('.fade-in').forEach((section, i) => {
                         gsap.to(section, { 
-                            opacity: 1, 
-                            y: 0, 
-                            duration: 0.8, 
-                            delay: 0.05, // わずかな遅延で流れるような演出
+                            opacity: 1, y: 0, duration: 0.8, delay: i * 0.05, 
                             ease: "power2.out", 
-                            scrollTrigger: { 
-                                trigger: section, 
-                                start: "top 92%", 
-                                toggleActions: "play none none none", 
-                                once: true 
-                            } 
+                            scrollTrigger: { trigger: section, start: "top 92%", toggleActions: "play none none none", once: true } 
                         });
                     });
 
-                    // ページ遷移アニメーション (View Transitions API 対応)
+                    // UX改善: View Transitions API によるページ遷移
                     document.querySelectorAll('a[href^="./"]').forEach(link => {
                         link.addEventListener('click', (e) => {
                             if (!document.startViewTransition || e.target.closest('[download]')) return;
                             e.preventDefault();
-                            document.startViewTransition(() => {
-                                window.location.href = link.href;
-                            });
-                        });
-                    });
-                }
+                            document.startViewTransition(() => { window.location.href = link.href; });
                         });
                     });
                 }
             });
-
+            // --- 以降、既存のボタンロジック ---
             const langJpBtn = document.getElementById('lang-jp');
             const langEnBtn = document.getElementById('lang-en');
             const htmlEl = document.documentElement;
@@ -2013,12 +2000,17 @@ button:active, a.group:active{transform:scale(0.96);transition:transform 0.1s ea
                 modal.classList.add('flex');
 
                 gsap.killTweensOf([modalBg, modalPanel]);
-               const isMobile = window.innerWidth < 768;
+                const isMobile = window.innerWidth < 768;
                 gsap.to(modalBg, { opacity: 1, duration: 0.4, ease: "power2.out" });
                 gsap.fromTo(modalPanel, 
-                    { opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? '100%' : 20 }, 
-                    { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: isMobile ? "power3.out" : "back.out(1.4)", 
-                      onComplete: () => { modalPanel.focus(); if(modalScrollContainer) modalScrollContainer.focus(); } }
+                    { opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? '100%' : 30 }, 
+                    { opacity: 1, scale: 1, y: 0, duration: 0.5, 
+                      ease: isMobile ? "power4.out" : "back.out(1.2)", 
+                      onComplete: () => { 
+                          modalPanel.focus(); 
+                          if(modalScrollContainer) modalScrollContainer.focus(); 
+                      } 
+                    }
                 );
                 isModalOpen = true;
             });
