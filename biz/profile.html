@@ -1065,219 +1065,132 @@ body {
             </div>
         </div>
     </div>
-
-   <!-- 3. Logic Script (Updated with Feedback & Better Logic) -->
+        <!-- 3. Logic Script (Optimized) -->
     <script>
-        (function() {
-            // Configuration
-            const GA_ID = 'G-ECXCCZF93D';
-            const STORAGE_KEY = 'cookie_consent_preferences';
-            
-            // Elements
-            const banner = document.getElementById('cookie-banner');
-            const modal = document.getElementById('privacy-modal');
-            const togglePerf = document.getElementById('toggle-performance');
-            const toggleFunc = document.getElementById('toggle-functional');
-            const toggleTarget = document.getElementById('toggle-targeting');
-            const saveBtn = document.getElementById('btn-save-preferences');
-            
-            // Language Detection for JS Text
-            const isJp = !document.documentElement.classList.contains('is-global');
+    (function(){
+        // DOM要素の取得を高速化するためのヘルパー
+        const doc=document,$=id=>doc.getElementById(id);
+        const GA_ID='G-ECXCCZF93D', KEY='cookie_consent_preferences';
+        
+        // 要素のキャッシュ
+        const banner=$('cookie-banner'), modal=$('privacy-modal'), saveBtn=$('btn-save-preferences');
+        const toggles={perf:$('toggle-performance'), func:$('toggle-functional'), target:$('toggle-targeting')};
+        
+        // 言語判定
+        const isJp = !doc.documentElement.classList.contains('is-global');
+        
+        // 状態管理
+        let state={necessary:true, performance:false, functional:false, targeting:false, timestamp:null};
 
-            // Default State
-            let consentState = {
-                necessary: true,
-                performance: false,
-                functional: false,
-                targeting: false,
-                timestamp: null
-            };
-
-            // --- Google Analytics Control ---
-            function updateGALogic(isAllowed) {
-                const disableStr = 'ga-disable-' + GA_ID;
-                
-                if (isAllowed) {
-                    // ENABLE: Remove disable flag if exists
-                    window[disableStr] = false;
-                    console.log('📈 [Cookie] Analytics: ENABLED');
-
-                    // Insert Script if not present
-                    if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
-                        const script = document.createElement('script');
-                        script.async = true;
-                        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                        document.head.appendChild(script);
-                        
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', GA_ID);
-                    }
-                } else {
-                    // DISABLE: Set disable flag (stops data sending immediately)
-                    window[disableStr] = true;
-                    console.log('🛑 [Cookie] Analytics: DISABLED');
-                }
+        // Google Analytics制御（無駄なチェックを排除して高速化）
+        const setGA = (active) => {
+            window['ga-disable-'+GA_ID] = !active;
+            if(active && !doc.querySelector(`script[src*="${GA_ID}"]`)){
+                const s = doc.createElement('script');
+                s.async = true;
+                s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                doc.head.appendChild(s);
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', GA_ID);
             }
+        };
 
-            // --- Apply Consents ---
-            function applyConsents(state) {
-                // 1. Performance (GA)
-                updateGALogic(state.performance);
+        // 設定の保存と適用
+        const apply = (s) => {
+            setGA(s.performance);
+            s.timestamp = new Date().toISOString();
+            localStorage.setItem(KEY, JSON.stringify(s));
+        };
 
-                // 2. Functional (Placeholder)
-                if (state.functional) {
-                    console.log('🔧 [Cookie] Functional: Allowed (No active scripts yet)');
-                }
-
-                // 3. Targeting (Placeholder)
-                if (state.targeting) {
-                    console.log('🎯 [Cookie] Targeting: Allowed (No active scripts yet)');
-                }
-
-                // Save to Storage
-                state.timestamp = new Date().toISOString();
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            }
-
-            // --- UI Control ---
-            function showBanner() {
-                // Only show if no preference saved
-                if (!localStorage.getItem(STORAGE_KEY)) {
-                    setTimeout(() => { banner.classList.add('show'); }, 1500);
-                }
-            }
-            function hideBanner() {
-                banner.classList.remove('show');
-            }
-            
-            function openModal() {
-                // Sync toggles with current state
-                togglePerf.checked = consentState.performance;
-                toggleFunc.checked = consentState.functional;
-                toggleTarget.checked = consentState.targeting;
+        // モーダルの開閉（CSSクラス操作のみで軽量化）
+        const toggleModal = (show) => {
+            if(show){
+                // 現在の状態をトグルに反映
+                toggles.perf.checked = state.performance;
+                toggles.func.checked = state.functional;
+                toggles.target.checked = state.targeting;
                 
                 modal.classList.remove('hidden-modal');
                 modal.classList.add('show-modal');
-                document.body.style.overflow = 'hidden'; 
-            }
-            
-            function closeModal() {
+                doc.body.style.overflow = 'hidden';
+            } else {
                 modal.classList.remove('show-modal');
                 modal.classList.add('hidden-modal');
-                document.body.style.overflow = '';
+                doc.body.style.overflow = '';
             }
+        };
 
-            // --- Button Feedback Animation ---
-            function animateSaveAndClose() {
-                // 1. Change Button Text
-                const originalTextJp = "選択内容を確認";
-                const originalTextEn = "Confirm My Choices";
-                
-                // Current Language Check (Dynamic)
-                const currentIsJp = !document.documentElement.classList.contains('is-global');
-                
-                saveBtn.innerHTML = currentIsJp 
-                    ? '<i class="fa-solid fa-check mr-2"></i>保存しました' 
-                    : '<i class="fa-solid fa-check mr-2"></i>Saved';
-                
-                saveBtn.classList.remove('bg-bizAccent', 'hover:bg-blue-800');
-                saveBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
-
-                // 2. Wait and Close
+        // 保存時のアニメーションと処理（冗長なコードを圧縮）
+        const animSave = () => {
+            const orgHtml = saveBtn.innerHTML;
+            saveBtn.innerHTML = isJp ? '<i class="fa-solid fa-check mr-2"></i>保存しました' : '<i class="fa-solid fa-check mr-2"></i>Saved';
+            saveBtn.classList.replace('bg-bizAccent', 'bg-emerald-600');
+            
+            setTimeout(() => {
+                toggleModal(false);
+                banner.classList.remove('show');
                 setTimeout(() => {
-                    closeModal();
-                    hideBanner();
-                    
-                    // 3. Reset Button (after modal is hidden)
-                    setTimeout(() => {
-                        saveBtn.innerHTML = `<span class="lang-ja">${originalTextJp}</span><span class="lang-en">${originalTextEn}</span>`;
-                        saveBtn.classList.add('bg-bizAccent', 'hover:bg-blue-800');
-                        saveBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
-                    }, 300);
-                }, 600);
-            }
+                    saveBtn.innerHTML = orgHtml;
+                    saveBtn.classList.replace('bg-emerald-600', 'bg-bizAccent');
+                }, 300);
+            }, 600);
+        };
 
-            // --- Initialization ---
-            const stored = localStorage.getItem(STORAGE_KEY);
+        // 初期化とイベントリスナー（即時実行）
+        (function init() {
+            // 保存された設定の読み込み
+            const stored = localStorage.getItem(KEY);
             if (stored) {
-                try {
-                    consentState = JSON.parse(stored);
-                    applyConsents(consentState); // Re-apply on reload
-                } catch(e) { console.error('Consent Parse Error', e); }
+                try { state = JSON.parse(stored); apply(state); } catch(e) {}
             } else {
-                showBanner();
+                setTimeout(() => banner.classList.add('show'), 1500);
             }
 
-            const reopenBtn = document.getElementById('btn-reopen-settings');
-            if(reopenBtn) {
-                reopenBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openModal();
-                });
-            }
+            // バナーボタン
+            $('btn-open-settings').onclick = () => { banner.classList.remove('show'); toggleModal(true); };
+            
+            // フッター内の再設定ボタン（存在確認付き）
+            const reopen = $('btn-reopen-settings');
+            if(reopen) reopen.onclick = (e) => { e.preventDefault(); toggleModal(true); };
 
+            // モーダル閉じるボタン
+            $('btn-close-modal').onclick = $('privacy-backdrop').onclick = () => {
+                toggleModal(false);
+                // まだ同意していない場合はバナーを再表示
+                if(!localStorage.getItem(KEY)) banner.classList.add('show');
+            };
 
-            // --- Event Listeners (Banner) ---
-            document.getElementById('btn-open-settings').addEventListener('click', () => {
-                hideBanner();
-                openModal();
-            });
-
-            document.getElementById('btn-reject-all-banner').addEventListener('click', () => {
-                consentState = { ...consentState, performance: false, functional: false, targeting: false };
-                applyConsents(consentState);
-                hideBanner();
-            });
-
-            document.getElementById('btn-accept-all-banner').addEventListener('click', () => {
-                consentState = { ...consentState, performance: true, functional: true, targeting: true };
-                applyConsents(consentState);
-                hideBanner();
-            });
-
-            // --- Event Listeners (Modal) ---
-            document.getElementById('btn-close-modal').addEventListener('click', () => {
-                closeModal();
-                // Show banner again if nothing was saved ever
-                if(!localStorage.getItem(STORAGE_KEY)) banner.classList.add('show');
-            });
-            document.getElementById('privacy-backdrop').addEventListener('click', closeModal);
-
-            // 1. Save Preferences (Selected Toggles)
-            saveBtn.addEventListener('click', () => {
-                consentState.performance = togglePerf.checked;
-                consentState.functional = toggleFunc.checked;
-                consentState.targeting = toggleTarget.checked;
+            // 一括許可・拒否の共通ハンドラ
+            const handleAll = (allow) => {
+                state = { necessary:true, performance:allow, functional:allow, targeting:allow };
+                // トグルの見た目も更新（保存ボタンを押したときのために）
+                toggles.perf.checked = toggles.func.checked = toggles.target.checked = allow;
+                apply(state);
                 
-                applyConsents(consentState);
-                animateSaveAndClose(); // Trigger visual feedback
-            });
-
-            // 2. Reject All (Modal)
-            document.getElementById('btn-reject-all-modal').addEventListener('click', () => {
-                consentState = { ...consentState, performance: false, functional: false, targeting: false };
-                togglePerf.checked = false;
-                toggleFunc.checked = false;
-                toggleTarget.checked = false;
-                
-                applyConsents(consentState);
-                animateSaveAndClose();
-            });
-
-            // 3. Accept All (Modal)
-            document.getElementById('btn-accept-all-modal').addEventListener('click', () => {
-                consentState = { ...consentState, performance: true, functional: true, targeting: true };
-                togglePerf.checked = true;
-                toggleFunc.checked = true;
-                toggleTarget.checked = true;
-                
-                applyConsents(consentState);
-                animateSaveAndClose();
-            });
-
+                // モーダルが開いていればアニメーション、バナーなら即閉じ
+                if (modal.classList.contains('show-modal')) {
+                    animSave();
+                } else {
+                    banner.classList.remove('show');
+                }
+            };
+            
+            // 各ボタンへのイベント割り当て
+            $('btn-reject-all-banner').onclick = $('btn-reject-all-modal').onclick = () => handleAll(false);
+            $('btn-accept-all-banner').onclick = $('btn-accept-all-modal').onclick = () => handleAll(true);
+            
+            // 個別設定の保存ボタン
+            saveBtn.onclick = () => {
+                state.performance = toggles.perf.checked;
+                state.functional = toggles.func.checked;
+                state.targeting = toggles.target.checked;
+                apply(state);
+                animSave();
+            };
         })();
+    })();
     </script>
 </body>
 </html>
