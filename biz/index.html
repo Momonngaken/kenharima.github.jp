@@ -397,6 +397,29 @@
     html.is-global #cookie-banner .lang-ja,
     html.is-global #privacy-modal .lang-ja { display: none !important; }
     html:not(.is-global) #cookie-banner .lang-en,
+        /* --- UX Improvements --- */
+/* 1. スケルトンアニメーション */
+.skeleton{background:linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* 2. クリックフィードバック */
+.hover-card:active, .js-modal-trigger:active{transform:scale(0.985);transition:transform 0.1s ease}
+button:active, a.group:active{transform:scale(0.96);transition:transform 0.1s ease}
+/* 3. モバイル用ボトムシートモーダル */
+@media(max-width:767px){
+    #modal-panel{position:fixed;bottom:0;left:0;right:0;max-height:92vh;border-radius:24px 24px 0 0;transform-origin:bottom}
+    #modal-panel::before{content:'';display:block;width:40px;height:5px;background:#e2e8f0;border-radius:3px;margin:12px auto;shrink:0}
+}
+/* 4. アクセシビリティ & カスタムカーソル */
+:focus-visible{outline:2px solid #0f3c85;outline-offset:2px}
+@media (hover:hover) and (pointer:fine){
+    body{cursor:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="%230f3c85" stroke-width="1.5" opacity="0.3"/></svg>') 8 8, auto}
+    a,button,.js-modal-trigger{cursor:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="%230f3c85" opacity="0.15"/><circle cx="8" cy="8" r="2.5" fill="%230f3c85"/></svg>') 8 8, pointer}
+}
+/* 5. Reduced Motion対応 */
+@media(prefers-reduced-motion:reduce){.fade-in{opacity:1!important;transform:none!important;transition:none!important}}
+/* 6. スクロールスナップの強化 */
+#dev-scroll-container{scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+#dev-scroll-container > div{scroll-snap-align:start;scroll-snap-stop:always}
     html:not(.is-global) #privacy-modal .lang-en { display: none !important; }
     </style>
     
@@ -447,7 +470,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@400;700&family=Syne:wght@700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap"></noscript>
     
     <!-- Language Detection Script -->
@@ -495,9 +518,11 @@
             
             <!-- Profile Photo -->
             <div class="relative group shrink-0">
-                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105 will-change-transform">
-                    <img src="./profile_biz_new.jpg" width="128" height="128" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%]">
-                </div>
+                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white shadow-xl shadow-gray-200/50 transition-transform duration-500 group-hover:scale-105 will-change-transform relative bg-gray-100">
+    <!-- スケルトン層 -->
+    <div id="img-skeleton" class="absolute inset-0 skeleton z-10"></div>
+    <img src="./profile_biz_new.jpg" width="128" height="128" alt="Ken HARIMA (播磨賢) - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] relative z-20" onload="document.getElementById('img-skeleton').style.opacity='0';setTimeout(()=>document.getElementById('img-skeleton').remove(),300)">
+</div>
             </div>
 
             <!-- Text Area -->
@@ -1648,11 +1673,12 @@
     </div>
 
 
-    <!-- GSAP & Lenis (Defer loading) -->
+    <!-- ページ遷移を高速化する instant.page (Hover時にプリフェッチ) -->
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.js" type="module" defer></script>
+    <!-- GSAP & Lenis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer></script>
-
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
             // Delay initialization to prioritize painting
@@ -1677,19 +1703,35 @@
 
                 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                     gsap.registerPlugin(ScrollTrigger);
+                    // 視覚的なリズムを作るため、一括ではなく順次表示（スタガード）を適用
+                    const sections = gsap.utils.toArray('.fade-in');
+                    sections.forEach((section, i) => {
+                        gsap.to(section, { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 0.8, 
+                            delay: 0.05, // わずかな遅延で流れるような演出
+                            ease: "power2.out", 
+                            scrollTrigger: { 
+                                trigger: section, 
+                                start: "top 92%", 
+                                toggleActions: "play none none none", 
+                                once: true 
+                            } 
+                        });
+                    });
 
-                    gsap.utils.toArray('.fade-in').forEach(section => {
-                        gsap.to(section, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 1,
-                            ease: "power3.out",
-                            scrollTrigger: {
-                                trigger: section,
-                                start: "top 95%", 
-                                toggleActions: "play none none none",
-                                once: true
-                            }
+                    // ページ遷移アニメーション (View Transitions API 対応)
+                    document.querySelectorAll('a[href^="./"]').forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            if (!document.startViewTransition || e.target.closest('[download]')) return;
+                            e.preventDefault();
+                            document.startViewTransition(() => {
+                                window.location.href = link.href;
+                            });
+                        });
+                    });
+                }
                         });
                     });
                 }
@@ -1971,24 +2013,13 @@
                 modal.classList.add('flex');
 
                 gsap.killTweensOf([modalBg, modalPanel]);
-                gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
+               const isMobile = window.innerWidth < 768;
+                gsap.to(modalBg, { opacity: 1, duration: 0.4, ease: "power2.out" });
                 gsap.fromTo(modalPanel, 
-                    { opacity: 0, scale: 0.9, y: 30, rotationX: 10 },
-                    { 
-                        opacity: 1, 
-                        scale: 1, 
-                        y: 0, 
-                        rotationX: 0, 
-                        duration: 0.6, 
-                        ease: "back.out(1.2)",
-                        // ユーザーの意識(フォーカス)をスクロール領域へ即座に接続
-                        onComplete: () => { 
-                            modalPanel.focus(); 
-                            if(modalScrollContainer) modalScrollContainer.focus();
-                        }
-                    }
+                    { opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? '100%' : 20 }, 
+                    { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: isMobile ? "power3.out" : "back.out(1.4)", 
+                      onComplete: () => { modalPanel.focus(); if(modalScrollContainer) modalScrollContainer.focus(); } }
                 );
-
                 isModalOpen = true;
             });
 
