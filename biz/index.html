@@ -1447,7 +1447,7 @@
             setupScrollFade('dev-scroll-container', 'dev-nudge', false);
 
             // Modal Logic
-           const modalData = {
+            const modalData = {
                 "poker": {
                     sub_ja: "ゲーム理論 / 確率統計",
                     sub_en: "Game Theory / Statistics",
@@ -1455,81 +1455,55 @@
                     title_en: "Overseas Poker Implementation\n532% ROI",
                     body_ja: `2023年10月〜2024年2月にかけて、欧州留学中の私は「不確実な状況下における最適解の導出」をテーマに、ポーカー（ノーリミット・テキサスホールデム）を実践的なプロジェクトとして遂行しました。これは単なる遊興ではなく、確率・統計に基づくゲーム理論と、数十万ハンドの解析データに裏打ちされた戦略的投資です。\n\n学業という本分を遵守するため、<strong>「総プレイ時間 175時間52分」という厳格なリソース制限を設け</strong>つつ、世界8都市の異なるフィールド特性に適応しながら計26セッションを展開しました。結果、一時的な最高ROI（投資利益率）は927.125%を記録し、最終的に532%のROI、計€5,056（約92万8千円）の純利益を計上。時給換算で約5,300円（€28.75）という高水準なパフォーマンスを維持しました。\n\n感情を排し、期待値（EV）を積み上げるこのプロセスで培った冷徹な判断力とリスク管理能力は、現在のビジネスにおける戦略立案の礎となっています。\n\n<div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest uppercase text-right">Field Logs: 🇩🇪Wiesbaden, 🇫🇷Paris, 🇨🇭Zürich, 🇫🇮Helsinki etc.</div>
 
-                    <!-- Section Divider: 国内大型大会実績 -->
-                    <div class="relative mt-4 mb-8" style="white-space:normal">
-                        <div class="w-full h-px" style="background:linear-gradient(90deg,transparent 0%,#d1d5db 30%,#d1d5db 70%,transparent 100%)"></div>
-                        <div class="absolute left-1/2 -translate-x-1/2 -top-3 bg-white px-4">
-                            <span class="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase whitespace-nowrap">国内大型大会実績</span>
-                        </div>
-                    </div>
+                    <!-- Divider -->
+                    <div class="w-full h-px bg-gray-200 mt-1 mb-5"></div>
 
-                    <!-- JOPT Cinematic Hero Card -->
-                    <div style="white-space:normal">
-                        <div class="relative w-full rounded-xl overflow-hidden group cursor-default" style="aspect-ratio:3/2">
-                            <img src="./poker_jopt.jpg" alt="JOPT 2024" class="w-full h-full object-cover transition-all duration-700" style="object-position:center 20%;filter:grayscale(15%) brightness(0.95);transform:scale(1.03)" onmouseover="this.style.filter='grayscale(0%) brightness(1)';this.style.transform='scale(1)'" onmouseout="this.style.filter='grayscale(15%) brightness(0.95)';this.style.transform='scale(1.03)'">
-                            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.35) 40%,rgba(0,0,0,.05) 100%)"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6 flex items-end justify-between gap-4">
-                                <div>
-                                    <div class="flex items-center gap-2 mb-1.5">
-                                        <span class="inline-block w-1 h-3.5 rounded-full" style="background:#22d3ee"></span>
-                                        <span class="text-[9px] font-bold tracking-[0.2em] uppercase" style="color:rgba(209,213,219,.9)">Tournament Record</span>
-                                    </div>
-                                    <h4 class="text-base md:text-lg font-bold text-white leading-tight">JOPT 2024 Tokyo</h4>
-                                    <div class="text-[11px] font-medium mt-0.5" style="color:rgba(209,213,219,.7)">Poker Players Championship</div>
-                                </div>
-                                <div class="text-right leading-none shrink-0">
-                                    <div class="font-display font-bold text-white tracking-tighter" style="font-size:3.25rem;text-shadow:0 2px 24px rgba(0,0,0,.5)">107<span class="text-lg ml-0.5 font-bold" style="color:rgba(255,255,255,.4)">th</span></div>
-                                    <div class="text-[10px] font-mono font-medium mt-1.5" style="color:rgba(209,213,219,.8)">
-                                        <span class="px-1.5 py-0.5 rounded border" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.9);backdrop-filter:blur(4px)">Top 4.2%</span> / 2,511 Entries
-                                    </div>
-                                </div>
+                    <!-- JOPT Section: Profile Card Layout -->
+                    <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                        
+                        <!-- 1. Photo Column (Smart Crop) -->
+                        <div class="shrink-0 mx-auto sm:mx-0 w-24 sm:w-32 relative group">
+                            <div class="aspect-[3/4] w-full rounded overflow-hidden shadow-sm border border-gray-100 relative">
+                                <!-- ★ここに画像ファイル名を指定してください★ -->
+                                <img src="./poker_jopt.jpg" alt="JOPT 2024" class="w-full h-full object-cover object-top filter grayscale-[20%] group-hover:grayscale-0 transition-all duration-500">
+                                <!-- Glint Effect -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-bizAccent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             </div>
                         </div>
 
-                        <!-- Body Text — same scale as overseas section -->
-                        <p class="text-gray-600 leading-relaxed text-justify mt-5" style="white-space:normal">主戦場はキャッシュゲームであり、トーナメントは本領ではない。しかし、2,511名がエントリーした国内最大規模のフィールドにおいて、あえてその「不慣れ」を武器に変えた。採った戦略は、分散の最小化——<strong>GTO（ゲーム理論最適戦略）</strong>をベースとしながらも、対戦相手の傾向や卓上の偏りを観察し、理論上の正解をあえて崩す。相手と状況に特化した期待値の最大化を、2日間にわたる長時間のプレイの中で一貫して実行し続けた。終盤では、<strong>ICM（Independent Chip Model）</strong>を考慮した生存戦略へとギアを切り替え、「生き残ること」と「チップを増やすこと」の相反する要請を、一手ごとに秤にかけながらファイナルフェーズまで耐え抜いた。107位という結果は、短期的な運の偏りではない。長時間にわたる意思決定の精度——観察、判断、抑制、そして勝負所での決断力——が試される場での、再現可能な実力の証明である。</p>
+                        <!-- 2. Data & Text Column -->
+                        <div class="flex-1 min-w-0">
+                            <!-- Header & Stats Row -->
+                            <div class="flex flex-wrap items-end justify-between gap-x-2 gap-y-2 mb-3">
+                                <!-- Title -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="w-1 h-3 bg-bizAccent"></span>
+                                        <span class="text-[9px] font-bold tracking-[0.2em] text-gray-400 uppercase">Tournament Record</span>
+                                    </div>
+                                    <h4 class="text-sm font-bold text-gray-900 leading-none">
+                                        JOPT 2024 Tokyo
+                                    </h4>
+                                    <div class="text-[10px] font-medium text-gray-500 mt-0.5">Poker Players Championship</div>
+                                </div>
+                                
+                                <!-- Big Stats -->
+                                <div class="text-right leading-none ml-auto">
+                                    <div class="text-5xl font-display font-bold text-bizAccent tracking-tighter">107<span class="text-lg ml-0.5 font-bold text-bizAccent/50">th</span></div>
+                                    <div class="text-[10px] font-mono font-medium text-gray-500 mt-1">
+                                        <span class="bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">Top 4.2%</span> / 2,511 Entries
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Body Text -->
+                            <p class="text-xs text-gray-600 leading-relaxed text-justify border-l-2 border-gray-100 pl-3">
+                                主戦場はキャッシュゲームであり、トーナメントは本領ではない。しかし、2,511名がエントリーした国内最大規模のフィールドにおいて、あえてその「不慣れ」を武器に変えた。採った戦略は、分散の最小化——<strong>GTO（ゲーム理論最適戦略）</strong>をベースとしながらも、対戦相手の傾向や卓上の偏りを観察し、理論上の正解をあえて崩す。相手と状況に特化した期待値の最大化を、2日間にわたる長時間のプレイの中で一貫して実行し続けた。終盤では、<strong>ICM（Independent Chip Model）</strong>を考慮した生存戦略へとギアを切り替え、「生き残ること」と「チップを増やすこと」の相反する要請を、一手ごとに秤にかけながらファイナルフェーズまで耐え抜いた。107位という結果は、短期的な運の偏りではない。長時間にわたる意思決定の精度——観察、判断、抑制、そして勝負所での決断力——が試される場での、再現可能な実力の証明である。
+                            </p>
+                        </div>
                     </div>`,
                     
                     body_en: `From October 2023 to February 2024, while studying abroad in Europe, I executed a practical project centered on "deriving optimal solutions under uncertainty" through No-Limit Texas Hold'em. This was not mere gambling, but a strategic investment grounded in Game Theory, probability, statistics, and the analysis of hundreds of thousands of hands.\n\nStrictly adhering to my academic responsibilities, I set a rigid resource cap of "175 hours and 52 minutes of total play." I adapted to the specific field characteristics of eight different global cities across 26 sessions. The project yielded a temporary peak ROI (Return on Investment) of 927.125%, finishing with a final ROI of 532% and a net profit of €5,056 (approx. 928,000 JPY). This translated to a high-performance hourly rate of approximately €28.75.\n\nThe process of eliminating emotion to consistently accumulate expected value honed the cold judgment and risk management skills that now form the foundation of my business strategy formulation.\n\n<div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest uppercase text-right">Field Logs: 🇩🇪Wiesbaden, 🇫🇷Paris, 🇨🇭Zürich, 🇫🇮Helsinki etc.</div>
-
-                    <!-- Section Divider: Domestic Major Tournament -->
-                    <div class="relative mt-4 mb-8" style="white-space:normal">
-                        <div class="w-full h-px" style="background:linear-gradient(90deg,transparent 0%,#d1d5db 30%,#d1d5db 70%,transparent 100%)"></div>
-                        <div class="absolute left-1/2 -translate-x-1/2 -top-3 bg-white px-4">
-                            <span class="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase whitespace-nowrap">Domestic Major Tournament</span>
-                        </div>
-                    </div>
-
-                    <!-- JOPT Cinematic Hero Card -->
-                    <div style="white-space:normal">
-                        <div class="relative w-full rounded-xl overflow-hidden group cursor-default" style="aspect-ratio:3/2">
-                            <img src="./poker_jopt.jpg" alt="JOPT 2024" class="w-full h-full object-cover transition-all duration-700" style="object-position:center 20%;filter:grayscale(15%) brightness(0.95);transform:scale(1.03)" onmouseover="this.style.filter='grayscale(0%) brightness(1)';this.style.transform='scale(1)'" onmouseout="this.style.filter='grayscale(15%) brightness(0.95)';this.style.transform='scale(1.03)'">
-                            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.35) 40%,rgba(0,0,0,.05) 100%)"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6 flex items-end justify-between gap-4">
-                                <div>
-                                    <div class="flex items-center gap-2 mb-1.5">
-                                        <span class="inline-block w-1 h-3.5 rounded-full" style="background:#22d3ee"></span>
-                                        <span class="text-[9px] font-bold tracking-[0.2em] uppercase" style="color:rgba(209,213,219,.9)">Tournament Record</span>
-                                    </div>
-                                    <h4 class="text-base md:text-lg font-bold text-white leading-tight">JOPT 2024 Tokyo</h4>
-                                    <div class="text-[11px] font-medium mt-0.5" style="color:rgba(209,213,219,.7)">Poker Players Championship</div>
-                                </div>
-                                <div class="text-right leading-none shrink-0">
-                                    <div class="font-display font-bold text-white tracking-tighter" style="font-size:3.25rem;text-shadow:0 2px 24px rgba(0,0,0,.5)">107<span class="text-lg ml-0.5 font-bold" style="color:rgba(255,255,255,.4)">th</span></div>
-                                    <div class="text-[10px] font-mono font-medium mt-1.5" style="color:rgba(209,213,219,.8)">
-                                        <span class="px-1.5 py-0.5 rounded border" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.9);backdrop-filter:blur(4px)">Top 4.2%</span> / 2,511 Entries
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Body Text — same scale as overseas section -->
-                        <p class="text-gray-600 leading-relaxed text-justify mt-5" style="white-space:normal">My primary arena is cash games; tournaments are not my natural domain. Yet in a field of 2,511 entrants — the largest domestic tournament of its kind — I chose to turn that very unfamiliarity into an edge. The strategy I employed was one of variance minimization. While grounded in <strong>GTO (Game Theory Optimal)</strong> principles, I deliberately deviated from theoretically correct play, reading opponents' tendencies and exploiting situational imbalances at the table. I committed to maximizing expected value against specific players and specific conditions, sustaining this approach with discipline across two grueling days of play. In the later stages, I shifted gears toward a survival-oriented strategy informed by <strong>ICM (Independent Chip Model)</strong>, weighing the competing imperatives of preservation and accumulation on every single decision through to the final phase. Finishing 107th was not a product of short-term variance. It was a demonstration of reproducible skill — tested over an extended period where the quality of decision-making is everything: observation, judgment, restraint, and the resolve to act decisively when the moment demands it.</p>
-                    </div>`
-                },
-                
-                    
-                    body_en: `From October 2023 to February 2024, while studying abroad in Europe, I executed a practical project centered on "deriving optimal solutions under uncertainty" through No-Limit Texas Hold'em. This was not mere gambling, but a strategic investment grounded in Game Theory, probability, statistics, and the analysis of hundreds of thousands of hands.\n\nStrictly adhering to my academic responsibilities, I set a rigid resource cap of "175 hours and 52 minutes of total play." I adapted to the specific field characteristics of eight different global cities across 26 sessions. The project yielded a temporary peak ROI (Return on Investment) of 927.125%, finishing with a final ROI of 532% and a net profit of €5,056 (approx. 928,000 JPY). This translated to a high-performance hourly rate of approximately €28.75.\n\nThe process of eliminating emotion to consistently accumulate expected value honed the cold judgment and risk management skills that now form the foundation of my business strategy formulation.\n\n<div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest uppercase text-right">Field Logs: 🇩🇪Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr,/🇫🇷Paris, 🇨🇭Zürich, 🇫🇮Helsinki etc.</div>
 
                     <!-- Divider -->
                     <div class="w-full h-px bg-gray-200 mt-1 mb-5"></div>
