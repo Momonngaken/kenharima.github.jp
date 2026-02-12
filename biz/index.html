@@ -1455,7 +1455,7 @@
                     title_en: "Overseas Poker Implementation\n532% ROI",
                     
                     /* =================================================================
-                       BODY JA: JOPT部分を「雑誌カバースタイル」に刷新
+                       BODY JA: JOPT部分を「雑誌カバー風」に完全リデザイン
                        ================================================================= */
                     body_ja: `2023年10月〜2024年2月にかけて、欧州留学中の私は「不確実な状況下における最適解の導出」をテーマに、ポーカー（ノーリミット・テキサスホールデム）を実践的なプロジェクトとして遂行しました。これは単なる遊興ではなく、確率・統計に基づくゲーム理論と、数十万ハンドの解析データに裏打ちされた戦略的投資です。\n\n学業という本分を遵守するため、<strong>「総プレイ時間 175時間52分」という厳格なリソース制限を設け</strong>つつ、世界8都市の異なるフィールド特性に適応しながら計26セッションを展開しました。結果、一時的な最高ROI（投資利益率）は927.125%を記録し、最終的に532%のROI、計€5,056（約92万8千円）の純利益を計上。時給換算で約5,300円（€28.75）という高水準なパフォーマンスを維持しました。\n\n感情を排し、期待値（EV）を積み上げるこのプロセスで培った冷徹な判断力とリスク管理能力は、現在のビジネスにおける戦略立案の礎となっています。\n\n<div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest uppercase text-right">Field Logs: 🇩🇪Wiesbaden, 🇫🇷Paris, 🇨🇭Zürich, 🇫🇮Helsinki etc.</div>
 
@@ -1474,22 +1474,22 @@
                         </div>
 
                         <!-- 
-                           MAGAZINE COVER LAYOUT:
-                           画像と情報を左右に分割し、ランクを「カード」として浮かせるデザイン
+                           ★ MAGAZINE COVER LAYOUT ★
+                           画像と情報を左右に分割・統合し、ランクを「カード」として浮かせたデザイン
                         -->
-                        <div class="bg-white rounded-2xl shadow-2xl shadow-gray-200/50 border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-10">
+                        <div class="bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-10 group">
                             
                             <!-- LEFT: Visual Area (Just-Fit Image) -->
-                            <!-- relative + absolute inset-0 で画像をコンテナに完全にフィットさせ、余白を排除 -->
-                            <div class="relative w-full sm:w-[260px] min-h-[380px] sm:min-h-auto shrink-0 group">
+                            <!-- absolute inset-0 で画像をコンテナに完全にフィットさせ、上部の余白を完全排除 -->
+                            <div class="relative w-full sm:w-[260px] min-h-[400px] sm:min-h-auto shrink-0">
                                 <img src="./poker_jopt.jpg" alt="JOPT 2024 Performance" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
                                 
                                 <!-- ★ RANK CARD: 画像上に浮遊する白いカードデザイン -->
-                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 rounded-2xl border border-white/50 text-center min-w-[100px] transform transition-transform duration-500 group-hover:-translate-y-1">
+                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 rounded-2xl border border-white/50 text-center min-w-[110px] transform transition-transform duration-500 group-hover:-translate-y-1">
                                     <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Official Result</div>
                                     <div class="flex items-start justify-center leading-none text-bizAccent">
-                                        <span class="text-5xl font-display font-bold tracking-tighter">107</span>
+                                        <span class="text-6xl font-display font-bold tracking-tighter">107</span>
                                         <span class="text-sm font-bold mt-1 ml-0.5 opacity-80">th</span>
                                     </div>
                                 </div>
@@ -1498,27 +1498,27 @@
                             <!-- RIGHT: Information Area -->
                             <div class="flex-1 p-8 sm:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-gray-50 relative">
                                 <!-- Background Watermark -->
-                                <i class="fa-solid fa-crown absolute top-4 right-6 text-9xl text-gray-100/50 -rotate-12 pointer-events-none"></i>
+                                <i class="fa-solid fa-crown absolute top-6 right-6 text-[10rem] text-gray-100/60 -rotate-12 pointer-events-none mix-blend-multiply"></i>
 
                                 <!-- Title -->
-                                <div class="relative z-10 mb-8">
+                                <div class="relative z-10 mb-10">
                                     <div class="flex items-center gap-2 mb-2">
                                         <span class="w-1.5 h-1.5 bg-bizAccent rounded-full animate-pulse"></span>
                                         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Grand Tournament</span>
                                     </div>
-                                    <h3 class="text-3xl font-display font-bold text-gray-900 leading-tight mb-1">JOPT 2024</h3>
+                                    <h3 class="text-4xl font-display font-bold text-gray-900 leading-none mb-2 tracking-tight">JOPT 2024</h3>
                                     <p class="text-sm font-serif italic text-gray-500">Poker Players Championship, Tokyo</p>
                                 </div>
 
                                 <!-- Metrics Grid -->
-                                <div class="grid grid-cols-2 gap-6 relative z-10">
+                                <div class="grid grid-cols-2 gap-8 relative z-10 border-t border-dashed border-gray-200 pt-8">
                                     <!-- Performance Metric -->
                                     <div class="group/metric">
                                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-bizAccent transition-colors">Performance</p>
                                         <div class="flex items-baseline gap-1">
-                                            <span class="text-lg font-bold text-gray-400">TOP</span>
-                                            <span class="text-4xl font-display font-bold text-bizAccent tracking-tighter">4.2</span>
-                                            <span class="text-lg font-bold text-bizAccent">%</span>
+                                            <span class="text-lg font-bold text-gray-300">TOP</span>
+                                            <span class="text-5xl font-display font-bold text-bizAccent tracking-tighter">4.2</span>
+                                            <span class="text-xl font-bold text-bizAccent">%</span>
                                         </div>
                                     </div>
                                     
@@ -1526,7 +1526,7 @@
                                     <div class="group/metric">
                                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-gray-600 transition-colors">Field Scale</p>
                                         <div class="flex items-baseline gap-1">
-                                            <span class="text-3xl font-display font-bold text-gray-800 tracking-tight">2,511</span>
+                                            <span class="text-3xl font-display font-bold text-gray-700 tracking-tight">2,511</span>
                                             <span class="text-[10px] font-bold text-gray-400 uppercase">Entries</span>
                                         </div>
                                     </div>
@@ -1562,18 +1562,18 @@
                         </div>
 
                         <!-- MAGAZINE COVER LAYOUT (EN) -->
-                        <div class="bg-white rounded-2xl shadow-2xl shadow-gray-200/50 border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-10">
+                        <div class="bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-10 group">
                             
                             <!-- LEFT: Visual Area -->
-                            <div class="relative w-full sm:w-[260px] min-h-[380px] sm:min-h-auto shrink-0 group">
+                            <div class="relative w-full sm:w-[260px] min-h-[400px] sm:min-h-auto shrink-0">
                                 <img src="./poker_jopt.jpg" alt="JOPT 2024 Performance" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
                                 
                                 <!-- ★ RANK CARD -->
-                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 rounded-2xl border border-white/50 text-center min-w-[100px] transform transition-transform duration-500 group-hover:-translate-y-1">
+                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 rounded-2xl border border-white/50 text-center min-w-[110px] transform transition-transform duration-500 group-hover:-translate-y-1">
                                     <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Official Result</div>
                                     <div class="flex items-start justify-center leading-none text-bizAccent">
-                                        <span class="text-5xl font-display font-bold tracking-tighter">107</span>
+                                        <span class="text-6xl font-display font-bold tracking-tighter">107</span>
                                         <span class="text-sm font-bold mt-1 ml-0.5 opacity-80">th</span>
                                     </div>
                                 </div>
@@ -1582,27 +1582,27 @@
                             <!-- RIGHT: Information Area -->
                             <div class="flex-1 p-8 sm:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-gray-50 relative">
                                 <!-- Background Watermark -->
-                                <i class="fa-solid fa-crown absolute top-4 right-6 text-9xl text-gray-100/50 -rotate-12 pointer-events-none"></i>
+                                <i class="fa-solid fa-crown absolute top-6 right-6 text-[10rem] text-gray-100/60 -rotate-12 pointer-events-none mix-blend-multiply"></i>
 
                                 <!-- Title -->
-                                <div class="relative z-10 mb-8">
+                                <div class="relative z-10 mb-10">
                                     <div class="flex items-center gap-2 mb-2">
                                         <span class="w-1.5 h-1.5 bg-bizAccent rounded-full animate-pulse"></span>
                                         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Grand Tournament</span>
                                     </div>
-                                    <h3 class="text-3xl font-display font-bold text-gray-900 leading-tight mb-1">JOPT 2024</h3>
+                                    <h3 class="text-4xl font-display font-bold text-gray-900 leading-none mb-2 tracking-tight">JOPT 2024</h3>
                                     <p class="text-sm font-serif italic text-gray-500">Poker Players Championship, Tokyo</p>
                                 </div>
 
                                 <!-- Metrics Grid -->
-                                <div class="grid grid-cols-2 gap-6 relative z-10">
+                                <div class="grid grid-cols-2 gap-8 relative z-10 border-t border-dashed border-gray-200 pt-8">
                                     <!-- Performance Metric -->
                                     <div class="group/metric">
                                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-bizAccent transition-colors">Performance</p>
                                         <div class="flex items-baseline gap-1">
-                                            <span class="text-lg font-bold text-gray-400">TOP</span>
-                                            <span class="text-4xl font-display font-bold text-bizAccent tracking-tighter">4.2</span>
-                                            <span class="text-lg font-bold text-bizAccent">%</span>
+                                            <span class="text-lg font-bold text-gray-300">TOP</span>
+                                            <span class="text-5xl font-display font-bold text-bizAccent tracking-tighter">4.2</span>
+                                            <span class="text-xl font-bold text-bizAccent">%</span>
                                         </div>
                                     </div>
                                     
@@ -1610,7 +1610,7 @@
                                     <div class="group/metric">
                                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-gray-600 transition-colors">Field Scale</p>
                                         <div class="flex items-baseline gap-1">
-                                            <span class="text-3xl font-display font-bold text-gray-800 tracking-tight">2,511</span>
+                                            <span class="text-3xl font-display font-bold text-gray-700 tracking-tight">2,511</span>
                                             <span class="text-[10px] font-bold text-gray-400 uppercase">Entries</span>
                                         </div>
                                     </div>
