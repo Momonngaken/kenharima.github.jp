@@ -1455,90 +1455,87 @@
                     title_en: "Overseas Poker Implementation\n532% ROI",
                     
                     /* =================================================================
-                       BODY JA: 前半は維持。後半(JOPT)を「分析レポート型」デザインに刷新
+                       BODY JA: JOPT部分を「雑誌カバースタイル」に刷新
                        ================================================================= */
                     body_ja: `2023年10月〜2024年2月にかけて、欧州留学中の私は「不確実な状況下における最適解の導出」をテーマに、ポーカー（ノーリミット・テキサスホールデム）を実践的なプロジェクトとして遂行しました。これは単なる遊興ではなく、確率・統計に基づくゲーム理論と、数十万ハンドの解析データに裏打ちされた戦略的投資です。\n\n学業という本分を遵守するため、<strong>「総プレイ時間 175時間52分」という厳格なリソース制限を設け</strong>つつ、世界8都市の異なるフィールド特性に適応しながら計26セッションを展開しました。結果、一時的な最高ROI（投資利益率）は927.125%を記録し、最終的に532%のROI、計€5,056（約92万8千円）の純利益を計上。時給換算で約5,300円（€28.75）という高水準なパフォーマンスを維持しました。\n\n感情を排し、期待値（EV）を積み上げるこのプロセスで培った冷徹な判断力とリスク管理能力は、現在のビジネスにおける戦略立案の礎となっています。\n\n<div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest uppercase text-right">Field Logs: 🇩🇪Wiesbaden, 🇫🇷Paris, 🇨🇭Zürich, 🇫🇮Helsinki etc.</div>
 
-                    <!-- Divider with Data Point -->
-                    <div class="relative flex items-center py-10">
+                    <!-- Divider -->
+                    <div class="relative flex items-center py-12">
                         <div class="flex-grow border-t border-gray-200"></div>
                         <span class="flex-shrink-0 mx-4 text-gray-300 text-[10px] font-mono tracking-widest uppercase"><i class="fa-solid fa-code-branch mr-1"></i>Domestic Phase</span>
                         <div class="flex-grow border-t border-gray-200"></div>
                     </div>
 
-                    <!-- 国内大型大会実績セクション (Creative Redesign) -->
+                    <!-- 国内大型大会実績セクション -->
                     <div class="relative">
-                        <!-- Section Header -->
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-1 h-6 bg-bizAccent"></div>
-                            <h4 class="text-sm font-bold tracking-[0.2em] text-gray-600 uppercase">国内大型大会実績</h4>
+                        <div class="flex items-center gap-3 mb-8">
+                            <span class="w-2 h-6 bg-bizAccent rounded-sm"></span>
+                            <span class="text-xs font-bold tracking-[0.3em] text-gray-500 uppercase">国内大型大会実績</span>
                         </div>
 
                         <!-- 
-                           HERO CARD LAYOUT: 
-                           画像とデータを「一つの分析カード」として統合。
-                           影を落とし、白ベースで清潔感と知性を演出。
+                           MAGAZINE COVER LAYOUT:
+                           画像と情報を左右に分割し、ランクを「カード」として浮かせるデザイン
                         -->
-                        <div class="bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-8">
+                        <div class="bg-white rounded-2xl shadow-2xl shadow-gray-200/50 border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-10">
                             
-                            <!-- LEFT: Visual Pillar (Image) -->
-                            <!-- 画像を「帯」として使い、縦長写真の顔部分(Top)を確実に捉える -->
-                            <div class="relative w-full sm:w-[200px] h-[250px] sm:h-auto shrink-0 bg-gray-100">
-                                <img src="./poker_jopt.jpg" alt="JOPT 2024 Performance" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
-                                <!-- Overlay Gradient for Integration -->
-                                <div class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-bizAccent/80 via-transparent to-transparent opacity-60 mix-blend-multiply"></div>
+                            <!-- LEFT: Visual Area (Just-Fit Image) -->
+                            <!-- relative + absolute inset-0 で画像をコンテナに完全にフィットさせ、余白を排除 -->
+                            <div class="relative w-full sm:w-[260px] min-h-[380px] sm:min-h-auto shrink-0 group">
+                                <img src="./poker_jopt.jpg" alt="JOPT 2024 Performance" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
                                 
-                                <!-- Floating Rank Badge (Image Overlay) -->
-                                <div class="absolute top-4 left-4">
-                                    <span class="inline-flex flex-col items-center justify-center w-12 h-12 rounded-lg bg-white/95 backdrop-blur-sm shadow-sm border border-white/50 text-bizAccent">
-                                        <span class="text-[8px] font-bold uppercase tracking-tighter leading-none mt-1">Rank</span>
-                                        <span class="text-xl font-display font-bold leading-none">107</span>
-                                    </span>
+                                <!-- ★ RANK CARD: 画像上に浮遊する白いカードデザイン -->
+                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 rounded-2xl border border-white/50 text-center min-w-[100px] transform transition-transform duration-500 group-hover:-translate-y-1">
+                                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Official Result</div>
+                                    <div class="flex items-start justify-center leading-none text-bizAccent">
+                                        <span class="text-5xl font-display font-bold tracking-tighter">107</span>
+                                        <span class="text-sm font-bold mt-1 ml-0.5 opacity-80">th</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- RIGHT: Data Grid (Content) -->
-                            <div class="flex-1 p-6 sm:p-8 flex flex-col justify-center relative">
-                                <!-- Background Decoration -->
-                                <div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                                    <i class="fa-solid fa-trophy text-8xl"></i>
-                                </div>
+                            <!-- RIGHT: Information Area -->
+                            <div class="flex-1 p-8 sm:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-gray-50 relative">
+                                <!-- Background Watermark -->
+                                <i class="fa-solid fa-crown absolute top-4 right-6 text-9xl text-gray-100/50 -rotate-12 pointer-events-none"></i>
 
-                                <!-- Title Area -->
-                                <div class="mb-6 relative z-10">
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <span class="px-1.5 py-0.5 rounded-sm bg-blue-50 text-bizAccent text-[9px] font-bold uppercase tracking-wider border border-blue-100">Official Result</span>
+                                <!-- Title -->
+                                <div class="relative z-10 mb-8">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="w-1.5 h-1.5 bg-bizAccent rounded-full animate-pulse"></span>
+                                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Grand Tournament</span>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-gray-900 leading-tight">JOPT 2024 Tokyo</h3>
-                                    <p class="text-xs text-gray-500 font-mono mt-1 tracking-wide">Poker Players Championship</p>
+                                    <h3 class="text-3xl font-display font-bold text-gray-900 leading-tight mb-1">JOPT 2024</h3>
+                                    <p class="text-sm font-serif italic text-gray-500">Poker Players Championship, Tokyo</p>
                                 </div>
 
-                                <!-- Key Metrics: Split Layout -->
-                                <div class="flex flex-row items-end gap-6 pb-2 border-b border-dashed border-gray-200">
-                                    <!-- Big Metric -->
-                                    <div class="flex flex-col">
-                                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Performance</span>
-                                        <div class="flex items-baseline text-bizAccent">
-                                            <span class="text-sm font-bold mr-1">TOP</span>
-                                            <span class="text-4xl sm:text-5xl font-display font-bold tracking-tighter">4.2</span>
-                                            <span class="text-xl font-bold ml-0.5">%</span>
+                                <!-- Metrics Grid -->
+                                <div class="grid grid-cols-2 gap-6 relative z-10">
+                                    <!-- Performance Metric -->
+                                    <div class="group/metric">
+                                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-bizAccent transition-colors">Performance</p>
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-lg font-bold text-gray-400">TOP</span>
+                                            <span class="text-4xl font-display font-bold text-bizAccent tracking-tighter">4.2</span>
+                                            <span class="text-lg font-bold text-bizAccent">%</span>
                                         </div>
                                     </div>
                                     
-                                    <!-- Secondary Metric -->
-                                    <div class="flex flex-col pb-1.5">
-                                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Field Size</span>
-                                        <div class="flex items-baseline text-gray-700">
-                                            <span class="text-xl font-display font-bold tracking-tight">2,511</span>
-                                            <span class="text-[10px] ml-1 font-medium text-gray-400">Entries</span>
+                                    <!-- Field Size Metric -->
+                                    <div class="group/metric">
+                                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-gray-600 transition-colors">Field Scale</p>
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-3xl font-display font-bold text-gray-800 tracking-tight">2,511</span>
+                                            <span class="text-[10px] font-bold text-gray-400 uppercase">Entries</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Body Text (Full Width) -->
-                        <div class="relative pl-4 border-l-2 border-bizAccent/10">
+                        <!-- Narrative Text -->
+                        <div class="relative pl-5 border-l-2 border-bizAccent/20">
                             <p class="text-[15px] leading-8 text-gray-700 text-justify">
                                 主戦場はキャッシュゲームであり、トーナメントは本領ではない。しかし、2,511名がエントリーした国内最大規模のフィールドにおいて、あえてその「不慣れ」を武器に変えた。採った戦略は、分散の最小化——<strong>GTO（ゲーム理論最適戦略）</strong>をベースとしながらも、対戦相手の傾向や卓上の偏りを観察し、理論上の正解をあえて崩す。相手と状況に特化した期待値の最大化を、2日間にわたる長時間のプレイの中で一貫して実行し続けた。終盤では、<strong>ICM（Independent Chip Model）</strong>を考慮した生存戦略へとギアを切り替え、「生き残ること」と「チップを増やすこと」の相反する要請を、一手ごとに秤にかけながらファイナルフェーズまで耐え抜いた。107位という結果は、短期的な運の偏りではない。長時間にわたる意思決定の精度——観察、判断、抑制、そこで勝負所での決断力——が試される場での、再現可能な実力の証明である。
                             </p>
@@ -1546,85 +1543,83 @@
                     </div>`,
                     
                     /* =================================================================
-                       BODY EN: 英語も同様のクリエイティブ・デザインを適用
+                       BODY EN: 英語も同様のデザインを適用
                        ================================================================= */
                     body_en: `From October 2023 to February 2024, while studying abroad in Europe, I executed a practical project centered on "deriving optimal solutions under uncertainty" through No-Limit Texas Hold'em. This was not mere gambling, but a strategic investment grounded in Game Theory, probability, statistics, and the analysis of hundreds of thousands of hands.\n\nStrictly adhering to my academic responsibilities, I set a rigid resource cap of "175 hours and 52 minutes of total play." I adapted to the specific field characteristics of eight different global cities across 26 sessions. The project yielded a temporary peak ROI (Return on Investment) of 927.125%, finishing with a final ROI of 532% and a net profit of €5,056 (approx. 928,000 JPY). This translated to a high-performance hourly rate of approximately €28.75.\n\nThe process of eliminating emotion to consistently accumulate expected value honed the cold judgment and risk management skills that now form the foundation of my business strategy formulation.\n\n<div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest uppercase text-right">Field Logs: 🇩🇪Wiesbaden, 🇫🇷Paris, 🇨🇭Zürich, 🇫🇮Helsinki etc.</div>
 
-                    <!-- Divider with Data Point -->
-                    <div class="relative flex items-center py-10">
+                    <!-- Divider -->
+                    <div class="relative flex items-center py-12">
                         <div class="flex-grow border-t border-gray-200"></div>
                         <span class="flex-shrink-0 mx-4 text-gray-300 text-[10px] font-mono tracking-widest uppercase"><i class="fa-solid fa-code-branch mr-1"></i>Domestic Phase</span>
                         <div class="flex-grow border-t border-gray-200"></div>
                     </div>
 
-                    <!-- Domestic Achievement Section (Creative Redesign) -->
+                    <!-- Domestic Achievement Section -->
                     <div class="relative">
-                        <!-- Section Header -->
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-1 h-6 bg-bizAccent"></div>
-                            <h4 class="text-sm font-bold tracking-[0.2em] text-gray-600 uppercase">Domestic Tournament Performance</h4>
+                        <div class="flex items-center gap-3 mb-8">
+                            <span class="w-2 h-6 bg-bizAccent rounded-sm"></span>
+                            <span class="text-xs font-bold tracking-[0.3em] text-gray-500 uppercase">Domestic Tournament Performance</span>
                         </div>
 
-                        <!-- HERO CARD LAYOUT -->
-                        <div class="bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-8">
+                        <!-- MAGAZINE COVER LAYOUT (EN) -->
+                        <div class="bg-white rounded-2xl shadow-2xl shadow-gray-200/50 border border-gray-100 overflow-hidden flex flex-col sm:flex-row mb-10">
                             
-                            <!-- LEFT: Visual Pillar -->
-                            <div class="relative w-full sm:w-[200px] h-[250px] sm:h-auto shrink-0 bg-gray-100">
-                                <img src="./poker_jopt.jpg" alt="JOPT 2024 Performance" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
-                                <!-- Gradient -->
-                                <div class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-bizAccent/80 via-transparent to-transparent opacity-60 mix-blend-multiply"></div>
+                            <!-- LEFT: Visual Area -->
+                            <div class="relative w-full sm:w-[260px] min-h-[380px] sm:min-h-auto shrink-0 group">
+                                <img src="./poker_jopt.jpg" alt="JOPT 2024 Performance" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
                                 
-                                <!-- Floating Rank Badge -->
-                                <div class="absolute top-4 left-4">
-                                    <span class="inline-flex flex-col items-center justify-center w-12 h-12 rounded-lg bg-white/95 backdrop-blur-sm shadow-sm border border-white/50 text-bizAccent">
-                                        <span class="text-[8px] font-bold uppercase tracking-tighter leading-none mt-1">Rank</span>
-                                        <span class="text-xl font-display font-bold leading-none">107</span>
-                                    </span>
+                                <!-- ★ RANK CARD -->
+                                <div class="absolute top-6 left-6 bg-white/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-5 rounded-2xl border border-white/50 text-center min-w-[100px] transform transition-transform duration-500 group-hover:-translate-y-1">
+                                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Official Result</div>
+                                    <div class="flex items-start justify-center leading-none text-bizAccent">
+                                        <span class="text-5xl font-display font-bold tracking-tighter">107</span>
+                                        <span class="text-sm font-bold mt-1 ml-0.5 opacity-80">th</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- RIGHT: Data Grid -->
-                            <div class="flex-1 p-6 sm:p-8 flex flex-col justify-center relative">
-                                <!-- Background Decoration -->
-                                <div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                                    <i class="fa-solid fa-trophy text-8xl"></i>
-                                </div>
+                            <!-- RIGHT: Information Area -->
+                            <div class="flex-1 p-8 sm:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-gray-50 relative">
+                                <!-- Background Watermark -->
+                                <i class="fa-solid fa-crown absolute top-4 right-6 text-9xl text-gray-100/50 -rotate-12 pointer-events-none"></i>
 
-                                <!-- Title Area -->
-                                <div class="mb-6 relative z-10">
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <span class="px-1.5 py-0.5 rounded-sm bg-blue-50 text-bizAccent text-[9px] font-bold uppercase tracking-wider border border-blue-100">Official Result</span>
+                                <!-- Title -->
+                                <div class="relative z-10 mb-8">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="w-1.5 h-1.5 bg-bizAccent rounded-full animate-pulse"></span>
+                                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Grand Tournament</span>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-gray-900 leading-tight">JOPT 2024 Tokyo</h3>
-                                    <p class="text-xs text-gray-500 font-mono mt-1 tracking-wide">Poker Players Championship</p>
+                                    <h3 class="text-3xl font-display font-bold text-gray-900 leading-tight mb-1">JOPT 2024</h3>
+                                    <p class="text-sm font-serif italic text-gray-500">Poker Players Championship, Tokyo</p>
                                 </div>
 
-                                <!-- Key Metrics -->
-                                <div class="flex flex-row items-end gap-6 pb-2 border-b border-dashed border-gray-200">
-                                    <!-- Big Metric -->
-                                    <div class="flex flex-col">
-                                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Performance</span>
-                                        <div class="flex items-baseline text-bizAccent">
-                                            <span class="text-sm font-bold mr-1">TOP</span>
-                                            <span class="text-4xl sm:text-5xl font-display font-bold tracking-tighter">4.2</span>
-                                            <span class="text-xl font-bold ml-0.5">%</span>
+                                <!-- Metrics Grid -->
+                                <div class="grid grid-cols-2 gap-6 relative z-10">
+                                    <!-- Performance Metric -->
+                                    <div class="group/metric">
+                                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-bizAccent transition-colors">Performance</p>
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-lg font-bold text-gray-400">TOP</span>
+                                            <span class="text-4xl font-display font-bold text-bizAccent tracking-tighter">4.2</span>
+                                            <span class="text-lg font-bold text-bizAccent">%</span>
                                         </div>
                                     </div>
                                     
-                                    <!-- Secondary Metric -->
-                                    <div class="flex flex-col pb-1.5">
-                                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Field Size</span>
-                                        <div class="flex items-baseline text-gray-700">
-                                            <span class="text-xl font-display font-bold tracking-tight">2,511</span>
-                                            <span class="text-[10px] ml-1 font-medium text-gray-400">Entries</span>
+                                    <!-- Field Size Metric -->
+                                    <div class="group/metric">
+                                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover/metric:text-gray-600 transition-colors">Field Scale</p>
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-3xl font-display font-bold text-gray-800 tracking-tight">2,511</span>
+                                            <span class="text-[10px] font-bold text-gray-400 uppercase">Entries</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Body Text -->
-                        <div class="relative pl-4 border-l-2 border-bizAccent/10">
+                        <!-- Narrative Text -->
+                        <div class="relative pl-5 border-l-2 border-bizAccent/20">
                             <p class="text-[15px] leading-8 text-gray-700 text-justify">
                                 My primary arena is cash games; tournaments are not my natural domain. Yet in a field of 2,511 entrants — the largest domestic tournament of its kind — I chose to turn that very unfamiliarity into an edge. The strategy I employed was one of variance minimization. While grounded in <strong>GTO (Game Theory Optimal)</strong> principles, I deliberately deviated from theoretically correct play, reading opponents' tendencies and exploiting situational imbalances at the table. I committed to maximizing expected value against specific players and specific conditions, sustaining this approach with discipline across two grueling days of play. In the later stages, I shifted gears toward a survival-oriented strategy informed by <strong>ICM (Independent Chip Model)</strong>, weighing the competing imperatives of preservation and accumulation on every single decision through to the final phase. Finishing 107th was not a product of short-term variance. It was a demonstration of reproducible skill — tested over an extended period where the quality of decision-making is everything: observation, judgment, restraint, and the resolve to act decisively when the moment demands it.
                             </p>
