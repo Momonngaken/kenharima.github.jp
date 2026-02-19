@@ -253,16 +253,29 @@
             }
         </style>
 
+        <!-- Nudge Custom Animation -->
+        <style>
+            @keyframes swipe-gesture {
+                0% { transform: translateX(8px); opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { transform: translateX(-8px); opacity: 0; }
+            }
+            .animate-swipe-gesture {
+                animation: swipe-gesture 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            }
+        </style>
+
         <!-- Nudge -->
         <div id="dev-nudge" class="md:hidden absolute right-0 top-0 bottom-0 w-24 z-20 pointer-events-none transition-opacity duration-700 ease-out flex items-center justify-end overflow-hidden">
             <!-- Fade Mask -->
-            <div class="absolute inset-y-0 right-0 w-full bg-gradient-to-l from-bgBase via-bgBase/80 to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-full bg-gradient-to-l from- via-/80 to-transparent"></div>
             <!-- HUD Indicator -->
             <div class="relative z-10 flex flex-col items-center justify-center gap-2 pr-4 opacity-90">
-                <div class="relative w-10 h-14 rounded-full border border-gray-200 bg-white/60 backdrop-blur-md flex flex-col items-center justify-center shadow- overflow-hidden">
+                <div class="relative w-10 h-14 rounded-full border border-gray-200 bg-white/60 backdrop-blur-md flex flex-col items-center justify-center shadow-lg overflow-hidden">
                     <div class="absolute top-2 w-1.5 h-1.5 rounded-full bg-bizAccent animate-ping opacity-75"></div>
                     <div class="absolute top-2 w-1.5 h-1.5 rounded-full bg-bizAccent"></div>
-                    <i class="fa-solid fa-chevron-left text- text-bizAccent/80 mt-4 animate-swipe-gesture"></i>
+                    <i class="fa-solid fa-chevron-left text-sm text-bizAccent/80 mt-4 animate-swipe-gesture"></i>
                 </div>
                 <div class="text- font-display font-bold text-bizAccent tracking-widest uppercase">
                     Swipe
@@ -274,7 +287,7 @@
 
             <!-- ============ CREDENTIALS (COMPLETED) ============ -->
             <!-- 1. JDLA G-Certificate (Cyan/AI) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-cyan-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-cyan-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-cyan-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -288,19 +301,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text- mb-2 leading-tight group-hover:text-cyan-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">JDLA Deep Learning for GENERAL (G検定)</span>
-                        <span class="lang-en block text-gray-800 text-xs font-semibold">JDLA Deep Learning for GENERAL</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-cyan-700 transition-colors">
+                        <span class="lang-ja">JDLA Deep Learning for GENERAL (G検定)</span>
+                        <span class="lang-en">JDLA Deep Learning for GENERAL</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-cyan-100">
                         <span class="lang-ja">AIのブラックボックスを解体し、ビジネス価値へと変換する「社会実装の戦略設計力」。</span>
-                        <span class="lang-en block mt-1">Decoding the AI black box to architect strategic business implementations and drive DX.</span>
+                        <span class="lang-en">Decoding the AI black box to architect strategic business implementations and drive DX.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 2. Google Analytics (Orange/Data) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-orange-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-orange-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-orange-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-orange-500 to-amber-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -314,19 +327,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text- mb-2 leading-tight group-hover:text-orange-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">Googleアナリティクス認定資格 (GA4)</span>
-                        <span class="lang-en block text-gray-800 text-xs font-semibold">Google Analytics (GA4) Certification</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-orange-700 transition-colors">
+                        <span class="lang-ja">Googleアナリティクス認定資格 (GA4)</span>
+                        <span class="lang-en">Google Analytics (GA4) Certification</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-orange-100">
                         <span class="lang-ja">ユーザー行動の微細な軌跡を定量化し、暗黙のインサイトを炙り出す「データ駆動の意思決定」。</span>
-                        <span class="lang-en block mt-1">Quantifying nuanced user trajectories to extract latent insights for data-driven decision making.</span>
+                        <span class="lang-en">Quantifying nuanced user trajectories to extract latent insights for data-driven decision making.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 3. Eiken Pre-1 (Amber/Global) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-amber-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-amber-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-amber-500 to-yellow-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -340,19 +353,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text- mb-2 leading-tight group-hover:text-amber-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">実用英語技能検定準１級</span>
-                        <span class="lang-en block text-gray-800 text-xs font-semibold">Eiken Grade Pre-1 (Advanced English)</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-amber-700 transition-colors">
+                        <span class="lang-ja">実用英語技能検定準１級</span>
+                        <span class="lang-en">Eiken Grade Pre-1 (Advanced English)</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-amber-100">
                         <span class="lang-ja">非対称な情報環境を突破し、グローバルな文脈で交渉・共創を可能にする「越境の言語力」。</span>
-                        <span class="lang-en block mt-1">Advanced linguistic agility to navigate asymmetric information and negotiate in global contexts.</span>
+                        <span class="lang-en">Advanced linguistic agility to navigate asymmetric information and negotiate in global contexts.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 4. Google Ads Creative (Blue/Marketing) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-blue-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-blue-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-sky-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -366,19 +379,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text- mb-2 leading-tight group-hover:text-blue-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">Google広告クリエイティブ認定資格</span>
-                        <span class="lang-en block text-gray-800 text-xs font-semibold">Google Ads Creative Certification</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-blue-700 transition-colors">
+                        <span class="lang-ja">Google広告クリエイティブ認定資格</span>
+                        <span class="lang-en">Google Ads Creative Certification</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-blue-100">
                         <span class="lang-ja">認知バイアスとデータ分析を融合させ、ユーザーの行動変容をハックする「クリエイティブ最適化」。</span>
-                        <span class="lang-en block mt-1">Hacking behavioral change by fusing cognitive bias insights with data-driven creative optimization.</span>
+                        <span class="lang-en">Hacking behavioral change by fusing cognitive bias insights with data-driven creative optimization.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 5. Abacus (Fuchsia/Calculation) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-fuchsia-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-fuchsia-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-fuchsia-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-fuchsia-500 to-pink-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -392,19 +405,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text- mb-2 leading-tight group-hover:text-fuchsia-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">日本商工会議所主催 珠算能力検定１級</span>
-                        <span class="lang-en block text-gray-800 text-xs font-semibold">Abacus Calculation Grade 1 (JCCI)</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-fuchsia-700 transition-colors">
+                        <span class="lang-ja">日本商工会議所主催 珠算能力検定１級</span>
+                        <span class="lang-en">Abacus Calculation Grade 1 (JCCI)</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-fuchsia-100">
                         <span class="lang-ja">複雑な数値を瞬時に捌き、ビジネスにおける定量的なボトルネックを排除する「絶対的処理能力」。</span>
-                        <span class="lang-en block mt-1">Absolute processing capacity to instantly decode complex figures and eliminate quantitative bottlenecks.</span>
+                        <span class="lang-en">Absolute processing capacity to instantly decode complex figures and eliminate quantitative bottlenecks.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 6. Mental Math (Violet/Speed) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-violet-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-violet-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-violet-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-violet-500 to-purple-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -418,20 +431,20 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text- mb-2 leading-tight group-hover:text-violet-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">日本商工会議所主催 暗算検定１級</span>
-                        <span class="lang-en block text-gray-800 text-xs font-semibold">Mental Arithmetic Grade 1 (JCCI)</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-violet-700 transition-colors">
+                        <span class="lang-ja">日本商工会議所主催 暗算検定１級</span>
+                        <span class="lang-en">Mental Arithmetic Grade 1 (JCCI)</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-violet-100">
                         <span class="lang-ja">右脳的イメージ処理を活用し、圧倒的な速度で解像度の高い仮説を構築する「直感的数値把握」。</span>
-                        <span class="lang-en block mt-1">High-speed heuristic hypothesis generation powered by right-brain intuitive numerical imaging.</span>
+                        <span class="lang-en">High-speed heuristic hypothesis generation powered by right-brain intuitive numerical imaging.</span>
                     </p>
                 </div>
             </div>
 
             <!-- ============ IN PROGRESS ============ -->
             <!-- 7. Bookkeeping (Emerald) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-emerald-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-emerald-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-emerald-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
                 <div class="absolute top-0 left-0 h-1 bg-gray-200 w-full overflow-hidden">
@@ -449,19 +462,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-700 text- mb-2 leading-tight group-hover:text-emerald-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">日商簿記検定２級</span>
-                        <span class="lang-en block text-gray-600 text-xs font-semibold">Nissho Bookkeeping Level 2</span>
+                    <h5 class="font-display font-bold text-gray-700 text-sm mb-2 leading-tight group-hover:text-emerald-700 transition-colors">
+                        <span class="lang-ja">日商簿記検定２級</span>
+                        <span class="lang-en">Nissho Bookkeeping Level 2</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-100 group-hover:border-emerald-100">
                         <span class="lang-ja">財務・管理会計の構造を解読し、企業活動の血液である「カネの動き」から経営戦略を逆算する。</span>
-                        <span class="lang-en block mt-1">Decoding financial structures to reverse-engineer corporate strategy from capital flow dynamics.</span>
+                        <span class="lang-en">Decoding financial structures to reverse-engineer corporate strategy from capital flow dynamics.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 8. Business Law (Rose) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-rose-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-rose-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
                 <div class="absolute top-0 left-0 h-1 bg-gray-200 w-full overflow-hidden">
@@ -479,19 +492,19 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-700 text- mb-2 leading-tight group-hover:text-rose-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">ビジネス実務法務検定２級</span>
-                        <span class="lang-en block text-gray-600 text-xs font-semibold">Business Law Exam Level 2</span>
+                    <h5 class="font-display font-bold text-gray-700 text-sm mb-2 leading-tight group-hover:text-rose-700 transition-colors">
+                        <span class="lang-ja">ビジネス実務法務検定２級</span>
+                        <span class="lang-en">Business Law Exam Level 2</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-100 group-hover:border-rose-100">
                         <span class="lang-ja">不確実性の中でリーガルリスクを峻別し、コンプライアンスを「防御」ではなく「戦略」へ昇華する。</span>
-                        <span class="lang-en block mt-1">Distinguishing legal risks amidst uncertainty to sublimate compliance from "defense" into "strategy".</span>
+                        <span class="lang-en">Distinguishing legal risks amidst uncertainty to sublimate compliance from "defense" into "strategy".</span>
                     </p>
                 </div>
             </div>
 
             <!-- 9. Statistics (Indigo) -->
-            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-indigo-300 hover:shadow- hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+            <div class="min-w- md:min-w-0 snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-indigo-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
                 <div class="absolute top-0 left-0 h-1 bg-gray-200 w-full overflow-hidden">
@@ -509,16 +522,18 @@
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-700 text- mb-2 leading-tight group-hover:text-indigo-700 transition-colors">
-                        <span class="lang-ja block mb-0.5">統計検定２級</span>
-                        <span class="lang-en block text-gray-600 text-xs font-semibold">Statistics Exam Grade 2</span>
+                    <h5 class="font-display font-bold text-gray-700 text-sm mb-2 leading-tight group-hover:text-indigo-700 transition-colors">
+                        <span class="lang-ja">統計検定２級</span>
+                        <span class="lang-en">Statistics Exam Grade 2</span>
                     </h5>
                     <p class="text- text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-100 group-hover:border-indigo-100">
                         <span class="lang-ja">直感やバイアスを数学的に排除し、不確実性の霧を晴らす「統計的エビデンス」の構築力。</span>
-                        <span class="lang-en block mt-1">Eliminating cognitive bias mathematically to construct statistical evidence that clears the fog of uncertainty.</span>
+                        <span class="lang-en">Eliminating cognitive bias mathematically to construct statistical evidence that clears the fog of uncertainty.</span>
                     </p>
                 </div>
             </div>
+
+        </div>
 
         </div>
     </div>
