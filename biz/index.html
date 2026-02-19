@@ -239,42 +239,56 @@
     </div>
     <div class="relative group/matrix">
 
-        <!-- Nudge Custom Animation -->
+       <!-- Nudge Custom Animation -->
         <style>
-            @keyframes swipe-gesture-creative {
-                0% { transform: translateX(12px); opacity: 0; }
-                20% { transform: translateX(0); opacity: 1; }
-                80% { transform: translateX(0); opacity: 1; }
-                100% { transform: translateX(-12px); opacity: 0; }
+            /* 矢印がシーケンシャルに流れるアニメーション */
+            @keyframes arrow-flow-sequence {
+                0% { opacity: 0; transform: translateX(-3px); }
+                50% { opacity: 1; transform: translateX(0); }
+                100% { opacity: 0; transform: translateX(3px); }
             }
-            .animate-swipe-creative {
-                animation: swipe-gesture-creative 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            .animate-arrow-1 { animation: arrow-flow-sequence 1.5s infinite ease-in-out; animation-delay: 0s; }
+            .animate-arrow-2 { animation: arrow-flow-sequence 1.5s infinite ease-in-out; animation-delay: 0.15s; }
+            .animate-arrow-3 { animation: arrow-flow-sequence 1.5s infinite ease-in-out; animation-delay: 0.3s; }
+            
+            /* ガラスの光沢が走るエフェクト */
+            @keyframes glass-shimmer-fast {
+                0% { transform: translateX(-150%) skewX(-20deg); }
+                100% { transform: translateX(250%) skewX(-20deg); }
+            }
+            .shimmer-bar {
+                animation: glass-shimmer-fast 3s infinite;
             }
         </style>
 
         <!-- Swipe Indicator Nudge (Mobile Only) -->
-        <div id="dev-nudge" class="md:hidden absolute right-0 top-0 bottom-0 w-32 z-20 pointer-events-none transition-opacity duration-700 ease-out flex flex-col items-center justify-center pr-6">
-            <!-- Smooth Gradient Mask for Teaser (チラ見せ部分に自然なフェードをかける) -->
-            <div class="absolute inset-y-0 right-0 w-full bg-gradient-to-l from- via-/80 to-transparent"></div>
+        <!-- 配置を右端ピンポイント(right-2)に変更し、width制限(w-32)と高さ制限(top-0 bottom-0)を解除して中央配置(top-1/2)に -->
+        <div id="dev-nudge" class="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-20 pointer-events-none transition-opacity duration-700 ease-out">
             
-            <!-- Creative Glassmorphism HUD -->
-            <div class="relative z-10 flex flex-col items-center justify-center gap-3 opacity-90 transform translate-x-2">
-                <!-- Circular Icon Wrapper -->
-                <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur-md border border-white/80 shadow-lg">
-                    <!-- Outer Pulse Effect -->
-                    <div class="absolute inset-0 rounded-full border-2 border-bizAccent/30 animate-ping"></div>
-                    <!-- Inner Rotating Dashed Ring -->
-                    <div class="absolute inset-2 rounded-full border border-bizAccent/20 border-dashed animate-"></div>
-                    <!-- Animated Arrow -->
-                    <i class="fa-solid fa-arrow-right-long text-bizAccent text-lg rotate-180 animate-swipe-creative drop-shadow-sm"></i>
+            <!-- Floating Holographic Capsule -->
+            <div class="relative group flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full bg-white/60 backdrop-blur-[4px] border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.15)] overflow-hidden transform transition-transform duration-300">
+                
+                <!-- 光沢アニメーションのレイヤー -->
+                <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-full">
+                    <div class="shimmer-bar absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-50"></div>
                 </div>
-                <!-- Label -->
-                <div class="bg-white/70 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/50 shadow-sm">
-                    <span class="text- font-display font-black text-bizAccent tracking-widest uppercase drop-shadow-sm">Swipe</span>
+
+                <!-- Text Label: 小さく、しかし視認性高く -->
+                <span class="relative z-10 text-[9px] font-display font-black text-bizAccent tracking-[0.15em] uppercase drop-shadow-sm select-none">
+                    Next
+                </span>
+
+                <!-- Animated Arrows Container -->
+                <div class="relative z-10 flex items-center -space-x-1">
+                    <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent animate-arrow-1"></i>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent animate-arrow-2"></i>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent animate-arrow-3"></i>
                 </div>
+                
+                <!-- Decorative Glow (背後の淡い発光) -->
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-bizAccent/5 to-transparent opacity-50"></div>
             </div>
         </div>
-
         <!-- Scroll Container (auto-cols- によって画面の85%を1列とし、残り15%で次をチラ見せ) -->
         <div id="dev-scroll-container" class="grid grid-rows-3 grid-flow-col auto-cols-[calc(100vw-3rem)] md:grid-cols-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
             
