@@ -237,7 +237,6 @@
             9 MODULES
         </span>
     </div>
-
     <div class="relative group/matrix">
 
         <!-- Nudge Custom Animation -->
@@ -254,16 +253,16 @@
         </style>
 
         <!-- Swipe Indicator Nudge (Mobile Only) -->
-        <div id="dev-nudge" class="md:hidden absolute right- top-0 bottom-0 w-32 z-20 pointer-events-none transition-opacity duration-700 ease-out flex flex-col items-center justify-center pr-6">
+        <div id="dev-nudge" class="md:hidden absolute right-0 top-0 bottom-0 w-32 z-20 pointer-events-none transition-opacity duration-700 ease-out flex flex-col items-center justify-center pr-6">
             <!-- Smooth Gradient Mask for Teaser (チラ見せ部分に自然なフェードをかける) -->
             <div class="absolute inset-y-0 right-0 w-full bg-gradient-to-l from- via-/80 to-transparent"></div>
             
             <!-- Creative Glassmorphism HUD -->
             <div class="relative z-10 flex flex-col items-center justify-center gap-3 opacity-90 transform translate-x-2">
                 <!-- Circular Icon Wrapper -->
-                <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur-md border border-white/80 shadow-">
+                <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur-md border border-white/80 shadow-lg">
                     <!-- Outer Pulse Effect -->
-                    <div class="absolute inset-0 rounded-full border-2 border-bizAccent/30 animate-"></div>
+                    <div class="absolute inset-0 rounded-full border-2 border-bizAccent/30 animate-ping"></div>
                     <!-- Inner Rotating Dashed Ring -->
                     <div class="absolute inset-2 rounded-full border border-bizAccent/20 border-dashed animate-"></div>
                     <!-- Animated Arrow -->
@@ -271,13 +270,14 @@
                 </div>
                 <!-- Label -->
                 <div class="bg-white/70 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/50 shadow-sm">
-                    <span class="text- font-display font-black text-bizAccent tracking- uppercase drop-shadow-sm">Swipe</span>
+                    <span class="text- font-display font-black text-bizAccent tracking-widest uppercase drop-shadow-sm">Swipe</span>
                 </div>
             </div>
         </div>
 
-        <!-- Scroll Container (auto-cols- によって画面の86%を1列とし、残り14%で次をチラ見せ) -->
-        <div id="dev-scroll-container" class="grid grid-rows-3 grid-flow-col auto-cols- sm:auto-cols- md:grid-cols-3 md:grid-rows-auto md:grid-flow-row md:auto-cols-auto gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
+        <!-- Scroll Container (auto-cols- によって画面の85%を1列とし、残り15%で次をチラ見せ) -->
+        <div id="dev-scroll-container" class="grid grid-rows-3 grid-flow-col auto-cols- sm:auto-cols- md:grid-cols-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
+            
             <!-- ============ CREDENTIALS (COMPLETED) ============ -->
             <!-- 1. JDLA G-Certificate (Cyan/AI) -->
             <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-cyan-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
@@ -441,7 +441,7 @@
                 <div class="absolute inset-0 bg-gradient-to-br from-emerald-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
                 <div class="absolute top-0 left-0 h-1 bg-gray-200 w-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 w- group-hover:w- transition-all duration-1000 ease-in-out"></div>
+                    <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 w-0 group-hover:w-full transition-all duration-1000 ease-in-out"></div>
                 </div>
                 
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -471,7 +471,7 @@
                 <div class="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
                 <div class="absolute top-0 left-0 h-1 bg-gray-200 w-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-rose-500 to-pink-400 w- group-hover:w- transition-all duration-1000 ease-in-out"></div>
+                    <div class="h-full bg-gradient-to-r from-rose-500 to-pink-400 w-0 group-hover:w-full transition-all duration-1000 ease-in-out"></div>
                 </div>
                 
                 <div class="flex justify-between items-start mb-5 gap-3">
@@ -501,7 +501,7 @@
                 <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
                 <div class="absolute top-0 left-0 h-1 bg-gray-200 w-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-indigo-500 to-violet-400 w- group-hover:w- transition-all duration-1000 ease-in-out"></div>
+                    <div class="h-full bg-gradient-to-r from-indigo-500 to-violet-400 w-0 group-hover:w-full transition-all duration-1000 ease-in-out"></div>
                 </div>
                 
                 <div class="flex justify-between items-start mb-5 gap-3">
