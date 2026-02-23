@@ -222,7 +222,7 @@
                     </div>
                 </div>
                     
-                <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
+               <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
 <div class="mt-12 md:mt-20 pt-10 border-t border-dashed border-gray-200 relative group/section cv-auto">
     
     <!-- Section Header with Count -->
@@ -233,8 +233,9 @@
                 Professional Development
             </h4>
         </div>
+        <!-- Count Updated to 10 -->
         <span class="text-[10px] font-mono font-bold text-gray-300 bg-gray-50 px-2 py-1 rounded border border-gray-100">
-            9 MODULES
+            10 MODULES
         </span>
     </div>
     <div class="relative group/matrix">
@@ -262,38 +263,29 @@
         </style>
 
         <!-- Swipe Indicator Nudge (Mobile Only) -->
-        <!-- 配置を右端ピンポイント(right-2)に変更し、width制限(w-32)と高さ制限(top-0 bottom-0)を解除して中央配置(top-1/2)に -->
         <div id="dev-nudge" class="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-20 pointer-events-none transition-opacity duration-700 ease-out">
-            
-            <!-- Floating Holographic Capsule -->
             <div class="relative group flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full bg-white/60 backdrop-blur-[4px] border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.15)] overflow-hidden transform transition-transform duration-300">
-                
-                <!-- 光沢アニメーションのレイヤー -->
                 <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-full">
                     <div class="shimmer-bar absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-50"></div>
                 </div>
-
-                <!-- Text Label: 小さく、しかし視認性高く -->
                 <span class="relative z-10 text-[9px] font-display font-black text-bizAccent tracking-[0.15em] uppercase drop-shadow-sm select-none">
                     Next
                 </span>
-
-                <!-- Animated Arrows Container -->
                 <div class="relative z-10 flex items-center -space-x-1">
                     <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent animate-arrow-1"></i>
                     <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent animate-arrow-2"></i>
                     <i class="fa-solid fa-chevron-right text-[10px] text-bizAccent animate-arrow-3"></i>
                 </div>
-                
-                <!-- Decorative Glow (背後の淡い発光) -->
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-bizAccent/5 to-transparent opacity-50"></div>
             </div>
         </div>
-        <!-- Scroll Container (auto-cols- によって画面の85%を1列とし、残り15%で次をチラ見せ) -->
+        
+        <!-- Scroll Container -->
         <div id="dev-scroll-container" class="grid grid-rows-3 grid-flow-col auto-cols-[calc(100vw-3rem)] md:grid-cols-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
             
             <!-- ============ CREDENTIALS (COMPLETED) ============ -->
-            <!-- 1. JDLA G-Certificate (Cyan/AI) -->
+            
+            <!-- 1. JDLA G-Certificate (Cyan/AI) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-cyan-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-cyan-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
@@ -318,34 +310,34 @@
                     </p>
                 </div>
             </div>
-            
-            <!-- 2. Google Analytics (Orange/Data) -->
-            <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-orange-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
-                <div class="absolute inset-0 bg-gradient-to-br from-orange-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-                <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-orange-500 to-amber-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
+
+            <!-- 2. TOEIC 950 (Teal/Business) [NEWLY ADDED] -->
+            <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-teal-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+                <div class="absolute inset-0 bg-gradient-to-br from-teal-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
                 <div class="flex justify-between items-start mb-5 gap-3">
-                    <div class="relative w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 shadow-sm flex items-center justify-center text-orange-600 group-hover:text-white group-hover:bg-orange-500 transition-all duration-500 overflow-hidden shrink-0 z-10">
-                        <div class="absolute inset-0 bg-orange-400 opacity-0 group-hover:animate-ping duration-1000 -z-10"></div>
-                        <i class="fa-solid fa-chart-column text-xl relative z-10 transition-transform duration-500 group-hover:scale-110"></i>
+                    <div class="relative w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 shadow-sm flex items-center justify-center text-teal-600 group-hover:text-white group-hover:bg-teal-500 transition-all duration-500 overflow-hidden shrink-0 z-10">
+                        <div class="absolute inset-0 bg-teal-400 opacity-0 group-hover:animate-ping duration-1000 -z-10"></div>
+                        <i class="fa-solid fa-ranking-star text-xl relative z-10 transition-transform duration-500 group-hover:scale-110"></i>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text- font-mono font-bold text-orange-600 bg-orange-50/80 border border-orange-100/50 backdrop-blur-md shrink-0 uppercase tracking-widest group-hover:bg-orange-100 group-hover:border-orange-300 transition-all duration-500 shadow-sm whitespace-nowrap">
-                        <span class="relative flex h-1.5 w-1.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span></span>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text- font-mono font-bold text-teal-600 bg-teal-50/80 border border-teal-100/50 backdrop-blur-md shrink-0 uppercase tracking-widest group-hover:bg-teal-100 group-hover:border-teal-300 transition-all duration-500 shadow-sm whitespace-nowrap">
+                        <span class="relative flex h-1.5 w-1.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-teal-500"></span></span>
                         <span class="relative z-10"><span class="lang-ja">保有資格</span><span class="lang-en">Credentials</span></span>
                     </span>
                 </div>
                 <div class="flex flex-col flex-grow">
-                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-orange-700 transition-colors">
-                        <span class="lang-ja">Googleアナリティクス認定資格 (GA4)</span>
-                        <span class="lang-en">Google Analytics (GA4) Certification</span>
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-teal-700 transition-colors">
+                        <span class="lang-ja">TOEIC L&R 950点</span>
+                        <span class="lang-en">TOEIC L&R Score 950</span>
                     </h5>
-                    <p class="text-xs text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-orange-100">
-                        <span class="lang-ja">ユーザー行動の微細な軌跡を定量化し、暗黙のインサイトを炙り出す「データ駆動の意思決定」</span>
-                        <span class="lang-en">Quantifying nuanced user trajectories to extract latent insights for data-driven decision making.</span>
+                    <p class="text-xs text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-teal-100">
+                        <span class="lang-ja">高速な情報処理と正確な聴解力を武器に、言語の壁によるタイムロスをゼロにする「即応的英語運用能力」</span>
+                        <span class="lang-en">Responsive English proficiency that eliminates time loss due to language barriers, armed with high-speed processing.</span>
                     </p>
                 </div>
             </div>
-            
-            <!-- 3. Eiken Pre-1 (Amber/Global) -->
+
+            <!-- 3. Eiken Pre-1 (Amber/Global) [MOVED HERE from pos 3 -> 3 (after new insert)] -->
             <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-amber-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-amber-500 to-yellow-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
@@ -370,8 +362,34 @@
                     </p>
                 </div>
             </div>
+            
+            <!-- 4. Google Analytics (Orange/Data) [MOVED HERE from pos 2] -->
+            <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-orange-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
+                <div class="absolute inset-0 bg-gradient-to-br from-orange-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-orange-500 to-amber-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
+                <div class="flex justify-between items-start mb-5 gap-3">
+                    <div class="relative w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 shadow-sm flex items-center justify-center text-orange-600 group-hover:text-white group-hover:bg-orange-500 transition-all duration-500 overflow-hidden shrink-0 z-10">
+                        <div class="absolute inset-0 bg-orange-400 opacity-0 group-hover:animate-ping duration-1000 -z-10"></div>
+                        <i class="fa-solid fa-chart-column text-xl relative z-10 transition-transform duration-500 group-hover:scale-110"></i>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text- font-mono font-bold text-orange-600 bg-orange-50/80 border border-orange-100/50 backdrop-blur-md shrink-0 uppercase tracking-widest group-hover:bg-orange-100 group-hover:border-orange-300 transition-all duration-500 shadow-sm whitespace-nowrap">
+                        <span class="relative flex h-1.5 w-1.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span></span>
+                        <span class="relative z-10"><span class="lang-ja">保有資格</span><span class="lang-en">Credentials</span></span>
+                    </span>
+                </div>
+                <div class="flex flex-col flex-grow">
+                    <h5 class="font-display font-bold text-gray-900 text-sm mb-2 leading-tight group-hover:text-orange-700 transition-colors">
+                        <span class="lang-ja">Googleアナリティクス認定資格 (GA4)</span>
+                        <span class="lang-en">Google Analytics (GA4) Certification</span>
+                    </h5>
+                    <p class="text-xs text-gray-500 leading-relaxed mt-auto tracking-wide text-justify font-medium group-hover:text-gray-700 transition-colors pt-3 border-t border-gray-50 group-hover:border-orange-100">
+                        <span class="lang-ja">ユーザー行動の微細な軌跡を定量化し、暗黙のインサイトを炙り出す「データ駆動の意思決定」</span>
+                        <span class="lang-en">Quantifying nuanced user trajectories to extract latent insights for data-driven decision making.</span>
+                    </p>
+                </div>
+            </div>
 
-            <!-- 4. Google Ads Creative (Blue/Marketing) -->
+            <!-- 5. Google Ads Creative (Blue/Marketing) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-blue-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-sky-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
@@ -397,7 +415,7 @@
                 </div>
             </div>
 
-           <!-- 5. Abacus (Fuchsia/Calculation) -->
+           <!-- 6. Abacus (Fuchsia/Calculation) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-fuchsia-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-fuchsia-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-fuchsia-500 to-pink-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
@@ -423,7 +441,7 @@
                 </div>
             </div>
 
-            <!-- 6. Mental Math (Violet/Speed) -->
+            <!-- 7. Mental Math (Violet/Speed) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-500 hover:border-violet-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-violet-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div class="absolute top-0 left-0 h-1 bg-gradient-to-r from-violet-500 to-purple-400 w-full opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
@@ -450,7 +468,7 @@
             </div>
 
             <!-- ============ IN PROGRESS ============ -->
-           <!-- 7. Bookkeeping (Emerald) -->
+           <!-- 8. Bookkeeping (Emerald) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-emerald-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-emerald-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
@@ -480,7 +498,7 @@
                 </div>
             </div>
             
-           <!-- 8. Business Law (Rose) -->
+           <!-- 9. Business Law (Rose) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-rose-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
@@ -510,7 +528,7 @@
                 </div>
             </div>
 
-           <!-- 9. Statistics (Indigo) -->
+           <!-- 10. Statistics (Indigo) [NO CHANGE] -->
             <div class="snap-center shrink-0 group relative bg-gray-50/50 border border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:bg-white hover:border-indigo-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full overflow-hidden isolate cursor-default">
                 <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <!-- Scanning Progress Line -->
