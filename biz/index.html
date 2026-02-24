@@ -183,24 +183,36 @@
                     </div>
 
                     <!-- 2. University of Mannheim -->
-                    <div class="group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline z-10">
-                        <div class="text-xs font-mono text-gray-400 font-medium whitespace-nowrap md:text-right md:pr-4">
+                    <div data-modal-id="mannheim" class="js-modal-trigger cursor-pointer group relative hover-card p-5 md:p-6 md:-ml-4 rounded-xl grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 items-baseline transition-all duration-300 z-10">
+                        <!-- Hover Effect: Subtle German Flag Gradient Border Bottom (Creative Touch) -->
+                        <div class="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-black via-[#DD0000] to-[#FFCC00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left opacity-80"></div>
+
+                        <div class="text-xs font-mono text-gray-400 font-medium whitespace-nowrap md:text-right md:pr-4 group-hover:text-bizAccent transition-colors">
                             2023.08 - 2024.08
                         </div>
                         <div>
                             <div class="flex items-center gap-3 mb-1">
-                                <h3 class="text-lg font-bold text-bizText">
+                                <h3 class="text-lg font-bold text-bizText group-hover:text-bizAccent transition-colors">
                                     <span class="lang-ja">マンハイム大学（ドイツ）</span>
                                     <span class="lang-en">University of Mannheim</span>
                                 </h3>
-                                <span class="text-[10px] font-bold border border-gray-200 text-gray-500 px-2 py-0.5 rounded uppercase tracking-wider bg-white">
+                                <span class="text-[10px] font-bold border border-gray-200 text-gray-500 group-hover:text-bizAccent group-hover:border-bizAccent/30 px-2 py-0.5 rounded uppercase tracking-wider bg-white transition-colors">
                                     Exchange
                                 </span>
                             </div>
-                            <p class="text-xs md:text-sm text-gray-600 leading-relaxed">
+                            <p class="text-xs md:text-sm text-gray-600 leading-relaxed mb-1">
                                 <span class="lang-ja">社会科学部社会学科｜交換留学</span>
                                 <span class="lang-en">Department of Sociology, Faculty of Social Sciences / Exchange Program (Germany)</span>
                             </p>
+                            
+                            <!-- Creative Visual Hint: Slides up on hover -->
+                            <div class="overflow-hidden h-0 group-hover:h-auto group-hover:mt-3 transition-all duration-500 ease-out">
+                                <div class="text-[10px] font-bold tracking-widest text-bizAccent uppercase flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                                    <i class="fa-solid fa-book-open-reader"></i>
+                                    <span>View Academic Focus</span>
+                                    <i class="fa-solid fa-arrow-right-long animate-gesture"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1592,6 +1604,14 @@
 
             // Modal Logic
             const modalData = {
+                "mannheim": {
+                    sub_ja: "社会学 / 哲学 / 認識論",
+                    sub_en: "Sociology / Philosophy / Epistemology",
+                    title_ja: "マンハイム大学 社会科学部\n社会学・哲学専攻 (交換留学)",
+                    title_en: "University of Mannheim\nSchool of Social Sciences",
+                    body_ja: `ドイツ最高峰の社会科学研究機関であるマンハイム大学社会科学部に、社会学専攻として1年間の交換留学を経験しました。\n\n社会構造を定量・定性の両面から読み解く『社会学』を専攻する傍ら、事象の根源を問う『哲学』を並行して深く探究しました。\n\n特に、<strong>認識論や分析哲学による論理的思考の鍛錬</strong>と、<strong>実存哲学やプラグマティズムによる価値創造の思想</strong>は、現在の私のデータ戦略における「なぜ（Why）」の追求や、デザイン思考における人間中心設計の強固な基盤となっています。`,
+                    body_en: `I had the privilege of completing a one-year exchange program at the University of Mannheim’s School of Social Sciences, recognized as Germany’s premier research institution in the field.\n\nWhile specializing in Sociology to analyze complex social structures, I concurrently undertook an intensive study of Philosophy to question the fundamental nature of phenomena. \n\nExploring fields ranging from <strong>Epistemology and Analytic Philosophy</strong> to <strong>Existentialism and Pragmatism</strong>, I developed an interdisciplinary foundation that now drives my approach to data strategy and logical problem-solving.`
+                },
                 "poker": {
                     sub_ja: "ゲーム理論 / 確率統計",
                     sub_en: "Game Theory / Statistics",
