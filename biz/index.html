@@ -111,21 +111,20 @@
     </script>
 </head>
 <body class="antialiased">
-    <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
-    <div id="nav-container" class="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+    <!-- ================= DYNAMIC ISLAND NAVIGATION (APPLE STYLE) ================= -->
+    <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
         <nav class="pointer-events-auto fade-in" style="animation-delay: 0.5s;">
-            <!-- 余分な幅指定を削ぎ落とし、中身にフィットする極限までスマートなカプセルへ最適化 -->
-            <div class="flex items-center justify-between gap-4 sm:gap-6 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/75 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06)] rounded-full w-auto max-w-[95vw]">
-                <a href="#" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-2 hover:opacity-70 transition-opacity">KEN.H</a>
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <!-- Language Switcher -->
-                    <div class="relative flex items-center bg-gray-100/80 rounded-full p-1 select-none">
-                        <button id="lang-jp" class="relative z-10 px-2.5 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
-                        <button id="lang-en" class="relative z-10 px-2.5 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
+            <div class="flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-[rgba(20,20,22,0.85)] backdrop-blur-2xl border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.4)] rounded-full w-auto max-w-[95vw] transition-transform hover:scale-[1.02] duration-500 ease-out">
+                <a href="#" class="text-xs sm:text-sm font-display font-bold text-white tracking-widest ml-4 hover:text-gray-300 transition-colors">KEN.H</a>
+                <div class="flex items-center gap-2">
+                    <!-- Language Switcher (Apple Toggle Style) -->
+                    <div class="relative flex items-center bg-white/10 rounded-full p-0.5 select-none border border-white/5">
+                        <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JP</button>
+                        <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
                     </div>
                     <!-- Contact Icon -->
-                    <a href="../contact.html" class="group flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-900 text-white hover:bg-bizAccent transition-colors duration-300 shadow-sm">
-                        <i class="fa-solid fa-paper-plane text-[9px] sm:text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                    <a href="../contact.html" class="group flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white hover:text-black transition-all duration-500 shadow-sm border border-white/5 mr-1">
+                        <i class="fa-solid fa-paper-plane text-[10px] transition-transform duration-500 group-hover:scale-110 group-hover:translate-x-px group-hover:-translate-y-px"></i>
                     </a>
                 </div>
             </div>
@@ -874,7 +873,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 lg:gap-6">
                             
                             <!-- Project 1: 野口ゼミ -->
-                            <div data-modal-id="noguchi" class="js-modal-trigger relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f8fafc]/90 backdrop-blur-md border border-gray-200/50 p-6 md:p-8 lg:p-10 group transition-all duration-700 hover:bg-white hover:border-gray-300/80 hover:shadow-[0_20px_50px_-12px_rgba(15,23,42,0.1)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
+                            <div data-modal-id="noguchi" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-3xl border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col h-full isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                    <!-- マイクロインタラクション：カード左端の視線アンカー -->
@@ -912,8 +911,8 @@
                             </div>
 
                             <!-- Project 2: ビジネスプラン -->
-                            <div data-modal-id="bizplan" class="js-modal-trigger relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-10 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
-                                <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                            <div data-modal-id="noguchi" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-3xl border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col h-full isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+                            <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                     <!-- マイクロインタラクション：カード左端の視線アンカー -->
                                     <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-cyan-400 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
@@ -949,7 +948,7 @@
                             </div>
 
                             <!-- Project 3: PIVOT (Horizontal Module) -->
-                            <div data-modal-id="pivot" class="js-modal-trigger md:col-span-2 relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-12 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start md:items-center isolation-auto">
+                            <div data-modal-id="pivot" class="js-modal-trigger md:col-span-2 relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-3xl border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start md:items-center isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
                                 <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 
                                 <div class="md:w-5/12 flex flex-col justify-center relative z-10 w-full mb-2 md:mb-0">
@@ -1056,8 +1055,8 @@
                             </div>
 
                             <!-- Project 5: Social Design -->
-                            <div data-modal-id="social" class="js-modal-trigger lg:col-span-1 relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-10 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
-                                <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                           <div data-modal-id="noguchi" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-3xl border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col h-full isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+                            <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                     <!-- マイクロインタラクション：カード左端の視線アンカー -->
                                     <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-cyan-400 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
@@ -1112,8 +1111,8 @@
                         <div class="grid grid-cols-1">
                             
                             <!-- Project 6: JOPT & SPADIE -->
-                            <div data-modal-id="jopt" class="js-modal-trigger relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-12 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start md:items-center isolation-auto">
-                                
+<div data-modal-id="pivot" class="js-modal-trigger md:col-span-2 relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-3xl border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start md:items-center isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+                            
                                 <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
                                 <div class="md:w-5/12 flex flex-col justify-center relative z-10 w-full mb-2 md:mb-0">
