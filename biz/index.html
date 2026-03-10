@@ -1103,8 +1103,7 @@
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                     <div class="mb-5 md:mb-6 flex justify-start">
-                                        <!-- 修正：ホバー時のベタ塗りをやめ、文字と枠線に色を乗せるスマートなバッジへ -->
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/80 border border-black/[0.05] text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm backdrop-blur-md transition-all duration-500 group-hover:bg-bizAccent group-hover:text-white group-hover:border-bizAccent leading-tight tracking-wide">
                                             <span class="lang-ja">最優秀賞</span>
                                             <span class="lang-en">First Prize</span>
                                         </span>
@@ -1131,7 +1130,7 @@
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                     <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center text-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide">
+                                        <span class="inline-flex items-center text-center px-3 py-1 rounded-full bg-white/80 border border-black/[0.05] text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm backdrop-blur-md transition-all duration-500 group-hover:bg-bizAccent group-hover:text-white group-hover:border-bizAccent leading-tight tracking-wide">
                                             <span class="lang-ja">東京都産業<br class="sm:hidden">労働局長賞</span>
                                             <span class="lang-en">Tokyo Industrial<br class="sm:hidden">Affairs Award</span>
                                         </span>
@@ -1176,9 +1175,8 @@
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                     <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide gap-1.5">
-                                            <!-- ドットも文字色に合わせて変化 -->
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-bizAccent transition-colors duration-500"></span>
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/80 border border-black/[0.05] text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm backdrop-blur-md transition-all duration-500 group-hover:bg-bizAccent group-hover:text-white group-hover:border-bizAccent leading-tight tracking-wide gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-white transition-colors"></span>
                                             Project Management
                                         </span>
                                     </div>
@@ -1205,7 +1203,35 @@
                                 </div>
                             </div>
 
-                            
+                            <!-- Project 4: Brand Label -->
+                            <div data-modal-id="brand" class="js-modal-trigger relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-10 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
+                                <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                                <div class="flex flex-col h-full relative z-10">
+                                    <div class="mb-5 md:mb-6 flex justify-start">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/80 border border-black/[0.05] text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm backdrop-blur-md transition-all duration-500 group-hover:bg-bizAccent group-hover:text-white group-hover:border-bizAccent leading-tight tracking-wide">
+                                            <span class="lang-ja">Top 40 入選</span>
+                                            <span class="lang-en">Selected Top 40</span>
+                                        </span>
+                                    </div>
+                                    <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-bizAccent">
+                                        <span class="lang-ja">第10回「あなたが考える<br class="hidden lg:block">ブランドラベル・コンテスト」</span>
+                                        <span class="lang-en">10th “Design Your Own<br class="hidden lg:block">Brand Label” Contest</span>
+                                    </h3>
+                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6">
+                                        <span class="lang-ja">生分解性素材と3Dプリントを用いて、架空アパレルブランドのコンセプト設計からプロトタイプ制作までを実施。環境配慮と造形表現を接続し、東京ビッグサイトにて展示。</span>
+                                        <span class="lang-en">Developed both the concept and prototype for a fictional apparel brand using biodegradable materials and 3D printing. The project connected environmental consciousness with physical form and was exhibited at Tokyo Big Sight.</span>
+                                    </p>
+                                    <div class="mt-auto flex justify-end items-end pt-4 relative z-10">
+                                        <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-bizAccent group-hover:shadow-[0_0_20px_rgba(15,60,133,0.15)] group-hover:scale-110">
+                                            <div class="absolute inset-0 bg-bizAccent transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500 text-xs md:text-sm"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <!-- 3. Academic & Writing -->
                     <div class="group/section">
@@ -1232,8 +1258,7 @@
 
                                 <div class="flex flex-col relative z-10">
                                     <div class="mb-5 md:mb-6 flex justify-start">
-                                        <!-- ダークテーマにおける洗練されたホバー -->
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[9px] md:text-[10px] font-mono font-bold text-gray-300 shadow-sm transition-all duration-500 group-hover:bg-white/10 group-hover:text-white group-hover:border-white/30 leading-tight tracking-wide">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] md:text-[10px] font-mono font-bold text-gray-300 shadow-sm backdrop-blur-md transition-colors group-hover:bg-white/10 group-hover:text-white leading-tight">
                                             <span class="lang-ja">特選：勤労青少年躍進会理事長賞</span>
                                             <span class="lang-en">Chairman's Award</span>
                                         </span>
@@ -1264,7 +1289,7 @@
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
                                     <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/80 border border-black/[0.05] text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm backdrop-blur-md transition-all duration-500 group-hover:bg-bizAccent group-hover:text-white group-hover:border-bizAccent leading-tight tracking-wide">
                                             <span class="lang-ja">優秀賞</span>
                                             <span class="lang-en">Excellence Award</span>
                                         </span>
@@ -1314,10 +1339,10 @@
                                 <div class="md:w-5/12 flex flex-col justify-center relative z-10 w-full mb-2 md:mb-0">
                                     <!-- Tag Pills -->
                                     <div class="mb-4 flex flex-wrap gap-2">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-bizAccent/[0.05] border border-bizAccent/10 text-[9px] md:text-[10px] font-mono font-bold text-bizAccent shadow-sm transition-all duration-500 group-hover:bg-bizAccent/10 group-hover:border-bizAccent/30 tracking-wide">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#0f3c85]/5 border border-[#0f3c85]/10 text-[9px] md:text-[10px] font-mono font-bold text-[#0f3c85] transition-all duration-500 group-hover:bg-[#0f3c85] group-hover:text-white group-hover:border-[#0f3c85] tracking-wide">
                                             JOPT 107th / 2,511
                                         </span>
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-bizAccent/[0.05] border border-bizAccent/10 text-[9px] md:text-[10px] font-mono font-bold text-bizAccent shadow-sm transition-all duration-500 group-hover:bg-bizAccent/10 group-hover:border-bizAccent/30 tracking-wide">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#0f3c85]/5 border border-[#0f3c85]/10 text-[9px] md:text-[10px] font-mono font-bold text-[#0f3c85] transition-all duration-500 group-hover:bg-[#0f3c85] group-hover:text-white group-hover:border-[#0f3c85] tracking-wide">
                                             SPADIE 12th / 279
                                         </span>
                                     </div>
@@ -2067,6 +2092,14 @@
                     title_en: "36th 'What is Work?' Essay Contest",
                     body_ja: `2023年、「働くってなんだろう」エッセイコンテストにて、総応募数1,112編の中から特選として「勤労青少年躍進会理事長賞」を受賞。\n\n本作は、ゴミが散乱する早朝の新宿を目撃した実体験から構想を得たフィクション。物語の舞台は、都市の喧騒と静寂が入れ替わる夜明け前。誰にも認められることのない<strong>「清掃員」という労働の尊厳に光を当てた。</strong>\n\n執筆にあたっては、単なる労働賛歌に留まらないよう、サルトルの他者論、ハイデガーの存在論、レヴィナスの倫理や西田幾多郎の「純粋経験」といった哲学的枠組みを物語の骨格に据えた。「汚れたものを片付ける」という行為を、他者への根源的な責任、意識が介在する前に行為そのものと一体化する体験として描写し、労働が持つ「愛」と「尊厳」を描き出した。\n\n<a href="https://www.nikkinkyo.org/tsudoi/2023/a-06.html" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-3 bg-gray-100 rounded-lg text-bizAccent font-bold hover:bg-gray-200 transition-colors"><i class="fa-solid fa-external-link-alt"></i> 受賞作品を読む (公式サイト)</a>`,
                     body_en: `In 2023, my essay was selected for the "Special Selection: Chairman's Award" from 1,112 entries in the "What is Work?" essay contest.\n\nThe work is a piece of fiction inspired by a real-life experience witnessing the scattered trash of Shinjuku in the early morning. Set in the fleeting moments before dawn — where the city's bustle swaps places with silence — the story casts light on the dignity of sanitation work, a form of labor that goes entirely unrecognized.\n\nTo ensure the piece transcended a simple ode to labor, I integrated philosophical frameworks into the narrative backbone, drawing on Sartre's theory of the Other, Heidegger's ontology, Levinas's ethics, and Kitaro Nishida's concept of "Pure Experience." I depicted the act of "cleaning away the dirty" as a fundamental responsibility to others and a state of complete unity between action and consciousness — portraying the intrinsic love and dignity found within labor.\n\n<a href="https://www.nikkinkyo.org/tsudoi/2023/a-06.html" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-3 bg-gray-100 rounded-lg text-bizAccent font-bold hover:bg-gray-200 transition-colors"><i class="fa-solid fa-external-link-alt"></i> Read Original (Official Site)</a>`,
+                },
+                "brand": {
+                    sub_ja: "プロダクトデザイン / 3D",
+                    sub_en: "Product Design / 3D Printing",
+                    title_ja: "第10回 あなたが考える\nブランドラベルコンテスト",
+                    title_en: "10th 'Design Your Own Brand Label' Contest",
+                    body_ja: `2023年、東京吉岡株式会社主催「第10回あなたが考えるブランドラベルコンテスト」において、応募総数520点の中からTOP40に入選し、東京ビッグサイトにて展示されました。\n\n制作したのは、架空のアパレルブランド「ONESAGE」のブランドタグです。ブランド名は「お値下げ（O-nesage）」と、賢者を意味する「Sage」を掛け合わせたダブルミーニング。<strong>素材には生分解性プラスチックを100%使用</strong>し、環境にやさしい素材を用いたブランドを購入する顧客を「1人の賢人（One sage）」として讃えました。\n\nその方面に精通している友人の力も借り、3Dプリンターによる積層造形で「朽ちていく美しさ」を表現。<strong>デジタルファブリケーション技術を用いて、環境負荷とデザインの融合を試みました。</strong>本番の展示では、輸送中のトラブルにより塗装の一部が剥がれるアクシデントに見舞われ、受賞を逃しました。しかし、完全な状態で展示できなかった悔しさは、フィジカルなプロダクトにおける「耐久性」や「物流」までを含めたデザインの重要性を学ぶ、何よりの経験となりました。`,
+                    body_en: `In 2023, my submission for the "Design Your Own Brand Label Contest," hosted by Tokyo Yoshioka Co., Ltd., was selected as one of the TOP 40 out of 520 entries and exhibited at Tokyo Big Sight.\n\nI designed a brand tag for a fictional apparel brand named "ONESAGE." The name is a double entendre combining the Japanese word for price reduction (O-nesage) with the English word Sage (a wise person). The concept honored customers who choose eco-friendly materials as "One Sage." Utilizing 100% biodegradable plastic, I collaborated with an expert in the field to use 3D printing (additive manufacturing) to express "decaying beauty." The project was an attempt to fuse environmental consciousness with design using digital fabrication technology.\n\nAlthough an accident during transport caused some paint to peel before the final exhibition—costing me a higher award—the frustration of not being able to exhibit the product in its perfect state became a valuable lesson. It taught me that design for physical products extends beyond aesthetics to include durability and logistics.`
                 },
                 "pivot": {
                     sub_ja: "プロジェクトマネジメント",
