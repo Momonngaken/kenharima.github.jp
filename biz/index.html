@@ -138,7 +138,10 @@
         <header class="pt-12 md:pt-20 mb-16 md:mb-24 fade-in flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
             <!-- Profile Photo -->
             <div class="relative group shrink-0 z-10">
-                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/20 to-cyan-400/20 blur-2xl md:blur-3xl -z-10 transform group-hover:scale-110 group-hover:opacity-80 transition-all duration-[1500ms] ease-out"></div>
+                <!-- 復元・強化：オーラのような多層Glowエフェクト（背景に溶け込む上質な光源） -->
+                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/25 to-cyan-400/20 blur-[2rem] md:blur-[3rem] -z-10 transform group-hover:scale-110 group-hover:opacity-100 opacity-60 transition-all duration-[1500ms] ease-out mix-blend-multiply"></div>
+                
+                <!-- 写真本体とフレーム -->
                 <div class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-transform duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.15)] will-change-transform">
                     <img src="./profile_biz_new.jpg" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95 transform scale-100 group-hover:scale-110 transition-transform duration-[1500ms] ease-out">
                 </div>
@@ -182,7 +185,9 @@
                 <!-- Apple-style Profile Container (Advanced Glassmorphism & Light Dynamics) -->
                 <div class="relative w-full rounded-[2rem] md:rounded-[3rem] bg-white/60 backdrop-blur-[40px] border border-white/80 p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.03)] transition-all duration-1000 hover:shadow-[0_30px_80px_rgba(15,60,133,0.08)] group isolate">
                     
-                    <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] ring-1 ring-inset ring-white/50 pointer-events-none"></div>
+                    <!-- 復元・強化：ガラスの縁（インセットリングと微かなベベルハイライト） -->
+                    <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] ring-1 ring-inset ring-white/70 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] pointer-events-none"></div>
+                    <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-50 pointer-events-none"></div>
 
                     <!-- Fluid Ambient Gradients -->
                     <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
