@@ -877,11 +877,22 @@
                             <div data-modal-id="noguchi" class="js-modal-trigger relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f8fafc]/90 backdrop-blur-md border border-gray-200/50 p-6 md:p-8 lg:p-10 group transition-all duration-700 hover:bg-white hover:border-gray-300/80 hover:shadow-[0_20px_50px_-12px_rgba(15,23,42,0.1)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
-                                    <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide">
-                                            <span class="lang-ja">最優秀賞</span>
-                                            <span class="lang-en">First Prize</span>
-                                        </span>
+                                   <!-- マイクロインタラクション：カード左端の視線アンカー -->
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-cyan-400 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
+
+                                    <div class="mb-5 md:mb-6 flex justify-start relative z-10">
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.15)] group-hover:border-bizAccent/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
+                                            <!-- ホバー時の背景発光 -->
+                                            <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <!-- アンカーライン -->
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-bizAccent to-cyan-500"></div>
+                                            <!-- テキスト -->
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-crown text-[10px] text-amber-500/80 group-hover:text-amber-500 transition-colors"></i>
+                                                <span class="lang-ja mt-px">最優秀賞</span>
+                                                <span class="lang-en mt-px">First Prize</span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-bizAccent">
                                         <span class="lang-ja">野口ゼミ x 理想科学工業株式会社<br class="hidden lg:block">マーケティング戦略コンペティション</span>
@@ -904,11 +915,21 @@
                             <div data-modal-id="bizplan" class="js-modal-trigger relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-10 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
-                                    <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center text-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide">
-                                            <span class="lang-ja">東京都産業<br class="sm:hidden">労働局長賞</span>
-                                            <span class="lang-en">Tokyo Industrial<br class="sm:hidden">Affairs Award</span>
-                                        </span>
+                                    <!-- マイクロインタラクション：カード左端の視線アンカー -->
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-cyan-400 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
+
+                                    <div class="mb-5 md:mb-6 flex justify-start relative z-10">
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.15)] group-hover:border-bizAccent/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <!-- アンカーライン -->
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-bizAccent to-cyan-500"></div>
+                                            <!-- テキスト -->
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-medal text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i>
+                                                <span class="lang-ja mt-px">東京都産業労働局長賞</span>
+                                                <span class="lang-en mt-px">Tokyo Industrial Affairs Award</span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-bizAccent">
                                         <span class="lang-ja">第6回 創造力、無限大<br class="hidden lg:block">高校生ビジネスプラン・グランプリ2018</span>
@@ -932,11 +953,20 @@
                                 <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 
                                 <div class="md:w-5/12 flex flex-col justify-center relative z-10 w-full mb-2 md:mb-0">
-                                    <div class="mb-4 flex justify-start">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide gap-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-bizAccent transition-colors duration-500"></span>
-                                            Project Management
-                                        </span>
+                                    <!-- マイクロインタラクション：カード左端の視線アンカー -->
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-cyan-400 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
+
+                                    <div class="mb-4 flex justify-start relative z-10">
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.15)] group-hover:border-bizAccent/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <!-- アンカーライン -->
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-gray-300 to-gray-400 group-hover:from-bizAccent group-hover:to-cyan-500 transition-colors duration-500"></div>
+                                            <!-- テキスト -->
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-list-check text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i>
+                                                <span class="mt-px uppercase">Project Management</span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 class="text-xl md:text-2xl lg:text-3xl font-display font-bold text-gray-900 tracking-tight leading-snug transition-colors duration-500 group-hover:text-bizAccent">
                                         <span class="lang-ja">
@@ -989,11 +1019,21 @@
                                 <div class="absolute bottom-0 right-0 w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle_at_80%_80%,rgba(15,60,133,0.15)_0%,transparent_60%)] pointer-events-none transition-transform duration-1000 group-hover:scale-110"></div>
 
                                 <div class="flex flex-col relative z-10">
-                                    <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[9px] md:text-[10px] font-mono font-bold text-gray-300 shadow-sm transition-all duration-500 group-hover:bg-white/10 group-hover:text-white group-hover:border-white/30 leading-tight tracking-wide">
-                                            <span class="lang-ja">特選：勤労青少年躍進会理事長賞</span>
-                                            <span class="lang-en">Chairman's Award</span>
-                                        </span>
+                                    <!-- マイクロインタラクション：カード左端の視線アンカー (Dark) -->
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-cyan-400 to-indigo-500 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
+
+                                    <div class="mb-5 md:mb-6 flex justify-start relative z-10">
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.3)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(34,211,238,0.2)] group-hover:border-white/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5 group-hover:bg-white/10">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <!-- アンカーライン -->
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-indigo-500"></div>
+                                            <!-- テキスト -->
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-bold text-gray-200 tracking-widest leading-none transition-colors duration-500 group-hover:text-white z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-award text-[10px] text-cyan-400/80 group-hover:text-cyan-400 transition-colors"></i>
+                                                <span class="lang-ja mt-px">特選：勤労青少年躍進会理事長賞</span>
+                                                <span class="lang-en mt-px">Chairman's Award</span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 class="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white tracking-tight leading-snug mb-3">
                                         <span class="lang-ja">第36回「働くってなんだろう」<br class="hidden md:block">エッセイコンテスト</span>
@@ -1019,11 +1059,21 @@
                             <div data-modal-id="social" class="js-modal-trigger lg:col-span-1 relative overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] bg-[#f5f5f7]/80 backdrop-blur-sm border border-black/[0.03] p-6 md:p-8 lg:p-10 group transition-all duration-500 hover:bg-white hover:border-gray-200/80 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer flex flex-col h-full isolation-auto">
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
-                                    <div class="mb-5 md:mb-6 flex justify-start">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-200/60 text-[9px] md:text-[10px] font-mono font-bold text-gray-500 shadow-sm transition-all duration-500 group-hover:bg-bizAccent/5 group-hover:text-bizAccent group-hover:border-bizAccent/20 leading-tight tracking-wide">
-                                            <span class="lang-ja">優秀賞</span>
-                                            <span class="lang-en">Excellence Award</span>
-                                        </span>
+                                    <!-- マイクロインタラクション：カード左端の視線アンカー -->
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-cyan-400 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
+
+                                    <div class="mb-5 md:mb-6 flex justify-start relative z-10">
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.15)] group-hover:border-bizAccent/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <!-- アンカーライン -->
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-bizAccent to-cyan-500"></div>
+                                            <!-- テキスト -->
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-certificate text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i>
+                                                <span class="lang-ja mt-px">優秀賞</span>
+                                                <span class="lang-en mt-px">Excellence Award</span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-bizAccent">
                                         <span class="lang-ja">早稲田大学 社会科学部<br class="hidden lg:block">「社会デザイン論入門」レポートコンペティション</span>
@@ -1067,13 +1117,26 @@
                                 <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
                                 <div class="md:w-5/12 flex flex-col justify-center relative z-10 w-full mb-2 md:mb-0">
-                                    <div class="mb-4 flex flex-wrap gap-2">
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-bizAccent/[0.05] border border-bizAccent/10 text-[9px] md:text-[10px] font-mono font-bold text-bizAccent shadow-sm transition-all duration-500 group-hover:bg-bizAccent/10 group-hover:border-bizAccent/30 tracking-wide">
-                                            JOPT 107th / 2,511
-                                        </span>
-                                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-bizAccent/[0.05] border border-bizAccent/10 text-[9px] md:text-[10px] font-mono font-bold text-bizAccent shadow-sm transition-all duration-500 group-hover:bg-bizAccent/10 group-hover:border-bizAccent/30 tracking-wide">
-                                            SPADIE 12th / 279
-                                        </span>
+                                    <!-- マイクロインタラクション：カード左端の視線アンカー -->
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-gradient-to-b from-bizAccent to-blue-500 opacity-0 group-hover:h-[60%] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-r-full z-20 pointer-events-none"></div>
+
+                                    <div class="mb-4 flex flex-wrap gap-2 md:gap-3 relative z-10">
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white backdrop-blur-md border border-bizAccent/20 rounded-full shadow-[0_2px_12px_-2px_rgba(15,60,133,0.08)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.2)] group-hover:border-bizAccent/40 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-bizAccent to-blue-600"></div>
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-wider leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-trophy text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i>
+                                                <span class="mt-px">JOPT 107th / 2,511</span>
+                                            </span>
+                                        </div>
+                                        <div class="relative inline-flex items-center pl-2 pr-4 py-1.5 bg-white backdrop-blur-md border border-bizAccent/20 rounded-full shadow-[0_2px_12px_-2px_rgba(15,60,133,0.08)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.2)] group-hover:border-bizAccent/40 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-bizAccent to-blue-600"></div>
+                                            <span class="ml-2 text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-wider leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-trophy text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i>
+                                                <span class="mt-px">SPADIE 12th / 279</span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 class="text-xl md:text-2xl lg:text-3xl font-display font-bold text-gray-900 tracking-tight leading-snug transition-colors duration-500 group-hover:text-bizAccent">
                                         <span class="lang-ja">ゲーム理論の実戦検証——<br class="hidden lg:block">競技ポーカートーナメント</span>
