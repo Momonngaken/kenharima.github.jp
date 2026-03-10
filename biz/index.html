@@ -1370,290 +1370,391 @@
             </section>
 
            <!-- ================= INTELECTUAL ROOTS ================= -->
-            <section class="fade-in pt-12 md:pt-20 cv-auto">
-                <div class="section-label mb-0">
-    <span class="lang-ja flex items-center gap-3">
-        <span class="tracking-[0.15em]">思想的背景</span>
-        <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">INTELLECTUAL ROOTS</span>
-    </span>
-    <span class="lang-en">Intellectual Roots</span>
-</div>
+            <section class="fade-in pt-12 md:pt-24 cv-auto relative">
+                <!-- セクション背景の微かなグラデーション -->
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50/50 -z-10 rounded-3xl"></div>
 
-                <!-- Cover Flow UI Container -->
-                <div class="relative w-full mt-8 md:mt-12 flex flex-col items-center">
+                <div class="section-label mb-8 md:mb-12 px-2">
+                    <span class="lang-ja flex items-center gap-3">
+                        <span class="tracking-[0.15em]">思想的背景</span>
+                        <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">INTELLECTUAL ROOTS</span>
+                    </span>
+                    <span class="lang-en">Intellectual Roots</span>
+                </div>
+
+                <!-- 1. データストア (※一切変更なし・非表示領域) -->
+                <div id="cf-data-store" class="hidden">
+                    <div class="cf-item-data" data-img="./book_rongo.jpg">
+                        <div class="cf-title-ja">論語と算盤</div>
+                        <div class="cf-title-en">The Analects and the Abacus</div>
+                        <div class="cf-author-ja">渋沢栄一</div>
+                        <div class="cf-author-en">Eiichi Shibusawa</div>
+                        <div class="cf-desc-ja">利益追求と社会倫理はトレードオフではない。「Ethical Capitalism（倫理的資本主義）」を掲げる私の、歴史的かつ理論的な原点です。</div>
+                        <div class="cf-desc-en">Profit-seeking and social ethics are not a trade-off. This classic work serves as the historical and theoretical foundation for my advocacy of "Ethical Capitalism."</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_nietzsche.jpg">
+                        <div class="cf-title-ja">善悪の彼岸</div>
+                        <div class="cf-title-en">Beyond Good and Evil</div>
+                        <div class="cf-author-ja">フリードリヒ・ニーチェ</div>
+                        <div class="cf-author-en">Friedrich Nietzsche</div>
+                        <div class="cf-desc-ja">既成の価値体系への無批判な追従を退け、自らの基準で善悪を再定義する知的勇気。「前例なき問い」に向き合う態度の原型。</div>
+                        <div class="cf-desc-en">The intellectual courage to reject blind adherence to established value systems and redefine good and evil on one's own terms. It serves as the archetype for confronting "unprecedented questions."</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_wittgenstein.jpg">
+                        <div class="cf-title-ja">論理哲学論考</div>
+                        <div class="cf-title-en">Tractatus Logico-Philosophicus</div>
+                        <div class="cf-author-ja">ルートヴィヒ・ウィトゲンシュタイン</div>
+                        <div class="cf-author-en">Ludwig Wittgenstein</div>
+                        <div class="cf-desc-ja">「語り得ぬものについては、沈黙せねばならない」——この命題は、言葉の限界を示すと同時に、語り得る領域での論理的厳密さへの要請でもある。曖昧な言葉で本質を覆い隠さず、語るべきことだけを、正確に語る。私の「言語化」の規律は、ここに起点があります。</div>
+                        <div class="cf-desc-en">"Whereof one cannot speak, thereof one must be silent"—this proposition reveals the limits of language, yet simultaneously demands absolute logical rigor within the domain of what can be said. Never obscuring essence with vague words; speaking only what should be spoken, with precision. The discipline behind my approach to "articulation" originates here.</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_sartre.jpg">
+                        <div class="cf-title-ja">存在と無</div>
+                        <div class="cf-title-en">Being and Nothingness</div>
+                        <div class="cf-author-ja">ジャン＝ポール・サルトル</div>
+                        <div class="cf-author-en">Jean-Paul Sartre</div>
+                        <div class="cf-desc-ja">人間は何者でもない状態から始まり、選択の連続によって自らを創り上げる。過去の肩書きが私を定義するのではなく、次に何を選ぶかだけが私を規定する。完成を拒み、常に未完のまま領域を越境し続ける——この「自由の重さ」を引き受けることが、私の根本姿勢です。</div>
+                        <div class="cf-desc-en">We start from nothing and forge ourselves through an unbroken chain of choices. Defined not by past titles but solely by my next decision. I reject completion to perpetually cross boundaries—embracing this "weight of freedom" is my fundamental stance.</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_frankl.jpg">
+                        <div class="cf-title-ja">夜と霧</div>
+                        <div class="cf-title-en">Man's Search for Meaning</div>
+                        <div class="cf-author-ja">ヴィクトール・E・フランクル</div>
+                        <div class="cf-author-en">Viktor E. Frankl</div>
+                        <div class="cf-desc-ja">一切の自由を奪われた極限状態にも、人間に残された最後の自由がある——与えられた状況に対し、いかなる態度をとるかを選ぶ自由が。外部環境を言い訳にせず、自らの応答を選び続けるこの覚悟が、あらゆる逆境における私の出発点です。</div>
+                        <div class="cf-desc-en">Even when stripped of all freedom, one final liberty remains—the freedom to choose one's attitude toward any given circumstance. Never using external conditions as an excuse; continuously choosing one's own response. This resolve is my point of departure in the face of any adversity.</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_pest.jpg">
+                        <div class="cf-title-ja">ペスト</div>
+                        <div class="cf-title-en">The Plague</div>
+                        <div class="cf-author-ja">アルベール・カミュ</div>
+                        <div class="cf-author-en">Albert Camus</div>
+                        <div class="cf-desc-ja">疫病という不条理に対し、リウーは英雄ではなく「職業人」として立ち続けた。救済の保証なき現場で、それでも手を動かし続けること。結果が見えない局面でも撤退しない、この愚直な連帯の姿勢が、私の仕事観の根底にあります。</div>
+                        <div class="cf-desc-en">Facing the absurdity of plague, Rieux stood not as a hero but as a professional. To keep working on the ground with no guarantee of salvation—to refuse retreat even when outcomes remain invisible. This stubborn solidarity in the face of uncertainty lies at the very foundation of my work ethic.</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_gift.jpg">
+                        <div class="cf-title-ja">世界は贈与でできている</div>
+                        <div class="cf-title-en">The World is Made of Gifts</div>
+                        <div class="cf-author-ja">近内悠太</div>
+                        <div class="cf-author-en">Yuuta Konnai</div>
+                        <div class="cf-desc-ja">ビジネスは単なる「交換」だけでなく、信頼という「贈与」で加速する。短期的な損得を超えた、持続可能な関係構築への視座を与えてくれる一冊です。</div>
+                        <div class="cf-desc-en">Business is not merely about "exchange," but is accelerated by the "gift" of trust. This book offers a perspective on building sustainable relationships that transcend short-term profit and loss.</div>
+                    </div>
+                    <div class="cf-item-data" data-img="./book_rorty.jpg">
+                        <div class="cf-title-ja">偶然性・アイロニー・連帯</div>
+                        <div class="cf-title-en">Contingency, Irony, and Solidarity</div>
+                        <div class="cf-author-ja">リチャード・ローティ</div>
+                        <div class="cf-author-en">Richard Rorty</div>
+                        <div class="cf-desc-ja">自らの信念すら「偶然」と認めるアイロニストでありながら、他者への連帯を手放さない二重性。ニーチェによる「既存価値の破壊」のその先で、いかに他者と共存しうるかを引き受ける、実践的回答。</div>
+                        <div class="cf-desc-en">The duality of maintaining solidarity with others while remaining an ironist who recognizes the "contingency" of one's own beliefs. A practical response to the challenge of coexistence that lies beyond Nietzsche’s "destruction of values."</div>
+                    </div>
+                </div>
+
+                <!-- 2. The Cinematic Cover Flow Stage -->
+                <div class="relative w-full bg-[#050505] rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border border-white/5 pt-12 pb-10 md:pt-20 md:pb-16 group">
                     
-                    <!-- 1. データストア (一語一句維持・非表示領域) -->
-                    <div id="cf-data-store" class="hidden">
-                        <div class="cf-item-data" data-img="./book_rongo.jpg">
-                            <div class="cf-title-ja">論語と算盤</div>
-                            <div class="cf-title-en">The Analects and the Abacus</div>
-                            <div class="cf-author-ja">渋沢栄一</div>
-                            <div class="cf-author-en">Eiichi Shibusawa</div>
-                            <div class="cf-desc-ja">利益追求と社会倫理はトレードオフではない。「Ethical Capitalism（倫理的資本主義）」を掲げる私の、歴史的かつ理論的な原点です。</div>
-                            <div class="cf-desc-en">Profit-seeking and social ethics are not a trade-off. This classic work serves as the historical and theoretical foundation for my advocacy of "Ethical Capitalism."</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_nietzsche.jpg">
-                            <div class="cf-title-ja">善悪の彼岸</div>
-                            <div class="cf-title-en">Beyond Good and Evil</div>
-                            <div class="cf-author-ja">フリードリヒ・ニーチェ</div>
-                            <div class="cf-author-en">Friedrich Nietzsche</div>
-                            <div class="cf-desc-ja">既成の価値体系への無批判な追従を退け、自らの基準で善悪を再定義する知的勇気。「前例なき問い」に向き合う態度の原型。</div>
-                            <div class="cf-desc-en">The intellectual courage to reject blind adherence to established value systems and redefine good and evil on one's own terms. It serves as the archetype for confronting "unprecedented questions."</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_wittgenstein.jpg">
-                            <div class="cf-title-ja">論理哲学論考</div>
-                            <div class="cf-title-en">Tractatus Logico-Philosophicus</div>
-                            <div class="cf-author-ja">ルートヴィヒ・ウィトゲンシュタイン</div>
-                            <div class="cf-author-en">Ludwig Wittgenstein</div>
-                            <div class="cf-desc-ja">「語り得ぬものについては、沈黙せねばならない」——この命題は、言葉の限界を示すと同時に、語り得る領域での論理的厳密さへの要請でもある。曖昧な言葉で本質を覆い隠さず、語るべきことだけを、正確に語る。私の「言語化」の規律は、ここに起点があります。</div>
-                            <div class="cf-desc-en">"Whereof one cannot speak, thereof one must be silent"—this proposition reveals the limits of language, yet simultaneously demands absolute logical rigor within the domain of what can be said. Never obscuring essence with vague words; speaking only what should be spoken, with precision. The discipline behind my approach to "articulation" originates here.</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_sartre.jpg">
-                            <div class="cf-title-ja">存在と無</div>
-                            <div class="cf-title-en">Being and Nothingness</div>
-                            <div class="cf-author-ja">ジャン＝ポール・サルトル</div>
-                            <div class="cf-author-en">Jean-Paul Sartre</div>
-                            <div class="cf-desc-ja">人間は何者でもない状態から始まり、選択の連続によって自らを創り上げる。過去の肩書きが私を定義するのではなく、次に何を選ぶかだけが私を規定する。完成を拒み、常に未完のまま領域を越境し続ける——この「自由の重さ」を引き受けることが、私の根本姿勢です。</div>
-                            <div class="cf-desc-en">We start from nothing and forge ourselves through an unbroken chain of choices. Defined not by past titles but solely by my next decision. I reject completion to perpetually cross boundaries—embracing this "weight of freedom" is my fundamental stance.</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_frankl.jpg">
-                            <div class="cf-title-ja">夜と霧</div>
-                            <div class="cf-title-en">Man's Search for Meaning</div>
-                            <div class="cf-author-ja">ヴィクトール・E・フランクル</div>
-                            <div class="cf-author-en">Viktor E. Frankl</div>
-                            <div class="cf-desc-ja">一切の自由を奪われた極限状態にも、人間に残された最後の自由がある——与えられた状況に対し、いかなる態度をとるかを選ぶ自由が。外部環境を言い訳にせず、自らの応答を選び続けるこの覚悟が、あらゆる逆境における私の出発点です。</div>
-                            <div class="cf-desc-en">Even when stripped of all freedom, one final liberty remains—the freedom to choose one's attitude toward any given circumstance. Never using external conditions as an excuse; continuously choosing one's own response. This resolve is my point of departure in the face of any adversity.</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_pest.jpg">
-                            <div class="cf-title-ja">ペスト</div>
-                            <div class="cf-title-en">The Plague</div>
-                            <div class="cf-author-ja">アルベール・カミュ</div>
-                            <div class="cf-author-en">Albert Camus</div>
-                            <div class="cf-desc-ja">疫病という不条理に対し、リウーは英雄ではなく「職業人」として立ち続けた。救済の保証なき現場で、それでも手を動かし続けること。結果が見えない局面でも撤退しない、この愚直な連帯の姿勢が、私の仕事観の根底にあります。</div>
-                            <div class="cf-desc-en">Facing the absurdity of plague, Rieux stood not as a hero but as a professional. To keep working on the ground with no guarantee of salvation—to refuse retreat even when outcomes remain invisible. This stubborn solidarity in the face of uncertainty lies at the very foundation of my work ethic.</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_gift.jpg">
-                            <div class="cf-title-ja">世界は贈与でできている</div>
-                            <div class="cf-title-en">The World is Made of Gifts</div>
-                            <div class="cf-author-ja">近内悠太</div>
-                            <div class="cf-author-en">Yuuta Konnai</div>
-                            <div class="cf-desc-ja">ビジネスは単なる「交換」だけでなく、信頼という「贈与」で加速する。短期的な損得を超えた、持続可能な関係構築への視座を与えてくれる一冊です。</div>
-                            <div class="cf-desc-en">Business is not merely about "exchange," but is accelerated by the "gift" of trust. This book offers a perspective on building sustainable relationships that transcend short-term profit and loss.</div>
-                        </div>
-                        <div class="cf-item-data" data-img="./book_rorty.jpg">
-                            <div class="cf-title-ja">偶然性・アイロニー・連帯</div>
-                            <div class="cf-title-en">Contingency, Irony, and Solidarity</div>
-                            <div class="cf-author-ja">リチャード・ローティ</div>
-                            <div class="cf-author-en">Richard Rorty</div>
-                            <div class="cf-desc-ja">自らの信念すら「偶然」と認めるアイロニストでありながら、他者への連帯を手放さない二重性。ニーチェによる「既存価値の破壊」のその先で、いかに他者と共存しうるかを引き受ける、実践的回答。</div>
-                            <div class="cf-desc-en">The duality of maintaining solidarity with others while remaining an ironist who recognizes the "contingency" of one's own beliefs. A practical response to the challenge of coexistence that lies beyond Nietzsche’s "destruction of values."</div>
-                        </div>
+                    <!-- シネマティック環境光 -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[80%] bg-[radial-gradient(ellipse_at_top,rgba(79,70,229,0.12)_0%,transparent_70%)] pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[50%] bg-[radial-gradient(ellipse_at_bottom,rgba(6,182,212,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+
+                    <!-- スマホ用スワイプヒント -->
+                    <div class="md:hidden absolute top-6 left-1/2 -translate-x-1/2 text-[9px] font-mono text-white/30 tracking-[0.3em] uppercase flex items-center gap-3 pointer-events-none z-20">
+                        <i class="fa-solid fa-chevron-left animate-[slide-hint_1.5s_infinite_reverse] opacity-50"></i>
+                        <span>Swipe</span>
+                        <i class="fa-solid fa-chevron-right animate-[slide-hint_1.5s_infinite] opacity-50"></i>
                     </div>
 
-                    <!-- 2. UI Container (iPod Display Style) -->
-                    <div class="w-full bg-[#03050a] rounded-[2rem] overflow-hidden shadow-2xl relative border border-white/5 py-12 md:py-16">
-                        
-                        <!-- 背景のアンビエントグロー -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80%] w-[80%] h-[60%] bg-indigo-500/10 blur-[100px] pointer-events-none rounded-full"></div>
-                        
-                        <!-- スマホ用スワイプヒント -->
-                        <div class="md:hidden absolute top-6 left-1/2 -translate-x-1/2 text-[9px] font-mono text-white/30 tracking-widest uppercase flex items-center gap-2 pointer-events-none z-20">
-                            <i class="fa-solid fa-chevron-left animate-pulse"></i> Swipe <i class="fa-solid fa-chevron-right animate-pulse"></i>
-                        </div>
+                    <!-- Stage / Gallery -->
+                    <div id="cf-gallery" class="relative w-full h-[230px] md:h-[380px] flex items-center justify-center perspective-[1500px] touch-pan-y z-10 select-none">
+                        <!-- JS Inject cards here -->
+                    </div>
 
-                        <!-- Cover Flow Gallery (3D Space) -->
-                        <div id="cf-gallery" class="relative w-full h-[220px] md:h-[320px] flex items-center justify-center perspective-[1200px] touch-pan-y z-10">
-                            <!-- JS Inject -->
-                        </div>
-                        
-                        <!-- 情報表示エリア (Information Panel) -->
-                        <div class="w-full max-w-2xl mx-auto px-6 mt-16 md:mt-24 min-h-[160px] relative z-20 flex flex-col items-center text-center">
-                            <div id="cf-info" class="transition-all duration-500 ease-out transform w-full flex flex-col items-center">
-                                <h3 class="text-xl md:text-2xl font-serif font-bold text-white mb-2 tracking-wide drop-shadow-md">
+                    <!-- Progress Dots Navigation -->
+                    <div id="cf-dots" class="flex justify-center items-center gap-2 mt-8 md:mt-12 z-20 relative px-4">
+                        <!-- JS Inject dots here -->
+                    </div>
+
+                    <!-- Info Panel (Glassmorphism) -->
+                    <div class="relative z-20 w-full max-w-3xl mx-auto mt-6 md:mt-10 px-4 md:px-6">
+                        <div class="relative overflow-hidden rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 p-6 md:p-8 min-h-[190px] md:min-h-[200px] flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(0,0,0,0.2)]">
+                            
+                            <!-- Animated Text Wrappers -->
+                            <div class="cf-text-animate-wrapper w-full relative">
+                                <h3 class="text-lg md:text-2xl font-serif font-bold text-white mb-1.5 md:mb-2 tracking-wide drop-shadow-md">
                                     <span class="lang-ja" id="cf-title-ja"></span>
                                     <span class="lang-en" id="cf-title-en"></span>
                                 </h3>
-                                <p class="text-[10px] md:text-xs font-mono text-indigo-300 mb-5 uppercase tracking-[0.2em] border-b border-indigo-500/30 pb-2 inline-block">
+                                <p class="text-[10px] md:text-xs font-mono text-indigo-300 mb-4 md:mb-6 uppercase tracking-[0.2em]">
                                     <span class="lang-ja" id="cf-author-ja"></span>
                                     <span class="lang-en" id="cf-author-en"></span>
                                 </p>
-                                <div class="text-[13px] md:text-sm text-gray-400 leading-relaxed font-normal text-justify md:text-center w-full max-w-[95%] md:max-w-full">
+                            </div>
+                            
+                            <div class="cf-text-animate-wrapper w-full relative">
+                                <div class="text-[13px] md:text-[15px] text-gray-300 leading-relaxed font-normal text-justify md:text-center">
                                     <p class="lang-ja" id="cf-desc-ja"></p>
                                     <p class="lang-en" id="cf-desc-en"></p>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Styling & Logic -->
-                        <style>
-                            .perspective-[1200px] { perspective: 1200px; }
-                            .cf-item {
-                                transform-style: preserve-3d;
-                                /* 美しい床面反射を実装 */
-                                -webkit-box-reflect: below 2px linear-gradient(transparent 70%, rgba(255,255,255,0.25));
-                                will-change: transform, z-index;
-                                backface-visibility: hidden;
-                            }
-                            .cf-overlay {
-                                will-change: opacity;
-                            }
-                        </style>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', () => {
-                                const dataElements = document.querySelectorAll('.cf-item-data');
-                                const items = Array.from(dataElements).map(el => ({
-                                    img: el.getAttribute('data-img'),
-                                    title: { ja: el.querySelector('.cf-title-ja').innerHTML, en: el.querySelector('.cf-title-en').innerHTML },
-                                    author: { ja: el.querySelector('.cf-author-ja').innerHTML, en: el.querySelector('.cf-author-en').innerHTML },
-                                    desc: { ja: el.querySelector('.cf-desc-ja').innerHTML, en: el.querySelector('.cf-desc-en').innerHTML },
-                                }));
-
-                                const gallery = document.getElementById('cf-gallery');
-                                const infoContainer = document.getElementById('cf-info');
-                                const isMobile = window.innerWidth < 768;
-
-                                const itemWidth = isMobile ? 120 : 180;
-                                const itemHeight = isMobile ? 180 : 270;
-                                
-                                items.forEach((item, index) => {
-                                    const imgWrapper = document.createElement('div');
-                                    // 究極に滑らかなイージング
-                                    imgWrapper.className = 'cf-item absolute transition-transform duration-[800ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] cursor-pointer rounded bg-black';
-                                    imgWrapper.style.width = itemWidth + 'px';
-                                    imgWrapper.style.height = itemHeight + 'px';
-                                    
-                                    const img = document.createElement('img');
-                                    img.src = item.img;
-                                    img.className = 'w-full h-full object-cover rounded shadow-[0_0_20px_rgba(0,0,0,0.8)] border border-white/5';
-                                    img.alt = item.title.ja;
-                                    img.draggable = false; 
-                                    
-                                    const overlay = document.createElement('div');
-                                    overlay.className = 'cf-overlay absolute inset-0 bg-black/60 transition-opacity duration-[800ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded';
-                                    
-                                    imgWrapper.appendChild(img);
-                                    imgWrapper.appendChild(overlay);
-                                    
-                                    // PC: カーソルを移動させることでピックアップ表示（ホバー連動）
-                                    imgWrapper.addEventListener('mouseenter', () => {
-                                        if (window.innerWidth >= 768) updateCoverFlow(index);
-                                    });
-
-                                    // スマホ・PC共通: タップ/クリックでも動くように
-                                    imgWrapper.addEventListener('click', () => {
-                                        updateCoverFlow(index);
-                                    });
-                                    
-                                    gallery.appendChild(imgWrapper);
-                                });
-
-                                let activeIndex = -1; 
-
-                                function updateCoverFlow(newIndex) {
-                                    if (activeIndex === newIndex) return;
-                                    activeIndex = newIndex;
-                                    const cfItems = document.querySelectorAll('.cf-item');
-                                    
-                                    // 3D空間のパラメーター
-                                    const spacing = isMobile ? 45 : 70;
-                                    const pushBack = isMobile ? -80 : -140;
-                                    const angle = isMobile ? 55 : 60;
-                                    const centerOffset = isMobile ? 70 : 130;
-                                    
-                                    cfItems.forEach((item, index) => {
-                                        const diff = index - activeIndex;
-                                        const overlay = item.querySelector('.cf-overlay');
-                                        
-                                        let tx = diff * spacing;
-                                        let tz = Math.abs(diff) * pushBack;
-                                        let ry = 0;
-                                        
-                                        if (diff > 0) {
-                                            ry = -angle; // 右側のカードは左を向く
-                                            tx += centerOffset;
-                                        } else if (diff < 0) {
-                                            ry = angle; // 左側のカードは右を向く
-                                            tx -= centerOffset;
-                                        } else {
-                                            ry = 0; // 中央は正面
-                                            tz = 40; // 少し手前に飛び出す
-                                        }
-                                        
-                                        item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg)`;
-                                        item.style.zIndex = 100 - Math.abs(diff);
-                                        
-                                        if (diff === 0) {
-                                            overlay.style.opacity = '0';
-                                            item.style.boxShadow = '0 0 40px rgba(99,102,241,0.2)'; // 選択時の発光
-                                        } else {
-                                            overlay.style.opacity = '1';
-                                            item.style.boxShadow = 'none';
-                                        }
-                                    });
-                                    updateInfo(activeIndex);
-                                }
-
-                                function updateInfo(index) {
-                                    const item = items[index];
-                                    
-                                    // スムーズなフェードアウト＆イン
-                                    infoContainer.style.opacity = '0';
-                                    infoContainer.style.transform = 'translateY(10px)';
-                                    
-                                    setTimeout(() => {
-                                        document.getElementById('cf-title-ja').innerHTML = item.title.ja;
-                                        document.getElementById('cf-title-en').innerHTML = item.title.en;
-                                        document.getElementById('cf-author-ja').innerHTML = item.author.ja;
-                                        document.getElementById('cf-author-en').innerHTML = item.author.en;
-                                        document.getElementById('cf-desc-ja').innerHTML = item.desc.ja;
-                                        document.getElementById('cf-desc-en').innerHTML = item.desc.en;
-                                        
-                                        infoContainer.style.opacity = '1';
-                                        infoContainer.style.transform = 'translateY(0)';
-                                    }, 200); 
-                                }
-
-                                // Mobile Swipe Logic
-                                let startX = 0;
-                                let startY = 0;
-                                let isSwiping = false;
-
-                                gallery.addEventListener('touchstart', (e) => {
-                                    startX = e.touches[0].clientX;
-                                    startY = e.touches[0].clientY;
-                                    isSwiping = true;
-                                }, {passive: true});
-
-                                gallery.addEventListener('touchmove', (e) => {
-                                    if (!isSwiping) return;
-                                    const currentX = e.touches[0].clientX;
-                                    const currentY = e.touches[0].clientY;
-                                    // 縦スクロールを邪魔せず、横スワイプの時だけスクロールをブロックする
-                                    if (Math.abs(startX - currentX) > Math.abs(startY - currentY)) {
-                                        e.preventDefault(); 
-                                    }
-                                }, {passive: false});
-
-                                gallery.addEventListener('touchend', (e) => {
-                                    if (!isSwiping) return;
-                                    const diff = startX - e.changedTouches[0].clientX;
-                                    
-                                    if (Math.abs(diff) > 30) {
-                                        if (diff > 0 && activeIndex < items.length - 1) {
-                                            updateCoverFlow(activeIndex + 1); // 左にスワイプ -> 次へ
-                                        } else if (diff < 0 && activeIndex > 0) {
-                                            updateCoverFlow(activeIndex - 1); // 右にスワイプ -> 前へ
-                                        }
-                                    }
-                                    isSwiping = false;
-                                });
-
-                                // 初期化：真ん中のアイテム（存在と無：index=3）をアクティブに
-                                setTimeout(() => { updateCoverFlow(3); }, 100);
-                            });
-                        </script>
                     </div>
                 </div>
+
+                <!-- Styling for Cinematic Cover Flow -->
+                <style>
+                    .perspective-[1500px] { perspective: 1500px; }
+                    .cf-item {
+                        transform-style: preserve-3d;
+                        /* 床面反射 */
+                        -webkit-box-reflect: below 4px linear-gradient(transparent 65%, rgba(255,255,255,0.25));
+                        will-change: transform, z-index;
+                        backface-visibility: hidden;
+                        -webkit-user-drag: none;
+                    }
+                    .cf-item img {
+                        transition: box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+                        pointer-events: none; /* スマホでの画像保存メニュー防止 */
+                    }
+                    .cf-item.is-active img {
+                        box-shadow: 0 0 50px rgba(99, 102, 241, 0.3), 0 20px 40px -10px rgba(0,0,0,0.8);
+                    }
+                    .cf-overlay {
+                        will-change: opacity, backdrop-filter;
+                    }
+                    
+                    /* テキストの滑らかなクロスフェード・スライドイン */
+                    .cf-text-animate-wrapper {
+                        transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    .cf-text-fade-out {
+                        opacity: 0;
+                        transform: translateY(-8px);
+                        transition: opacity 0.2s ease, transform 0.2s ease;
+                    }
+                    .cf-text-fade-in {
+                        opacity: 1;
+                        transform: translateY(0);
+                        animation: cf-slide-up 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                    }
+                    @keyframes cf-slide-up {
+                        0% { opacity: 0; transform: translateY(12px); }
+                        100% { opacity: 1; transform: translateY(0); }
+                    }
+                </style>
+
+                <!-- Core Logic -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const dataElements = document.querySelectorAll('.cf-item-data');
+                        if (!dataElements.length) return;
+
+                        const items = Array.from(dataElements).map(el => ({
+                            img: el.getAttribute('data-img'),
+                            title: { ja: el.querySelector('.cf-title-ja').innerHTML, en: el.querySelector('.cf-title-en').innerHTML },
+                            author: { ja: el.querySelector('.cf-author-ja').innerHTML, en: el.querySelector('.cf-author-en').innerHTML },
+                            desc: { ja: el.querySelector('.cf-desc-ja').innerHTML, en: el.querySelector('.cf-desc-en').innerHTML },
+                        }));
+
+                        const gallery = document.getElementById('cf-gallery');
+                        const dotsContainer = document.getElementById('cf-dots');
+                        
+                        const titleJa = document.getElementById('cf-title-ja');
+                        const titleEn = document.getElementById('cf-title-en');
+                        const authorJa = document.getElementById('cf-author-ja');
+                        const authorEn = document.getElementById('cf-author-en');
+                        const descJa = document.getElementById('cf-desc-ja');
+                        const descEn = document.getElementById('cf-desc-en');
+                        const textWrappers = document.querySelectorAll('.cf-text-animate-wrapper');
+
+                        let activeIndex = -1;
+                        let isMobile = window.innerWidth < 768;
+                        
+                        // レスポンシブ対応
+                        window.addEventListener('resize', () => {
+                            const wasMobile = isMobile;
+                            isMobile = window.innerWidth < 768;
+                            if (wasMobile !== isMobile) {
+                                // 画面サイズ変更時にサイズを再設定
+                                document.querySelectorAll('.cf-item').forEach(item => {
+                                    item.style.width = isMobile ? '130px' : '220px';
+                                    item.style.height = isMobile ? '195px' : '330px';
+                                });
+                                updateCoverFlow(activeIndex, true);
+                            }
+                        });
+
+                        // カード生成
+                        items.forEach((item, index) => {
+                            const wrapper = document.createElement('div');
+                            wrapper.className = `cf-item absolute transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] cursor-pointer rounded-md md:rounded-lg`;
+                            wrapper.style.width = isMobile ? '130px' : '220px';
+                            wrapper.style.height = isMobile ? '195px' : '330px';
+                            
+                            const img = document.createElement('img');
+                            img.src = item.img;
+                            img.className = 'w-full h-full object-cover rounded-md md:rounded-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]';
+                            img.alt = item.title.ja;
+                            
+                            const overlay = document.createElement('div');
+                            // 非アクティブ時にかかる暗転とブラーのレイヤー
+                            overlay.className = 'cf-overlay absolute inset-0 bg-black/50 transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-md md:rounded-lg backdrop-blur-[1px]';
+                            
+                            wrapper.appendChild(img);
+                            wrapper.appendChild(overlay);
+                            
+                            // Interaction (PC:Hover / Mobile&PC:Click)
+                            wrapper.addEventListener('mouseenter', () => { if (!isMobile) updateCoverFlow(index); });
+                            wrapper.addEventListener('click', () => { updateCoverFlow(index); });
+                            
+                            gallery.appendChild(wrapper);
+
+                            // ドット生成
+                            const dot = document.createElement('button');
+                            dot.className = 'w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20 transition-all duration-300 hover:bg-white/50 outline-none focus:outline-none';
+                            dot.setAttribute('aria-label', `Go to item ${index + 1}`);
+                            dot.addEventListener('click', () => updateCoverFlow(index));
+                            dotsContainer.appendChild(dot);
+                        });
+
+                        function updateCoverFlow(newIndex, force = false) {
+                            if (activeIndex === newIndex && !force) return;
+                            activeIndex = newIndex;
+                            
+                            const cfItems = document.querySelectorAll('.cf-item');
+                            const dots = dotsContainer.querySelectorAll('button');
+                            
+                            // 3D空間のパラメーター設定
+                            const spacing = isMobile ? 50 : 80; // 重なりの間隔
+                            const pushBack = isMobile ? -100 : -160; // 奥行き
+                            const angle = isMobile ? 60 : 55; // 回転角度
+                            const centerOffset = isMobile ? 85 : 180; // 中央カードからの距離
+                            
+                            cfItems.forEach((item, index) => {
+                                const diff = index - activeIndex;
+                                const overlay = item.querySelector('.cf-overlay');
+                                
+                                let tx = diff * spacing;
+                                let tz = Math.abs(diff) * pushBack;
+                                let ry = 0;
+                                let blurVal = 0;
+                                
+                                if (diff > 0) {
+                                    ry = -angle; 
+                                    tx += centerOffset;
+                                    blurVal = Math.min(diff * 2, 6); // 遠くほどボケる
+                                } else if (diff < 0) {
+                                    ry = angle; 
+                                    tx -= centerOffset;
+                                    blurVal = Math.min(Math.abs(diff) * 2, 6);
+                                } else {
+                                    ry = 0; 
+                                    tz = isMobile ? 30 : 60; // 中央は手前に飛び出す
+                                    blurVal = 0;
+                                }
+                                
+                                item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg)`;
+                                item.style.zIndex = 100 - Math.abs(diff);
+                                
+                                if (diff === 0) {
+                                    overlay.style.opacity = '0';
+                                    overlay.style.backdropFilter = `blur(0px)`;
+                                    item.classList.add('is-active');
+                                } else {
+                                    overlay.style.opacity = '1';
+                                    overlay.style.backdropFilter = `blur(${blurVal}px)`;
+                                    item.classList.remove('is-active');
+                                }
+                            });
+
+                            // ドットのUI更新
+                            dots.forEach((dot, idx) => {
+                                if (idx === activeIndex) {
+                                    dot.classList.replace('bg-white/20', 'bg-indigo-400');
+                                    dot.classList.replace('hover:bg-white/50', 'bg-indigo-400');
+                                    dot.classList.add('scale-125');
+                                } else {
+                                    dot.classList.replace('bg-indigo-400', 'bg-white/20');
+                                    dot.classList.remove('scale-125');
+                                    dot.classList.add('hover:bg-white/50');
+                                }
+                            });
+
+                            updateInfoPanel(activeIndex);
+                        }
+
+                        // テキストの滑らかなアニメーション書き換え
+                        let infoTimeout;
+                        function updateInfoPanel(index) {
+                            const item = items[index];
+                            clearTimeout(infoTimeout);
+                            
+                            // フェードアウト
+                            textWrappers.forEach(wrap => {
+                                wrap.classList.add('cf-text-fade-out');
+                                wrap.classList.remove('cf-text-fade-in');
+                            });
+                            
+                            // 文字入れ替え & フェードイン
+                            infoTimeout = setTimeout(() => {
+                                titleJa.innerHTML = item.title.ja;
+                                titleEn.innerHTML = item.title.en;
+                                authorJa.innerHTML = item.author.ja;
+                                authorEn.innerHTML = item.author.en;
+                                descJa.innerHTML = item.desc.ja;
+                                descEn.innerHTML = item.desc.en;
+                                
+                                requestAnimationFrame(() => {
+                                    textWrappers.forEach(wrap => {
+                                        wrap.classList.remove('cf-text-fade-out');
+                                        wrap.classList.add('cf-text-fade-in');
+                                    });
+                                });
+                            }, 200); // フェードアウトの時間に合わせる
+                        }
+
+                        // スマホ向けのスワイプ機能
+                        let startX = 0;
+                        let startY = 0;
+                        let isSwiping = false;
+
+                        gallery.addEventListener('touchstart', (e) => {
+                            startX = e.touches[0].clientX;
+                            startY = e.touches[0].clientY;
+                            isSwiping = true;
+                        }, {passive: true});
+
+                        gallery.addEventListener('touchmove', (e) => {
+                            if (!isSwiping) return;
+                            const currentX = e.touches[0].clientX;
+                            const currentY = e.touches[0].clientY;
+                            // 横方向の移動が縦方向より大きい場合のみスクロールをブロック
+                            if (Math.abs(startX - currentX) > Math.abs(startY - currentY)) {
+                                e.preventDefault(); 
+                            }
+                        }, {passive: false});
+
+                        gallery.addEventListener('touchend', (e) => {
+                            if (!isSwiping) return;
+                            const diff = startX - e.changedTouches[0].clientX;
+                            
+                            // 40px以上のスワイプで反応
+                            if (Math.abs(diff) > 40) {
+                                if (diff > 0 && activeIndex < items.length - 1) {
+                                    updateCoverFlow(activeIndex + 1); // 左スワイプ -> 次へ
+                                } else if (diff < 0 && activeIndex > 0) {
+                                    updateCoverFlow(activeIndex - 1); // 右スワイプ -> 前へ
+                                }
+                            }
+                            isSwiping = false;
+                        });
+
+                        // 初期化：真ん中のアイテム（存在と無：index=3）をアクティブに
+                        setTimeout(() => { updateCoverFlow(3); }, 50);
+                    });
+                </script>
+            </section>
                            
 
             <!-- ================= CONTACT & RESUME ================= -->
