@@ -1571,12 +1571,17 @@
                         let activeIndex = -1;
                         let isMobile = window.innerWidth < 768;
                         
+                        // ▼ スワイプ誤爆防止用の変数 ▼
+                        let startX = 0;
+                        let startY = 0;
+                        let isSwiping = false;
+                        let isDragging = false; 
+                        
                         // レスポンシブ対応
                         window.addEventListener('resize', () => {
                             const wasMobile = isMobile;
                             isMobile = window.innerWidth < 768;
                             if (wasMobile !== isMobile) {
-                                // 画面サイズ変更時にサイズを再設定
                                 document.querySelectorAll('.cf-item').forEach(item => {
                                     item.style.width = isMobile ? '130px' : '220px';
                                     item.style.height = isMobile ? '195px' : '330px';
@@ -1598,15 +1603,27 @@
                             img.alt = item.title.ja;
                             
                             const overlay = document.createElement('div');
-                            // 非アクティブ時にかかる暗転とブラーのレイヤー
                             overlay.className = 'cf-overlay absolute inset-0 bg-black/50 transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-md md:rounded-lg backdrop-blur-[1px]';
                             
                             wrapper.appendChild(img);
                             wrapper.appendChild(overlay);
                             
-                            // Interaction (PC:Hover / Mobile&PC:Click)
-                            wrapper.addEventListener('mouseenter', () => { if (!isMobile) updateCoverFlow(index); });
-                            wrapper.addEventListener('click', () => { updateCoverFlow(index); });
+                            // ▼ タブレットバグ修正: タッチデバイスでの hover 誤爆を完全に防ぐ ▼
+                            wrapper.addEventListener('mouseenter', () => { 
+                                // ホバーが使えるデバイス（PC）のみ反応させる
+                                if (window.matchMedia('(hover: hover)').matches) {
+                                    updateCoverFlow(index); 
+                                }
+                            });
+                            
+                            // ▼ タブレットバグ修正: スワイプ中のクリック誤爆を無効化する ▼
+                            wrapper.addEventListener('click', (e) => { 
+                                if (isDragging) {
+                                    e.preventDefault();
+                                    return; // スワイプ操作直後はクリックを無視
+                                }
+                                updateCoverFlow(index); 
+                            });
                             
                             gallery.appendChild(wrapper);
 
@@ -1625,11 +1642,10 @@
                             const cfItems = document.querySelectorAll('.cf-item');
                             const dots = dotsContainer.querySelectorAll('button');
                             
-                            // 3D空間のパラメーター設定
-                            const spacing = isMobile ? 50 : 80; // 重なりの間隔
-                            const pushBack = isMobile ? -100 : -160; // 奥行き
-                            const angle = isMobile ? 60 : 55; // 回転角度
-                            const centerOffset = isMobile ? 85 : 180; // 中央カードからの距離
+                            const spacing = isMobile ? 50 : 80; 
+                            const pushBack = isMobile ? -100 : -160; 
+                            const angle = isMobile ? 60 : 55; 
+                            const centerOffset = isMobile ? 85 : 180; 
                             
                             cfItems.forEach((item, index) => {
                                 const diff = index - activeIndex;
@@ -1643,14 +1659,14 @@
                                 if (diff > 0) {
                                     ry = -angle; 
                                     tx += centerOffset;
-                                    blurVal = Math.min(diff * 2, 6); // 遠くほどボケる
+                                    blurVal = Math.min(diff * 2, 6); 
                                 } else if (diff < 0) {
                                     ry = angle; 
                                     tx -= centerOffset;
                                     blurVal = Math.min(Math.abs(diff) * 2, 6);
                                 } else {
                                     ry = 0; 
-                                    tz = isMobile ? 30 : 60; // 中央は手前に飛び出す
+                                    tz = isMobile ? 30 : 60; 
                                     blurVal = 0;
                                 }
                                 
@@ -1668,7 +1684,6 @@
                                 }
                             });
 
-                            // ドットのUI更新
                             dots.forEach((dot, idx) => {
                                 if (idx === activeIndex) {
                                     dot.classList.replace('bg-white/20', 'bg-indigo-400');
@@ -1684,19 +1699,16 @@
                             updateInfoPanel(activeIndex);
                         }
 
-                        // テキストの滑らかなアニメーション書き換え
                         let infoTimeout;
                         function updateInfoPanel(index) {
                             const item = items[index];
                             clearTimeout(infoTimeout);
                             
-                            // フェードアウト
                             textWrappers.forEach(wrap => {
                                 wrap.classList.add('cf-text-fade-out');
                                 wrap.classList.remove('cf-text-fade-in');
                             });
                             
-                            // 文字入れ替え & フェードイン
                             infoTimeout = setTimeout(() => {
                                 titleJa.innerHTML = item.title.ja;
                                 titleEn.innerHTML = item.title.en;
@@ -1711,25 +1723,27 @@
                                         wrap.classList.add('cf-text-fade-in');
                                     });
                                 });
-                            }, 200); // フェードアウトの時間に合わせる
+                            }, 200); 
                         }
 
-                        // スマホ向けのスワイプ機能
-                        let startX = 0;
-                        let startY = 0;
-                        let isSwiping = false;
-
+                        // ▼ タブレットバグ修正: スワイプ処理の高度化 ▼
                         gallery.addEventListener('touchstart', (e) => {
                             startX = e.touches[0].clientX;
                             startY = e.touches[0].clientY;
                             isSwiping = true;
+                            isDragging = false; // タッチ開始時にフラグをリセット
                         }, {passive: true});
 
                         gallery.addEventListener('touchmove', (e) => {
                             if (!isSwiping) return;
                             const currentX = e.touches[0].clientX;
                             const currentY = e.touches[0].clientY;
-                            // 横方向の移動が縦方向より大きい場合のみスクロールをブロック
+                            
+                            // 指が10px以上動いた場合は「スワイプ(ドラッグ)中」と判定する
+                            if (Math.abs(startX - currentX) > 10 || Math.abs(startY - currentY) > 10) {
+                                isDragging = true;
+                            }
+                            
                             if (Math.abs(startX - currentX) > Math.abs(startY - currentY)) {
                                 e.preventDefault(); 
                             }
@@ -1739,15 +1753,17 @@
                             if (!isSwiping) return;
                             const diff = startX - e.changedTouches[0].clientX;
                             
-                            // 40px以上のスワイプで反応
                             if (Math.abs(diff) > 40) {
                                 if (diff > 0 && activeIndex < items.length - 1) {
-                                    updateCoverFlow(activeIndex + 1); // 左スワイプ -> 次へ
+                                    updateCoverFlow(activeIndex + 1); 
                                 } else if (diff < 0 && activeIndex > 0) {
-                                    updateCoverFlow(activeIndex - 1); // 右スワイプ -> 前へ
+                                    updateCoverFlow(activeIndex - 1); 
                                 }
                             }
                             isSwiping = false;
+                            
+                            // touch終了直後に発火するclickイベントをキャンセルするため、フラグ解除をわずかに遅延させる
+                            setTimeout(() => { isDragging = false; }, 50);
                         });
 
                         // 初期化：真ん中のアイテム（存在と無：index=3）をアクティブに
