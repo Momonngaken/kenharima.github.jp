@@ -114,18 +114,22 @@
     <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
     <div id="nav-container" class="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <nav class="pointer-events-auto fade-in" style="animation-delay: 0.5s;">
-            <!-- 余分な幅指定を削ぎ落とし、中身にフィットする極限までスマートなカプセルへ最適化 -->
-            <div class="flex items-center justify-between gap-4 sm:gap-6 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/75 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06)] rounded-full w-auto max-w-[95vw]">
-                <a href="#" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-2 hover:opacity-70 transition-opacity">KEN.H</a>
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <!-- Language Switcher -->
-                    <div class="relative flex items-center bg-gray-100/80 rounded-full p-1 select-none">
-                        <button id="lang-jp" class="relative z-10 px-2.5 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
-                        <button id="lang-en" class="relative z-10 px-2.5 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
+            <!-- 余分な幅指定を削ぎ落とし、スマホ・タブレット・PCそれぞれで最適なサイズ感と余白を再設計 -->
+            <div class="flex items-center justify-between gap-4 md:gap-6 lg:gap-8 px-4 py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3.5 bg-white/75 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.06)] rounded-full w-auto max-w-[95vw] transition-all duration-500">
+                
+                <!-- Logo -->
+                <a href="#" class="text-sm md:text-base lg:text-lg font-display font-bold text-gray-900 tracking-[0.15em] md:tracking-[0.2em] ml-2 hover:opacity-70 transition-opacity">KEN.H</a>
+                
+                <div class="flex items-center gap-3 md:gap-4 lg:gap-5">
+                    <!-- Language Switcher (Inner Shadowを追加し立体感を強調) -->
+                    <div class="relative flex items-center bg-gray-100/80 rounded-full p-1 lg:p-1.5 select-none shadow-[inset_0_1px_3px_rgba(0,0,0,0.05)]">
+                        <button id="lang-jp" class="relative z-10 px-3 py-1 md:px-4 md:py-1.5 lg:px-5 lg:py-2 rounded-full text-[10px] md:text-xs lg:text-[13px] font-bold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
+                        <button id="lang-en" class="relative z-10 px-3 py-1 md:px-4 md:py-1.5 lg:px-5 lg:py-2 rounded-full text-[10px] md:text-xs lg:text-[13px] font-bold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
                     </div>
-                    <!-- Contact Icon -->
-                    <a href="../contact.html" class="group flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-900 text-white hover:bg-bizAccent transition-colors duration-300 shadow-sm">
-                        <i class="fa-solid fa-paper-plane text-[9px] sm:text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                    
+                    <!-- Contact Icon (スケールアップ＆ホバー時の美しいブルーGlow効果を追加) -->
+                    <a href="../contact.html" class="group relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10 lg:w-11 lg:h-11 rounded-full bg-gray-900 text-white hover:bg-bizAccent transition-all duration-500 shadow-[0_4px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(15,60,133,0.3)] hover:scale-105">
+                        <i class="fa-solid fa-paper-plane text-[11px] md:text-[13px] lg:text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-500"></i>
                     </a>
                 </div>
             </div>
@@ -1798,9 +1802,10 @@
             // ▲ ADDED: Smart Navigation Hide/Show on Scroll ▲
 
             // Language Switcher (Optimized: ClassList Toggling)
-            const activeClasses = ['bg-white', 'text-black', 'shadow-sm', 'cursor-default'];
-            const inactiveClasses = ['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
-            const baseClass = "relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out";
+            const activeClasses =['bg-white', 'text-black', 'shadow-sm', 'cursor-default'];
+            const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
+            // 端末サイズごとにパディングとフォントサイズが可変するようレスポンシブなクラスを設定
+            const baseClass = "relative z-10 px-3 py-1 md:px-4 md:py-1.5 lg:px-5 lg:py-2 rounded-full text-[10px] md:text-xs lg:text-[13px] font-bold transition-all duration-300 ease-out";
 
             const setBtnState = (btn, isActive) => {
                 btn.className = baseClass;
