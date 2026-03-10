@@ -156,129 +156,169 @@
         <main class="space-y-16 md:space-y-24">
             
             <!-- ================= PROFILE ================= -->
-<section class="fade-in">
-    <div class="section-label mb-8 md:mb-10">
-        <span class="lang-ja flex items-center gap-3">
-            <span class="tracking-[0.15em]">プロフィール</span>
-            <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">PROFILE</span>
-        </span>
-        <span class="lang-en">Profile</span>
-    </div>
+            <section class="fade-in">
+                <!-- Section Label -->
+                <div class="section-label mb-8 md:mb-14">
+                    <span class="lang-ja flex items-center gap-3">
+                        <span class="tracking-[0.15em] opacity-80">プロフィール</span>
+                        <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">PROFILE</span>
+                    </span> 
+                    <span class="lang-en">Profile</span>
+                </div>
 
-    <div class="relative w-full rounded-[2rem] md:rounded-[3rem] bg-white/70 backdrop-blur-xl border border-white/70 p-8 md:p-14 lg:p-20 overflow-hidden shadow-[0_8px_24px_rgb(0,0,0,0.035)] transition-all duration-700 hover:shadow-[0_16px_32px_rgb(0,0,0,0.06)] group">
-        
-        <!-- Subtle ambient gradient in background -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-            <div class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-b from-[#0f3c85]/5 to-transparent blur-3xl opacity-40 transition-transform duration-1000 group-hover:scale-105"></div>
-            <div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-t from-cyan-400/5 to-transparent blur-3xl opacity-40 transition-transform duration-1000 group-hover:scale-105"></div>
-        </div>
+                <!-- Apple-style Profile Container (Advanced Glassmorphism & Light Dynamics) -->
+                <div class="relative w-full rounded-[2rem] md:rounded-[3rem] bg-white/40 backdrop-blur-[40px] border border-white p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-1000 hover:shadow-[0_30px_60px_rgb(15,60,133,0.08)] group isolate">
+                    
+                    <!-- Inner subtle glow to simulate glass edge -->
+                    <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] ring-1 ring-inset ring-white/50 pointer-events-none"></div>
 
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-[10px] md:text-xs font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-8 md:mb-12 flex items-center gap-4">
-                <span class="w-8 h-px bg-gray-300"></span>
-                The Origin
-            </h2>
-            
-            <div class="text-[16px] sm:text-[18px] md:text-[22px] lg:text-[24px] leading-[1.85] md:leading-[2] tracking-tight text-gray-800 font-medium md:font-normal space-y-6 md:space-y-8">
-                <p class="lang-ja text-justify md:text-pretty">
-                    シンガポール生。日本・マレーシア・ドイツを跨ぐ環境で育ち、「異なる文脈を繋ぐ」ことの難しさと価値を肌で感じてきました。早稲田大学・独マンハイム大学で社会学と哲学を学ぶ中で、かつて私はデータが示す「正解」を現場に押し通し、関係者の納得を得られずプロジェクトを停滞させた経験があります。数字は嘘をつかない——しかし、数字だけでは国境も、部門も、人の心も越えられない。この原体験から、複雑な事象を誰もが「腹落ちする言葉」へ変換し、組織に意思決定の軸を与えることを、自分の役割として捉えています。
-                </p>
+                    <!-- Fluid Ambient Gradients (Breathing / Floating) -->
+                    <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+                        <div class="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-b from-[#0f3c85]/10 to-transparent blur-[80px] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[-5%] group-hover:translate-y-[5%]"></div>
+                        <div class="absolute -bottom-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-t from-[#00D0C5]/10 to-transparent blur-[80px] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[5%] group-hover:translate-y-[-5%]"></div>
+                    </div>
 
-                <p class="lang-en text-left md:text-pretty">
-                    Born in Singapore and raised across Japan, Malaysia, and Germany, I have experienced firsthand both the challenge and value of bridging different contexts. While studying Sociology and Philosophy at Waseda University and the University of Mannheim, I once pushed a data-driven answer onto a team, convinced I was right, only to face resistance that stalled the project. Numbers do not lie—but numbers alone cannot cross borders, departments, or human hearts. That experience led me to focus on translating complexity into narratives that land and provide organizations with a clear axis for decision-making.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+                    <div class="max-w-4xl mx-auto">
+                        <h2 class="text-[10px] md:text-xs font-mono font-bold tracking-[0.3em] text-gray-400 uppercase mb-10 md:mb-16 flex items-center gap-4 opacity-80">
+                            <span class="w-12 h-px bg-gradient-to-r from-gray-300 to-transparent"></span>
+                            The Origin
+                        </h2>
+                        
+                        <!-- Profile Text -->
+                        <div class="text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] leading-[1.9] md:leading-[2.1] tracking-[-0.02em] text-[#1d1d1f] font-medium">
+                            <p class="lang-ja text-justify md:text-pretty">
+                                シンガポール生。日本・マレーシア・ドイツを跨ぐ環境で育ち、「異なる文脈を繋ぐ」ことの難しさと価値を肌で感じてきました。早稲田大学・独マンハイム大学にて社会学と哲学を修める中で、かつて私はデータが示す「正解」を現場に押し通し、関係者の納得を得られずプロジェクトを停滞させた経験があります。数字は嘘をつかない——しかし、数字だけでは国境も、部門も、人の心も越えられない。この原体験から、「冷徹な分析」と「人を動かす熱量」の両立を追求し続けています。私の武器は、哲学・社会学の知見をベースに、複雑な事象を誰もが「腹落ちする言葉」へ変換する言語化能力です。多様なステークホルダーが入り乱れる現場で、データの海に溺れる組織に意思決定の「軸」を提供する——それが、私の果たしたい役割です。
+                            </p>
+                            <p class="lang-en text-left md:text-pretty mt-6 md:mt-0 text-slate-700">
+        Born in Singapore and raised across Japan, Malaysia, and Germany, I have experienced firsthand the challenges and value of bridging different contexts.While studying Sociology and Philosophy at Waseda University and the University of Mannheim, I once pushed "data-driven answers" onto a team, convinced I was right—only to face resistance that stalled the project. Numbers don't lie—but numbers alone cannot cross borders, departments, or human hearts.Driven by this experience, I pursue the integration of "cold analysis" and "human warmth." My core strength is translating complexity into narratives that land—what we call "Hara-ochi" in Japanese. In chaotic environments with diverse stakeholders, my mission is to provide a clear "axis" for decision-making to organizations drowning in a sea of data. 
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- ================= VISION CARD (WANTEDLY) ================= -->
-<div class="mt-8 md:mt-12 relative group/vision rounded-[2rem] md:rounded-[3rem] bg-[#07080b] text-white p-8 md:p-14 lg:p-20 overflow-hidden isolate shadow-[0_18px_40px_rgba(0,0,0,0.18)] transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(0,0,0,0.24)]">
-    
-    <!-- Background Glow -->
-    <div class="absolute top-0 right-0 w-[140%] h-[140%] bg-[radial-gradient(circle_at_100%_0%,rgba(0,208,197,0.06),transparent_52%)] -z-10 pointer-events-none opacity-35 group-hover:opacity-60 transition-opacity duration-1000"></div>
-    <div class="absolute bottom-0 left-0 w-[100%] h-[100%] bg-[radial-gradient(circle_at_0%_100%,rgba(15,60,133,0.12),transparent_52%)] -z-10 pointer-events-none opacity-20 group-hover:opacity-45 transition-opacity duration-1000"></div>
-    
-    <!-- Small Heading -->
-    <div class="flex items-center gap-4 mb-12 md:mb-16">
-        <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#00D0C5]/80 shadow-[0_0_4px_rgba(0,208,197,0.45)]"></span>
-        </div>
-        <h4 class="text-[10px] md:text-xs font-mono font-bold tracking-[0.2em] text-gray-400 uppercase">
-            <span class="lang-ja">次に実装したいこと</span>
-            <span class="lang-en">What I Want to Build Next</span>
-        </h4>
-    </div>
+                <!-- ================= VISION CARD (WANTEDLY) - Apple Style Cinematic Dark ================= -->
+                <div class="mt-12 md:mt-20 relative group/vision rounded-[2rem] md:rounded-[3rem] bg-[#000000] text-[#f5f5f7] p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden isolate shadow-2xl transition-all duration-1000 hover:shadow-[0_40px_80px_rgba(0,0,0,0.4)] hover:-translate-y-1">
+                    
+                    <!-- Cinematic Dark Mode Glow & Texture -->
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#1a1a1c,transparent_50%)] -z-20"></div>
+                    <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(0,208,197,0.08),transparent_40%)] -z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-[2000ms]"></div>
+                    <div class="absolute bottom-0 left-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_0%_100%,rgba(15,60,133,0.15),transparent_40%)] -z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-[2000ms]"></div>
+                    
+                    <!-- Ultra-thin premium border -->
+                    <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] border border-white/[0.08] pointer-events-none"></div>
 
-    <div class="max-w-4xl mx-auto">
-        <!-- JP -->
-        <div class="lang-ja">
-            <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-400 tracking-tight leading-[1.2] md:leading-[1.1] mb-10 md:mb-16">
-                「10年後の1万人」を、意思決定の単位にする。
-            </h3>
-            
-            <div class="text-[15px] sm:text-[17px] md:text-[20px] leading-[1.9] text-gray-400 font-normal space-y-8 text-justify md:text-pretty">
-                <p>
-                    四半期の数字を追う手を止めるつもりはない。ただ、その判断がどれだけの人の選択肢を、どれだけの期間にわたって増やすかを同時に問い続ける——これを自分の仕事の最小単位にしたい。
-                </p>
-                <p>
-                    どの市場に出るか、どの技術に賭けるか、誰と組むか<br>
-                    ——あらゆる意思決定に<strong class="text-white font-semibold">「短期収益×長期受益者数」</strong>の複眼を実装すること。それを、自分の仕事の判断軸にしたい。
-                </p>
-            </div>
+                    <!-- Small Heading -->
+                    <div class="flex items-center gap-4 mb-14 md:mb-20">
+                        <div class="relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                            <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#00D0C5] shadow-[0_0_12px_#00D0C5] animate-pulse"></span>
+                        </div>
+                        <h4 class="text-[10px] md:text-xs font-mono font-bold tracking-[0.3em] text-[#86868b] uppercase">
+                            <span class="lang-ja">次に実装したいこと</span>
+                            <span class="lang-en">What I Want to Build Next</span>
+                        </h4>
+                    </div>
 
-            <div class="mt-10 md:mt-14 pl-6 md:pl-8 relative">
-                <div class="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#00D0C5]/30 to-transparent"></div>
-                <p class="text-lg md:text-2xl lg:text-[30px] leading-[1.75] md:leading-[1.6] tracking-tight text-white/95 font-medium">
-                    正しいから、儲かる。<br class="md:hidden">
-                    儲かるから、続く。<br class="md:hidden">
-                    続くから、届く。
-                </p>
-            </div>
-        </div>
+                    <div class="max-w-4xl mx-auto">
+                        <!-- テキストコンテンツ (JP) -->
+                        <div class="lang-ja">
+                            <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#f5f5f7] to-[#86868b] tracking-[-0.03em] leading-[1.15] mb-12 md:mb-20">
+                                「10年後の1万人」を、意思決定の単位にする。
+                            </h3>
+                            
+                            <div class="text-[15px] sm:text-[17px] md:text-[20px] lg:text-[22px] leading-[2] text-[#86868b] font-medium space-y-10 text-justify md:text-pretty">
+                                <p>
+                                    四半期の数字を追う手を止めるつもりはない。ただ、その判断がどれだけの人の選択肢を、どれだけの期間にわたって増やすかを同時に問い続ける——これを自分の仕事の最小単位にしたい。
+                                </p>
+                                <p>
+                                    善意の量ではなく、1円あたり・1時間あたりのインパクトを最大化する。効果的利他主義（Effective Altruism）のこの原則は、そのまま事業における投資判断の言語になる。
+                                </p>
+                                <p>
+                                    どの市場に出るか、どの技術に賭けるか、誰と組むか<br>
+                                    ——あらゆる意思決定に<strong class="text-white font-semibold relative inline-block"><span class="relative z-10">「短期収益×長期受益者数」</span><span class="absolute bottom-1 left-0 w-full h-3 bg-[#0f3c85]/40 -z-10 -rotate-1 rounded-sm"></span></strong>の複眼を実装すること。それが、倫理を競争優位に変える第一歩だと考えている。
+                                </p>
 
-        <!-- EN -->
-        <div class="lang-en">
-            <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-400 tracking-tight leading-[1.2] md:leading-[1.1] mb-10 md:mb-16">
-                Make “10,000 People in 10 Years” the Unit of Decision-Making.
-            </h3>
-            
-            <div class="text-[15px] sm:text-[17px] md:text-[20px] leading-[1.9] text-gray-400 font-normal space-y-8 text-left md:text-pretty">
-                <p>
-                    I have no intention of stopping the pursuit of quarterly results. But I want to keep asking, at the same time, how many people a decision expands options for—and for how long. That is the minimum unit in which I want to define my work.
-                </p>
-                <p>
-                    Which markets to enter, which technologies to back, and whom to partner with—I want to evaluate every choice through the dual lens of <strong class="text-white font-semibold">“Short-Term Revenue × Long-Term Beneficiaries.”</strong>
-                </p>
-            </div>
+                                <!-- 強調ブロック (Cinematic typography with dynamic line) -->
+                                <div class="py-12 md:py-20 my-12 md:my-20 border-y border-white/[0.05] relative group/quote overflow-hidden">
+                                    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-white/[0.05]">
+                                        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[#00D0C5] to-transparent opacity-0 group-hover/quote:opacity-100 group-hover/quote:translate-y-[100%] transition-all duration-[1500ms] ease-in-out"></div>
+                                    </div>
+                                    <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white tracking-[-0.02em] leading-[1.6] md:leading-[1.5] pl-8 md:pl-12">
+                                        正しいから、儲かる。<br>
+                                        儲かるから、続く。<br>
+                                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D0C5] via-blue-400 to-[#0f3c85] animate-pulse" style="animation-duration: 4s;">続くから、届く。</span>
+                                    </p>
+                                </div>
 
-            <div class="mt-10 md:mt-14 pl-6 md:pl-8 relative">
-                <div class="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#00D0C5]/30 to-transparent"></div>
-                <p class="text-lg md:text-2xl lg:text-[30px] leading-[1.75] md:leading-[1.6] tracking-tight text-white/95 font-medium">
-                    What is right should scale.<br class="md:hidden">
-                    What scales should last.<br class="md:hidden">
-                    What lasts should reach people.
-                </p>
-            </div>
-        </div>
+                                <p>
+                                    目の前の事業成長にコミットしながら、このサイクルを社会に実装していくことが、私の次なる目標だ。
+                                </p>
+                            </div>
+                        </div>
 
-        <!-- CTA -->
-        <div class="mt-12 md:mt-16">
-            <a href="https://www.wantedly.com/id/ken_sasaki_s" target="_blank" rel="noopener noreferrer"
-               class="group/wbtn inline-flex items-center gap-4 px-6 md:px-8 py-3.5 md:py-4 bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-full transition-all duration-500 hover:bg-white/90 hover:border-white hover:shadow-[0_0_18px_rgba(255,255,255,0.18)]">
-                
-                <span class="text-sm md:text-[15px] font-medium tracking-wide text-white group-hover/wbtn:text-black transition-colors duration-500">
-                    <span class="lang-ja">このビジョンの詳細を見る</span>
-                    <span class="lang-en">See the Full Vision</span>
-                </span>
+                        <!-- テキストコンテンツ (EN) -->
+                        <div class="lang-en">
+                            <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#f5f5f7] to-[#86868b] tracking-[-0.03em] leading-[1.15] mb-12 md:mb-20">
+                                Making "10,000 People in 10 Years" the Standard of Decision-Making.
+                            </h3>
+                            
+                            <div class="text-[15px] sm:text-[17px] md:text-[20px] lg:text-[22px] leading-[2] text-[#86868b] font-medium space-y-10 text-left md:text-pretty">
+                                <p>
+                                    I won’t stop driving quarterly results. But I want the true measure of my work to be consistently asking: how many people's options will this decision expand, and for how long?
+                                </p>
+                                <p>
+                                    It’s not about the volume of good intentions; it’s about maximizing impact per dollar and per hour. This principle of Effective Altruism translates seamlessly into the language of business investment.
+                                </p>
+                                <p>
+                                    Which markets to enter, which technologies to back, whom to partner with—I aim to evaluate every choice through the dual lens of <strong class="text-white font-semibold relative inline-block"><span class="relative z-10">"Short-Term Revenue × Long-Term Beneficiaries."</span><span class="absolute bottom-1 left-0 w-full h-3 bg-[#0f3c85]/40 -z-10 -rotate-1 rounded-sm"></span></strong> I believe this is how we turn ethics into a sustainable competitive edge.
+                                </p>
 
-                <span class="relative flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover/wbtn:bg-black/5 transition-colors duration-500 overflow-hidden">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-white group-hover/wbtn:text-black transition-all duration-500 transform group-hover/wbtn:scale-110"></i>
-                </span>
-            </a>
-        </div>
-    </div>
-</div>
+                                <!-- 強調ブロック -->
+                                <div class="py-12 md:py-20 my-12 md:my-20 border-y border-white/[0.05] relative group/quote overflow-hidden">
+                                    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-white/[0.05]">
+                                        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[#00D0C5] to-transparent opacity-0 group-hover/quote:opacity-100 group-hover/quote:translate-y-[100%] transition-all duration-[1500ms] ease-in-out"></div>
+                                    </div>
+                                    <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white tracking-[-0.02em] leading-[1.6] md:leading-[1.5] pl-8 md:pl-12">
+                                        Because it is right, it profits.<br>
+                                        Because it profits, it endures.<br>
+                                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D0C5] via-blue-400 to-[#0f3c85] animate-pulse" style="animation-duration: 4s;">Because it endures, it delivers impact.</span>
+                                    </p>
+                                </div>
+
+                                <p>
+                                    My next objective is to embed this cycle into the real world, without ever losing sight of immediate business growth.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Apple-like Premium Button -->
+                        <div class="mt-16 md:mt-24 pt-4 flex justify-start sm:justify-end relative z-10">
+                            <a href="https://www.wantedly.com/id/kenharima" target="_blank" rel="noopener noreferrer" class="group/wbtn relative inline-flex items-center gap-4 px-8 md:px-10 py-4 md:py-5 bg-[#f5f5f7] rounded-full transition-all duration-500 hover:bg-white hover:scale-[1.02] cursor-pointer w-full sm:w-auto justify-center sm:justify-start shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                                
+                                <!-- Wantedly Wアイコン (Dark) -->
+                                <div class="relative w-5 h-5 md:w-6 md:h-6 shrink-0 transition-transform duration-500 group-hover/wbtn:scale-110">
+                                    <svg viewBox="0 0 150 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                        <polygon points="15,25 35,25 60,85 40,85" class="fill-[#1d1d1f]" />
+                                        <polygon points="45,25 65,25 90,85 70,85" class="fill-[#1d1d1f]" />
+                                        <polygon points="115,25 95,25 70,85 90,85" class="fill-[#1d1d1f]" />
+                                        <circle cx="130" cy="34" r="14" class="fill-[#00D0C5] transition-all duration-500 group-hover/wbtn:shadow-[0_0_10px_#00D0C5]" />
+                                    </svg>
+                                </div>
+
+                                <!-- テキスト要素 -->
+                                <span class="text-sm md:text-base font-bold tracking-wide text-[#1d1d1f]">
+                                    <span class="lang-ja">Wantedlyで詳細を見る</span>
+                                    <span class="lang-en">Explore More on Wantedly</span>
+                                </span>
+
+                                <!-- 矢印 -->
+                                <div class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-black/5 group-hover/wbtn:bg-[#00D0C5]/10 transition-colors duration-500">
+                                    <i class="fa-solid fa-arrow-right text-[10px] md:text-xs text-[#1d1d1f] group-hover/wbtn:text-[#00D0C5] transition-colors duration-500"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- ================= EDUCATION ================= -->
             <section class="fade-in">
