@@ -1322,52 +1322,188 @@
             </section>
 
           <!-- ================= FORTE ================= -->
-            <section class="fade-in pt-12 cv-auto">
-                <div class="section-label">
-    <span class="lang-ja flex items-center gap-3">
-        <span class="tracking-[0.15em]">得意分野</span>
-        <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">FORTE</span>
-    </span>
-    <span class="lang-en">Forte</span>
-</div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-t border-b border-gray-200 py-12">
+<section class="fade-in pt-12 md:pt-16 pb-8 cv-auto">
+    <div class="section-label mb-8 md:mb-12">
+        <span class="lang-ja flex items-center gap-3">
+            <span class="tracking-[0.15em]">得意分野</span>
+            <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">FORTE</span>
+        </span>
+        <span class="lang-en">Forte</span>
+    </div>
+    
+    <!-- Bento Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        
+        <!-- 02 ISSUE FRAMING (主役カード: PCでは 2x2 の最大サイズ) -->
+        <div class="order-1 md:order-1 lg:order-1 md:col-span-2 lg:col-span-2 lg:row-span-2 lg:col-start-1 lg:row-start-1 group relative bg-white border border-gray-200/80 rounded-[1.5rem] md:rounded-[2rem] p-8 md:p-12 hover:border-bizAccent/30 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,60,133,0.12)] flex flex-col justify-between overflow-hidden isolation-auto">
+            
+            <!-- アンビエント・ホバーエフェクト -->
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-indigo-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-10"></div>
+            
+            <!-- 背景ウォーターマーク -->
+            <div class="absolute -right-8 -bottom-8 text-[180px] md:text-[220px] leading-none font-display font-bold text-gray-50 group-hover:text-indigo-50/60 transition-colors duration-700 select-none pointer-events-none -z-10">
+                02
+            </div>
 
-                    <!-- 01 -->
-                    <div class="px-4 text-center group">
-                        <div class="text-4xl font-display font-bold text-gray-200 mb-2 group-hover:text-bizAccent transition-colors">01</div>
-                        <h3 class="text-xl md:text-2xl font-display font-bold text-bizText mb-1 tracking-tight">GRIT</h3>
-                        <p class="text-xs md:text-sm font-serif italic text-gray-400 mb-4">Unrelenting Execution</p>
-                        <p class="text-sm text-gray-600 leading-relaxed font-normal">
-                            <span class="lang-ja">困難な局面を突破し、成果を完遂する力。</span>
-                            <span class="lang-en">The tenacity to break through adversity and execute to completion.</span>
-                        </p>
-                    </div>
-
-                    <!-- 02 -->
-                    <div class="px-4 text-center group pt-6 md:pt-0">
-                        <div class="text-4xl font-display font-bold text-gray-200 mb-2 group-hover:text-bizAccent transition-colors">02</div>
-                        <h3 class="text-xl md:text-2xl font-display font-bold text-bizText mb-1 tracking-tight">LOGIC</h3>
-                        <p class="text-xs md:text-sm font-serif italic text-gray-400 mb-4">Structured Problem Solving</p>
-                        <p class="text-sm text-gray-600 leading-relaxed font-normal">
-                            <span class="lang-ja">感情を排し、ファクトと論理で最短の解を導く力。</span>
-                            <span class="lang-en">The discipline to eliminate bias and derive the optimal solution via facts.</span>
-                        </p>
-                    </div>
-
-                    <!-- 03 -->
-                    <div class="px-4 text-center group pt-6 md:pt-0">
-                        <div class="text-4xl font-display font-bold text-gray-200 mb-2 group-hover:text-bizAccent transition-colors">03</div>
-                        <h3 class="text-xl md:text-2xl font-display font-bold text-bizText mb-1 tracking-tight">INTEGRITY</h3>
-                        <p class="text-xs md:text-sm font-serif italic text-gray-400 mb-4">Trust over Profit</p>
-                        <p class="text-sm text-gray-600 leading-relaxed font-normal">
-                            <span class="lang-ja">短期的な利益よりも、長期的な信頼と正義を優先する姿勢。</span>
-                            <span class="lang-en">The commitment to prioritize long-term trust and principles over short-term gains.</span>
-                        </p>
-                    </div>
-
+            <div class="relative z-10 mb-8 lg:mb-12">
+                <!-- Tags -->
+                <div class="flex flex-wrap items-center gap-2 mb-6">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-gray-50 border border-gray-100 text-[9px] font-mono font-bold uppercase tracking-widest text-gray-400">
+                        <i class="fa-solid fa-layer-group text-bizAccent/60"></i> Applied in
+                    </span>
+                    <span class="px-2.5 py-1 rounded-md border border-gray-200/60 bg-white/50 text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm backdrop-blur-sm group-hover:border-indigo-200 group-hover:text-indigo-600 transition-colors">Strategy</span>
+                    <span class="px-2.5 py-1 rounded-md border border-gray-200/60 bg-white/50 text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm backdrop-blur-sm group-hover:border-indigo-200 group-hover:text-indigo-600 transition-colors">Hypothesis Design</span>
+                    <span class="px-2.5 py-1 rounded-md border border-gray-200/60 bg-white/50 text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm backdrop-blur-sm group-hover:border-indigo-200 group-hover:text-indigo-600 transition-colors">Problem Definition</span>
                 </div>
-            </section>
+                
+                <h3 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-bizText tracking-tight mb-3">
+                    ISSUE FRAMING
+                </h3>
+                <p class="text-base md:text-lg font-serif italic text-bizAccent">
+                    Defining the Question That Matters
+                </p>
+            </div>
+
+            <div class="relative z-10 max-w-2xl">
+                <div class="space-y-5 text-[14px] md:text-[15px] leading-loose text-gray-600 font-medium">
+                    <p class="lang-ja text-left">
+                        AIが答えを出せる時代において、真に差がつくのは「何を問うべきか」を設計する力だと考えている。複雑な状況から論点の核を抜き出し、解く価値のある問いへと変換することで、思考と実行の方向性を最短距離で定める。
+                    </p>
+                    <p class="lang-en text-left text-gray-700">
+                        In an era where AI can generate answers, the real differentiator is the ability to define the right question. I identify the core issue within complexity and convert it into a problem worth solving, setting the direction of thinking and execution with precision.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 01 GRIT -->
+        <div class="order-2 md:order-2 lg:order-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 group relative bg-white border border-gray-200/80 rounded-[1.5rem] md:rounded-[2rem] p-8 hover:border-orange-400/30 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(249,115,22,0.12)] flex flex-col justify-between overflow-hidden isolation-auto">
+            
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-10"></div>
+            
+            <div class="absolute -right-4 -bottom-6 text-[140px] leading-none font-display font-bold text-gray-50 group-hover:text-orange-50/60 transition-colors duration-700 select-none pointer-events-none -z-10">
+                01
+            </div>
+
+            <div class="relative z-10 mb-8">
+                <h3 class="text-2xl md:text-3xl font-display font-bold text-bizText tracking-tight mb-2">GRIT</h3>
+                <p class="text-sm font-serif italic text-orange-600 mb-5">Unrelenting Execution</p>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2 py-0.5 rounded-md border border-gray-200/60 bg-white/50 text-[8px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-orange-200 group-hover:text-orange-600 transition-colors">Execution</span>
+                    <span class="px-2 py-0.5 rounded-md border border-gray-200/60 bg-white/50 text-[8px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-orange-200 group-hover:text-orange-600 transition-colors">Ownership</span>
+                    <span class="px-2 py-0.5 rounded-md border border-gray-200/60 bg-white/50 text-[8px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-orange-200 group-hover:text-orange-600 transition-colors">Delivery</span>
+                </div>
+            </div>
+
+            <div class="relative z-10">
+                <div class="space-y-4 text-[13px] md:text-[14px] leading-relaxed text-gray-600 font-medium">
+                    <p class="lang-ja text-left">
+                        困難な局面でも手を止めず、最後の1マイルまでやり切る力。構想や分析だけで終わらせず、細部を詰め、関係者を巻き込み、成果として着地させる。プレッシャーや不確実性が高い状況ほど、粘り強い実行力で前進をつくる。
+                    </p>
+                    <p class="lang-en text-left text-gray-700">
+                        The ability to keep moving through adversity and carry execution through the final mile. I do not stop at ideas or analysis; I refine the details, align stakeholders, and land outcomes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03 CONTEXT TRANSLATION -->
+        <div class="order-3 md:order-3 lg:order-3 md:col-span-1 lg:col-span-1 lg:col-start-3 lg:row-start-2 group relative bg-white border border-gray-200/80 rounded-[1.5rem] md:rounded-[2rem] p-8 hover:border-teal-400/30 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(20,184,166,0.12)] flex flex-col justify-between overflow-hidden isolation-auto">
+            
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-teal-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-10"></div>
+            
+            <div class="absolute -right-4 -bottom-6 text-[140px] leading-none font-display font-bold text-gray-50 group-hover:text-teal-50/60 transition-colors duration-700 select-none pointer-events-none -z-10">
+                03
+            </div>
+
+            <div class="relative z-10 mb-8">
+                <h3 class="text-2xl md:text-3xl font-display font-bold text-bizText tracking-tight mb-2 leading-none">CONTEXT<br>TRANSLATION</h3>
+                <p class="text-[13px] font-serif italic text-teal-600 mb-5 mt-3">Bridging Cultures & Disciplines</p>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2 py-0.5 rounded-md border border-gray-200/60 bg-white/50 text-[8px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-teal-200 group-hover:text-teal-600 transition-colors">Cross-cultural</span>
+                    <span class="px-2 py-0.5 rounded-md border border-gray-200/60 bg-white/50 text-[8px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-teal-200 group-hover:text-teal-600 transition-colors">Alignment</span>
+                    <span class="px-2 py-0.5 rounded-md border border-gray-200/60 bg-white/50 text-[8px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-teal-200 group-hover:text-teal-600 transition-colors">Communication</span>
+                </div>
+            </div>
+
+            <div class="relative z-10">
+                <div class="space-y-4 text-[13px] md:text-[14px] leading-relaxed text-gray-600 font-medium">
+                    <p class="lang-ja text-left">
+                        文化・言語・専門性の異なる相手の前提を読み解き、それぞれに通じる形で論点を再構成する力。単なる語学力ではなく、異なる世界観のあいだに実務上の共通理解をつくることに強みがある。
+                    </p>
+                    <p class="lang-en text-left text-gray-700">
+                        The ability to read the assumptions of people across different cultures and disciplines, then reconstruct issues in ways each side can engage with. It is the practical creation of shared understanding.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04 JUDGMENT UNDER UNCERTAINTY (横長カード) -->
+        <div class="order-4 md:order-4 lg:order-4 md:col-span-2 lg:col-span-3 group relative bg-white border border-gray-200/80 rounded-[1.5rem] md:rounded-[2rem] p-8 md:p-12 hover:border-blue-400/30 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.12)] flex flex-col md:flex-row gap-8 lg:gap-16 overflow-hidden isolation-auto">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-blue-50/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-10"></div>
+            
+            <div class="absolute right-4 md:right-12 -bottom-10 text-[160px] md:text-[200px] leading-none font-display font-bold text-gray-50 group-hover:text-blue-50/60 transition-colors duration-700 select-none pointer-events-none -z-10">
+                04
+            </div>
+
+            <div class="md:w-5/12 shrink-0 flex flex-col justify-start relative z-10">
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-bizText tracking-tight mb-3 leading-none">JUDGMENT UNDER<br>UNCERTAINTY</h3>
+                <p class="text-sm md:text-base font-serif italic text-blue-600 mb-6">Probabilistic Thinking in Ambiguous Situations</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2.5 py-1 rounded-md border border-gray-200/60 bg-white/50 text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-blue-200 group-hover:text-blue-600 transition-colors">Decision-Making</span>
+                    <span class="px-2.5 py-1 rounded-md border border-gray-200/60 bg-white/50 text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-blue-200 group-hover:text-blue-600 transition-colors">Risk</span>
+                    <span class="px-2.5 py-1 rounded-md border border-gray-200/60 bg-white/50 text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest shadow-sm group-hover:border-blue-200 group-hover:text-blue-600 transition-colors">Ambiguous Environments</span>
+                </div>
+            </div>
+
+            <div class="md:w-7/12 relative z-10 flex flex-col justify-center">
+                <div class="space-y-4 md:space-y-5 text-[14px] md:text-[15px] leading-relaxed md:leading-loose text-gray-600 font-medium">
+                    <p class="lang-ja text-left">
+                        情報が不完全で、正解が存在しない状況でも、確率・期待値・構造理解に基づいて最善手を選ぶ力。不確実性を理由に停止するのではなく、限られた情報から前進可能な判断を下す。ゲーム理論や競技ポーカーで磨いた判断様式を、ビジネスの意思決定にも応用している。
+                    </p>
+                    <p class="lang-en text-left text-gray-700">
+                        The ability to choose a sound course of action even when information is incomplete and no perfect answer exists. Rather than freezing in uncertainty, I make forward-moving judgments based on probabilities, expected value, and structural understanding. The decision discipline I developed through game theory and competitive poker directly informs how I approach business ambiguity.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 05 INTEGRITY (すべての土台・ダークテーマ) -->
+        <div class="order-5 md:order-5 lg:order-5 md:col-span-2 lg:col-span-3 group relative bg-[#0b1121] border border-white/10 rounded-[1.5rem] md:rounded-[2rem] p-8 md:p-12 hover:border-indigo-500/40 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_50px_-10px_rgba(99,102,241,0.3)] flex flex-col md:flex-row gap-8 lg:gap-16 overflow-hidden isolation-auto">
+            
+            <!-- アンビエント・グロウエフェクト -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,rgba(99,102,241,0.15)_0%,transparent_60%)] opacity-50 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-10"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(6,182,212,0.05)_0%,transparent_40%)] pointer-events-none -z-10"></div>
+            
+            <div class="absolute left-1/2 md:left-auto md:right-12 -bottom-10 -translate-x-1/2 md:translate-x-0 text-[160px] md:text-[200px] leading-none font-display font-bold text-white/5 group-hover:text-white/10 transition-colors duration-700 select-none pointer-events-none -z-10">
+                05
+            </div>
+
+            <div class="md:w-5/12 shrink-0 flex flex-col justify-start relative z-10">
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-white tracking-tight mb-3">INTEGRITY</h3>
+                <p class="text-sm md:text-base font-serif italic text-indigo-300 mb-6">Trust over Profit</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2.5 py-1 rounded-md border border-white/10 bg-white/5 text-[9px] font-mono font-bold text-indigo-200 uppercase tracking-widest shadow-sm backdrop-blur-sm group-hover:border-indigo-400/50 group-hover:text-indigo-100 transition-colors">Leadership</span>
+                    <span class="px-2.5 py-1 rounded-md border border-white/10 bg-white/5 text-[9px] font-mono font-bold text-indigo-200 uppercase tracking-widest shadow-sm backdrop-blur-sm group-hover:border-indigo-400/50 group-hover:text-indigo-100 transition-colors">Trust</span>
+                    <span class="px-2.5 py-1 rounded-md border border-white/10 bg-white/5 text-[9px] font-mono font-bold text-indigo-200 uppercase tracking-widest shadow-sm backdrop-blur-sm group-hover:border-indigo-400/50 group-hover:text-indigo-100 transition-colors">Long-term Value Creation</span>
+                </div>
+            </div>
+
+            <div class="md:w-7/12 relative z-10 flex flex-col justify-center">
+                <div class="space-y-4 md:space-y-5 text-[14px] md:text-[15px] leading-relaxed md:leading-loose text-gray-300 font-medium">
+                    <p class="lang-ja text-left">
+                        短期的な利益よりも、長期的な信頼と正しさを優先する姿勢。私は、倫理と収益は対立するものではなく、持続可能な価値創出のために両立させるべきものだと考えている。Ethical Capitalism という思想を、単なる理念ではなく、実務上の判断軸として持ち続けたい。
+                    </p>
+                    <p class="lang-en text-left text-gray-400">
+                        The commitment to prioritize long-term trust and what is right over short-term gain. I see ethics and profit not as opposing forces, but as elements that must be aligned to build sustainable value. Ethical Capitalism, to me, is not a slogan but a practical decision framework.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 
            <!-- ================= INTELECTUAL ROOTS ================= -->
             <section class="fade-in pt-12 md:pt-24 cv-auto relative">
