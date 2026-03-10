@@ -157,24 +157,28 @@
                     <span class="text-lg md:text-2xl font-mono font-medium text-gray-400 tracking-widest uppercase mt-2 block">Narrative Strategist</span>
                 </h1>
 
-                <div class="mt-3 md:mt-4 flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4">
+                <!-- ================= Corporate Role Section ================= -->
+                <div class="mt-4 md:mt-5 flex flex-row flex-wrap items-center justify-center md:justify-start gap-2.5 md:gap-4 w-full">
+                    
                     <!-- High-End Corporate Indicator (Icon) -->
-                    <div class="group relative flex items-center justify-center w-9 h-9 md:w-11 md:h-11 rounded-full bg-white border border-gray-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-500 hover:border-[#0097e0] hover:shadow-[0_0_20px_rgba(0,151,224,0.3)] shrink-0">
+                    <!-- スマホ向けにアイコンサイズを少しだけ絞り(w-8 h-8)、1行に美しく収める -->
+                    <div class="group relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 rounded-full bg-white border border-gray-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-500 hover:border-[#0097e0] hover:shadow-[0_0_20px_rgba(0,151,224,0.3)] shrink-0">
                         <div class="absolute inset-0 bg-gradient-to-tr from-[#0097e0] to-[#00c8ff] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
-                        <i class="fa-solid fa-building text-[13px] md:text-[15px] text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500"></i>
+                        <i class="fa-solid fa-building text-[11px] md:text-[15px] text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500"></i>
                     </div>
 
-                    <!-- Dynamic Role Text -->
-                    <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <!-- Dynamic Role Text (強制縦並びを排除し、美しく1行に収める) -->
+                    <div class="flex flex-col items-center md:items-start text-center md:text-left min-w-0">
+                        
                         <!-- 🇯🇵 Japanese Version -->
                         <div class="lang-ja">
-                            <div class="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3">
-                                <span class="text-[14px] md:text-[16px] font-bold text-gray-800 tracking-tight">ダイキン工業株式会社</span>
-                                <div class="hidden sm:block w-1 h-1 rounded-full bg-gray-300"></div>
-                                <div class="relative group/tag cursor-default">
+                            <div class="flex flex-row flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3">
+                                <span class="text-[13px] sm:text-[14px] md:text-[16px] font-bold text-gray-800 tracking-tight whitespace-nowrap">ダイキン工業株式会社</span>
+                                <div class="hidden sm:block w-1 h-1 rounded-full bg-gray-300 shrink-0"></div>
+                                <div class="relative group/tag cursor-default shrink-0">
                                     <div class="absolute inset-0 bg-[#0097e0]/20 blur-md rounded-md opacity-0 group-hover/tag:opacity-100 transition-opacity duration-500"></div>
-                                    <span class="relative z-10 inline-flex items-center gap-1.5 px-2.5 py-0.5 md:py-1 rounded-md bg-[#fafafa] border border-[#0097e0]/30 text-[#0097e0] text-[9px] md:text-[10px] font-mono font-bold tracking-widest shadow-sm transition-all duration-300 group-hover/tag:bg-white group-hover/tag:border-[#0097e0]/60">
-                                        <span class="relative flex w-1.5 h-1.5">
+                                    <span class="relative z-10 inline-flex items-center gap-1.5 px-2 py-0.5 md:py-1 md:px-2.5 rounded-md bg-[#fafafa] border border-[#0097e0]/30 text-[#0097e0] text-[9px] md:text-[10px] font-mono font-bold tracking-widest shadow-sm transition-all duration-300 group-hover/tag:bg-white group-hover/tag:border-[#0097e0]/60 whitespace-nowrap">
+                                        <span class="relative flex w-1.5 h-1.5 shrink-0">
                                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0097e0] opacity-75"></span>
                                             <span class="relative inline-flex rounded-full w-1.5 h-1.5 bg-[#0097e0]"></span>
                                         </span>
@@ -186,13 +190,13 @@
 
                         <!-- 🇺🇸 English Version -->
                         <div class="lang-en">
-                            <div class="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3">
-                                <span class="text-[14px] md:text-[16px] font-bold text-gray-800 tracking-tight">Daikin Industries, Ltd.</span>
-                                <div class="hidden sm:block w-1 h-1 rounded-full bg-gray-300"></div>
-                                <div class="relative group/tag cursor-default">
+                            <div class="flex flex-row flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3">
+                                <span class="text-[13px] sm:text-[14px] md:text-[16px] font-bold text-gray-800 tracking-tight whitespace-nowrap">Daikin Industries, Ltd.</span>
+                                <div class="hidden sm:block w-1 h-1 rounded-full bg-gray-300 shrink-0"></div>
+                                <div class="relative group/tag cursor-default shrink-0">
                                     <div class="absolute inset-0 bg-[#0097e0]/20 blur-md rounded-md opacity-0 group-hover/tag:opacity-100 transition-opacity duration-500"></div>
-                                    <span class="relative z-10 inline-flex items-center gap-1.5 px-2.5 py-0.5 md:py-1 rounded-md bg-[#fafafa] border border-[#0097e0]/30 text-[#0097e0] text-[9px] md:text-[10px] font-mono font-bold tracking-widest shadow-sm transition-all duration-300 group-hover/tag:bg-white group-hover/tag:border-[#0097e0]/60">
-                                        <span class="relative flex w-1.5 h-1.5">
+                                    <span class="relative z-10 inline-flex items-center gap-1.5 px-2 py-0.5 md:py-1 md:px-2.5 rounded-md bg-[#fafafa] border border-[#0097e0]/30 text-[#0097e0] text-[9px] md:text-[10px] font-mono font-bold tracking-widest shadow-sm transition-all duration-300 group-hover/tag:bg-white group-hover/tag:border-[#0097e0]/60 whitespace-nowrap">
+                                        <span class="relative flex w-1.5 h-1.5 shrink-0">
                                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0097e0] opacity-75"></span>
                                             <span class="relative inline-flex rounded-full w-1.5 h-1.5 bg-[#0097e0]"></span>
                                         </span>
@@ -201,9 +205,9 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
-            </div>
         </header>
         
         <main class="space-y-16 md:space-y-24">
