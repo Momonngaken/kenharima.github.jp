@@ -575,7 +575,96 @@ body {
                 'rgba(6, 182, 212, 0.7)'
             ];
 
-            // 3. Initialize Charts
+           // 3. Initialize Charts with Intersection Observer (Lazy Render)
+            let big5ChartInstance = null;
+            let pvqChartInstance = null;
+            let big5Rendered = false;
+            let pvqRendered = false;
+
+            const renderBig5 = () => {
+                big5ChartInstance = new Chart(document.getElementById('big5Chart').getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: labels.big5[htmlEl.classList.contains('is-global') ? 'en' : 'ja'],
+                        datasets:[{
+                            data: big5Data,
+                            fill: true,
+                            backgroundColor: 'rgba(15, 60, 133, 0.2)',
+                            borderColor: '#0f3c85',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: '#0f3c85',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false, layout: { padding: 5 },
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(0,0,0,0.05)' }, grid: { color: 'rgba(0,0,0,0.05)' },
+                                pointLabels: { font: { size: 10, family: fontBody, weight: '600' }, color: '#334155' },
+                                suggestedMin: 0, suggestedMax: 1.0, ticks: { display: false }
+                            }
+                        },
+                        plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)' } },
+                        animation: { duration: 1500, easing: 'easeOutQuart' } // より滑らかなアニメーション
+                    }
+                });
+            };
+
+            const renderPVQ = () => {
+                pvqChartInstance = new Chart(document.getElementById('pvqChart').getContext('2d'), {
+                    type: 'polarArea',
+                    data: {
+                        labels: labels.pvq[htmlEl.classList.contains('is-global') ? 'en' : 'ja'],
+                        datasets:[{ data: pvqDataValues, backgroundColor: pvqColors, borderWidth: 1, borderColor: '#ffffff' }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            r: {
+                                pointLabels: { display: true, centerPointLabels: true, font: { size: 10, family: fontBody, weight: 'bold' }, color: '#475569' },
+                                grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { display: false }, suggestedMin: 0
+                            }
+                        },
+                        plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)' } },
+                        animation: { duration: 1500, easing: 'easeOutQuart' }
+                    }
+                });
+            };
+
+            // Intersection Observer to trigger chart render when visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'big5-section' && !big5Rendered) {
+                            renderBig5();
+                            big5Rendered = true;
+                        }
+                        if (entry.target.id === 'pvq-section' && !pvqRendered) {
+                            renderPVQ();
+                            pvqRendered = true;
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(document.getElementById('big5-section'));
+            observer.observe(document.getElementById('pvq-section'));
+            
+            // updateCharts もインスタンスが存在する場合のみアップデートするように修正
+            function updateCharts(isGlobal) {
+                const langKey = isGlobal ? 'en' : 'ja';
+                if (big5ChartInstance) {
+                    big5ChartInstance.data.labels = labels.big5[langKey];
+                    big5ChartInstance.update();
+                }
+                if (pvqChartInstance) {
+                    pvqChartInstance.data.labels = labels.pvq[langKey];
+                    pvqChartInstance.update();
+                }
+            }
             // Big Five
             const big5Chart = new Chart(document.getElementById('big5Chart').getContext('2d'), {
                 type: 'radar',
