@@ -136,14 +136,14 @@
 
         <!-- ================= HERO PROFILE ================= -->
         <header class="pt-12 md:pt-20 mb-16 md:mb-24 fade-in flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
-            <!-- Profile Photo -->
-            <div class="relative group shrink-0 z-10">
-                <!-- 復元・強化：オーラのような多層Glowエフェクト（背景に溶け込む上質な光源） -->
-                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/25 to-cyan-400/20 blur-[2rem] md:blur-[3rem] -z-10 transform group-hover:scale-110 group-hover:opacity-100 opacity-60 transition-all duration-[1500ms] ease-out mix-blend-multiply"></div>
+            <!-- Profile Photo (3D Interactive) -->
+            <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
+                <!-- 復元・強化：オーラのような多層Glowエフェクト -->
+                <div id="hero-aura" class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/25 to-cyan-400/20 blur-[2rem] md:blur-[3rem] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform"></div>
                 
                 <!-- 写真本体とフレーム -->
-                <div class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-transform duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.15)] will-change-transform">
-                    <img src="./profile_biz_new.jpg" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95 transform scale-100 group-hover:scale-110 transition-transform duration-[1500ms] ease-out">
+                <div id="hero-photo" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d">
+                    <img src="./profile_biz_new.jpg" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95">
                 </div>
             </div>
 
@@ -1727,6 +1727,37 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
+            const tiltContainer = document.getElementById('hero-tilt-container');
+            const photo = document.getElementById('hero-photo');
+            const aura = document.getElementById('hero-aura');
+
+            if (tiltContainer && photo && matchMedia('(pointer: fine)').matches) {
+                tiltContainer.addEventListener('mousemove', (e) => {
+                    const rect = tiltContainer.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const tiltX = ((y - centerY) / centerY) * -15; // 最大15度傾斜
+                    const tiltY = ((x - centerX) / centerX) * 15;
+                    
+                    photo.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
+                    aura.style.transform = `translate(${(x - centerX)*0.15}px, ${(y - centerY)*0.15}px) scale(1.2)`;
+                    photo.style.transition = 'none';
+                    aura.style.transition = 'none';
+                });
+                
+                tiltContainer.addEventListener('mouseleave', () => {
+                    photo.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+                    aura.style.transform = `translate(0px, 0px) scale(1)`;
+                    photo.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                    aura.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                });
+            }
+
             // Priority 1: Init Interactions Immediately
             const langJpBtn = document.getElementById('lang-jp');
             const langEnBtn = document.getElementById('lang-en');
