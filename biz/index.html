@@ -1807,37 +1807,54 @@
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer fetchpriority="low"></script>
 
     <script>
-        // ▼▼▼ スプラッシュスクリーン（FOUC防止）の制御ロジック ▼▼▼
+        // ▼▼▼ スプラッシュスクリーン（FOUC防止）の究極制御ロジック ▼▼▼
         (function() {
             const splash = document.getElementById('splash-screen');
-            const startTime = Date.now();
-            const minDisplayTime = 1200; // 最低1.2秒間は「漆黒の幕開け」を演出し、エグゼクティブ・プレゼンスを高める
+            const minDisplayTime = 1200; // 演出としての最低表示時間（1.2秒）
 
+            // 1. 演出時間の保証（短すぎるとシネマティックにならないため）
+            const timePromise = new Promise(resolve => setTimeout(resolve, minDisplayTime));
+
+            // 2. DOMツリー、画像、Tailwind等外部スクリプトの実行完了保証
+            const loadPromise = new Promise(resolve => {
+                if (document.readyState === 'complete') {
+                    resolve();
+                } else {
+                    window.addEventListener('load', resolve);
+                }
+            });
+
+            // 3. Webフォントのパースと適用完了保証 (FOUT防止のコア)
+            const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+
+            // 幕を開ける実行関数
             const revealSite = () => {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
-
+                if (splash) splash.classList.add('hidden-splash');
+                document.body.classList.remove('is-loading');
+                
+                // スクロールライブラリ等の再計算を、幕が開いた直後に確実に行う
                 setTimeout(() => {
-                    if (splash) splash.classList.add('hidden-splash');
-                    document.body.classList.remove('is-loading');
-                    
-                    // レイアウト確定後にScrollTrigger等を再計算してズレを防ぐ
-                    setTimeout(() => {
-                        if (typeof lenis !== 'undefined') lenis.resize();
-                        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                    }, 200);
-                }, remainingTime);
+                    if (typeof lenis !== 'undefined') lenis.resize();
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                }, 200);
             };
 
-            // Tailwindのスタイル適用やWebフォントのロードを完全に待機
-            if (document.readyState === 'complete') {
+            // 【完全同期】全ての「完了条件」が揃うまで待機する
+            Promise.all([timePromise, loadPromise, fontPromise]).then(() => {
+                // Tailwind CDNの動的CSS生成と、ブラウザのスタイル再計算（Recalculate Style）が
+                // 確実に終わってから画面を描画するため、次のペイントサイクルまで待機する（ダブルrAF）
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        revealSite();
+                    });
+                });
+            }).catch(() => {
+                // 万が一の例外発生時
                 revealSite();
-            } else {
-                window.addEventListener('load', revealSite);
-            }
+            });
             
-            // セーフティネット（無限ロード防止 - 万が一イベントが発火しなかった場合）
-            setTimeout(revealSite, 3500);
+            // 絶対的なセーフティネット（極端なネットワーク異常時に無限ロードになるのを防ぐ）
+            setTimeout(revealSite, 4000);
         })();
         // ▲▲▲ スプラッシュスクリーン制御ロジック ここまで ▲▲▲
         document.addEventListener('DOMContentLoaded', () => {
