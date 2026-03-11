@@ -6,12 +6,14 @@
     <title>Contact | KEN HARIMA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Lora (Serif) フォントを追加 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: { 
                 extend: { 
-                    fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], display: ['Syne', 'sans-serif'], mono: ['monospace'] }, 
+                    /* serif を追加し Lora を紐付け */
+                    fontFamily: { sans:['Inter', 'Noto Sans JP', 'sans-serif'], display:['Syne', 'sans-serif'], mono: ['monospace'], serif: ['Lora', 'serif'] }, 
                     colors: { 
                         bizText: '#0f172a',
                         bizAccent: '#0f3c85',
@@ -55,6 +57,12 @@
             -webkit-text-fill-color: #0f172a !important;
             transition: background-color 5000s ease-in-out 0s;
         }
+
+        /* Language Switching Logic (不足していたため追加) */
+        .lang-en { display: none; }
+        html.is-global .lang-ja { display: none !important; }
+        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
+        html.is-global span.lang-en { display: inline !important; }
     </style>
 </head>
 <body class="antialiased">
@@ -181,15 +189,31 @@
     </main>
     
     <!-- Footer -->
-    <footer class="text-center py-8 text-[10px] font-mono text-gray-400 flex flex-col gap-2 items-center relative z-10">
+    <footer class="text-center py-8 text-[10px] font-mono text-gray-400 flex flex-col gap-4 items-center relative z-10">
         <span>© 2026 Ken HARIMA.</span>
-        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded border border-gray-200/50 bg-white/50 text-gray-400 select-none cursor-default transition-all duration-500 hover:border-emerald-200 hover:bg-emerald-50/50 hover:text-emerald-500 mt-1" title="100% Cookie-Free Analytics">
-            <i class="fa-solid fa-leaf text-[10px]"></i>
-            <span class="text-[9px] uppercase tracking-[0.15em] font-bold mt-px">Cookie-Free</span>
+        
+        <!-- Zero-Cookie Privacy Badge (Premium Glassmorphism) -->
+        <div class="group/cookie relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50/50 backdrop-blur-md border border-gray-200/60 text-gray-400 select-none cursor-default transition-all duration-700 hover:bg-white hover:border-emerald-300/60 hover:shadow-[0_4px_20px_rgba(52,211,153,0.15)] hover:-translate-y-0.5 overflow-hidden" title="100% Privacy-First, Zero-Cookie Analytics">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.03] to-teal-500/[0.03] opacity-0 group-hover/cookie:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+            <div class="relative flex items-center justify-center">
+                <span class="absolute inset-0 rounded-full bg-emerald-400 opacity-0 group-hover/cookie:animate-ping group-hover/cookie:opacity-25 transition-all duration-700"></span>
+                <i class="fa-solid fa-leaf text-[10px] relative z-10 transition-colors duration-700 group-hover/cookie:text-emerald-500"></i>
+            </div>
+            <span class="text-[9px] font-mono font-bold uppercase tracking-[0.2em] relative z-10 transition-colors duration-700 group-hover/cookie:text-emerald-600 mt-px">
+                Zero Cookie
+            </span>
         </div>
 
-         <div class="mt-8 text-xs text-gray-500 font-display italic tracking-wider">
-            <p class="lang-ja">畏れの中で問え。知った者だけが、選べる。 選んだなら、差し出せ。</p>
+        <!-- Unified Quotation Block (Serif Italic) -->
+        <div class="w-full text-center mt-6 md:mt-8 text-[12px] md:text-[13px] text-gray-400 font-serif italic tracking-[0.15em] leading-relaxed">
+            <p class="lang-ja">畏れの中で問え。知った者だけが、選べる。<br class="sm:hidden">選んだなら、差し出せ。</p>
+            <p class="lang-en">Question amidst awe. Only those who know can choose. Once you choose, commit fully.</p>
+        </div>
+    </footer>
+
+        <!-- Unified Quotation Block (Serif Italic) -->
+        <div class="w-full text-center mt-6 md:mt-8 text-[12px] md:text-[13px] text-gray-400 font-serif italic tracking-[0.15em] leading-relaxed">
+            <p class="lang-ja">畏れの中で問え。知った者だけが、選べる。<br class="sm:hidden">選んだなら、差し出せ。</p>
             <p class="lang-en">Question amidst awe. Only those who know can choose. Once you choose, commit fully.</p>
         </div>
     </footer>
