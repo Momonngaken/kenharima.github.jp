@@ -138,8 +138,8 @@
         tailwind={config:{theme:{extend:{fontFamily:{sans:['Inter','Noto Sans JP','sans-serif'],display:['Syne','sans-serif'],serif:['Lora','serif']},colors:{bizText:'#0f172a',bizGray:'#64748b',bizLight:'#f8fafc',bizAccent:'#0f3c85',bgBase:'#fafafa',neoBlack:'#121212'},animation:{'breathe':'breathe 3s ease-in-out infinite'},keyframes:{breathe:{'0%, 100%':{opacity:'0.6'},'50%':{opacity:'1'}}}}}}}
     </script>
     
-    <!-- Tailwind CSS (CDN) - Async to prevent Render Blocking -->
-    <script src="https://cdn.tailwindcss.com" async></script>
+    <!-- 変更後: 4G環境でのCPUスパイクを防ぐため、asyncからdeferへ変更しメインスレッドを保護 -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
 
     <!-- CSS Loading Optimization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'; this.onload=null;">
@@ -1490,7 +1490,6 @@
                                 img.src = item.img;
                                 img.className = 'w-full h-full object-cover rounded-md md:rounded-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]';
                                 img.alt = item.title.ja;
-                                img.loading = 'lazy';
                                 img.decoding = 'async';
                                 
                                 const overlay = document.createElement('div');
