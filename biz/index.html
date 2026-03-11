@@ -28,6 +28,10 @@
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile_biz_new.jpg" fetchpriority="high">
 
+    <!-- 4G環境最適化: クリティカルなフォント＆アイコンCSSの最速並列フェッチ（Render Blocking完全回避） -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+
     <!-- Critical UX: Prefetch Profile Page for Instant Navigation (<0.4s) -->
     <link rel="prefetch" href="./profile.html">
 
@@ -1488,6 +1492,10 @@
                             img.className = 'w-full h-full object-cover rounded-md md:rounded-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]';
                             img.alt = item.title.ja;
                             
+                            // ▼ 4G回線最適化: ファーストビュー外の画像を遅延読み込み＆非同期デコードで帯域を温存
+                            img.loading = 'lazy';
+                            img.decoding = 'async';
+                            
                             const overlay = document.createElement('div');
                             overlay.className = 'cf-overlay absolute inset-0 bg-black/50 transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-md md:rounded-lg backdrop-blur-[1px]';
                             
@@ -1815,17 +1823,29 @@
             // 1. 演出時間の保証（短すぎるとシネマティックにならないため）
             const timePromise = new Promise(resolve => setTimeout(resolve, minDisplayTime));
 
-            // 2. DOMツリー、画像、Tailwind等外部スクリプトの実行完了保証
+            // 2. DOMツリー、LCP画像、Tailwind展開の完了保証 (ページ全体のloadを待たず、クリティカルパスのみを監視する極限軽量化)
             const loadPromise = new Promise(resolve => {
-                if (document.readyState === 'complete') {
-                    resolve();
-                } else {
-                    window.addEventListener('load', resolve);
-                }
+                const checkReady = () => {
+                    // Tailwind CSSがDOMにスタイルを適用した証拠を検知
+                    const tailwindReady = document.querySelector('style[data-tw]') !== null || (window.tailwind && typeof window.tailwind === 'object');
+                    // ファーストビューの主役(LCP)画像の読み込み完了を検知
+                    const lcpImg = document.querySelector('#hero-photo img');
+                    const lcpReady = lcpImg ? lcpImg.complete : true;
+                    
+                    if ((document.readyState === 'interactive' || document.readyState === 'complete') && tailwindReady && lcpReady) {
+                        resolve();
+                    } else {
+                        requestAnimationFrame(checkReady);
+                    }
+                };
+                requestAnimationFrame(checkReady);
             });
 
-            // 3. Webフォントのパースと適用完了保証 (FOUT防止のコア)
-            const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+            // 3. Webフォントのパース完了保証 (4G回線等のレイテンシを考慮し、最大1.5秒のタイムアウトを設け、完璧な描画よりもサクサク感を優先)
+            const fontPromise = document.fonts ? Promise.race([
+                document.fonts.ready,
+                new Promise(resolve => setTimeout(resolve, 1500))
+            ]) : Promise.resolve();
 
             // 幕を開ける実行関数
             const revealSite = () => {
