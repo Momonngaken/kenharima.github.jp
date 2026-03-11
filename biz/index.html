@@ -1835,7 +1835,7 @@
             // 3. Webフォントのロード完了を待機（※文字揺れ防止の最重要ポイント）
             const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
 
-            // 全てが揃った瞬間に、ブラーを解除してピントを合わせる
+           // 全てが揃った瞬間に、ブラーを解除してピントを合わせる
             const revealSite = () => {
                 // ブラウザのレンダリングパイプラインを安定させるダブルrAF
                 requestAnimationFrame(() => {
@@ -1843,16 +1843,17 @@
                         body.classList.remove('is-loading');
                         body.classList.add('is-ready');
                         
-                        // 【究極の制御】1.2秒の極上アニメーションが完了した直後にクラスを剥がし、
-                        // ブラウザの座標系をリセットすることでモーダルの崩れを完全に防ぐ
+                        // 【バグ解決の核心】
+                        // シネマティック・ヴェール設計へ移行したため、1.2秒後にクラスを強制的に
+                        // 剥がして座標系をリセットするハック（フラッシュの元凶）は完全に不要になりました。
+                        // 代わりに、不要になった純白の霧をDOMから消去する 'is-loaded' を付与し、
+                        // 最適なタイミングでスクロールライブラリを静かに初期化します。
                         setTimeout(() => {
-                            body.classList.remove('is-ready');
-                        }, 1250);
-
-                        setTimeout(() => {
+                            body.classList.add('is-loaded');
+                            
                             if (typeof lenis !== 'undefined') lenis.resize();
                             if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                        }, 100);
+                        }, 1250);
                     });
                 });
             };
