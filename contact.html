@@ -193,6 +193,99 @@
             <p class="lang-en">Question amidst awe. Only those who know can choose. Once you choose, commit fully.</p>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Language & Navigation Logic ---
+        const langJpBtn = document.getElementById('lang-jp');
+        const langEnBtn = document.getElementById('lang-en');
+        const htmlEl = document.documentElement;
+        
+        const activeClasses =['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
+        const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
+        const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
+
+        const setBtnState = (btn, isActive) => {
+            btn.className = baseClass;
+            btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
+        };
+
+        const updateLangStyles = () => {
+            const isGlobal = htmlEl.classList.contains('is-global');
+            setBtnState(langJpBtn, !isGlobal);
+            setBtnState(langEnBtn, isGlobal);
+        };
+
+        // URL Params Handling (from biz index)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('lang') === 'en') { htmlEl.classList.add('is-global'); }
+        
+        if (urlParams.get('from') === 'biz') {
+            const backBtn = document.getElementById('back-btn');
+            const homeBtn = document.getElementById('back-home-btn');
+            if (backBtn) backBtn.href = './biz/index.html';
+            if (homeBtn) homeBtn.href = './biz/index.html';
+        }
+
+        updateLangStyles();
+
+        langJpBtn.addEventListener('click', () => {
+            htmlEl.classList.remove('is-global');
+            updateLangStyles();
+        });
+        langEnBtn.addEventListener('click', () => {
+            htmlEl.classList.add('is-global');
+            updateLangStyles();
+        });
+
+        // --- Form Submit Logic ---
+        const form = document.getElementById('contact-form'); 
+        const successDiv = document.getElementById('success-message'); 
+        const submitBtn = document.getElementById('btn-submit');
+        const btnTextJa = document.getElementById('btn-text-ja');
+        const btnTextEn = document.getElementById('btn-text-en');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            const originalJa = btnTextJa.innerText; 
+            const originalEn = btnTextEn.innerText; 
+            
+            btnTextJa.innerText = "送信中..."; 
+            btnTextEn.innerText = "SENDING..."; 
+            submitBtn.disabled = true; 
+            submitBtn.classList.add('opacity-80', 'cursor-wait');
+
+            try { 
+                const response = await fetch(form.action, { 
+                    method: 'POST', 
+                    body: new FormData(form), 
+                    headers: { 'Accept': 'application/json' } 
+                }); 
+                if (response.ok) { 
+                    // Fade out form, fade in success message
+                    form.style.opacity = '0';
+                    form.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        successDiv.classList.remove('hidden');
+                        // Trigger animation
+                        setTimeout(() => {
+                            successDiv.classList.remove('scale-95', 'opacity-0');
+                            successDiv.classList.add('scale-100', 'opacity-100');
+                        }, 50);
+                    }, 500);
+                } else { 
+                    throw new Error('Failed'); 
+                } 
+            } catch (error) { 
+                alert(htmlEl.classList.contains('is-global') ? "Failed to send." : "送信に失敗しました。"); 
+                btnTextJa.innerText = originalJa; 
+                btnTextEn.innerText = originalEn; 
+                submitBtn.disabled = false; 
+                submitBtn.classList.remove('opacity-80', 'cursor-wait'); 
+            }
+        });
+    </script>
+
     <!-- Cloudflare Web Analytics (Privacy First / Zero Cookie) -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "★ここにCloudflareのトークンを入れます★"}'></script>
 </body>
