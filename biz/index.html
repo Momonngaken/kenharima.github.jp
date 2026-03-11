@@ -111,20 +111,27 @@
     </script>
 </head>
 <body class="antialiased">
-    <!-- ================= DYNAMIC ISLAND NAVIGATION (APPLE STYLE) ================= -->
+    <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
     <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
         <nav class="pointer-events-auto fade-in" style="animation-delay: 0.5s;">
-            <div class="flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-[rgba(20,20,22,0.85)] backdrop-blur-2xl border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.4)] rounded-full w-auto max-w-[95vw] transition-transform hover:scale-[1.02] duration-500 ease-out">
-                <a href="#" class="text-xs sm:text-sm font-display font-bold text-white tracking-widest ml-4 hover:text-gray-300 transition-colors">KEN.H</a>
+            <!-- 容器は白ガラス、アクションは黒ガラスのハイブリッド・カプセル -->
+            <div class="group/nav flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] rounded-full w-auto max-w-[95vw] transition-all duration-500 ease-out">
+                
+                <!-- ロゴ (濃色維持) -->
+                <a href="#" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-4 hover:opacity-60 transition-opacity duration-300">KEN.H</a>
+                
                 <div class="flex items-center gap-2">
-                    <!-- Language Switcher (Apple Toggle Style) -->
-                    <div class="relative flex items-center bg-white/10 rounded-full p-0.5 select-none border border-white/5">
+                    <!-- Language Switcher (白ガラス内の微細な窪み) -->
+                    <div class="relative flex items-center bg-gray-500/5 rounded-full p-0.5 select-none border border-gray-900/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
                         <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JP</button>
                         <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
                     </div>
-                    <!-- Contact Icon -->
-                    <a href="../contact.html" class="group flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white hover:text-black transition-all duration-500 shadow-sm border border-white/5 mr-1">
-                        <i class="fa-solid fa-paper-plane text-[10px] transition-transform duration-500 group-hover:scale-110 group-hover:translate-x-px group-hover:-translate-y-px"></i>
+                    
+                    <!-- Contact Icon (黒ガラス・CTA) -->
+                    <a href="../contact.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:border-white/40 overflow-hidden mr-1">
+                        <!-- 微かな反射エフェクト -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <i class="fa-solid fa-paper-plane text-[10px] relative z-10 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
                     </a>
                 </div>
             </div>
@@ -1778,9 +1785,9 @@
             // ▲ ADDED: Smart Navigation Hide/Show on Scroll ▲
 
             // Language Switcher (Optimized: ClassList Toggling)
-            const activeClasses = ['bg-white', 'text-black', 'shadow-sm', 'cursor-default'];
-            const inactiveClasses = ['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
-            const baseClass = "relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out";
+            const activeClasses = ['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
+            const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
+            const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
 
             const setBtnState = (btn, isActive) => {
                 btn.className = baseClass;
