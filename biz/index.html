@@ -1437,231 +1437,201 @@
                 <!-- Core Logic -->
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
-                        const dataElements = document.querySelectorAll('.cf-item-data');
-                        if (!dataElements.length) return;
+                        // ▼ iPhone X 最適化: 重い3D-DOM生成とスタイル計算を、ユーザーが接近するまで「空間的に」遅延させる
+                        const initCoverFlow = () => {
+                            const dataElements = document.querySelectorAll('.cf-item-data');
+                            if (!dataElements.length) return;
 
-                        const items = Array.from(dataElements).map(el => ({
-                            img: el.getAttribute('data-img'),
-                            title: { ja: el.querySelector('.cf-title-ja').innerHTML, en: el.querySelector('.cf-title-en').innerHTML },
-                            author: { ja: el.querySelector('.cf-author-ja').innerHTML, en: el.querySelector('.cf-author-en').innerHTML },
-                            desc: { ja: el.querySelector('.cf-desc-ja').innerHTML, en: el.querySelector('.cf-desc-en').innerHTML },
-                        }));
+                            const items = Array.from(dataElements).map(el => ({
+                                img: el.getAttribute('data-img'),
+                                title: { ja: el.querySelector('.cf-title-ja').innerHTML, en: el.querySelector('.cf-title-en').innerHTML },
+                                author: { ja: el.querySelector('.cf-author-ja').innerHTML, en: el.querySelector('.cf-author-en').innerHTML },
+                                desc: { ja: el.querySelector('.cf-desc-ja').innerHTML, en: el.querySelector('.cf-desc-en').innerHTML },
+                            }));
 
-                        const gallery = document.getElementById('cf-gallery');
-                        const dotsContainer = document.getElementById('cf-dots');
-                        
-                        const titleJa = document.getElementById('cf-title-ja');
-                        const titleEn = document.getElementById('cf-title-en');
-                        const authorJa = document.getElementById('cf-author-ja');
-                        const authorEn = document.getElementById('cf-author-en');
-                        const descJa = document.getElementById('cf-desc-ja');
-                        const descEn = document.getElementById('cf-desc-en');
-                        const textWrappers = document.querySelectorAll('.cf-text-animate-wrapper');
+                            const gallery = document.getElementById('cf-gallery');
+                            const dotsContainer = document.getElementById('cf-dots');
+                            
+                            const titleJa = document.getElementById('cf-title-ja');
+                            const titleEn = document.getElementById('cf-title-en');
+                            const authorJa = document.getElementById('cf-author-ja');
+                            const authorEn = document.getElementById('cf-author-en');
+                            const descJa = document.getElementById('cf-desc-ja');
+                            const descEn = document.getElementById('cf-desc-en');
+                            const textWrappers = document.querySelectorAll('.cf-text-animate-wrapper');
 
-                        let activeIndex = -1;
-                        let isMobile = window.innerWidth < 768;
-                        
-                        // ▼ スワイプ誤爆防止用の変数 ▼
-                        let startX = 0;
-                        let startY = 0;
-                        let isSwiping = false;
-                        let isDragging = false; 
-                        
-                        // レスポンシブ対応
-                        window.addEventListener('resize', () => {
-                            const wasMobile = isMobile;
-                            isMobile = window.innerWidth < 768;
-                            if (wasMobile !== isMobile) {
-                                document.querySelectorAll('.cf-item').forEach(item => {
-                                    item.style.width = isMobile ? '130px' : '220px';
-                                    item.style.height = isMobile ? '195px' : '330px';
-                                });
-                                updateCoverFlow(activeIndex, true);
-                            }
-                        });
-
-                        // カード生成
-                        items.forEach((item, index) => {
-                            const wrapper = document.createElement('div');
-                            wrapper.className = `cf-item absolute transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] cursor-pointer rounded-md md:rounded-lg`;
-                            wrapper.style.width = isMobile ? '130px' : '220px';
-                            wrapper.style.height = isMobile ? '195px' : '330px';
+                            let activeIndex = -1;
+                            let isMobile = window.innerWidth < 768;
                             
-                            const img = document.createElement('img');
-                            img.src = item.img;
-                            img.className = 'w-full h-full object-cover rounded-md md:rounded-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]';
-                            img.alt = item.title.ja;
+                            let startX = 0;
+                            let startY = 0;
+                            let isSwiping = false;
+                            let isDragging = false; 
                             
-                            // ▼ 4G回線最適化: ファーストビュー外の画像を遅延読み込み＆非同期デコードで帯域を温存
-                            img.loading = 'lazy';
-                            img.decoding = 'async';
-                            
-                            const overlay = document.createElement('div');
-                            overlay.className = 'cf-overlay absolute inset-0 bg-black/50 transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-md md:rounded-lg backdrop-blur-[1px]';
-                            
-                            wrapper.appendChild(img);
-                            wrapper.appendChild(overlay);
-                            
-                            // ▼ タブレットバグ修正: タッチデバイスでの hover 誤爆を完全に防ぐ ▼
-                            wrapper.addEventListener('mouseenter', () => { 
-                                // ホバーが使えるデバイス（PC）のみ反応させる
-                                if (window.matchMedia('(hover: hover)').matches) {
-                                    updateCoverFlow(index); 
-                                }
-                            });
-                            
-                            // ▼ タブレットバグ修正: スワイプ中のクリック誤爆を無効化する ▼
-                            wrapper.addEventListener('click', (e) => { 
-                                if (isDragging) {
-                                    e.preventDefault();
-                                    return; // スワイプ操作直後はクリックを無視
-                                }
-                                updateCoverFlow(index); 
-                            });
-                            
-                            gallery.appendChild(wrapper);
-
-                            // ドット生成
-                            const dot = document.createElement('button');
-                            dot.className = 'w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20 transition-all duration-300 hover:bg-white/50 outline-none focus:outline-none';
-                            dot.setAttribute('aria-label', `Go to item ${index + 1}`);
-                            dot.addEventListener('click', () => updateCoverFlow(index));
-                            dotsContainer.appendChild(dot);
-                        });
-
-                        function updateCoverFlow(newIndex, force = false) {
-                            if (activeIndex === newIndex && !force) return;
-                            activeIndex = newIndex;
-                            
-                            const cfItems = document.querySelectorAll('.cf-item');
-                            const dots = dotsContainer.querySelectorAll('button');
-                            
-                            const spacing = isMobile ? 50 : 80; 
-                            const pushBack = isMobile ? -100 : -160; 
-                            const angle = isMobile ? 60 : 55; 
-                            const centerOffset = isMobile ? 85 : 180; 
-                            
-                            cfItems.forEach((item, index) => {
-                                const diff = index - activeIndex;
-                                const overlay = item.querySelector('.cf-overlay');
-                                
-                                let tx = diff * spacing;
-                                let tz = Math.abs(diff) * pushBack;
-                                let ry = 0;
-                                let blurVal = 0;
-                                
-                                if (diff > 0) {
-                                    ry = -angle; 
-                                    tx += centerOffset;
-                                    blurVal = Math.min(diff * 2, 6); 
-                                } else if (diff < 0) {
-                                    ry = angle; 
-                                    tx -= centerOffset;
-                                    blurVal = Math.min(Math.abs(diff) * 2, 6);
-                                } else {
-                                    ry = 0; 
-                                    tz = isMobile ? 30 : 60; 
-                                    blurVal = 0;
-                                }
-                                
-                                item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg)`;
-                                item.style.zIndex = 100 - Math.abs(diff);
-                                
-                                if (diff === 0) {
-                                    overlay.style.opacity = '0';
-                                    overlay.style.backdropFilter = `blur(0px)`;
-                                    item.classList.add('is-active');
-                                } else {
-                                    overlay.style.opacity = '1';
-                                    overlay.style.backdropFilter = `blur(${blurVal}px)`;
-                                    item.classList.remove('is-active');
-                                }
-                            });
-
-                            dots.forEach((dot, idx) => {
-                                if (idx === activeIndex) {
-                                    dot.classList.replace('bg-white/20', 'bg-indigo-400');
-                                    dot.classList.replace('hover:bg-white/50', 'bg-indigo-400');
-                                    dot.classList.add('scale-125');
-                                } else {
-                                    dot.classList.replace('bg-indigo-400', 'bg-white/20');
-                                    dot.classList.remove('scale-125');
-                                    dot.classList.add('hover:bg-white/50');
-                                }
-                            });
-
-                            updateInfoPanel(activeIndex);
-                        }
-
-                        let infoTimeout;
-                        function updateInfoPanel(index) {
-                            const item = items[index];
-                            clearTimeout(infoTimeout);
-                            
-                            textWrappers.forEach(wrap => {
-                                wrap.classList.add('cf-text-fade-out');
-                                wrap.classList.remove('cf-text-fade-in');
-                            });
-                            
-                            infoTimeout = setTimeout(() => {
-                                titleJa.innerHTML = item.title.ja;
-                                titleEn.innerHTML = item.title.en;
-                                authorJa.innerHTML = item.author.ja;
-                                authorEn.innerHTML = item.author.en;
-                                descJa.innerHTML = item.desc.ja;
-                                descEn.innerHTML = item.desc.en;
-                                
-                                requestAnimationFrame(() => {
-                                    textWrappers.forEach(wrap => {
-                                        wrap.classList.remove('cf-text-fade-out');
-                                        wrap.classList.add('cf-text-fade-in');
+                            window.addEventListener('resize', () => {
+                                const wasMobile = isMobile;
+                                isMobile = window.innerWidth < 768;
+                                if (wasMobile !== isMobile) {
+                                    document.querySelectorAll('.cf-item').forEach(item => {
+                                        item.style.width = isMobile ? '130px' : '220px';
+                                        item.style.height = isMobile ? '195px' : '330px';
                                     });
-                                });
-                            }, 200); 
-                        }
-
-                        // ▼ タブレットバグ修正: スワイプ処理の高度化 ▼
-                        gallery.addEventListener('touchstart', (e) => {
-                            startX = e.touches[0].clientX;
-                            startY = e.touches[0].clientY;
-                            isSwiping = true;
-                            isDragging = false; // タッチ開始時にフラグをリセット
-                        }, {passive: true});
-
-                        gallery.addEventListener('touchmove', (e) => {
-                            if (!isSwiping) return;
-                            const currentX = e.touches[0].clientX;
-                            const currentY = e.touches[0].clientY;
-                            
-                            // 指が10px以上動いた場合は「スワイプ(ドラッグ)中」と判定する
-                            if (Math.abs(startX - currentX) > 10 || Math.abs(startY - currentY) > 10) {
-                                isDragging = true;
-                            }
-                            
-                            if (Math.abs(startX - currentX) > Math.abs(startY - currentY)) {
-                                e.preventDefault(); 
-                            }
-                        }, {passive: false});
-
-                        gallery.addEventListener('touchend', (e) => {
-                            if (!isSwiping) return;
-                            const diff = startX - e.changedTouches[0].clientX;
-                            
-                            if (Math.abs(diff) > 40) {
-                                if (diff > 0 && activeIndex < items.length - 1) {
-                                    updateCoverFlow(activeIndex + 1); 
-                                } else if (diff < 0 && activeIndex > 0) {
-                                    updateCoverFlow(activeIndex - 1); 
+                                    updateCoverFlow(activeIndex, true);
                                 }
-                            }
-                            isSwiping = false;
-                            
-                            // touch終了直後に発火するclickイベントをキャンセルするため、フラグ解除をわずかに遅延させる
-                            setTimeout(() => { isDragging = false; }, 50);
-                        });
+                            });
 
-                        // 初期化：真ん中のアイテム（存在と無：index=3）をアクティブに
-                        setTimeout(() => { updateCoverFlow(3); }, 50);
+                            items.forEach((item, index) => {
+                                const wrapper = document.createElement('div');
+                                wrapper.className = `cf-item absolute transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] cursor-pointer rounded-md md:rounded-lg`;
+                                wrapper.style.width = isMobile ? '130px' : '220px';
+                                wrapper.style.height = isMobile ? '195px' : '330px';
+                                
+                                const img = document.createElement('img');
+                                img.src = item.img;
+                                img.className = 'w-full h-full object-cover rounded-md md:rounded-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]';
+                                img.alt = item.title.ja;
+                                img.loading = 'lazy';
+                                img.decoding = 'async';
+                                
+                                const overlay = document.createElement('div');
+                                overlay.className = 'cf-overlay absolute inset-0 bg-black/50 transition-all duration-[750ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-md md:rounded-lg backdrop-blur-[1px]';
+                                
+                                wrapper.appendChild(img);
+                                wrapper.appendChild(overlay);
+                                
+                                wrapper.addEventListener('mouseenter', () => { 
+                                    if (window.matchMedia('(hover: hover)').matches) updateCoverFlow(index); 
+                                });
+                                
+                                wrapper.addEventListener('click', (e) => { 
+                                    if (isDragging) { e.preventDefault(); return; }
+                                    updateCoverFlow(index); 
+                                });
+                                
+                                gallery.appendChild(wrapper);
+
+                                const dot = document.createElement('button');
+                                dot.className = 'w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20 transition-all duration-300 hover:bg-white/50 outline-none focus:outline-none';
+                                dot.setAttribute('aria-label', `Go to item ${index + 1}`);
+                                dot.addEventListener('click', () => updateCoverFlow(index));
+                                dotsContainer.appendChild(dot);
+                            });
+
+                            function updateCoverFlow(newIndex, force = false) {
+                                if (activeIndex === newIndex && !force) return;
+                                activeIndex = newIndex;
+                                
+                                const cfItems = document.querySelectorAll('.cf-item');
+                                const dots = dotsContainer.querySelectorAll('button');
+                                
+                                const spacing = isMobile ? 50 : 80; 
+                                const pushBack = isMobile ? -100 : -160; 
+                                const angle = isMobile ? 60 : 55; 
+                                const centerOffset = isMobile ? 85 : 180; 
+                                
+                                cfItems.forEach((item, index) => {
+                                    const diff = index - activeIndex;
+                                    const overlay = item.querySelector('.cf-overlay');
+                                    
+                                    let tx = diff * spacing;
+                                    let tz = Math.abs(diff) * pushBack;
+                                    let ry = 0;
+                                    let blurVal = 0;
+                                    
+                                    if (diff > 0) {
+                                        ry = -angle; tx += centerOffset; blurVal = Math.min(diff * 2, 6); 
+                                    } else if (diff < 0) {
+                                        ry = angle; tx -= centerOffset; blurVal = Math.min(Math.abs(diff) * 2, 6);
+                                    } else {
+                                        ry = 0; tz = isMobile ? 30 : 60; blurVal = 0;
+                                    }
+                                    
+                                    item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg)`;
+                                    item.style.zIndex = 100 - Math.abs(diff);
+                                    
+                                    if (diff === 0) {
+                                        overlay.style.opacity = '0';
+                                        overlay.style.backdropFilter = `blur(0px)`;
+                                        item.classList.add('is-active');
+                                    } else {
+                                        overlay.style.opacity = '1';
+                                        overlay.style.backdropFilter = `blur(${blurVal}px)`;
+                                        item.classList.remove('is-active');
+                                    }
+                                });
+
+                                dots.forEach((dot, idx) => {
+                                    if (idx === activeIndex) {
+                                        dot.classList.replace('bg-white/20', 'bg-indigo-400');
+                                        dot.classList.replace('hover:bg-white/50', 'bg-indigo-400');
+                                        dot.classList.add('scale-125');
+                                    } else {
+                                        dot.classList.replace('bg-indigo-400', 'bg-white/20');
+                                        dot.classList.remove('scale-125');
+                                        dot.classList.add('hover:bg-white/50');
+                                    }
+                                });
+
+                                updateInfoPanel(activeIndex);
+                            }
+
+                            let infoTimeout;
+                            function updateInfoPanel(index) {
+                                const item = items[index];
+                                clearTimeout(infoTimeout);
+                                
+                                textWrappers.forEach(wrap => { wrap.classList.add('cf-text-fade-out'); wrap.classList.remove('cf-text-fade-in'); });
+                                
+                                infoTimeout = setTimeout(() => {
+                                    titleJa.innerHTML = item.title.ja; titleEn.innerHTML = item.title.en;
+                                    authorJa.innerHTML = item.author.ja; authorEn.innerHTML = item.author.en;
+                                    descJa.innerHTML = item.desc.ja; descEn.innerHTML = item.desc.en;
+                                    
+                                    requestAnimationFrame(() => {
+                                        textWrappers.forEach(wrap => { wrap.classList.remove('cf-text-fade-out'); wrap.classList.add('cf-text-fade-in'); });
+                                    });
+                                }, 200); 
+                            }
+
+                            gallery.addEventListener('touchstart', (e) => {
+                                startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+                                isSwiping = true; isDragging = false; 
+                            }, {passive: true});
+
+                            gallery.addEventListener('touchmove', (e) => {
+                                if (!isSwiping) return;
+                                const currentX = e.touches[0].clientX; const currentY = e.touches[0].clientY;
+                                if (Math.abs(startX - currentX) > 10 || Math.abs(startY - currentY) > 10) isDragging = true;
+                                if (Math.abs(startX - currentX) > Math.abs(startY - currentY)) e.preventDefault(); 
+                            }, {passive: false});
+
+                            gallery.addEventListener('touchend', (e) => {
+                                if (!isSwiping) return;
+                                const diff = startX - e.changedTouches[0].clientX;
+                                if (Math.abs(diff) > 40) {
+                                    if (diff > 0 && activeIndex < items.length - 1) updateCoverFlow(activeIndex + 1); 
+                                    else if (diff < 0 && activeIndex > 0) updateCoverFlow(activeIndex - 1); 
+                                }
+                                isSwiping = false;
+                                setTimeout(() => { isDragging = false; }, 50);
+                            });
+
+                            setTimeout(() => { updateCoverFlow(3); }, 50);
+                        };
+
+                        // ▼ IntersectionObserver による遅延発火トリガー
+                        const cfStage = document.getElementById('cf-gallery');
+                        if (cfStage && 'IntersectionObserver' in window) {
+                            const observer = new IntersectionObserver((entries, obs) => {
+                                if (entries[0].isIntersecting) {
+                                    obs.disconnect(); // 発火は1回のみ
+                                    initCoverFlow();  // ユーザーが接近した瞬間に静かにDOMを組み上げる
+                                }
+                            }, { rootMargin: '800px 0px' });
+                            observer.observe(cfStage);
+                        } else {
+                            setTimeout(initCoverFlow, 800); // Observer非対応ブラウザへのフォールバック
+                        }
                     });
                 </script>
             </section>
@@ -1823,16 +1793,14 @@
             // 1. 演出時間の保証（短すぎるとシネマティックにならないため）
             const timePromise = new Promise(resolve => setTimeout(resolve, minDisplayTime));
 
-            // 2. DOMツリー、LCP画像、Tailwind展開の完了保証 (ページ全体のloadを待たず、クリティカルパスのみを監視する極限軽量化)
+            // 2. DOMツリーとLCP画像の完了保証 (Critical CSSが導入済みのため、Tailwind JSの重い処理を待たず最速で描画する極限軽量化)
             const loadPromise = new Promise(resolve => {
                 const checkReady = () => {
-                    // Tailwind CSSがDOMにスタイルを適用した証拠を検知
-                    const tailwindReady = document.querySelector('style[data-tw]') !== null || (window.tailwind && typeof window.tailwind === 'object');
-                    // ファーストビューの主役(LCP)画像の読み込み完了を検知
                     const lcpImg = document.querySelector('#hero-photo img');
                     const lcpReady = lcpImg ? lcpImg.complete : true;
                     
-                    if ((document.readyState === 'interactive' || document.readyState === 'complete') && tailwindReady && lcpReady) {
+                    // 4G環境下で不要なブロッキングを排除し、インタラクティブになった瞬間に幕を開ける
+                    if ((document.readyState === 'interactive' || document.readyState === 'complete') && lcpReady) {
                         resolve();
                     } else {
                         requestAnimationFrame(checkReady);
@@ -1980,19 +1948,22 @@
                 });
             }
 
-            // Priority 2: Visuals (Defer to Idle)
+            // Priority 2: Visuals (Defer to Idle with 4G Network Fallback)
             const initVisuals = () => {
-                if (typeof Lenis !== 'undefined') {
-                    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
-                    function raf(time) { lenis.raf(time); if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update(); requestAnimationFrame(raf); }
-                    requestAnimationFrame(raf);
+                // 4G回線で外部スクリプトの到着が遅延している場合は、100ms後に自己再帰して優雅に待機する
+                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
+                    setTimeout(initVisuals, 100);
+                    return;
                 }
-                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                    gsap.registerPlugin(ScrollTrigger);
-                    gsap.utils.toArray('.fade-in').forEach(section => {
-                        gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
-                    });
-                }
+                
+                const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+                function raf(time) { lenis.raf(time); ScrollTrigger.update(); requestAnimationFrame(raf); }
+                requestAnimationFrame(raf);
+                
+                gsap.registerPlugin(ScrollTrigger);
+                gsap.utils.toArray('.fade-in').forEach(section => {
+                    gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
+                });
             };
             if ('requestIdleCallback' in window) requestIdleCallback(initVisuals);
             else requestAnimationFrame(initVisuals);
