@@ -1761,21 +1761,20 @@
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer fetchpriority="low"></script>
 
     <script>
-        // ▼▼▼ スプラッシュスクリーン（FOUC防止）の究極制御ロジック ▼▼▼
+        // ▼▼▼ サイレント・フェードイン（FOUC防止）の究極制御ロジック ▼▼▼
         (function() {
-            const splash = document.getElementById('splash-screen');
-            const minDisplayTime = 1200; // 演出としての最低表示時間（1.2秒）
+            const mask = document.getElementById('silent-mask');
+            // 演出用の待ち時間を排除。DOM構築に必要な極小のバッファのみ確保。
+            const minDisplayTime = 50; 
 
-            // 1. 演出時間の保証（短すぎるとシネマティックにならないため）
             const timePromise = new Promise(resolve => setTimeout(resolve, minDisplayTime));
 
-            // 2. DOMツリーとLCP画像の完了保証 (Critical CSSが導入済みのため、Tailwind JSの重い処理を待たず最速で描画する極限軽量化)
+            // DOMツリーとLCP画像の完了保証
             const loadPromise = new Promise(resolve => {
                 const checkReady = () => {
                     const lcpImg = document.querySelector('#hero-photo img');
                     const lcpReady = lcpImg ? lcpImg.complete : true;
                     
-                    // 4G環境下で不要なブロッキングを排除し、インタラクティブになった瞬間に幕を開ける
                     if ((document.readyState === 'interactive' || document.readyState === 'complete') && lcpReady) {
                         resolve();
                     } else {
@@ -1785,42 +1784,36 @@
                 requestAnimationFrame(checkReady);
             });
 
-            // 3. Webフォントのパース完了保証 (4G回線等のレイテンシを考慮し、最大1.5秒のタイムアウトを設け、完璧な描画よりもサクサク感を優先)
+            // Webフォントのパース完了保証
             const fontPromise = document.fonts ? Promise.race([
                 document.fonts.ready,
                 new Promise(resolve => setTimeout(resolve, 1500))
             ]) : Promise.resolve();
 
-            // 幕を開ける実行関数
+            // マスクをフワッと消す実行関数
             const revealSite = () => {
-                if (splash) splash.classList.add('hidden-splash');
+                if (mask) mask.classList.add('hidden-mask');
                 document.body.classList.remove('is-loading');
                 
-                // スクロールライブラリ等の再計算を、幕が開いた直後に確実に行う
                 setTimeout(() => {
                     if (typeof lenis !== 'undefined') lenis.resize();
                     if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
                 }, 200);
             };
 
-            // 【完全同期】全ての「完了条件」が揃うまで待機する
+            // 全条件クリア後、ブラウザの再計算完了を待ってからフェードイン
             Promise.all([timePromise, loadPromise, fontPromise]).then(() => {
-                // Tailwind CDNの動的CSS生成と、ブラウザのスタイル再計算（Recalculate Style）が
-                // 確実に終わってから画面を描画するため、次のペイントサイクルまで待機する（ダブルrAF）
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
                         revealSite();
                     });
                 });
             }).catch(() => {
-                // 万が一の例外発生時
                 revealSite();
             });
             
-            // 絶対的なセーフティネット（極端なネットワーク異常時に無限ロードになるのを防ぐ）
-            setTimeout(revealSite, 4000);
+            setTimeout(revealSite, 3000); // 念のための強制解除
         })();
-        // ▲▲▲ スプラッシュスクリーン制御ロジック ここまで ▲▲▲
         document.addEventListener('DOMContentLoaded', () => {
             
             // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
