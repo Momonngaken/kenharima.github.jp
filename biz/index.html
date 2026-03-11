@@ -945,10 +945,13 @@
             <section class="fade-in cv-auto">
                 <div class="section-label mb-10 md:mb-16">
                     <span class="lang-ja flex items-center gap-3">
-                        <span class="tracking-[0.15em]">主要プロジェクト・受賞歴</span>
-                        <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px]">SELECTED PROJECTS & AWARDS</span>
+                        <!-- 日本語: スマホのみ改行し、行間と縮小防止(shrink-0)を最適化 -->
+                        <span class="tracking-[0.15em] shrink-0 leading-snug">主要プロジェクト<br class="block sm:hidden">・受賞歴</span>
+                        <!-- 英語(添え字): スマホのみ改行し、高さを日本語と美しく揃える -->
+                        <span class="text-[9px] font-mono font-normal text-gray-300 tracking-[0.2em] mt-[2px] leading-tight shrink-0">SELECTED PROJECTS &<br class="block sm:hidden">AWARDS</span>
                     </span>
-                    <span class="lang-en">Selected Projects & Awards</span>
+                    <!-- 英語モード用: こちらも同様にスマホ時のみ美しく改行 -->
+                    <span class="lang-en shrink-0 leading-snug">Selected Projects &<br class="block sm:hidden">Awards</span>
                 </div>
                 
                 <div class="space-y-14 md:space-y-20 lg:space-y-24">
