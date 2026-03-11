@@ -60,52 +60,67 @@
             position: fixed;
             inset: 0;
             z-index: 9999999;
-            background-color: #fafafa;
+            background-color: #050507; /* 漆黒の世界観 */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            /* 奥行きを感じさせる極めて微かなグラデーション */
+            background-image: radial-gradient(circle at center, rgba(15, 60, 133, 0.15) 0%, transparent 60%);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform, visibility;
         }
         #splash-screen.hidden-splash {
             opacity: 0 !important;
             visibility: hidden !important;
-            transform: scale(1.05) !important;
+            transform: scale(1.03) !important; /* 幕が開くようにわずかに拡大しながら消える */
             pointer-events: none !important;
+        }
+        .splash-brand-container {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
         }
         .splash-brand {
             font-family: 'Syne', 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            color: #0f172a;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            color: #ffffff;
             text-transform: uppercase;
-            animation: splash-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            filter: blur(4px);
+            animation: cinematic-reveal 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.1s; /* わずかなタメを作る */
         }
-        .splash-progress-container {
-            width: 100px;
-            height: 1px;
-            background: rgba(15, 60, 133, 0.1);
-            margin-top: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
-        }
-        .splash-progress-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
+        .splash-line {
             width: 0%;
-            background: linear-gradient(90deg, #0f3c85, #00D0C5);
-            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            margin: 16px auto 0;
+            opacity: 0;
+            animation: line-reveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.5s;
         }
-        @keyframes splash-pulse {
-            0%, 100% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 0.4; transform: translateY(-1px); }
+
+        @keyframes cinematic-reveal {
+            0% { opacity: 0; transform: translateY(15px) scale(0.95); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+        @keyframes line-reveal {
+            0% { width: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { width: 60px; opacity: 0; }
         }
     </style>
+    <noscript>
+        <style>
+            .fade-in { opacity: 1 !important; transform: none !important; }
+            #splash-screen { display: none !important; }
+            body.is-loading { overflow: auto !important; height: auto !important; }
+        </style>
+    </noscript>
     <noscript>
         <style>
             .fade-in { opacity: 1 !important; transform: none !important; }
@@ -170,9 +185,11 @@
 <body class="antialiased is-loading">
     <!-- ================= SPLASH SCREEN (FOUC PREVENTION) ================= -->
     <div id="splash-screen">
-        <div class="splash-brand">KEN.H</div>
-        <div class="splash-progress-container">
-            <div id="splash-progress-bar" class="splash-progress-bar"></div>
+        <div class="text-center">
+            <div class="splash-brand-container">
+                <div class="splash-brand">Ken HARIMA</div>
+            </div>
+            <div class="splash-line"></div>
         </div>
     </div>
 
@@ -1793,20 +1810,13 @@
         // ▼▼▼ スプラッシュスクリーン（FOUC防止）の制御ロジック ▼▼▼
         (function() {
             const splash = document.getElementById('splash-screen');
-            const progressBar = document.getElementById('splash-progress-bar');
-            let splashProgress = 0;
-
-            // 擬似プログレスバーのアニメーション
-            const progressInterval = setInterval(() => {
-                splashProgress += Math.random() * 15 + 5;
-                if (splashProgress > 85) splashProgress = 85;
-                if (progressBar) progressBar.style.width = splashProgress + '%';
-            }, 150);
+            const startTime = Date.now();
+            const minDisplayTime = 1200; // 最低1.2秒間は「漆黒の幕開け」を演出し、エグゼクティブ・プレゼンスを高める
 
             const revealSite = () => {
-                clearInterval(progressInterval);
-                if (progressBar) progressBar.style.width = '100%';
-                
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+
                 setTimeout(() => {
                     if (splash) splash.classList.add('hidden-splash');
                     document.body.classList.remove('is-loading');
@@ -1815,20 +1825,21 @@
                     setTimeout(() => {
                         if (typeof lenis !== 'undefined') lenis.resize();
                         if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                    }, 100);
-                }, 400); // 100%になってから少し待ってシネマティックにフェードアウト
+                    }, 200);
+                }, remainingTime);
             };
 
-            // Tailwindのスタイル適用や画像のロードを完全に待つ
-            window.addEventListener('load', () => {
-                setTimeout(revealSite, 100);
-            });
+            // Tailwindのスタイル適用やWebフォントのロードを完全に待機
+            if (document.readyState === 'complete') {
+                revealSite();
+            } else {
+                window.addEventListener('load', revealSite);
+            }
             
-            // セーフティネット（無限ロード防止）
+            // セーフティネット（無限ロード防止 - 万が一イベントが発火しなかった場合）
             setTimeout(revealSite, 3500);
         })();
         // ▲▲▲ スプラッシュスクリーン制御ロジック ここまで ▲▲▲
-
         document.addEventListener('DOMContentLoaded', () => {
             
             // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
