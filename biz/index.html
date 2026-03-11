@@ -17,8 +17,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <!-- Cloudflare Web Analytics Preconnect -->
+    <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
+    <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
@@ -1723,10 +1724,11 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center gap-4">
                     <p class="text-gray-400">© 2026 Ken HARIMA</p>
-                    <button id="btn-reopen-settings" class="text-gray-300 hover:text-bizAccent transition-colors flex items-center gap-1.5 group cursor-pointer" title="Cookie Settings">
-                        <i class="fa-solid fa-cookie-bite text-[10px] group-hover:animate-spin"></i>
-                        <span class="underline decoration-dotted underline-offset-2">Privacy</span>
-                    </button>
+                    <!-- Privacy First Badge (Zero Cookie) -->
+                    <div class="flex items-center gap-1.5 px-2 py-1 rounded border border-gray-200/50 bg-white/50 text-gray-400 select-none cursor-default transition-all duration-500 hover:border-emerald-200 hover:bg-emerald-50/50 hover:text-emerald-500" title="100% Cookie-Free Analytics">
+                        <i class="fa-solid fa-leaf text-[10px]"></i>
+                        <span class="text-[9px] uppercase tracking-[0.15em] font-bold mt-px">Cookie-Free</span>
+                    </div>
                 </div>
                 <div class="flex items-center gap-6 mt-6 md:mt-0">
                     <p class="text-gray-400">Business Portfolio</p>
