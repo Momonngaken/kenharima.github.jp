@@ -1723,11 +1723,20 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center gap-4">
                     <p class="text-gray-400">© 2026 Ken HARIMA</p>
-                    <!-- Privacy First Badge (Zero Cookie) -->
-                    <div class="flex items-center gap-1.5 px-2 py-1 rounded border border-gray-200/50 bg-white/50 text-gray-400 select-none cursor-default transition-all duration-500 hover:border-emerald-200 hover:bg-emerald-50/50 hover:text-emerald-500" title="100% Cookie-Free Analytics">
-                        <i class="fa-solid fa-leaf text-[10px]"></i>
-                        <span class="text-[9px] uppercase tracking-[0.15em] font-bold mt-px">Cookie-Free</span>
+                    <!-- Zero-Cookie Privacy Badge (Premium Glassmorphism) -->
+                <div class="group/cookie relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50/50 backdrop-blur-md border border-gray-200/60 text-gray-400 select-none cursor-default transition-all duration-700 hover:bg-white hover:border-emerald-300/60 hover:shadow-[0_4px_20px_rgba(52,211,153,0.15)] hover:-translate-y-0.5 overflow-hidden" title="100% Privacy-First, Zero-Cookie Analytics">
+                    <!-- ホバー時の微細な背景グラデーション -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.03] to-teal-500/[0.03] opacity-0 group-hover/cookie:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                    <!-- 鼓動するレーダーエフェクトとアイコン -->
+                    <div class="relative flex items-center justify-center">
+                        <span class="absolute inset-0 rounded-full bg-emerald-400 opacity-0 group-hover/cookie:animate-ping group-hover/cookie:opacity-25 transition-all duration-700"></span>
+                        <i class="fa-solid fa-leaf text-[10px] relative z-10 transition-colors duration-700 group-hover/cookie:text-emerald-500"></i>
                     </div>
+                    <!-- テキスト -->
+                    <span class="text-[9px] font-mono font-bold uppercase tracking-[0.2em] relative z-10 transition-colors duration-700 group-hover/cookie:text-emerald-600 mt-px">
+                        Zero Cookie
+                    </span>
+                </div>
                 </div>
                 <div class="flex items-center gap-6 mt-6 md:mt-0">
                     <p class="text-gray-400">Business Portfolio</p>
