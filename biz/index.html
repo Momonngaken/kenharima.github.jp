@@ -115,129 +115,9 @@
             will-change: opacity, transform;
         }
 
-        /* 4. メインコンテンツ：フォント適用前の文字揺れを物理的に隠蔽するため、初期は透明に */
-        body.is-loading main {
-            opacity: 0;
-            transform: translateY(24px);
-            filter: none !important;
-            will-change: opacity, transform;
-        }
-
         /* ----- Modal FOUC Prevention (究極の2本線防止) ----- */
         #global-modal { display: none !important; }
         #global-modal.is-open { display: flex !important; }
-
-        /* ----- Modal Performance Overrides ----- */
-        body.is-modal-open > .max-w-4xl .animate-breathe,
-        body.is-modal-open > .max-w-4xl .animate-gesture,
-        body.is-modal-open > .max-w-4xl .animate-pulse,
-        body.is-modal-open > .max-w-4xl .animate-bounce {
-            animation-play-state: paused !important;
-        }
-
-        #modal-panel {
-            contain: layout paint style;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-
-        #modal-scroll-container {
-            contain: layout paint;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        #modal-content > .modal-content-pane {
-            content-visibility: auto;
-            contain-intrinsic-size: 1px 960px;
-        }
-
-        .reading-progress-bar {
-            width: 100%;
-            transform-origin: left center;
-            transform: translateZ(0) scaleX(0);
-            transition: transform .1s ease-out;
-            will-change: transform;
-        }
-
-        .scroll-hint-overlay.is-hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .scroll-hint-overlay.is-hidden .animate-bounce {
-            animation-play-state: paused;
-        }
-
-        /* ----- 準備完了（is-ready時）の連鎖発火（Stagger） ----- */
-        
-        /* ① ヒーロー写真先行：ヴェールが消え始めるのと同時に、柔らかく姿を現す */
-        body.is-ready #hero-tilt-container {
-            animation: cinematicRevealPhoto 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* ② 文字群：写真から少し遅れて（200ms〜300ms）、スッとシャープに立ち上がる */
-        body.is-ready header h1 {
-            animation: cinematicRevealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-            opacity: 0; /* ディレイ中のチラつき防止 */
-        }
-
-        body.is-ready header .mt-4,
-        body.is-ready header .mt-6 {
-            animation: cinematicRevealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-            opacity: 0;
-        }
-
-        /* ③ ナビ：最後に静かに降りてくる */
-        body.is-ready #nav-container {
-            animation: cinematicRevealNav 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
-            opacity: 0;
-        }
-
-        /* ④ メインコンテンツ：文字揺れが完全に収まったタイミングで、下から重厚に立ち上がる */
-        body.is-ready main {
-            animation: cinematicRevealMain 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
-            opacity: 0;
-        }
-
-        /* ----- キーフレーム定義 ----- */
-        @keyframes cinematicRevealPhoto {
-            0% { opacity: 0; transform: scale(1.02) translateY(12px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes cinematicRevealText {
-            0% { opacity: 0; transform: translateY(16px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes cinematicRevealNav {
-            0% { opacity: 0; transform: translateY(-12px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes cinematicRevealMain {
-            0% { opacity: 0; transform: translateY(24px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-    <noscript>
-        <style>
-            /* JS無効時: ローディングロックとヴェールを完全解除し、全要素を即時表示 */
-            body.is-loading { overflow: auto !important; pointer-events: auto !important; opacity: 1 !important; }
-            body::before { display: none !important; }
-            body.is-loading #hero-tilt-container, 
-            body.is-loading header h1, 
-            body.is-loading header .mt-4, 
-            body.is-loading header .mt-6, 
-            body.is-loading #nav-container,
-            body.is-loading main,
-            body > .max-w-4xl { 
-                opacity: 1 !important; 
-                filter: none !important; 
-                transform: none !important; 
-            }
-        </style>
-    </noscript>
 
         /* ----- Modal Performance Overrides ----- */
         body.is-modal-open > .max-w-4xl .animate-breathe,
@@ -538,12 +418,12 @@
                                 <p>
                                     善意の量ではなく、1円あたり・1時間あたりのインパクトを最大化する。効果的利他主義（Effective Altruism）のこの原則は、そのまま事業における投資判断の言語になる。
                                 </p>
-                               <p>
+                                <p class="group/paragraph transition-all duration-700">
     <span class="inline-block sm:inline">どの市場に出るか、どの技術に賭けるか、誰と組むか</span><br class="hidden sm:block"><span class="inline-block sm:inline sm:mt-1">——あらゆる意思決定に</span>
     <br class="block sm:hidden">
     <span class="inline-block mt-2 sm:mt-0">
         <strong class="text-white font-bold inline relative">
-            <span class="inline-block whitespace-nowrap bg-[linear-gradient(transparent_65%,rgba(15,60,133,0.9)_65%)] box-decoration-clone px-1.5 py-0.5 rounded-sm drop-shadow-[0_2px_12px_rgba(15,60,133,0.35)] tracking-wide pointer-events-none select-none">
+            <span class="inline-block whitespace-nowrap bg-[linear-gradient(transparent_65%,rgba(15,60,133,0.9)_65%)] box-decoration-clone px-1.5 py-0.5 rounded-sm transition-all duration-500 ease-out group-hover/paragraph:bg-[linear-gradient(transparent_55%,rgba(0,208,197,0.4)_55%)] group-hover/paragraph:text-cyan-50 group-hover/paragraph:shadow-[0_0_15px_rgba(0,208,197,0.25)] group-hover/paragraph:-translate-y-0.5 transform-gpu">
                 「短期収益×長期受益者数」
             </span>
         </strong>
@@ -551,10 +431,12 @@
     </span>
     <span class="block sm:hidden h-3"></span>
     <br class="hidden sm:block">
+    <!-- 結びの文: 引き算の美学による静寂なテキストへ -->
     <span class="inline-block mt-1 sm:mt-2 text-[#a1a1a6]">
         それが、倫理を競争優位に変える第一歩だと考えている。
     </span>
 </p>
+
                                 <!-- 強調ブロック (Cinematic typography with dynamic line) -->
                                 <div class="py-12 md:py-20 my-12 md:my-20 border-y border-white/[0.05] relative group/quote overflow-hidden">
                                     <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-white/[0.05]">
@@ -586,15 +468,16 @@
                                 <p>
                                     It’s not about the volume of good intentions; it’s about maximizing impact per dollar and per hour. This principle of Effective Altruism translates seamlessly into the language of business investment.
                                 </p>
-                                <p>
+                                <p class="group/paragraph transition-all duration-700">
     Which markets to enter, which technologies to back, whom to partner with—I aim to evaluate every choice through the dual lens of 
     <strong class="text-white font-bold inline relative">
-        <span class="inline-block whitespace-nowrap mt-1 sm:mt-0 bg-[linear-gradient(transparent_65%,rgba(15,60,133,0.9)_65%)] box-decoration-clone px-1.5 py-0.5 rounded-sm drop-shadow-[0_2px_12px_rgba(15,60,133,0.35)] tracking-wide pointer-events-none select-none">
+        <span class="inline-block whitespace-nowrap mt-1 sm:mt-0 bg-[linear-gradient(transparent_65%,rgba(15,60,133,0.9)_65%)] box-decoration-clone px-1.5 py-0.5 rounded-sm transition-all duration-500 ease-out group-hover/paragraph:bg-[linear-gradient(transparent_55%,rgba(0,208,197,0.4)_55%)] group-hover/paragraph:text-cyan-50 group-hover/paragraph:shadow-[0_0_15px_rgba(0,208,197,0.25)] group-hover/paragraph:-translate-y-0.5 transform-gpu">
             "Short-Term Revenue × Long-Term Beneficiaries."
         </span>
     </strong>
     <span class="block sm:hidden h-3"></span>
     <br class="hidden sm:block">
+    <!-- 結びの文: 引き算の美学による静寂なテキストへ -->
     <span class="inline-block mt-1 sm:mt-2 text-[#a1a1a6]">
         I believe this is how we turn ethics into a sustainable competitive edge.
     </span>
@@ -2090,11 +1973,15 @@
             });
 
             // 究極のセーフティーネットの再構築
-            // 旧バージョンの「800ms強制開場」は、3G/4G環境でフォント適用前にヴェールを剥がし文字揺れを露呈する原因でした。
-            // 美しさと静寂を最優先し、通常の最大待機時間を 2500ms に設定。
-            // ほとんどの環境では Promise.all により数百msで即座に滑らかに開場されます。
-            const maxWaitTime = isInAppBrowser ? 7000 : 2500;
-            setTimeout(revealSite, maxWaitTime);
+            if (!isInAppBrowser) {
+                // 通常ブラウザ: UXを最優先し、人間が「遅い」と感じ始める800msで滑らかに開場
+                setTimeout(revealSite, 800);
+            } else {
+                // SNS内WebView: 文字揺れを防ぐため、フォントと画像の完全ロードをヴェールの中で待機する。
+                // ただし、通信障害等によるデッドロック（永遠に画面が真っ白になる現象）を防ぐため、
+                // 「8秒間」待っても読み込みが終わらない場合のみ、最終手段として強制開場する絶対的な命綱を設定。
+                setTimeout(revealSite, 8000);
+            }
         })();
         document.addEventListener('DOMContentLoaded', () => {
             
