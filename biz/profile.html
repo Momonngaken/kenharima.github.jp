@@ -130,6 +130,27 @@ body {
             transform: translateY(0) scale(1);
             filter: blur(0);
         }
+        /* =========================================
+   [追加] PVQ Chart: 有機的な「解け」アニメーション
+   ========================================= */
+.pvq-canvas-wrapper {
+    opacity: 0;
+    /* 左に12度傾け、少し縮小して下に沈める */
+    transform: rotate(-12deg) scale(0.94) translateY(20px);
+    filter: blur(12px);
+    /* Chart.jsの描画(約1.6秒)と同調する極上のイージング */
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+}
+
+.pvq-canvas-wrapper.is-unfolded {
+    opacity: 1;
+    /* 本来の正位置・等倍・クリアな状態へ（結果的に時計回りに動く） */
+    transform: rotate(0deg) scale(1) translateY(0);
+    filter: blur(0);
+}
     </style>
 
     <!-- Tailwind Config -->
@@ -485,9 +506,10 @@ body {
                 <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8 md:gap-12 items-center">
                     
                     <!-- Chart -->
-                    <div class="aspect-square w-full max-w-[500px] mx-auto relative order-2 md:order-1">
-                        <canvas id="pvqChart"></canvas>
-                    </div>
+<!-- id="pvq-wrapper" と class="pvq-canvas-wrapper" を追加 -->
+<div id="pvq-wrapper" class="aspect-square w-full max-w-[500px] mx-auto relative order-2 md:order-1 pvq-canvas-wrapper">
+    <canvas id="pvqChart"></canvas>
+</div>
 
                     <!-- Legend / Insight -->
                     <div class="order-1 md:order-2 h-full flex flex-col justify-center">
@@ -656,31 +678,40 @@ body {
                             legend: { display: false }, 
                             tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 10, bodyFont: { family: fontBody }, callbacks: { label: function(context) { return context.label + ': ' + context.raw; } } } 
                         },
-                        animation: { duration: 1800, easing: 'easeOutQuart' }
-                    }
-                });
-            };
+                        animation: { 
+                duration: 1600, 
+                easing: 'easeOutQuart',
+                animateRotate: true, // 中心から時計回りに扇を展開する
+                animateScale: true   // 中心から外側へ広がる
+            }
+        }
+    });
+};
 
             // Intersection Observer to trigger elegant reveal & render
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // 1. 器(カード)を静かに浮き上がらせる
-                        entry.target.classList.add('is-revealed');
+const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // 1. 器(カード)を静かに浮き上がらせる
+            entry.target.classList.add('is-revealed');
 
-                        // 2. その0.4秒後にグラフの中身を描画し始める
-                        if (entry.target.id === 'big5-section' && !big5Rendered) {
-                            big5Rendered = true;
-                            setTimeout(() => { renderBig5(); }, 400); 
-                        }
-                        if (entry.target.id === 'pvq-section' && !pvqRendered) {
-                            pvqRendered = true;
-                            setTimeout(() => { renderPVQ(); }, 400); 
-                        }
-                        obs.unobserve(entry.target); // 一度発火したら監視をやめる
-                    }
-                });
-            }, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
+            // 2. その0.4秒後にグラフの中身を描画し始める
+            if (entry.target.id === 'big5-section' && !big5Rendered) {
+                big5Rendered = true;
+                setTimeout(() => { renderBig5(); }, 400); 
+            }
+            if (entry.target.id === 'pvq-section' && !pvqRendered) {
+                pvqRendered = true;
+                setTimeout(() => { 
+                    // ↓↓↓ ここを追加：グラフ描画と同時にラッパーを「解き放つ」 ↓↓↓
+                    document.getElementById('pvq-wrapper').classList.add('is-unfolded');
+                    renderPVQ(); 
+                }, 400); 
+            }
+            obs.unobserve(entry.target); // 一度発火したら監視をやめる
+        }
+    });
+}, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
 
             observer.observe(document.getElementById('big5-section'));
             observer.observe(document.getElementById('pvq-section'));
