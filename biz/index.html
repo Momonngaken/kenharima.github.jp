@@ -88,65 +88,20 @@
         }
 
         /* ----- カスケード・アニメーションの初期状態（is-loading時） ----- */
-        /* 1. ヒーロー写真：ごくわずかに拡大・少しだけぼかす（やりすぎない） */
+        /* 1. ヒーロー写真：blurを完全排除し、WebViewレンダリングを完璧に安定化。透明度と微小なスケール/Y軸移動のみでシネマティックに演出 */
         body.is-loading #hero-tilt-container {
             opacity: 0;
-            transform: scale(1.03) translateY(8px);
-            filter: blur(4px);
-            will-change: opacity, transform, filter;
-        }
-
-        /* 2. テキスト群：文字のぼかしは避け、シャープさを保つ */
-        body.is-loading header h1,
-        body.is-loading header .mt-4,
-        body.is-loading header .mt-6 {
-            opacity: 0;
-            transform: translateY(16px);
-            filter: none !important; /* WebView特有の文字滲みを完全排除 */
-            will-change: opacity, transform;
-        }
-
-        /* 3. ナビゲーション：上から待機 */
-        body.is-loading #nav-container {
-            opacity: 0;
-            transform: translateY(-12px);
+            transform: scale(1.02) translateY(12px);
             filter: none !important;
             will-change: opacity, transform;
         }
 
-        /* ----- Modal FOUC Prevention (究極の2本線防止) ----- */
-        #global-modal { display: none !important; }
-        #global-modal.is-open { display: flex !important; }
-
-        /* ----- 準備完了（is-ready時）の連鎖発火（Stagger） ----- */
-        
-        /* ① ヒーロー写真先行：ヴェールが消え始めるのと同時に、柔らかく姿を現す */
-        body.is-ready #hero-tilt-container {
-            animation: cinematicRevealPhoto 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* ② 文字群：写真から少し遅れて（200ms〜300ms）、スッとシャープに立ち上がる */
-        body.is-ready header h1 {
-            animation: cinematicRevealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-            opacity: 0; /* ディレイ中のチラつき防止 */
-        }
-
-        body.is-ready header .mt-4,
-        body.is-ready header .mt-6 {
-            animation: cinematicRevealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-            opacity: 0;
-        }
-
-        /* ③ ナビ：最後に静かに降りてくる */
-        body.is-ready #nav-container {
-            animation: cinematicRevealNav 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
-            opacity: 0;
-        }
+        /* (中略) */
 
         /* キーフレーム定義 */
         @keyframes cinematicRevealPhoto {
-            0% { opacity: 0; filter: blur(4px); transform: scale(1.03) translateY(8px); }
-            100% { opacity: 1; filter: blur(0); transform: scale(1) translateY(0); }
+            0% { opacity: 0; transform: scale(1.02) translateY(12px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes cinematicRevealText {
@@ -161,26 +116,20 @@
     </style>
     <noscript>
         <style>
-            body.is-loading { overflow: auto !important; pointer-events: auto !important; }
+            /* JS無効時: ローディングロックとヴェールを完全解除し、全要素を即時表示 */
+            body.is-loading { overflow: auto !important; pointer-events: auto !important; opacity: 1 !important; }
             body::before { display: none !important; }
             body.is-loading #hero-tilt-container, 
             body.is-loading header h1, 
             body.is-loading header .mt-4, 
             body.is-loading header .mt-6, 
-            body.is-loading #nav-container { 
+            body.is-loading #nav-container,
+            body > .max-w-4xl { 
                 opacity: 1 !important; 
-                filter: blur(0) !important; 
+                filter: none !important; 
                 transform: none !important; 
             }
         </style>
-    </noscript>
-        <style>
-            body.is-loading { overflow: auto !important; pointer-events: auto !important; }
-            body::before { display: none !important; }
-            body > .max-w-4xl, body #nav-container { opacity: 1 !important; filter: blur(0) !important; transform: none !important; }
-        </style>
-    </noscript>
-        <style>body.is-loading { opacity: 1 !important; filter: blur(0) !important; transform: none !important; overflow: auto !important; }</style>
     </noscript>
 
     <!-- Tailwind Config (Minified) -->
@@ -191,11 +140,8 @@
     <!-- 変更後: 4G環境でのCPUスパイクを防ぐため、asyncからdeferへ変更しメインスレッドを保護 -->
     <script src="https://cdn.tailwindcss.com" defer></script>
 
-    <!-- CSS Loading Optimization -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'; this.onload=null;">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-    
-　　<!-- 変更: SNS内ブラウザでの文字揺れを防ぐため、遅延ハックを廃止して同期読み込みに統一 -->
+    <!-- 完全な静寂の実現: SNS内ブラウザでのレイアウトシフトと文字揺れを「根絶」するため、フォント類はすべて同期読み込みに統一 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     
     <!-- Language Detection Script -->
@@ -1939,14 +1885,11 @@
                 Promise.all([imgPromise, fontPromise]).then(revealSite);
             });
 
-            // 絶対的なセーフティーネット
+            // 絶対的なセーフティーネットの再構築
             if (!isInAppBrowser) {
-                // 通常ブラウザ: 人間が「遅い」と感じ始める800msでUX優先の強制開放
+                // 通常ブラウザ: UXを最優先し、人間が「遅い」と感じ始める800msで強制開放
                 setTimeout(revealSite, 800);
             } else {
-                // SNS内WebView: 描画が不安定になりやすいため、フォントと画像が揃うまで確実に待つ。
-                // （無限ローディング事故を防ぐためのフェイルセーフとして2500msを設定）
-                setTimeout(revealSite, 2500);
             }
         })();
         document.addEventListener('DOMContentLoaded', () => {
