@@ -131,14 +131,14 @@ body {
             filter: blur(0);
         }
         /* =========================================
-   [追加] PVQ Chart: 有機的な「解け」アニメーション
+   [改] PVQ Chart: 極限まで洗練された「解け」アニメーション
    ========================================= */
 .pvq-canvas-wrapper {
     opacity: 0;
-    /* 左に12度傾け、少し縮小して下に沈める */
-    transform: rotate(-12deg) scale(0.94) translateY(20px);
+    /* 上下移動を消し、角度とスケールを「脳が心地よく感じる最小の閾値」にタイト化 */
+    transform: rotate(-8deg) scale(0.98);
     filter: blur(12px);
-    /* Chart.jsの描画(約1.6秒)と同調する極上のイージング */
+    /* イージングはそのままに、よりシャープな印象へ */
     transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
                 filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -147,8 +147,7 @@ body {
 
 .pvq-canvas-wrapper.is-unfolded {
     opacity: 1;
-    /* 本来の正位置・等倍・クリアな状態へ（結果的に時計回りに動く） */
-    transform: rotate(0deg) scale(1) translateY(0);
+    transform: rotate(0deg) scale(1);
     filter: blur(0);
 }
     </style>
