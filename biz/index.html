@@ -119,6 +119,47 @@
         #global-modal { display: none !important; }
         #global-modal.is-open { display: flex !important; }
 
+        /* ----- Modal Performance Overrides ----- */
+        body.is-modal-open > .max-w-4xl .animate-breathe,
+        body.is-modal-open > .max-w-4xl .animate-gesture,
+        body.is-modal-open > .max-w-4xl .animate-pulse,
+        body.is-modal-open > .max-w-4xl .animate-bounce {
+            animation-play-state: paused !important;
+        }
+
+        #modal-panel {
+            contain: layout paint style;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        #modal-scroll-container {
+            contain: layout paint;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #modal-content > .modal-content-pane {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 960px;
+        }
+
+        .reading-progress-bar {
+            width: 100%;
+            transform-origin: left center;
+            transform: translateZ(0) scaleX(0);
+            transition: transform .1s ease-out;
+            will-change: transform;
+        }
+
+        .scroll-hint-overlay.is-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-hint-overlay.is-hidden .animate-bounce {
+            animation-play-state: paused;
+        }
+
         /* ----- 準備完了（is-ready時）の連鎖発火（Stagger） ----- */
         
         /* ① ヒーロー写真先行：ヴェールが消え始めるのと同時に、柔らかく姿を現す */
@@ -378,17 +419,9 @@
                                     善意の量ではなく、1円あたり・1時間あたりのインパクトを最大化する。効果的利他主義（Effective Altruism）のこの原則は、そのまま事業における投資判断の言語になる。
                                 </p>
                                <p class="group/paragraph transition-all duration-700">
-                                   どの市場に出るか、どの技術に賭けるか、誰と組むか<br>
-                                   ——あらゆる意思決定に
-                                   <strong class="text-white font-bold inline">
-                                       <span class="inline bg-[linear-gradient(transparent_65%,rgba(15,60,133,0.9)_65%)] box-decoration-clone px-1.5 py-0.5 rounded-sm transition-all duration-500 group-hover/paragraph:bg-[linear-gradient(transparent_55%,rgba(0,208,197,0.4)_55%)] group-hover/paragraph:text-cyan-50 group-hover/paragraph:shadow-[0_0_15px_rgba(0,208,197,0.2)]">
-                                           「短期収益×長期受益者数」
-                                       </span>
-                                   </strong>
-                                   の複眼を実装すること。
-                                   <span class="block sm:hidden h-2"></span>
-                                   <br class="hidden sm:block">
-                                   <span class="sm:inline-block sm:mt-2 relative">
+                                   <span class="block">どの市場に出るか、どの技術に賭けるか、誰と組むか</span>
+                                   <span class="block sm:inline">——あらゆる意思決定に</span><span class="block sm:inline"><strong class="text-white font-bold inline"><span class="inline-block whitespace-nowrap bg-[linear-gradient(transparent_72%,rgba(15,60,133,0.9)_72%)] box-decoration-clone px-[0.08em] py-0 transition-all duration-500 ease-out group-hover/paragraph:bg-[linear-gradient(transparent_62%,rgba(0,208,197,0.28)_62%)] group-hover/paragraph:text-cyan-50 group-hover/paragraph:drop-shadow-[0_0_10px_rgba(0,208,197,0.22)]">「短期収益×長期受益者数」</span></strong>の複眼を実装すること。</span>
+                                   <span class="block mt-5 sm:mt-6 relative">
                                        <span class="relative z-10 group-hover/paragraph:text-gray-300 transition-colors duration-500">それが、倫理を競争優位に変える第一歩だと考えている。</span>
                                        <span class="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-[#00D0C5] to-transparent group-hover/paragraph:w-full transition-all duration-1000 ease-out"></span>
                                    </span>
@@ -428,7 +461,7 @@
                                 <p class="group/paragraph transition-all duration-700">
                                     Which markets to enter, which technologies to back, whom to partner with—I aim to evaluate every choice through the dual lens of 
                                     <strong class="text-white font-bold inline">
-                                        <span class="inline bg-[linear-gradient(transparent_65%,rgba(15,60,133,0.9)_65%)] box-decoration-clone px-1.5 py-0.5 rounded-sm transition-all duration-500 group-hover/paragraph:bg-[linear-gradient(transparent_55%,rgba(0,208,197,0.4)_55%)] group-hover/paragraph:text-cyan-50 group-hover/paragraph:shadow-[0_0_15px_rgba(0,208,197,0.2)]">
+                                        <span class="inline bg-[linear-gradient(transparent_72%,rgba(15,60,133,0.9)_72%)] box-decoration-clone px-[0.08em] py-0 transition-all duration-500 ease-out group-hover/paragraph:bg-[linear-gradient(transparent_62%,rgba(0,208,197,0.28)_62%)] group-hover/paragraph:text-cyan-50 group-hover/paragraph:drop-shadow-[0_0_10px_rgba(0,208,197,0.22)]">
                                             "Short-Term Revenue × Long-Term Beneficiaries."
                                         </span>
                                     </strong>
@@ -1915,7 +1948,7 @@
                         // アニメーション完了後にDOMからヴェールを消去し、軽量化
                         setTimeout(() => {
                             body.classList.add('is-loaded');
-                            if (typeof lenis !== 'undefined') lenis.resize();
+                            if (window.__portfolioLenis) window.__portfolioLenis.resize();
                             if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
                         }, 1500);
                     });
@@ -2024,14 +2057,14 @@
                 if (htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.remove('is-global');
                     updateLangStyles();
-                    setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100); 
+                    setTimeout(() => { if (window.__portfolioLenis) window.__portfolioLenis.resize(); }, 100); 
                 }
             });
             langEnBtn.addEventListener('click', () => {
                 if (!htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.add('is-global');
                     updateLangStyles();
-                    setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100);
+                    setTimeout(() => { if (window.__portfolioLenis) window.__portfolioLenis.resize(); }, 100);
                 }
             });
 
@@ -2044,16 +2077,33 @@
                 });
             }
 
+            let lenisInstance = window.__portfolioLenis || null;
+            let visualsInitialized = false;
+            let suspendBackgroundMotion = false;
+
+            const getLenis = () => window.__portfolioLenis;
+
             // Priority 2: Visuals (Defer to Idle with 4G Network Fallback)
             const initVisuals = () => {
+                if (visualsInitialized) return;
                 // 4G回線で外部スクリプトの到着が遅延している場合は、100ms後に自己再帰して優雅に待機する
                 if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
                     setTimeout(initVisuals, 100);
                     return;
                 }
-                
-                const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
-                function raf(time) { lenis.raf(time); ScrollTrigger.update(); requestAnimationFrame(raf); }
+
+                visualsInitialized = true;
+                lenisInstance = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+                window.__portfolioLenis = lenisInstance;
+
+                lenisInstance.on('scroll', () => {
+                    if (!suspendBackgroundMotion) ScrollTrigger.update();
+                });
+
+                function raf(time) {
+                    if (!suspendBackgroundMotion && lenisInstance) lenisInstance.raf(time);
+                    requestAnimationFrame(raf);
+                }
                 requestAnimationFrame(raf);
                 
                 gsap.registerPlugin(ScrollTrigger);
@@ -2061,7 +2111,7 @@
                     gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
             };
-            if ('requestIdleCallback' in window) requestIdleCallback(initVisuals);
+            if ('requestIdleCallback' in window) requestIdleCallback(initVisuals, { timeout: 1200 });
             else requestAnimationFrame(initVisuals);
 
             // Optimized Scroll Hint Logic (Factory Function)
@@ -2190,87 +2240,199 @@
             const modalScrollHint = document.getElementById('modal-scroll-hint');
 
             let isModalOpen = false;
-            
-            const markerObserver = new IntersectionObserver((entries) => {
+            let activeModalId = null;
+            let modalScrollFrame = 0;
+            let modalHintHidden = false;
+            let modalProgressValue = 0;
+            const modalMarkupCache = new Map();
+
+            const pauseBackgroundVisuals = () => {
+                suspendBackgroundMotion = true;
+                document.body.classList.add('is-modal-open');
+                const lenis = getLenis();
+                if (lenis) lenis.stop();
+            };
+
+            const resumeBackgroundVisuals = () => {
+                suspendBackgroundMotion = false;
+                document.body.classList.remove('is-modal-open');
+                const lenis = getLenis();
+                if (lenis) {
+                    lenis.start();
+                    requestAnimationFrame(() => lenis.resize());
+                }
+                if (typeof ScrollTrigger !== 'undefined') requestAnimationFrame(() => ScrollTrigger.refresh());
+            };
+
+            const markerObserver = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('nudge-marker', 'active');
                         markerObserver.unobserve(entry.target);
                     }
                 });
-            }, { root: modalScrollContainer, threshold: 0.8 });
+            }, { root: modalScrollContainer, threshold: 0.8 }) : null;
 
-            let modalScrollTicking = false;
-            modalScrollContainer.addEventListener('scroll', () => {
-                if (!modalScrollTicking) {
-                    window.requestAnimationFrame(() => {
-                        const scrollTop = modalScrollContainer.scrollTop;
-                        const scrollHeight = modalScrollContainer.scrollHeight;
-                        const clientHeight = modalScrollContainer.clientHeight;
-                        const scrollableHeight = scrollHeight - clientHeight;
-                        
-                        const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
-                        modalProgressBar.style.width = `${percentage}%`;
-
-                        if (scrollableHeight - scrollTop < 40 || scrollableHeight <= 0) {
-                            modalScrollHint.style.opacity = '0';
-                            modalScrollHint.style.pointerEvents = 'none';
-                        } else {
-                            modalScrollHint.style.opacity = '1';
-                            modalScrollHint.style.pointerEvents = 'auto';
-                        }
-                        modalScrollTicking = false;
+            const formatModalCopy = (value) => value.replace(/\n/g, '<br>');
+            const getModalMarkup = (id, data) => {
+                if (!modalMarkupCache.has(id)) {
+                    modalMarkupCache.set(id, {
+                        header: `
+                    <div class="lang-ja"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${formatModalCopy(data.title_ja)}</h3></div>
+                    <div class="lang-en"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${formatModalCopy(data.title_en)}</h3></div>`,
+                        body: `
+                    <div class="lang-ja modal-content-pane first:mt-0">${formatModalCopy(data.body_ja)}</div>
+                    <div class="lang-en modal-content-pane first:mt-0">${formatModalCopy(data.body_en)}</div>`
                     });
-                    modalScrollTicking = true;
                 }
+                return modalMarkupCache.get(id);
+            };
+
+            const prewarmModalMarkup = (id) => {
+                if (id && modalData[id]) getModalMarkup(id, modalData[id]);
+            };
+
+            const setModalHintHidden = (hidden) => {
+                if (modalHintHidden === hidden) return;
+                modalHintHidden = hidden;
+                modalScrollHint.classList.toggle('is-hidden', hidden);
+            };
+
+            const setModalProgress = (value) => {
+                const clamped = Math.max(0, Math.min(1, value));
+                if (Math.abs(clamped - modalProgressValue) < 0.001) return;
+                modalProgressValue = clamped;
+                modalProgressBar.style.transform = `translateZ(0) scaleX(${clamped})`;
+            };
+
+            const syncModalScrollUI = () => {
+                const scrollTop = modalScrollContainer.scrollTop;
+                const scrollHeight = modalScrollContainer.scrollHeight;
+                const clientHeight = modalScrollContainer.clientHeight;
+                const scrollableHeight = scrollHeight - clientHeight;
+
+                setModalProgress(scrollableHeight > 0 ? scrollTop / scrollableHeight : 0);
+                setModalHintHidden(scrollableHeight - scrollTop < 40 || scrollableHeight <= 0);
+            };
+
+            modalScrollContainer.addEventListener('scroll', () => {
+                if (modalScrollFrame) return;
+                modalScrollFrame = window.requestAnimationFrame(() => {
+                    modalScrollFrame = 0;
+                    syncModalScrollUI();
+                });
             }, { passive: true });
+
+            const focusModalPanel = () => {
+                modalPanel.focus();
+                if (modalScrollContainer) modalScrollContainer.focus();
+            };
+
+            const animateModalIn = () => {
+                if (typeof gsap === 'undefined') {
+                    modalBg.style.opacity = '1';
+                    modalPanel.style.opacity = '1';
+                    modalPanel.style.transform = 'translate3d(0,0,0) scale(1)';
+                    focusModalPanel();
+                    return;
+                }
+
+                gsap.killTweensOf([modalBg, modalPanel]);
+                gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
+                gsap.fromTo(modalPanel, { opacity: 0, scale: 0.9, y: 30, rotationX: 10 }, { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: 0.6, ease: "back.out(1.2)", onComplete: focusModalPanel });
+            };
+
+            const finishClosingModal = () => {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+                resumeBackgroundVisuals();
+                isModalOpen = false;
+            };
 
             const closeModal = () => {
                 if (!isModalOpen) return;
+                if (modalScrollFrame) {
+                    cancelAnimationFrame(modalScrollFrame);
+                    modalScrollFrame = 0;
+                }
+                if (markerObserver) markerObserver.disconnect();
+
+                if (typeof gsap === 'undefined') {
+                    modalBg.style.opacity = '0';
+                    modalPanel.style.opacity = '0';
+                    modalPanel.style.transform = 'translate3d(0,10px,0) scale(0.95)';
+                    finishClosingModal();
+                    return;
+                }
+
+                gsap.killTweensOf([modalBg, modalPanel]);
                 gsap.to(modalBg, { opacity: 0, duration: 0.4, ease: "power2.in" });
-                gsap.to(modalPanel, { 
+                gsap.to(modalPanel, {
                     opacity: 0, scale: 0.95, y: 10, duration: 0.3, ease: "power2.in",
-                    onComplete: () => {
-                        modal.classList.remove('is-open');
-                        document.documentElement.style.overflow = ''; document.body.style.overflow = '';
-                        if(typeof lenis !== 'undefined') lenis.start();
-                        isModalOpen = false;
-                    }
+                    onComplete: finishClosingModal
                 });
             };
+
+            document.body.addEventListener('pointerdown', (e) => {
+                const trigger = e.target.closest('.js-modal-trigger');
+                if (!trigger) return;
+                if (e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
+                prewarmModalMarkup(trigger.getAttribute('data-modal-id'));
+            }, { passive: true });
+
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    Object.entries(modalData).forEach(([id, data]) => getModalMarkup(id, data));
+                }, { timeout: 2500 });
+            } else {
+                setTimeout(() => {
+                    Object.entries(modalData).forEach(([id, data]) => getModalMarkup(id, data));
+                }, 1500);
+            }
 
             document.body.addEventListener('click', (e) => {
                 const trigger = e.target.closest('.js-modal-trigger');
                 if (!trigger) return;
                 if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
-
-                if (typeof lenis !== 'undefined') lenis.stop();
-                document.documentElement.style.overflow = 'hidden';
-                document.body.style.overflow = 'hidden';
                 
                 const id = trigger.getAttribute('data-modal-id');
                 const data = modalData[id];
                 if (!data) return;
 
-                headerContent.innerHTML = `
-                    <div class="lang-ja"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3></div>
-                    <div class="lang-en"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3></div>`;
+                pauseBackgroundVisuals();
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
 
-                modalContent.innerHTML = `
-                    <div class="lang-ja first:mt-0">${data.body_ja.replace(/\n/g, '<br>')}</div>
-                    <div class="lang-en first:mt-0">${data.body_en.replace(/\n/g, '<br>')}</div>`;
+                const markup = getModalMarkup(id, data);
+                if (activeModalId !== id) {
+                    headerContent.innerHTML = markup.header;
+                    modalContent.innerHTML = markup.body;
+                    activeModalId = id;
+                }
 
-                requestAnimationFrame(() => {
-                    const markers = modalContent.querySelectorAll('strong');
-                    markers.forEach(marker => { marker.classList.remove('active'); marker.classList.add('nudge-marker'); markerObserver.observe(marker); });
+                if (markerObserver) markerObserver.disconnect();
+                const markers = modalContent.querySelectorAll('strong');
+                markers.forEach(marker => {
+                    marker.classList.remove('active');
+                    marker.classList.add('nudge-marker');
+                    if (markerObserver) markerObserver.observe(marker);
+                    else marker.classList.add('active');
                 });
 
-                modalScrollContainer.scrollTop = 0; modalProgressBar.style.width = '0%'; modalScrollHint.style.opacity = '1';
+                modalScrollContainer.scrollTop = 0;
+                if (modalScrollFrame) {
+                    cancelAnimationFrame(modalScrollFrame);
+                    modalScrollFrame = 0;
+                }
+                setModalProgress(0);
+                setModalHintHidden(false);
                 modal.classList.add('is-open');
-                gsap.killTweensOf([modalBg, modalPanel]);
-                gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
-                gsap.fromTo(modalPanel, { opacity: 0, scale: 0.9, y: 30, rotationX: 10 }, { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: 0.6, ease: "back.out(1.2)", onComplete: () => { modalPanel.focus(); if(modalScrollContainer) modalScrollContainer.focus(); } });
+                modal.setAttribute('aria-hidden', 'false');
+                animateModalIn();
                 isModalOpen = true;
+                requestAnimationFrame(syncModalScrollUI);
             });
 
             modalCloseBtn.addEventListener('click', closeModal);
