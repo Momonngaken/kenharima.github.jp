@@ -51,14 +51,14 @@ body {
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
 
-        /* [After] Ultimate Apple Glass */
+        /* Ultimate Apple Glass */
         .glass-card {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid rgba(255, 255, 255, 1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1);
-            border-radius: 2.5rem; /* より大きな角丸 */
+            border-radius: 2.5rem; 
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .glass-card:hover {
@@ -66,19 +66,16 @@ body {
             transform: translateY(-4px) scale(1.01);
         }
         .creative-highlight {
-            /* グラデーションマーカー（シアンから薄いインディゴへ） */
             background-image: linear-gradient(120deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
             background-repeat: no-repeat;
-            background-position: 0% 85%; /* 下寄りに配置 */
-            background-size: 0% 40%; /* 初期状態は幅0、高さ40% */
-            /* アニメーション: 0.8秒待ってから1.2秒かけて引く */
+            background-position: 0% 85%; 
+            background-size: 0% 40%; 
             animation: drawHighlight 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
-            /* 行をまたいだ時の挙動を自然にする */
             box-decoration-break: clone;
             -webkit-box-decoration-break: clone;
             padding: 0 2px;
-            font-weight: 700; /* 文字を太くして強調 */
-            color: #0f3c85; /* 文字色をアクセントカラーに */
+            font-weight: 700; 
+            color: #0f3c85; 
         }
 
         @keyframes drawHighlight {
@@ -86,13 +83,11 @@ body {
         }
 
         .smart-reveal {
-            /* ぼかしながら浮き上がるアニメーション */
             animation: smartReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0; /* 初期状態 */
+            opacity: 0; 
         }
 
         .text-shimmer {
-            /* 光沢が流れるグラデーション */
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
@@ -117,7 +112,7 @@ body {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
-        /* スクロール連動：静かな可視化（Silent Reveal） */
+        
         .scroll-reveal {
             opacity: 0;
             transform: translateY(24px) scale(0.99);
@@ -130,26 +125,45 @@ body {
             transform: translateY(0) scale(1);
             filter: blur(0);
         }
-        /* =========================================
-   [改] PVQ Chart: 極限まで洗練された「解け」アニメーション
-   ========================================= */
-.pvq-canvas-wrapper {
-    opacity: 0;
-    /* 上下移動を消し、角度とスケールを「脳が心地よく感じる最小の閾値」にタイト化 */
-    transform: rotate(-8deg) scale(0.98);
-    filter: blur(12px);
-    /* イージングはそのままに、よりシャープな印象へ */
-    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity, filter;
-}
 
-.pvq-canvas-wrapper.is-unfolded {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-    filter: blur(0);
-}
+        /* PVQ Chart: 有機的な「解け」アニメーション */
+        .pvq-canvas-wrapper {
+            opacity: 0;
+            transform: rotate(-12deg) scale(0.94) translateY(20px);
+            filter: blur(12px);
+            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity, filter;
+        }
+
+        .pvq-canvas-wrapper.is-unfolded {
+            opacity: 1;
+            transform: rotate(0deg) scale(1) translateY(0);
+            filter: blur(0);
+        }
+
+        /* =========================================
+           [追加] BIG FIVE: 輪郭の立ち上がり (Emanation)
+           ========================================= */
+        .big5-canvas-wrapper {
+            opacity: 0;
+            /* 中心から深く沈み込んだ状態から、少し傾きを持って待機 */
+            transform: scale(0.8) rotate(-8deg) translateY(15px);
+            filter: blur(16px);
+            /* 「にゅっ」と伸びる有機的な弾力 (ease-out-back系) */
+            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity, filter;
+        }
+
+        .big5-canvas-wrapper.is-unfolded {
+            opacity: 1;
+            /* 正位置へピタリと収束 */
+            transform: scale(1) rotate(0deg) translateY(0);
+            filter: blur(0);
+        }
     </style>
 
     <!-- Tailwind Config -->
@@ -196,37 +210,25 @@ body {
         <!-- ================= INTRO (EXTREME CREATIVE: LAB INTERFACE) ================= -->
     <section class="mb-24 fade-in-up relative">
         
-        <!-- Background Decor: Subtle Gradient Mesh -->
         <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[120%] h-full bg-gradient-to-b from-indigo-50/50 via-white to-white -z-10 pointer-events-none"></div>
 
-       <!-- Section Header -->
         <div class="mb-10 relative">
-            <!-- Japanese Title -->
             <h2 class="lang-ja text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.95] tracking-tighter relative z-10 smart-reveal">
                 なぜ、<br>
                 <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">心理測定</span>なのか？
             </h2>
-
-            <!-- English Title -->
             <h2 class="lang-en text-5xl md:text-7xl font-display font-bold text-bizText leading-[0.9] tracking-tighter relative z-10 smart-reveal">
                 Why<br>
                 <span class="text-shimmer bg-gradient-to-r from-bizAccent via-blue-500 to-bizAccent">Psychometrics?</span>
             </h2>
-
-            <!-- Decorative Elements behind text -->
             <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
         </div>
 
-        <!-- Main Structure: Tech Spec Grid -->
         <div class="relative bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden flex flex-col lg:flex-row ring-1 ring-gray-900/5">
             
-            <!-- LEFT COLUMN: Manifesto (The Logic) -->
             <div class="lg:w-7/12 p-8 md:p-12 lg:p-14 flex flex-col justify-between relative group">
-                
-                <!-- Background Grid Pattern for Tech Feel -->
                 <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
-                <!-- Decorative Label: Tech Badge Style -->
                 <div class="absolute top-0 left-0">
                     <div class="bg-bizText text-white text-[10px] font-mono font-bold px-4 py-1.5 uppercase tracking-[0.2em] rounded-br-lg shadow-sm">
                         Manifesto
@@ -238,7 +240,7 @@ body {
                        信頼の礎は、透明性と予測可能性にあると考えています。 私は主観的な言葉で自身を飾るのではなく、<span class="creative-highlight">科学的妥当性が検証された客観的データ</span>を通じて「私」という人間を提示することを試みます。もちろん、人間は数値だけで語り尽くせるものではありません。 しかし、「自分を客観視しようとする姿勢」そのものが、協働するパートナーへの誠実さの証明になると信じています。このデータは「完璧な自己理解」ではなく、「対話の出発点」としてご覧ください。
                     </p>
                     <p class="lang-en mb-8">
-                       I believe the cornerstone of trust lies in transparency and predictability. rather than embellishing myself with subjective words, I attempt to present who I am . <span class="creative-highlight">through objective data verified for scientific validity</span>.Of course, human beings cannot be fully defined by numbers alone. However, I believe the very act of striving for self-objectification is a testament to my integrity as a collaborative partner. Please view this data not as a 'perfect self-understanding,' but as a starting point for our dialogue.
+                       I believe the cornerstone of trust lies in transparency and predictability. rather than embellishing myself with subjective words, I attempt to present who I am <span class="creative-highlight">through objective data verified for scientific validity</span>. Of course, human beings cannot be fully defined by numbers alone. However, I believe the very act of striving for self-objectification is a testament to my integrity as a collaborative partner. Please view this data not as a 'perfect self-understanding,' but as a starting point for our dialogue.
                     </p>
 
                     <p class="lang-ja">
@@ -246,9 +248,9 @@ body {
                     </p>
                     <p class="lang-en">
                         On this page, I have adopted two frameworks that are widely supported in the social sciences and standardly used in cross-cultural research.
+                    </p>
                 </div>
 
-                <!-- Footnote: Tech Alert Style -->
                 <div class="mt-12 pt-6 border-t border-gray-200/60 relative z-10">
                     <div class="flex gap-4 items-start">
                         <div class="shrink-0 w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs mt-0.5 animate-pulse">
@@ -266,23 +268,18 @@ body {
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Frameworks (The Modules) -->
             <div class="lg:w-5/12 flex flex-col bg-white/60 backdrop-blur-sm border-l border-white/50 relative">
                 
-                <!-- Module 01: Big Five -->
                 <div class="group relative flex-1 p-8 md:p-10 border-b border-gray-100 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <!-- Background Number (Watermark with Stroke) -->
                     <span class="absolute -top-6 right-0 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #e2e8f0;">
                         01
                     </span>
 
                     <div class="relative z-10">
                         <div class="flex items-center gap-5 mb-5">
-                            <!-- Icon Container -->
                             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center text-xl shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                                 <i class="fa-solid fa-microchip"></i>
                             </div>
-                            <!-- Title -->
                             <h3 class="flex flex-col">
                                 <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors">Big Five</span>
                                 <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Five Factor Model)</span>
@@ -298,24 +295,19 @@ body {
                             </span>
                         </p>
                     </div>
-                    <!-- Hover Accent Line -->
                     <div class="absolute left-0 bottom-0 h-1 w-0 bg-bizAccent group-hover:w-full transition-all duration-700 ease-in-out"></div>
                 </div>
 
-                <!-- Module 02: PVQ -->
                 <div class="group relative flex-1 p-8 md:p-10 overflow-hidden transition-all duration-500 hover:bg-white">
-                    <!-- Background Number -->
                     <span class="absolute -top-6 -right-4 text-[9rem] font-display font-bold text-transparent stroke-text opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700 ease-out select-none pointer-events-none" style="-webkit-text-stroke: 2px #bfdbfe;">
                         02
                     </span>
 
                     <div class="relative z-10">
                         <div class="flex items-center gap-5 mb-5">
-                            <!-- Icon Container -->
                             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-100 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
                                 <i class="fa-solid fa-heart-pulse animate-[pulse_3s_ease-in-out_infinite]"></i>
                             </div>
-                            <!-- Title -->
                             <h3 class="flex flex-col">
                                 <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors">PVQ</span>
                                 <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Portrait Values Questionnaire)</span>
@@ -331,7 +323,6 @@ body {
                             </span>
                         </p>
                     </div>
-                    <!-- Hover Accent Line -->
                     <div class="absolute left-0 bottom-0 h-1 w-0 bg-blue-500 group-hover:w-full transition-all duration-700 ease-in-out"></div>
                 </div>
 
@@ -349,8 +340,8 @@ body {
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center glass-card rounded-2xl p-6 md:p-10">
-                <!-- Chart Area -->
-                <div class="aspect-square w-full max-w-[400px] mx-auto relative">
+                <!-- Chart Area: ★IDとクラスを追加してにゅっと伸びるアニメーションを適用★ -->
+                <div id="big5-wrapper" class="aspect-square w-full max-w-[400px] mx-auto relative big5-canvas-wrapper">
                     <canvas id="big5Chart"></canvas>
                 </div>
 
@@ -366,10 +357,8 @@ body {
                          </h4>
                     </div>
 
-                    <!-- Traits List (Vertical Stack) -->
+                    <!-- Traits List -->
                     <div class="space-y-3">
-
-                        <!-- 1. Openness (0.88) -->
                         <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-bizAccent text-sm">
@@ -384,13 +373,12 @@ body {
                                     <span class="font-mono font-bold text-bizText w-8 text-right">0.88</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600 leading-snug">
+                            <p class="text-xs text-gray-600 leading-snug break-words">
                                 <span class="lang-ja">非常に高い知的好奇心と抽象思考力。新しいアイデアや美的感覚に対する強い受容性を示します。</span>
                                 <span class="lang-en">Exceptional intellectual curiosity and abstract thinking. High receptivity to new ideas and aesthetics.</span>
                             </p>
                         </div>
 
-                        <!-- 2. Conscientiousness (0.82) -->
                         <div class="bg-white/60 border border-blue-100 rounded-lg p-3 hover:bg-blue-50/50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-bizAccent text-sm">
@@ -405,13 +393,12 @@ body {
                                     <span class="font-mono font-bold text-bizText w-8 text-right">0.82</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600 leading-snug">
+                            <p class="text-xs text-gray-600 leading-snug break-words">
                                 <span class="lang-ja">目標達成に向けた自己規律と計画性が高い。細部への注意を怠らず、責任を持ってプロジェクトを完遂するグリットがある。</span>
                                 <span class="lang-en">High self-discipline and planning skills geared toward goal achievement. Possesses the "grit" to execute projects with meticulous attention to detail and responsibility.</span>
                             </p>
                         </div>
 
-                        <!-- 3. Agreeableness (0.77) -->
                         <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-gray-700 text-sm">
@@ -426,13 +413,12 @@ body {
                                     <span class="font-mono font-bold text-bizText w-8 text-right">0.77</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600 leading-snug">
+                            <p class="text-xs text-gray-600 leading-snug break-words">
                                 <span class="lang-ja">他者への共感性が高く、協力的。利害関係の調整や信頼関係の構築に長けており、組織の心理的安全性を高める。</span>
                                 <span class="lang-en">Highly empathetic and cooperative. Skilled in stakeholder management and building trust, enhancing the "Psychological Safety" of the organization.</span>
                             </p>
                         </div>
 
-                        <!-- 4. Extraversion (0.75) -->
                         <div class="bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-gray-700 text-sm">
@@ -447,14 +433,12 @@ body {
                                     <span class="font-mono font-bold text-bizText w-8 text-right">0.75</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600 leading-snug">
+                            <p class="text-xs text-gray-600 leading-snug break-words">
                                 <span class="lang-ja">社交性と内省的な側面を併せ持つバランス型。状況に応じてリーダーシップを発揮しつつ、他者の意見に深く耳を傾けることもできる。</span>
                                 <span class="lang-en">A balanced "Ambivert" combining sociability with introspection. Capable of taking leadership when needed while maintaining the ability to listen deeply to others.</span>
                             </p>
                         </div>
 
-                        <!-- 5. Emotional Stability (0.79) -->
-                        <!-- ツールチップ機能付き -->
                         <div class="relative bg-white/60 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-300" id="tooltip-container">
                             <div class="flex justify-between items-center mb-1 cursor-help select-none" onclick="toggleTooltip(event)">
                                 <span class="font-bold text-gray-700 text-sm flex items-center gap-1">
@@ -470,12 +454,11 @@ body {
                                     <span class="font-mono font-bold text-bizText w-8 text-right">0.79</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600 leading-snug">
+                            <p class="text-xs text-gray-600 leading-snug break-words">
                                 <span class="lang-ja">感情の起伏が少なく、ストレス耐性が極めて高い。危機的な状況やプレッシャー下においても、冷静かつ事実に基づいた意思決定を行える。</span>
                                 <span class="lang-en">Exceptional stress tolerance with low emotional volatility. Maintains composure under pressure to make fact-based decisions even in critical situations.</span>
                             </p>
 
-                            <!-- Tooltip Body -->
                             <div id="tooltip-body" class="absolute bottom-full right-0 mb-2 w-56 p-2 bg-gray-800 text-white text-[10px] rounded opacity-0 invisible transition-all duration-200 z-20 text-left leading-tight shadow-lg transform translate-y-1 pointer-events-none">
                                 <div class="lang-ja mb-1">※神経症傾向(0.21)の<br>逆数(1-n)として算出</div>
                                 <div class="lang-en">*Calculated as the inverse (1-n)<br>of Neuroticism (0.21)</div>
@@ -493,7 +476,6 @@ body {
             <div class="flex items-center gap-4 mb-8">
                 <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
                 <div>
-                    <!-- Updated Title with Translation -->
                     <h3 class="text-xl font-bold text-bizText">
                         <span class="lang-ja">PVQ</span>
                         <span class="lang-en">PVQ</span>
@@ -502,16 +484,18 @@ body {
             </div>
 
             <div class="glass-card rounded-2xl p-6 md:p-10">
-                <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8 md:gap-12 items-center">
+                <!-- ★レイアウト変更：lg以上で2カラム化し、右カラムを可変幅に。items-startで頭揃え★ -->
+                <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)] gap-8 lg:gap-12 items-center lg:items-start">
                     
                     <!-- Chart -->
-<!-- id="pvq-wrapper" と class="pvq-canvas-wrapper" を追加 -->
-<div id="pvq-wrapper" class="aspect-square w-full max-w-[500px] mx-auto relative order-2 md:order-1 pvq-canvas-wrapper">
-    <canvas id="pvqChart"></canvas>
-</div>
+                    <!-- ★グラフの最大幅を少し抑え、右側の圧迫感を軽減★ -->
+                    <div id="pvq-wrapper" class="aspect-square w-full max-w-[460px] lg:max-w-[500px] mx-auto relative order-2 lg:order-1 pvq-canvas-wrapper">
+                        <canvas id="pvqChart"></canvas>
+                    </div>
 
                     <!-- Legend / Insight -->
-                    <div class="order-1 md:order-2 h-full flex flex-col justify-center">
+                    <!-- ★min-w-0 を追加してはみ出しを強制ブロック★ -->
+                    <div class="order-1 lg:order-2 h-full min-w-0 flex flex-col justify-center">
                         <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-200 pb-2">
                             <span class="lang-ja">支配的な価値観</span>
                             <span class="lang-en">Dominant Values</span>
@@ -527,7 +511,8 @@ body {
                                         <span class="lang-en">Self-Direction & Stimulation</span>
                                     </span>
                                 </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
+                                <!-- ★break-words を追加して英単語のはみ出しを防止★ -->
+                                <p class="text-sm text-gray-600 leading-relaxed break-words">
                                     <span class="lang-ja">創造、探究、独立心、そして変化への渇望。自らの判断で道を切り拓き、知的な興奮を追求することを最優先する。</span>
                                     <span class="lang-en">Creativity, exploration, independence, and a drive for change. I prioritize the autonomy to forge new paths and the pursuit of intellectual stimulation.</span>
                                 </p>
@@ -542,7 +527,8 @@ body {
                                         <span class="lang-en">Benevolence & Conformity</span>
                                     </span>
                                 </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">
+                                <!-- ★break-words を追加して英単語のはみ出しを防止★ -->
+                                <p class="text-sm text-gray-600 leading-relaxed break-words">
                                     <span class="lang-ja">周囲の人々の幸福と、社会的規範の尊重。革新的でありながら、決して独善的にならず、コミュニティとの調和を重視するバランス感覚を示している。</span>
                                     <span class="lang-en">Commitment to the welfare of others and respect for social norms. Innovative yet never self-righteous, demonstrating a balanced approach that prioritizes harmony within the community.</span>
                                 </p>
@@ -567,30 +553,24 @@ body {
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center gap-4">
                 <p class="text-gray-400">© 2026 Ken HARIMA | Psychometrics</p>
-                <!-- Zero-Cookie Privacy Badge (Premium Glassmorphism) -->
                 <div class="group/cookie relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50/50 backdrop-blur-md border border-gray-200/60 text-gray-400 select-none cursor-default transition-all duration-700 hover:bg-white hover:border-emerald-300/60 hover:shadow-[0_4px_20px_rgba(52,211,153,0.15)] hover:-translate-y-0.5 overflow-hidden" title="100% Privacy-First, Zero-Cookie Analytics">
-                    <!-- ホバー時の微細な背景グラデーション -->
                     <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.03] to-teal-500/[0.03] opacity-0 group-hover/cookie:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                    <!-- 鼓動するレーダーエフェクトとアイコン -->
                     <div class="relative flex items-center justify-center">
                         <span class="absolute inset-0 rounded-full bg-emerald-400 opacity-0 group-hover/cookie:animate-ping group-hover/cookie:opacity-25 transition-all duration-700"></span>
                         <i class="fa-solid fa-leaf text-[10px] relative z-10 transition-colors duration-700 group-hover/cookie:text-emerald-500"></i>
                     </div>
-                    <!-- テキスト -->
                     <span class="text-[9px] font-mono font-bold uppercase tracking-[0.2em] relative z-10 transition-colors duration-700 group-hover/cookie:text-emerald-600 mt-px">
                         Zero Cookie
                     </span>
                 </div>
             </div>
             <div class="flex items-center gap-6 mt-6 md:mt-0">
-                <!-- Language Switcher -->
                 <div class="relative flex items-center bg-gray-100 rounded-full p-1 select-none">
                     <button id="lang-jp" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to Japanese">JP</button>
                     <button id="lang-en" class="relative z-10 px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ease-out" aria-label="Switch to English">EN</button>
                 </div>
             </div>
         </div>
-
        <div class="w-full text-center mt-12 text-[12px] md:text-[13px] text-gray-400 font-serif italic tracking-[0.15em] leading-relaxed">
             <p class="lang-ja">畏れの中で問え。知った者だけが、選べる。<br class="sm:hidden">選んだなら、差し出せ。</p>
             <p class="lang-en">Question amidst awe. Only those who know can choose. Once you choose, commit fully.</p>
@@ -678,39 +658,40 @@ body {
                             tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 10, bodyFont: { family: fontBody }, callbacks: { label: function(context) { return context.label + ': ' + context.raw; } } } 
                         },
                         animation: { 
-                duration: 1600, 
-                easing: 'easeOutQuart',
-                animateRotate: true, // 中心から時計回りに扇を展開する
-                animateScale: true   // 中心から外側へ広がる
-            }
-        }
-    });
-};
+                            duration: 1600, 
+                            easing: 'easeOutQuart',
+                            animateRotate: true, 
+                            animateScale: true   
+                        }
+                    }
+                });
+            };
 
             // Intersection Observer to trigger elegant reveal & render
-const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // 1. 器(カード)を静かに浮き上がらせる
-            entry.target.classList.add('is-revealed');
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
 
-            // 2. その0.4秒後にグラフの中身を描画し始める
-            if (entry.target.id === 'big5-section' && !big5Rendered) {
-                big5Rendered = true;
-                setTimeout(() => { renderBig5(); }, 400); 
-            }
-            if (entry.target.id === 'pvq-section' && !pvqRendered) {
-                pvqRendered = true;
-                setTimeout(() => { 
-                    // ↓↓↓ ここを追加：グラフ描画と同時にラッパーを「解き放つ」 ↓↓↓
-                    document.getElementById('pvq-wrapper').classList.add('is-unfolded');
-                    renderPVQ(); 
-                }, 400); 
-            }
-            obs.unobserve(entry.target); // 一度発火したら監視をやめる
-        }
-    });
-}, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
+                        if (entry.target.id === 'big5-section' && !big5Rendered) {
+                            big5Rendered = true;
+                            setTimeout(() => { 
+                                // ★BIG FIVE ラッパーを「にゅっ」と展開してグラフを描画★
+                                document.getElementById('big5-wrapper').classList.add('is-unfolded');
+                                renderBig5(); 
+                            }, 350); 
+                        }
+                        if (entry.target.id === 'pvq-section' && !pvqRendered) {
+                            pvqRendered = true;
+                            setTimeout(() => { 
+                                document.getElementById('pvq-wrapper').classList.add('is-unfolded');
+                                renderPVQ(); 
+                            }, 400); 
+                        }
+                        obs.unobserve(entry.target); 
+                    }
+                });
+            }, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
 
             observer.observe(document.getElementById('big5-section'));
             observer.observe(document.getElementById('pvq-section'));
@@ -782,7 +763,7 @@ const observer = new IntersectionObserver((entries, obs) => {
                 }
             });
     </script>
-    <!-- Cloudflare Web Analytics (Privacy First / Zero Cookie) -->
+    <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f2952467d018447895f32b7e19273cba"}'></script>
 </body>
 </html>
