@@ -102,6 +102,7 @@
         body.is-loading header .mt-6 {
             opacity: 0;
             transform: translateY(16px);
+            filter: none !important; /* WebView特有の文字滲みを完全排除 */
             will-change: opacity, transform;
         }
 
@@ -109,8 +110,13 @@
         body.is-loading #nav-container {
             opacity: 0;
             transform: translateY(-12px);
+            filter: none !important;
             will-change: opacity, transform;
         }
+
+        /* ----- Modal FOUC Prevention (究極の2本線防止) ----- */
+        #global-modal { display: none !important; }
+        #global-modal.is-open { display: flex !important; }
 
         /* ----- 準備完了（is-ready時）の連鎖発火（Stagger） ----- */
         
@@ -189,8 +195,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'; this.onload=null;">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'; this.onload=null;">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap"></noscript>
+　　<!-- 変更: SNS内ブラウザでの文字揺れを防ぐため、遅延ハックを廃止して同期読み込みに統一 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     
     <!-- Language Detection Script -->
     <script>
@@ -1819,7 +1825,8 @@
         </footer>
     </div>
 
-    <div id="global-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" aria-hidden="true">
+    <!-- 変更: Tailwindの hidden クラスを削除し、Critical CSSの display:none に依存させる -->
+    <div id="global-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6" aria-hidden="true">
         
         <!-- 1. Blur Backdrop -->
         <div id="modal-bg" class="fixed inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
@@ -1924,15 +1931,23 @@
                 });
             };
 
-            // 曖昧なタイムアウト(300ms等)を排し、文字と画像が揃うのを確実に待つ。
-            // これにより、開いた瞬間の文字揺れ（FOUC）を完全に封じ込める。
+            // WebView判定 (LINE, Instagram, Facebook, X(Twitter) 等のIn-App Browser)
+            const ua = navigator.userAgent || '';
+            const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
+
             tailwindPromise.then(() => {
                 Promise.all([imgPromise, fontPromise]).then(revealSite);
             });
 
             // 絶対的なセーフティーネット
-            // いかなる理由（重い回線等）があろうと、人間が「遅い」と感じ始める800msで問答無用で開ける
-            setTimeout(revealSite, 800);
+            if (!isInAppBrowser) {
+                // 通常ブラウザ: 人間が「遅い」と感じ始める800msでUX優先の強制開放
+                setTimeout(revealSite, 800);
+            } else {
+                // SNS内WebView: 描画が不安定になりやすいため、フォントと画像が揃うまで確実に待つ。
+                // （無限ローディング事故を防ぐためのフェイルセーフとして2500msを設定）
+                setTimeout(revealSite, 2500);
+            }
         })();
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -2224,7 +2239,7 @@
                 gsap.to(modalPanel, { 
                     opacity: 0, scale: 0.95, y: 10, duration: 0.3, ease: "power2.in",
                     onComplete: () => {
-                        modal.classList.add('hidden'); modal.classList.remove('flex');
+                        modal.classList.remove('is-open');
                         document.documentElement.style.overflow = ''; document.body.style.overflow = '';
                         if(typeof lenis !== 'undefined') lenis.start();
                         isModalOpen = false;
@@ -2259,8 +2274,7 @@
                 });
 
                 modalScrollContainer.scrollTop = 0; modalProgressBar.style.width = '0%'; modalScrollHint.style.opacity = '1';
-                modal.classList.remove('hidden'); modal.classList.add('flex');
-
+                modal.classList.add('is-open');
                 gsap.killTweensOf([modalBg, modalPanel]);
                 gsap.to(modalBg, { opacity: 1, duration: 0.5, ease: "power2.out" });
                 gsap.fromTo(modalPanel, { opacity: 0, scale: 0.9, y: 30, rotationX: 10 }, { opacity: 1, scale: 1, y: 0, rotationX: 0, duration: 0.6, ease: "back.out(1.2)", onComplete: () => { modalPanel.focus(); if(modalScrollContainer) modalScrollContainer.focus(); } });
