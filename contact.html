@@ -61,6 +61,19 @@
         /* Language Switching Logic (Optimized for Flex/Block integrity) */
         html:not(.is-global) .lang-en { display: none !important; }
         html.is-global .lang-ja { display: none !important; }
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .fade-in, .smart-reveal, .scroll-reveal, .fade-in-up, .big5-canvas-wrapper, .pvq-canvas-wrapper {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -261,7 +274,6 @@
 
     <!-- Scripts -->
     <script>
-        // --- Language & Navigation Logic ---
         const langJpBtn = document.getElementById('lang-jp');
         const langEnBtn = document.getElementById('lang-en');
         const htmlEl = document.documentElement;
@@ -271,8 +283,10 @@
         const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
 
         const setBtnState = (btn, isActive) => {
+            if (!btn) return;
             btn.className = baseClass;
             btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
+            btn.setAttribute('aria-pressed', isActive.toString());
         };
 
         const updateLangStyles = () => {
@@ -281,27 +295,40 @@
             setBtnState(langEnBtn, isGlobal);
         };
 
+        const setLanguage = (lang) => {
+            if (lang === 'en') {
+                htmlEl.classList.add('is-global');
+            } else {
+                htmlEl.classList.remove('is-global');
+            }
+            try { localStorage.setItem('ken_portfolio_lang', lang); } catch(e){}
+            updateLangStyles();
+        };
+
         // URL Params Handling (from biz index)
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('lang') === 'en') { htmlEl.classList.add('is-global'); }
-        
-        if (urlParams.get('from') === 'biz') {
-            const backBtn = document.getElementById('back-btn');
-            const homeBtn = document.getElementById('back-home-btn');
-            if (backBtn) backBtn.href = './biz/index.html';
-            if (homeBtn) homeBtn.href = './biz/index.html';
-        }
+        const initLanguage = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            let langPref = urlParams.get('lang');
+            
+            if (urlParams.get('from') === 'biz') {
+                const backBtn = document.getElementById('back-btn');
+                const homeBtn = document.getElementById('back-home-btn');
+                if (backBtn) backBtn.href = './index.html';
+                if (homeBtn) homeBtn.href = './index.html';
+            }
 
-        updateLangStyles();
+            try { if(!langPref) langPref = localStorage.getItem('ken_portfolio_lang'); } catch(e){}
+            if (!langPref) {
+                const browserLang = navigator.language || navigator.userLanguage;
+                langPref = browserLang.startsWith('ja') ? 'ja' : 'en';
+            }
+            setLanguage(langPref);
+        };
 
-        langJpBtn.addEventListener('click', () => {
-            htmlEl.classList.remove('is-global');
-            updateLangStyles();
-        });
-        langEnBtn.addEventListener('click', () => {
-            htmlEl.classList.add('is-global');
-            updateLangStyles();
-        });
+        if (langJpBtn) langJpBtn.addEventListener('click', () => setLanguage('ja'));
+        if (langEnBtn) langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+        initLanguage();
 
         // --- Form Submit Logic ---
         const form = document.getElementById('contact-form'); 
