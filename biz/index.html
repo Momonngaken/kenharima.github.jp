@@ -1889,15 +1889,12 @@
         (function() {
             const body = document.body;
             
-            const cssReadyPromise = new Promise((resolve) => {
-    requestAnimationFrame(() => {
-        requestAnimationFrame(resolve);
-    });
-});
-
-cssReadyPromise.then(() => {
-    Promise.all([imgPromise, fontPromise]).then(revealSite);
-});
+            // 1. CSSの描画完了を待機 (Tailwind CDNへの依存から解放された、絶対的な静寂のフレーム)
+            const cssReadyPromise = new Promise(resolve => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(resolve);
+                });
+            });
 
             // 2. LCP画像（ヒーロー写真）のロード完了を待機
             const imgPromise = new Promise(resolve => {
@@ -1938,8 +1935,8 @@ cssReadyPromise.then(() => {
             const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
 
             cssReadyPromise.then(() => {
-    Promise.all([imgPromise, fontPromise]).then(revealSite);
-});
+                Promise.all([imgPromise, fontPromise]).then(revealSite);
+            });
 
             // 究極のセーフティーネットの再構築
             if (!isInAppBrowser) {
