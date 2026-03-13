@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
     <title>Psychometric Profile | Ken HARIMA</title>
-    <link rel="stylesheet" href="./output.css">
     <meta name="robots" content="noindex, nofollow">
     
     <!-- CSS & Fonts -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -165,6 +165,24 @@ body {
             filter: blur(0);
         }
     </style>
+
+    <!-- Tailwind Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            bizText: '#0f172a',
+                            bizAccent: '#0f3c85',
+                            bgBase: '#fafafa',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
 
