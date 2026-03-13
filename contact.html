@@ -176,11 +176,14 @@
                     </label>
                 </div>
 
-                <!-- Input: Organization -->
+                <!-- Input: Organization (Optional) -->
                 <div class="relative mb-8">
-                    <input type="text" id="organization" name="organization" class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-bizAccent/10 focus:border-bizAccent transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" placeholder=" ">
-                    <label for="organization" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-bizAccent peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
-                        <span class="lang-ja">会社名 / 組織名</span><span class="lang-en">Company / Organization</span>
+                    <input type="text" id="organization" name="organization" autocomplete="organization" class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-bizAccent/10 focus:border-bizAccent transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" placeholder=" ">
+                    <label for="organization" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none flex items-center peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-bizAccent peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
+                        <span class="lang-ja">所属（企業・大学等）</span>
+                        <span class="lang-en">Affiliation</span>
+                        <!-- 洗練された「任意」のインジケーター -->
+                        <span class="ml-2 mt-[2px] font-mono text-[9px] tracking-[0.15em] opacity-60 uppercase">Optional</span>
                     </label>
                 </div>
 
