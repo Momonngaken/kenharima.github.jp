@@ -58,11 +58,9 @@
             transition: background-color 5000s ease-in-out 0s;
         }
 
-        /* Language Switching Logic (不足していたため追加) */
-        .lang-en { display: none; }
+        /* Language Switching Logic (Optimized for Flex/Block integrity) */
+        html:not(.is-global) .lang-en { display: none !important; }
         html.is-global .lang-ja { display: none !important; }
-        html.is-global div.lang-en, html.is-global p.lang-en, html.is-global h1.lang-en, html.is-global h2.lang-en, html.is-global h3.lang-en, html.is-global h4.lang-en, html.is-global span.lang-en { display: block !important; }
-        html.is-global span.lang-en { display: inline !important; }
     </style>
 </head>
 <body class="antialiased">
