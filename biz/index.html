@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Metadata -->
     <title>Ken HARIMA (播磨賢) | Business Portfolio</title>
+    <link rel="stylesheet" href="./output.css">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     <meta name="description" content="Official Business Portfolio of Ken HARIMA (播磨賢). Bridging Social Science & Data Strategy. Waseda University / University of Mannheim. Marketing, Game Theory, and Creative Engineering.">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
     <link rel="canonical" href="https://kenharima.com/biz/">
 
     <!-- Performance Optimization: Resource Hints (Moved Up for Preload Scanner) -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -21,9 +21,6 @@
     <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
     <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
-
-    <!-- Tailwind CSS Script Preload (Critical for FCP/LCP) -->
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
 
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile_biz_new.jpg" fetchpriority="high">
@@ -218,15 +215,7 @@
             }
         </style>
     </noscript>
-
-    <!-- Tailwind Config (Minified) -->
-    <script>
-        tailwind={config:{theme:{extend:{fontFamily:{sans:['Inter','Noto Sans JP','sans-serif'],display:['Syne','sans-serif'],serif:['Lora','serif']},colors:{bizText:'#0f172a',bizGray:'#64748b',bizLight:'#f8fafc',bizAccent:'#0f3c85',bgBase:'#fafafa',neoBlack:'#121212'},animation:{'breathe':'breathe 3s ease-in-out infinite'},keyframes:{breathe:{'0%, 100%':{opacity:'0.6'},'50%':{opacity:'1'}}}}}}}
-    </script>
     
-    <!-- 変更後: 4G環境でのCPUスパイクを防ぐため、asyncからdeferへ変更しメインスレッドを保護 -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
-
     <!-- 完全な静寂の実現: SNS内ブラウザでのレイアウトシフトと文字揺れを「根絶」するため、フォント類はすべて同期読み込みに統一 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
@@ -1900,26 +1889,11 @@
         (function() {
             const body = document.body;
             
-            // 1. Tailwindのパース完了を待機
-            const tailwindPromise = new Promise(resolve => {
-                if (typeof tailwind !== 'undefined' && document.querySelector('style[id^="tailwind"]')) {
-                    resolve();
-                } else {
-                    const observer = new MutationObserver((mutations, obs) => {
-                        for (const mutation of mutations) {
-                            for (const node of mutation.addedNodes) {
-                                if (node.tagName === 'STYLE' && (node.id.startsWith('tailwind') || node.textContent.includes('tailwind'))) {
-                                    obs.disconnect();
-                                    requestAnimationFrame(resolve);
-                                    return;
-                                }
-                            }
-                        }
-                    });
-                    observer.observe(document.head, { childList: true });
-                    setTimeout(resolve, 800); // フォールバック
-                }
-            });
+            const cssReadyPromise = new Promise(resolve => {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(resolve);
+    });
+});
 
             // 2. LCP画像（ヒーロー写真）のロード完了を待機
             const imgPromise = new Promise(resolve => {
@@ -1959,9 +1933,9 @@
             const ua = navigator.userAgent || '';
             const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
 
-            tailwindPromise.then(() => {
-                Promise.all([imgPromise, fontPromise]).then(revealSite);
-            });
+            cssReadyPromise.then(() => {
+    Promise.all([imgPromise, fontPromise]).then(revealSite);
+});
 
             // 究極のセーフティーネットの再構築
             if (!isInAppBrowser) {
