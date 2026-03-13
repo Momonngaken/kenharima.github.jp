@@ -1889,10 +1889,14 @@
         (function() {
             const body = document.body;
             
-            const cssReadyPromise = new Promise(resolve => {
+            const cssReadyPromise = new Promise((resolve) => {
     requestAnimationFrame(() => {
         requestAnimationFrame(resolve);
     });
+});
+
+cssReadyPromise.then(() => {
+    Promise.all([imgPromise, fontPromise]).then(revealSite);
 });
 
             // 2. LCP画像（ヒーロー写真）のロード完了を待機
