@@ -1895,7 +1895,7 @@
         (function() {
             const body = document.body;
             
-            // 1. Tailwindのパース完了を待機
+            // 1. Tailwind CSSのDOM適用を確実に検知する
             const tailwindPromise = new Promise(resolve => {
                 if (typeof tailwind !== 'undefined' && document.querySelector('style[id^="tailwind"]')) {
                     resolve();
@@ -1905,68 +1905,98 @@
                             for (const node of mutation.addedNodes) {
                                 if (node.tagName === 'STYLE' && (node.id.startsWith('tailwind') || node.textContent.includes('tailwind'))) {
                                     obs.disconnect();
-                                    requestAnimationFrame(resolve);
+                                    resolve();
                                     return;
                                 }
                             }
                         }
                     });
                     observer.observe(document.head, { childList: true });
-                    setTimeout(resolve, 800); // フォールバック
+                    // フォールバック: 4G等での無限ロードを防ぐが、文字揺れ防止のため長めに設定
+                    setTimeout(resolve, 4000); 
                 }
             });
 
-            // 2. LCP画像（ヒーロー写真）のロード完了を待機
+            // 2. LCP画像（ヒーロー写真）のロード完了待機
             const imgPromise = new Promise(resolve => {
                 const img = document.querySelector('#hero-photo img');
-                if (!img || img.complete) resolve();
-                else {
+                if (!img || img.complete) {
+                    resolve();
+                } else {
                     img.addEventListener('load', resolve, { once: true });
                     img.addEventListener('error', resolve, { once: true });
                 }
             });
 
-            // 3. Webフォントのロード完了を待機（文字揺れ防止の要）
-            const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+            // 3. 【最重要】Tailwind適用"後"に発生するWebフォントのフェッチとレンダリング完了を待機
+            // これにより「システムフォントが露出する文字揺れ」の物理的な発生要因を根絶します。
+            const fontPromise = tailwindPromise.then(() => {
+                return new Promise(resolve => {
+                    if (document.fonts) {
+                        document.fonts.ready.then(() => {
+                            // ブラウザのレイアウト計算（Reflow）と描画（Repaint）を確実に完了させる魔法のダブルrAF
+                            requestAnimationFrame(() => {
+                                requestAnimationFrame(() => {
+                                    setTimeout(resolve, 50);
+                                });
+                            });
+                        });
+                    } else {
+                        setTimeout(resolve, 100);
+                    }
+                });
+            });
+
+            // 4. GSAP / ScrollTriggerのロード待機（もわっと浮かび上がる体験をスマホでも担保）
+            const visualDependenciesPromise = new Promise(resolve => {
+                const checkDependencies = () => {
+                    if (window.gsap && window.ScrollTrigger) resolve();
+                    else requestAnimationFrame(checkDependencies);
+                };
+                checkDependencies();
+                setTimeout(resolve, 5000); // ネットワーク遅延に対するフォールバック
+            });
 
             let isRevealed = false;
             const revealSite = () => {
                 if (isRevealed) return;
                 isRevealed = true;
 
-                // ブラウザのレンダリングパイプラインを安定させるダブルrAF
+                // 画面をトップに強制固定し、スクロールによるアニメーションの裏側での暴発を防ぐ
+                window.scrollTo(0, 0);
+
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
+                        // ヴェール消去開始
                         body.classList.remove('is-loading');
                         body.classList.add('is-ready');
                         
-                        // アニメーション完了後にDOMからヴェールを消去し、軽量化
+                        // GSAP連携: ヴェールが消え始めたタイミングで一斉に位置計算をリセット・再計算し、
+                        // ファーストビュー内のボックス（Profile等）が「時差でもわっと」表示されるようにトリガーを引き直す
+                        if (typeof ScrollTrigger !== 'undefined') {
+                            ScrollTrigger.refresh(true);
+                        }
+
+                        // 完全開場後の後処理
                         setTimeout(() => {
                             body.classList.add('is-loaded');
                             if (window.__portfolioLenis) window.__portfolioLenis.resize();
-                            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                        }, 1500);
+                        }, 1200);
                     });
                 });
             };
 
-            // WebView判定 (LINE, Instagram, Facebook, X(Twitter) 等のIn-App Browser)
             const ua = navigator.userAgent || '';
-            const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
+            const isInAppBrowser = /Instagram|Line|FBAN|FBAV|Twitter/i.test(ua);
 
-            tailwindPromise.then(() => {
-                Promise.all([imgPromise, fontPromise]).then(revealSite);
-            });
+            // すべてのクリティカルパス（Tailwind, 画像, フォント, アニメーション基盤）が揃った瞬間（最高速）で開場させる
+            Promise.all([tailwindPromise, imgPromise, fontPromise, visualDependenciesPromise]).then(revealSite);
 
-            // 究極のセーフティーネットの再構築
+            // 究極のセーフティーネット（フェールセーフ）
             if (!isInAppBrowser) {
-                // 通常ブラウザ: UXを最優先し、人間が「遅い」と感じ始める800msで滑らかに開場
-                setTimeout(revealSite, 800);
+                setTimeout(revealSite, 4500); // 通常ブラウザでの最大待機
             } else {
-                // SNS内WebView: 文字揺れを防ぐため、フォントと画像の完全ロードをヴェールの中で待機する。
-                // ただし、通信障害等によるデッドロック（永遠に画面が真っ白になる現象）を防ぐため、
-                // 「8秒間」待っても読み込みが終わらない場合のみ、最終手段として強制開場する絶対的な命綱を設定。
-                setTimeout(revealSite, 8000);
+                setTimeout(revealSite, 8000); // SNS内WebView等での最大待機
             }
         })();
        document.addEventListener('DOMContentLoaded', async () => {
