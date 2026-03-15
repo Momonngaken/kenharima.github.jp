@@ -1895,34 +1895,25 @@
         (function() {
             const body = document.body;
             
-            // 1. Tailwind CSSのDOM適用とレンダリングを確実に検知・待機する
+            // 1. Tailwind CSSのDOM適用を確実に検知する
             const tailwindPromise = new Promise(resolve => {
-                const triggerResolve = () => {
-                    // DOM挿入後、スマホブラウザのスタイル計算・レイアウト構築を確実に終わらせるためのダブルrAF
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            setTimeout(resolve, 150); // スマホ特有のCPUレンダリング遅延を完全に吸収
-                        });
-                    });
-                };
-
                 if (typeof tailwind !== 'undefined' && document.querySelector('style[id^="tailwind"]')) {
-                    triggerResolve();
+                    resolve();
                 } else {
                     const observer = new MutationObserver((mutations, obs) => {
                         for (const mutation of mutations) {
                             for (const node of mutation.addedNodes) {
                                 if (node.tagName === 'STYLE' && (node.id.startsWith('tailwind') || node.textContent.includes('tailwind'))) {
                                     obs.disconnect();
-                                    triggerResolve();
+                                    resolve();
                                     return;
                                 }
                             }
                         }
                     });
                     observer.observe(document.head, { childList: true });
-                    // フォールバック
-                    setTimeout(triggerResolve, 4000); 
+                    // フォールバック: 4G等での無限ロードを防ぐが、文字揺れ防止のため長めに設定
+                    setTimeout(resolve, 4000); 
                 }
             });
 
@@ -1938,31 +1929,24 @@
             });
 
             // 3. 【最重要】Tailwind適用"後"に発生するWebフォントのフェッチとレンダリング完了を待機
+            // これにより「システムフォントが露出する文字揺れ」の物理的な発生要因を根絶します。
             const fontPromise = tailwindPromise.then(() => {
                 return new Promise(resolve => {
                     if (document.fonts) {
-                        // 使用している主要フォントを強制的にブラウザに認識させ、文字揺れを物理的に根絶する
-                        Promise.all([
-                            document.fonts.load('1em Inter'),
-                            document.fonts.load('1em Syne'),
-                            document.fonts.load('1em "Noto Sans JP"'),
-                            document.fonts.load('1em Lora')
-                        ]).then(() => {
-                            document.fonts.ready.then(() => {
+                        document.fonts.ready.then(() => {
+                            // ブラウザのレイアウト計算（Reflow）と描画（Repaint）を確実に完了させる魔法のダブルrAF
+                            requestAnimationFrame(() => {
                                 requestAnimationFrame(() => {
-                                    requestAnimationFrame(() => {
-                                        setTimeout(resolve, 150); // フォント適用後のリペイント遅延を吸収
-                                    });
+                                    setTimeout(resolve, 50);
                                 });
                             });
-                        }).catch(() => {
-                            setTimeout(resolve, 300); // エラー時のフェールセーフ
                         });
                     } else {
-                        setTimeout(resolve, 200);
+                        setTimeout(resolve, 100);
                     }
                 });
             });
+
             // 4. GSAP / ScrollTriggerのロード待機（もわっと浮かび上がる体験をスマホでも担保）
             const visualDependenciesPromise = new Promise(resolve => {
                 const checkDependencies = () => {
@@ -2153,22 +2137,10 @@
                 requestAnimationFrame(raf);
                 
                 gsap.registerPlugin(ScrollTrigger);
-                
-                // スマホでもPCと同等の「時差でもわっと浮かび上がる体験」を実現するバッチ処理
-                ScrollTrigger.batch('.fade-in', {
-                    start: "top 90%", // スマホでも確実に発火させるためのマージン最適化
-                    once: true,
-                    onEnter: (batch) => {
-                        gsap.to(batch, { 
-                            opacity: 1, 
-                            y: 0, 
-                            duration: 1.2, 
-                            stagger: 0.25, // ここが要素間の時差（カスケード）を生み出す魔法の数値
-                            ease: "power3.out", 
-                            overwrite: true 
-                        });
-                    }
+                gsap.utils.toArray('.fade-in').forEach(section => {
+                    gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
+            };
             if ('requestIdleCallback' in window) requestIdleCallback(initVisuals, { timeout: 1200 });
             else requestAnimationFrame(initVisuals);
 
