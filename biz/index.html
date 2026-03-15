@@ -1947,19 +1947,14 @@
                 });
             });
 
-            // 4. アニメーション設定の完全同期（もわっと浮かび上がる体験をスマホでも100%担保）
+            // 4. GSAP / ScrollTriggerのロード待機（もわっと浮かび上がる体験をスマホでも担保）
             const visualDependenciesPromise = new Promise(resolve => {
                 const checkDependencies = () => {
-                    // GSAPのロードだけでなく、下部でアニメーション設定(バインド)が完了した合図を待つ
-                    if (window.__portfolioVisualsReady) {
-                        resolve();
-                    } else {
-                        requestAnimationFrame(checkDependencies);
-                    }
+                    if (window.gsap && window.ScrollTrigger) resolve();
+                    else requestAnimationFrame(checkDependencies);
                 };
                 checkDependencies();
-                // 4G環境の遅延を考慮し、余裕を持たせたフォールバック
-                setTimeout(resolve, 6000); 
+                setTimeout(resolve, 5000); // ネットワーク遅延に対するフォールバック
             });
 
             let isRevealed = false;
@@ -2145,9 +2140,6 @@
                 gsap.utils.toArray('.fade-in').forEach(section => {
                     gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
-
-                // ▼ ここを追加：すべてのアニメーション設定が完了したことを、上部のヴェール制御に伝達する
-                window.__portfolioVisualsReady = true;
             };
             if ('requestIdleCallback' in window) requestIdleCallback(initVisuals, { timeout: 1200 });
             else requestAnimationFrame(initVisuals);
