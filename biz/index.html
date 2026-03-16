@@ -330,71 +330,38 @@
     <div class="max-w-4xl mx-auto px-6 py-12 md:py-32">
 
         <!-- ================= HERO PROFILE ================= -->
-        <!-- mdをlgに変更し、タブレット縦までは美しいセンター揃えを維持 -->
-<header class="pt-16 lg:pt-24 mb-16 lg:mb-24 flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 text-center lg:text-left">
-    <!-- Profile Photo (3D Interactive) -->
-    <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
-        <div id="hero-aura" class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/25 to-cyan-400/20 blur-[2rem] md:blur-[3rem] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform"></div>
-        <div id="hero-photo" class="w-36 h-36 md:w-44 md:h-44 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d">
-            <img src="./profile_biz_new.jpg" width="256" height="256" alt="Ken HARIMA" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95">
-        </div>
-    </div>
-
-    <!-- Text Area -->
-    <div class="flex flex-col justify-center min-w-0 mt-2 lg:mt-6">
-        <h1 class="text-4xl md:text-5xl lg:text-[64px] font-display font-bold mb-4 lg:mb-5 tracking-tighter text-gray-900 leading-none">
-            <span class="lang-ja block mb-2 palt">播磨 賢</span>
-            <span class="lang-en block mb-2 apple-en font-extrabold tracking-tight">Ken HARIMA</span>
-            <span class="text-[13px] md:text-base lg:text-2xl font-mono font-medium text-gray-400 tracking-[0.25em] uppercase mt-3 lg:mt-4 block">Narrative Strategist</span>
-        </h1>
-
-        <!-- Corporate Role -->
-        <div class="mt-4 lg:mt-6 flex flex-row items-center justify-center lg:justify-start gap-3 md:gap-4 w-full">
-            <div class="group relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border border-gray-200/60 shadow-sm overflow-hidden transition-all duration-500 hover:border-[#0097e0] hover:shadow-[0_0_20px_rgba(0,151,224,0.2)] shrink-0">
-                <div class="absolute inset-0 bg-gradient-to-tr from-[#0097e0] to-[#00c8ff] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                <i class="fa-solid fa-building text-xs md:text-sm text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500"></i>
-            </div>
-            <div class="flex flex-col items-start min-w-0">
-                <span class="lang-ja text-[15px] md:text-[16px] lg:text-[17px] font-bold text-gray-800 tracking-tight whitespace-nowrap palt">ダイキン工業株式会社</span>
-                <span class="lang-en text-[15px] md:text-[16px] lg:text-[17px] font-bold text-gray-800 tracking-tight whitespace-nowrap apple-en">Daikin Industries, Ltd.</span>
-            </div>
-        </div>
-    </div>
-</header>
+        <header class="pt-20 md:pt-28 mb-16 md:mb-24 flex flex-col items-center text-center">
             <!-- Profile Photo (3D Interactive) -->
-            <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
-                <!-- 復元・強化：オーラのような多層Glowエフェクト -->
-                <div id="hero-aura" class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/25 to-cyan-400/20 blur-[2rem] md:blur-[3rem] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform"></div>
-                
+            <div id="hero-tilt-container" class="relative group shrink-0 z-10 mb-6 md:mb-8" style="perspective: 1000px;">
+                <!-- オーラGlowエフェクト -->
+                <div id="hero-aura" class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/30 to-cyan-400/30 blur-[2.5rem] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform"></div>
                 <!-- 写真本体とフレーム -->
-                <div id="hero-photo" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d">
+                <div id="hero-photo" class="w-36 h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d mx-auto">
                     <img src="./profile_biz_new.jpg" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95">
                 </div>
             </div>
 
             <!-- Text Area -->
-            <div class="flex flex-col justify-center min-w-0 mt-2 md:mt-6">
-                <h1 class="text-4xl md:text-6xl lg:text-[64px] font-display font-bold mb-4 md:mb-5 tracking-tighter text-gray-900 leading-none">
-                    <span class="lang-ja block mb-2">播磨 賢</span>
-                    <span class="lang-en block mb-2">Ken HARIMA</span>
-                    <span class="text-base md:text-xl lg:text-2xl font-mono font-medium text-gray-400 tracking-[0.25em] uppercase mt-3 md:mt-4 block">Narrative Strategist</span>
+            <div class="flex flex-col justify-center items-center min-w-0">
+                <h1 class="text-[40px] md:text-6xl lg:text-[72px] font-display font-bold mb-3 md:mb-4 tracking-tight text-gray-900 leading-none">
+                    <span class="lang-ja block mb-1 palt">播磨 賢</span>
+                    <span class="lang-en block mb-1">Ken HARIMA</span>
                 </h1>
+                <span class="text-xs md:text-sm lg:text-base font-mono font-medium text-gray-400 tracking-[0.3em] uppercase block mb-6 md:mb-8">Narrative Strategist</span>
 
                 <!-- Corporate Role -->
-                <div class="mt-4 md:mt-6 flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4 w-full">
+                <div class="flex flex-row items-center justify-center gap-3 md:gap-4 w-full">
                     <div class="group relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border border-gray-200/60 shadow-sm overflow-hidden transition-all duration-500 hover:border-[#0097e0] hover:shadow-[0_0_20px_rgba(0,151,224,0.2)] shrink-0">
                         <div class="absolute inset-0 bg-gradient-to-tr from-[#0097e0] to-[#00c8ff] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                        <i class="fa-solid fa-building text-xs md:text-sm text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500"></i>
+                        <i class="fa-solid fa-building text-[11px] md:text-sm text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500"></i>
                     </div>
-                    <div class="flex flex-col items-start min-w-0">
-                        <span class="lang-ja text-[15px] md:text-[17px] font-bold text-gray-800 tracking-tight whitespace-nowrap">ダイキン工業株式会社</span>
-                        <span class="lang-en text-[15px] md:text-[17px] font-bold text-gray-800 tracking-tight whitespace-nowrap">Daikin Industries, Ltd.</span>
+                    <div class="flex flex-col items-start min-w-0 text-left">
+                        <span class="lang-ja text-[14px] md:text-[16px] font-bold text-gray-800 tracking-tight whitespace-nowrap">ダイキン工業株式会社</span>
+                        <span class="lang-en text-[14px] md:text-[16px] font-bold text-gray-800 tracking-tight whitespace-nowrap">Daikin Industries, Ltd.</span>
                     </div>
                 </div>
             </div>
         </header>
-        
-        <main class="space-y-16 md:space-y-24">
             
             <!-- ================= PROFILE ================= -->
             <section class="fade-in">
