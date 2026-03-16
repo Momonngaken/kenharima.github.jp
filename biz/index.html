@@ -12,7 +12,6 @@
     <link rel="canonical" href="https://kenharima.com/biz/">
 
     <!-- Performance Optimization: Resource Hints (Moved Up for Preload Scanner) -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -21,9 +20,6 @@
     <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
     <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
-
-    <!-- Tailwind CSS Script Preload (Critical for FCP/LCP) -->
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
 
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile_biz_new.jpg" fetchpriority="high">
@@ -229,13 +225,7 @@
         </style>
     </noscript>
 
-    <!-- Tailwind Config (Minified) -->
-    <script>
-        tailwind={config:{theme:{extend:{fontFamily:{sans:['Inter','Noto Sans JP','sans-serif'],display:['Syne','sans-serif'],serif:['Lora','serif']},colors:{bizText:'#0f172a',bizGray:'#64748b',bizLight:'#f8fafc',bizAccent:'#0f3c85',bgBase:'#fafafa',neoBlack:'#121212'},animation:{'breathe':'breathe 3s ease-in-out infinite'},keyframes:{breathe:{'0%, 100%':{opacity:'0.6'},'50%':{opacity:'1'}}}}}}}
-    </script>
-    
-    <!-- 変更後: 4G環境でのCPUスパイクを防ぐため、asyncからdeferへ変更しメインスレッドを保護 -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="./assets/css/output.css">
 
     <!-- 極限の静寂と爆速レンダリングの融合: Render-Blockingを完全排除し、裏でプリロード。display=blockで文字揺れ（FOUT）を根絶 -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -1895,27 +1885,7 @@
         (function() {
             const body = document.body;
             
-            // 1. Tailwind CSSのDOM適用を確実に検知する
-            const tailwindPromise = new Promise(resolve => {
-                if (typeof tailwind !== 'undefined' && document.querySelector('style[id^="tailwind"]')) {
-                    resolve();
-                } else {
-                    const observer = new MutationObserver((mutations, obs) => {
-                        for (const mutation of mutations) {
-                            for (const node of mutation.addedNodes) {
-                                if (node.tagName === 'STYLE' && (node.id.startsWith('tailwind') || node.textContent.includes('tailwind'))) {
-                                    obs.disconnect();
-                                    resolve();
-                                    return;
-                                }
-                            }
-                        }
-                    });
-                    observer.observe(document.head, { childList: true });
-                    // フォールバック: 4G等での無限ロードを防ぐが、文字揺れ防止のため長めに設定
-                    setTimeout(resolve, 4000); 
-                }
-            });
+            const tailwindPromise = Promise.resolve();
 
             // 2. LCP画像（ヒーロー写真）のロード完了待機
             const imgPromise = new Promise(resolve => {
