@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -165,6 +166,48 @@ body {
             transform: scale(1) rotate(0deg) translateY(0);
             filter: blur(0);
         }
+        /* 極限的なクリエイティブ・タイポグラフィ */
+.apple-heading-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.apple-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #64748b; /* Slate-500 */
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.apple-label::after {
+    content: "";
+    height: 1px;
+    flex-grow: 1;
+    background: linear-gradient(to right, rgba(15, 60, 133, 0.2), transparent);
+}
+
+.apple-title-main {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 3rem; /* モバイルでは調整 */
+    letter-spacing: -0.05em; /* 極限まで詰めるのがApple Pro流 */
+    line-height: 1;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+/* モバイル対応の調整 */
+@media (max-width: 768px) {
+    .apple-title-main { font-size: 2.25rem; }
+}
     </style>
 </head>
 <body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
@@ -315,11 +358,15 @@ body {
         
         <!-- ================= Big Five (OS) ================= -->
         <section id="big5-section" class="mb-24 scroll-reveal">
-            <div class="flex items-center gap-4 mb-8">
-                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">01</span>
-                <div>
-                    <h3 class="text-xl font-bold text-bizText">Big Five</h3>
+            <!-- 01 Big Five: 新しいApple風ヘッダー -->
+            <div class="apple-heading-container mb-12">
+                <div class="apple-label">
+                    <span class="text-bizAccent">METRIC // 01</span>
+                    <span class="opacity-60">Standard Factor Model</span>
                 </div>
+                <h3 class="apple-title-main">
+                    Big Five <span class="font-light opacity-20">Inventory</span>
+                </h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center glass-card rounded-2xl p-6 md:p-10">
@@ -456,16 +503,16 @@ body {
 
         <!-- ================= PVQ (Driver) ================= -->
         <section id="pvq-section" class="mb-24 scroll-reveal">
-            <div class="flex items-center gap-4 mb-8">
-                <span class="text-4xl md:text-5xl font-display font-bold text-gray-200 select-none">02</span>
-                <div>
-                    <h3 class="text-xl font-bold text-bizText">
-                        <span class="lang-ja">PVQ</span>
-                        <span class="lang-en">PVQ</span>
-                    </h3>
+            <!-- 02 PVQ: 新しいApple風ヘッダー -->
+            <div class="apple-heading-container mb-12">
+                <div class="apple-label">
+                    <span class="text-blue-500">DRIVER // 02</span>
+                    <span class="opacity-60">Universal Human Values</span>
                 </div>
+                <h3 class="apple-title-main">
+                    PVQ <span class="font-light opacity-20">Analysis</span>
+                </h3>
             </div>
-
             <div class="glass-card rounded-2xl p-6 md:p-10">
                 <!-- ★レイアウト変更：lg以上で2カラム化し、右カラムを可変幅に。items-startで頭揃え★ -->
                 <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)] gap-8 lg:gap-12 items-center lg:items-start">
