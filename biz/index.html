@@ -166,22 +166,6 @@
             0% { opacity: 0; transform: translateY(4px); filter: blur(3px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
-        /* --- 中核的な強み：タイトルのタイポグラフィ最適化 (Apple仕様) --- */
-        .group h3[style*="SF Pro Display"] {
-            letter-spacing: -0.045em !important; /* 磁石のように引き締まった字間 */
-            line-height: 1.05 !important;
-            margin-bottom: 0.4rem !important;
-            font-size: 1.65rem !important;
-        }
-        @media (min-width: 768px) {
-            .group h3[style*="SF Pro Display"] { font-size: 1.85rem !important; }
-        }
-        /* サブタイトルの密度調整 */
-        .group h4.font-mono {
-            letter-spacing: 0.2em !important;
-            opacity: 0.8;
-            font-size: 0.65rem !important;
-        }
     </style>
     <noscript>
         <style>
@@ -782,7 +766,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
                     
                     <!-- 01: Quantitative Intelligence -->
-                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <!-- Ambient Glow -->
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-indigo-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
@@ -819,7 +803,7 @@
                     </div>
 
                     <!-- 02: Decision Science -->
-                    <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                    <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-cyan-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-cyan-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(6,182,212,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(6,182,212,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
@@ -854,7 +838,7 @@
                     </div>
 
                     <!-- 03: Narrative Architecture -->
-                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-rose-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-rose-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(244,63,94,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(244,63,94,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
@@ -878,14 +862,14 @@
                     </div>
 
                     <!-- 04: Linguistic OS -->
-                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-amber-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-amber-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(245,158,11,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(245,158,11,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
                             <i class="fa-solid fa-globe text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-orange-400"></i>
                         </div>
                         
-                        <div class="mb-5">
+                        <div class="mb-8">
                            <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
     Linguistic OS
 </h3>
