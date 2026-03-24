@@ -762,16 +762,16 @@
                     <span class="lang-en">Key Competencies</span>
                 </h2>
                 
-                <!-- Apple-Style Bento Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <!-- Apple-Style Bento Grid (Pixel Perfect Alignment) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
                     
                     <!-- 01: Quantitative Intelligence -->
-                    <div class="group relative bg-white/70 backdrop-blur-2xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col isolation-auto">
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <!-- Ambient Glow -->
-                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-indigo-200/50 to-transparent rounded-full blur-[3rem] group-hover:scale-150 group-hover:translate-x-4 transition-all duration-1000 pointer-events-none -z-10"></div>
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-indigo-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
                         <!-- Premium App-like Icon -->
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 flex items-center justify-center mb-8 shadow-[inset_0_2px_4px_rgba(255,255,255,1),0_4px_12px_rgba(79,70,229,0.1)] group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-indigo-50 to-white border border-white/60 flex items-center justify-center mb-8 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(79,70,229,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(79,70,229,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
                             <i class="fa-solid fa-chart-line text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-blue-600"></i>
                         </div>
                         
@@ -785,12 +785,13 @@
                             </h4>
                         </div>
                         
-                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium flex-grow">
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mb-8">
                             <p class="lang-ja">データは、解釈されて初めて戦略となる。多変量解析をはじめとする統計的手法を駆使し、複雑な市場動向や消費者心理を数値化。単なる相関を超えた因果のメカニズムを峻別し、エビデンスに基づく再現性の高い戦略へと昇華させる。</p>
                             <p class="lang-en">Data becomes strategy only through the rigors of interpretation. Employing advanced statistical methodologies, I quantify complex market dynamics. By distinguishing causal mechanisms from mere correlations, I crystallize data into evidence-based strategies with high reproducibility.</p>
                         </div>
                         
-                        <div class="mt-6 pt-5 flex items-start gap-2 border-t border-gray-100/80 group-hover:border-indigo-100 transition-colors duration-500">
+                        <!-- Footer Anchor -->
+                        <div class="mt-auto pt-5 flex items-start gap-2 border-t border-gray-200/60 group-hover:border-indigo-100 transition-colors duration-500">
                             <i class="fa-solid fa-asterisk text-[8px] text-indigo-400 mt-1.5 opacity-70"></i>
                             <p class="lang-ja text-[11px] leading-relaxed text-gray-500 font-medium">
                                 実務におけるデータ解釈の精度を高めるべく<span class="inline-block mx-0.5 font-mono font-bold text-indigo-500">統計検定2級</span>レベルの知識を体系化中。
@@ -802,12 +803,10 @@
                     </div>
 
                     <!-- 02: Decision Science -->
-                    <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-2xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col isolation-auto">
-                        <!-- Ambient Glow -->
-                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-cyan-200/50 to-transparent rounded-full blur-[3rem] group-hover:scale-150 group-hover:translate-x-4 transition-all duration-1000 pointer-events-none -z-10"></div>
+                    <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-cyan-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
-                        <!-- Premium App-like Icon -->
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-cyan-50 to-white border border-cyan-100 flex items-center justify-center mb-8 shadow-[inset_0_2px_4px_rgba(255,255,255,1),0_4px_12px_rgba(6,182,212,0.1)] group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-cyan-50 to-white border border-white/60 flex items-center justify-center mb-8 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(6,182,212,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(6,182,212,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
                             <i class="fa-solid fa-chess-knight text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-500 to-blue-500"></i>
                         </div>
                         
@@ -821,28 +820,28 @@
                             </h4>
                         </div>
                         
-                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium flex-grow">
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mb-8">
                             <p class="lang-ja">情報の非対称性が支配する環境下で、認知バイアスを排除し、数学的な期待値を最大化する意思決定プロセスを構築。ポーカーという「不完全情報の実験室」における成果（ROI 500%超）は、この論理的アプローチの堅牢さを実証している。</p>
                             <p class="lang-en">In environments defined by information asymmetry, I construct decision-making processes that eliminate cognitive bias and maximize mathematical expected value. My performance in the "laboratory of incomplete information" known as poker (ROI >500%) demonstrates the robustness of this logical approach.</p>
                         </div>
                         
-                        <!-- Apple-like CTA Link -->
-                        <div class="mt-8 pt-4 border-t border-transparent group-hover:border-cyan-100/50 transition-colors duration-500 flex justify-end">
+                        <!-- Footer Anchor CTA -->
+                        <div class="mt-auto pt-5 border-t border-transparent group-hover:border-cyan-200/60 transition-colors duration-500 flex justify-end items-end h-[41px]">
                             <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-wide text-cyan-600 hover:text-cyan-500 transition-all duration-300">
                                 <span class="lang-ja">ケーススタディを見る</span>
                                 <span class="lang-en">Learn more</span>
-                                <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform duration-300"></i>
+                                <div class="w-5 h-5 rounded-full bg-cyan-50 flex items-center justify-center group-hover:bg-cyan-100 transition-colors">
+                                    <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-0.5 transition-transform duration-300"></i>
+                                </div>
                             </span>
                         </div>
                     </div>
 
                     <!-- 03: Narrative Architecture -->
-                    <div class="group relative bg-white/70 backdrop-blur-2xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.08)] hover:-translate-y-1 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col isolation-auto">
-                        <!-- Ambient Glow -->
-                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-rose-200/50 to-transparent rounded-full blur-[3rem] group-hover:scale-150 group-hover:translate-x-4 transition-all duration-1000 pointer-events-none -z-10"></div>
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-rose-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
-                        <!-- Premium App-like Icon -->
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-rose-50 to-white border border-rose-100 flex items-center justify-center mb-8 shadow-[inset_0_2px_4px_rgba(255,255,255,1),0_4px_12px_rgba(244,63,94,0.1)] group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-rose-50 to-white border border-white/60 flex items-center justify-center mb-8 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(244,63,94,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(244,63,94,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
                             <i class="fa-solid fa-layer-group text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-rose-400 to-orange-500"></i>
                         </div>
                         
@@ -856,23 +855,21 @@
                             </h4>
                         </div>
                         
-                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium">
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mt-auto">
                             <p class="lang-ja">デザインとは、装飾ではなく「認識の設計」である。高度に抽象的な概念を、他者が咀嚼可能な「意味の構造」へと再構築する。社会学的洞察を基盤に、文脈を解析し、受け手の認知コストを最小化しつつ、行動変容を促すアーキテクチャを実装する。</p>
                             <p class="lang-en">Design is not decoration, but the "architecture of cognition." Grounded in sociological insight, I reconstruct highly abstract concepts into "semantic structures" digestible by others. I implement architectures that minimize cognitive load while driving behavioral change.</p>
                         </div>
                     </div>
 
                     <!-- 04: Linguistic OS -->
-                    <div class="group relative bg-white/70 backdrop-blur-2xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col isolation-auto">
-                        <!-- Ambient Glow -->
-                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-amber-200/50 to-transparent rounded-full blur-[3rem] group-hover:scale-150 group-hover:translate-x-4 transition-all duration-1000 pointer-events-none -z-10"></div>
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-amber-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
                         
-                        <!-- Premium App-like Icon -->
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-white border border-amber-100 flex items-center justify-center mb-8 shadow-[inset_0_2px_4px_rgba(255,255,255,1),0_4px_12px_rgba(245,158,11,0.1)] group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-amber-50 to-white border border-white/60 flex items-center justify-center mb-8 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(245,158,11,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(245,158,11,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
                             <i class="fa-solid fa-globe text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-orange-400"></i>
                         </div>
                         
-                        <div class="mb-6">
+                        <div class="mb-8">
                             <h3 class="text-2xl md:text-[28px] font-display font-bold text-gray-900 tracking-tight leading-tight mb-2">
                                 Linguistic OS
                             </h3>
@@ -882,10 +879,10 @@
                             </h4>
                         </div>
                         
-                        <!-- Apple-style Spec List -->
-                        <div class="space-y-4 w-full">
+                        <!-- Apple-style UI List (Settings Metaphor) -->
+                        <div class="space-y-2.5 w-full mt-auto">
                             <!-- Japanese & English -->
-                            <div class="group/lang flex flex-col gap-1.5">
+                            <div class="group/lang flex flex-col gap-1.5 bg-gray-50/60 hover:bg-white border border-gray-100/80 hover:border-gray-200 rounded-2xl p-4 transition-colors duration-300">
                                 <div class="flex justify-between items-center">
                                     <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">日本語 / 英語</span><span class="lang-en">Japanese / English</span></span>
                                     <span class="px-2.5 py-1 rounded-full bg-gray-900 text-white text-[9px] font-bold tracking-widest uppercase shadow-sm">Native / Business</span>
@@ -896,13 +893,11 @@
                                 </p>
                             </div>
                             
-                            <div class="h-px w-full bg-gradient-to-r from-gray-200/80 to-transparent"></div>
-                            
                             <!-- Chinese -->
-                            <div class="group/lang flex flex-col gap-1.5">
+                            <div class="group/lang flex flex-col gap-1.5 bg-gray-50/60 hover:bg-white border border-gray-100/80 hover:border-gray-200 rounded-2xl p-4 transition-colors duration-300">
                                 <div class="flex justify-between items-center">
                                     <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">中国語</span><span class="lang-en">Chinese</span></span>
-                                    <span class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-[9px] font-bold tracking-widest uppercase">Conversational</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-gray-500 text-[9px] font-bold tracking-widest uppercase shadow-sm">Conversational</span>
                                 </div>
                                 <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
                                     <span class="lang-ja">生活・日常会話レベル（HSK 3級）</span>
@@ -910,13 +905,11 @@
                                 </p>
                             </div>
 
-                            <div class="h-px w-full bg-gradient-to-r from-gray-200/80 to-transparent"></div>
-
                             <!-- Spanish -->
-                            <div class="group/lang flex flex-col gap-1.5">
+                            <div class="group/lang flex flex-col gap-1.5 bg-amber-50/30 hover:bg-amber-50/50 border border-amber-100/50 hover:border-amber-200/50 rounded-2xl p-4 transition-colors duration-300">
                                 <div class="flex justify-between items-center">
                                     <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight flex items-center gap-1.5"><span class="lang-ja">スペイン語</span><span class="lang-en">Spanish</span> <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span></span>
-                                    <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 text-[9px] font-bold tracking-widest uppercase border border-amber-100">Learning</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-600 text-[9px] font-bold tracking-widest uppercase shadow-sm">Learning</span>
                                 </div>
                                 <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
                                     <span class="lang-ja">北米・中南米市場を見据えた集中的なスキル習得</span>
@@ -926,35 +919,37 @@
                         </div>
                     </div>
 
-                    <!-- 05: Philosophy & Ethics (Cinematic Dark / Full Width) -->
-                    <div class="group relative bg-[#0a0a0c] border border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-2xl hover:shadow-[0_40px_80px_rgba(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-12 md:col-span-2 isolation-auto">
+                    <!-- 05: Philosophy & Ethics (Pro Cinematic Dark) -->
+                    <div class="group relative bg-[#070709] border border-white/[0.05] rounded-[2.5rem] p-8 md:p-12 shadow-2xl hover:shadow-[0_40px_100px_rgba(0,0,0,0.6)] hover:-translate-y-1.5 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-14 md:col-span-2 isolation-auto">
                         
-                        <!-- Cinematic Dark Glows -->
-                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(168,85,247,0.15),transparent_60%)] pointer-events-none -z-10 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                        <div class="absolute bottom-0 left-0 w-[80%] h-[80%] bg-[radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.1),transparent_50%)] pointer-events-none -z-10 group-hover:scale-110 transition-transform duration-1000"></div>
+                        <!-- Cinematic Dark Glows & Noise -->
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none mix-blend-overlay"></div>
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(168,85,247,0.12),transparent_60%)] pointer-events-none -z-10 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                        <div class="absolute bottom-0 left-0 w-[80%] h-[80%] bg-[radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.08),transparent_50%)] pointer-events-none -z-10 group-hover:scale-110 transition-transform duration-1000"></div>
                         <div class="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-white/10 pointer-events-none"></div>
                         
                         <div class="md:w-5/12 flex flex-col justify-center relative z-10">
-                            <!-- Premium App-like Icon (Dark Mode) -->
-                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center mb-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.5)] group-hover:scale-110 transition-transform duration-700 ease-out">
+                            <!-- Premium App-like Icon (Dark Mode Glass) -->
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center mb-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.5)] group-hover:scale-110 group-hover:bg-white/10 transition-all duration-700 ease-out">
                                 <i class="fa-solid fa-scale-balanced text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-purple-400 to-blue-400"></i>
                             </div>
                             
-                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white tracking-tight leading-tight mb-2 drop-shadow-md">
+                            <!-- Pro Silver Gradient Text -->
+                            <h3 class="text-3xl md:text-[40px] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-100 to-gray-400 tracking-tight leading-[1.15] mb-3">
                                 Philosophy & Ethics
                             </h3>
-                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-purple-400 uppercase tracking-widest mt-1">
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-purple-400/80 uppercase tracking-widest mt-1">
                                 <span class="lang-ja">倫理的判断と実存の探求</span>
                                 <span class="lang-en">Ethical Judgment & Existential Inquiry</span>
                             </h4>
                         </div>
                         
-                        <div class="md:w-7/12 text-[14px] md:text-[15px] text-gray-400 leading-relaxed font-medium relative z-10 space-y-4">
-                            <p class="lang-ja group-hover:text-gray-300 transition-colors duration-500">マルクス・ガブリエルやサルトルの実存哲学を手がかりに、AGI／ASI時代の「人間の尊厳」と「労働」の意味を問い直す。</p>
-                            <p class="lang-ja group-hover:text-gray-300 transition-colors duration-500">社会実装では、倫理を“後付けのチェック”ではなく“設計の前提”として組み込み、技術が人間を疎外せず、人間を高めるための意思決定をリードする。</p>
+                        <div class="md:w-7/12 text-[14px] md:text-[16px] text-gray-400/90 leading-[1.8] font-medium relative z-10 space-y-5">
+                            <p class="lang-ja group-hover:text-gray-300 transition-colors duration-700">マルクス・ガブリエルやサルトルの実存哲学を手がかりに、AGI／ASI時代の「人間の尊厳」と「労働」の意味を問い直す。</p>
+                            <p class="lang-ja group-hover:text-gray-300 transition-colors duration-700">社会実装では、倫理を“後付けのチェック”ではなく“設計の前提”として組み込み、技術が人間を疎外せず、人間を高めるための意思決定をリードする。</p>
                             
-                            <p class="lang-en group-hover:text-gray-300 transition-colors duration-500">Using the existential philosophy of Markus Gabriel and Jean-Paul Sartre as a guiding lens, I reexamine what "human dignity" and the meaning of "work" should be in the age of AGI.</p>
-                            <p class="lang-en group-hover:text-gray-300 transition-colors duration-500">I treat ethics not as an after-the-fact compliance check, but as a design prerequisite—leading decisions that ensure technology elevates people rather than alienating them.</p>
+                            <p class="lang-en group-hover:text-gray-300 transition-colors duration-700">Using the existential philosophy of Markus Gabriel and Jean-Paul Sartre as a guiding lens, I reexamine what "human dignity" and the meaning of "work" should be in the age of AGI.</p>
+                            <p class="lang-en group-hover:text-gray-300 transition-colors duration-700">I treat ethics not as an after-the-fact compliance check, but as a design prerequisite—leading decisions that ensure technology elevates people rather than alienating them.</p>
                         </div>
                     </div>
 
