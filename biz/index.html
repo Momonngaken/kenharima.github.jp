@@ -21,9 +21,7 @@
     <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
     <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
-
-    <!-- Tailwind CSS Script Preload (Critical for FCP/LCP) -->
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    
 
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile_biz_new.jpg" fetchpriority="high">
@@ -177,14 +175,9 @@
             }
         </style>
     </noscript>
-
-    <!-- Tailwind Config (Minified) -->
-    <script>
-        tailwind={config:{theme:{extend:{fontFamily:{sans:['Inter','Noto Sans JP','sans-serif'],display:['Syne','sans-serif'],serif:['Lora','serif']},colors:{bizText:'#0f172a',bizGray:'#64748b',bizLight:'#f8fafc',bizAccent:'#0f3c85',bgBase:'#fafafa',neoBlack:'#121212'},animation:{'breathe':'breathe 3s ease-in-out infinite'},keyframes:{breathe:{'0%, 100%':{opacity:'0.6'},'50%':{opacity:'1'}}}}}}}
-    </script>
-    
-    <!-- 変更後: 4G環境でのCPUスパイクを防ぐため、asyncからdeferへ変更しメインスレッドを保護 -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- ビルド済み Tailwind CSS -->
+    <link rel="preload" href="../output.css" as="style">
+    <link rel="stylesheet" href="../output.css">
 
     <!-- 完全な静寂の実現: SNS内ブラウザでのレイアウトシフトと文字揺れを「根絶」するため、フォント類はすべて同期読み込みに統一 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
