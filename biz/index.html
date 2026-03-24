@@ -182,33 +182,6 @@
             opacity: 0.8;
             font-size: 0.65rem !important;
         }
-        /* 言語リスト用のAppleスタイル・デバイダー */
-.lang-list-item {
-    position: relative;
-    padding: 1.25rem 0;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.lang-list-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 100%);
-}
-.lang-list-item:hover {
-    transform: translateX(4px);
-}
-/* ステータスタグの洗練 */
-.status-pill {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 2px 8px;
-    border-radius: 4px;
-    text-transform: uppercase;
-}
     </style>
     <noscript>
         <style>
@@ -797,136 +770,218 @@
                 </div>
             </section>
 
-           <!-- ================= COMPETENCIES ================= -->
-<section class="fade-in cv-auto">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14 pl-2">
-        <span class="lang-ja">中核的な強み</span>
-        <span class="lang-en">Key Competencies</span>
-    </h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
-        
-        <!-- 01: Quantitative Intelligence -->
-        <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-10 px-8 pb-10 md:pt-12 md:px-12 md:pb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
-            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-indigo-200/40 to-transparent rounded-full blur-[3.5rem] pointer-events-none -z-10"></div>
-            <div class="mb-6">
-                <h3 class="text-2xl md:text-[32px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; letter-spacing: -0.03em;">Quantitative Intelligence</h3>
-                <h4 class="text-[10px] md:text-xs font-mono font-bold text-indigo-500 uppercase tracking-[0.2em] opacity-70">
-                    <span class="lang-ja">データ駆動の戦略設計</span><span class="lang-en">Data-Driven Strategy</span>
-                </h4>
-            </div>
-            <div class="text-[14px] md:text-[16px] text-gray-600 leading-relaxed font-medium mb-10">
-                <p class="lang-ja">データは、解釈されて初めて戦略となる。統計的手法を駆使し、複雑な市場動向を数値化。単なる相関を超えた因果を峻別し、再現性の高い戦略へと昇華させる。</p>
-                <p class="lang-en">Data becomes strategy through interpretation. I quantify market dynamics via statistics, distinguishing causality from correlation to build high-reproducibility strategies.</p>
-            </div>
-            <div class="mt-auto pt-6 flex items-start gap-3 border-t border-gray-100">
-                <i class="fa-solid fa-chart-line text-[10px] text-indigo-400 mt-1"></i>
-                <p class="text-[11px] leading-relaxed text-gray-400 font-medium">
-                    <span class="lang-ja">統計検定2級レベルの知識を実務に応用。</span><span class="lang-en">Applying Statistics Grade 2 knowledge to practice.</span>
-                </p>
-            </div>
-        </div>
-
-        <!-- 02: Decision Science -->
-        <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-10 px-8 pb-10 md:pt-12 md:px-12 md:pb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
-            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-cyan-200/40 to-transparent rounded-full blur-[3.5rem] pointer-events-none -z-10"></div>
-            <div class="mb-6">
-                <h3 class="text-2xl md:text-[32px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; letter-spacing: -0.03em;">Decision Science</h3>
-                <h4 class="text-[10px] md:text-xs font-mono font-bold text-cyan-500 uppercase tracking-[0.2em] opacity-70">
-                    <span class="lang-ja">不完全情報下の最適解</span><span class="lang-en">Optimal Solutions under Uncertainty</span>
-                </h4>
-            </div>
-            <div class="text-[14px] md:text-[16px] text-gray-600 leading-relaxed font-medium mb-10">
-                <p class="lang-ja">情報の非対称性が支配する環境下で、認知バイアスを排除し、数学的な期待値を最大化する意思決定プロセスを構築。ポーカーという「実験室」での実績がその論理を証明している。</p>
-                <p class="lang-en">In asymmetric environments, I build decision processes that maximize EV. My performance in the "poker lab" proves the robustness of this logical approach.</p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-gray-100 flex justify-between items-center">
-                <span class="text-[10px] font-bold text-cyan-600 tracking-widest uppercase">Case Study</span>
-                <i class="fa-solid fa-chevron-right text-[10px] text-cyan-400"></i>
-            </div>
-        </div>
-
-        <!-- 03: Narrative Architecture -->
-        <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-10 px-8 pb-10 md:pt-12 md:px-12 md:pb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
-            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-rose-200/40 to-transparent rounded-full blur-[3.5rem] pointer-events-none -z-10"></div>
-            <div class="mb-6">
-                <h3 class="text-2xl md:text-[32px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; letter-spacing: -0.03em;">Narrative Architecture</h3>
-                <h4 class="text-[10px] md:text-xs font-mono font-bold text-rose-500 uppercase tracking-[0.2em] opacity-70">
-                    <span class="lang-ja">認識の設計と意味の再構築</span><span class="lang-en">Designing Perception & Meaning</span>
-                </h4>
-            </div>
-            <div class="text-[14px] md:text-[16px] text-gray-600 leading-relaxed font-medium">
-                <p class="lang-ja text-justify">抽象的な概念を、他者が咀嚼可能な「意味の構造」へと再構築する。社会学的洞察を基盤に、認知コストを最小化しつつ、行動変容を促すアーキテクチャを実装する。</p>
-                <p class="lang-en">Reconstructing abstract concepts into digestible "semantic structures." Using sociology to minimize cognitive load and drive behavioral change through design.</p>
-            </div>
-        </div>
-
-        <!-- 04: Linguistic OS (REDESIGNED) -->
-        <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-10 px-8 pb-10 md:pt-12 md:px-12 md:pb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
-            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-amber-200/40 to-transparent rounded-full blur-[3.5rem] pointer-events-none -z-10"></div>
-            <div class="mb-8 md:mb-10">
-                <h3 class="text-2xl md:text-[32px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; letter-spacing: -0.03em;">Linguistic OS</h3>
-                <h4 class="text-[10px] md:text-xs font-mono font-bold text-amber-600 uppercase tracking-[0.2em] opacity-70">
-                    <span class="lang-ja">越境する思考のプロトコル</span><span class="lang-en">Protocols of Borderless Thought</span>
-                </h4>
-            </div>
-            
-            <!-- Apple-Style Settings List -->
-            <div class="w-full">
-                <!-- JP / EN -->
-                <div class="lang-list-item flex flex-col gap-1">
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-base md:text-lg font-bold text-gray-900 tracking-tight">
-                            <span class="lang-ja">日本語 / 英語</span><span class="lang-en">Japanese / English</span>
-                        </span>
-                        <span class="status-pill bg-gray-900 text-white">NATIVE / BUSINESS</span>
-                    </div>
-                    <p class="text-[11px] md:text-xs text-gray-400 font-medium">TOEIC 950 | Professional Negotiation</p>
-                </div>
+            <!-- ================= COMPETENCIES ================= -->
+            <section class="fade-in cv-auto">
+               <!-- Section Label -->
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14 pl-2">
+                    <span class="lang-ja">中核的な強み</span>
+                    <span class="lang-en">Key Competencies</span>
+                </h2>
                 
-                <!-- Chinese -->
-                <div class="lang-list-item flex flex-col gap-1">
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-base md:text-lg font-bold text-gray-900 tracking-tight">
-                            <span class="lang-ja">中国語</span><span class="lang-en">Chinese</span>
-                        </span>
-                        <span class="status-pill border border-gray-200 text-gray-400">HSK 3</span>
+                <!-- Apple-Style Bento Grid (Pixel Perfect Alignment) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
+                    
+                    <!-- 01: Quantitative Intelligence -->
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <!-- Ambient Glow -->
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-indigo-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        
+                        <!-- Premium App-like Icon -->
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-indigo-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(79,70,229,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(79,70,229,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
+                            <i class="fa-solid fa-chart-line text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-blue-600"></i>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+                                Quantitative Intelligence
+                            </h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-indigo-500 uppercase tracking-widest">
+                                <span class="lang-ja">データ駆動の戦略設計</span>
+                                <span class="lang-en">Data-Driven Strategy</span>
+                            </h4>
+                        </div>
+                        
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mb-8">
+                            <p class="lang-ja">データは、解釈されて初めて戦略となる。多変量解析をはじめとする統計的手法を駆使し、複雑な市場動向や消費者心理を数値化。単なる相関を超えた因果のメカニズムを峻別し、エビデンスに基づく再現性の高い戦略へと昇華させる。</p>
+                            <p class="lang-en">Data becomes strategy only through the rigors of interpretation. Employing advanced statistical methodologies, I quantify complex market dynamics. By distinguishing causal mechanisms from mere correlations, I crystallize data into evidence-based strategies with high reproducibility.</p>
+                        </div>
+                        
+                        <!-- Footer Anchor -->
+                        <div class="mt-auto pt-5 flex items-start gap-2 border-t border-gray-200/60 group-hover:border-indigo-100 transition-colors duration-500">
+                            <i class="fa-solid fa-asterisk text-[8px] text-indigo-400 mt-1.5 opacity-70"></i>
+                            <p class="lang-ja text-[11px] leading-relaxed text-gray-500 font-medium">
+                                実務におけるデータ解釈の精度を高めるべく<span class="inline-block mx-0.5 font-mono font-bold text-indigo-500">統計検定2級</span>レベルの知識を体系化中。
+                            </p>
+                            <p class="lang-en text-[11px] leading-relaxed text-gray-500 font-medium">
+                                Systematizing knowledge equivalent to <span class="inline-block mx-0.5 font-mono font-bold text-indigo-500">Statistics Gr.2</span> to enhance precision.
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-[11px] md:text-xs text-gray-400 font-medium">Daily Communication Level</p>
-                </div>
 
-                <!-- Spanish -->
-                <div class="lang-list-item flex flex-col gap-1">
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-base md:text-lg font-bold text-gray-800/60 tracking-tight italic">
-                            <span class="lang-ja">スペイン語</span><span class="lang-en">Spanish</span>
-                        </span>
-                        <span class="flex items-center gap-1.5 status-pill bg-amber-50 text-amber-600 border border-amber-100">
-                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                            Learning
-                        </span>
+                    <!-- 02: Decision Science -->
+                    <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-cyan-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-cyan-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(6,182,212,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(6,182,212,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
+                            <i class="fa-solid fa-chess-knight text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-500 to-blue-500"></i>
+                        </div>
+                        
+                        <div class="mb-5">
+                           <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2 group-hover:text-cyan-600 transition-colors duration-500" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+    Decision Science
+</h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest">
+                                <span class="lang-ja">不完全情報下の最適解</span>
+                                <span class="lang-en">Optimal Solutions under Uncertainty</span>
+                            </h4>
+                        </div>
+                        
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mb-8">
+                            <p class="lang-ja">情報の非対称性が支配する環境下で、認知バイアスを排除し、数学的な期待値を最大化する意思決定プロセスを構築。ポーカーという「不完全情報の実験室」における成果（ROI 500%超）は、この論理的アプローチの堅牢さを実証している。</p>
+                            <p class="lang-en">In environments defined by information asymmetry, I construct decision-making processes that eliminate cognitive bias and maximize mathematical expected value. My performance in the "laboratory of incomplete information" known as poker (ROI >500%) demonstrates the robustness of this logical approach.</p>
+                        </div>
+                        
+                        <!-- Footer Anchor CTA -->
+                        <div class="mt-auto pt-5 border-t border-transparent group-hover:border-cyan-200/60 transition-colors duration-500 flex justify-end items-end h-[41px]">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-wide text-cyan-600 hover:text-cyan-500 transition-all duration-300">
+                                <span class="lang-ja">ケーススタディを見る</span>
+                                <span class="lang-en">Learn more</span>
+                                <div class="w-5 h-5 rounded-full bg-cyan-50 flex items-center justify-center group-hover:bg-cyan-100 transition-colors">
+                                    <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-0.5 transition-transform duration-300"></i>
+                                </div>
+                            </span>
+                        </div>
                     </div>
-                    <p class="text-[11px] md:text-xs text-amber-600/60 font-medium">Targeting North & Latin America Markets</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- 05: Philosophy & Ethics -->
-        <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-14 md:col-span-2 shadow-[0_12px_40px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(168,85,247,0.12)] hover:-translate-y-1.5 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col md:flex-row md:items-center gap-10 isolation-auto">
-            <div class="absolute -top-32 -left-32 w-80 h-80 bg-gradient-to-br from-purple-200/40 to-transparent rounded-full blur-[4rem] pointer-events-none -z-10"></div>
-            <div class="md:w-1/2">
-                <h3 class="text-3xl md:text-[42px] font-bold text-gray-900 tracking-tight leading-[1.1] mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; letter-spacing: -0.04em;">Philosophy & Ethics</h3>
-                <h4 class="text-[10px] md:text-xs font-mono font-bold text-purple-600 uppercase tracking-[0.2em] opacity-70">
-                    <span class="lang-ja">哲学的思考と実存の探求</span><span class="lang-en">Ethical Judgment & Existential Inquiry</span>
-                </h4>
-            </div>
-            <div class="md:w-1/2 text-[15px] md:text-[17px] text-gray-600 leading-relaxed font-medium">
-                <p class="lang-ja text-justify">倫理を“後付けのチェック”ではなく“設計の前提”とする。技術が人間を疎外せず、人間を高めるための意思決定を哲学を基点にリードする。</p>
-                <p class="lang-en text-justify">Treating ethics as a design prerequisite, not an afterthought. Leading decisions based on philosophy to ensure technology elevates rather than alienates humanity.</p>
-            </div>
-        </div>
-    </div>
-</section>
+                    <!-- 03: Narrative Architecture -->
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-rose-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-rose-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(244,63,94,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(244,63,94,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
+                            <i class="fa-solid fa-layer-group text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-rose-400 to-orange-500"></i>
+                        </div>
+                        
+                        <div class="mb-5">
+                           <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+    Narrative Architecture
+</h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-rose-500 uppercase tracking-widest">
+                                <span class="lang-ja">認識の設計と意味の再構築</span>
+                                <span class="lang-en">Designing Perception & Meaning</span>
+                            </h4>
+                        </div>
+                        
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mt-auto">
+                            <p class="lang-ja">デザインとは、装飾ではなく「認識の設計」である。高度に抽象的な概念を、他者が咀嚼可能な「意味の構造」へと再構築する。社会学的洞察を基盤に、文脈を解析し、受け手の認知コストを最小化しつつ、行動変容を促すアーキテクチャを実装する。</p>
+                            <p class="lang-en">Design is not decoration, but the "architecture of cognition." Grounded in sociological insight, I reconstruct highly abstract concepts into "semantic structures" digestible by others. I implement architectures that minimize cognitive load while driving behavioral change.</p>
+                        </div>
+                    </div>
+
+                    <!-- 04: Linguistic OS -->
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] pt-6 px-8 pb-8 md:pt-8 md:px-10 md:pb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-amber-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-amber-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(245,158,11,0.1)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(245,158,11,0.2)] group-hover:scale-110 transition-all duration-700 ease-out">
+                            <i class="fa-solid fa-globe text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-orange-400"></i>
+                        </div>
+                        
+                        <div class="mb-5">
+                           <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+    Linguistic OS
+</h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">
+                                <span class="lang-ja">越境する思考のプロトコル</span>
+                                <span class="lang-en">Protocols of Borderless Thought</span>
+                            </h4>
+                        </div>
+                        
+                        <!-- Apple-style UI List (Settings Metaphor) -->
+                        <div class="space-y-2.5 w-full mt-auto">
+                            <!-- Japanese & English -->
+                            <div class="group/lang flex flex-col gap-1.5 bg-gray-50/60 hover:bg-white border border-gray-100/80 hover:border-gray-200 rounded-2xl p-4 transition-colors duration-300">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">日本語 / 英語</span><span class="lang-en">Japanese / English</span></span>
+                                    <span class="px-2.5 py-1 rounded-full bg-gray-900 text-white text-[9px] font-bold tracking-widest uppercase shadow-sm">Native / Business</span>
+                                </div>
+                                <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
+                                    <span class="lang-ja">ビジネスレベルの交渉・実務（TOEIC 950）</span>
+                                    <span class="lang-en">Business Fluency & Professional Negotiation (TOEIC 950)</span>
+                                </p>
+                            </div>
+                            
+                            <!-- Chinese -->
+                            <div class="group/lang flex flex-col gap-1.5 bg-gray-50/60 hover:bg-white border border-gray-100/80 hover:border-gray-200 rounded-2xl p-4 transition-colors duration-300">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">中国語</span><span class="lang-en">Chinese</span></span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-gray-500 text-[9px] font-bold tracking-widest uppercase shadow-sm">Conversational</span>
+                                </div>
+                                <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
+                                    <span class="lang-ja">生活・日常会話レベル（HSK 3級）</span>
+                                    <span class="lang-en">Daily Conversation Level (HSK Level 3)</span>
+                                </p>
+                            </div>
+
+                            <!-- Spanish -->
+                            <div class="group/lang flex flex-col gap-1.5 bg-amber-50/30 hover:bg-amber-50/50 border border-amber-100/50 hover:border-amber-200/50 rounded-2xl p-4 transition-colors duration-300">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight flex items-center gap-1.5"><span class="lang-ja">スペイン語</span><span class="lang-en">Spanish</span> <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span></span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-600 text-[9px] font-bold tracking-widest uppercase shadow-sm">Learning</span>
+                                </div>
+                                <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
+                                    <span class="lang-ja">北米・中南米市場を見据えた集中的なスキル習得</span>
+                                    <span class="lang-en">Intensive study targeting North & Latin America</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 05: Philosophy & Ethics (Holographic Light Mode) -->
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-12 shadow-[0_12px_40px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(168,85,247,0.12)] hover:-translate-y-1.5 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-14 md:col-span-2 isolation-auto">
+                        
+                        <!-- Light Holographic Glows -->
+                        <div class="absolute -top-32 -left-32 w-80 h-80 bg-gradient-to-br from-purple-200/60 to-transparent rounded-full blur-[4rem] group-hover:scale-150 group-hover:translate-x-10 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-gradient-to-tl from-blue-200/50 to-transparent rounded-full blur-[4rem] group-hover:scale-150 group-hover:-translate-x-10 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        
+                        <!-- Text Area Left: Title & Icon -->
+                        <div class="md:w-5/12 flex flex-col justify-center relative z-10">
+                            <!-- Premium App-like Icon -->
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-gradient-to-br from-purple-50 to-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_12px_rgba(168,85,247,0.15)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_8px_20px_rgba(168,85,247,0.25)] group-hover:scale-110 transition-all duration-700 ease-out">
+                                <i class="fa-solid fa-scale-balanced text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-blue-600"></i>
+                            </div>
+                            
+                            <!-- Title -->
+                           <h3 class="text-3xl md:text-[38px] font-bold text-gray-900 tracking-tight leading-[1.15] mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+    Philosophy & Ethical Judgement
+</h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-purple-600 uppercase tracking-widest mt-1">
+                                <span class="lang-ja">哲学的思考と実存の探求</span>
+                                <span class="lang-en">Ethical Judgment & Existential Inquiry</span>
+                            </h4>
+                        </div>
+                        
+                        <!-- Divider for Desktop (シネマティックな空間の仕切り) -->
+                        <div class="hidden md:block w-px h-32 bg-gradient-to-b from-transparent via-gray-200/80 to-transparent shrink-0"></div>
+                        
+                        <!-- Text Area Right: Body -->
+                        <div class="md:w-7/12 text-[14px] md:text-[15px] text-gray-600 leading-[1.8] md:leading-[1.9] font-medium relative z-10 space-y-5">
+                            <p class="lang-ja group-hover:text-gray-900 transition-colors duration-700 text-justify md:text-left">
+                                マルクス・ガブリエルやサルトルの実存哲学を手がかりに、AGI／ASI時代の「人間の尊厳」と「労働」の意味を問い直す。
+                            </p>
+                            <p class="lang-ja group-hover:text-gray-900 transition-colors duration-700 text-justify md:text-left">
+                                社会実装では、倫理を“後付けのチェック”ではなく“設計の前提”として組み込み、技術が人間を疎外せず、人間を高めるための意思決定をリードする。
+                            </p>
+                            
+                            <p class="lang-en group-hover:text-gray-900 transition-colors duration-700">
+                                Using the existential philosophy of Markus Gabriel and Jean-Paul Sartre as a guiding lens, I reexamine what "human dignity" and the meaning of "work" should be in the age of AGI.
+                            </p>
+                            <p class="lang-en group-hover:text-gray-900 transition-colors duration-700">
+                                I treat ethics not as an after-the-fact compliance check, but as a design prerequisite—leading decisions that ensure technology elevates people rather than alienating them.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
 
             <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
 <div class="fade-in mb-20 md:mb-24 cv-auto">
