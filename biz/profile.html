@@ -208,6 +208,38 @@ body {
 @media (max-width: 768px) {
     .apple-title-main { font-size: 2.25rem; }
 }
+        /* --- イントロカード専用：Appleハイエンド・タイポグラフィ --- */
+        .intro-card-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #94a3b8; /* Slate-400 */
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        .intro-card-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            color: #0f172a;
+            transition: all 0.5s ease;
+        }
+        /* ホバー時に色が鮮やかになる演出 */
+        .group:hover .intro-card-title-big5 { color: #0f3c85; }
+        .group:hover .intro-card-title-pvq { color: #2563eb; }
+
+        .intro-card-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-top: 0.5rem;
+            display: block;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-bizAccent selection:text-white flex flex-col min-h-screen">
@@ -307,8 +339,9 @@ body {
                                 <i class="fa-solid fa-microchip"></i>
                             </div>
                             <h3 class="flex flex-col">
-                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-indigo-900 transition-colors">Big Five</span>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Five Factor Model)</span>
+                                <span class="intro-card-label">Framework 01</span>
+                                <span class="intro-card-title intro-card-title-big5">Big Five</span>
+                                <span class="intro-card-sub">Five Factor Inventory</span>
                             </h3>
                         </div>
                         
@@ -335,8 +368,9 @@ body {
                                 <i class="fa-solid fa-heart-pulse animate-[pulse_3s_ease-in-out_infinite]"></i>
                             </div>
                             <h3 class="flex flex-col">
-                                <span class="text-3xl font-bold text-bizText tracking-tight font-display group-hover:text-blue-900 transition-colors">PVQ</span>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">(Portrait Values Questionnaire)</span>
+                                <span class="intro-card-label">Framework 02</span>
+                                <span class="intro-card-title intro-card-title-pvq">PVQ</span>
+                                <span class="intro-card-sub">Portrait Values Questionnaire</span>
                             </h3>
                         </div>
 
