@@ -12,7 +12,6 @@
     <link rel="canonical" href="https://kenharima.com/biz/">
 
     <!-- Performance Optimization: Resource Hints (Moved Up for Preload Scanner) -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -1848,27 +1847,7 @@
         (function() {
             const body = document.body;
             
-            // 1. Tailwindのパース完了を待機
-            const tailwindPromise = new Promise(resolve => {
-                if (typeof tailwind !== 'undefined' && document.querySelector('style[id^="tailwind"]')) {
-                    resolve();
-                } else {
-                    const observer = new MutationObserver((mutations, obs) => {
-                        for (const mutation of mutations) {
-                            for (const node of mutation.addedNodes) {
-                                if (node.tagName === 'STYLE' && (node.id.startsWith('tailwind') || node.textContent.includes('tailwind'))) {
-                                    obs.disconnect();
-                                    requestAnimationFrame(resolve);
-                                    return;
-                                }
-                            }
-                        }
-                    });
-                    observer.observe(document.head, { childList: true });
-                    setTimeout(resolve, 800); // フォールバック
-                }
-            });
-
+            
             // 2. LCP画像（ヒーロー写真）のロード完了を待機
             const imgPromise = new Promise(resolve => {
                 const img = document.querySelector('#hero-photo img');
@@ -1907,9 +1886,8 @@
             const ua = navigator.userAgent || '';
             const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
 
-            tailwindPromise.then(() => {
-                Promise.all([imgPromise, fontPromise]).then(revealSite);
-            });
+            // 【修正後】（tailwindPromise を削除し、画像とフォントの待機のみにする）
+            Promise.all([imgPromise, fontPromise]).then(revealSite);
 
             // 究極のセーフティーネットの再構築
             if (!isInAppBrowser) {
