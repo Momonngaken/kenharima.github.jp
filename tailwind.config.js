@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // 読み込むHTMLファイルを指定（ここにあるクラス名だけがCSSとして書き出されます）
-  content: ["./*.html"],
+  // ▼ フォルダの場所を直接指定して、絶対に読み込ませる！
+  content: [
+    "./*.html",
+    "./biz/*.html"
+  ],
   theme: {
     extend: {
       fontFamily: {
