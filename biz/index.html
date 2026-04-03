@@ -121,21 +121,21 @@
             animation: cinematicRevealPhoto 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* ② 文字群：写真から少し遅れて（200ms〜300ms）、スッとシャープに立ち上がる */
+       /* ② 文字群：写真からわずかに間を置き、裏でフォント適用を完了させてからシャープに立ち上がる */
         body.is-ready header h1 {
-            animation: cinematicRevealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+            animation: cinematicRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
             opacity: 0; /* ディレイ中のチラつき防止 */
         }
 
         body.is-ready header .mt-4,
         body.is-ready header .mt-6 {
-            animation: cinematicRevealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            animation: cinematicRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
             opacity: 0;
         }
 
-        /* ③ ナビ：最後に静かに降りてくる */
+        /* ③ ナビ：最後に最も静かに降りてくる */
         body.is-ready #nav-container {
-            animation: cinematicRevealNav 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
             opacity: 0;
         }
 
@@ -188,9 +188,16 @@
     <link rel="preload" href="../output.css" as="style">
     <link rel="stylesheet" href="../output.css">
 
-    <!-- 完全な静寂の実現: SNS内ブラウザでのレイアウトシフトと文字揺れを「根絶」するため、フォント類はすべて同期読み込みに統一 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
+    <!-- 完全な静寂と圧倒的な初速の両立: 
+         レンダリングブロックを回避するため media="print" ハックで非同期ロードを並列実行。
+         後述のJSディレイ・フェードインと組み合わせることで、文字揺れを裏側で隠蔽しつつ瞬時に開場します。 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
+    </noscript>
+
     
     <!-- Language Detection Script -->
     <script>
@@ -1931,62 +1938,65 @@
 
     <script>
 
-        // ▼▼▼ 極限まで洗練されたサイレント・フェードイン (Stable Hero Reveal) ▼▼▼
+        // ▼▼▼ 極限まで洗練されたプログレッシブ・フェードイン (Progressive Cinematic Reveal) ▼▼▼
         (function() {
             const body = document.body;
             
-            
-            // 2. LCP画像（ヒーロー写真）のロード完了を待機
+            // 1. LCP画像（ヒーロー写真）のロード状態監視
             const imgPromise = new Promise(resolve => {
                 const img = document.querySelector('#hero-photo img');
                 if (!img || img.complete) resolve();
                 else {
                     img.addEventListener('load', resolve, { once: true });
-                    img.addEventListener('error', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true }); // 失敗時も優雅に進行させる
                 }
             });
 
-            // 3. Webフォントのロード完了を待機（文字揺れ防止の要）
-            const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+            // WebView判定 (LINE, Instagram, Facebook, X等)
+            const ua = navigator.userAgent || '';
+            const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
+
+            // 2. Webフォントのロード待機（タイムアウト付き）
+            // 文字揺れは防ぎたいが、スマホの不安定な回線で無限に待つのはUXの死を意味する。
+            // フォントのロードは最大500ms(SNS内ブラウザなら1000ms)だけ待ち、それ以上は演出を優先して見切り発車する。
+            const fontTimeoutMs = isInAppBrowser ? 1000 : 500;
+            const fontPromise = new Promise(resolve => {
+                if (document.fonts) {
+                    document.fonts.ready.then(resolve);
+                } else {
+                    resolve();
+                }
+                setTimeout(resolve, fontTimeoutMs); // タイムアウトによるセーフティ解放
+            });
 
             let isRevealed = false;
             const revealSite = () => {
                 if (isRevealed) return;
                 isRevealed = true;
 
-                // ブラウザのレンダリングパイプラインを安定させるダブルrAF
+                // レンダリングパイプラインを安定させるダブルrAF
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
+                        // ヴェールを剥がし、美しいシネマティックアニメーションを開始
                         body.classList.remove('is-loading');
                         body.classList.add('is-ready');
                         
-                        // アニメーション完了後にDOMからヴェールを消去し、軽量化
+                        // アニメーション完了後にDOMからヴェールを消去し軽量化
                         setTimeout(() => {
                             body.classList.add('is-loaded');
                             if (typeof lenis !== 'undefined') lenis.resize();
                             if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                        }, 1500);
+                        }, 1500); 
                     });
                 });
             };
 
-            // WebView判定 (LINE, Instagram, Facebook, X(Twitter) 等のIn-App Browser)
-            const ua = navigator.userAgent || '';
-            const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
-
-            // 【修正後】（tailwindPromise を削除し、画像とフォントの待機のみにする）
+            // 画像とフォント（またはそのタイムアウト）が完了したら開場
             Promise.all([imgPromise, fontPromise]).then(revealSite);
 
-            // 究極のセーフティーネットの再構築
-            if (!isInAppBrowser) {
-                // 通常ブラウザ: UXを最優先し、人間が「遅い」と感じ始める800msで滑らかに開場
-                setTimeout(revealSite, 800);
-            } else {
-                // SNS内WebView: 文字揺れを防ぐため、フォントと画像の完全ロードをヴェールの中で待機する。
-                // ただし、通信障害等によるデッドロック（永遠に画面が真っ白になる現象）を防ぐため、
-                // 「8秒間」待っても読み込みが終わらない場合のみ、最終手段として強制開場する絶対的な命綱を設定。
-                setTimeout(revealSite, 8000);
-            }
+            // 究極のセーフティーネット：どんな劣悪なネットワーク環境でも最大1.5秒で必ず画面を見せる。
+            // これにより「5秒間真っ白」という致命的離脱を防ぐ。
+            setTimeout(revealSite, isInAppBrowser ? 1500 : 1200);
         })();
         document.addEventListener('DOMContentLoaded', () => {
             
