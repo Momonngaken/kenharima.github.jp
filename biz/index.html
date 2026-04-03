@@ -274,7 +274,7 @@
             <!-- Profile Photo (3D Interactive) -->
             <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
                 <!-- 復元・強化：オーラのような多層Glowエフェクト -->
-                <div id="hero-aura" class="absolute inset-0 rounded-full bg-gradient-to-tr from-bizAccent/25 to-cyan-400/20 blur-[2rem] md:blur-[3rem] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform"></div>
+                <div id="hero-aura" class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,60,133,0.25)_0%,rgba(34,211,238,0.2)_50%,transparent_80%)] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform transform-gpu"></div>
                 
                 <!-- 写真本体とフレーム -->
                 <div id="hero-photo" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d">
@@ -323,8 +323,8 @@
 
                     <!-- Fluid Ambient Gradients -->
                     <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                        <div class="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-b from-indigo-100/40 to-transparent blur-[80px] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[-5%] group-hover:translate-y-[5%]"></div>
-                        <div class="absolute -bottom-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-t from-cyan-100/40 to-transparent blur-[80px] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[5%] group-hover:translate-y-[-5%]"></div>
+                        <div class="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(224,231,255,0.4)_0%,transparent_70%)] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[-5%] group-hover:translate-y-[5%] transform-gpu"></div>
+<div class="absolute -bottom-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(207,250,254,0.4)_0%,transparent_70%)] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[5%] group-hover:translate-y-[-5%] transform-gpu"></div>
                     </div>
 
                     <div class="max-w-4xl mx-auto">
@@ -775,7 +775,7 @@
                     <!-- 01: Quantitative Intelligence -->
                     <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <!-- Ambient Glow -->
-                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-bl from-indigo-200/60 to-transparent rounded-full blur-[3.5rem] group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10"></div>
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(199,210,254,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
                         
                         <!--  -->
                         <!--  (Enhanced) -->
@@ -1768,7 +1768,7 @@
                                     obs.disconnect(); // 発火は1回のみ
                                     initCoverFlow();  // ユーザーが接近した瞬間に静かにDOMを組み上げる
                                 }
-                            }, { rootMargin: '800px 0px' });
+                            }, { rootMargin: '200px 0px' });
                             observer.observe(cfStage);
                         } else {
                             setTimeout(initCoverFlow, 800); // Observer非対応ブラウザへのフォールバック
@@ -2110,10 +2110,15 @@
                 }
                 
                 const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
-                function raf(time) { lenis.raf(time); ScrollTrigger.update(); requestAnimationFrame(raf); }
-                requestAnimationFrame(raf);
-                
-                gsap.registerPlugin(ScrollTrigger);
+
+gsap.registerPlugin(ScrollTrigger);
+
+// 改善: GSAPのTickerにLenisを同期し、ScrollTriggerの無駄な毎フレーム更新を防ぐ
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time)=>{
+    lenis.raf(time * 1000)
+});
+gsap.ticker.lagSmoothing(0);
                 gsap.utils.toArray('.fade-in').forEach(section => {
                     gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
