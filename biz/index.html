@@ -1948,25 +1948,29 @@
                 if (!img || img.complete) resolve();
                 else {
                     img.addEventListener('load', resolve, { once: true });
-                    img.addEventListener('error', resolve, { once: true }); // 失敗時も優雅に進行させる
+                    // エラー時も優雅に進行させ、ロードストップを防ぐ
+                    img.addEventListener('error', resolve, { once: true }); 
                 }
             });
 
-            // WebView判定 (LINE, Instagram, Facebook, X等)
+            // 2. スマホ内蔵ブラウザ（WebView）の判定
             const ua = navigator.userAgent || '';
             const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
 
-            // 2. Webフォントのロード待機（タイムアウト付き）
-            // 文字揺れは防ぎたいが、スマホの不安定な回線で無限に待つのはUXの死を意味する。
-            // フォントのロードは最大500ms(SNS内ブラウザなら1000ms)だけ待ち、それ以上は演出を優先して見切り発車する。
-            const fontTimeoutMs = isInAppBrowser ? 1000 : 500;
+            // 3. Webフォントのロード待機（WebKitのバグを完全に回避するタイムアウト設計）
+            // 文字揺れは防ぎたいが、モバイルの不安定な回線で無限待機はUXの死。
+            // 猶予を SNSブラウザ:1200ms / 通常:800ms とし、それを超えれば美学より表示を優先する。
+            const fontTimeoutMs = isInAppBrowser ? 1200 : 800;
             const fontPromise = new Promise(resolve => {
+                let isResolved = false;
+                const finish = () => { if (!isResolved) { isResolved = true; resolve(); } };
+                
                 if (document.fonts) {
-                    document.fonts.ready.then(resolve);
+                    document.fonts.ready.then(finish).catch(finish);
                 } else {
-                    resolve();
+                    finish();
                 }
-                setTimeout(resolve, fontTimeoutMs); // タイムアウトによるセーフティ解放
+                setTimeout(finish, fontTimeoutMs); // タイムアウトによる絶対的セーフティ
             });
 
             let isRevealed = false;
@@ -1974,14 +1978,14 @@
                 if (isRevealed) return;
                 isRevealed = true;
 
-                // レンダリングパイプラインを安定させるダブルrAF
+                // GPUレンダリングの準備を待つためのダブルrAF（コマ落ちの完全排除）
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
-                        // ヴェールを剥がし、美しいシネマティックアニメーションを開始
+                        // ヴェールを静かに剥がし、カスケード・アニメーションを開始
                         body.classList.remove('is-loading');
                         body.classList.add('is-ready');
                         
-                        // アニメーション完了後にDOMからヴェールを消去し軽量化
+                        // アニメーション完了後、DOMからヴェールを消去しインタラクションを完全解放
                         setTimeout(() => {
                             body.classList.add('is-loaded');
                             if (typeof lenis !== 'undefined') lenis.resize();
@@ -1990,6 +1994,23 @@
                     });
                 });
             };
+
+            // 画像とフォント（またはそのタイムアウト）が完了したら開場
+            Promise.all([imgPromise, fontPromise]).then(revealSite);
+
+            // 究極のセーフティーネット：どんな異常事態でも最大1.5秒で必ず画面を見せる。
+            setTimeout(revealSite, isInAppBrowser ? 1500 : 1200);
+
+            // ▼▼▼ 追加：スマホ特有の「ブラウザバックで画面が真っ白になる問題（Bfcache）」の完全根絶 ▼▼▼
+            window.addEventListener('pageshow', (event) => {
+                // ページがキャッシュから復元された場合、強制的にヴェールを解除して即座に表示
+                if (event.persisted || body.classList.contains('is-ready') || body.classList.contains('is-loaded')) {
+                    isRevealed = true;
+                    body.classList.remove('is-loading');
+                    body.classList.add('is-ready', 'is-loaded');
+                }
+            });
+        })();
 
             // 画像とフォント（またはそのタイムアウト）が完了したら開場
             Promise.all([imgPromise, fontPromise]).then(revealSite);
