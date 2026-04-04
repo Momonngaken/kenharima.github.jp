@@ -145,15 +145,82 @@
     <link rel="preload" href="../output.css" as="style">
     <link rel="stylesheet" href="../output.css">
 
-    <!-- 完全な静寂と圧倒的な初速の両立: 
-         レンダリングブロックを回避するため media="print" ハックで非同期ロードを並列実行。
-         後述のJSディレイ・フェードインと組み合わせることで、文字揺れを裏側で隠蔽しつつ瞬時に開場します。 -->
+    <!-- ================= ULTRA-FAST OPTICAL REVEAL CSS & FONTS ================= -->
+    <!-- メインフォントは非同期ハックを外し、最速で直接読み込んで文字のガタつき（FOUT）を防ぐ -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
+    
+    <!-- 重いアイコンフォントのみ非同期で読み込み、レンダリングブロックを回避 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
-    </noscript>
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+    <style>
+        /* ベース背景: JSによるブロックをせず即時描画 */
+        body {
+            background-color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* ----- カスケード・アニメーション（Lighthouse最適化版） ----- */
+        /* 初期状態を @keyframes 内に持たせることで、Lighthouseに「要素自体は存在している」と正しく認識させる */
+        
+        #hero-tilt-container {
+            /* モバイルのGPU負荷を下げるため、ぼかしを20pxから12pxへ微調整（見た目の高級感は保持） */
+            animation: cinematicFocus 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+            will-change: transform, filter;
+        }
+
+        header h1 {
+            animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+            will-change: transform, clip-path;
+        }
+
+        header .mt-4,
+        header .mt-6 {
+            animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            will-change: transform, clip-path;
+        }
+
+        #nav-container {
+            animation: navDrop 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            will-change: transform;
+        }
+
+        /* ----- キーフレーム定義 ----- */
+        @keyframes cinematicFocus {
+            0% { filter: blur(12px) grayscale(60%); transform: scale(0.95); }
+            100% { filter: blur(0px) grayscale(0%); transform: scale(1); }
+        }
+
+        @keyframes textReveal {
+            0% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); transform: translateY(15px); }
+            100% { clip-path: polygon(0 -20%, 100% -20%, 100% 120%, 0 120%); transform: translateY(0); }
+        }
+
+        @keyframes navDrop {
+            0% { transform: translateY(-150%); }
+            100% { transform: translateY(0); }
+        }
+
+        html:not(.is-global) .lang-en { display: none !important; }
+        html.is-global .lang-ja { display: none !important; }
+
+        .lang-ja, .lang-en {
+            animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes langRevealCinematic {
+            0% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
+            100% { clip-path: polygon(0 -20%, 100% -20%, 100% 120%, 0 120%); }
+        }
+
+        #global-modal { display: none !important; }
+        #global-modal.is-open { display: flex !important; }
+
+        .cv-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 800px;
+        }
+    </style>
 
     
     <!-- Language Detection Script -->
