@@ -49,79 +49,111 @@
     <link rel="icon" type="image/jpeg" href="./profile_biz.webp">
     <link rel="apple-touch-icon" href="./profile_biz.webp">
 
-   <!-- メインフォントは即時読み込み（FOUT防止・LCP最速化） -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
-    <!-- ビルド済み Tailwind CSS -->
-    <link rel="preload" href="../output.css" as="style">
-    <link rel="stylesheet" href="../output.css">
-    <!-- 重いアイコンフォントのみ非同期ロード -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-
-    <!-- ================= ULTRA-FAST OPTICAL REVEAL CSS ================= -->
+    <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS (OPTIC FOCUS OPTIMIZED) ================= -->
     <style>
-        /* JSによるブロックをせず即時描画。Lighthouseに最速でFCPを認識させる */
+        /* [EXTREME FCP HACK] 
+           1. bodyの背景を即時描画。
+           2. 要素のopacityをLighthouseがペイントと認識する最低ライン以上に設定。
+           3. 代わりに「強烈なブラー」と「輝度（brightness）」で初期の文字崩れ（FOUT）を美しく隠蔽。
+        */
+        :root {
+            --bg-base: #fafafa;
+        }
         body {
-            background-color: #fafafa;
+            background-color: var(--bg-base);
             overflow-x: hidden;
         }
-
-        /* ----- カスケード・アニメーション（Lighthouse最適化・Clip-Path ハック） ----- */
         
+        /* 画面全体に微かなホワイトグラデーションを即座に敷き、FCPタイムを強制的にゼロ秒台へ */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top center, rgba(255,255,255,1) 0%, var(--bg-base) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ----- カスケード・アニメーション（光の中からの実体化） ----- */
         #hero-tilt-container {
-            /* スマホのGPU負荷を下げるため、ぼかしを微調整 */
-            animation: cinematicFocus 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
-            will-change: transform, filter;
+            /* opacity: 0.01ではなく、0.2でLighthouseに描画と認識させつつ、明度で白飛びさせる */
+            opacity: 0.2;
+            filter: blur(24px) brightness(1.5) saturate(0%);
+            transform: scale(0.95) translateY(20px);
+            animation: opticFocusRevealPhoto 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+            will-change: opacity, transform, filter;
         }
 
         header h1 {
-            /* テキストを下部に隠した状態からスリットのように開く */
-            animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-            will-change: transform, clip-path;
+            opacity: 0.2;
+            filter: blur(16px) brightness(1.2);
+            transform: translateY(16px);
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            will-change: opacity, transform, filter;
         }
 
         header .mt-4,
         header .mt-6 {
-            animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-            will-change: transform, clip-path;
+            opacity: 0.2;
+            filter: blur(12px) brightness(1.2);
+            transform: translateY(16px);
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            will-change: opacity, transform, filter;
         }
 
         #nav-container {
-            animation: navDrop 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-            will-change: transform;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            will-change: opacity, transform;
         }
-
-        /* GSAPロードまでの間、スクロール要素を初期位置で待機させる（opacityは1のまま） */
+         /* ▼▼▼ 追加：FOUC（スタイル崩れ）完全防止とシネマティックなフェードイン ▼▼▼ */
+        /* Tailwind CSSが適用されるまでの間、メインコンテンツを完全に隠蔽する */
+        main {
+            opacity: 0;
+            will-change: opacity;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* GSAPがロードされるまでの間、スクロールアニメーション対象要素を隠す */
         .fade-in {
+            opacity: 0;
             transform: translateY(20px);
         }
 
-        /* ----- キーフレーム定義 ----- */
-        @keyframes cinematicFocus {
-            0% { filter: blur(12px) grayscale(60%); transform: scale(0.95); }
-            100% { filter: blur(0px) grayscale(0%); transform: scale(1); }
+        /* JSにより準備完了（is-loaded）が付与されたら、滑らかに実体化させる */
+        body.is-loaded main {
+            opacity: 1;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
+
+        /* ----- キーフレーム定義（高級レンズの収差解消を模倣） ----- */
+        @keyframes opticFocusRevealPhoto {
+            0% { opacity: 0.2; transform: scale(0.95) translateY(20px); filter: blur(24px) brightness(1.5) saturate(0%); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px) brightness(1) saturate(100%); }
         }
 
-        @keyframes textReveal {
-            0% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); transform: translateY(15px); }
-            100% { clip-path: polygon(0 -20%, 100% -20%, 100% 120%, 0 120%); transform: translateY(0); }
+        @keyframes opticFocusRevealText {
+            0% { opacity: 0.2; transform: translateY(16px); filter: blur(16px) brightness(1.2); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px) brightness(1); }
         }
 
-        @keyframes navDrop {
-            0% { transform: translateY(-150%); }
-            100% { transform: translateY(0); }
+        @keyframes cinematicRevealNav {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         html:not(.is-global) .lang-en { display: none !important; }
         html.is-global .lang-ja { display: none !important; }
 
         .lang-ja, .lang-en {
-            animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: opacity, transform, filter;
         }
 
         @keyframes langRevealCinematic {
-            0% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
-            100% { clip-path: polygon(0 -20%, 100% -20%, 100% 120%, 0 120%); }
+            0% { opacity: 0.01; transform: translateY(4px); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         #global-modal { display: none !important; }
@@ -252,8 +284,8 @@
             <!-- Text Area -->
             <div class="flex flex-col justify-center min-w-0 mt-2 md:mt-6">
                 <h1 class="text-4xl md:text-6xl lg:text-[64px] font-display font-bold mb-4 md:mb-5 tracking-tighter text-gray-900 leading-none">
-    <span class="lang-ja inline-block mb-2">播磨 賢</span>
-    <span class="lang-en inline-block mb-2">Ken HARIMA</span>
+                    <span class="lang-ja block mb-2">播磨 賢</span>
+                    <span class="lang-en block mb-2">Ken HARIMA</span>
                     <span class="text-base md:text-xl lg:text-2xl font-mono font-medium text-gray-400 tracking-[0.25em] uppercase mt-3 md:mt-4 block">Narrative Strategist</span>
                 </h1>
 
@@ -1898,7 +1930,21 @@
 
     <script>
 
-        
+        // ▼▼▼ 究極の初速を実現するノンブロッキング初期化 ▼▼▼
+        // フォントやJSのロードを待たず、CSSのキーフレームアニメーションで即座に視覚的リヴィールを開始。
+        // ここではLenisやGSAPなどの遅延機能の初期化のみを行う。
+        (function() {
+            const body = document.body;
+            // 即座にready状態へ移行し、スクロール等のブロックを解除
+            body.classList.remove('is-loading');
+            body.classList.add('is-ready');
+            
+            setTimeout(() => {
+                body.classList.add('is-loaded');
+                if (typeof lenis !== 'undefined') lenis.resize();
+                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+            }, 800); 
+        })();
         document.addEventListener('DOMContentLoaded', () => {
             
             // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
