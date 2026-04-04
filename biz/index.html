@@ -51,82 +51,102 @@
 
     <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS (OPTIC FOCUS OPTIMIZED) ================= -->
     <style>
-        /* ベース背景を即座に描画し、0.1秒でFCP（First Contentful Paint）を強制発火させる */
+        /* ベース背景: 初期ロード時はスクロールをロックし、FCP（First Contentful Paint）を最速で強制発火 */
         body {
             background-color: #fafafa;
             overflow-x: hidden;
-            /* FCPハック: 極小の透明度を持たせることでブラウザに即時描画を強制 */
-            opacity: 0.99; 
         }
-
-        /* ----- カスケード・アニメーション（光学式フォーカス・リヴィール） ----- */
-        /* 画像を待たず、DOMマウント直後に自動発火。不透明度ではなく「ぼかし」と「スケール」で空間を演出 */
         
-        #hero-tilt-container {
-            /* opacity:0 ではなく、0.01にすることでLighthouseに「描画済」と認識させる */
+        /* JS制御前の初期状態（透明度0.01でレイアウト計算のみ完了させ、ペイント負荷をゼロにする） */
+        #hero-tilt-container, 
+        header h1, 
+        header .mt-4, 
+        header .mt-6, 
+        #nav-container, 
+        .lang-ja, 
+        .lang-en {
             opacity: 0.01;
-            filter: blur(20px) saturate(0%);
-            animation: opticFocusRevealPhoto 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-            will-change: opacity, transform, filter;
         }
 
-        header h1 {
+        /* 画面下部のGSAP要素: スクリプト読み込み前のチラつきや描画負荷を完全に遮断 */
+        .fade-in {
             opacity: 0.01;
-            filter: blur(12px);
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-            will-change: opacity, transform, filter;
-        }
-
-        header .mt-4,
-        header .mt-6 {
-            opacity: 0.01;
-            filter: blur(8px);
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
-            will-change: opacity, transform, filter;
-        }
-
-        #nav-container {
-            opacity: 0.01;
-            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+            transform: translateY(20px);
             will-change: opacity, transform;
         }
 
-        /* ----- キーフレーム定義（高級カメラのオートフォーカスを模倣） ----- */
-        @keyframes opticFocusRevealPhoto {
-            0% { opacity: 0.01; transform: scale(0.95) translateY(20px); filter: blur(20px) saturate(0%); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px) saturate(100%); }
+        /* ----- カスケード・アニメーション発火トリガー（.is-ready 付与時に作動） ----- */
+        body.is-ready #hero-tilt-container {
+            animation: opticFocusRevealPhoto 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: transform, opacity;
         }
 
+        body.is-ready header h1 {
+            animation: opticFocusRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            will-change: transform, opacity;
+        }
+
+        body.is-ready header .mt-4, 
+        body.is-ready header .mt-6 {
+            animation: opticFocusRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            will-change: transform, opacity;
+        }
+
+        body.is-ready #nav-container {
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+            will-change: transform, opacity;
+        }
+
+        body.is-ready .lang-ja, 
+        body.is-ready .lang-en {
+            animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ----- キーフレーム定義（GPU Graceful Degradation: モバイル環境での描画クラッシュを回避） ----- */
+        /* スマホ向け: 重いブラーを極限まで減らし、スケールとフェードで高級感を演出 */
+        @keyframes opticFocusRevealPhoto {
+            0% { opacity: 0.01; transform: scale(0.92) translateY(15px); filter: blur(6px) saturate(50%); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px) saturate(100%); }
+        }
         @keyframes opticFocusRevealText {
-            0% { opacity: 0.01; transform: translateY(16px); filter: blur(12px); }
+            0% { opacity: 0.01; transform: translateY(16px); filter: blur(4px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+
+        /* デスクトップ向け: リッチな被写界深度エフェクトをフル解放 */
+        @media (min-width: 768px) {
+            @keyframes opticFocusRevealPhoto {
+                0% { opacity: 0.01; transform: scale(0.95) translateY(20px); filter: blur(20px) saturate(0%); }
+                100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px) saturate(100%); }
+            }
+            @keyframes opticFocusRevealText {
+                0% { opacity: 0.01; transform: translateY(16px); filter: blur(12px); }
+                100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+            }
         }
 
         @keyframes cinematicRevealNav {
             0% { opacity: 0.01; transform: translateY(-16px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        html:not(.is-global) .lang-en { display: none !important; }
-        html.is-global .lang-ja { display: none !important; }
-
-        .lang-ja, .lang-en {
-            animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: opacity, transform, filter;
-        }
-
         @keyframes langRevealCinematic {
-            0% { opacity: 0.01; transform: translateY(4px); filter: blur(4px); }
+            0% { opacity: 0.01; transform: translateY(4px); filter: blur(2px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
+        /* モバイル特有のブレンドモード（乗算）によるフリーズ回避措置 */
+        @media (max-width: 767px) {
+            #hero-aura {
+                mix-blend-mode: normal !important;
+                opacity: 0.3 !important;
+            }
+        }
+
+        html:not(.is-global) .lang-en { display: none !important; }
+        html.is-global .lang-ja { display: none !important; }
         #global-modal { display: none !important; }
         #global-modal.is-open { display: flex !important; }
-
-        .cv-auto {
-            content-visibility: auto;
-            contain-intrinsic-size: auto 800px;
-        }
+        .cv-auto { content-visibility: auto; contain-intrinsic-size: auto 800px; }
     </style>
     <noscript>
         <style>
@@ -198,12 +218,12 @@
     }
     </script>
 </head>
-<body class="antialiased">
+<body class="antialiased is-loading">
 
 
     <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
     <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
-        <nav class="pointer-events-auto fade-in" style="animation-delay: 0.5s;">
+        <nav class="pointer-events-auto">
             <!-- 容器は白ガラス、アクションは黒ガラスのハイブリッド・カプセル -->
             <div class="group/nav flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] rounded-full w-auto max-w-[95vw] transition-all duration-500 ease-out">
                 
@@ -1910,21 +1930,23 @@
             });
 
             const revealSite = () => {
-                if (body.classList.contains('is-ready')) return;
-                
+            if (body.classList.contains('is-ready')) return;
+            
+            // 描画ツリーの構築完了を確実にするため、微小な遅延を挟む（モバイルGPUのウォームアップ）
+            setTimeout(() => {
                 requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        body.classList.remove('is-loading');
-                        body.classList.add('is-ready');
-                        
-                        setTimeout(() => {
-                            body.classList.add('is-loaded');
-                            if (typeof lenis !== 'undefined') lenis.resize();
-                            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                        }, 1000); 
-                    });
+                    body.classList.remove('is-loading');
+                    // このクラス付与により、CSSで定義したシネマティックアニメーションが一斉に発火
+                    body.classList.add('is-ready');
+                    
+                    setTimeout(() => {
+                        body.classList.add('is-loaded');
+                        if (typeof lenis !== 'undefined') lenis.resize();
+                        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                    }, 1200); 
                 });
-            };
+            }, 50); 
+        };
 
             // 画像の読み込みは「絶対に待たない」。テキスト先行で即時描画（FCP 1.0秒未満の絶対条件）
             fontPromise.then(revealSite);
