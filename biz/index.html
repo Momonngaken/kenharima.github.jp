@@ -49,94 +49,42 @@
     <link rel="icon" type="image/jpeg" href="./profile_biz.jpg">
     <link rel="apple-touch-icon" href="./profile_biz.jpg">
 
-    <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS (STABLE HERO REVEAL) ================= -->
+    <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS (PURE CSS OPTIMIZED) ================= -->
     <style>
-        /* 初期状態：スクロールロックとベース背景 */
-        body.is-loading {
-            overflow: hidden !important;
-            pointer-events: none !important;
+        /* ベース背景を即座に描画し、FCP（First Contentful Paint）を最速化 */
+        body {
             background-color: #fafafa;
+            overflow-x: hidden;
         }
 
-        /* 画面全体を覆う静寂のヴェール */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background-color: #fafafa;
-            opacity: 1;
-            /* ヴェールは少しゆっくりと静かに透過させる */
-            transition: opacity 1.0s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none;
-            will-change: opacity;
-        }
-
-        /* 準備完了時：ヴェール消去 */
-        body.is-ready::before {
-            opacity: 0;
-        }
-
-        /* パフォーマンスの極限最適化（アニメーション完了後にDOMから消す） */
-        body.is-loaded::before {
-            display: none;
-        }
-
-        /* ----- カスケード・アニメーションの初期状態（is-loading時） ----- */
+        /* ----- カスケード・アニメーション（JS非依存・DOMマウント直後に自動発火） ----- */
         
-        /* 1. ヒーロー写真：blurを完全排除し、WebViewレンダリングを完璧に安定化。透明度と微小なスケール/Y軸移動のみでシネマティックに演出 */
-        body.is-loading #hero-tilt-container {
+        /* 1. ヒーロー写真：0.1秒の微小ディレイを挟み、ネットワークの初期ラグを吸収しつつ静かに現れる */
+        #hero-tilt-container {
             opacity: 0;
-            transform: scale(1.02) translateY(12px);
-            filter: none !important;
+            animation: cinematicRevealPhoto 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
             will-change: opacity, transform;
         }
 
-        /* 2. テキスト群：文字のぼかしは避け、シャープさを保つ */
-        body.is-loading header h1,
-        body.is-loading header .mt-4,
-        body.is-loading header .mt-6 {
+        /* 2. テキスト群：写真からわずかに間を置き（0.3s〜0.4s）、裏で非同期のWebフォント適用を完了させてからシャープに立ち上がる */
+        header h1 {
             opacity: 0;
-            transform: translateY(16px);
-            filter: none !important;
+            animation: cinematicRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
             will-change: opacity, transform;
         }
 
-        /* 3. ナビゲーション：上から待機 */
-        body.is-loading #nav-container {
+        header .mt-4,
+        header .mt-6 {
             opacity: 0;
-            transform: translateY(-12px);
-            filter: none !important;
+            animation: cinematicRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
             will-change: opacity, transform;
         }
 
-        /* ----- Modal FOUC Prevention (究極の2本線防止) ----- */
-        #global-modal { display: none !important; }
-        #global-modal.is-open { display: flex !important; }
-
-        /* ----- 準備完了（is-ready時）の連鎖発火（Stagger） ----- */
-        
-        /* ① ヒーロー写真先行：ヴェールが消え始めるのと同時に、柔らかく姿を現す */
-        body.is-ready #hero-tilt-container {
-            animation: cinematicRevealPhoto 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-       /* ② 文字群：写真からわずかに間を置き、裏でフォント適用を完了させてからシャープに立ち上がる */
-        body.is-ready header h1 {
-            animation: cinematicRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
-            opacity: 0; /* ディレイ中のチラつき防止 */
-        }
-
-        body.is-ready header .mt-4,
-        body.is-ready header .mt-6 {
-            animation: cinematicRevealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+        /* 3. ナビゲーション：最後に最も静かに降りてくる */
+        #nav-container {
             opacity: 0;
-        }
-
-        /* ③ ナビ：最後に最も静かに降りてくる */
-        body.is-ready #nav-container {
-            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
-            opacity: 0;
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+            will-change: opacity, transform;
         }
 
         /* ----- キーフレーム定義 ----- */
@@ -154,7 +102,9 @@
             0% { opacity: 0; transform: translateY(-12px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-         html:not(.is-global) .lang-en { display: none !important; }
+
+        /* 言語切り替えアニメーション */
+        html:not(.is-global) .lang-en { display: none !important; }
         html.is-global .lang-ja { display: none !important; }
 
         .lang-ja, .lang-en {
@@ -167,7 +117,11 @@
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* ▼▼▼ 追加：パフォーマンス究極最適化（画面外のレンダリングをスキップ） ▼▼▼ */
+        /* モーダル FOUC Prevention */
+        #global-modal { display: none !important; }
+        #global-modal.is-open { display: flex !important; }
+
+        /* パフォーマンス究極最適化（画面外のレンダリングを遅延） */
         .cv-auto {
             content-visibility: auto;
             contain-intrinsic-size: auto 800px;
@@ -243,7 +197,7 @@
     }
     </script>
 </head>
-<body class="antialiased is-loading">
+<body class="antialiased">
 
 
     <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
