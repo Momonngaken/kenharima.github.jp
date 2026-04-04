@@ -107,6 +107,25 @@
             animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
             will-change: opacity, transform;
         }
+         /* ▼▼▼ 追加：FOUC（スタイル崩れ）完全防止とシネマティックなフェードイン ▼▼▼ */
+        /* Tailwind CSSが適用されるまでの間、メインコンテンツを完全に隠蔽する */
+        main {
+            opacity: 0;
+            will-change: opacity;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* GSAPがロードされるまでの間、スクロールアニメーション対象要素を隠す */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* JSにより準備完了（is-loaded）が付与されたら、滑らかに実体化させる */
+        body.is-loaded main {
+            opacity: 1;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
 
         /* ----- キーフレーム定義（高級レンズの収差解消を模倣） ----- */
         @keyframes opticFocusRevealPhoto {
