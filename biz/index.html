@@ -149,6 +149,42 @@
         }
         /* ▲▲▲ 追加ここまで ▲▲▲ */
 
+         /* ↓↓↓ ココから追加 ↓↓↓ */
+        /* ▼▼▼ 極限最適化: ヒーロー領域のFOUC（黒枠・チラつき）完全防止 ▼▼▼ */
+        /* 1. プロフィール画像: Tailwindロード前のborderのcurrentColor(黒)化を物理的に阻止 */
+        #hero-photo {
+            background-color: transparent !important;
+            border: 4px solid rgba(255, 255, 255, 0.9) !important;
+        }
+        @media (min-width: 768px) {
+            #hero-photo { border-width: 6px !important; }
+        }
+        /* 画像デコード前のaltテキストやブラウザデフォルトの破損アイコンを透明化して隠蔽 */
+        #hero-photo img {
+            color: transparent !important;
+            background-color: transparent !important;
+            outline: none !important;
+        }
+
+        /* 2. 思考軸タグ (Data / Strategy等): 背景・枠線・文字色の初期状態を強制固定 */
+        header span.rounded-full {
+            background-color: rgba(255, 255, 255, 0.4) !important;
+            border: 1px solid rgba(229, 231, 235, 0.5) !important;
+            color: #6b7280 !important;
+        }
+
+        /* 3. 所属企業アイコン (ダイキン工業): デフォルトの黒枠化を防止 */
+        header div.rounded-full.bg-white {
+            background-color: #ffffff !important;
+            border: 1px solid rgba(229, 231, 235, 0.6) !important;
+        }
+        header div.rounded-full.bg-white i {
+            color: #9ca3af !important;
+        }
+        /* ▲▲▲ 極限最適化 ここまで ▲▲▲ */
+        /* ↑↑↑ ココまで追加 ↑↑↑ */
+
+
         /* ----- キーフレーム定義（高級レンズの収差解消を模倣） ----- */
         @keyframes opticFocusRevealPhoto {
             0% { opacity: 0.2; transform: scale(0.95) translateY(20px); filter: blur(24px) brightness(1.5) saturate(0%); }
