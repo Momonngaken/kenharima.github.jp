@@ -127,6 +127,23 @@
             contain-intrinsic-size: auto 800px;
         }
     </style>
+    <noscript>
+        <style>
+            /* JS無効時: ローディングロックとヴェールを完全解除し、全要素を即時表示 */
+            body.is-loading { overflow: auto !important; pointer-events: auto !important; opacity: 1 !important; }
+            body::before { display: none !important; }
+            body.is-loading #hero-tilt-container, 
+            body.is-loading header h1, 
+            body.is-loading header .mt-4, 
+            body.is-loading header .mt-6, 
+            body.is-loading #nav-container,
+            body > .max-w-4xl { 
+                opacity: 1 !important; 
+                filter: none !important; 
+                transform: none !important; 
+            }
+        </style>
+    </noscript>
     <!-- ビルド済み Tailwind CSS -->
     <link rel="preload" href="../output.css" as="style">
     <link rel="stylesheet" href="../output.css">
@@ -1874,6 +1891,66 @@
 
     <script>
 
+        // ▼▼▼ 極限まで洗練されたプログレッシブ・フェードイン (Progressive Cinematic Reveal) ▼▼▼
+        (function() {
+            const body = document.body;
+            
+            // 1. LCP画像（ヒーロー写真）のロード状態監視
+            const imgPromise = new Promise(resolve => {
+                const img = document.querySelector('#hero-photo img');
+                if (!img || img.complete) resolve();
+                else {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true }); // 失敗時も優雅に進行させる
+                }
+            });
+
+            // WebView判定 (LINE, Instagram, Facebook, X等)
+            const ua = navigator.userAgent || '';
+            const isInAppBrowser = /Instagram/i.test(ua) || /Line/i.test(ua) || /FBAN|FBAV/i.test(ua) || /Twitter/i.test(ua);
+
+            // 2. Webフォントのロード待機（タイムアウト付き）
+            // 文字揺れは防ぎたいが、スマホの不安定な回線で無限に待つのはUXの死を意味する。
+            // フォントのロードは最大500ms(SNS内ブラウザなら1000ms)だけ待ち、それ以上は演出を優先して見切り発車する。
+            const fontTimeoutMs = isInAppBrowser ? 1000 : 500;
+            const fontPromise = new Promise(resolve => {
+                if (document.fonts) {
+                    document.fonts.ready.then(resolve);
+                } else {
+                    resolve();
+                }
+                setTimeout(resolve, fontTimeoutMs); // タイムアウトによるセーフティ解放
+            });
+
+            let isRevealed = false;
+            const revealSite = () => {
+                if (isRevealed) return;
+                isRevealed = true;
+
+                // レンダリングパイプラインを安定させるダブルrAF
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        // ヴェールを剥がし、美しいシネマティックアニメーションを開始
+                        body.classList.remove('is-loading');
+                        body.classList.add('is-ready');
+                        
+                        // アニメーション完了後にDOMからヴェールを消去し軽量化
+                        setTimeout(() => {
+                            body.classList.add('is-loaded');
+                            if (typeof lenis !== 'undefined') lenis.resize();
+                            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                        }, 1500); 
+                    });
+                });
+            };
+
+            // 画像とフォント（またはそのタイムアウト）が完了したら開場
+            Promise.all([imgPromise, fontPromise]).then(revealSite);
+
+            // 究極のセーフティーネット：どんな劣悪なネットワーク環境でも最大1.5秒で必ず画面を見せる。
+            // これにより「5秒間真っ白」という致命的離脱を防ぐ。
+            setTimeout(revealSite, isInAppBrowser ? 1500 : 1200);
+        })();
         document.addEventListener('DOMContentLoaded', () => {
             
             // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
