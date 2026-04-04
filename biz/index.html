@@ -107,26 +107,28 @@
             animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
             will-change: opacity, transform;
         }
-        /* ▼▼▼ 追加：FOUT（黒い正方形・豆腐文字）とコンテナ崩れの完全隠蔽 ▼▼▼ */
-        /* 1. Tailwindロード前の四角化を防ぐ強制角丸保護 */
+        /* ▼▼▼ 修正版：FOUT（黒い正方形）とコンテナ崩れの完全隠蔽 ▼▼▼ */
+        /* 1. スマホ特有の黒いタップハイライトを完全に無効化 */
+        * { -webkit-tap-highlight-color: transparent !important; }
+
+        /* 2. Tailwindロード前の四角化を防ぐ強制角丸保護 */
         .rounded-full { border-radius: 9999px !important; }
         .overflow-hidden { overflow: hidden !important; }
 
-        /* 2. Font Awesome未ロード時の「黒い四角」を透明化して隠す */
-        html:not(.fonts-loaded) i[class^="fa-"], 
-        html:not(.fonts-loaded) i[class*=" fa-"] {
+        /* 3. FontAwesome未ロード時の「黒い四角」を物理的に消滅させる極限ハック */
+        html:not(.fonts-loaded) i[class*="fa-"] {
+            font-size: 0 !important; /* 領域自体を消滅させ、四角の描画を不可能にする */
             color: transparent !important;
             opacity: 0 !important;
-            transform: scale(0.8) translateY(2px) !important;
             visibility: hidden !important;
         }
 
-        /* 3. ロード完了後、Tailwindのホバー等を阻害せずシネマティックに実体化させる */
-        i[class^="fa-"], i[class*=" fa-"] {
+        /* 4. ロード完了後、光の中から実体化させるシネマティック・フェードイン */
+        i[class*="fa-"] {
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
             will-change: opacity, transform, color;
         }
-        /* ▲▲▲ 追加ここまで ▲▲▲ */
+        /* ▲▲▲ 修正版ここまで ▲▲▲ */
          /* ▼▼▼ 追加：FOUC（スタイル崩れ）完全防止とシネマティックなフェードイン ▼▼▼ */
         /* Tailwind CSSが適用されるまでの間、メインコンテンツを完全に隠蔽する */
         main {
@@ -288,12 +290,14 @@
                     </div>
                     
                     <!-- Contact Icon (黒ガラス・CTA) -->
-                    <a href="../contact.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:border-white/40 overflow-hidden mr-1">
+                    <!-- 変更点: style属性で背景色と文字色を強制ロックし、CSS非同期ロード時のチラつきを完全防止 -->
+                    <a href="../contact.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:border-white/40 overflow-hidden mr-1" style="background-color: rgba(24,24,27,0.85); color: #ffffff;">
                         <!-- 微かな反射エフェクト -->
                         <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                        <svg class="w-2.5 h-2.5 relative z-10 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 fill-current" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-    <path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/>
-</svg>
+                        <!-- 変更点: svgタグに直接 style="width:10px; height:10px; fill:#ffffff;" を指定し黒潰れを回避 -->
+                        <svg class="relative z-10 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style="width: 10px; height: 10px; fill: #ffffff;" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/>
+                        </svg>
                     </a>
                 </div>
             </div>
