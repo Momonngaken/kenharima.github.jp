@@ -880,10 +880,9 @@
                             
                             <!-- Left: Thumbnail (3D effect) -->
                             <div class="w-full md:w-5/12 shrink-0 relative z-10 flex justify-center perspective-[1000px]">
-                                <!-- 余計な bg-white と p-1 を削除し、画像ぴったりに枠を追従させる -->
-                                <div class="relative w-[85%] md:w-full max-w-[280px] rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-200/60 transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[2deg] group-hover:scale-105 group-hover:shadow-[0_20px_40px_rgba(20,184,166,0.15)]">
+                                <div class="relative w-[85%] md:w-full max-w-[280px] rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-200/60 transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[2deg] group-hover:scale-105 group-hover:shadow-[0_20px_40px_rgba(20,184,166,0.15)] bg-white p-1">
                                     <!-- 【画像変更箇所1】カードに表示するサムネイルの画像パス -->
-                                    <img src="./matsuo_certificate.png" alt="AI Business Insights 2026 Certificate" class="block w-full h-auto object-cover relative z-0">
+                                    <img src="./matsuo_certificate.png" alt="AI Business Insights 2026 Certificate" class="w-full h-auto object-cover rounded-md relative z-0">
                                     <!-- Glass Shine -->
                                     <div class="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-white/10 z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
@@ -2439,16 +2438,12 @@ gsap.ticker.lagSmoothing(0);
                     <div class="lang-ja"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3></div>
                     <div class="lang-en"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3></div>`;
 
-               /// 画像データが存在する場合のみ、画像サイズに完全にフィットする美しいフレーム付きで挿入するロジック
+               // 画像データが存在する場合のみ、美しいフレーム付きで挿入するロジック
                 let imageHTML = '';
                 if (data.img) {
                     imageHTML = `
-                    <div class="mb-8 flex justify-center w-full">
-                        <div class="relative overflow-hidden rounded-xl border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.08)] group">
-                            <img src="${data.img}" alt="Certificate" class="block w-full max-w-full h-auto transform-gpu transition-transform duration-700 group-hover:scale-[1.02]">
-                            <!-- Glass Shine (Premium Interactive Effect) -->
-                            <div class="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-white/10 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
+                    <div class="mb-8 rounded-xl overflow-hidden border border-gray-200/60 shadow-[0_4px_20px_rgba(0,0,0,0.03)] relative group bg-gray-50/50 flex justify-center items-center p-3 md:p-5">
+                        <img src="${data.img}" alt="Certificate" class="w-full max-w-full h-auto object-contain transform-gpu transition-transform duration-700 group-hover:scale-[1.01] rounded-lg shadow-sm border border-gray-200/50">
                     </div>`;
                 }
 
