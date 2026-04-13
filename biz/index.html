@@ -151,44 +151,19 @@
 
          /* ↓↓↓ ココから追加 ↓↓↓ */
         /* ▼▼▼ 極限最適化: ヒーロー領域のFOUC（黒枠・チラつき）完全防止 ▼▼▼ */
-        /* 1. プロフィール画像: 四角いトグルボタンのように崩れるのを完全防止 */
+        /* 1. プロフィール画像: Tailwindロード前のborderのcurrentColor(黒)化を物理的に阻止 */
         #hero-photo {
-            width: 144px !important;  /* スマホでのサイズを固定 */
-            height: 144px !important;
-            border-radius: 50% !important; /* 強制的に完全な丸にする */
-            overflow: hidden !important;
-            background: radial-gradient(circle at top right, #ffffff, #f5f5f7) !important;
+            background-color: transparent !important;
             border: 4px solid rgba(255, 255, 255, 0.9) !important;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
-            contain: strict; /* レイアウト崩れを防止 */
         }
         @media (min-width: 768px) {
-            #hero-photo { width: 208px !important; height: 208px !important; border-width: 6px !important; }
+            #hero-photo { border-width: 6px !important; }
         }
-        @media (min-width: 1024px) {
-            #hero-photo { width: 256px !important; height: 256px !important; }
-        }
-        
-        /* 画像本体: ロード完了まで光のヴェールで包み込み、シネマティックにピントを合わせる */
+        /* 画像デコード前のaltテキストやブラウザデフォルトの破損アイコンを透明化して隠蔽 */
         #hero-photo img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            object-position: center 50% !important;
             color: transparent !important;
+            background-color: transparent !important;
             outline: none !important;
-            opacity: 0; /* 最初は透明 */
-            transform: scale(1.05); /* わずかにズーム */
-            filter: blur(12px) brightness(1.2); /* 強い光とボカシ */
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), filter 1.6s ease-out;
-            will-change: opacity, transform, filter;
-        }
-        
-        /* ロード完了後に美しく実体化させる */
-        #hero-photo img.is-decoded {
-            opacity: 1 !important;
-            transform: scale(1) !important;
-            filter: blur(0px) brightness(0.95) contrast(1.05) !important;
         }
 
         /* 2. 思考軸タグ (Data / Strategy等): 背景・枠線・文字色の初期状態を強制固定 */
@@ -374,21 +349,12 @@
                 <!-- 復元・強化：オーラのような多層Glowエフェクト -->
                 <div id="hero-aura" class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,60,133,0.25)_0%,rgba(34,211,238,0.2)_50%,transparent_80%)] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform transform-gpu"></div>
                 
-                <!-- 写真本体とフレーム (シネマティック・フェードイン対応) -->
-                <div id="hero-photo" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d relative">
-                    
-                    <!-- 画像の読み込み完了と同時に 'is-decoded' を付与。キャッシュ時対応のスクリプトも同梱 -->
-                    <img src="./profile_biz.webp" id="hero-img-core" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] relative z-10" onload="this.classList.add('is-decoded');" onerror="this.classList.add('is-decoded');">
-                    
-                    <!-- フォールバック: キャッシュ済みでonloadが発火しない場合（2回目以降の訪問）の即時発火 -->
-                    <script>
-                        (function(){
-                            var img = document.getElementById('hero-img-core');
-                            if(img && img.complete) { img.classList.add('is-decoded'); }
-                        })();
-                    </script>
+                <!-- 写真本体とフレーム -->
+                <div id="hero-photo" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d">
+                    <img src="./profile_biz.webp" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95">
                 </div>
-                
+            </div>
+
             <!-- Text Area -->
             <div class="flex flex-col justify-center min-w-0 mt-2 md:mt-6">
                 <h1 class="text-4xl md:text-6xl lg:text-[64px] font-display font-bold mb-4 md:mb-5 tracking-tighter text-gray-900 leading-none">
