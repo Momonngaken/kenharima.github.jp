@@ -1068,51 +1068,82 @@
                             </h4>
                         </div>
                         
-                        <!-- Apple-style UI List (Settings Metaphor) -->
-                        <div class="space-y-2.5 w-full mt-auto">
-                            <!-- Japanese & English -->
-                            <div class="group/lang flex flex-col gap-1.5 bg-gray-50/60 hover:bg-white border border-gray-100/80 hover:border-gray-200 rounded-2xl p-4 transition-colors duration-300">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">日本語 / 英語</span><span class="lang-en">Japanese / English</span></span>
-                                    <span class="px-2.5 py-1 rounded-full bg-gray-900 text-white text-[9px] font-bold tracking-widest uppercase shadow-sm">Native / Business</span>
+                       <!-- Apple-style UI List (Settings Metaphor) -->
+                        <div class="space-y-3 w-full mt-auto">
+                            
+                            <!-- 1. Japanese & English -->
+                            <div class="group/lang flex flex-col gap-2.5 bg-gray-50/40 hover:bg-white/90 border border-gray-100/80 hover:border-gray-200/80 rounded-2xl p-4 md:p-5 transition-all duration-500 ease-out shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+                                <!-- ヘッダー：見出しとバッジ -->
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight leading-snug">
+                                        <span class="lang-ja">日本語 <span class="mx-0.5 text-gray-300 font-normal">/</span> 英語</span>
+                                        <span class="lang-en">Japanese <span class="mx-0.5 text-gray-300 font-normal">/</span> English</span>
+                                    </span>
+                                    <span class="inline-flex self-start sm:self-auto px-2.5 py-1 rounded-full bg-white text-gray-500 text-[9px] font-bold tracking-widest uppercase border border-gray-200/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                                        Native / Business
+                                    </span>
                                 </div>
-                                <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
-                                    <span class="lang-ja">ビジネスレベルの交渉・実務（TOEIC 950）</span>
-                                    <span class="lang-en">Business Fluency & Professional Negotiation (TOEIC 950)</span>
-                                </p>
+                                <!-- コンテンツ：説明とCEFR -->
+                                <div class="flex flex-col gap-2 mt-0.5">
+                                    <p class="text-[12px] md:text-[13px] text-gray-600 font-medium leading-relaxed tracking-wide">
+                                        <span class="lang-ja">交渉・実務・文章設計の基幹言語</span>
+                                        <span class="lang-en">Core languages for negotiation, execution, and narrative architecture</span>
+                                    </p>
+                                    <!-- メタデータ（CEFR） -->
+                                    <div class="flex items-center gap-1.5 text-[10px] md:text-[11px] font-mono text-gray-400 mt-0.5">
+                                        <div class="w-1 h-1 rounded-full bg-gray-300"></div>
+                                        <span>English — CEFR C1</span>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <!-- Chinese -->
-                            <div class="group/lang flex flex-col gap-1.5 bg-gray-50/60 hover:bg-white border border-gray-100/80 hover:border-gray-200 rounded-2xl p-4 transition-colors duration-300">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">中国語</span><span class="lang-en">Chinese</span></span>
-                                    <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-gray-500 text-[9px] font-bold tracking-widest uppercase shadow-sm">Conversational</span>
+                            <!-- 2. Chinese -->
+                            <div class="group/lang flex flex-col gap-2.5 bg-gray-50/40 hover:bg-white/90 border border-gray-100/80 hover:border-gray-200/80 rounded-2xl p-4 md:p-5 transition-all duration-500 ease-out shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight leading-snug">
+                                        <span class="lang-ja">中国語</span>
+                                        <span class="lang-en">Chinese</span>
+                                    </span>
+                                    <span class="inline-flex self-start sm:self-auto px-2.5 py-1 rounded-full bg-white text-gray-500 text-[9px] font-bold tracking-widest uppercase border border-gray-200/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                                        Conversational
+                                    </span>
                                 </div>
-                                <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
-                                    <span class="lang-ja">生活・日常会話レベル（HSK 3級）</span>
-                                    <span class="lang-en">Daily Conversation Level (HSK Level 3)</span>
-                                </p>
+                                <div class="flex flex-col gap-2 mt-0.5">
+                                    <p class="text-[12px] md:text-[13px] text-gray-600 font-medium leading-relaxed tracking-wide">
+                                        <span class="lang-ja">生活会話と関係構築を支える運用言語</span>
+                                        <span class="lang-en">Operational language supporting daily conversation and relationship building</span>
+                                    </p>
+                                    <div class="flex items-center gap-1.5 text-[10px] md:text-[11px] font-mono text-gray-400 mt-0.5">
+                                        <div class="w-1 h-1 rounded-full bg-gray-300"></div>
+                                        <span>Chinese — CEFR B1</span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- French / German / Spanish -->
-<div class="group/lang flex flex-col gap-1.5 bg-amber-50/30 hover:bg-amber-50/50 border border-amber-100/50 hover:border-amber-200/50 rounded-2xl p-4 transition-colors duration-300">
-    <div class="flex flex-col items-start gap-2 sm:flex-row sm:justify-between sm:items-center">
-        <span class="w-full min-w-0 text-[13px] sm:text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight leading-snug flex items-center gap-1.5 pr-1">
-            <span class="lang-ja">フランス語 / <wbr>ドイツ語 / <wbr>スペイン語</span>
-            <span class="lang-en">French / <wbr>German / <wbr>Spanish</span>
-            <span class="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-        </span>
-        <span class="inline-flex self-start sm:self-auto shrink-0 px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-600 text-[8px] sm:text-[9px] font-bold tracking-widest uppercase shadow-sm">
-            In Parallel
-        </span>
-    </div>
-    <p class="text-[12px] text-gray-500 font-medium leading-relaxed">
-        <span class="lang-ja">思想的基盤と、欧州・中南米市場への同時接続</span>
-        <span class="lang-en">Connecting intellectual foundations with European and Latin American markets.</span>
-    </p>
-</div>
+                            <!-- 3. French / German / Spanish -->
+                            <div class="group/lang flex flex-col gap-2.5 bg-amber-50/10 hover:bg-amber-50/40 border border-amber-100/30 hover:border-amber-200/50 rounded-2xl p-4 md:p-5 transition-all duration-500 ease-out shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_8px_24px_rgba(245,158,11,0.04)]">
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center gap-2 sm:gap-0">
+                                    <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight leading-snug break-words pr-2">
+                                        <span class="lang-ja">フランス語 <span class="mx-0.5 text-gray-300 font-normal">/</span><wbr> ドイツ語 <span class="mx-0.5 text-gray-300 font-normal">/</span><wbr> スペイン語</span>
+                                        <span class="lang-en">French <span class="mx-0.5 text-gray-300 font-normal">/</span><wbr> German <span class="mx-0.5 text-gray-300 font-normal">/</span><wbr> Spanish</span>
+                                    </span>
+                                    <span class="inline-flex self-start sm:self-auto shrink-0 px-2.5 py-1 rounded-full bg-white border border-amber-200/60 text-amber-600/80 text-[9px] font-bold tracking-widest uppercase shadow-sm">
+                                        Multi-Track
+                                    </span>
+                                </div>
+                                <div class="flex flex-col gap-2 mt-0.5">
+                                    <p class="text-[12px] md:text-[13px] text-gray-600 font-medium leading-relaxed tracking-wide">
+                                        <span class="lang-ja">文化・思想・市場理解を拡張するための並行学習</span>
+                                        <span class="lang-en">Parallel learning to expand understanding of culture, thought, and markets</span>
+                                    </p>
+                                    <div class="flex items-center gap-1.5 text-[10px] md:text-[11px] font-mono text-gray-400/80 mt-0.5">
+                                        <div class="w-1 h-1 rounded-full bg-amber-200"></div>
+                                        <span>Current study range — around CEFR A2</span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
 
                     <!-- 05: Philosophy & Ethics (Holographic Light Mode) -->
                     <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-12 shadow-[0_12px_40px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(168,85,247,0.12)] hover:-translate-y-1.5 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-14 md:col-span-2 isolation-auto">
