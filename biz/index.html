@@ -1073,61 +1073,74 @@
                             </div>
                         </div>
 
-                        <div class="mt-auto space-y-2.5">
-                            <div class="rounded-[1.4rem] bg-white/80 border border-white/90 shadow-[0_8px_24px_rgba(0,0,0,0.035)] overflow-hidden">
-                                <div class="grid grid-cols-[1fr_auto] items-center gap-4 px-5 py-4 border-b border-gray-100/80">
-                                    <div>
-                                        <p class="text-[10px] font-mono font-bold text-amber-500 tracking-[0.22em] uppercase mb-1">Core</p>
-                                        <h4 class="text-[15px] md:text-[16px] font-bold text-gray-900 tracking-tight">
-                                            <span class="lang-ja">日本語・英語</span>
-                                            <span class="lang-en">Japanese / English</span>
-                                        </h4>
-                                    </div>
-                                    <div class="flex flex-col items-end gap-1 text-right">
-                                        <span class="text-[11px] md:text-xs font-bold text-gray-900 tracking-tight">Native</span>
-                                        <span class="text-[10px] font-mono font-bold text-gray-400 tracking-[0.16em] uppercase">TOEIC 950</span>
-                                    </div>
-                                </div>
+                        <div class="mt-auto space-y-3.5">
+    <!-- Apple-style Specification List (Ultra Minimal Glassmorphism) -->
+    <div class="relative rounded-[1.5rem] bg-white/50 backdrop-blur-xl border border-white/90 shadow-[0_4px_16px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,1)] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_24px_rgba(245,158,11,0.08)]">
+        
+        <!-- Native: Japanese -->
+        <div class="relative flex items-center justify-between px-5 py-4 border-b border-gray-100/50 group/item hover:bg-white/60 transition-colors duration-300">
+            <div class="flex items-center gap-3.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-gray-900 shadow-[0_0_8px_rgba(0,0,0,0.2)]"></div>
+                <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight">
+                    <span class="lang-ja">日本語</span><span class="lang-en">Japanese</span>
+                </span>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-gray-400 tracking-[0.18em] uppercase">Native</span>
+        </div>
 
-                                <div class="grid grid-cols-2 divide-x divide-gray-100/80">
-                                    <div class="px-5 py-4">
-                                        <div class="text-[9px] font-mono font-bold text-gray-400 tracking-[0.18em] uppercase mb-1">Native</div>
-                                        <div class="text-[14px] md:text-[15px] font-bold text-gray-900">
-                                            <span class="lang-ja">日本語</span><span class="lang-en">Japanese</span>
-                                        </div>
-                                    </div>
-                                    <div class="px-5 py-4">
-                                        <div class="text-[9px] font-mono font-bold text-gray-400 tracking-[0.18em] uppercase mb-1">TOEIC L&amp;R</div>
-                                        <div class="text-[14px] md:text-[15px] font-bold text-gray-900">
-                                            <span class="lang-ja">英語 950</span><span class="lang-en">English 950</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Professional: English (With Micro-Badges) -->
+        <div class="relative flex items-center justify-between px-5 py-4 border-b border-gray-100/50 group/item hover:bg-white/60 transition-colors duration-300">
+            <div class="flex items-center gap-3.5">
+                <div class="relative flex w-1.5 h-1.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-60"></span>
+                    <span class="relative inline-flex rounded-full w-1.5 h-1.5 bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.4)]"></span>
+                </div>
+                <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight">
+                    <span class="lang-ja">英語</span><span class="lang-en">English</span>
+                </span>
+            </div>
+            <!-- モバイル時は縦並び、PC時は横並びで崩れを防止 -->
+            <div class="flex flex-col sm:flex-row items-end sm:items-center gap-1.5 sm:gap-2">
+                <span class="px-2 py-[3px] rounded-md text-[9px] font-mono font-bold bg-amber-50 text-amber-600 border border-amber-200/60 tracking-[0.12em] leading-none shadow-sm">CEFR C1</span>
+                <span class="px-2 py-[3px] rounded-md text-[9px] font-mono font-bold bg-white text-gray-500 border border-gray-200 tracking-[0.12em] leading-none shadow-sm">TOEIC 950</span>
+            </div>
+        </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <div class="rounded-[1.4rem] bg-gray-50/70 border border-white/80 px-5 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                                    <p class="text-[10px] font-mono font-bold text-gray-400 tracking-[0.2em] uppercase mb-3">Conversational</p>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1.5 rounded-full bg-white border border-gray-100 text-[12px] font-bold text-gray-800 shadow-sm"><span class="lang-ja">中国語</span><span class="lang-en">Chinese</span></span>
-                                        <span class="px-3 py-1.5 rounded-full bg-white border border-gray-100 text-[12px] font-bold text-gray-800 shadow-sm"><span class="lang-ja">スペイン語</span><span class="lang-en">Spanish</span></span>
-                                    </div>
-                                </div>
+        <!-- Conversational: Chinese & Spanish -->
+        <div class="relative flex items-center justify-between px-5 py-4 border-b border-gray-100/50 group/item hover:bg-white/60 transition-colors duration-300">
+            <div class="flex items-center gap-3.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                <span class="text-[14px] md:text-[15px] font-bold text-gray-700 tracking-tight">
+                    <span class="lang-ja">中国語 <span class="text-gray-300 font-normal mx-1">/</span> スペイン語</span>
+                    <span class="lang-en">Chinese <span class="text-gray-300 font-normal mx-1">/</span> Spanish</span>
+                </span>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-gray-400 tracking-[0.15em] uppercase">Conversational</span>
+        </div>
 
-                                <div class="rounded-[1.4rem] bg-amber-50/30 border border-amber-100/40 px-5 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                                    <p class="text-[10px] font-mono font-bold text-amber-500/70 tracking-[0.2em] uppercase mb-3">Foundation</p>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1.5 rounded-full bg-white/80 border border-amber-100/60 text-[12px] font-bold text-gray-800 shadow-sm"><span class="lang-ja">フランス語</span><span class="lang-en">French</span></span>
-                                        <span class="px-3 py-1.5 rounded-full bg-white/80 border border-amber-100/60 text-[12px] font-bold text-gray-800 shadow-sm"><span class="lang-ja">ドイツ語</span><span class="lang-en">German</span></span>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Foundation: French & German -->
+        <div class="relative flex items-center justify-between px-5 py-4 group/item hover:bg-white/60 transition-colors duration-300">
+            <div class="flex items-center gap-3.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-amber-200/70"></div>
+                <span class="text-[14px] md:text-[15px] font-bold text-gray-500 tracking-tight">
+                    <span class="lang-ja">フランス語 <span class="text-gray-300 font-normal mx-1">/</span> ドイツ語</span>
+                    <span class="lang-en">French <span class="text-gray-300 font-normal mx-1">/</span> German</span>
+                </span>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-amber-500/60 tracking-[0.15em] uppercase">Foundation</span>
+        </div>
 
-                            <div class="pt-4 flex items-center justify-between border-t border-gray-100/70 text-[9px] font-mono font-bold text-gray-400 tracking-[0.18em] uppercase select-none">
-                                <span>JP / EN / ZH / ES / FR / DE</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]"></span>
-                            </div>
-                        </div>
+    </div>
+
+    <!-- ミニマルな注釈（UIの空間を美しく締めるアンカー） -->
+    <div class="flex justify-between items-center px-2">
+        <div class="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity duration-300 select-none">
+            <i class="fa-solid fa-language text-[10px] text-gray-400"></i>
+            <span class="text-[9px] font-mono font-bold text-gray-400 tracking-[0.15em] uppercase">Multilingual Capability</span>
+        </div>
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]"></span>
+    </div>
+</div>
                     </div>
                         
                         
