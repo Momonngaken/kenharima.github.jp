@@ -25,7 +25,7 @@
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile_biz.webp" fetchpriority="high">
 
-    <!-- 4G環境最適化: クリティカルなフォント＆アイコンCSSの最速並列フェッチ（Render Blocking完全回避） -->
+    <!-- 4G環境最適化: クリティカルなフォント＆アイコンCSSの先行フェッチ -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
 
@@ -239,17 +239,15 @@
             }
         </style>
     </noscript>
-    <!-- ビルド済み Tailwind CSS (レンダリングブロック完全回避) -->
+    <!-- ビルド済み Tailwind CSS (初回描画前に必ず適用) -->
     <link rel="preload" href="../output.css" as="style">
-    <!-- media="print" ハックで非同期ロード。ロード完了時に通常スタイルとして適用 -->
-    <link rel="stylesheet" href="../output.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../output.css">
     <noscript><link rel="stylesheet" href="../output.css"></noscript>
 
     <!-- 完全な静寂と圧倒的な初速の両立: 
-         レンダリングブロックを回避するため media="print" ハックで非同期ロードを並列実行。
-         後述のJSディレイ・フェードインと組み合わせることで、文字揺れを裏側で隠蔽しつつ瞬時に開場します。 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+         初回訪問時のFOUC/FOUTを避けるため、フォントとアイコンCSSも初回描画前に適用します。 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
