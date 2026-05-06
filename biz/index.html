@@ -1238,14 +1238,22 @@
                                         <span class="lang-en">An essay exploring the dignity and love embedded in overlooked labor, inspired by the sight of a cleaner at dawn in Shinjuku.</span>
                                     </p>
                                     
-                                    <!-- Minimal Read More -->
-                                    <div class="mt-auto pt-4 flex items-center justify-between">
-                                        <span class="text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase">4 Min Read</span>
-                                        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors group-hover:bg-white group-hover:text-black">
-                                            <i class="fa-solid fa-plus text-sm"></i>
+                                    <!-- Minimal Read More (Fluid Fill Effect) -->
+                                    <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
+                                        <!-- リードタイムに極小の時計アイコンを添えて情報の解像度を上げる -->
+                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
+                                            <i class="fa-regular fa-clock text-[10px]"></i>
+                                            <span>4 Min Read</span>
+                                        </div>
+                                        
+                                        <!-- 究極のモーダル・トリガーボタン -->
+                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
+                                            <!-- 流体のように下から充填される純白の背景 -->
+                                            <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                                            <!-- 右上へ向かう矢印（ホバー時に黒く反転し、僅かに右上に浮き上がる） -->
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
                                         </div>
                                     </div>
-                                </div>
                             </div>
 
                             <!-- Project 2: Embargo (Soft Gray Bento - 1 Column) -->
