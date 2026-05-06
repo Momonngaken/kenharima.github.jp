@@ -945,35 +945,91 @@
                     <span class="lang-en">Key Competencies</span>
                 </h2>
                 
-                <!-- Apple-Style Bento Grid (Pixel Perfect Alignment - 2x2 Grid) -->
+                <!-- Apple-Style Bento Grid (Pixel Perfect Alignment) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
 
-                    <!-- 01: Narrative Architecture -->
-                    <div class="group relative bg-white/80 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.12)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
-                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(254,205,211,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                    <!-- 01(Hero): Narrative Architecture (物語設計の全面展開) -->
+                    <div class="group relative bg-white/80 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-12 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.12)] hover:-translate-y-1.5 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-14 md:col-span-2 isolation-auto">
                         
-                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white border border-rose-100 flex items-center justify-center mb-5 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_4px_12px_rgba(244,63,94,0.12)] group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),0_8px_25px_rgba(244,63,94,0.3)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-br from-rose-50 to-transparent"></div>
-                            <i class="fa-solid fa-layer-group text-xl md:text-2xl text-rose-500 relative z-10" style="filter: drop-shadow(0 0 8px rgba(244,63,94,0.4));"></i>
+                        <!-- Premium Organic Glows -->
+                        <div class="absolute -top-32 -right-32 w-96 h-96 bg-[radial-gradient(circle_at_center,rgba(254,205,211,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:-translate-x-10 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-[radial-gradient(circle_at_center,rgba(255,228,230,0.4)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-10 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        
+                        <!-- Text Area Left: Title & Icon -->
+                        <div class="md:w-5/12 flex flex-col justify-center relative z-10">
+                            <!-- Premium App-like Icon -->
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-[1.5rem] bg-white border border-rose-100 flex items-center justify-center mb-6 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_8px_20px_rgba(244,63,94,0.15)] group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),0_12px_30px_rgba(244,63,94,0.3)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-rose-50 to-transparent"></div>
+                                <i class="fa-solid fa-layer-group text-2xl md:text-3xl text-rose-500 relative z-10" style="filter: drop-shadow(0 0 10px rgba(244,63,94,0.4));"></i>
+                            </div>
+                            
+                            <!-- Title -->
+                            <h4 class="text-[10px] md:text-[11px] font-mono font-bold text-rose-500 uppercase tracking-[0.2em] mb-2">
+                                <span class="lang-ja">認識の設計と意味の再構築</span>
+                                <span class="lang-en">Designing Perception</span>
+                            </h4>
+                            <h3 class="text-3xl md:text-[42px] lg:text-[46px] font-bold text-gray-900 tracking-tighter leading-[1.05]" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+                                Narrative<br>Architecture
+                            </h3>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div class="hidden md:block w-px h-32 bg-gradient-to-b from-transparent via-rose-200/60 to-transparent shrink-0"></div>
+                        
+                        <!-- Text Area Right: Body -->
+                        <div class="md:w-7/12 text-[14.5px] md:text-[15.5px] text-gray-600 leading-[1.9] font-medium relative z-10 space-y-4 md:space-y-5">
+                            <p class="lang-ja group-hover:text-gray-900 transition-colors duration-700 text-justify md:text-left">
+                                デザインとは、装飾ではなく<strong class="font-bold text-rose-600">「認識の設計」</strong>である。高度に抽象的な概念や無機質なデータを、他者が直感的に咀嚼可能な「意味の構造」へと再構築する。
+                            </p>
+                            <p class="lang-ja group-hover:text-gray-900 transition-colors duration-700 text-justify md:text-left">
+                                社会学的洞察と美学を基盤に文脈を解析し、受け手の認知コストを最小化しつつ、深い共感と行動変容を不可逆的に促すアーキテクチャ（物語）を実装する。
+                            </p>
+                            
+                            <p class="lang-en group-hover:text-gray-900 transition-colors duration-700 text-left">
+                                Design is not decoration; it is the <strong class="font-bold text-rose-600">architecture of cognition</strong>. I reconstruct highly abstract concepts and raw data into semantic structures that others can intuitively digest.
+                            </p>
+                            <p class="lang-en group-hover:text-gray-900 transition-colors duration-700 text-left">
+                                Grounded in sociological insight and aesthetics, I analyze contexts to minimize cognitive load while implementing narratives that irreversibly drive deep empathy and behavioral change.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 02: Quantitative Intelligence -->
+                    <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(79,70,229,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
+                        <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(199,210,254,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_4px_12px_rgba(79,70,229,0.12)] group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),0_8px_25px_rgba(79,70,229,0.3)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent"></div>
+                            <i class="fa-solid fa-chart-line text-xl md:text-2xl text-indigo-600 relative z-10" style="filter: drop-shadow(0 0 8px rgba(79,70,229,0.4));"></i>
                         </div>
                         
                         <div class="mb-5">
                             <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
-                                Narrative Architecture
+                                Quantitative Intelligence
                             </h3>
-                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-rose-500 uppercase tracking-[0.2em]">
-                                <span class="lang-ja">認識の設計と意味の再構築</span>
-                                <span class="lang-en">Designing Perception</span>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-indigo-500 uppercase tracking-widest">
+                                <span class="lang-ja">データ駆動の戦略設計</span>
+                                <span class="lang-en">Data-Driven Strategy</span>
                             </h4>
                         </div>
                         
-                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mt-auto">
-                            <p class="lang-ja">デザインとは、装飾ではなく<strong class="font-bold text-rose-600">「認識の設計」</strong>である。高度に抽象的な概念や無機質なデータを、他者が直感的に咀嚼可能な「意味の構造」へと再構築する。社会学的洞察と美学を基盤に文脈を解析し、深い共感と行動変容を促すアーキテクチャ（物語）を実装する。</p>
-                            <p class="lang-en">Design is not decoration; it is the <strong class="font-bold text-rose-600">architecture of cognition</strong>. Grounded in sociological insight and aesthetics, I reconstruct highly abstract concepts and raw data into semantic structures that others can intuitively digest, driving deep empathy and behavioral change.</p>
+                        <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mb-8">
+                            <p class="lang-ja">データは解釈されて初めて戦略となる。多変量解析をはじめとする統計的手法を駆使し、複雑な市場動向や消費者心理を数値化。相関を超えた因果を峻別し、エビデンスに基づく再現性の高い戦略へと昇華させる。</p>
+                            <p class="lang-en">Data becomes strategy only through the rigors of interpretation. Employing advanced statistical methodologies, I quantify complex market dynamics to crystallize data into evidence-based strategies with high reproducibility.</p>
+                        </div>
+                        
+                        <div class="mt-auto pt-5 flex items-start gap-2 border-t border-gray-200/60 group-hover:border-indigo-100 transition-colors duration-500">
+                            <i class="fa-solid fa-asterisk text-[8px] text-indigo-400 mt-1.5 opacity-70"></i>
+                            <p class="lang-ja text-[11px] leading-relaxed text-gray-500 font-medium">
+                                実務におけるデータ解釈の精度を高めるべく<span class="inline-block mx-0.5 font-mono font-bold text-indigo-500">統計検定2級</span>レベルの知識を体系化中。
+                            </p>
+                            <p class="lang-en text-[11px] leading-relaxed text-gray-500 font-medium">
+                                Systematizing knowledge equivalent to <span class="inline-block mx-0.5 font-mono font-bold text-indigo-500">Statistics Gr.2</span> to enhance precision.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- 02: Decision Science -->
+                    <!-- 03: Decision Science -->
                     <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(165,243,252,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
                         
@@ -1013,7 +1069,7 @@
                         </div>
                     </div>
 
-                    <!-- 03: Linguistic OS -->
+                    <!-- 04: Linguistic OS -->
                     <div class="group relative bg-white/75 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(253,230,138,0.42)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
                         
@@ -1078,7 +1134,7 @@
                         </div>
                     </div>
 
-                    <!-- 04: Philosophy & Ethics -->
+                    <!-- 05: Philosophy & Ethics (1列サイズに最適化) -->
                     <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(168,85,247,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(233,213,255,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
                         
