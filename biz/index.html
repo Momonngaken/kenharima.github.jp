@@ -221,6 +221,80 @@
             content-visibility: auto;
             contain-intrinsic-size: auto 800px;
         }
+        /* ================= CINEMATIC INTRO SCREEN ================= */
+        /* イントロ再生中は既存のシネマティックアニメーションを一時停止させる極限ハック */
+        body.is-intro-playing {
+            overflow: hidden !important;
+        }
+        body.is-intro-playing #hero-tilt-container,
+        body.is-intro-playing header h1,
+        body.is-intro-playing header .mt-4,
+        body.is-intro-playing header .mt-6,
+        body.is-intro-playing #nav-container {
+            animation-play-state: paused !important;
+        }
+
+        #intro-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .intro-text {
+            position: absolute;
+            opacity: 0;
+            filter: blur(12px);
+            transform: scale(0.98);
+            transition: opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 2.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 4.0s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #1d1d1f;
+            text-align: center;
+            user-select: none;
+        }
+
+        .intro-text.is-revealed {
+            opacity: 1;
+            filter: blur(0px);
+            transform: scale(1);
+        }
+
+        .intro-text.is-fading-out {
+            opacity: 0;
+            filter: blur(8px);
+            transform: scale(1.02);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 日本語はOS標準の最高級明朝体へフォールバック */
+        .intro-font-ja {
+            font-family: "Yu Mincho", "Hiragino Mincho ProN", "Shippori Mincho", "Noto Serif JP", serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+        }
+
+        /* 英語は導入済みのLora（セリフ体）のイタリックで格言的な美しさを演出 */
+        .intro-font-en {
+            font-family: 'Lora', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+        }
+
+        @media (min-width: 768px) {
+            .intro-font-ja { font-size: 1.5rem; letter-spacing: 0.4em; }
+            .intro-font-en { font-size: 1.8rem; letter-spacing: 0.08em; }
+        }
+    </style>
     </style>
     <noscript>
         <style>
@@ -306,6 +380,13 @@
 </head>
 <body class="antialiased">
 
+    <!-- ================= CINEMATIC INTRO SCREEN ================= -->
+    <div id="intro-screen">
+        <p id="intro-text-ja" class="intro-text intro-font-ja">借り物の言葉では、誰も撃てない。</p>
+        <p id="intro-text-en" class="intro-text intro-font-en">Borrowed words fire blanks.</p>
+    </div>
+
+    <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
 
     <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
     <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
@@ -1637,20 +1718,64 @@
 
     <script>
 
-        // ▼▼▼ 究極の初速を実現するノンブロッキング初期化 ▼▼▼
-        // フォントやJSのロードを待たず、CSSのキーフレームアニメーションで即座に視覚的リヴィールを開始。
-        // ここではLenisやGSAPなどの遅延機能の初期化のみを行う。
+        // ▼▼▼ シネマティック・イントロ & ノンブロッキング初期化 ▼▼▼
         (function() {
             const body = document.body;
-            // 即座にready状態へ移行し、スクロール等のブロックを解除
-            body.classList.remove('is-loading');
-            body.classList.add('is-ready');
+            const introScreen = document.getElementById('intro-screen');
+            const hasSeenIntro = sessionStorage.getItem('biz_portfolio_intro');
             
-            setTimeout(() => {
-                body.classList.add('is-loaded');
-                if (typeof lenis !== 'undefined') lenis.resize();
-                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-            }, 800); 
+            // ページ上部のスクリプトで判定済みのクラスを利用して言語を特定
+            const isGlobal = document.documentElement.classList.contains('is-global');
+            const introTextId = isGlobal ? 'intro-text-en' : 'intro-text-ja';
+            const introTextElement = document.getElementById(introTextId);
+
+            // メインコンテンツのアニメーションを解放する関数
+            const startMainExperience = () => {
+                body.classList.remove('is-loading', 'is-intro-playing');
+                body.classList.add('is-ready');
+                
+                setTimeout(() => {
+                    body.classList.add('is-loaded');
+                    if (typeof lenis !== 'undefined') lenis.resize();
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                }, 800);
+            };
+
+            if (!hasSeenIntro) {
+                // 【初回訪問時】シネマティックイントロを実行
+                body.classList.add('is-intro-playing'); // 既存アニメーションを一時停止
+                
+                // 0.4秒の静寂の後、言葉にピントを合わせながら浮かび上がらせる
+                setTimeout(() => {
+                    if(introTextElement) introTextElement.classList.add('is-revealed');
+                }, 400);
+
+                // 2.8秒後、言葉がふっと白の中に溶けていく
+                setTimeout(() => {
+                    if(introTextElement) {
+                        introTextElement.classList.remove('is-revealed');
+                        introTextElement.classList.add('is-fading-out');
+                    }
+                }, 2800);
+
+                // 3.8秒後、白い幕を引き、背後で待機していたヒーローセクションを劇的に発動させる
+                setTimeout(() => {
+                    introScreen.style.opacity = '0';
+                    startMainExperience();
+                }, 3800);
+
+                // 5.0秒後、幕をDOMから完全に隠す
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                }, 5000);
+
+                // セッションに記録を残し、次回以降はスキップさせる
+                sessionStorage.setItem('biz_portfolio_intro', 'true');
+            } else {
+                // 【2回目以降の訪問時】イントロをスキップし即座にメインへ
+                if(introScreen) introScreen.style.display = 'none';
+                startMainExperience();
+            }
         })();
         document.addEventListener('DOMContentLoaded', () => {
             
