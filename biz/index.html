@@ -1519,19 +1519,39 @@
                 </div>
             </section>
 
-            <!-- ================= SIGNATURE COPY ================= -->
+            <!-- ================= SIGNATURE COPY (ULTRA MINIMAL & SHARP) ================= -->
             <div class="fade-in pb-20 md:pb-32 pt-12 md:pt-16 flex justify-center items-center px-4 w-full relative z-10">
-                <h2 class="text-[36px] sm:text-5xl md:text-7xl lg:text-[84px] font-display font-extrabold leading-[1.1] md:leading-[1.05] tracking-tighter text-center select-none cursor-default group/copy">
-                    <!-- 
-                        極限まで削ぎ落としたタイポグラフィ。
-                        ホバー時にのみ、文字そのものを金属のように反射する光（Shimmer Effect）が横切る。
-                    -->
-                    <span class="lang-ja block text-transparent bg-clip-text bg-[linear-gradient(110deg,#1d1d1f_35%,#c7c7cc_50%,#1d1d1f_65%)] bg-[length:250%_100%] bg-[position:-100%_0] group-hover/copy:bg-[position:200%_0] transition-all duration-[1500ms] ease-in-out">
+                
+                <!-- Tailwindのビルドに依存しない、確実で高品質なシマーエフェクト用CSS -->
+                <style>
+                    .blade-shimmer-text {
+                        color: transparent;
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        /* ベースは深いグレー(#1d1d1f)、中央に鋭いシルバー(#ffffff)の光沢 */
+                        background-image: linear-gradient(110deg, #1d1d1f 42%, #ffffff 50%, #1d1d1f 58%);
+                        background-size: 250% 100%;
+                        background-position: -100% 0;
+                        transition: background-position 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+                    .blade-shimmer-text:hover {
+                        /* ホバー時に光沢が左から右へサッと通り抜ける */
+                        background-position: 200% 0;
+                    }
+                </style>
+
+                <h2 class="text-[36px] sm:text-5xl md:text-7xl lg:text-[84px] font-display font-extrabold leading-[1.1] md:leading-[1.05] tracking-tighter text-center select-none cursor-default">
+                    
+                    <!-- Japanese -->
+                    <span class="lang-ja block blade-shimmer-text">
                         借り物の言葉では、<br class="block md:hidden">誰も撃てない。
                     </span>
-                    <span class="lang-en block text-transparent bg-clip-text bg-[linear-gradient(110deg,#1d1d1f_35%,#c7c7cc_50%,#1d1d1f_65%)] bg-[length:250%_100%] bg-[position:-100%_0] group-hover/copy:bg-[position:200%_0] transition-all duration-[1500ms] ease-in-out">
+                    
+                    <!-- English -->
+                    <span class="lang-en block blade-shimmer-text">
                         Borrowed words<br class="block md:hidden"> fire blanks.
                     </span>
+
                 </h2>
             </div>
         </main>
