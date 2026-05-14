@@ -1519,40 +1519,12 @@
                 </div>
             </section>
 
-            <!-- ================= SIGNATURE COPY (ULTRA MINIMAL & SHARP) ================= -->
-            <div class="fade-in pb-20 md:pb-32 pt-12 md:pt-16 flex justify-center items-center px-4 w-full relative z-10">
-                
-                <!-- Tailwindのビルドに依存しない、確実で高品質なシマーエフェクト用CSS -->
-                <style>
-                    .blade-shimmer-text {
-                        color: transparent;
-                        background-clip: text;
-                        -webkit-background-clip: text;
-                        /* ベースは深いグレー(#1d1d1f)、中央に鋭いシルバー(#ffffff)の光沢 */
-                        background-image: linear-gradient(110deg, #1d1d1f 42%, #ffffff 50%, #1d1d1f 58%);
-                        background-size: 250% 100%;
-                        background-position: -100% 0;
-                        transition: background-position 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-                    }
-                    .blade-shimmer-text:hover {
-                        /* ホバー時に光沢が左から右へサッと通り抜ける */
-                        background-position: 200% 0;
-                    }
-                </style>
-
-                <h2 class="text-[36px] sm:text-5xl md:text-7xl lg:text-[84px] font-display font-extrabold leading-[1.1] md:leading-[1.05] tracking-tighter text-center select-none cursor-default">
-                    
-                    <!-- Japanese -->
-                    <span class="lang-ja block blade-shimmer-text">
-                        借り物の言葉では、<br class="block md:hidden">誰も撃てない。
-                    </span>
-                    
-                    <!-- English -->
-                    <span class="lang-en block blade-shimmer-text">
-                        Borrowed words<br class="block md:hidden"> fire blanks.
-                    </span>
-
-                </h2>
+            <!-- ================= SIGNATURE COPY ================= -->
+            <div class="fade-in pb-24 md:pb-32 pt-8 flex justify-center items-center px-4 w-full relative z-10">
+                <p class="text-[12px] md:text-[14px] text-gray-400 text-center select-none cursor-default" style="font-family: 'Lora', 'YuMincho', 'Hiragino Mincho ProN', 'MS PMincho', serif;">
+                    <span class="lang-ja block" style="letter-spacing: 0.15em;">借り物の言葉では、誰も撃てない。</span>
+                    <span class="lang-en block italic" style="letter-spacing: 0.05em;">Borrowed words fire blanks.</span>
+                </p>
             </div>
         </main>
 
