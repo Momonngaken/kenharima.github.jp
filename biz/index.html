@@ -1147,86 +1147,62 @@
                         </h4>
                         
                         <!-- Bento Grid -->
-                        <!-- Bento Grid (文学賞専用のシネマティック・ダークグリッド) -->
-                        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                             
-                            <!-- Project 1: 有吉佐和子文学賞 (メイン配置 - lg:col-span-3) -->
-                            <div data-modal-id="ariyoshi" class="js-modal-trigger lg:col-span-3 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#050505] border border-white/5 p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] hover:scale-[1.01] hover:shadow-[0_30px_60px_rgba(217,119,6,0.15)] hover:border-amber-500/20 cursor-pointer flex flex-col justify-between h-full isolate transform-gpu">
-                                <!-- Ambient Glow (琥珀色・筑前煮の温かさと深夜の光を表現) -->
-                                <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(217,119,6,0.12),transparent_40%)] -z-10 pointer-events-none transition-opacity duration-[1500ms] opacity-60 group-hover:opacity-100"></div>
-                                <div class="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-[#000000] to-transparent -z-10"></div>
+                            <!-- Project 1: Essay (Dark Mode Bento - 2 Columns) -->
+                            <div data-modal-id="essay" class="js-modal-trigger lg:col-span-2 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#000000] p-8 md:p-10 lg:p-12 group transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] cursor-pointer flex flex-col justify-between h-full">
                                 
                                 <div class="flex flex-col relative z-10 h-full">
                                     <!-- Pill Badge -->
                                     <div class="mb-6 flex justify-start">
-                                        <div class="relative inline-flex items-center px-3 py-1 bg-white/5 border border-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md group-hover:border-amber-500/30 transition-colors duration-500">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-2 shadow-[0_0_8px_rgba(245,158,11,0.8)] animate-pulse"></span>
-                                            <span class="lang-ja">第3回 有吉佐和子文学賞 佳作</span>
-                                            <span class="lang-en">3rd Sawako Ariyoshi Award: Honorable Mention</span>
-                                        </div>
+                                        <span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md">
+                                            <span class="lang-ja">特選：勤労青少年躍進会理事長賞</span>
+                                            <span class="lang-en">Chairman's Award</span>
+                                        </span>
                                     </div>
                                     
-                                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#f5f5f7] to-[#a1a1a6] tracking-tight leading-tight mb-4 group-hover:to-amber-100/50 transition-all duration-500" style="font-family: 'Lora', 'YuMincho', 'Hiragino Mincho ProN', serif;">
-                                        <span class="lang-ja">短編小説『十月二十五日の筑前煮』</span>
-                                        <span class="lang-en">Short Story: "Chikuzenni on October 25th"</span>
+                                    <!-- Typography Focus -->
+                                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-tight mb-4">
+                                        <span class="lang-ja">第36回「働くってなんだろう」<br class="hidden md:block">エッセイコンテスト</span>
+                                        <span class="lang-en">36th Essay Contest:<br class="hidden md:block">“The Essence of Work”</span>
                                     </h3>
                                     
-                                    <p class="text-[14px] md:text-[15px] lg:text-[16px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl group-hover:text-[#d2d2d7] transition-colors duration-500">
-                                        <span class="lang-ja">就職活動につまずいた主人公が、実家から届いたタッパーを温める深夜の３０分。ものと身体のあいだで音もなく起こる、微かな認識の組み換えを描いた短編小説。</span>
-                                        <span class="lang-en">A short story capturing a quiet late-night moment where the mundane act of reheating a homemade meal triggers a profound, soundless shift in a young protagonist's perception.</span>
+                                    <p class="text-[15px] md:text-[17px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl">
+                                        <span class="lang-ja">夜明け前の新宿で目にした、散乱するゴミとそれを黙々と片づける人の姿。その記憶を起点に、見過ごされがちな労働のなかにある尊厳と愛を描いたエッセイ。</span>
+                                        <span class="lang-en">An essay exploring the dignity and love embedded in overlooked labor, inspired by the sight of a cleaner at dawn in Shinjuku.</span>
                                     </p>
                                     
+                                   <!-- Minimal Read More (Fluid Fill Effect) -->
                                     <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
-                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-amber-400">
-                                            <i class="fa-solid fa-book-open text-[10px]"></i>
-                                            <span>Read Synopsis</span>
+                                        <!-- リードタイムに極小の時計アイコンを添えて情報の解像度を上げる -->
+                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
+                                            <i class="fa-regular fa-clock text-[10px]"></i>
+                                            <span>4 Min Read</span>
                                         </div>
                                         
-                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-amber-400/50 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] group-hover:scale-110 transform-gpu">
-                                            <div class="absolute inset-0 bg-gradient-to-tr from-amber-600 to-amber-400 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
-                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+                                        <!-- 究極のモーダル・トリガーボタン -->
+                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
+                                            <!-- 流体のように下から充填される純白の背景 -->
+                                            <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                                            <!-- 右上へ向かう矢印（ホバー時に黒く反転し、僅かに右上に浮き上がる） -->
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Project 2: エッセイコンテスト (サブ配置 - lg:col-span-2) -->
-                            <div data-modal-id="essay" class="js-modal-trigger lg:col-span-2 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#0a0a0c] border border-white/5 p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] hover:scale-[1.01] hover:shadow-[0_30px_60px_rgba(255,255,255,0.08)] hover:border-white/20 cursor-pointer flex flex-col justify-between h-full isolate transform-gpu">
-                                <!-- Ambient Glow (白銀色・夜明け前の冷たい空気感を表現) -->
-                                <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(255,255,255,0.06),transparent_40%)] -z-10 pointer-events-none transition-opacity duration-[1500ms] opacity-60 group-hover:opacity-100"></div>
-                                
-                                <div class="flex flex-col relative z-10 h-full">
-                                    <div class="mb-6 flex justify-start">
-                                        <div class="relative inline-flex items-center px-3 py-1 bg-white/5 border border-white/10 text-[#f5f5f7] rounded-full text-[10px] md:text-[11px] font-semibold tracking-wider backdrop-blur-md group-hover:border-white/30 transition-colors duration-500">
-                                            <span class="lang-ja">特選：勤労青少年躍進会理事長賞</span>
-                                            <span class="lang-en">Chairman's Award</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-[#f5f5f7] tracking-tight leading-tight mb-4 group-hover:text-white transition-colors duration-500">
-                                        <span class="lang-ja">第36回「働くってなんだろう」<br>エッセイコンテスト</span>
-                                        <span class="lang-en">36th Essay Contest:<br>“The Essence of Work”</span>
+                            <!-- Project 2: Embargo (Soft Gray Bento - 1 Column) -->
+                            <div class="lg:col-span-1 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#f5f5f7] p-8 md:p-10 lg:p-12 flex flex-col items-center justify-center text-center select-none">
+                                <div class="flex flex-col items-center opacity-40">
+                                    <i class="fa-solid fa-lock text-3xl text-[#1d1d1f] mb-4"></i>
+                                    <span class="text-[11px] font-bold text-[#1d1d1f] tracking-widest uppercase mb-2">Embargoed</span>
+                                    <h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight filter blur-[3px]">
+                                        Coming soon...
                                     </h3>
-                                    
-                                    <p class="text-[13px] md:text-[14px] text-[#86868b] leading-relaxed font-medium mb-8 group-hover:text-[#a1a1a6] transition-colors duration-500">
-                                        <span class="lang-ja">夜明け前の新宿で目にした、散乱するゴミとそれを黙々と片づける人の姿。見過ごされがちな労働のなかにある尊厳と愛を描いたエッセイ。</span>
-                                        <span class="lang-en">An essay exploring the dignity and love embedded in overlooked labor, inspired by the sight of a cleaner at dawn in Shinjuku.</span>
-                                    </p>
-                                    
-                                    <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
-                                        <div class="flex items-center gap-1.5 text-[#86868b] text-[10px] md:text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-white">
-                                            <i class="fa-regular fa-clock text-[10px]"></i>
-                                            <span>4 Min Read</span>
-                                        </div>
-                                        
-                                        <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/50 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu">
-                                            <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
-                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[12px] md:text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <!-- 02. Strategy & Execution -->
                     <div class="group/section">
@@ -1795,25 +1771,6 @@ gsap.ticker.lagSmoothing(0);
                     title_en: "Noguchi Seminar × Riso Kagaku\nMarketing Strategy Competition",
                     body_ja: `2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社様の「MiScreen A4」マーケティング戦略コンペティションに取り組みました。 このプロジェクトにおいて私たちは、感覚的なアイデア出しに依存せず、確固たる「根拠」に基づく戦略立案を徹底しました。\n\nまず、チーム全体で、理想科学工業株式会社様が行っているSNSでの広報活動状況に関する膨大なデータを収集・整理。動画のクリエイティブ要素を詳細に分解。その中でも既存のSNS投稿におけるPV数やリアクションの違いに着目し、<strong>多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出</strong>しました。これにより、<strong>感覚に頼らない客観的根拠のある勝ちパターンを導出し、チームの共通認識として確立</strong>しました。\n\nそのデータを基に、「MiScreen A4」の強みである「ものづくり体験価値」と最も合致する市場として、国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。`,
                     body_en: `In 2024, as part of the Tomoo Noguchi Seminar at the Waseda University School of Social Sciences, I participated in a marketing strategy competition for Riso Kagaku Corporation’s "MiScreen A4." Our project was defined by a rigorous commitment to evidence-based strategy, rejecting reliance on purely intuitive brainstorming.\n\nOur team began by collecting and organizing a vast amount of data regarding the client's existing social media presence. We deconstructed the creative elements of their video content and focused on the variance in page views (PV) and engagement metrics across existing posts. Utilizing Quantification Theory Type I (a method of multivariate analysis), we calculated the specific impact of each creative element. This allowed us to derive an objective "winning pattern" backed by data, establishing a unified strategic vision for the team.\n\nBased on this analysis, we identified art museums (both domestic and international) as the market that best aligned with the product's unique value proposition of "creative manufacturing experiences." We developed a targeted strategy for this niche, ultimately winning the Grand Prix.`
-                },
-               "ariyoshi": {
-                    sub_ja: "#物語設計 &nbsp;#現象学 &nbsp;#時間論 &nbsp;#贈与論",
-                    sub_en: "#NarrativeDesign &nbsp;#Phenomenology &nbsp;#TheoryOfTime &nbsp;#GiftTheory",
-                    title_ja: "第3回 有吉佐和子文学賞 佳作\n『十月二十五日の筑前煮』",
-                    title_en: "3rd Sawako Ariyoshi Literary Award\nHonorable Mention",
-                    body_ja: `第3回有吉佐和子文学賞にて、「佳作」を受賞しました。\n\n本作『十月二十五日の筑前煮』は、就職活動につまずいた大学四年生が、実家から届いた筑前煮を温めなおす――そんな、深夜のたった三十分間を切り取った短編小説です。\n\n書きたかったのは、大きな出来事ではなく、<strong>ものの姿そのものが裏返る、その一瞬の傾き</strong>でした。「貧乏くさい」と疎んでいたタッパーの傷や曇りが、容器の隅に貼られた一枚のマスキングテープと、そこに書かれた日付「10.25」を境にして、まったく別のものとして立ち上がってくる。東京のワンルームに似つかわしくない「生活感」だったはずのものが、何百キロも離れた台所で母の手が積み重ねてきた、戻ることのない時間の地層として。タッパーそのものは、何ひとつ変わっていない。変わったのは、受け取る主人公のほうでした。\n\n同時に書きたかったのは、<strong>救われるということが、ときに、ひとりで抱えてきたものを知らぬ間に他人の手に預けてしまうことでもあるという、ささやかな逆説</strong>です。だから主人公は、すぐには「ありがとう」と打てない。感謝してしまえば、ひとりで耐えた夜が、誰かの優しさの物語の挿話に格下げされてしまうから。\n\nものと身体のあいだで、音もなく起こる微かな組み換え――それだけを、できるかぎり静かに置いた一作です。\n\n（※入賞作品集は6月7日公開予定）\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
-                        <a href="https://www.city.wakayama.wakayama.jp/kurashi/bunka_sports/1001119/1064886/1067559.html" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
-                            <i class="fa-solid fa-trophy text-amber-400"></i> 受賞結果（和歌山市公式）
-                        </a>
-                        <a href="https://kenharima.com" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-100 text-gray-700 rounded-xl font-bold tracking-wide hover:bg-gray-200 transition-all hover:-translate-y-0.5">
-                            <i class="fa-solid fa-home"></i> ポートフォリオTop
-                        </a>
-                    </div>`,
-                    body_en: `I was deeply honored to receive an Honorable Mention at the 3rd Sawako Ariyoshi Literary Award.\n\nMy work, <i>"Chikuzenni on October 25th,"</i> is a short story capturing a mere thirty minutes late at night. It follows a university senior, struggling with the harsh realities of job hunting, as he reheats a batch of homemade chikuzenni sent from his mother.\n\nWhat I wanted to write was not a dramatic event, but <strong>the precise moment of inclination when the very appearance of an object turns inside out</strong>. The scratches and cloudiness of the Tupperware, which the protagonist had shunned as "shabby," suddenly emerge as something entirely different, bounded by a single strip of masking tape on the corner bearing the date "10.25." What was supposed to be an unwelcome "sense of domesticity" in a Tokyo studio apartment transforms into an irreversible stratum of time, accumulated by a mother's hands in a kitchen hundreds of kilometers away. The Tupperware itself hasn't changed at all. What changed was the protagonist receiving it.\n\nAt the same time, I wanted to capture a quiet paradox: <strong>to be saved sometimes means unknowingly handing over the burdens one has carried alone into the hands of another</strong>. That is why the protagonist cannot immediately text "thank you." To express gratitude would be to downgrade the nights endured alone into a mere anecdote within someone else's story of kindness.\n\nA faint, soundless reconfiguration between object and body—this is a piece that places only that, as quietly as possible.\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
-                        <a href="https://www.city.wakayama.wakayama.jp/kurashi/bunka_sports/1001119/1064886/1067559.html" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-lg hover:-translate-y-0.5">
-                            <i class="fa-solid fa-trophy text-amber-400"></i> Official Results
-                        </a>
-                    </div>`
                 },
                 "essay": {
                     sub_ja: "物語設計 / 愛を起点とした現象学的・倫理学的労働論 / 哲学エッセイ ",
