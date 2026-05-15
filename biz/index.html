@@ -1147,13 +1147,58 @@
                         </h4>
                         
                         <!-- Bento Grid -->
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+                        <!-- Bento Grid (Apple "Pro" Style Symmetry) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                             
-                            <!-- Project 1: Essay (Dark Mode Bento - 2 Columns) -->
-                            <div data-modal-id="essay" class="js-modal-trigger lg:col-span-2 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#000000] p-8 md:p-10 lg:p-12 group transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] cursor-pointer flex flex-col justify-between h-full">
+                            <!-- Project 1: 有吉佐和子文学賞 -->
+                            <div data-modal-id="ariyoshi" class="js-modal-trigger relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#000000] p-8 md:p-10 lg:p-12 group transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] cursor-pointer flex flex-col justify-between h-full isolate">
+                                
+                                <!-- 微細なアンバーの光（ホバー時のみ静かに発光） -->
+                                <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(217,119,6,0.08),transparent_40%)] -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-[1500ms]"></div>
                                 
                                 <div class="flex flex-col relative z-10 h-full">
-                                    <!-- Pill Badge -->
+                                    <!-- Pill Badge (左上に佳作) -->
+                                    <div class="mb-6 flex justify-start">
+                                        <span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md">
+                                            <span class="lang-ja">佳作</span>
+                                            <span class="lang-en">Honorable Mention</span>
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Typography Focus (タイトル) -->
+                                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-tight mb-4">
+                                        <span class="lang-ja">第3回<br class="hidden md:block">有吉佐和子文学賞</span>
+                                        <span class="lang-en">3rd Sawako Ariyoshi<br class="hidden md:block">Literary Award</span>
+                                    </h3>
+                                    
+                                    <p class="text-[15px] md:text-[17px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl">
+                                        <span class="lang-ja">実家から届いた筑前煮を温め直す深夜の三十分。ものと身体のあいだで音もなく起こる、微かな認識の組み換えを描いた短編小説『十月二十五日の筑前煮』。応募総数1,314作品の中から「佳作」を受賞。</span>
+                                        <span class="lang-en">Thirty late-night minutes spent reheating chikuzenni sent from my family home. Chikuzenni on October 25 is a short story that depicts a quiet, subtle reconfiguration of perception taking place between objects and the body. It received an Honorable Mention, selected from among 1,314 submissions.</span>
+                                    </p>
+                                    
+                                    <!-- Minimal Read More -->
+                                    <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
+                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
+                                            <i class="fa-regular fa-clock text-[10px]"></i>
+                                            <span>Read Synopsis</span>
+                                        </div>
+                                        
+                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
+                                            <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project 2: エッセイコンテスト -->
+                            <div data-modal-id="essay" class="js-modal-trigger relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#000000] p-8 md:p-10 lg:p-12 group transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] cursor-pointer flex flex-col justify-between h-full isolate">
+                                
+                                <!-- 微細なブルーの光（ホバー時のみ静かに発光） -->
+                                <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(255,255,255,0.06),transparent_40%)] -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-[1500ms]"></div>
+
+                                <div class="flex flex-col relative z-10 h-full">
+                                    <!-- Pill Badge (左上に特選) -->
                                     <div class="mb-6 flex justify-start">
                                         <span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md">
                                             <span class="lang-ja">特選：勤労青少年躍進会理事長賞</span>
@@ -1161,7 +1206,7 @@
                                         </span>
                                     </div>
                                     
-                                    <!-- Typography Focus -->
+                                    <!-- Typography Focus (タイトル) -->
                                     <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-tight mb-4">
                                         <span class="lang-ja">第36回「働くってなんだろう」<br class="hidden md:block">エッセイコンテスト</span>
                                         <span class="lang-en">36th Essay Contest:<br class="hidden md:block">“The Essence of Work”</span>
@@ -1172,38 +1217,23 @@
                                         <span class="lang-en">An essay exploring the dignity and love embedded in overlooked labor, inspired by the sight of a cleaner at dawn in Shinjuku.</span>
                                     </p>
                                     
-                                   <!-- Minimal Read More (Fluid Fill Effect) -->
+                                    <!-- Minimal Read More -->
                                     <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
-                                        <!-- リードタイムに極小の時計アイコンを添えて情報の解像度を上げる -->
                                         <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
                                             <i class="fa-regular fa-clock text-[10px]"></i>
                                             <span>4 Min Read</span>
                                         </div>
                                         
-                                        <!-- 究極のモーダル・トリガーボタン -->
                                         <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
-                                            <!-- 流体のように下から充填される純白の背景 -->
                                             <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
-                                            <!-- 右上へ向かう矢印（ホバー時に黒く反転し、僅かに右上に浮き上がる） -->
                                             <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Project 2: Embargo (Soft Gray Bento - 1 Column) -->
-                            <div class="lg:col-span-1 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#f5f5f7] p-8 md:p-10 lg:p-12 flex flex-col items-center justify-center text-center select-none">
-                                <div class="flex flex-col items-center opacity-40">
-                                    <i class="fa-solid fa-lock text-3xl text-[#1d1d1f] mb-4"></i>
-                                    <span class="text-[11px] font-bold text-[#1d1d1f] tracking-widest uppercase mb-2">Embargoed</span>
-                                    <h3 class="text-xl font-bold text-[#1d1d1f] tracking-tight filter blur-[3px]">
-                                        Coming soon...
-                                    </h3>
-                                </div>
-                            </div>
+                            
                         </div>
-                    </div>
-
+                        
                     <!-- 02. Strategy & Execution -->
                     <div class="group/section">
                         <h4 id="strategy" class="text-xs md:text-sm font-semibold text-[#86868b] tracking-wide mb-6 md:mb-8 scroll-mt-[100px] rounded-xl transition-shadow duration-500 w-fit px-1">
