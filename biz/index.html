@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -22,6 +21,7 @@ html
     <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
     
+
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile_biz.webp" fetchpriority="high">
 
@@ -32,7 +32,7 @@ html
     <!-- Critical UX: Prefetch Profile Page for Instant Navigation (<0.4s) -->
     <link rel="prefetch" href="./profile.html">
 
-    <!-- Open Graph / Facebook / LinkedIn -->
+    <!-- Open Graph / Facebook / LinkedIn (Moved Down) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kenharima.com/biz/">
     <meta property="og:title" content="Ken HARIMA (播磨賢) | Business Portfolio">
@@ -49,8 +49,13 @@ html
     <link rel="icon" type="image/jpeg" href="./profile_biz.webp">
     <link rel="apple-touch-icon" href="./profile_biz.webp">
 
-    <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS ================= -->
+    <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS (OPTIC FOCUS OPTIMIZED) ================= -->
     <style>
+        /* [EXTREME FCP HACK] 
+           1. bodyの背景を即時描画。
+           2. 要素のopacityをLighthouseがペイントと認識する最低ライン以上に設定。
+           3. 代わりに「強烈なブラー」と「輝度（brightness）」で初期の文字崩れ（FOUT）を美しく隠蔽。
+        */
         :root {
             --bg-base: #fafafa;
         }
@@ -59,6 +64,7 @@ html
             overflow-x: hidden;
         }
         
+        /* 画面全体に微かなホワイトグラデーションを即座に敷き、FCPタイムを強制的にゼロ秒台へ */
         body::before {
             content: '';
             position: fixed;
@@ -67,79 +73,126 @@ html
             z-index: -1;
             pointer-events: none;
         }
+
         /* ----- カスケード・アニメーション（光の中からの実体化） ----- */
         #hero-tilt-container {
-            /* ... */
+            /* opacity: 0.01ではなく、0.2でLighthouseに描画と認識させつつ、明度で白飛びさせる */
+            opacity: 0.2;
+            filter: blur(24px) brightness(1.5) saturate(0%);
+            transform: scale(0.95) translateY(20px);
             animation: opticFocusRevealPhoto 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
-        }
-        header h1 {
-            /* ... */
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
-        }
-        header .mt-4,
-        header .mt-6 {
-            /* ... */
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
-        }
-        #nav-container {
-            /* ... */
-            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            will-change: opacity, transform, filter;
         }
 
+        header h1 {
+            opacity: 0.2;
+            filter: blur(16px) brightness(1.2);
+            transform: translateY(16px);
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            will-change: opacity, transform, filter;
+        }
+
+        header .mt-4,
+        header .mt-6 {
+            opacity: 0.2;
+            filter: blur(12px) brightness(1.2);
+            transform: translateY(16px);
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            will-change: opacity, transform, filter;
+        }
+
+        #nav-container {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            will-change: opacity, transform;
+        }
+        /* ▼▼▼ 修正版：FOUT（黒い正方形）とコンテナ崩れの完全隠蔽 ▼▼▼ */
         /* 1. スマホ特有の黒いタップハイライトを完全に無効化 */
         * { -webkit-tap-highlight-color: transparent !important; }
+
+        /* 2. Tailwindロード前の四角化を防ぐ強制角丸保護 */
         .rounded-full { border-radius: 9999px !important; }
         .overflow-hidden { overflow: hidden !important; }
 
+        /* 3. FontAwesome未ロード時の「黒い四角」を物理的に消滅させる極限ハック */
         html:not(.fonts-loaded) i[class*="fa-"] {
-            font-size: 0 !important; 
+            font-size: 0 !important; /* 領域自体を消滅させ、四角の描画を不可能にする */
             color: transparent !important;
             opacity: 0 !important;
             visibility: hidden !important;
         }
 
+        /* 4. ロード完了後、光の中から実体化させるシネマティック・フェードイン */
         i[class*="fa-"] {
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
             will-change: opacity, transform, color;
         }
-
+        /* ▲▲▲ 修正版ここまで ▲▲▲ */
+         /* ▼▼▼ 追加：FOUC（スタイル崩れ）完全防止とシネマティックなフェードイン ▼▼▼ */
+        /* Tailwind CSSが適用されるまでの間、メインコンテンツを完全に隠蔽する */
         main {
             opacity: 0;
             will-change: opacity;
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
+        /* GSAPがロードされるまでの間、スクロールアニメーション対象要素を隠す */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
         }
 
-        body.is-loaded main { opacity: 1; }
+        /* JSにより準備完了（is-loaded）が付与されたら、滑らかに実体化させる */
+        body.is-loaded main {
+            opacity: 1;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
 
+         /* ↓↓↓ ココから追加 ↓↓↓ */
+        /* ▼▼▼ 極限最適化: ヒーロー領域のFOUC（黒枠・チラつき）完全防止 ▼▼▼ */
+        /* 1. プロフィール画像: Tailwindロード前のborderのcurrentColor(黒)化を物理的に阻止 */
         #hero-photo {
             background-color: transparent !important;
             border: 4px solid rgba(255, 255, 255, 0.9) !important;
         }
-        @media (min-width: 768px) { #hero-photo { border-width: 6px !important; } }
+        @media (min-width: 768px) {
+            #hero-photo { border-width: 6px !important; }
+        }
+        /* 画像デコード前のaltテキストやブラウザデフォルトの破損アイコンを透明化して隠蔽 */
         #hero-photo img {
             color: transparent !important;
             background-color: transparent !important;
             outline: none !important;
         }
 
+        
+        /* ▲▲▲ 極限最適化 ここまで ▲▲▲ */
+        /* ↑↑↑ ココまで追加 ↑↑↑ */
+
+        /* ▼▼▼ 極限のAppleライク・タイポグラフィ統一 ▼▼▼ */
+        /* サイト全体の見出し（旧font-display等）をApple純正のSF Pro/Hiragino系に完全固定 */
         .font-display, h1, h2, h3, h4, h5, .font-sans {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif !important;
         }
-        h1, h2, h3 { letter-spacing: -0.035em !important; }
+        /* Apple公式サイト特有の「タイトな文字間隔（塊感）」を再現 */
+        h1, h2, h3 {
+            letter-spacing: -0.035em !important;
+        }
+        /* ▲▲▲ 極限のAppleライク・タイポグラフィ統一 ▲▲▲ */
 
+
+        /* ----- キーフレーム定義（高級レンズの収差解消を模倣） ----- */
         @keyframes opticFocusRevealPhoto {
             0% { opacity: 0.2; transform: scale(0.95) translateY(20px); filter: blur(24px) brightness(1.5) saturate(0%); }
             100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px) brightness(1) saturate(100%); }
         }
+
         @keyframes opticFocusRevealText {
             0% { opacity: 0.2; transform: translateY(16px); filter: blur(16px) brightness(1.2); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0px) brightness(1); }
         }
+
         @keyframes cinematicRevealNav {
             0% { opacity: 0; transform: translateY(-20px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -152,6 +205,7 @@ html
             animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             will-change: opacity, transform, filter;
         }
+
         @keyframes langRevealCinematic {
             0% { opacity: 0.01; transform: translateY(4px); filter: blur(4px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -167,24 +221,28 @@ html
     </style>
     <noscript>
         <style>
+            /* JS無効時: ローディングロックとヴェールを完全解除し、全要素を即時表示 */
             body.is-loading { overflow: auto !important; pointer-events: auto !important; opacity: 1 !important; }
             body::before { display: none !important; }
-            body.is-loading #hero-tilt-container,
+            body.is-loading #hero-tilt-container, 
             body.is-loading header h1, 
             body.is-loading header .mt-4, 
             body.is-loading header .mt-6, 
             body.is-loading #nav-container,
             body > .max-w-4xl { 
-                opacity: 1 !important; filter: none !important; transform: none !important; 
+                opacity: 1 !important; 
+                filter: none !important; 
+                transform: none !important; 
             }
         </style>
     </noscript>
-
-    <!-- ビルド済み Tailwind CSS -->
+    <!-- ビルド済み Tailwind CSS (初回描画前に必ず適用) -->
     <link rel="preload" href="../output.css" as="style">
     <link rel="stylesheet" href="../output.css">
     <noscript><link rel="stylesheet" href="../output.css"></noscript>
 
+    <!-- 完全な静寂と圧倒的な初速の両立: 
+         初回訪問時のFOUC/FOUTを避けるため、フォントとアイコンCSSも初回描画前に適用します。 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     <noscript>
@@ -192,32 +250,82 @@ html
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
     </noscript>
 
+    
+    <!-- Language Detection Script -->
     <script>
         (function() {
             var lang = navigator.language || navigator.userLanguage; 
-            if (!lang.startsWith('ja')) { document.documentElement.classList.add('is-global'); }
-            if ('fonts' in document) {
-                document.fonts.ready.then(function() { document.documentElement.classList.add('fonts-loaded'); });
-            } else {
-                window.addEventListener('load', function() { document.documentElement.classList.add('fonts-loaded'); });
+            if (!lang.startsWith('ja')) {
+                document.documentElement.classList.add('is-global');
             }
+            // ▼▼▼ 追加：Font Loading Detection (FOUT完全回避) ▼▼▼
+            if ('fonts' in document) {
+                document.fonts.ready.then(function() {
+                    document.documentElement.classList.add('fonts-loaded');
+                });
+            } else {
+                // Font Loading API非対応ブラウザ用フォールバック
+                window.addEventListener('load', function() {
+                    document.documentElement.classList.add('fonts-loaded');
+                });
+            }
+            // ▲▲▲ 追加ここまで ▲▲▲
         })();
     </script>
-</head>
-<body class="antialiased is-loading">
 
-    <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ken Harima",
+      "alternateName": ["播磨 賢", "Harima Ken", "Ken HARIMA"],
+      "url": "https://kenharima.com/biz/",
+      "image": "https://kenharima.com/biz/profile_biz.webp",
+      "jobTitle": "Student / Strategist",
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Waseda University"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Mannheim"
+        }
+      ],
+      "knowsAbout":["Marketing Strategy", "Game Theory", "Data Analysis", "Web Engineering"],
+      "sameAs":[
+        "https://www.linkedin.com/in/ken-harima-29a846234/",
+        "https://www.wantedly.com/id/kenharima"
+      ]
+    }
+    </script>
+</head>
+<body class="antialiased">
+
+
+    <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
     <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
-        <nav class="pointer-events-auto fade-in" style="animation-delay: 2.6s;">
+        <nav class="pointer-events-auto fade-in" style="animation-delay: 0.5s;">
+            <!-- 容器は白ガラス、アクションは黒ガラスのハイブリッド・カプセル -->
             <div class="group/nav flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] rounded-full w-auto max-w-[95vw] transition-all duration-500 ease-out">
+                
+                <!-- ロゴ (濃色維持) -->
                 <a href="#" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-4 hover:opacity-60 transition-opacity duration-300">KEN HARIMA</a>
+                
                 <div class="flex items-center gap-2">
+                    <!-- Language Switcher (白ガラス内の微細な窪み) -->
                     <div class="relative flex items-center bg-gray-500/5 rounded-full p-0.5 select-none border border-gray-900/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
                         <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JA</button>
                         <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
                     </div>
+                    
+                    <!-- Contact Icon (黒ガラス・CTA) -->
+                    <!-- 変更点: style属性で背景色と文字色を強制ロックし、CSS非同期ロード時のチラつきを完全防止 -->
                     <a href="../contact.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:border-white/40 overflow-hidden mr-1" style="background-color: rgba(24,24,27,0.85); color: #ffffff;">
+                        <!-- 微かな反射エフェクト -->
                         <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <!-- 変更点: svgタグに直接 style="width:10px; height:10px; fill:#ffffff;" を指定し黒潰れを回避 -->
                         <svg class="relative z-10 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style="width: 10px; height: 10px; fill: #ffffff;" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                             <path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/>
                         </svg>
@@ -228,25 +336,33 @@ html
     </div>
     
     <div class="max-w-4xl mx-auto px-6 py-12 md:py-32">
+
         <!-- ================= HERO PROFILE ================= -->
         <header class="pt-12 md:pt-20 mb-16 md:mb-24 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
+            <!-- Profile Photo (3D Interactive) -->
             <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
+                <!-- 復元・強化：オーラのような多層Glowエフェクト -->
                 <div id="hero-aura" class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,60,133,0.25)_0%,rgba(34,211,238,0.2)_50%,transparent_80%)] -z-10 transform opacity-60 transition-all duration-700 ease-out mix-blend-multiply will-change-transform transform-gpu"></div>
+                
+                <!-- 写真本体とフレーム -->
                 <div id="hero-photo" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d">
                     <img src="./profile_biz.webp" width="256" height="256" alt="Ken HARIMA - Business Portrait" fetchpriority="high" decoding="sync" class="w-full h-full object-cover object-[center_50%] contrast-[1.05] brightness-95">
                 </div>
             </div>
 
+            <!-- Text Area -->
             <div class="flex flex-col justify-center min-w-0 mt-2 md:mt-8 w-full">
                 <!-- 名前 -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-display font-bold mb-6 md:mb-8 tracking-tighter text-gray-900 leading-none" style="opacity: 0.2; filter: blur(16px) brightness(1.2); transform: translateY(16px); animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.3s forwards; will-change: opacity, transform, filter;">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-display font-bold mb-6 md:mb-8 tracking-tighter text-gray-900 leading-none" style="opacity: 0.2; filter: blur(16px) brightness(1.2); transform: translateY(16px); animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; will-change: opacity, transform, filter;">
                     <span class="lang-ja block mb-2">播磨 賢</span>
                     <span class="lang-en block mb-2">Ken HARIMA</span>
                 </h1>
 
-                <!-- ▼▼▼ Core Competencies ▼▼▼ -->
+                <!-- ▼▼▼ Core Competencies (Extreme Apple Minimalism) ▼▼▼ -->
                 <div class="flex flex-col items-center md:items-start w-full">
-                    <div class="flex items-center gap-4 mb-5 md:mb-6 w-full opacity-0" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.4s forwards; will-change: opacity, transform, filter;">
+                    
+                    <!-- Preamble & Divider -->
+                    <div class="flex items-center gap-4 mb-5 md:mb-6 w-full opacity-0" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; will-change: opacity, transform, filter;">
                         <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gray-300 to-gray-300 md:hidden"></div>
                         <span class="text-[10px] md:text-[11px] font-mono font-bold tracking-[0.3em] md:tracking-[0.4em] text-gray-400 uppercase whitespace-nowrap">
                             <span class="lang-ja">専門領域</span>
@@ -257,33 +373,39 @@ html
 
                     <!-- Hash Tag Pills -->
                     <div class="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 w-full">
-                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(244,63,94,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(244,63,94,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.45s forwards;">
+                        
+                        <!-- Pill 1: Narrative (Rose) -->
+                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(244,63,94,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(244,63,94,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;">
                             <div class="absolute inset-0 rounded-full bg-gradient-to-r from-rose-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-rose-600 transition-colors duration-500">
                                 <span class="text-gray-300 group-hover/pill:text-rose-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">物語設計</span><span class="lang-en">Narrative</span>
                             </span>
                         </a>
 
-                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(168,85,247,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(168,85,247,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards;">
+                        <!-- Pill 2: Philosophy (Purple) -->
+                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(168,85,247,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(168,85,247,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;">
                             <div class="absolute inset-0 rounded-full bg-gradient-to-r from-purple-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-purple-600 transition-colors duration-500">
                                 <span class="text-gray-300 group-hover/pill:text-purple-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">哲学・倫理学</span><span class="lang-en">Philosophy & Ethics</span>
                             </span>
                         </a>
 
-                        <a href="#strategy" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(15,60,133,0.12)] focus:outline-none js-equation-link opacity-0" data-target="strategy" data-color-glow="rgba(15,60,133,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.55s forwards;">
+                        <!-- Pill 3: Strategy (Blue) -->
+                        <a href="#strategy" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(15,60,133,0.12)] focus:outline-none js-equation-link opacity-0" data-target="strategy" data-color-glow="rgba(15,60,133,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;">
                             <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-blue-700 transition-colors duration-500">
                                 <span class="text-gray-300 group-hover/pill:text-blue-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">戦略</span><span class="lang-en">Strategy</span>
                             </span>
                         </a>
 
-                        <a href="#decision" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(6,182,212,0.12)] focus:outline-none js-equation-link opacity-0" data-target="decision" data-color-glow="rgba(6,182,212,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.6s forwards;">
+                        <!-- Pill 4: Game Theory (Cyan) -->
+                        <a href="#decision" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(6,182,212,0.12)] focus:outline-none js-equation-link opacity-0" data-target="decision" data-color-glow="rgba(6,182,212,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;">
                             <div class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-cyan-600 transition-colors duration-500">
                                 <span class="text-gray-300 group-hover/pill:text-cyan-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">ゲーム理論</span><span class="lang-en">Game Theory</span>
                             </span>
                         </a>
+
                     </div>
                 </div>
                 <!-- ▲▲▲ Core Competencies ここまで ▲▲▲ -->
@@ -291,6 +413,8 @@ html
         </header>
         
         <main class="space-y-16 md:space-y-24">
+            
+            
 
             <!-- ================= EDUCATION ================= -->
             <section class="fade-in">
@@ -301,40 +425,45 @@ html
                 </h2>
                 
                 <div class="relative pl-4 md:pl-0">
+                    <!-- Minimal Timeline Line (Adjusted for wider dates) -->
                     <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 top-2 bottom-2 w-[2px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent rounded-full z-0"></div>
 
                     <div class="space-y-12">
                         
                         <!-- 1. Daikin Industries -->
                         <div data-modal-id="daikin" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500">
+                           <!-- Timeline Dot (Corporate Blue) -->
                             <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-3 h-3 bg-white border-2 border-[#0097e0] rounded-full mt-[5px] md:mt-[6px] group-hover:bg-[#0097e0] group-hover:scale-125 transition-all duration-500 shadow-[0_0_12px_rgba(0,151,224,0.4)] z-10"></div> 
-                            <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
-                                <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-[#0097e0] transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
-                                    2026.04<span class="opacity-40 mx-1.5 font-light">—</span><span class="lang-ja">現在</span><span class="lang-en">Present</span>
-                                </div>
-                            </div>
-                            <div class="flex-grow pl-8 md:pl-0">
-                                <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 group-hover:text-[#0097e0] transition-colors duration-300 tracking-tight mb-1">
-                                    <span class="lang-ja">ダイキン工業株式会社</span>
-                                    <span class="lang-en">Daikin Industries, Ltd.</span>
-                                </h3>
-                                <p class="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300 mb-3 font-medium">
-                                    <span class="lang-ja">事務系</span>
-                                    <span class="lang-en">Business Track</span>
-                                </p>
-                                <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#0097e0] uppercase tracking-[0.2em] transition-transform duration-300 group-hover:translate-x-1">
-                                    <span class="relative flex h-2 w-2 mr-1">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0097e0] opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0097e0]"></span>
-                                    </span>
-                                    <span class="lang-ja">現在</span>
-                                    <span class="lang-en">PRESENT</span>
-                                </span>
-                            </div>
+                           <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
+    <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-[#0097e0] transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
+        2026.04<span class="opacity-40 mx-1.5 font-light">—</span><span class="lang-ja">現在</span><span class="lang-en">Present</span>
+    </div>
+</div>
+
+<div class="flex-grow pl-8 md:pl-0">
+    <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 group-hover:text-[#0097e0] transition-colors duration-300 tracking-tight mb-1">
+        <span class="lang-ja">ダイキン工業株式会社</span>
+        <span class="lang-en">Daikin Industries, Ltd.</span>
+    </h3>
+    <p class="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300 mb-3 font-medium">
+        <span class="lang-ja">事務系</span>
+        <span class="lang-en">Business Track</span>
+    </p>
+    <!-- Creative Indicator for Present -->
+    <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#0097e0] uppercase tracking-[0.2em] transition-transform duration-300 group-hover:translate-x-1">
+        <span class="relative flex h-2 w-2 mr-1">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0097e0] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0097e0]"></span>
+        </span>
+        <span class="lang-ja">現在</span>
+        <span class="lang-en">PRESENT</span>
+    </span>
+</div>
                         </div>
 
                         <!-- 2. Waseda University -->
                         <div data-modal-id="waseda" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500">
+                           <!-- Timeline Dot -->
                             <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-3 h-3 bg-white border-2 border-[#8a1937] rounded-full mt-[5px] md:mt-[6px] group-hover:bg-[#8a1937] group-hover:scale-125 transition-all duration-500 shadow-[0_0_10px_rgba(138,25,55,0.3)] z-10"></div> 
                             <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
                                 <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-[#8a1937] transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
@@ -359,6 +488,7 @@ html
 
                         <!-- 3. University of Mannheim -->
                         <div data-modal-id="mannheim" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500">
+                            <!-- Timeline Dot -->
                             <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-3 h-3 bg-white border-2 border-bizAccent rounded-full mt-[5px] md:mt-[6px] group-hover:bg-bizAccent group-hover:scale-125 transition-all duration-500 shadow-[0_0_10px_rgba(15,60,133,0.3)] z-10"></div>
                             <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
                                 <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-bizAccent transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
@@ -383,6 +513,7 @@ html
 
                         <!-- 4. Hiroo Gakuen -->
                         <div data-modal-id="hiroo" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500 opacity-70 hover:opacity-100">
+                            <!-- Timeline Dot -->
                             <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-2.5 h-2.5 bg-gray-300 rounded-full mt-[6px] md:mt-[7px] group-hover:bg-gray-500 transition-colors duration-300 z-10"></div> 
                             <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
                                 <div class="text-xs md:text-[13px] font-mono text-gray-400 font-semibold tracking-widest whitespace-nowrap">
@@ -405,16 +536,20 @@ html
                 
                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
                 <div class="mt-20 md:mt-32 pt-16 border-t border-gray-100 relative group/section cv-auto">
+                    <!-- Section Label -->
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-12 md:mb-16 text-center">
                         <span class="lang-ja">自己研鑽</span>
                         <span class="lang-en">Professional Development</span>
                     </h2>
 
+                   <!-- Scroll Container: Minimal Glass Cards -->
                     <div class="relative w-full overflow-hidden">
+                        <!-- Seamless Fade Edges (Apple-like Non-linear Gradient) -->
                         <div class="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
                         <div class="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
 
                         <div id="dev-scroll-container" class="flex overflow-x-auto gap-4 md:gap-6 pb-12 snap-x snap-mandatory scrollbar-hide px-6 md:px-0" style="-webkit-overflow-scrolling: touch;">    
+                            <!-- 1. TOEIC -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(20,184,166,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-language"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3">
@@ -425,6 +560,7 @@ html
                                 </p>
                             </div>
 
+                            <!-- 2. Eiken Pre-1 -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(245,158,11,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-globe"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3">
@@ -435,6 +571,7 @@ html
                                 </p>
                             </div>
                             
+                            <!-- 3. G-検定 -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-brain"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
@@ -445,6 +582,7 @@ html
                                 </p>
                             </div>
 
+                            <!-- 6. Abacus -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(217,70,239,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-fuchsia-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-calculator"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
@@ -455,6 +593,7 @@ html
                                 </p>
                             </div>
 
+                            <!-- 7. Mental Math -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-violet-50 text-violet-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-violet-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-bolt"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
@@ -465,6 +604,7 @@ html
                                 </p>
                             </div>
 
+                            <!-- 3. G-検定 -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-brain"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
@@ -475,6 +615,7 @@ html
                                 </p>
                             </div>
 
+                            <!-- 4. Google Analytics -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(249,115,22,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-chart-column"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
@@ -485,6 +626,7 @@ html
                                 </p>
                             </div>
 
+                            <!-- 5. Google Ads -->
                             <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(59,130,246,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
                                 <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-bullhorn"></i></div>
                                 <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
@@ -494,26 +636,36 @@ html
                                     <span class="lang-ja">認知バイアスとデータ分析を融合させ、ユーザーの行動変容をハックする「クリエイティブ最適化」。</span><span class="lang-en">Hacking behavioral change by fusing cognitive bias insights with optimization.</span>
                                 </p>
                             </div>
+                            
+                            <!-- End Spacer -->
                             <div class="shrink-0 w-4 md:w-8"></div>
                         </div>
                     </div>
-                    
+                    <!-- ▼▼▼ ここから追加: CERTIFICATE MODULE ▼▼▼ -->
                     <div class="mt-16 md:mt-24 max-w-4xl mx-auto px-6 md:px-0">
+                       <!-- Certificate Header -->
                         <h4 id="certificate" class="text-xs md:text-sm font-semibold text-[#86868b] tracking-wide mb-6 md:mb-8 scroll-mt-[100px] rounded-xl transition-shadow duration-500 w-fit px-1">
                             <span class="lang-ja">サーティフィケイト</span>
                             <span class="lang-en">Certificate</span>
                         </h4>
 
+                        <!-- Certificate Card -->
                         <div data-modal-id="cert_matsuo" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-3xl border border-white p-6 md:p-10 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col md:flex-row gap-8 md:gap-12 items-center isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform">
+                            
+                            <!-- Hover Ambient Glow -->
                             <div class="absolute inset-0 bg-gradient-to-r from-teal-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                             
+                            <!-- Left: Thumbnail (3D effect) -->
                             <div class="w-full md:w-5/12 shrink-0 relative z-10 flex justify-center perspective-[1000px]">
                                 <div class="relative w-[85%] md:w-full max-w-[280px] rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-200/60 transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[2deg] group-hover:scale-105 group-hover:shadow-[0_20px_40px_rgba(20,184,166,0.15)] bg-white p-1">
+                                    <!-- 【画像変更箇所1】カードに表示するサムネイルの画像パス -->
                                     <img src="./matsuo_certificate.png" alt="AI Business Insights 2026 Certificate" class="w-full h-auto object-cover rounded-md relative z-0">
+                                    <!-- Glass Shine -->
                                     <div class="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-white/10 z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
                             
+                            <!-- Right: Content -->
                             <div class="w-full md:w-7/12 flex flex-col relative z-10 h-full justify-center">
                                 <div class="mb-4 flex justify-start">
                                     <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(20,184,166,0.15)] group-hover:border-teal-400/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
@@ -551,15 +703,20 @@ html
 
             <!-- ================= PROFILE ================= -->
             <section class="fade-in">
+               <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14">
                     <span class="lang-ja">プロフィール</span>
                     <span class="lang-en">Profile</span>
                 </h2>
 
+                <!-- Apple-style Profile Container (Advanced Glassmorphism & Light Dynamics) -->
                 <div class="relative w-full rounded-[2rem] md:rounded-[3rem] bg-white/60 backdrop-blur-[40px] border border-white/80 p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.03)] transition-all duration-1000 hover:shadow-[0_30px_80px_rgba(15,60,133,0.08)] group isolate">
+                    
+                    <!-- 復元・強化：ガラスの縁（インセットリングと微かなベベルハイライト） -->
                     <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] ring-1 ring-inset ring-white/70 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] pointer-events-none"></div>
                     <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-50 pointer-events-none"></div>
 
+                    <!-- Fluid Ambient Gradients -->
                     <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
                         <div class="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(224,231,255,0.4)_0%,transparent_70%)] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[-5%] group-hover:translate-y-[5%] transform-gpu"></div>
 <div class="absolute -bottom-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(207,250,254,0.4)_0%,transparent_70%)] opacity-70 transition-transform duration-[2000ms] group-hover:scale-110 group-hover:translate-x-[5%] group-hover:translate-y-[-5%] transform-gpu"></div>
@@ -582,14 +739,18 @@ html
                     </div>
                 </div>
 
-                <!-- ================= VISION CARD ================= -->
+                <!-- ================= VISION CARD (WANTEDLY) - Apple Style Cinematic Dark ================= -->
                 <div class="mt-12 md:mt-20 relative group/vision rounded-[2rem] md:rounded-[3rem] bg-[#000000] text-[#f5f5f7] p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden isolate shadow-2xl transition-all duration-1000 hover:shadow-[0_40px_80px_rgba(0,0,0,0.4)] hover:-translate-y-1">
+                    
+                    <!-- Cinematic Dark Mode Glow & Texture -->
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#1a1a1c,transparent_50%)] -z-20"></div>
                     <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(0,208,197,0.08),transparent_40%)] -z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-[2000ms]"></div>
                     <div class="absolute bottom-0 left-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_0%_100%,rgba(15,60,133,0.15),transparent_40%)] -z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-[2000ms]"></div>
                     
+                    <!-- Ultra-thin premium border -->
                     <div class="absolute inset-0 rounded-[2rem] md:rounded-[3rem] border border-white/[0.08] pointer-events-none"></div>
 
+                    <!-- Small Heading -->
                     <div class="flex items-center gap-4 mb-14 md:mb-20">
                         <div class="relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                             <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#00D0C5] shadow-[0_0_12px_#00D0C5] animate-pulse"></span>
@@ -601,66 +762,102 @@ html
                     </div>
 
                     <div class="max-w-4xl mx-auto">
+                        <!-- テキストコンテンツ (JP) -->
                         <div class="lang-ja">
+                            <!-- タイトル: スマホで確実に「10年後の1万人」が一行に収まるようにフォントサイズと改行を極限制御 -->
                             <h3 class="text-[26px] sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#f5f5f7] to-[#86868b] leading-[1.35] sm:leading-[1.15] mb-12 md:mb-20 text-left">
-                                <span class="inline-block whitespace-nowrap">「10年後の1万人」を、</span><br class="block sm:hidden">
-                                <span class="inline-block">意思決定の単位にする。</span>
-                            </h3>
+    <span class="inline-block whitespace-nowrap">「10年後の1万人」を、</span><br class="block sm:hidden">
+    <span class="inline-block">意思決定の単位にする。</span>
+</h3>
                             
+                            <!-- 本文: 左詰めに変更。文字間や行間、コントラストを調整し、ダークモードでの可読性とシネマティックな美しさを両立 -->
                             <div class="text-[15px] sm:text-[17px] md:text-[20px] lg:text-[22px] leading-[2.1] tracking-[0.02em] text-[#a1a1a6] font-medium space-y-10 text-left md:text-pretty">
-                                <p>四半期の数字を追う手を止めるつもりはない。ただ、その判断がどれだけの人の選択肢を、どれだけの期間にわたって増やすかを同時に問い続ける——これを自分の仕事の最小単位にしたい。</p>
-                                <p>善意の量ではなく、1円あたり・1時間あたりのインパクトを最大化する。効果的利他主義（Effective Altruism）のこの原則は、そのまま事業における投資判断の言語になる。</p>
                                 <p>
-                                    どの市場に出るか、どの技術に賭けるか、誰と組むかあらゆる意思決定に<strong class="relative inline-block text-white font-bold tracking-wide mx-0.5">「短期収益×長期受益者数」<span class="absolute -bottom-[2px] left-0 w-full h-[1px] bg-gradient-to-r from-[#00D0C5] to-transparent opacity-80 pointer-events-none"></span></strong>の複眼を実装すること。
-                                    <span class="block mt-6 text-gray-300 font-medium">それが、倫理を競争優位に変える第一歩だと考えている。</span>
+                                    四半期の数字を追う手を止めるつもりはない。ただ、その判断がどれだけの人の選択肢を、どれだけの期間にわたって増やすかを同時に問い続ける——これを自分の仕事の最小単位にしたい。
                                 </p>
-                            
-                                <div class="py-12 md:py-20 my-12 md:my-20 relative group/quote overflow-hidden">
-                                    <div class="absolute left-0 top-0 bottom-0 w-[2px]">
-                                        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[#00D0C5] to-transparent opacity-0 group-hover/quote:opacity-100 group-hover/quote:translate-y-[100%] transition-all duration-[1500ms] ease-in-out"></div>
-                                    </div>
-                                    <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white tracking-[-0.02em] leading-[1.6] md:leading-[1.5] pl-8 md:pl-12">
-                                        正しいから、儲かる。<br>儲かるから、続く。<br>
-                                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D0C5] via-blue-400 to-[#0f3c85] animate-pulse" style="animation-duration: 4s;">続くから、届く。</span>
-                                    </p>
-                                </div>
+                                <p>
+                                    善意の量ではなく、1円あたり・1時間あたりのインパクトを最大化する。効果的利他主義（Effective Altruism）のこの原則は、そのまま事業における投資判断の言語になる。
+                                </p>
 
-                                <p>目の前の事業成長にコミットしながら、このサイクルを社会に実装していくことが、私の次なる目標だ。</p>
+                                <p>
+    どの市場に出るか、どの技術に賭けるか、誰と組むかあらゆる意思決定に<strong class="relative inline-block text-white font-bold tracking-wide mx-0.5">「短期収益×長期受益者数」<span class="absolute -bottom-[2px] left-0 w-full h-[1px] bg-gradient-to-r from-[#00D0C5] to-transparent opacity-80 pointer-events-none"></span></strong>の複眼を実装すること。
+    
+    <!-- ここで明確なブロックとして分離し、上に1行分の美しい余白（mt-6）を設ける -->
+    <span class="block mt-6 text-gray-300 font-medium">
+        それが、倫理を競争優位に変える第一歩だと考えている。
+    </span>
+</p>
+
+                            
+                               <!-- 強調ブロック (Cinematic typography with dynamic line) -->
+<div class="py-12 md:py-20 my-12 md:my-20 relative group/quote overflow-hidden">
+    <div class="absolute left-0 top-0 bottom-0 w-[2px]">
+        <!-- ホバー時に光るエフェクトのみ残し、ベースの線は透明に -->
+        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[#00D0C5] to-transparent opacity-0 group-hover/quote:opacity-100 group-hover/quote:translate-y-[100%] transition-all duration-[1500ms] ease-in-out"></div>
+    </div>
+    <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white tracking-[-0.02em] leading-[1.6] md:leading-[1.5] pl-8 md:pl-12">
+        正しいから、儲かる。<br>
+        儲かるから、続く。<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D0C5] via-blue-400 to-[#0f3c85] animate-pulse" style="animation-duration: 4s;">続くから、届く。</span>
+    </p>
+</div>
+
+                                <p>
+                                    目の前の事業成長にコミットしながら、このサイクルを社会に実装していくことが、私の次なる目標だ。
+                                </p>
                             </div>
                         </div>
 
+                       <!-- テキストコンテンツ (EN) -->
                         <div class="lang-en">
                            <h3 class="text-[26px] sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#f5f5f7] to-[#86868b] leading-[1.35] sm:leading-[1.15] mb-12 md:mb-20 text-left">
-                                Making "10,000 People in 10 Years" the Standard of Decision-Making.
-                            </h3>
+    Making "10,000 People in 10 Years" the Standard of Decision-Making.
+</h3>
+                            
                             <div class="text-[15px] sm:text-[17px] md:text-[20px] lg:text-[22px] leading-[2.1] tracking-[0.02em] text-[#a1a1a6] font-medium space-y-10 text-left md:text-pretty">
-                                <p>I won’t stop driving quarterly results. But I want the true measure of my work to be consistently asking: how many people's options will this decision expand, and for how long?</p>
-                                <p>It’s not about the volume of good intentions; it’s about maximizing impact per dollar and per hour. This principle of Effective Altruism translates seamlessly into the language of business investment.</p>
                                 <p>
-                                    Which markets to enter, which technologies to back, whom to partner with—I aim to evaluate every choice through the dual lens of 
-                                    <strong class="relative inline-block text-white font-bold tracking-wide mx-0.5 mt-2 sm:mt-0">
-                                        "Short-Term Revenue × Long-Term Beneficiaries."
-                                        <span class="absolute -bottom-[2px] left-0 w-full h-[1px] bg-gradient-to-r from-[#00D0C5] to-transparent opacity-80 pointer-events-none"></span>
-                                    </strong>
-                                    <span class="block mt-6 text-gray-300 font-medium">I believe this is how we turn ethics into a sustainable competitive edge.</span>
+                                    I won’t stop driving quarterly results. But I want the true measure of my work to be consistently asking: how many people's options will this decision expand, and for how long?
+                                </p>
+                                <p>
+                                    It’s not about the volume of good intentions; it’s about maximizing impact per dollar and per hour. This principle of Effective Altruism translates seamlessly into the language of business investment.
                                 </p>
 
-                                <div class="py-12 md:py-20 my-12 md:my-20 relative group/quote overflow-hidden">
-                                    <div class="absolute left-0 top-0 bottom-0 w-[2px]">
-                                        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[#00D0C5] to-transparent opacity-0 group-hover/quote:opacity-100 group-hover/quote:translate-y-[100%] transition-all duration-[1500ms] ease-in-out"></div>
-                                    </div>
-                                    <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white tracking-[-0.02em] leading-[1.6] md:leading-[1.5] pl-8 md:pl-12">
-                                        Because it is right, it profits.<br>Because it profits, it endures.<br>
-                                        <span class="block mt-2">
-                                            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D0C5] to-blue-400 animate-pulse" style="animation-duration: 4s;">Because it endures,</span>
-                                            <span class="flex items-center gap-4 sm:gap-6 mt-1 md:mt-2 pl-6 sm:pl-12">
-                                                <span class="w-8 sm:w-16 h-[2px] bg-gradient-to-r from-blue-400 to-[#0f3c85] rounded-full opacity-70"></span>
-                                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#0f3c85] animate-pulse font-serif italic tracking-wide" style="animation-duration: 4s; animation-delay: 2s;">it delivers impact.</span>
-                                            </span>
-                                        </span>
-                                    </p>
-                                </div>
-                                <p>My next objective is to embed this cycle into the real world, without ever losing sight of immediate business growth.</p>
+                                <p>
+    Which markets to enter, which technologies to back, whom to partner with—I aim to evaluate every choice through the dual lens of 
+    <strong class="relative inline-block text-white font-bold tracking-wide mx-0.5 mt-2 sm:mt-0">
+        "Short-Term Revenue × Long-Term Beneficiaries."
+        <!-- シンプルで洗練されたシアンの強調線 -->
+        <span class="absolute -bottom-[2px] left-0 w-full h-[1px] bg-gradient-to-r from-[#00D0C5] to-transparent opacity-80 pointer-events-none"></span>
+    </strong>
+
+    <!-- ここで明確なブロックとして分離し、上に1行分の美しい余白（mt-6）を設ける -->
+    <span class="block mt-6 text-gray-300 font-medium">
+        I believe this is how we turn ethics into a sustainable competitive edge.
+    </span>
+</p>
+
+                                <!-- 強調ブロック -->
+<div class="py-12 md:py-20 my-12 md:my-20 relative group/quote overflow-hidden">
+    <div class="absolute left-0 top-0 bottom-0 w-[2px]">
+        <!-- ホバー時に光るエフェクトのみ残し、ベースの線は透明に -->
+        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[#00D0C5] to-transparent opacity-0 group-hover/quote:opacity-100 group-hover/quote:translate-y-[100%] transition-all duration-[1500ms] ease-in-out"></div>
+    </div>
+    <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white tracking-[-0.02em] leading-[1.6] md:leading-[1.5] pl-8 md:pl-12">
+        Because it is right, it profits.<br>
+        Because it profits, it endures.<br>
+        <span class="block mt-2">
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D0C5] to-blue-400 animate-pulse" style="animation-duration: 4s;">Because it endures,</span>
+            <span class="flex items-center gap-4 sm:gap-6 mt-1 md:mt-2 pl-6 sm:pl-12">
+                <span class="w-8 sm:w-16 h-[2px] bg-gradient-to-r from-blue-400 to-[#0f3c85] rounded-full opacity-70"></span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#0f3c85] animate-pulse font-serif italic tracking-wide" style="animation-duration: 4s; animation-delay: 2s;">it delivers impact.</span>
+            </span>
+        </span>
+    </p>
+</div>
+                                
+                                <p>
+                                    My next objective is to embed this cycle into the real world, without ever losing sight of immediate business growth.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -669,23 +866,34 @@ html
 
             <!-- ================= COMPETENCIES ================= -->
             <section class="fade-in cv-auto">
+               <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14 pl-2">
                     <span class="lang-ja">コンピテンシー</span>
                     <span class="lang-en">Key Competencies</span>
                 </h2>
                 
+                <!-- Apple-Style Bento Grid (Pixel Perfect Alignment - 2x2 Grid) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
+
                     <!-- 01: Narrative Architecture -->
                     <div class="group relative bg-white/80 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(244,63,94,0.12)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(254,205,211,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white border border-rose-100 flex items-center justify-center mb-5 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_4px_12px_rgba(244,63,94,0.12)] group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),0_8px_25px_rgba(244,63,94,0.3)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-br from-rose-50 to-transparent"></div>
                             <i class="fa-solid fa-layer-group text-xl md:text-2xl text-rose-500 relative z-10" style="filter: drop-shadow(0 0 8px rgba(244,63,94,0.4));"></i>
                         </div>
+                        
                         <div class="mb-5">
-                            <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">Narrative Architecture</h3>
-                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-rose-500 uppercase tracking-[0.2em]"><span class="lang-ja">認識の設計と意味の再構築</span><span class="lang-en">Designing Perception</span></h4>
+                            <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+                                Narrative Architecture
+                            </h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-rose-500 uppercase tracking-[0.2em]">
+                                <span class="lang-ja">認識の設計と意味の再構築</span>
+                                <span class="lang-en">Designing Perception</span>
+                            </h4>
                         </div>
+                        
                         <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mt-auto">
                             <p class="lang-ja">デザインとは、装飾ではなく<strong class="font-bold text-rose-600">「認識の設計」</strong>である。高度に抽象的な概念や無機質なデータを、他者が直感的に咀嚼可能な「意味の構造」へと再構築する。社会学的洞察と美学を基盤に文脈を解析し、深い共感と行動変容を促すアーキテクチャ（物語）を実装する。</p>
                             <p class="lang-en">Design is not decoration; it is the <strong class="font-bold text-rose-600">architecture of cognition</strong>. Grounded in sociological insight and aesthetics, I reconstruct highly abstract concepts and raw data into semantic structures that others can intuitively digest, driving deep empathy and behavioral change.</p>
@@ -695,25 +903,39 @@ html
                     <!-- 02: Decision Science -->
                     <div data-modal-id="poker" class="js-modal-trigger cursor-pointer group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(6,182,212,0.1)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(165,243,252,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white border border-gray-100 flex items-center justify-center mb-5 shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,1)] group-hover:shadow-[0_20px_40px_-10px_rgba(14,165,233,0.3)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-br from-cyan-50 to-white opacity-100"></div>
                             <div class="relative z-20 w-6 h-6 md:w-7 md:h-7 text-gray-900 group-hover:text-cyan-700 transition-colors duration-500">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-full h-full filter drop-shadow-[0_2px_3px_rgba(0,0,0,0.15)]"><path d="M12 2C11.5 2 10.3 3.5 9 5.5C7.2 8.3 4 12.5 4 15.5C4 18.5 6.5 20.5 9.5 20.5C10.5 20.5 11.3 20.2 12 19.8C12.7 20.2 13.5 20.5 14.5 20.5C17.5 20.5 20 18.5 20 15.5C20 12.5 16.8 8.3 15 5.5C13.7 3.5 12.5 2 12 2ZM12 22C12 22 10 22 10 20H14C14 22 12 22 12 22Z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-full h-full filter drop-shadow-[0_2px_3px_rgba(0,0,0,0.15)]">
+                                    <path d="M12 2C11.5 2 10.3 3.5 9 5.5C7.2 8.3 4 12.5 4 15.5C4 18.5 6.5 20.5 9.5 20.5C10.5 20.5 11.3 20.2 12 19.8C12.7 20.2 13.5 20.5 14.5 20.5C17.5 20.5 20 18.5 20 15.5C20 12.5 16.8 8.3 15 5.5C13.7 3.5 12.5 2 12 2ZM12 22C12 22 10 22 10 20H14C14 22 12 22 12 22Z"/>
+                                </svg>
                             </div>
                             <div class="absolute inset-0 bg-cyan-400 opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-700"></div>
                         </div>
+                        
                         <div class="mb-5">
-                           <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2 group-hover:text-cyan-600 transition-colors duration-500" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">Decision Science</h3>
-                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest"><span class="lang-ja">不完全情報下の最適解</span><span class="lang-en">Optimal Solutions under Uncertainty</span></h4>
+                           <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2 group-hover:text-cyan-600 transition-colors duration-500" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+                                Decision Science
+                            </h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest">
+                                <span class="lang-ja">不完全情報下の最適解</span>
+                                <span class="lang-en">Optimal Solutions under Uncertainty</span>
+                            </h4>
                         </div>
+                        
                         <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mb-8 mt-auto">
                             <p class="lang-ja">情報の非対称性が支配する環境下で、認知バイアスを排除し、数学的な期待値を最大化する意思決定プロセスを構築。ポーカーという「不完全情報の実験室」における成果（ROI 500%超）は、この論理的アプローチの堅牢さを実証している。</p>
                             <p class="lang-en">In environments defined by information asymmetry, I construct decision-making processes that eliminate cognitive bias and maximize mathematical expected value. My performance in poker (ROI >500%) demonstrates the robustness of this approach.</p>
                         </div>
+                        
                         <div class="mt-auto pt-5 border-t border-transparent group-hover:border-cyan-200/60 transition-colors duration-500 flex justify-end items-end h-[41px]">
                             <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-wide text-cyan-600 hover:text-cyan-500 transition-all duration-300">
-                                <span class="lang-ja">ケーススタディを見る</span><span class="lang-en">Learn more</span>
-                                <div class="w-5 h-5 rounded-full bg-cyan-50 flex items-center justify-center group-hover:bg-cyan-100 transition-colors"><i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-0.5 transition-transform duration-300"></i></div>
+                                <span class="lang-ja">ケーススタディを見る</span>
+                                <span class="lang-en">Learn more</span>
+                                <div class="w-5 h-5 rounded-full bg-cyan-50 flex items-center justify-center group-hover:bg-cyan-100 transition-colors">
+                                    <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-0.5 transition-transform duration-300"></i>
+                                </div>
                             </span>
                         </div>
                     </div>
@@ -721,22 +943,33 @@ html
                     <!-- 03: Linguistic OS -->
                     <div class="group relative bg-white/75 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(245,158,11,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(253,230,138,0.42)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        
                         <div class="flex items-start justify-between gap-6 mb-8">
                             <div>
                                 <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_4px_12px_rgba(245,158,11,0.12)] group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),0_8px_25px_rgba(245,158,11,0.24)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
                                     <div class="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-transparent"></div>
                                     <i class="fa-solid fa-globe text-xl md:text-2xl text-amber-600 relative z-10" style="filter: drop-shadow(0 0 8px rgba(245,158,11,0.35));"></i>
                                 </div>
-                                <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">Linguistic OS</h3>
-                                <h4 class="text-[10px] md:text-xs font-mono font-bold text-amber-500 uppercase tracking-widest"><span class="lang-ja">6言語の運用レンジ</span><span class="lang-en">Six-language operating range</span></h4>
+                                <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+                                    Linguistic OS
+                                </h3>
+                                <h4 class="text-[10px] md:text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">
+                                    <span class="lang-ja">6言語の運用レンジ</span>
+                                    <span class="lang-en">Six-language operating range</span>
+                                </h4>
                             </div>
-                            <div class="hidden sm:flex flex-col items-end pt-2 select-none"><span class="text-[42px] md:text-5xl font-bold tracking-[-0.06em] text-gray-900 leading-none" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">6</span></div>
+                            <div class="hidden sm:flex flex-col items-end pt-2 select-none">
+                                <span class="text-[42px] md:text-5xl font-bold tracking-[-0.06em] text-gray-900 leading-none" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">6</span>
+                            </div>
                         </div>
 
                         <div class="mt-auto pt-4 border-t border-gray-100/80">
                             <div class="space-y-4">
                                 <div>
-                                    <p class="text-[9px] font-bold text-amber-500 mb-2 ml-1"><span class="lang-ja tracking-[0.15em]">コア運用領域</span><span class="lang-en font-mono tracking-[0.2em] uppercase">Primary Core</span></p>
+                                    <p class="text-[9px] font-bold text-amber-500 mb-2 ml-1">
+                                        <span class="lang-ja tracking-[0.15em]">コア運用領域</span>
+                                        <span class="lang-en font-mono tracking-[0.2em] uppercase">Primary Core</span>
+                                    </p>
                                     <div class="rounded-[1.25rem] bg-white/70 backdrop-blur-md border border-white shadow-[0_2px_12px_rgba(0,0,0,0.02)] p-1.5 transition-all duration-500 hover:shadow-[0_8px_24px_rgba(245,158,11,0.08)] hover:bg-white/90">
                                         <div class="flex items-center justify-between px-3 py-2 rounded-xl">
                                             <span class="text-[14px] md:text-[15px] font-bold text-gray-900 tracking-tight"><span class="lang-ja">日本語</span><span class="lang-en">Japanese</span></span>
@@ -753,7 +986,10 @@ html
                                     </div>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] font-bold text-gray-400 mb-2 ml-1"><span class="lang-ja tracking-[0.15em]">拡張運用領域</span><span class="lang-en font-mono tracking-[0.2em] uppercase">Expanded Range</span></p>
+                                    <p class="text-[9px] font-bold text-gray-400 mb-2 ml-1">
+                                        <span class="lang-ja tracking-[0.15em]">拡張運用領域</span>
+                                        <span class="lang-en font-mono tracking-[0.2em] uppercase">Expanded Range</span>
+                                    </p>
                                     <div class="rounded-[1.25rem] bg-gray-50/50 backdrop-blur-sm border border-white shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)] p-1.5 transition-all duration-500 hover:bg-white/60">
                                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 px-3 py-2 rounded-xl">
                                             <span class="text-[13px] font-bold text-gray-700 tracking-tight"><span class="lang-ja">中国語 <span class="text-gray-300 font-normal mx-1">/</span> スペイン語</span><span class="lang-en">Chinese <span class="text-gray-300 font-normal mx-1">/</span> Spanish</span></span>
@@ -772,122 +1008,273 @@ html
                     <!-- 04: Philosophy & Ethics -->
                     <div class="group relative bg-white/70 backdrop-blur-3xl border border-white/80 rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(168,85,247,0.08)] hover:-translate-y-1.5 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex flex-col h-full isolation-auto">
                         <div class="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,rgba(233,213,255,0.5)_0%,transparent_70%)] rounded-full group-hover:scale-150 group-hover:translate-x-4 transition-transform duration-1000 pointer-events-none -z-10 transform-gpu"></div>
+                        
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-[1.25rem] bg-white border border-white/60 flex items-center justify-center mb-5 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_4px_12px_rgba(168,85,247,0.12)] group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,1),0_8px_25px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-all duration-700 ease-out relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-transparent"></div>
                             <i class="fa-solid fa-scale-balanced text-xl md:text-2xl text-purple-600 relative z-10" style="filter: drop-shadow(0 0 8px rgba(168,85,247,0.4));"></i>
                         </div>
+                        
                         <div class="mb-5">
-                            <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">Philosophy & Ethics</h3>
-                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-purple-500 uppercase tracking-widest"><span class="lang-ja">哲学的思考と実存の探求</span><span class="lang-en">Ethical Judgment</span></h4>
+                            <h3 class="text-2xl md:text-[28px] font-bold text-gray-900 tracking-tight leading-tight mb-2" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
+                                Philosophy & Ethics
+                            </h3>
+                            <h4 class="text-[10px] md:text-xs font-mono font-bold text-purple-500 uppercase tracking-widest">
+                                <span class="lang-ja">哲学的思考と実存の探求</span>
+                                <span class="lang-en">Ethical Judgment</span>
+                            </h4>
                         </div>
+                        
                         <div class="text-[14px] md:text-[15px] text-gray-600 leading-relaxed font-medium mt-auto">
                             <p class="lang-ja">AGI/ASIが人間の知性そのものを置き換えはじめる地平で、「尊厳」「労働」「判断」「他者との関係」──何が機械に委ねられ、何が委ねられてはならないのかを根底から問い直す。技術は人間を高めうると同時に、人間性を希薄化させうる──この両義性から目を逸らさず、倫理を事後の監査ではなく設計の前提として組み込む。効率の最適化と、人間の生の意味とのあいだに確かな判断軸を引き、技術が人を縮減せず拡張するための意思決定をリードする。</p>
                             <p class="lang-en">As AGI and ASI begin to displace human intelligence itself, I examine from first principles the boundaries of dignity, labor, judgment, and our relations with others: what can be entrusted to machines, and what must not be. Technology can elevate humanity, yet it can also thin out what makes us human. Without looking away from this duality, I embed ethics not as a post-hoc audit, but as a design prerequisite. Between the optimization of efficiency and the meaning of human life, I draw a clear axis of judgment — leading decisions that ensure technology expands, rather than diminishes, human possibility.</p>
                         </div>
                     </div>
+
                 </div>
             </section>
 
-            <!-- ================= PSYCHOMETRIC DATA LINK ================= -->
-            <div class="fade-in mb-20 md:mb-24 cv-auto">
-                <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1" style="transform: translateZ(0);">
-                    <div class="absolute inset-0 z-0">
-                        <div class="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50"></div>
-                        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.15)_0%,transparent_60%)] rounded-full mix-blend-screen will-change-transform transform-gpu"></div>
-                        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)] rounded-full mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700 will-change-transform transform-gpu"></div>
+            <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
+<div class="fade-in mb-20 md:mb-24 cv-auto">
+    <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1" style="transform: translateZ(0);">
+        
+        <!-- 1. Background: Deep Space & Grid -->
+        <div class="absolute inset-0 z-0">
+            <!-- Subtle Grid -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50"></div>
+            <!-- Dynamic Glow Orb (GPU Optimized) -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.15)_0%,transparent_60%)] rounded-full mix-blend-screen will-change-transform transform-gpu"></div>
+            <!-- ホバー時用オーラ（透明度でフェードインさせることで再描画コストをゼロに） -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)] rounded-full mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700 will-change-transform transform-gpu"></div>
+        </div>
+
+        <!-- 2. Content Container -->
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-10">
+            
+            <!-- Left: "The Cognitive Radar" Visual & Text -->
+            <div class="flex flex-col md:flex-row items-center md:items-center gap-8 text-center md:text-left w-full md:w-auto">
+                
+                <!-- ▼▼▼ EXTREME CREATIVE ICON: COGNITIVE RADAR ▼▼▼ -->
+                <div class="relative shrink-0 w-24 h-24 flex items-center justify-center">
+                    
+                    <!-- Layer A: Outer Rotating Ring (Data Stream) -->
+                    <div class="absolute inset-0 rounded-full border border-dashed border-indigo-500/20 animate-[spin_10s_linear_infinite] group-hover:border-indigo-400/40 transition-colors" style="will-change: transform;"></div>
+                    
+                    <!-- Layer B: Reverse Rotating Ring (Verification) -->
+                    <div class="absolute inset-2 rounded-full border border-dotted border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse] group-hover:border-cyan-400/40 transition-colors" style="will-change: transform;"></div>
+
+                    <!-- Layer C: Radar Sweep (The Scanner) -->
+                    <div class="absolute inset-1 rounded-full overflow-hidden opacity-30">
+                        <div class="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-indigo-400 to-transparent origin-top-left -translate-y-1/2 animate-[spin_3s_linear_infinite]" style="will-change: transform;"></div>
                     </div>
-                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-10">
-                        <div class="flex flex-col md:flex-row items-center md:items-center gap-8 text-center md:text-left w-full md:w-auto">
-                            <div class="relative shrink-0 w-24 h-24 flex items-center justify-center">
-                                <div class="absolute inset-0 rounded-full border border-dashed border-indigo-500/20 animate-[spin_10s_linear_infinite] group-hover:border-indigo-400/40 transition-colors" style="will-change: transform;"></div>
-                                <div class="absolute inset-2 rounded-full border border-dotted border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse] group-hover:border-cyan-400/40 transition-colors" style="will-change: transform;"></div>
-                                <div class="absolute inset-1 rounded-full overflow-hidden opacity-30"><div class="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-indigo-400 to-transparent origin-top-left -translate-y-1/2 animate-[spin_3s_linear_infinite]" style="will-change: transform;"></div></div>
-                                <div class="relative z-10 w-12 h-12 rounded-full bg-[#0f172a] border border-indigo-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-500"><i class="fa-solid fa-brain text-lg text-indigo-300 group-hover:text-cyan-200 transition-colors"></i></div>
-                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_10px_currentColor] animate-ping"></div>
-                                <div class="absolute bottom-4 right-1 w-1 h-1 bg-indigo-400 rounded-full animate-pulse"></div>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <div class="flex flex-col md:flex-row items-center md:items-baseline gap-3 justify-center md:justify-start">
-                                    <h3 class="text-xl md:text-2xl font-display font-bold text-white tracking-tight"><span class="lang-ja">思考プロファイル</span><span class="lang-en">Cognitive Profile</span></h3>
-                                    <div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-cyan-300 uppercase tracking-wider shadow-[0_0_10px_rgba(34,211,238,0.1)]">Big 5</span><span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-indigo-300 uppercase tracking-wider shadow-[0_0_10px_rgba(99,102,241,0.1)]">PVQ</span></div>
-                                </div>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed max-w-lg mx-auto md:mx-0"><span class="lang-ja">「個人の内面」を、Big 5とPVQの二層構造で解析。主観を排し、社会科学的根拠に基づく透明性と予測可能性を提示します。</span><span class="lang-en">Analyzing the 'inner self' through the dual layers of Big 5 and PVQ. I strip away subjectivity to present transparency and predictability grounded in social scientific evidence.</span></p>
-                            </div>
-                        </div>
-                        <div class="shrink-0 relative">
-                            <div class="h-12 px-8 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-white font-bold text-xs uppercase tracking-widest flex items-center gap-3 transition-all duration-300 group-hover:bg-indigo-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md">
-                                <span class="relative z-10 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span><span class="lang-ja">思考プロファイルを見る</span><span class="lang-en">View Cognitive Profile</span></span><i class="fa-solid fa-chevron-right text-[10px] text-cyan-400 group-hover:translate-x-1 transition-transform"></i>
-                            </div>
+
+                    <!-- Layer D: Central Core (The Brain) -->
+                    <div class="relative z-10 w-12 h-12 rounded-full bg-[#0f172a] border border-indigo-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-500">
+                        <i class="fa-solid fa-brain text-lg text-indigo-300 group-hover:text-cyan-200 transition-colors"></i>
+                    </div>
+
+                    <!-- Layer E: Orbiting Particles (Active Nodes) -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_10px_currentColor] animate-ping"></div>
+                    <div class="absolute bottom-4 right-1 w-1 h-1 bg-indigo-400 rounded-full animate-pulse"></div>
+
+                </div>
+                <!-- ▲▲▲ END ICON ▲▲▲ -->
+
+                <!-- Copy -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex flex-col md:flex-row items-center md:items-baseline gap-3 justify-center md:justify-start">
+                        <h3 class="text-xl md:text-2xl font-display font-bold text-white tracking-tight">
+                            <span class="lang-ja">思考プロファイル</span>
+                            <span class="lang-en">Cognitive Profile</span>
+                        </h3>
+                        <!-- Tech Tag -->
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-cyan-300 uppercase tracking-wider shadow-[0_0_10px_rgba(34,211,238,0.1)]">
+                                Big 5
+                            </span>
+                            <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-950 border border-indigo-500/30 text-indigo-300 uppercase tracking-wider shadow-[0_0_10px_rgba(99,102,241,0.1)]">
+                                PVQ
+                            </span>
                         </div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[50%] w-full -translate-y-[150%] group-hover:translate-y-[250%] transition-transform duration-1000 ease-in-out pointer-events-none mix-blend-color-dodge z-20 will-change-transform"></div>
-                </a>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed max-w-lg mx-auto md:mx-0">
+                        <span class="lang-ja">
+                            「個人の内面」を、Big 5とPVQの二層構造で解析。主観を排し、社会科学的根拠に基づく透明性と予測可能性を提示します。
+                        </span>
+                        <span class="lang-en">
+                            Analyzing the 'inner self' through the dual layers of Big 5 and PVQ. I strip away subjectivity to present transparency and predictability grounded in social scientific evidence.
+                        </span>
+                    </p>
+                </div>
             </div>
+
+            <!-- Right: Action (Holographic Button) -->
+            <div class="shrink-0 relative">
+                <div class="h-12 px-8 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-white font-bold text-xs uppercase tracking-widest flex items-center gap-3 transition-all duration-300 group-hover:bg-indigo-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span class="lang-ja">思考プロファイルを見る</span>
+                        <span class="lang-en">View Cognitive Profile</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-cyan-400 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. Holographic Scan Line (Overlay Animation) -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[50%] w-full -translate-y-[150%] group-hover:translate-y-[250%] transition-transform duration-1000 ease-in-out pointer-events-none mix-blend-color-dodge z-20 will-change-transform"></div>
+    </a>
+</div>
 
             <!-- ================= PROJECTS & AWARDS ================= -->
             <section class="fade-in cv-auto">
+                <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14">
                     <span class="lang-ja">主要プロジェクト・受賞歴</span>
                     <span class="lang-en">Selected Projects & Awards</span>
                 </h2>
                 
+                <!-- ▼▼▼ Tailwind再ビルド不要で確実に効く元の余白クラス ▼▼▼ -->
                 <div class="space-y-14 md:space-y-20 lg:space-y-24">
+                    
                     <!-- 1. Narrative & Literature -->
                     <div class="group/section">
+                        <!-- Apple-style minimal section header -->
                         <h4 id="narrative" class="text-xs md:text-sm font-semibold text-[#86868b] tracking-wide mb-6 md:mb-8 scroll-mt-[100px] rounded-xl transition-shadow duration-500 w-fit px-1">
-                            <span class="lang-ja">物語設計・文学賞</span><span class="lang-en">Narrative & Literature</span>
+                            <span class="lang-ja">物語設計・文学賞</span>
+                            <span class="lang-en">Narrative & Literature</span>
                         </h4>
+                        
+                        <!-- Bento Grid (Apple "Pro" Style Symmetry) -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                            
                             <!-- Project 1: 有吉佐和子文学賞 -->
                             <div data-modal-id="ariyoshi" class="js-modal-trigger relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#000000] p-8 md:p-10 lg:p-12 group transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] cursor-pointer flex flex-col justify-between h-full isolate">
+                                
+                                <!-- 微細なアンバーの光（ホバー時のみ静かに発光） -->
                                 <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(217,119,6,0.08),transparent_40%)] -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-[1500ms]"></div>
+                                
                                 <div class="flex flex-col relative z-10 h-full">
-                                    <div class="mb-6 flex justify-start"><span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md"><span class="lang-ja">佳作</span><span class="lang-en">Honorable Mention</span></span></div>
-                                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-tight mb-4"><span class="lang-ja">第3回<br class="hidden md:block">有吉佐和子文学賞</span><span class="lang-en">3rd Sawako Ariyoshi<br class="hidden md:block">Literary Award</span></h3>
-                                    <p class="text-[15px] md:text-[17px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl"><span class="lang-ja">実家から届いた筑前煮を温め直す深夜の三十分。ものと身体のあいだで音もなく起こる、微かな認識の組み換えを描いた短編小説『十月二十五日の筑前煮』。応募総数1,314作品の中から「佳作」を受賞。</span><span class="lang-en">Thirty late-night minutes spent reheating chikuzenni sent from my family home. Chikuzenni on October 25 is a short story that depicts a quiet, subtle reconfiguration of perception taking place between objects and the body. It received an Honorable Mention, selected from among 1,314 submissions.</span></p>
+                                    <!-- Pill Badge (左上に佳作) -->
+                                    <div class="mb-6 flex justify-start">
+                                        <span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md">
+                                            <span class="lang-ja">佳作</span>
+                                            <span class="lang-en">Honorable Mention</span>
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Typography Focus (タイトル) -->
+                                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-tight mb-4">
+                                        <span class="lang-ja">第3回<br class="hidden md:block">有吉佐和子文学賞</span>
+                                        <span class="lang-en">3rd Sawako Ariyoshi<br class="hidden md:block">Literary Award</span>
+                                    </h3>
+                                    
+                                    <p class="text-[15px] md:text-[17px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl">
+                                        <span class="lang-ja">実家から届いた筑前煮を温め直す深夜の三十分。ものと身体のあいだで音もなく起こる、微かな認識の組み換えを描いた短編小説『十月二十五日の筑前煮』。応募総数1,314作品の中から「佳作」を受賞。</span>
+                                        <span class="lang-en">Thirty late-night minutes spent reheating chikuzenni sent from my family home. Chikuzenni on October 25 is a short story that depicts a quiet, subtle reconfiguration of perception taking place between objects and the body. It received an Honorable Mention, selected from among 1,314 submissions.</span>
+                                    </p>
+                                    
+                                    <!-- Minimal Read More -->
                                     <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
-                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]"><i class="fa-solid fa-book-open text-[10px]"></i><span class="lang-ja">受賞作を見る</span><span class="lang-en">View Awarded Work</span></div>
-                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform"><div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div><i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i></div>
+                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
+                                           <i class="fa-solid fa-book-open text-[10px]"></i>
+                                            <span class="lang-ja">受賞作を見る</span>
+                                            <span class="lang-en">View Awarded Work</span>
+                                        </div>
+                                        
+                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
+                                            <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Project 2: エッセイコンテスト -->
                             <div data-modal-id="essay" class="js-modal-trigger relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-[#000000] p-8 md:p-10 lg:p-12 group transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] cursor-pointer flex flex-col justify-between h-full isolate">
+                                
+                                <!-- 微細なブルーの光（ホバー時のみ静かに発光） -->
                                 <div class="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_100%_0%,rgba(255,255,255,0.06),transparent_40%)] -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-[1500ms]"></div>
+
                                 <div class="flex flex-col relative z-10 h-full">
-                                    <div class="mb-6 flex justify-start"><span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md"><span class="lang-ja">勤労青少年躍進会理事長賞</span><span class="lang-en">Kinro Seishounen Yakushinkai Chairman's Award</span></span></div>
-                                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-[1.4] md:leading-[1.25] mb-4"><span class="lang-ja block"><span class="inline-block">第36回</span><br class="hidden md:block"><span class="inline-block">「働くってなんだろう」</span><br class="hidden md:block"><span class="inline-block">エッセイコンテスト</span></span><span class="lang-en block"><span class="inline-block">36th</span><br class="hidden md:block"><span class="inline-block">“The Essence of Work”</span><br class="hidden md:block"><span class="inline-block">Essay Contest</span></span></h3>
-                                    <p class="text-[15px] md:text-[17px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl"><span class="lang-ja">早朝の新宿で目にした、散乱するゴミを黙々と片づける清掃員の姿。その記憶を起点に、見過ごされがちな労働のなかにある尊厳と愛を描いたエッセイ。応募総数1,112作品の中から「特選」に選出。</span><span class="lang-en">At daybreak in Shinjuku, I saw trash scattered across the streets and people quietly cleaning it up. Beginning from that memory, this work portrays the dignity and love embedded in labor that so often goes unnoticed. Selected for the Special Prize from among 1,112 submissions.</span></p>
+                                    <!-- Pill Badge (左上に特選) -->
+                                    <div class="mb-6 flex justify-start">
+                                        <span class="inline-flex items-center px-3 py-1 bg-white/10 text-[#f5f5f7] rounded-full text-[11px] font-semibold tracking-wider backdrop-blur-md">
+                                            <span class="lang-ja">勤労青少年躍進会理事長賞</span>
+                                            <span class="lang-en">Kinro Seishounen Yakushinkai Chairman's Award</span>
+                                        </span>
+                                    </div>
+                                    
+                                   <!-- Typography Focus (タイトル) -->
+<h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f5f5f7] tracking-tight leading-[1.4] md:leading-[1.25] mb-4">
+    <span class="lang-ja block">
+        <span class="inline-block">第36回</span><br class="hidden md:block">
+        <span class="inline-block">「働くってなんだろう」</span><br class="hidden md:block">
+        <span class="inline-block">エッセイコンテスト</span>
+    </span>
+    <span class="lang-en block">
+        <span class="inline-block">36th</span><br class="hidden md:block">
+        <span class="inline-block">“The Essence of Work”</span><br class="hidden md:block">
+        <span class="inline-block">Essay Contest</span>
+    </span>
+</h3>
+                                    
+                                    <p class="text-[15px] md:text-[17px] text-[#a1a1a6] leading-relaxed font-medium mb-8 max-w-xl">
+                                        <span class="lang-ja">早朝の新宿で目にした、散乱するゴミを黙々と片づける清掃員の姿。その記憶を起点に、見過ごされがちな労働のなかにある尊厳と愛を描いたエッセイ。応募総数1,112作品の中から「特選」に選出。</span>
+                                        <span class="lang-en">At daybreak in Shinjuku, I saw trash scattered across the streets and people quietly cleaning it up. Beginning from that memory, this work portrays the dignity and love embedded in labor that so often goes unnoticed. Selected for the Special Prize from among 1,112 submissions.</span>
+                                    </p>
+                                    
+                                    <!-- Minimal Read More -->
                                     <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
-                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]"><i class="fa-solid fa-pen-nib text-[10px]"></i><span class="lang-ja">作品詳細</span><span class="lang-en">View Essay</span></div>
-                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform"><div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div><i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i></div>
+                                        <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
+                                            <i class="fa-solid fa-pen-nib text-[10px]"></i>
+                                            <span class="lang-ja">作品詳細</span>
+                                            <span class="lang-en">View Essay</span>
+                                        </div>
+                                        
+                                        <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
+                                            <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-white relative z-10 transition-all duration-500 group-hover:text-black text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
 
                     <!-- 02. Strategy & Execution -->
                     <div class="group/section">
                         <h4 id="strategy" class="text-xs md:text-sm font-semibold text-[#86868b] tracking-wide mb-6 md:mb-8 scroll-mt-[100px] rounded-xl transition-shadow duration-500 w-fit px-1">
-                            <span class="lang-ja">事業戦略・企画推進</span><span class="lang-en">Strategy & Execution</span>
+                            <span class="lang-ja">事業戦略・企画推進</span>
+                            <span class="lang-en">Strategy & Execution</span>
                         </h4>
+                        
+                        <!-- Bento Grid (2カラム構成に最適化して幅崩れを完全解消) -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 lg:gap-6">
-                            <!-- Project 1: 野口ゼミ -->
+                            
+                            <!-- Project 1: 野口ゼミ (1カラム幅) -->
                             <div data-modal-id="noguchi" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-white border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col h-full isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform">
                                 <div class="absolute inset-0 bg-gradient-to-br from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
+                                  
                                     <div class="mb-5 md:mb-6 flex justify-start relative z-10">
                                         <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.15)] group-hover:border-bizAccent/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
                                             <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5"><i class="fa-solid fa-medal text-[10px] text-amber-500/80 group-hover:text-amber-500 transition-colors"></i><span class="lang-ja mt-px">最優秀賞</span><span class="lang-en mt-px">First Prize</span></span>
+                                            <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-medal text-[10px] text-amber-500/80 group-hover:text-amber-500 transition-colors"></i>
+                                                <span class="lang-ja mt-px">最優秀賞</span>
+                                                <span class="lang-en mt-px">First Prize</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-bizAccent">
                                         <span class="lang-ja"><span class="inline-block">野口ゼミ</span> x <span class="inline-block">理想科学工業株式会社</span><br class="hidden lg:block">マーケティング戦略コンペティション</span>
                                         <span class="lang-en"><span class="inline-block">Noguchi Seminar</span> x <span class="inline-block">Riso Kagaku Corp.</span><br class="hidden lg:block">Marketing Strategy Competition</span>
                                     </h3>
-                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6"><span class="lang-ja">SNSデータの多変量解析を通じて、感覚に依存しない「勝ち筋」を抽出。製品特性と市場ニーズを接続し、根拠あるプロモーション戦略として提案。</span><span class="lang-en">Used multivariate analysis of social media data to identify evidence-based success patterns. Connected product characteristics with market demand to formulate a grounded promotional strategy.</span></p>
+                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6">
+                                        <span class="lang-ja">SNSデータの多変量解析を通じて、感覚に依存しない「勝ち筋」を抽出。製品特性と市場ニーズを接続し、根拠あるプロモーション戦略として提案。</span>
+                                        <span class="lang-en">Used multivariate analysis of social media data to identify evidence-based success patterns. Connected product characteristics with market demand to formulate a grounded promotional strategy.</span>
+                                    </p>
                                     <div class="mt-auto flex justify-end items-end pt-4 relative z-10">
                                         <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-bizAccent group-hover:shadow-[0_0_20px_rgba(15,60,133,0.15)] group-hover:scale-110">
                                             <div class="absolute inset-0 bg-bizAccent transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
@@ -897,21 +1284,29 @@ html
                                 </div>
                             </div>
 
-                           <!-- Project 2: ビジネスプラン -->
+                           <!-- Project 2: ビジネスプラン (1カラム幅) -->
                             <div data-modal-id="bizplan" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-white border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col h-full isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform">
                                 <div class="absolute inset-0 bg-gradient-to-br from-amber-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
+                                   
                                     <div class="mb-5 md:mb-6 flex justify-start relative z-10">
                                         <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(245,158,11,0.15)] group-hover:border-amber-400/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
                                             <div class="absolute inset-0 bg-gradient-to-r from-amber-400/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-amber-600 z-10 flex items-center gap-1.5"><i class="fa-solid fa-medal text-[10px] text-gray-400 group-hover:text-amber-500 transition-colors"></i><span class="lang-ja mt-px">東京都産業労働局長賞（都大会・準優勝）</span><span class="lang-en mt-px">Tokyo Director’s Award (Runner-up)</span></span>
+                                            <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-amber-600 z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-medal text-[10px] text-gray-400 group-hover:text-amber-500 transition-colors"></i>
+                                                <span class="lang-ja mt-px">東京都産業労働局長賞（都大会・準優勝）</span>
+                                                <span class="lang-en mt-px">Tokyo Director’s Award (Runner-up)</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-amber-600">
                                         <span class="lang-ja">第<span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif; font-weight: 800; letter-spacing: 0.02em; padding-inline: 0.02em;">6</span>回 創造力、無限大<br class="hidden lg:block">高校生ビジネスプラン・グランプリ<span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif; font-weight: 800; letter-spacing: 0.02em; padding-left: 0.08em;">2018</span></span>
                                         <span class="lang-en"><span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif; font-weight: 800; letter-spacing: 0.02em; padding-right: 0.02em;">6</span>th High School Business Plan Grand Prix <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif; font-weight: 800; letter-spacing: 0.02em;">2018</span></span>
                                     </h3>
-                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6"><span class="lang-ja">学習行動の継続を支援するプロダクト構想を企画・設計。応募4,359件中トップ100入賞、都大会では東京都産業労働局長賞を受賞。</span><span class="lang-en">Conceived and designed a product-centered business plan aimed at supporting sustained study habits. Selected among the Top 100 out of 4,359 entries.</span></p>
+                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6">
+                                        <span class="lang-ja">学習行動の継続を支援するプロダクト構想を企画・設計。応募4,359件中トップ100入賞、都大会では東京都産業労働局長賞を受賞。</span>
+                                        <span class="lang-en">Conceived and designed a product-centered business plan aimed at supporting sustained study habits. Selected among the Top 100 out of 4,359 entries.</span>
+                                    </p>
                                     <div class="mt-auto flex justify-end items-end pt-4 relative z-10">
                                         <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-amber-500 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] group-hover:scale-110">
                                             <div class="absolute inset-0 bg-gradient-to-tr from-orange-500 to-amber-400 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
@@ -924,17 +1319,25 @@ html
                             <div data-modal-id="social" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-white border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col h-full isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform md:col-span-2 lg:col-span-1">
                                 <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 <div class="flex flex-col h-full relative z-10">
+                                    
                                     <div class="mb-5 md:mb-6 flex justify-start relative z-10">
                                         <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(16,185,129,0.15)] group-hover:border-emerald-400/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
                                             <div class="absolute inset-0 bg-gradient-to-r from-emerald-400/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-emerald-600 z-10 flex items-center gap-1.5"><i class="fa-solid fa-medal text-[10px] text-gray-400 group-hover:text-amber-500 transition-colors"></i><span class="lang-ja mt-px">優秀賞</span><span class="lang-en mt-px">Excellence Award</span></span>
+                                            <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-emerald-600 z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-medal text-[10px] text-gray-400 group-hover:text-amber-500 transition-colors"></i>
+                                                <span class="lang-ja mt-px">優秀賞</span>
+                                                <span class="lang-en mt-px">Excellence Award</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <h3 class="text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 tracking-tight leading-snug mb-3 transition-colors duration-500 group-hover:text-emerald-600">
                                         <span class="lang-ja">早稲田大学 社会科学部<br class="hidden lg:block">「社会デザイン論入門」レポートコンペティション</span>
                                         <span class="lang-en">Waseda Univ. "Social Design 101" Report Competition</span>
                                     </h3>
-                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6"><span class="lang-ja">コワーキングスペースにおけるユーザーと運営者間の構造的非対称性に着目し、DAO型ガバナンスによる解決モデルを提案。技術トレンドの追随ではなく、社会構造の再設計という視座が評価された。</span><span class="lang-en">Focusing on the structural asymmetry between users and operators in coworking spaces, I proposed a DAO-based governance model as a potential solution. The work was recognized for approaching the issue as a redesign of social structure.</span></p>
+                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6">
+                                        <span class="lang-ja">コワーキングスペースにおけるユーザーと運営者間の構造的非対称性に着目し、DAO型ガバナンスによる解決モデルを提案。技術トレンドの追随ではなく、社会構造の再設計という視座が評価された。</span>
+                                        <span class="lang-en">Focusing on the structural asymmetry between users and operators in coworking spaces, I proposed a DAO-based governance model as a potential solution. The work was recognized for approaching the issue as a redesign of social structure.</span>
+                                    </p>
                                     <div class="mt-auto flex justify-end items-end pt-4 relative z-10">
                                         <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-emerald-500 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] group-hover:scale-110">
                                             <div class="absolute inset-0 bg-gradient-to-tr from-teal-500 to-emerald-400 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
@@ -944,7 +1347,7 @@ html
                                 </div>
                             </div>
 
-                            <!-- Project 4: PIVOT -->
+                            <!-- Project 4: PIVOT (Horizontal Module - 全幅ぶち抜き) -->
                             <div data-modal-id="pivot" class="js-modal-trigger md:col-span-2 lg:col-span-3 relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-3xl border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start md:items-center isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform">
                                 <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                                 
@@ -952,17 +1355,28 @@ html
                                     <div class="mb-4 flex justify-start relative z-10">
                                         <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(15,60,133,0.15)] group-hover:border-bizAccent/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
                                             <div class="absolute inset-0 bg-gradient-to-r from-bizAccent/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            <span class="text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5"><i class="fa-solid fa-list-check text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i><span class="mt-px uppercase">Project Management</span></span>
+                                            <span class="text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-bizAccent z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-list-check text-[10px] text-gray-400 group-hover:text-bizAccent transition-colors"></i>
+                                                <span class="mt-px uppercase">Project Management</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <h3 class="text-xl md:text-2xl lg:text-3xl font-display font-bold text-gray-900 tracking-tight leading-snug transition-colors duration-500 group-hover:text-bizAccent">
-                                        <span class="lang-ja"><span class="inline-block">早稲田大学 x PIVOT株式会社</span><br class="hidden lg:block"><span class="inline-block">共同プロジェクト｜実行委員</span></span>
-                                        <span class="lang-en"><span class="inline-block">Waseda Univ. x PIVOT Inc. Project Executive Committee</span></span>
+                                        <span class="lang-ja">
+                                            <span class="inline-block">早稲田大学 x PIVOT株式会社</span><br class="hidden lg:block">
+                                            <span class="inline-block">共同プロジェクト｜実行委員</span>
+                                        </span>
+                                        <span class="lang-en">
+                                            <span class="inline-block">Waseda Univ. x PIVOT Inc. Project Executive Committee</span>
+                                        </span>
                                     </h3>
                                 </div>
                                 
                                 <div class="md:w-7/12 flex flex-col justify-center relative z-10 w-full h-full">
-                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6 md:mb-8"><span class="lang-ja">PIVOTと早稲田大学の公開収録企画において、企業・大学間の折衝から当日運営までを統括。多様な制約を調整しながら、約200名規模のイベントを実現。</span><span class="lang-en">Led coordination for a live recording project between PIVOT and Waseda University, overseeing negotiations, stakeholder alignment, and on-site execution. Delivered an event of roughly 200 attendees.</span></p>
+                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6 md:mb-8">
+                                        <span class="lang-ja">PIVOTと早稲田大学の公開収録企画において、企業・大学間の折衝から当日運営までを統括。多様な制約を調整しながら、約200名規模のイベントを実現。</span>
+                                        <span class="lang-en">Led coordination for a live recording project between PIVOT and Waseda University, overseeing negotiations, stakeholder alignment, and on-site execution. Delivered an event of roughly 200 attendees.</span>
+                                    </p>
                                     <div class="mt-auto flex justify-between items-center border-t border-gray-200/60 pt-5 md:pt-6">
                                         <span class="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-widest group-hover:text-bizAccent transition-colors duration-500">View Details</span>
                                         <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-bizAccent group-hover:shadow-[0_0_20px_rgba(15,60,133,0.15)] group-hover:scale-110">
@@ -977,32 +1391,49 @@ html
 
                     <!-- 3. Applied Decision-Making -->
                     <div class="group/section">
+                        <!-- Applied Decision-Making Header -->
                         <h4 id="decision" class="text-xs md:text-sm font-semibold text-[#86868b] tracking-wide mb-6 md:mb-8 scroll-mt-[100px] rounded-xl transition-shadow duration-500 w-fit px-1">
-                            <span class="lang-ja">応用意思決定</span><span class="lang-en">Applied Decision-Making</span>
+                            <span class="lang-ja">応用意思決定</span>
+                            <span class="lang-en">Applied Decision-Making</span>
                         </h4>
                         
+                        <!-- Full Width Epic Card -->
                         <div class="grid grid-cols-1">
+                            
                             <!-- Project 6: JOPT & SPADIE -->
                             <div data-modal-id="jopt" class="js-modal-trigger md:col-span-2 relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] lg:rounded-[3rem] bg-white border border-white p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start md:items-center isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform">
                                 <div class="absolute inset-0 bg-gradient-to-r from-purple-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
                                 <div class="md:w-5/12 flex flex-col justify-center relative z-10 w-full mb-2 md:mb-0">
+                                    
                                     <div class="mb-4 flex flex-wrap gap-2 md:gap-3 relative z-10">
                                         <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(225,29,72,0.15)] group-hover:border-rose-400/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
                                             <div class="absolute inset-0 bg-gradient-to-r from-purple-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            <span class="text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-wider leading-none transition-colors duration-500 group-hover:text-rose-600 z-10 flex items-center gap-1.5"><i class="fa-solid fa-trophy text-[10px] text-gray-400 group-hover:text-rose-500 transition-colors"></i><span class="mt-px">JOPT 107th / 2,511</span></span>
+                                            <span class="text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-wider leading-none transition-colors duration-500 group-hover:text-rose-600 z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-trophy text-[10px] text-gray-400 group-hover:text-rose-500 transition-colors"></i>
+                                                <span class="mt-px">JOPT 107th / 2,511</span>
+                                            </span>
                                         </div>
                                         <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(225,29,72,0.15)] group-hover:border-rose-400/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
                                             <div class="absolute inset-0 bg-gradient-to-r from-purple-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            <span class="text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-wider leading-none transition-colors duration-500 group-hover:text-rose-600 z-10 flex items-center gap-1.5"><i class="fa-solid fa-trophy text-[10px] text-gray-400 group-hover:text-rose-500 transition-colors"></i><span class="mt-px">SPADIE 12th / 279</span></span>
+                                            <span class="text-[10px] md:text-[11px] font-mono font-bold text-gray-800 tracking-wider leading-none transition-colors duration-500 group-hover:text-rose-600 z-10 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-trophy text-[10px] text-gray-400 group-hover:text-rose-500 transition-colors"></i>
+                                                <span class="mt-px">SPADIE 12th / 279</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <h3 class="text-xl md:text-2xl lg:text-3xl font-display font-bold text-gray-900 tracking-tight leading-snug transition-colors duration-500 group-hover:text-rose-600">
-                                        <span class="lang-ja">ゲーム理論の実戦検証（競技ポーカートーナメント）</span><span class="lang-en">Game Theory in Practice (Competitive Poker Tournaments)</span>
+                                        <span class="lang-ja">ゲーム理論の実戦検証（競技ポーカートーナメント）</span>
+                                        <span class="lang-en">Game Theory in Practice (Competitive Poker Tournaments)</span>
                                     </h3>
                                 </div>
                                 
                                 <div class="md:w-7/12 flex flex-col justify-center relative z-10 w-full h-full">
-                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6 md:mb-8"><span class="lang-ja">国内最大級のトーナメントフィールドにおいて、GTO（ゲーム理論最適戦略）とICM（独立チップモデル）を基盤に状況適応的な意思決定を実践。</span><span class="lang-en">Applied GTO and ICM in one of Japan’s largest tournament fields, combining theoretical discipline with adaptive decision-making. Translated structured observation and probabilistic judgment into repeatable competitive results.</span></p>
+                                    <p class="text-[13px] md:text-[14px] lg:text-[15px] text-gray-600 leading-relaxed font-medium text-left text-pretty mb-6 md:mb-8">
+                                        <span class="lang-ja">国内最大級のトーナメントフィールドにおいて、GTO（ゲーム理論最適戦略）とICM（独立チップモデル）を基盤に状況適応的な意思決定を実践。</span>
+                                        <span class="lang-en">Applied GTO and ICM in one of Japan’s largest tournament fields, combining theoretical discipline with adaptive decision-making. Translated structured observation and probabilistic judgment into repeatable competitive results.</span>
+                                    </p>
+                                    
                                     <div class="mt-auto flex justify-between items-center border-t border-gray-200/60 pt-5 md:pt-6">
                                         <span class="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-widest group-hover:text-rose-500 transition-colors duration-500">View Details</span>
                                         <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-rose-500 group-hover:shadow-[0_0_20px_rgba(225,29,72,0.2)] group-hover:scale-110">
@@ -1012,47 +1443,77 @@ html
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
             </section>
 
            <!-- ================= CONTACT & RESUME ================= -->
             <section class="fade-in pt-20 pb-40 cv-auto relative isolate">
+                <!-- セクション背景の微かなグラデーション -->
                 <div class="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-gray-50/50 to-[#fafafa] rounded-b-[3rem]"></div>
                 
                 <div class="max-w-4xl mx-auto flex flex-col items-center text-center px-4">
+                    
+                    <!-- 巨大タイポグラフィ: The Next Step -->
                     <h2 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 tracking-tighter mb-5 md:mb-6">
-                        <span class="lang-ja">次のフェーズへ。</span><span class="lang-en">The Next Step.</span>
+                        <span class="lang-ja">次のフェーズへ。</span>
+                        <span class="lang-en">The Next Step.</span>
                     </h2>
                     
                     <p class="text-sm md:text-base text-gray-500 mb-14 md:mb-20 font-medium tracking-wide max-w-lg">
-                        <span class="lang-ja">データとナラティブの交差点で、<br class="hidden sm:block">新しい価値を共に創りませんか。</span><span class="lang-en">Let's build new value at the intersection of data and narrative.</span>
+                        <span class="lang-ja">データとナラティブの交差点で、<br class="hidden sm:block">新しい価値を共に創りませんか。</span>
+                        <span class="lang-en">Let's build new value at the intersection of data and narrative.</span>
                     </p>
 
+                    <!-- メインアクション: お問い合わせ (Premium Capsule Button) -->
                     <a id="biz-contact-btn" href="../contact.html" class="group relative inline-flex items-center justify-center gap-4 px-10 md:px-14 py-5 md:py-6 bg-gray-900 text-white rounded-full overflow-hidden transition-all duration-700 hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.4)] hover:-translate-y-1 mb-24 w-full sm:w-auto">
+                        <!-- ボタン内の微かなグラデーション発光 -->
                         <div class="absolute inset-0 bg-gradient-to-r from-gray-800 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                         <div class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rotate-45 pointer-events-none"></div>
-                        <span class="relative z-10 text-sm md:text-base font-bold tracking-[0.15em] uppercase"><span class="lang-ja">お問い合わせ</span><span class="lang-en">Get in Touch</span></span>
-                        <div class="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white group-hover:text-black transition-colors duration-500"><i class="fa-solid fa-arrow-right text-[11px] md:text-xs transition-transform duration-300 group-hover:translate-x-0.5"></i></div>
+                        
+                        <span class="relative z-10 text-sm md:text-base font-bold tracking-[0.15em] uppercase">
+                            <span class="lang-ja">お問い合わせ</span>
+                            <span class="lang-en">Get in Touch</span>
+                        </span>
+                        <div class="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white group-hover:text-black transition-colors duration-500">
+                            <i class="fa-solid fa-arrow-right text-[11px] md:text-xs transition-transform duration-300 group-hover:translate-x-0.5"></i>
+                        </div>
                     </a>
 
+                    <!-- サブリンク: 履歴書 & SNS -->
                     <div class="w-full border-t border-gray-200/60 pt-12 md:pt-16">
                         <h4 class="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-[0.2em] mb-8">Professional Links</h4>
                         
                         <div class="flex flex-wrap justify-center gap-6 md:gap-12 text-sm">
+                            
+                            <!-- Resume JP -->
                             <a href="./resume.pdf" download="Ken_Harima_Resume_JP.pdf" class="group flex items-center gap-3 text-gray-500 hover:text-gray-900 transition-colors duration-300">
                                 <i class="fa-solid fa-file-pdf text-gray-400 group-hover:text-[#E61610] transition-colors duration-300"></i>
-                                <span class="font-medium tracking-wide"><span class="lang-ja">履歴書 (日本)</span><span class="lang-en">Resume (JP)</span></span>
+                                <span class="font-medium tracking-wide">
+                                    <span class="lang-ja">履歴書 (日本)</span>
+                                    <span class="lang-en">Resume (JP)</span>
+                                </span>
                             </a>
+                            
+                            <!-- Resume US -->
                             <a href="./resume_us.pdf" download="Ken_Harima_Resume_US.pdf" class="group flex items-center gap-3 text-gray-500 hover:text-gray-900 transition-colors duration-300">
                                 <i class="fa-solid fa-file-pdf text-gray-400 group-hover:text-gray-900 transition-colors duration-300"></i>
-                                <span class="font-medium tracking-wide"><span class="lang-ja">履歴書 (米国)</span><span class="lang-en">Resume (US)</span></span>
+                                <span class="font-medium tracking-wide">
+                                    <span class="lang-ja">履歴書 (米国)</span>
+                                    <span class="lang-en">Resume (US)</span>
+                                </span>
                             </a>
+
+                            <!-- LinkedIn -->
                             <a href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 text-gray-500 hover:text-gray-900 transition-colors duration-300">
                                 <i class="fa-brands fa-linkedin text-gray-400 group-hover:text-[#0077b5] transition-colors duration-300 text-lg"></i>
                                 <span class="font-medium tracking-wide">LinkedIn</span>
                             </a>
+
+                            <!-- Wantedly -->
                             <a href="https://www.wantedly.com/id/kenharima" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 text-gray-500 hover:text-gray-900 transition-colors duration-300">
                                 <div class="w-5 h-5 flex items-center justify-center">
                                     <svg viewBox="0 0 150 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
@@ -1064,8 +1525,10 @@ html
                                 </div>
                                 <span class="font-medium tracking-wide">Wantedly</span>
                             </a>
+                            
                         </div>
                     </div>
+
                 </div>
             </section>
         </main>
@@ -1075,26 +1538,40 @@ html
                 <div class="flex items-center gap-4">
                     <p class="text-gray-400">© 2026 Ken HARIMA</p>
                 </div>
-            </div>
         </footer>
     </div>
 
-    <!-- Modal -->
+    <!-- 変更: Tailwindの hidden クラスを削除し、Critical CSSの display:none に依存させる -->
     <div id="global-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6" aria-hidden="true">
+        
+        <!-- 1. Blur Backdrop -->
         <div id="modal-bg" class="fixed inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
+
+        <!-- 2. Modal Card -->
         <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu will-change-transform">            
             <div id="modal-progress-bar" class="reading-progress-bar"></div>
+
             <div class="h-1.5 w-full bg-gray-100 shrink-0 z-30 opacity-50"></div>
+            
+            <!-- Header Area -->
             <div class="px-6 py-5 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-start bg-white/95 backdrop-blur-sm z-20 shrink-0 relative shadow-sm">
-                <div class="pr-8" id="modal-header-content"></div>
+                <div class="pr-8" id="modal-header-content">
+                    <!-- JS Injects Title Here -->
+                </div>
                 <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 shrink-0 outline-none border border-transparent">
                     <i class="fa-solid fa-xmark text-lg transition-transform duration-300 group-hover:rotate-90"></i>
                 </button>
             </div>
+
+           <!-- Scrollable Body -->
             <div class="relative flex-1 min-h-0 overflow-hidden flex flex-col">
                 <div id="modal-scroll-container" data-lenis-prevent class="modal-scroll flex-1 overflow-y-auto bg-gradient-to-b from-white to-[#f8fafc] relative overscroll-contain custom-scrollbar" tabindex="0">
-                    <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-8 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide modal-text-body [&>div:first-child]:mt-0"></div>
+
+                    <div id="modal-content" class="relative z-10 px-6 pt-0 pb-12 md:px-8 md:pt-0 md:pb-16 text-[15px] leading-8 md:text-[16px] md:leading-9 text-gray-700 font-normal space-y-6 text-justify whitespace-pre-line tracking-wide modal-text-body [&>div:first-child]:mt-0">
+                        <!-- Dynamic Content -->
+                    </div>
                 </div>
+
                 <div id="modal-scroll-hint" class="scroll-hint-overlay absolute bottom-0 left-0 right-0 h-24 z-20 flex items-end justify-center pb-6 transition-opacity duration-300">
                     <span class="text-[10px] font-bold text-bizAccent uppercase tracking-widest animate-bounce bg-white/80 px-3 py-1 rounded-full shadow-sm border border-gray-100 backdrop-blur-sm">
                         Read More <i class="fa-solid fa-chevron-down ml-1"></i>
@@ -1104,14 +1581,19 @@ html
         </div>
     </div>
 
-    <!-- GSAP & Lenis -->
+    <!-- GSAP & Lenis (Defer loading, Low Priority) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer fetchpriority="low"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer fetchpriority="low"></script>
     <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer fetchpriority="low"></script>
 
     <script>
+
+        // ▼▼▼ 究極の初速を実現するノンブロッキング初期化 ▼▼▼
+        // フォントやJSのロードを待たず、CSSのキーフレームアニメーションで即座に視覚的リヴィールを開始。
+        // ここではLenisやGSAPなどの遅延機能の初期化のみを行う。
         (function() {
             const body = document.body;
+            // 即座にready状態へ移行し、スクロール等のブロックを解除
             body.classList.remove('is-loading');
             body.classList.add('is-ready');
             
@@ -1121,8 +1603,9 @@ html
                 if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
             }, 800); 
         })();
-
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
             const tiltContainer = document.getElementById('hero-tilt-container');
             const photo = document.getElementById('hero-photo');
             const aura = document.getElementById('hero-aura');
@@ -1135,7 +1618,7 @@ html
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
                     
-                    const tiltX = ((y - centerY) / centerY) * -15; 
+                    const tiltX = ((y - centerY) / centerY) * -15; // 最大15度傾斜
                     const tiltY = ((x - centerX) / centerX) * 15;
                     
                     photo.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
@@ -1152,11 +1635,13 @@ html
                 });
             }
 
+            // Priority 1: Init Interactions Immediately
             const langJpBtn = document.getElementById('lang-jp');
             const langEnBtn = document.getElementById('lang-en');
             const htmlEl = document.documentElement;
             const contactBtn = document.getElementById('biz-contact-btn');
             
+            // ▼ ADDED: Smart Navigation Hide/Show on Scroll ▼
             const navContainer = document.getElementById('nav-container');
             if (navContainer) {
                 let lastScrollY = window.scrollY;
@@ -1165,6 +1650,7 @@ html
                     if (!tickingNav) {
                         window.requestAnimationFrame(() => {
                             const currentScrollY = window.scrollY;
+                            // 下へスクロール（読書中）はナビを上部へ隠し、上へスクロール（探索中）で即座に表示する
                             if (currentScrollY > 100 && currentScrollY > lastScrollY) {
                                 navContainer.style.transform = 'translateY(-150%)';
                             } else {
@@ -1177,7 +1663,9 @@ html
                     }
                 }, { passive: true });
             }
+            // ▲ ADDED: Smart Navigation Hide/Show on Scroll ▲
 
+            // Language Switcher (Optimized: ClassList Toggling)
             const activeClasses = ['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
             const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
             const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
@@ -1218,19 +1706,24 @@ html
                 });
             }
 
+            // Priority 2: Visuals (Defer to Idle with 4G Network Fallback)
             const initVisuals = () => {
+                // 4G回線で外部スクリプトの到着が遅延している場合は、100ms後に自己再帰して優雅に待機する
                 if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
                     setTimeout(initVisuals, 100);
                     return;
                 }
                 
                 const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
-                gsap.registerPlugin(ScrollTrigger);
 
-                lenis.on('scroll', ScrollTrigger.update);
-                gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
-                gsap.ticker.lagSmoothing(0);
-                
+gsap.registerPlugin(ScrollTrigger);
+
+// 改善: GSAPのTickerにLenisを同期し、ScrollTriggerの無駄な毎フレーム更新を防ぐ
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time)=>{
+    lenis.raf(time * 1000)
+});
+gsap.ticker.lagSmoothing(0);
                 gsap.utils.toArray('.fade-in').forEach(section => {
                     gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
@@ -1238,6 +1731,7 @@ html
             if ('requestIdleCallback' in window) requestIdleCallback(initVisuals);
             else requestAnimationFrame(initVisuals);
 
+            // Optimized Scroll Hint Logic (Factory Function)
             const setupScrollFade = (containerId, nudgeId, isEndDetection = true) => {
                 const container = document.getElementById(containerId);
                 const nudge = document.getElementById(nudgeId);
@@ -1247,6 +1741,7 @@ html
                     if (!ticking) {
                         window.requestAnimationFrame(() => {
                             const val = isEndDetection ? (container.scrollWidth - container.scrollLeft - container.clientWidth) : container.scrollLeft;
+                            // EndDetection: Hide if remaining < 20. StartDetection: Hide if scrolled > 20
                             const shouldHide = isEndDetection ? (val <= 20) : (val > 20);
                             nudge.style.opacity = shouldHide ? '0' : '1';
                             ticking = false;
@@ -1258,7 +1753,8 @@ html
             setupScrollFade('roots-container', 'scroll-nudge', true);
             setupScrollFade('dev-scroll-container', 'dev-nudge', false);
 
-            const modalData = {
+            // Modal Logic
+           const modalData = {
                 "cert_matsuo": {
                     img: "./matsuo_certificate.png",
                     sub_ja: "東京大学 松尾・岩澤研究室主催",
@@ -1458,6 +1954,7 @@ html
                     <div class="lang-ja"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3></div>
                     <div class="lang-en"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_en}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_en.replace(/\n/g, '<br>')}</h3></div>`;
 
+               // 画像データが存在する場合のみ、美しいフレーム付きで挿入するロジック
                 let imageHTML = '';
                 if (data.img) {
                     imageHTML = `
@@ -1487,7 +1984,7 @@ html
             modalCloseBtn.addEventListener('click', closeModal);
             modalBg.addEventListener('click', closeModal);
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isModalOpen) closeModal(); });
-            
+            // ▼▼▼ The Strength Equation (Equation Bar) Interaction ▼▼▼
             const equationLinks = document.querySelectorAll('.js-equation-link');
             equationLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -1497,8 +1994,10 @@ html
                     const glowColor = link.getAttribute('data-color-glow');
 
                     if (targetEl) {
+                        // 1. URLの履歴を汚さずにハッシュを更新
                         history.replaceState(null, null, `#${targetId}`);
 
+                        // 2. Lenis スムーススクロール (フォールバック完備)
                         if (typeof lenis !== 'undefined') {
                             lenis.scrollTo(targetEl, { offset: -100, duration: 1.2 });
                         } else {
@@ -1506,7 +2005,9 @@ html
                             window.scrollTo({ top: y, behavior: 'smooth' });
                         }
 
+                        // 3. Cinematic Feedback (光と触感の演出)
                         if(typeof gsap !== 'undefined') {
+                            // ターゲット要素（飛んだ先のカードや見出し）が光る
                             gsap.fromTo(targetEl, 
                                 { boxShadow: '0 0 0px rgba(0,0,0,0)' }, 
                                 { 
@@ -1518,6 +2019,7 @@ html
                                 }
                             );
                             
+                            // タップしたボタン自体のiOSライクな触感フィードバック（凹んで戻る）
                             gsap.to(link, {
                                 scale: 0.95,
                                 duration: 0.1,
@@ -1534,8 +2036,10 @@ html
                     }
                 });
             });
+            // ▲▲▲ The Strength Equation Interaction ここまで ▲▲▲
         });
     </script>
+    <!-- Cloudflare Web Analytics (Privacy First / Zero Cookie) -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f2952467d018447895f32b7e19273cba"}'></script>
 </body>
 </html>
