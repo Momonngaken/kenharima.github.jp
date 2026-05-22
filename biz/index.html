@@ -214,10 +214,49 @@
         #global-modal { display: none !important; }
         #global-modal.is-open { display: flex !important; }
 
-        .cv-auto {
+       .cv-auto {
             content-visibility: auto;
             contain-intrinsic-size: auto 800px;
         }
+
+        /* ↓↓↓ここから下のCSSを貼り付ける↓↓↓ */
+        /* ================= APPLE-LIKE FULLSCREEN MENU ================= */
+        #menu-toggle {
+            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; align-items: center; justify-content: center; height: 3rem; padding: 0 1.25rem; border-radius: 9999px; background-color: rgba(255, 255, 255, 0.72); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255, 255, 255, 1); color: #1d1d1f; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, background-color;
+        }
+        @media (max-width: 768px) { #menu-toggle { top: 1.25rem; right: 1.25rem; padding: 0 1rem; height: 2.75rem; } }
+        #menu-toggle:hover { background-color: rgba(255, 255, 255, 0.95); transform: scale(1.03); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 1); }
+        #menu-toggle:active { transform: scale(0.96); }
+        #menu-toggle .menu-label-close { display: none; }
+        body.menu-open #menu-toggle .menu-label-open { display: none; }
+        body.menu-open #menu-toggle .menu-label-close { display: block; }
+        body.menu-open #menu-toggle { background-color: rgba(245, 245, 247, 0.6); border-color: rgba(0,0,0,0.05); box-shadow: none; }
+        body.menu-open #menu-toggle:hover { background-color: rgba(255, 255, 255, 0.9); }
+        #site-menu { position: fixed; inset: 0; z-index: 900; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(40px) saturate(150%); -webkit-backdrop-filter: blur(40px) saturate(150%); opacity: 0; pointer-events: none; transform: scale(0.98) translateY(-10px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; justify-content: center; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        body.menu-open #site-menu { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
+        body.menu-open { overflow: hidden !important; }
+        .menu-inner { width: 100%; max-width: 900px; margin: 0 auto; padding: 6rem 2rem 4rem; display: flex; flex-direction: column; min-height: 100vh; }
+        .menu-nav { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; margin-bottom: auto; }
+        @media (min-width: 768px) { .menu-nav { gap: 1.75rem; } }
+        .menu-item { display: flex; align-items: baseline; gap: 1.5rem; text-decoration: none; color: #1d1d1f; opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        body.menu-open .menu-item { opacity: 1; transform: translateY(0); }
+        body.menu-open .menu-item:nth-child(1) { transition-delay: 0.10s; }
+        body.menu-open .menu-item:nth-child(2) { transition-delay: 0.15s; }
+        body.menu-open .menu-item:nth-child(3) { transition-delay: 0.20s; }
+        body.menu-open .menu-item:nth-child(4) { transition-delay: 0.25s; }
+        body.menu-open .menu-item:nth-child(5) { transition-delay: 0.30s; }
+        body.menu-open .menu-item:nth-child(6) { transition-delay: 0.35s; }
+        .menu-item-num { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.75rem; color: #86868b; font-weight: 600; }
+        .menu-item-text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif; font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: left; }
+        @media (min-width: 768px) { .menu-item-text { font-size: 3.5rem; } }
+        .menu-item:hover .menu-item-text { color: #0f3c85; transform: translateX(8px); }
+        .menu-item:hover .menu-item-num { color: #0f3c85; }
+        .menu-bottom { margin-top: 4rem; display: flex; flex-direction: column; gap: 2.5rem; opacity: 0; transform: translateY(20px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s; }
+        @media (min-width: 768px) { .menu-bottom { flex-direction: row; justify-content: space-between; align-items: flex-end; } }
+        body.menu-open .menu-bottom { opacity: 1; transform: translateY(0); }
+        .menu-contact-cta { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.25rem 2.5rem; background-color: #1d1d1f; color: #f5f5f7; border-radius: 9999px; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .menu-contact-cta:hover { background-color: #000; transform: scale(1.03); box-shadow: 0 16px 32px rgba(0,0,0,0.25); }
+        /* ↑↑↑ここまで↑↑↑ */
     </style>
     <noscript>
         <style>
@@ -304,36 +343,55 @@
 <body class="antialiased">
 
 
-    <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
-    <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
-        <nav class="pointer-events-auto fade-in" style="animation-delay: 0.5s;">
-            <!-- 容器は白ガラス、アクションは黒ガラスのハイブリッド・カプセル -->
-            <div class="group/nav flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] rounded-full w-auto max-w-[95vw] transition-all duration-500 ease-out">
-                
-                <!-- ロゴ (濃色維持) -->
-                <a href="#" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-4 hover:opacity-60 transition-opacity duration-300">KEN HARIMA</a>
-                
+    <body class="antialiased">
+
+    <!-- ↓↓↓ここから下を上書き↓↓↓ -->
+    <!-- ================= APPLE-LIKE MINIMAL MENU BUTTON ================= -->
+    <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+        <span class="menu-label-open font-mono tracking-widest uppercase">Menu</span>
+        <span class="menu-label-close font-mono tracking-widest uppercase">Close</span>
+    </button>
+
+    <!-- ================= FULLSCREEN MENU OVERLAY ================= -->
+    <div id="site-menu" aria-hidden="true">
+        <div class="menu-inner">
+            <p class="text-[10px] md:text-xs font-semibold text-[#86868b] tracking-widest uppercase mb-4 pl-1">
+                <span class="lang-ja">ナビゲーション</span><span class="lang-en">Navigation</span>
+            </p>
+            <nav class="menu-nav">
+                <a href="#home" class="menu-item js-menu-link">
+                    <span class="menu-item-num">01</span><span class="menu-item-text"><span class="lang-ja">トップ</span><span class="lang-en">Home</span></span>
+                </a>
+                <a href="#experience" class="menu-item js-menu-link">
+                    <span class="menu-item-num">02</span><span class="menu-item-text"><span class="lang-ja">経歴</span><span class="lang-en">Experience</span></span>
+                </a>
+                <a href="#development" class="menu-item js-menu-link">
+                    <span class="menu-item-num">03</span><span class="menu-item-text"><span class="lang-ja">自己研鑽</span><span class="lang-en">Development</span></span>
+                </a>
+                <a href="#profile" class="menu-item js-menu-link">
+                    <span class="menu-item-num">04</span><span class="menu-item-text"><span class="lang-ja">プロフィール</span><span class="lang-en">Profile</span></span>
+                </a>
+                <a href="#competencies" class="menu-item js-menu-link">
+                    <span class="menu-item-num">05</span><span class="menu-item-text"><span class="lang-ja">コンピテンシー</span><span class="lang-en">Competencies</span></span>
+                </a>
+                <a href="#projects" class="menu-item js-menu-link">
+                    <span class="menu-item-num">06</span><span class="menu-item-text"><span class="lang-ja">主要プロジェクト</span><span class="lang-en">Projects & Awards</span></span>
+                </a>
+            </nav>
+            <div class="menu-bottom">
                 <div class="flex items-center gap-2">
-                    <!-- Language Switcher (白ガラス内の微細な窪み) -->
-                    <div class="relative flex items-center bg-gray-500/5 rounded-full p-0.5 select-none border border-gray-900/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
-                        <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JA</button>
-                        <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
+                    <div class="relative flex items-center bg-gray-500/5 rounded-full p-1 select-none border border-gray-900/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.02)]">
+                        <button id="lang-jp" class="relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-out" aria-label="Switch to Japanese">JA</button>
+                        <button id="lang-en" class="relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-out" aria-label="Switch to English">EN</button>
                     </div>
-                    
-                    <!-- Contact Icon (黒ガラス・CTA) -->
-                    <!-- 変更点: style属性で背景色と文字色を強制ロックし、CSS非同期ロード時のチラつきを完全防止 -->
-                    <a href="../contact.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:border-white/40 overflow-hidden mr-1" style="background-color: rgba(24,24,27,0.85); color: #ffffff;">
-                        <!-- 微かな反射エフェクト -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                        <!-- 変更点: svgタグに直接 style="width:10px; height:10px; fill:#ffffff;" を指定し黒潰れを回避 -->
-                        <svg class="relative z-10 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style="width: 10px; height: 10px; fill: #ffffff;" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/>
-                        </svg>
-                    </a>
                 </div>
+                <a href="../contact.html" class="menu-contact-cta">
+                    <span class="lang-ja">お問い合わせ</span><span class="lang-en">Get in Touch</span><i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                </a>
             </div>
-        </nav>
+        </div>
     </div>
+    <!-- ↑↑↑ここまで↑↑↑ -->
     
     <div class="max-w-4xl mx-auto px-6 py-12 md:py-32">
 
@@ -1653,35 +1711,11 @@
             const htmlEl = document.documentElement;
             const contactBtn = document.getElementById('biz-contact-btn');
             
-            // ▼ ADDED: Smart Navigation Hide/Show on Scroll ▼
-            const navContainer = document.getElementById('nav-container');
-            if (navContainer) {
-                let lastScrollY = window.scrollY;
-                let tickingNav = false;
-                window.addEventListener('scroll', () => {
-                    if (!tickingNav) {
-                        window.requestAnimationFrame(() => {
-                            const currentScrollY = window.scrollY;
-                            // 下へスクロール（読書中）はナビを上部へ隠し、上へスクロール（探索中）で即座に表示する
-                            if (currentScrollY > 100 && currentScrollY > lastScrollY) {
-                                navContainer.style.transform = 'translateY(-150%)';
-                            } else {
-                                navContainer.style.transform = 'translateY(0)';
-                            }
-                            lastScrollY = currentScrollY;
-                            tickingNav = false;
-                        });
-                        tickingNav = true;
-                    }
-                }, { passive: true });
-            }
-            // ▲ ADDED: Smart Navigation Hide/Show on Scroll ▲
-
             // Language Switcher (Optimized: ClassList Toggling)
             const activeClasses = ['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
             const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
-            const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
-
+            const baseClass = "relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
+            
             const setBtnState = (btn, isActive) => {
                 btn.className = baseClass;
                 btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
@@ -2004,6 +2038,57 @@ gsap.ticker.lagSmoothing(0);
             modalCloseBtn.addEventListener('click', closeModal);
             modalBg.addEventListener('click', closeModal);
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isModalOpen) closeModal(); });
+            // ↓↓↓ここから貼り付け↓↓↓
+            // ▼▼▼ APPLE-LIKE FULLSCREEN MENU LOGIC ▼▼▼
+            const menuToggle = document.getElementById('menu-toggle');
+            const siteMenu = document.getElementById('site-menu');
+            const menuLinks = document.querySelectorAll('.js-menu-link');
+
+            if (menuToggle && siteMenu) {
+                const toggleMenu = () => {
+                    const isOpen = document.body.classList.contains('menu-open');
+                    if (isOpen) {
+                        document.body.classList.remove('menu-open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        siteMenu.setAttribute('aria-hidden', 'true');
+                        if (typeof lenis !== 'undefined') lenis.start();
+                    } else {
+                        document.body.classList.add('menu-open');
+                        menuToggle.setAttribute('aria-expanded', 'true');
+                        siteMenu.setAttribute('aria-hidden', 'false');
+                        if (typeof lenis !== 'undefined') lenis.stop();
+                    }
+                };
+
+                menuToggle.addEventListener('click', toggleMenu);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) toggleMenu();
+                });
+
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const targetId = link.getAttribute('href');
+                        if (targetId.startsWith('#')) {
+                            e.preventDefault();
+                            toggleMenu(); // メニューを閉じる
+                            const targetEl = document.querySelector(targetId);
+                            if (targetEl) {
+                                setTimeout(() => {
+                                    if (typeof lenis !== 'undefined') {
+                                        lenis.scrollTo(targetEl, { offset: -100, duration: 1.2 });
+                                    } else {
+                                        const y = targetEl.getBoundingClientRect().top + window.scrollY - 100;
+                                        window.scrollTo({ top: y, behavior: 'smooth' });
+                                    }
+                                }, 400); 
+                            }
+                        }
+                    });
+                });
+            }
+            // ▲▲▲ APPLE-LIKE FULLSCREEN MENU LOGIC ▲▲▲
+            // ↑↑↑ここまで貼り付け↑↑↑
             // ▼▼▼ The Strength Equation (Equation Bar) Interaction ▼▼▼
             const equationLinks = document.querySelectorAll('.js-equation-link');
             equationLinks.forEach(link => {
