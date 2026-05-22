@@ -88,7 +88,7 @@
             opacity: 0.2;
             filter: blur(16px) brightness(1.2);
             transform: translateY(16px);
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
             will-change: opacity, transform, filter;
         }
 
@@ -97,14 +97,14 @@
             opacity: 0.2;
             filter: blur(12px) brightness(1.2);
             transform: translateY(16px);
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.3s forwards;
             will-change: opacity, transform, filter;
         }
 
         #nav-container {
             opacity: 0;
             transform: translateY(-20px);
-            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2.45s forwards;
             will-change: opacity, transform;
         }
         /* ▼▼▼ 修正版：FOUT（黒い正方形）とコンテナ崩れの完全隠蔽 ▼▼▼ */
@@ -361,8 +361,8 @@
 </head>
 <body class="antialiased">
 
-    <!-- ▼▼▼ ここから追加：シネマティック・イントロ (Apple-like) ▼▼▼ -->
-    <div id="cinematic-intro" class="fixed inset-0 z-[999999] flex items-center justify-center bg-[#000000] pointer-events-none" aria-hidden="true">
+   <!-- ▼▼▼ ここから追加：シネマティック・イントロ (Apple-like) ▼▼▼ -->
+    <div id="cinematic-intro" class="fixed inset-0 z-[999999] flex items-center justify-center bg-[#000000]" aria-hidden="true">
         <!-- ホワイトアウト用フラッシュレイヤー -->
         <div id="cinematic-flash" class="absolute inset-0 bg-[#fafafa] opacity-0"></div>
         <!-- テキストレイヤー -->
@@ -444,32 +444,17 @@
                     <div class="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 w-full">
                         
                         <!-- Pill 1: Narrative (Rose) -->
-                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(244,63,94,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(244,63,94,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-rose-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-rose-600 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-rose-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">物語設計</span><span class="lang-en">Narrative</span>
-                            </span>
-                        </a>
+                        <a href="#narrative" class="..." data-color-glow="rgba(244,63,94,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.3s forwards;">
 
-                        <!-- Pill 2: Philosophy (Purple) -->
-                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(168,85,247,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(168,85,247,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-purple-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-purple-600 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-purple-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">哲学・倫理学</span><span class="lang-en">Philosophy & Ethics</span>
-                            </span>
-                        </a>
+                            <!-- Pill 2: Philosophy (Purple) -->
+                            <a href="#narrative" class="..." data-color-glow="rgba(168,85,247,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.35s forwards;">
 
-                        <!-- Pill 3: Strategy (Blue) -->
-                        <a href="#strategy" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(15,60,133,0.12)] focus:outline-none js-equation-link opacity-0" data-target="strategy" data-color-glow="rgba(15,60,133,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-blue-700 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-blue-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">戦略</span><span class="lang-en">Strategy</span>
-                            </span>
-                        </a>
+                                <!-- Pill 3: Strategy (Blue) -->
+                                <a href="#strategy" class="..." data-color-glow="rgba(15,60,133,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.4s forwards;">
 
-                        <!-- Pill 4: Game Theory (Cyan) -->
-                        <a href="#decision" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(6,182,212,0.12)] focus:outline-none js-equation-link opacity-0" data-target="decision" data-color-glow="rgba(6,182,212,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                    <!-- Pill 4: Game Theory (Cyan) -->
+                                    <a href="#decision" class="..." data-color-glow="rgba(6,182,212,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.45s forwards;">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-cyan-600 transition-colors duration-500">
                                 <span class="text-gray-300 group-hover/pill:text-cyan-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">ゲーム理論</span><span class="lang-en">Game Theory</span>
                             </span>
