@@ -232,10 +232,10 @@
         body.menu-open #menu-toggle .menu-label-close { display: block; }
         body.menu-open #menu-toggle { background-color: rgba(245, 245, 247, 0.6); border-color: rgba(0,0,0,0.05); box-shadow: none; }
         body.menu-open #menu-toggle:hover { background-color: rgba(255, 255, 255, 0.9); }
-        #site-menu { position: fixed; inset: 0; z-index: 900; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(40px) saturate(150%); -webkit-backdrop-filter: blur(40px) saturate(150%); opacity: 0; pointer-events: none; transform: scale(0.98) translateY(-10px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; justify-content: center; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        #site-menu { position: fixed; inset: 0; z-index: 900; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(40px) saturate(150%); -webkit-backdrop-filter: blur(40px) saturate(150%); opacity: 0; pointer-events: none; transform: scale(0.98) translateY(-10px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); display: block; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         body.menu-open #site-menu { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
         body.menu-open { overflow: hidden !important; }
-        .menu-inner { width: 100%; max-width: 900px; margin: 0 auto; padding: 6rem 2rem 4rem; display: flex; flex-direction: column; min-height: 100vh; }
+        .menu-inner { width: 100%; max-width: 900px; margin: 0 auto; padding: 6rem 2rem 4rem; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; }
         .menu-nav { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; margin-bottom: auto; }
         @media (min-width: 768px) { .menu-nav { gap: 1.75rem; } }
         .menu-item { display: flex; align-items: baseline; gap: 1.5rem; text-decoration: none; color: #1d1d1f; opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -396,7 +396,7 @@
     <div class="max-w-4xl mx-auto px-6 py-12 md:py-32">
 
         <!-- ================= HERO PROFILE ================= -->
-        <header class="pt-12 md:pt-20 mb-16 md:mb-24 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
+        <header id="home" class="pt-12 md:pt-20 mb-16 md:mb-24 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
             <!-- Profile Photo (3D Interactive) -->
             <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
                 <!-- 復元・強化：オーラのような多層Glowエフェクト -->
@@ -475,7 +475,7 @@
             
 
             <!-- ================= EDUCATION ================= -->
-            <section class="fade-in">
+            <section id="experience" class="fade-in">
                 <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14">
                     <span class="lang-ja">経歴</span>
@@ -605,7 +605,7 @@
                 </div>
                 
                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
-                <div class="mt-20 md:mt-32 pt-16 border-t border-gray-100 relative group/section cv-auto">
+                <div id="development" class="mt-20 md:mt-32 pt-16 border-t border-gray-100 relative group/section cv-auto">
                     <!-- Section Label -->
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-12 md:mb-16 text-center">
                         <span class="lang-ja">自己研鑽</span>
@@ -772,7 +772,7 @@
             </section>
 
             <!-- ================= PROFILE ================= -->
-            <section class="fade-in">
+            <section id="profile" class="fade-in">
                <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14">
                     <span class="lang-ja">プロフィール</span>
@@ -935,7 +935,7 @@
             </section>
 
             <!-- ================= COMPETENCIES ================= -->
-            <section class="fade-in cv-auto">
+            
                <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14 pl-2">
                     <span class="lang-ja">コンピテンシー</span>
@@ -1196,7 +1196,7 @@
 </div>
 
             <!-- ================= PROJECTS & AWARDS ================= -->
-            <section class="fade-in cv-auto">
+            <section id="projects" class="fade-in cv-auto">
                 <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14">
                     <span class="lang-ja">主要プロジェクト・受賞歴</span>
