@@ -548,111 +548,143 @@
                 
                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
                 <div class="mt-20 md:mt-32 pt-16 border-t border-gray-100 relative group/section cv-auto">
-                    <!-- Section Label -->
+                    <!-- Section Label (Apple-like minimal centering) -->
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-12 md:mb-16 text-center">
                         <span class="lang-ja">自己研鑽</span>
                         <span class="lang-en">Professional Development</span>
                     </h2>
 
-                   <!-- Scroll Container: Minimal Glass Cards -->
-                    <div class="relative w-full overflow-hidden">
-                        <!-- Seamless Fade Edges (Apple-like Non-linear Gradient) -->
-                        <div class="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
-                        <div class="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
-
-                        <div id="dev-scroll-container" class="flex overflow-x-auto gap-4 md:gap-6 pb-12 snap-x snap-mandatory scrollbar-hide px-6 md:px-0" style="-webkit-overflow-scrolling: touch;">    
-                            <!-- 1. TOEIC -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(20,184,166,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-language"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3">
-                                    <span class="lang-ja">TOEIC L&R 950</span><span class="lang-en">TOEIC L&R 950</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">英語を日本語と共に日常的思考基盤として実装し、クロスボーダーの意思決定に遅延を生じさせない力。</span><span class="lang-en">Business-native English proficiency preserving speed and resolution in global decision-making.</span>
-                                </p>
-                            </div>
-
-                            <!-- 2. Eiken Pre-1 -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(245,158,11,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-globe"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3">
-                                    <span class="lang-ja">実用英語技能検定 準1級</span><span class="lang-en">EIKEN Grade Pre-1</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">非対称な情報環境を突破し、グローバルな文脈で交渉・共創を可能にする言語力。</span><span class="lang-en">Advanced linguistic agility to navigate asymmetric information in global contexts.</span>
-                                </p>
-                            </div>
+                    <!-- ▼▼▼ Apple Event "Bento Grid" ▼▼▼ -->
+                    <!-- dense指定により、画面サイズが変わっても隙間なく美しい長方形を維持します -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 auto-rows-[135px] md:auto-rows-[150px] lg:auto-rows-[170px] grid-flow-row-dense w-full max-w-4xl mx-auto">
+                        
+                        <!-- 1. MAIN THEME (Center Axis / 2x2 Large) -->
+                        <div class="col-span-2 row-span-2 group relative bg-white/70 backdrop-blur-2xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 overflow-hidden hover:shadow-[0_30px_60px_rgba(15,60,133,0.12)] hover:-translate-y-1 transition-all duration-[800ms] flex flex-col justify-between isolate cursor-default">
+                            <!-- Fluid Ambient Background -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/60 via-transparent to-cyan-50/40 -z-10"></div>
+                            <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 group-hover:scale-110 transition-all duration-1000 -z-10"></div>
                             
-                            <!-- 3. G-検定 -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-brain"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">JDLA Deep Learning for GENERAL（G検定）</span><span class="lang-en">JDLA Deep Learning for GENERAL Certificate</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">AIのブラックボックスを解体し、ビジネス価値へと変換する。</span><span class="lang-en">Decoding the AI black box to architect strategic business implementations.</span>
+                            <div>
+                                <span class="text-[10px] md:text-xs font-mono font-bold text-indigo-600 uppercase tracking-[0.2em] block mb-1">Overview</span>
+                            </div>
+                            <div class="mt-auto">
+                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 tracking-tighter leading-[1.1] mb-3 md:mb-4">
+                                    <span class="lang-ja">学びを、<br>実務価値へ。</span>
+                                    <span class="lang-en">Learning that<br>Compounds.</span>
+                                </h3>
+                                <p class="text-[12px] md:text-[14px] text-gray-500 font-medium leading-relaxed max-w-[90%]">
+                                    <span class="lang-ja">言語・AI・データ・数的処理。<br>インプットはすべて、出力の解像度を上げるために。</span>
+                                    <span class="lang-en">Language, AI, Analytics, and Quantitative Rigor. All inputs serve to maximize the resolution of output.</span>
                                 </p>
                             </div>
+                        </div>
 
-                            <!-- 6. Abacus -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(217,70,239,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-fuchsia-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-calculator"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">珠算能力検定1級</span><span class="lang-en">Abacus Proficiency Test, Grade 1</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">複雑な数値を瞬時に捌く、「絶対的処理能力」。日本商工会議所主催。</span><span class="lang-en">Absolute processing capacity to instantly decode complex figures.</span>
+                        <!-- 2. LANGUAGE (2x1 Horizontal) -->
+                        <div class="col-span-2 row-span-1 group relative bg-white/70 backdrop-blur-2xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-8 overflow-hidden hover:shadow-[0_20px_40px_rgba(20,184,166,0.12)] hover:-translate-y-1 transition-all duration-[800ms] flex flex-col justify-center cursor-default">
+                            <!-- Subtle Icon Graphic -->
+                            <div class="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 text-teal-500/5 group-hover:text-teal-500/10 transition-colors duration-700 pointer-events-none transform-gpu group-hover:scale-110">
+                                <i class="fa-solid fa-earth-americas text-7xl md:text-8xl"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <span class="text-[9px] md:text-[10px] font-mono font-bold text-teal-600 uppercase tracking-widest mb-1 md:mb-2 block">Global Communication</span>
+                                <div class="flex items-baseline gap-2 md:gap-3 mb-1">
+                                    <h3 class="text-4xl md:text-5xl font-display font-bold text-gray-900 tracking-tighter">950</h3>
+                                    <span class="text-xs md:text-sm font-bold text-gray-400 tracking-tight whitespace-nowrap">TOEIC / EIKEN Pre-1</span>
+                                </div>
+                                <p class="text-[11px] md:text-[13px] text-gray-500 font-medium">
+                                    <span class="lang-ja">ビジネスの意思決定を遅延させない語学力</span>
+                                    <span class="lang-en">Business-ready linguistic agility</span>
                                 </p>
                             </div>
+                        </div>
 
-                            <!-- 7. Mental Math -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-violet-50 text-violet-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-violet-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-bolt"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">暗算検定1級</span><span class="lang-en">Mental Arithmetic Test, Grade 1</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">右脳的イメージ処理を活用し、高速で解像度の高い仮説を構築する「直感的数値把握」。日本商工会議所主催。</span><span class="lang-en">High-speed heuristic hypothesis generation powered by right-brain imaging.</span>
+                        <!-- 3. ANALYTICS (1x1 Small) -->
+                        <div class="col-span-1 row-span-1 group relative bg-white/70 backdrop-blur-2xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-6 overflow-hidden hover:shadow-[0_20px_40px_rgba(249,115,22,0.12)] hover:-translate-y-1 transition-all duration-[800ms] flex flex-col justify-between cursor-default">
+                            <div class="flex justify-between items-start">
+                                <span class="text-[9px] md:text-[10px] font-mono font-bold text-orange-600 uppercase tracking-widest">Data Driven</span>
+                                <i class="fa-solid fa-chart-pie text-orange-400/40 text-lg md:text-xl group-hover:text-orange-500 transition-colors"></i>
+                            </div>
+                            <div class="mt-auto">
+                                <h3 class="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight mb-0.5">GA4</h3>
+                                <p class="text-[10px] md:text-[11px] text-gray-500 font-medium leading-tight">
+                                    <span class="lang-ja">行動の軌跡を洞察へ</span>
+                                    <span class="lang-en">Behavior into insight</span>
                                 </p>
                             </div>
+                        </div>
 
-                            <!-- 3. G-検定 -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-brain"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">Google AI プロフェッショナル認定証</span><span class="lang-en">Google AI Professional Certificate</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">Gemini、NotebookLMなどのAIツールを実務に組み込み、調査・企画・文章作成・データ分析・コーディングまでを効率化するAIリテラシー。</span><span class="lang-en">AI literacy for integrating tools such as Gemini and NotebookLM into professional workflows to streamline research, planning, writing, data analysis, and coding.</span>
-                                </p>
-                            </div>
-
-                            <!-- 4. Google Analytics -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(249,115,22,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-chart-column"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">Googleアナリティクス認定資格（GA4）</span><span class="lang-en">Google Analytics Certification (GA4)</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">ユーザー行動の微細な軌跡を定量化し、暗黙のインサイトを炙り出す「データ駆動の意思決定」。</span><span class="lang-en">Quantifying user trajectories to extract latent insights for decision making.</span>
-                                </p>
-                            </div>
-
-                            <!-- 5. Google Ads -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(59,130,246,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-bullhorn"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">Google広告クリエイティブ認定資格</span><span class="lang-en">Google Ads Creative Certification</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">認知バイアスとデータ分析を融合させ、ユーザーの行動変容をハックする「クリエイティブ最適化」。</span><span class="lang-en">Hacking behavioral change by fusing cognitive bias insights with optimization.</span>
-                                </p>
-                            </div>
+                        <!-- 4. AI LITERACY (1x2 Vertical Cinematic Dark Card) -->
+                        <!-- ※SP時は横長(2x1)、PC時は縦長(1x2)へ美しく変形 -->
+                        <div class="col-span-2 md:col-span-1 row-span-1 md:row-span-2 group relative bg-[#0b0f19] border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-6 overflow-hidden hover:shadow-[0_20px_50px_rgba(6,182,212,0.25)] hover:-translate-y-1 transition-all duration-[800ms] flex flex-col justify-between cursor-default isolate">
+                            <!-- Cinematic Glow -->
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.15),transparent_60%)] group-hover:opacity-100 opacity-70 transition-opacity duration-700 -z-10"></div>
                             
+                            <div class="flex flex-row md:flex-col justify-between items-center md:items-start h-full">
+                                <div class="w-full flex flex-col md:block">
+                                    <span class="text-[9px] md:text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest mb-1 md:mb-6 block">AI Literacy</span>
+                                    
+                                    <div class="flex flex-row md:flex-col items-center md:items-start gap-4 mt-2 md:mt-0">
+                                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 border border-white/5 flex items-center justify-center shrink-0 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/30 transition-all duration-500">
+                                            <i class="fa-solid fa-brain text-cyan-300 text-xl md:text-3xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl md:text-3xl font-display font-bold text-white tracking-tight mb-1">G検定</h3>
+                                            <p class="text-[11px] md:text-[12px] text-gray-400 font-medium leading-tight">
+                                                <span class="lang-ja">Google AI 認定</span>
+                                                <span class="lang-en">Google AI Cert.</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hidden md:block w-full mt-auto pt-4 border-t border-white/10">
+                                     <p class="text-[10px] md:text-[11px] text-cyan-200/70 font-medium">
+                                        <span class="lang-ja">AIを戦略へ接続する</span>
+                                        <span class="lang-en">From tools to strategy</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. QUANTITATIVE (2x1 Horizontal) -->
+                        <div class="col-span-2 row-span-1 group relative bg-white/70 backdrop-blur-2xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-6 lg:p-8 overflow-hidden hover:shadow-[0_20px_40px_rgba(217,70,239,0.12)] hover:-translate-y-1 transition-all duration-[800ms] flex flex-col justify-center cursor-default">
+                            <div class="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-fuchsia-50/60 to-transparent -z-10"></div>
+                            <div class="absolute -right-2 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none transform-gpu group-hover:scale-110">
+                                 <i class="fa-solid fa-bolt text-7xl md:text-8xl text-fuchsia-600"></i>
+                            </div>
+
+                            <span class="text-[9px] md:text-[10px] font-mono font-bold text-fuchsia-600 uppercase tracking-widest mb-1 md:mb-2 block">Quantitative Reflex</span>
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-gray-900 tracking-tighter leading-none mb-1 md:mb-2">
+                                <span class="lang-ja">珠算・暗算 1級</span>
+                                <span class="lang-en">Abacus / Mental Math Gr.1</span>
+                            </h3>
+                            <p class="text-[11px] md:text-[13px] text-gray-500 font-medium">
+                                <span class="lang-ja">複雑な数値を瞬時に捌く、直感的な絶対処理能力</span>
+                                <span class="lang-en">Instant numerical processing and intuitive heuristic grasp</span>
+                            </p>
+                        </div>
+
+                        <!-- 6. CREATIVE & GROWTH (1x1 Small) -->
+                        <div class="col-span-1 row-span-1 group relative bg-white/70 backdrop-blur-2xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-6 overflow-hidden hover:shadow-[0_20px_40px_rgba(59,130,246,0.12)] hover:-translate-y-1 transition-all duration-[800ms] flex flex-col justify-between cursor-default">
+                            <div class="flex justify-between items-start">
+                                <span class="text-[9px] md:text-[10px] font-mono font-bold text-blue-600 uppercase tracking-widest">Growth</span>
+                                <i class="fa-solid fa-wand-magic-sparkles text-blue-400/40 text-lg md:text-xl group-hover:text-blue-500 transition-colors"></i>
+                            </div>
+                            <div class="mt-auto">
+                                <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 tracking-tight mb-0.5">Google Ads</h3>
+                                <p class="text-[10px] md:text-[11px] text-gray-500 font-medium leading-tight">
+                                    <span class="lang-ja">クリエイティブ最適化</span>
+                                    <span class="lang-en">Creative × Performance</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ▲▲▲ Apple Event "Bento Grid" ここまで ▲▲▲ -->
+                </div>
+                
                             <!-- End Spacer -->
                             <div class="shrink-0 w-4 md:w-8"></div>
-                        </div>
-                    </div>
+            
                     <!-- ▼▼▼ ここから追加: CERTIFICATE MODULE ▼▼▼ -->
                     <div class="mt-16 md:mt-24 max-w-4xl mx-auto px-6 md:px-0">
                        <!-- Certificate Header -->
