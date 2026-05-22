@@ -67,95 +67,23 @@ html
             z-index: -1;
             pointer-events: none;
         }
-
-        /* ▼▼▼ 追加：シネマティック・イントロ (Apple-like) ▼▼▼ */
-        #cinematic-intro {
-            animation: introContainerFade 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: opacity, visibility;
-        }
-
-        #cinematic-text {
-            opacity: 0;
-            filter: blur(16px);
-            transform: scale(0.9) translateY(10px);
-            animation: introTextReveal 2.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: opacity, filter, transform;
-        }
-        
-        #cinematic-text .lang-ja,
-        #cinematic-text .lang-en {
-            animation: introTextShimmer 2.6s ease-in-out forwards !important;
-            background-image: linear-gradient(135deg, #a1a1aa 0%, #ffffff 50%, #a1a1aa 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            will-change: background-position;
-        }
-        
-        #cinematic-text .lang-ja { font-feature-settings: "palt" 1; }
-
-        #cinematic-flash {
-            animation: introFlash 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: opacity;
-        }
-
-        @keyframes introTextReveal {
-            0% { opacity: 0; filter: blur(16px) brightness(0.5); transform: scale(0.9) translateY(10px); letter-spacing: 0.05em; }
-            30% { opacity: 1; filter: blur(0px) brightness(1); transform: scale(1) translateY(0); letter-spacing: 0.15em; }
-            60% { opacity: 1; filter: blur(0px) brightness(1.2); transform: scale(1.02) translateY(0); letter-spacing: 0.15em; }
-            85% { opacity: 0; filter: blur(24px) brightness(5); transform: scale(1.1) translateY(-10px); letter-spacing: 0.3em; }
-            100% { opacity: 0; filter: blur(24px) brightness(5); transform: scale(1.1) translateY(-10px); }
-        }
-        
-        @keyframes introTextShimmer {
-            0% { background-position: 200% center; }
-            100% { background-position: 0% center; }
-        }
-
-        @keyframes introFlash {
-            0%, 65% { opacity: 0; }
-            85% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        @keyframes introContainerFade {
-            0%, 95% { opacity: 1; visibility: visible; }
-            100% { opacity: 0; visibility: hidden; z-index: -10; }
-        }
-        /* ▲▲▲ シネマティック・イントロ ここまで ▲▲▲ */
-
-        /* ----- 本編UI カスケード・アニメーション（+2.2秒遅延） ----- */
+        /* ----- カスケード・アニメーション（光の中からの実体化） ----- */
         #hero-tilt-container {
-            opacity: 0.2;
-            filter: blur(24px) brightness(1.5) saturate(0%);
-            transform: scale(0.95) translateY(20px);
-            animation: opticFocusRevealPhoto 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
-            will-change: opacity, transform, filter;
+            /* ... */
+            animation: opticFocusRevealPhoto 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
         }
-
         header h1 {
-            opacity: 0.2;
-            filter: blur(16px) brightness(1.2);
-            transform: translateY(16px);
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.3s forwards;
-            will-change: opacity, transform, filter;
+            /* ... */
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
         }
-
         header .mt-4,
         header .mt-6 {
-            opacity: 0.2;
-            filter: blur(12px) brightness(1.2);
-            transform: translateY(16px);
-            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.4s forwards;
-            will-change: opacity, transform, filter;
+            /* ... */
+            animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
         }
-
         #nav-container {
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2.6s forwards;
-            will-change: opacity, transform;
+            /* ... */
+            animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
 
         /* 1. スマホ特有の黒いタップハイライトを完全に無効化 */
@@ -241,7 +169,6 @@ html
         <style>
             body.is-loading { overflow: auto !important; pointer-events: auto !important; opacity: 1 !important; }
             body::before { display: none !important; }
-            body.is-loading #cinematic-intro { display: none !important; } 
             body.is-loading #hero-tilt-container,
             body.is-loading header h1, 
             body.is-loading header .mt-4, 
@@ -278,18 +205,6 @@ html
     </script>
 </head>
 <body class="antialiased is-loading">
-
-    <!-- ▼▼▼ シネマティック・イントロ (Apple-like) ▼▼▼ -->
-    <div id="cinematic-intro" class="fixed inset-0 z-[999999] flex items-center justify-center bg-[#000000]" aria-hidden="true">
-        <!-- ホワイトアウト用フラッシュレイヤー -->
-        <div id="cinematic-flash" class="absolute inset-0 bg-[#fafafa] opacity-0"></div>
-        <!-- テキストレイヤー -->
-        <div id="cinematic-text" class="relative z-10 font-display font-medium text-center flex flex-col items-center justify-center w-full px-6">
-            <span class="lang-ja block text-[24px] sm:text-[32px] md:text-[40px] tracking-[0.2em] font-semibold">静かに、本気。</span>
-            <span class="lang-en block text-[24px] sm:text-[32px] md:text-[40px] tracking-[0.05em] font-light">Quietly, all in.</span>
-        </div>
-    </div>
-    <!-- ▲▲▲ 追加ここまで ▲▲▲ -->
 
     <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
     <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] will-change-transform">
@@ -1197,16 +1112,14 @@ html
     <script>
         (function() {
             const body = document.body;
-            body.style.overflow = 'hidden';
             body.classList.remove('is-loading');
             body.classList.add('is-ready');
             
             setTimeout(() => {
-                body.style.overflow = '';
                 body.classList.add('is-loaded');
                 if (typeof lenis !== 'undefined') lenis.resize();
                 if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-            }, 2800); 
+            }, 800); 
         })();
 
         document.addEventListener('DOMContentLoaded', () => {
