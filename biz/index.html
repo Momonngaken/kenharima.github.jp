@@ -150,6 +150,33 @@
         /* ▲▲▲ 追加ここまで ▲▲▲ */
 
         /* ▼▼▼ 追加：シネマティック・イントロ用 CSS ▼▼▼ */
+        /* ▼▼▼ 極限シネマティック・イントロ用アニメーション ▼▼▼ */
+        @keyframes introTextRevealJa {
+            0% { opacity: 0; filter: blur(24px) brightness(2); transform: scale(0.95) translateY(10px); letter-spacing: 0.1em; }
+            35% { opacity: 1; filter: blur(0px) brightness(1); transform: scale(1) translateY(0); letter-spacing: 0.35em; }
+            75% { opacity: 1; filter: blur(0px) brightness(1); transform: scale(1) translateY(0); letter-spacing: 0.35em; }
+            100% { opacity: 0; filter: blur(20px) brightness(3); transform: scale(1.05) translateY(-15px); letter-spacing: 0.45em; }
+        }
+
+        @keyframes introTextRevealEn {
+            0% { opacity: 0; filter: blur(16px); transform: translateY(10px); letter-spacing: 0.2em; color: rgba(255,255,255,0.3); }
+            35% { opacity: 1; filter: blur(0px); transform: translateY(0); letter-spacing: 0.45em; color: rgba(255,255,255,0.85); text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+            75% { opacity: 1; filter: blur(0px); transform: translateY(0); letter-spacing: 0.45em; }
+            100% { opacity: 0; filter: blur(12px) brightness(2); transform: translateY(-8px); letter-spacing: 0.55em; }
+        }
+
+        @keyframes introOverlayVanish {
+            0% { opacity: 1; background-color: #000; filter: contrast(1); }
+            40% { background-color: #000; filter: contrast(1.2); }
+            /* 闇から一転、露出オーバー（白飛び）させながらメイン画面の実体化へ完璧に接続させる */
+            100% { opacity: 0; background-color: #fff; filter: contrast(0.8) brightness(2.5); transform: scale(1.03); }
+        }
+
+        @keyframes introAmbientLight {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            50% { opacity: 0.4; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(1.1) translateY(-20px); }
+        }
         html.run-intro:not(.intro-complete) {
             overflow: hidden !important;
         }
@@ -322,17 +349,26 @@
 </head>
 <body class="antialiased">
 
-    <!-- ================= FIRST-TIME ONLY CINEMATIC INTRO ================= -->
-    <div id="intro-overlay" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" style="display: none;">
-        <div class="text-center px-6">
-            <!-- 1行目: 日本語 (静寂と意志。極限まで間隔を広げたモダン・タイポグラフィ) -->
-            <div id="intro-text-ja" class="text-xl sm:text-2xl md:text-3xl font-display font-bold tracking-[0.35em] text-white/90 mb-6 opacity-0 filter blur-[16px] transform translateY-[12px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+    <!-- ================= FIRST-TIME ONLY CINEMATIC INTRO (EXTREME POLISH) ================= -->
+    <div id="intro-overlay" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black pointer-events-none overflow-hidden" style="display: none;">
+        
+        <!-- 背景のアンビエントライト（暗闇の中に差す微かな光の筋） -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none mix-blend-screen">
+            <div id="intro-ambient" class="w-[150vw] h-[50vh] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.04)_0%,transparent_50%)] opacity-0 transform-gpu will-change-transform"></div>
+        </div>
+        
+        <div class="text-center px-6 relative z-10 flex flex-col items-center">
+            <!-- 1行目: 日本語 (静寂と意志。文字間隔の動的変化と露出オーバーによる消滅) -->
+            <div id="intro-text-ja" class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-5 opacity-0 will-change-[opacity,transform,filter,letter-spacing] whitespace-nowrap">
                 静かに、本気。
             </div>
-            <!-- 2行目: 英語 (洗練された細身のサンセリフによる余韻) -->
-            <div id="intro-text-en" class="text-xs sm:text-sm font-sans font-medium tracking-[0.45em] text-gray-400 uppercase opacity-0 filter blur-[12px] transform translateY-[12px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <!-- 2行目: 英語 (洗練された細身のサンセリフによる余韻と深い被写界深度) -->
+            <div id="intro-text-en" class="text-[10px] sm:text-xs font-sans font-medium uppercase opacity-0 will-change-[opacity,transform,filter,letter-spacing] whitespace-nowrap">
                 Quietly, all in.
             </div>
+            
+            <!-- 中央の光る極細ライン（時間軸の進行を無意識に感じさせるアクセント） -->
+            <div id="intro-line" class="w-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent mt-8 opacity-0 will-change-[width,opacity]"></div>
         </div>
     </div>
 
@@ -1637,7 +1673,7 @@
             }
         })();
         document.addEventListener('DOMContentLoaded', () => {
-            // ★ シネマティック・イントロ制御ロジック
+            // ★ シネマティック・イントロ制御ロジック (極限ブラッシュアップ版)
             (function() {
                 const isFirstVisit = document.documentElement.classList.contains('run-intro');
                 const introOverlay = document.getElementById('intro-overlay');
@@ -1647,36 +1683,39 @@
                     
                     const textJa = document.getElementById('intro-text-ja');
                     const textEn = document.getElementById('intro-text-en');
+                    const ambient = document.getElementById('intro-ambient');
+                    const line = document.getElementById('intro-line');
                     
-                    // 1. 日本語キャッチコピーのフェードイン（ブラー収差を伴うフォーカス）
+                    // 1. 全体のアニメーション開始 (CSS Keyframesをアサイン)
                     setTimeout(() => {
-                        textJa.style.opacity = '1';
-                        textJa.style.filter = 'blur(0px)';
-                        textJa.style.transform = 'translateY(0)';
-                    }, 400);
+                        if(ambient) ambient.style.animation = 'introAmbientLight 4s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                        if(textJa) textJa.style.animation = 'introTextRevealJa 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                    }, 50);
 
-                    // 2. 英語キャッチコピーの追随フェードイン
+                    // 2. 英語テキストの追随 (絶妙なディレイで現れる)
                     setTimeout(() => {
-                        textEn.style.opacity = '1';
-                        textEn.style.filter = 'blur(0px)';
-                        textEn.style.transform = 'translateY(0)';
-                    }, 1000);
+                        if(textEn) textEn.style.animation = 'introTextRevealEn 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                    }, 850);
 
-                    // 3. テキストの静かな溶出（再び緩やかなブラーとともに消去）
+                    // 3. 極細ラインの鼓動 (静寂の中の緊張感を演出)
                     setTimeout(() => {
-                        textJa.style.opacity = '0';
-                        textJa.style.filter = 'blur(16px)';
-                        textJa.style.transform = 'translateY(-8px)';
-                        textEn.style.opacity = '0';
-                        textEn.style.filter = 'blur(12px)';
-                        textEn.style.transform = 'translateY(-8px)';
-                    }, 2800);
+                        if(line) {
+                            line.style.transition = 'width 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.8s ease';
+                            line.style.width = '60px';
+                            line.style.opacity = '1';
+                        }
+                    }, 1200);
+                    setTimeout(() => {
+                        if(line) {
+                            line.style.width = '0px';
+                            line.style.opacity = '0';
+                        }
+                    }, 3000);
 
-                    // 4. 背景黒スクリーンのシネマティック・スライド（奥へ拡大しながら透明化）
+                    // 4. 背景オーバーレイの閃光＆フェードアウト（ここでメイン画面の実体化アニメーションにシームレス接続）
                     setTimeout(() => {
-                        introOverlay.style.opacity = '0';
-                        introOverlay.style.transform = 'scale(1.05)';
-                    }, 3400);
+                        introOverlay.style.animation = 'introOverlayVanish 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                    }, 3600);
 
                     // 5. イントロ終了処理とセッション保存、メインコンテンツの起動
                     setTimeout(() => {
@@ -1693,7 +1732,7 @@
                         // 描画領域を再計算
                         if (typeof lenis !== 'undefined') lenis.resize();
                         if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                    }, 4400);
+                    }, 4800);
 
                 } else {
                     // 初回ではない場合はイントロ要素を即座に破棄
