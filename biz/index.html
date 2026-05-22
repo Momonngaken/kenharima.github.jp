@@ -342,10 +342,6 @@
 </head>
 <body class="antialiased">
 
-
-    <body class="antialiased">
-
-    <!-- ↓↓↓ここから下を上書き↓↓↓ -->
     <!-- ================= APPLE-LIKE MINIMAL MENU BUTTON ================= -->
     <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
         <span class="menu-label-open font-mono tracking-widest uppercase">Menu</span>
@@ -373,6 +369,9 @@
                 </a>
                 <a href="#competencies" class="menu-item js-menu-link">
                     <span class="menu-item-num">05</span><span class="menu-item-text"><span class="lang-ja">コンピテンシー</span><span class="lang-en">Competencies</span></span>
+                </a>
+                <a href="#cognitive-profile" class="menu-item js-menu-link">
+                    <span class="menu-item-num">06</span><span class="menu-item-text"><span class="lang-ja">思考プロファイル</span><span class="lang-en">Cognitive Profile</span></span>
                 </a>
                 <a href="#projects" class="menu-item js-menu-link">
                     <span class="menu-item-num">06</span><span class="menu-item-text"><span class="lang-ja">主要プロジェクト</span><span class="lang-en">Projects & Awards</span></span>
@@ -935,7 +934,7 @@
             </section>
 
             <!-- ================= COMPETENCIES ================= -->
-            
+            <section id="competencies" class="fade-in cv-auto">
                <!-- Section Label -->
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14 pl-2">
                     <span class="lang-ja">コンピテンシー</span>
@@ -1104,7 +1103,7 @@
             </section>
 
             <!-- ================= PSYCHOMETRIC DATA LINK (INSERT AFTER PROFILE) ================= -->
-<div class="fade-in mb-20 md:mb-24 cv-auto">
+<div id="cognitive-profile" class="fade-in mb-20 md:mb-24 cv-auto scroll-mt-24">
     <a href="./profile.html" onclick="gtag('event', 'click_profile', {'event_category': 'navigation', 'event_label': 'Home to Profile'});" class="group relative block w-full overflow-hidden rounded-2xl bg-[#0b1121] border border-white/5 shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(79,70,229,0.3)] hover:border-indigo-500/50 hover:-translate-y-1" style="transform: translateZ(0);">
         
         <!-- 1. Background: Deep Space & Grid -->
