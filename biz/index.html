@@ -149,8 +149,22 @@
         }
         /* ▲▲▲ 追加ここまで ▲▲▲ */
 
-         /* ↓↓↓ ココから追加 ↓↓↓ */
-        /* ▼▼▼ 極限最適化: ヒーロー領域のFOUC（黒枠・チラつき）完全防止 ▼▼▼ */
+        /* ▼▼▼ 追加：シネマティック・イントロ用 CSS ▼▼▼ */
+        html.run-intro:not(.intro-complete) {
+            overflow: hidden !important;
+        }
+        html.run-intro:not(.intro-complete) body {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+        html.run-intro:not(.intro-complete) main,
+        html.run-intro:not(.intro-complete) #nav-container,
+        html.run-intro:not(.intro-complete) header {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
+
         /* 1. プロフィール画像: Tailwindロード前のborderのcurrentColor(黒)化を物理的に阻止 */
         #hero-photo {
             background-color: transparent !important;
@@ -270,6 +284,11 @@
                 });
             }
             // ▲▲▲ 追加ここまで ▲▲▲
+
+            // ★初回訪問時のみ、イントロ実行用クラスを付与
+            if (!sessionStorage.getItem('visited_biz_portfolio')) {
+                document.documentElement.classList.add('run-intro');
+            }
         })();
     </script>
 
@@ -302,6 +321,20 @@
     </script>
 </head>
 <body class="antialiased">
+
+    <!-- ================= FIRST-TIME ONLY CINEMATIC INTRO ================= -->
+    <div id="intro-overlay" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" style="display: none;">
+        <div class="text-center px-6">
+            <!-- 1行目: 日本語 (静寂と意志。極限まで間隔を広げたモダン・タイポグラフィ) -->
+            <div id="intro-text-ja" class="text-xl sm:text-2xl md:text-3xl font-display font-bold tracking-[0.35em] text-white/90 mb-6 opacity-0 filter blur-[16px] transform translateY-[12px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                静かに、本気。
+            </div>
+            <!-- 2行目: 英語 (洗練された細身のサンセリフによる余韻) -->
+            <div id="intro-text-en" class="text-xs sm:text-sm font-sans font-medium tracking-[0.45em] text-gray-400 uppercase opacity-0 filter blur-[12px] transform translateY-[12px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                Quietly, all in.
+            </div>
+        </div>
+    </div>
 
 
     <!-- ================= DYNAMIC ISLAND NAVIGATION (ULTIMATE HYBRID) ================= -->
@@ -1588,22 +1621,86 @@
 
     <script>
 
-        // ▼▼▼ 究極の初速を実現するノンブロッキング初期化 ▼▼▼
-        // フォントやJSのロードを待たず、CSSのキーフレームアニメーションで即座に視覚的リヴィールを開始。
-        // ここではLenisやGSAPなどの遅延機能の初期化のみを行う。
+       // ▼▼▼ 初回イントロ対応・ノンブロッキング初期化 ▼▼▼
         (function() {
             const body = document.body;
-            // 即座にready状態へ移行し、スクロール等のブロックを解除
             body.classList.remove('is-loading');
             body.classList.add('is-ready');
             
-            setTimeout(() => {
-                body.classList.add('is-loaded');
-                if (typeof lenis !== 'undefined') lenis.resize();
-                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-            }, 800); 
+            // 初回訪問フラグが立っていない（2回目以降）場合のみ、即時メインコンテンツを描画
+            if (!document.documentElement.classList.contains('run-intro')) {
+                setTimeout(() => {
+                    body.classList.add('is-loaded');
+                    if (typeof lenis !== 'undefined') lenis.resize();
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                }, 400); 
+            }
         })();
         document.addEventListener('DOMContentLoaded', () => {
+            // ★ シネマティック・イントロ制御ロジック
+            (function() {
+                const isFirstVisit = document.documentElement.classList.contains('run-intro');
+                const introOverlay = document.getElementById('intro-overlay');
+                
+                if (isFirstVisit && introOverlay) {
+                    introOverlay.style.display = 'flex';
+                    
+                    const textJa = document.getElementById('intro-text-ja');
+                    const textEn = document.getElementById('intro-text-en');
+                    
+                    // 1. 日本語キャッチコピーのフェードイン（ブラー収差を伴うフォーカス）
+                    setTimeout(() => {
+                        textJa.style.opacity = '1';
+                        textJa.style.filter = 'blur(0px)';
+                        textJa.style.transform = 'translateY(0)';
+                    }, 400);
+
+                    // 2. 英語キャッチコピーの追随フェードイン
+                    setTimeout(() => {
+                        textEn.style.opacity = '1';
+                        textEn.style.filter = 'blur(0px)';
+                        textEn.style.transform = 'translateY(0)';
+                    }, 1000);
+
+                    // 3. テキストの静かな溶出（再び緩やかなブラーとともに消去）
+                    setTimeout(() => {
+                        textJa.style.opacity = '0';
+                        textJa.style.filter = 'blur(16px)';
+                        textJa.style.transform = 'translateY(-8px)';
+                        textEn.style.opacity = '0';
+                        textEn.style.filter = 'blur(12px)';
+                        textEn.style.transform = 'translateY(-8px)';
+                    }, 2800);
+
+                    // 4. 背景黒スクリーンのシネマティック・スライド（奥へ拡大しながら透明化）
+                    setTimeout(() => {
+                        introOverlay.style.opacity = '0';
+                        introOverlay.style.transform = 'scale(1.05)';
+                    }, 3400);
+
+                    // 5. イントロ終了処理とセッション保存、メインコンテンツの起動
+                    setTimeout(() => {
+                        introOverlay.remove(); // DOMから完全に破棄
+                        document.documentElement.classList.remove('run-intro');
+                        document.documentElement.classList.add('intro-complete');
+                        
+                        // メイン表示アニメーションの発火
+                        document.body.classList.add('is-loaded');
+                        
+                        // セッションストレージに訪問済みを記録
+                        sessionStorage.setItem('visited_biz_portfolio', 'true');
+                        
+                        // 描画領域を再計算
+                        if (typeof lenis !== 'undefined') lenis.resize();
+                        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                    }, 4400);
+
+                } else {
+                    // 初回ではない場合はイントロ要素を即座に破棄
+                    if (introOverlay) introOverlay.remove();
+                    document.documentElement.classList.add('intro-complete');
+                }
+            })();
             
             // ▼▼▼ 追加：提案2 3D Tilt & Parallax for Hero Image ▼▼▼
             const tiltContainer = document.getElementById('hero-tilt-container');
