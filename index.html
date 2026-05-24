@@ -9,7 +9,7 @@
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     <meta name="description" content="播磨賢（Ken Harima）の公式ポートフォリオサイト。物語設計、哲学・倫理学、戦略、ゲーム理論を軸に、経歴・プロジェクト・専門領域を紹介しています。">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
-    <link rel="canonical" href="https://kenharima.com/biz/">
+    <link rel="canonical" href="https://kenharima.com/">
 
     <!-- Performance Optimization: Resource Hints (Moved Up for Preload Scanner) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -276,10 +276,10 @@
             }
         </style>
     </noscript>
-    <!-- ビルド済み Tailwind CSS (初回描画前に必ず適用) -->
-    <link rel="preload" href="../output.css" as="style">
-    <link rel="stylesheet" href="../output.css">
-    <noscript><link rel="stylesheet" href="../output.css"></noscript>
+    <!-- ビルド済み Tailwind CSS  -->
+    <link rel="preload" href="./output.css" as="style">
+    <link rel="stylesheet" href="./output.css">
+    <noscript><link rel="stylesheet" href="./output.css"></noscript>
 
     <!-- 完全な静寂と圧倒的な初速の両立: 
          初回訪問時のFOUC/FOUTを避けるため、フォントとアイコンCSSも初回描画前に適用します。 -->
@@ -385,7 +385,7 @@
                         <button id="lang-en" class="relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-out" aria-label="Switch to English">EN</button>
                     </div>
                 </div>
-                <a href="../contact.html" class="menu-contact-cta">
+                <a href="./contact.html" class="menu-contact-cta">
                     <span class="lang-ja">お問い合わせ</span><span class="lang-en">Get in Touch</span><i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
                 </a>
             </div>
@@ -1700,7 +1700,7 @@
                 contactBtn.addEventListener('click', (e) => {
                     e.preventDefault(); 
                     const isGlobal = htmlEl.classList.contains('is-global');
-                    const targetUrl = '../contact.html?from=biz' + (isGlobal ? '&lang=en' : '');
+                    const targetUrl = './contact.html?from=biz' + (isGlobal ? '&lang=en' : '');
                     window.location.href = targetUrl;
                 });
             }
