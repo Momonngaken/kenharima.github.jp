@@ -257,54 +257,6 @@
         body.menu-open .menu-bottom { opacity: 1; transform: translateY(0); }
         .menu-contact-cta { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.25rem 2.5rem; background-color: #1d1d1f; color: #f5f5f7; border-radius: 9999px; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .menu-contact-cta:hover { background-color: #000; transform: scale(1.03); box-shadow: 0 16px 32px rgba(0,0,0,0.25); }
-        /* ================= 極限のAPPLE-LIKE TYPOGRAPHY ================= */
-        /* 1. Text Reveal エフェクト（蛍光ペンの最上級表現） */
-        .apple-text-wipe {
-            display: inline-block;
-            /* 左半分を黒、右半分を極薄いグレーにしたグラデーションを作成 */
-            background: linear-gradient(90deg, #1d1d1f 0%, #1d1d1f 45%, rgba(29, 29, 31, 0.15) 55%, rgba(29, 29, 31, 0.15) 100%);
-            background-size: 200% 100%;
-            background-position: 100% 0; /* 初期状態は右の薄いグレーを表示 */
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            -webkit-text-fill-color: transparent;
-            /* Apple特有の「スッ」と入るイージング */
-            transition: background-position 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: background-position;
-        }
-        /* スクロールして画面に入り .active が付いた瞬間に文字色が左から右へ染まる */
-        .apple-text-wipe.active {
-            background-position: 0 0;
-        }
-
-        /* 2. 究極にミニマルな脚注 */
-        .apple-footnote {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            margin-top: 16px;
-            margin-bottom: 24px;
-            opacity: 0;
-            /* ふわりと遅れて浮かび上がる演出 */
-            animation: footnoteFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-        }
-        .apple-footnote-mark {
-            color: #86868b;
-            font-size: 11px;
-            font-weight: 500;
-        }
-        .apple-footnote-text {
-            color: #86868b;
-            font-size: 11.5px;
-            line-height: 1.6;
-            letter-spacing: 0.01em;
-            font-weight: 400;
-        }
-        @keyframes footnoteFadeIn {
-            0% { opacity: 0; transform: translateY(4px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
         /* ↑↑↑ここまで↑↑↑ */
     </style>
     <noscript>
@@ -1836,17 +1788,13 @@ gsap.ticker.lagSmoothing(0);
                     body_ja: `社会科学分野でドイツ屈指の評価を受けるマンハイム大学社会科学部に、社会学専攻として1年間の交換留学を経験しました。\n\n社会構造を定量・定性の両面から読み解く社会学を学びながら、<strong>同じ熱量で哲学にも向き合っていました</strong>。スピノザ、カント、ニーチェ、ハイデガー、サルトル、ウィトゲンシュタイン、リチャード・ローティ、そして現代のマルクス・ガブリエルまで、答えを急がず、ひとつの問いを別の角度から読み直し続けた一年でした。\n\n特に、「自由とは何か」を問い続けた実存の系譜と、「言葉はどこまで世界を捉えうるか」をめぐる分析・現代哲学の議論は、現在の私が現象を一歩深く見るための、<strong>静かな基盤</strong>となっています。`,
                     body_en: `I spent a year as an exchange student majoring in Sociology at the Faculty of Social Sciences at the University of Mannheim, one of Germany’s most highly regarded institutions in the social sciences. \n\nWhile studying sociology as a discipline for interpreting social structures through both quantitative and qualitative approaches, <strong>I engaged with philosophy with the same intensity.</strong> Over the course of that year, I worked through Spinoza, Kant, Nietzsche, Heidegger, Sartre, Wittgenstein, Richard Rorty, and the contemporary philosopher Markus Gabriel — returning to a single question from different angles, without rushing toward an answer.\n\nIn particular, the existential lineage that continued to ask “What does it mean to be free?”, and the analytic and contemporary philosophical debates around “How far can language grasp the world?”, have become <strong>a quiet foundation</strong> for the way I look one step deeper into phenomena today.`
                 },
-               "poker": {
+                "poker": {
                     sub_ja: "#ゲーム理論 / #期待値思考 / #不完全情報",
                     sub_en: "#GameTheory / #ExpectedValue / #IncompleteInformation",
                     title_ja: "不完全情報下の判断構造\n欧州ポーカー実践の記録",
                     title_en: "A Structure of Judgment Under Incomplete Information\nField Notes from Eight European Cities",
-                    body_ja: `2023年10月から2024年2月にかけて、欧州留学中、ポーカー（ノーリミット・テキサスホールデム）を、不完全情報下における意思決定の実験場として位置づけて実践した。確率論とゲーム理論を土台に、数万ハンドの解析データを参照しながら、感情ではなく期待値を起点に判断を積み重ねる訓練として取り組んでいた。\n\n学業との並走のため、総プレイ時間は175時間52分に抑えた。その範囲で、欧州8都市・26セッションにわたり、それぞれ性質の異なるフィールドに身を置きながら判断構造の一貫性を検証した。\n\n結果：最終ROI 532%、純利益€5,056（約93万５千円）、時給換算€28.75（約5,300円）。途中、最高ROIは927.125%に達した。ただし、数字そのものよりも、<strong>異なる8つのフィールドで同じ判断構造が再現されたこと</strong>が、この実践の検証として意味を持つ。\n\n感情を排し期待値を積み上げるこの実践で形になった判断構造は、いま、<strong>完全な情報が揃う前に動くための</strong>意思決定の基盤として機能している。\n\n<strong class="apple-text-wipe tracking-widest font-bold">実践フィールド（欧州8都市)：</strong>\n🇩🇪Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr 🇫🇷Paris 🇨🇭Zürich 🇫🇮Helsinki 🇧🇬Sofia`,　
-                   <div class="apple-footnote">
-    <span class="apple-footnote-mark">*</span>
-    <p class="apple-footnote-text m-0">ROI (Return On Investment): 投資利益率。投じた費用に対して、どれだけの利益を生み出せたかを測る指標。</p>
-</div>
-                    body_en: `Between October 2023 and February 2024, while on exchange in Europe, I approached poker — No-Limit Texas Hold’em — as a laboratory for decision-making under incomplete information. Drawing on probability theory and game theory, and referencing tens of thousands of hands of analytical data, I trained myself to build judgment from expected value rather than emotion.\n\nRunning in parallel with my studies, I capped total play time at 175 hours and 52 minutes. Within that constraint, I tested the consistency of this structure of judgment across eight cities and 26 sessions in Europe, each with its own distinct field characteristics.\n\nOutcome: final ROI of 532%, net profit of €5,056, approximately ¥935,000, and an hourly rate of €28.75, approximately ¥5,300. At one point, ROI peaked at 927.125%. What matters more than the numbers themselves, however, is that <strong>the same structure of judgment held across eight distinct fields</strong> — that consistency is the real verification of this practice.\n\nRefined through this practice of setting emotion aside and accumulating expected value, this structure of judgment now serves as a foundation for <strong>acting before complete information is available</strong> in business decision-making.\n\n<strong class="apple-text-wipe tracking-widest font-bold">Fields of Practice — Eight European Cities:</strong>\n🇩🇪Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr 🇫🇷Paris 🇨🇭Zürich 🇫🇮Helsinki 🇧🇬Sofia`
+                    body_ja: `2023年10月から2024年2月にかけて、欧州留学中、ポーカー（ノーリミット・テキサスホールデム）を、不完全情報下における意思決定の実験場として位置づけて実践した。確率論とゲーム理論を土台に、数万ハンドの解析データを参照しながら、感情ではなく期待値を起点に判断を積み重ねる訓練として取り組んでいた。\n\n学業との並走のため、総プレイ時間は175時間52分に抑えた。その範囲で、欧州8都市・26セッションにわたり、それぞれ性質の異なるフィールドに身を置きながら判断構造の一貫性を検証した。\n\n結果：最終ROI 532%、純利益€5,056（約93万５千円）、時給換算€28.75（約5,300円）。途中、最高ROIは927.125%に達した。ただし、数字そのものよりも、<strong>異なる8つのフィールドで同じ判断構造が再現されたこと</strong>が、この実践の検証として意味を持つ。\n\n感情を排し期待値を積み上げるこの実践で形になった判断構造は、いま、<strong>完全な情報が揃う前に動くための</strong>意思決定の基盤として機能している。\n\n<strong>実践フィールド（欧州8都市)：</strong>\n🇩🇪Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr 🇫🇷Paris 🇨🇭Zürich 🇫🇮Helsinki 🇧🇬Sofia`,
+                    body_en: `Between October 2023 and February 2024, while on exchange in Europe, I approached poker — No-Limit Texas Hold’em — as a laboratory for decision-making under incomplete information. Drawing on probability theory and game theory, and referencing tens of thousands of hands of analytical data, I trained myself to build judgment from expected value rather than emotion.\n\nRunning in parallel with my studies, I capped total play time at 175 hours and 52 minutes. Within that constraint, I tested the consistency of this structure of judgment across eight cities and 26 sessions in Europe, each with its own distinct field characteristics.\n\nOutcome: final ROI of 532%, net profit of €5,056, approximately ¥935,000, and an hourly rate of €28.75, approximately ¥5,300. At one point, ROI peaked at 927.125%. What matters more than the numbers themselves, however, is that <strong>the same structure of judgment held across eight distinct fields</strong> — that consistency is the real verification of this practice.\n\nRefined through this practice of setting emotion aside and accumulating expected value, this structure of judgment now serves as a foundation for <strong>acting before complete information is available</strong> in business decision-making.\n\n<strong>Fields of Practice — Eight European Cities:</strong>\n🇩🇪Wiesbaden, Berlin, Baden-Baden, Bad Neuenahr 🇫🇷Paris 🇨🇭Zürich 🇫🇮Helsinki 🇧🇬Sofia`
                 },
                 "noguchi": {
                     sub_ja: "#マーケティング戦略 / #データ分析",
