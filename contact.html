@@ -52,6 +52,23 @@
         /* Language Switching Logic */
         html:not(.is-global) .lang-en { display: none !important; }
         html.is-global .lang-ja { display: none !important; }
+
+        /* ▼▼▼ Apple-like Success Animation ▼▼▼ */
+        .success-circle {
+            stroke-dasharray: 151px;
+            stroke-dashoffset: 151px;
+            transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        }
+        .success-check {
+            stroke-dasharray: 36px;
+            stroke-dashoffset: 36px;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
+        }
+        #success-message.is-visible .success-circle,
+        #success-message.is-visible .success-check {
+            stroke-dashoffset: 0;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
         
         @media (prefers-reduced-motion: reduce) {
             *, ::before, ::after {
@@ -183,12 +200,10 @@
 
                 <!-- 4. Input: Company (任意) -->
                 <div class="relative mb-8">
-                    <!-- 企業名を必須にしたい場合は、以下の input タグに required を追加してください -->
                     <input type="text" id="company" name="company" autocomplete="organization" class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-bizAccent/10 focus:border-bizAccent transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" placeholder=" ">
                     <label for="company" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none flex items-center peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-bizAccent peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
                         <span class="lang-ja">企業名</span>
                         <span class="lang-en">Company Name</span>
-                        <!-- 企業名を必須にする場合は、以下の span タグを「必須/Required」のローズ色に変更してください -->
                         <span class="ml-2 mt-[1px] text-[10px] font-bold text-gray-400 opacity-80">
                             <span class="lang-ja">任意</span>
                             <span class="lang-en font-mono uppercase tracking-[0.15em] text-[9px]">Optional</span>
@@ -250,23 +265,31 @@
                 </div>
             </form>
             
-            <!-- Success Message -->
-            <div id="success-message" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-white/60 backdrop-blur-2xl rounded-[2.5rem] border border-white/80 shadow-[0_30px_80px_-15px_rgba(15,60,133,0.15)] transform transition-all duration-700 scale-95 opacity-0">
-                <div class="w-20 h-20 bg-gradient-to-tr from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(52,211,153,0.4)] animate-[bounce_2s_infinite]">
-                    <i class="fa-solid fa-check text-3xl text-white"></i>
+            <!-- Success Message (Apple-like Cinematic Glass) -->
+            <div id="success-message" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-white/75 backdrop-blur-3xl rounded-[2.5rem] border border-white/90 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] transform transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] scale-95 opacity-0 isolate">
+                
+                <!-- かすかな光の演出 -->
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_50%)] pointer-events-none -z-10"></div>
+
+                <!-- Apple風 SVG描画アニメーションアイコン -->
+                <div class="relative w-24 h-24 mb-8 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-blue-500 drop-shadow-[0_4px_12px_rgba(59,130,246,0.2)]" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="success-circle" cx="26" cy="26" r="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                        <path class="success-check" d="M16 26L23 33L36 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
                 </div>
-                <h2 class="text-3xl font-display font-bold mb-4 tracking-tight text-gray-900">
-                    <span class="lang-ja">送信完了</span><span class="lang-en">Message Sent</span>
+
+                <h2 class="text-[26px] md:text-[32px] font-display font-bold mb-4 text-[#1d1d1f] tracking-tight">
+                    <span class="lang-ja">送信が完了しました</span><span class="lang-en">Message Sent</span>
                 </h2>       
-                <p class="text-gray-600 font-medium leading-relaxed mb-10">
-                    <span class="lang-ja">お問い合わせありがとうございます。<br>内容を確認次第、ご連絡いたします。</span>
-                    <span class="lang-en">Thank you for reaching out.<br>I will get back to you shortly.</span>
+                <p class="text-[14px] md:text-[15px] text-[#86868b] font-medium leading-relaxed mb-10">
+                    <span class="lang-ja">お問い合わせありがとうございます。<br>確認次第、通常48時間以内にご返信いたします。</span>
+                    <span class="lang-en">Thank you for reaching out.<br>I will get back to you within 48 hours.</span>
                 </p>
-                <a href="./index.html" id="back-btn" class="group flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-bizAccent transition-colors">
-                    <div class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center group-hover:border-bizAccent group-hover:bg-bizAccent/5 transition-colors">
-                        <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-0.5 transition-transform"></i>
-                    </div>
-                    <span>
+
+                <!-- Apple風 カプセルボタン -->
+                <a href="./index.html" id="back-btn" class="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-[#f5f5f7] text-[#1d1d1f] rounded-full overflow-hidden transition-all duration-500 hover:bg-[#e8e8ed] hover:scale-[1.02] active:scale-[0.98] border border-black/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                    <span class="text-[12px] font-bold tracking-[0.1em] uppercase">
                         <span class="lang-ja">ホームに戻る</span><span class="lang-en">Back to Home</span>
                     </span>
                 </a>
@@ -366,7 +389,7 @@
                         successDiv.classList.remove('hidden');
                         setTimeout(() => {
                             successDiv.classList.remove('scale-95', 'opacity-0');
-                            successDiv.classList.add('scale-100', 'opacity-100');
+                            successDiv.classList.add('scale-100', 'opacity-100', 'is-visible');
                         }, 50);
                     }, 500);
                 } else { 
