@@ -1,0 +1,240 @@
+--- START OF FILE privacy-policy.html ---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Ken Harima Official</title>
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* 極限のAppleライク・タイポグラフィ統一 */
+        body, .font-display, h1, h2, h3, h4, h5, p, span, a {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif !important;
+        }
+        h1, h2, h3 {
+            letter-spacing: -0.035em !important;
+        }
+        
+        body { color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .smart-reveal {
+            animation: smartReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        @keyframes smartReveal {
+            0% { opacity: 0; transform: translateY(15px) scale(0.98); filter: blur(12px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        /* Language Switching Logic */
+        html:not(.is-global) .lang-en { display: none !important; }
+        html.is-global .lang-ja { display: none !important; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .fade-in, .smart-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Ambient Background (Cinematic) -->
+    <div class="fixed inset-0 -z-10 bg-gradient-to-b from-[#fafafa] via-[#f1f5f9] to-[#fafafa] overflow-hidden pointer-events-none">
+        <div class="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-indigo-100/50 to-transparent blur-[100px] opacity-70 mix-blend-multiply"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-tl from-cyan-100/40 to-transparent blur-[100px] opacity-70 mix-blend-multiply"></div>
+    </div>
+
+    <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
+    <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)]">
+        <nav class="fade-in" style="animation-delay: 0.2s;">
+            <div class="flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full w-auto max-w-[95vw] transition-all duration-500 hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)]">
+                
+                <a href="./index.html" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-4 hover:opacity-60 transition-opacity duration-300">KEN HARIMA</a>
+                
+                <div class="flex items-center gap-2">
+                    <div class="relative flex items-center bg-gray-500/5 rounded-full p-0.5 select-none border border-gray-900/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
+                        <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JA</button>
+                        <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
+                    </div>
+                    
+                    <a href="./index.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] mr-1">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                        <i class="fa-solid fa-house text-[10px] relative z-10 transition-transform duration-500 group-hover:-translate-y-0.5"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-grow flex flex-col items-center justify-center px-4 pt-40 pb-24 relative z-10">
+        
+        <div class="mb-12 md:mb-16 text-center smart-reveal">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 tracking-tight">
+                Privacy Policy
+            </h1>
+        </div>
+            
+        <div class="w-full max-w-3xl fade-in relative" style="animation-delay: 0.3s;">
+            <!-- Glass Container -->
+            <div class="relative bg-white/60 backdrop-blur-2xl p-8 md:p-14 rounded-[2.5rem] border border-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000 isolate">
+                
+                <div class="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-white/80 pointer-events-none -z-10"></div>
+
+                <!-- Japanese Policy -->
+                <div class="lang-ja space-y-8 text-[15px] md:text-base text-gray-700 leading-relaxed font-medium">
+                    <p>Ken Harima（以下「本サイト」）は、お問い合わせフォームを通じて取得する個人情報を、以下の方針に基づいて適切に取り扱います。</p>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">1. 取得する情報</h2>
+                        <p>本サイトでは、お問い合わせフォームを通じて、お名前、メールアドレス、企業・団体名、お問い合わせ内容を取得する場合があります。</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">2. 利用目的</h2>
+                        <p>取得した情報は、お問い合わせへの確認・返信、採用・スカウト・カジュアル面談・執筆等に関するご連絡への対応のために利用します。</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">3. 外部サービスの利用</h2>
+                        <p>本サイトのお問い合わせフォームには Formspree を利用しています。送信された情報は、フォーム送信処理のために Formspree を経由します。</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">4. 第三者提供</h2>
+                        <p>法令に基づく場合を除き、ご本人の同意なく取得した情報を第三者へ提供することはありません。</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">5. 管理</h2>
+                        <p>取得した情報は、利用目的の達成に必要な範囲で適切に管理します。</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">6. お問い合わせ</h2>
+                        <p>個人情報の取扱いに関するお問い合わせは、本サイトの<a href="./contact.html" class="text-blue-600 hover:underline">お問い合わせフォーム</a>よりご連絡ください。</p>
+                    </section>
+
+                    <div class="pt-8 border-t border-gray-200/50 mt-12 text-sm text-gray-500">
+                        <p>制定日：2026年7月3日</p>
+                        <p>Ken Harima</p>
+                    </div>
+                </div>
+
+                <!-- English Policy -->
+                <div class="lang-en space-y-8 text-[15px] md:text-base text-gray-700 leading-relaxed font-medium">
+                    <p>Ken Harima (“this website”) handles personal information submitted through the contact form in accordance with the following policy.</p>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">1. Information Collected</h2>
+                        <p>This website may collect your name, email address, company or organization name, and message content through the contact form.</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">2. Purpose of Use</h2>
+                        <p>The information collected will be used to review and respond to inquiries, including recruiting inquiries, scouting messages, casual interview requests, writing-related opportunities, and other professional communications.</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">3. Use of External Services</h2>
+                        <p>This website uses Formspree for contact form submission processing. Submitted information may be processed through Formspree for this purpose.</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">4. Third-Party Disclosure</h2>
+                        <p>Personal information will not be provided to third parties without your consent, except as required by law.</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">5. Management</h2>
+                        <p>The information collected will be managed appropriately within the scope necessary to fulfill the purposes stated above.</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-lg font-bold text-gray-900 mb-2">6. Contact</h2>
+                        <p>For inquiries regarding the handling of personal information, please contact me through the <a href="./contact.html" class="text-blue-600 hover:underline">contact form</a> on this website.</p>
+                    </section>
+
+                    <div class="pt-8 border-t border-gray-200/50 mt-12 text-sm text-gray-500">
+                        <p>Established: July 3, 2026</p>
+                        <p>Ken Harima</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="text-center py-8 text-[10px] font-mono text-gray-400 flex flex-col gap-3 items-center relative z-10">
+        <a href="./privacy-policy.html" class="hover:text-gray-600 transition-colors underline underline-offset-2">Privacy Policy</a>
+        <span>© 2026 Ken HARIMA.</span>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        const langJpBtn = document.getElementById('lang-jp');
+        const langEnBtn = document.getElementById('lang-en');
+        const htmlEl = document.documentElement;
+        
+        const activeClasses =['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
+        const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
+        const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
+
+        const setBtnState = (btn, isActive) => {
+            if (!btn) return;
+            btn.className = baseClass;
+            btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
+            btn.setAttribute('aria-pressed', isActive.toString());
+        };
+
+        const updateLangStyles = () => {
+            const isGlobal = htmlEl.classList.contains('is-global');
+            setBtnState(langJpBtn, !isGlobal);
+            setBtnState(langEnBtn, isGlobal);
+        };
+
+        const setLanguage = (lang) => {
+            if (lang === 'en') {
+                htmlEl.classList.add('is-global');
+            } else {
+                htmlEl.classList.remove('is-global');
+            }
+            try { localStorage.setItem('ken_portfolio_lang', lang); } catch(e){}
+            updateLangStyles();
+        };
+
+        const initLanguage = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            let langPref = urlParams.get('lang');
+
+            try { if(!langPref) langPref = localStorage.getItem('ken_portfolio_lang'); } catch(e){}
+            if (!langPref) {
+                const browserLang = navigator.language || navigator.userLanguage;
+                langPref = browserLang.startsWith('ja') ? 'ja' : 'en';
+            }
+            setLanguage(langPref);
+        };
+
+        if (langJpBtn) langJpBtn.addEventListener('click', () => setLanguage('ja'));
+        if (langEnBtn) langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+        initLanguage();
+    </script>
+</body>
+</html>
+--- END OF FILE privacy-policy.html ---
