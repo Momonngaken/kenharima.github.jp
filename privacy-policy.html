@@ -83,9 +83,17 @@
     <main class="flex-grow flex flex-col items-center justify-center px-4 pt-40 pb-24 relative z-10">
         
         <div class="mb-12 md:mb-16 text-center smart-reveal">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 tracking-tight">
-                Privacy Policy
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 tracking-tight mb-3">
+                <span class="lang-ja">プライバシーポリシー</span>
+                <span class="lang-en">Privacy Policy</span>
             </h1>
+            <!-- サブタイトル -->
+            <div class="lang-ja">
+                <span class="text-[12px] md:text-[14px] font-mono font-medium text-gray-500 tracking-[0.2em]">個人情報の取扱いについて</span>
+            </div>
+            <div class="lang-en">
+                <span class="text-[11px] md:text-[13px] font-mono font-medium text-gray-500 uppercase tracking-[0.2em]">How personal information is handled</span>
+            </div>
         </div>
             
         <div class="w-full max-w-3xl fade-in relative" style="animation-delay: 0.3s;">
@@ -94,84 +102,126 @@
                 
                 <div class="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-white/80 pointer-events-none -z-10"></div>
 
-                <!-- Japanese Policy -->
-                <div class="lang-ja space-y-8 text-[15px] md:text-base text-gray-700 leading-relaxed font-medium">
-                    <p>Ken Harima（以下「本サイト」）は、お問い合わせフォームを通じて取得する個人情報を、以下の方針に基づいて適切に取り扱います。</p>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">1. 取得する情報</h2>
-                        <p>本サイトでは、お問い合わせフォームを通じて、お名前、メールアドレス、企業・団体名、お問い合わせ内容を取得する場合があります。</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">2. 利用目的</h2>
-                        <p>取得した情報は、お問い合わせへの確認・返信、採用・スカウト・カジュアル面談・執筆等に関するご連絡への対応のために利用します。</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">3. 外部サービスの利用</h2>
-                        <p>本サイトのお問い合わせフォームには Formspree を利用しています。送信された情報は、フォーム送信処理のために Formspree を経由します。</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">4. 第三者提供</h2>
-                        <p>法令に基づく場合を除き、ご本人の同意なく取得した情報を第三者へ提供することはありません。</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">5. 管理</h2>
-                        <p>取得した情報は、利用目的の達成に必要な範囲で適切に管理します。</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">6. お問い合わせ</h2>
-                        <p>個人情報の取扱いに関するお問い合わせは、本サイトの<a href="./contact.html" class="text-blue-600 hover:underline">お問い合わせフォーム</a>よりご連絡ください。</p>
-                    </section>
+                <!-- 冒頭説明カード -->
+                <div class="mb-10 p-5 md:p-6 rounded-2xl bg-white/40 border border-gray-100/50 shadow-[0_4px_20px_rgba(0,0,0,0.02)] text-sm text-gray-600 leading-relaxed font-medium transition-all duration-500 hover:bg-white/60">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-500/70 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-shield-halved text-[11px]"></i>
+                        </div>
+                        <div class="flex items-center min-h-[2rem]">
+                            <p class="text-[13px] md:text-sm text-justify md:text-left m-0">
+                                <span class="lang-ja">本ページでは、お問い合わせフォームを通じて取得する情報の利用目的・管理方法について説明します。</span>
+                                <span class="lang-en">This page explains how information submitted through the contact form is collected, used, and managed.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="pt-8 border-t border-gray-200/50 mt-12 text-sm text-gray-500">
+                <!-- Japanese Policy -->
+                <div class="lang-ja text-[14px] md:text-[15px] text-gray-700 leading-relaxed font-medium">
+                    <p class="mb-10">Ken Harima（以下「本サイト」）は、お問い合わせフォームを通じて取得する個人情報を、以下の方針に基づいて適切に取り扱います。</p>
+                    
+                    <div class="space-y-10">
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">01</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">取得する情報</h2>
+                            <p class="text-gray-600">本サイトでは、お問い合わせフォームを通じて、お名前、メールアドレス、企業・団体名、お問い合わせ内容を取得する場合があります。</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">02</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">利用目的</h2>
+                            <p class="text-gray-600">取得した情報は、お問い合わせへの確認・返信、採用・スカウト・カジュアル面談・執筆等に関するご連絡への対応のために利用します。</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">03</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">外部サービスの利用</h2>
+                            <p class="text-gray-600">本サイトのお問い合わせフォームには Formspree を利用しています。送信された情報は、フォーム送信処理のために Formspree を経由します。</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">04</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">第三者提供</h2>
+                            <p class="text-gray-600">法令に基づく場合を除き、ご本人の同意なく取得した情報を第三者へ提供することはありません。</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">05</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">管理</h2>
+                            <p class="text-gray-600">取得した情報は、利用目的の達成に必要な範囲で適切に管理します。</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">06</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">お問い合わせ</h2>
+                            <p class="text-gray-600">個人情報の取扱いに関するお問い合わせは、本サイトの<a href="./contact.html" class="text-blue-500/70 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">お問い合わせフォーム</a>よりご連絡ください。</p>
+                        </section>
+                    </div>
+
+                    <div class="pt-8 border-t border-gray-200/50 mt-12 text-[12px] md:text-[13px] text-gray-400 font-mono">
                         <p>制定日：2026年7月3日</p>
                         <p>Ken Harima</p>
                     </div>
                 </div>
 
                 <!-- English Policy -->
-                <div class="lang-en space-y-8 text-[15px] md:text-base text-gray-700 leading-relaxed font-medium">
-                    <p>Ken Harima (“this website”) handles personal information submitted through the contact form in accordance with the following policy.</p>
+                <div class="lang-en text-[14px] md:text-[15px] text-gray-700 leading-relaxed font-medium">
+                    <p class="mb-10">Ken Harima (“this website”) handles personal information submitted through the contact form in accordance with the following policy.</p>
                     
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">1. Information Collected</h2>
-                        <p>This website may collect your name, email address, company or organization name, and message content through the contact form.</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">2. Purpose of Use</h2>
-                        <p>The information collected will be used to review and respond to inquiries, including recruiting inquiries, scouting messages, casual interview requests, writing-related opportunities, and other professional communications.</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">3. Use of External Services</h2>
-                        <p>This website uses Formspree for contact form submission processing. Submitted information may be processed through Formspree for this purpose.</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">4. Third-Party Disclosure</h2>
-                        <p>Personal information will not be provided to third parties without your consent, except as required by law.</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">5. Management</h2>
-                        <p>The information collected will be managed appropriately within the scope necessary to fulfill the purposes stated above.</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">6. Contact</h2>
-                        <p>For inquiries regarding the handling of personal information, please contact me through the <a href="./contact.html" class="text-blue-600 hover:underline">contact form</a> on this website.</p>
-                    </section>
+                    <div class="space-y-10">
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">01</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">Information Collected</h2>
+                            <p class="text-gray-600">This website may collect your name, email address, company or organization name, and message content through the contact form.</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">02</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">Purpose of Use</h2>
+                            <p class="text-gray-600">The information collected will be used to review and respond to inquiries, including recruiting inquiries, scouting messages, casual interview requests, writing-related opportunities, and other professional communications.</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">03</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">Use of External Services</h2>
+                            <p class="text-gray-600">This website uses Formspree for contact form submission processing. Submitted information may be processed through Formspree for this purpose.</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">04</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">Third-Party Disclosure</h2>
+                            <p class="text-gray-600">Personal information will not be provided to third parties without your consent, except as required by law.</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">05</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">Management</h2>
+                            <p class="text-gray-600">The information collected will be managed appropriately within the scope necessary to fulfill the purposes stated above.</p>
+                        </section>
+                        
+                        <section>
+                            <p class="text-[11px] font-mono text-blue-500/60 tracking-[0.2em] mb-1.5">06</p>
+                            <h2 class="text-[17px] md:text-lg font-bold text-gray-900 mb-2.5">Contact</h2>
+                            <p class="text-gray-600">For inquiries regarding the handling of personal information, please contact me through the <a href="./contact.html" class="text-blue-500/70 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">contact form</a> on this website.</p>
+                        </section>
+                    </div>
 
-                    <div class="pt-8 border-t border-gray-200/50 mt-12 text-sm text-gray-500">
+                    <div class="pt-8 border-t border-gray-200/50 mt-12 text-[12px] md:text-[13px] text-gray-400 font-mono">
                         <p>Established: July 3, 2026</p>
                         <p>Ken Harima</p>
                     </div>
+                </div>
+
+                <!-- 戻るボタン -->
+                <div class="mt-14 flex justify-center">
+                    <a href="./contact.html" class="group relative inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#f5f5f7] text-[#1d1d1f] rounded-full overflow-hidden transition-all duration-500 hover:bg-[#e8e8ed] hover:scale-[1.02] active:scale-[0.98] border border-black/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                        <i class="fa-solid fa-arrow-left text-[10px] opacity-70 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        <span class="text-[12px] font-bold tracking-[0.1em]">
+                            <span class="lang-ja">お問い合わせへ戻る</span>
+                            <span class="lang-en uppercase">Back to Contact</span>
+                        </span>
+                    </a>
                 </div>
 
             </div>
@@ -179,9 +229,18 @@
     </main>
     
     <!-- Footer -->
-    <footer class="text-center py-8 text-[10px] font-mono text-gray-400 flex flex-col gap-3 items-center relative z-10">
-        <a href="./privacy-policy.html" class="hover:text-gray-600 transition-colors underline underline-offset-2">Privacy Policy</a>
-        <span>© 2026 Ken HARIMA.</span>
+    <footer class="text-center py-8 text-[11px] font-mono text-gray-400 flex flex-col gap-4 items-center relative z-10">
+        <div class="flex items-center gap-6">
+            <a href="./contact.html" class="text-blue-500/60 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">
+                <span class="lang-ja">お問い合わせ</span>
+                <span class="lang-en">Contact</span>
+            </a>
+            <a href="./privacy-policy.html" class="text-blue-500/60 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">
+                <span class="lang-ja">プライバシーポリシー</span>
+                <span class="lang-en">Privacy Policy</span>
+            </a>
+        </div>
+        <span class="text-[10px] mt-1">© 2026 Ken HARIMA.</span>
     </footer>
 
     <!-- Scripts -->
@@ -236,4 +295,3 @@
     </script>
 </body>
 </html>
---- END OF FILE privacy-policy.html ---
