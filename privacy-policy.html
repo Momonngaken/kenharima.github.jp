@@ -6,7 +6,7 @@
     <title>Privacy Policy - Ken Harima Official</title>
     <link rel="stylesheet" href="./output.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         /* 極限のAppleライク・タイポグラフィ統一 */
         body, .font-display, h1, h2, h3, h4, h5, p, span, a {
@@ -47,6 +47,64 @@
                 filter: none !important;
             }
         }
+        /* =========================================
+           Brand Signature (Ken HARIMA)
+           ========================================= */
+        .brand-signature,
+        .brand-signature span {
+            font-family: "Lora", Georgia, "Times New Roman", serif !important;
+        }
+
+        .brand-signature {
+            display: inline-flex;
+            align-items: baseline;
+            flex-shrink: 0;
+            white-space: nowrap;
+            color: #1d1d1f;
+            line-height: 1;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1),
+                        color 350ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ユーザー体験の極限化：不可視のタップ領域を44pxに拡張 */
+        .brand-signature::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% + 24px);
+            height: 44px;
+            z-index: 10;
+        }
+
+        .brand-signature:hover {
+            opacity: 0.58;
+        }
+
+        .brand-signature:focus-visible {
+            outline: 2px solid rgba(15, 60, 133, 0.45);
+            outline-offset: 5px;
+            border-radius: 9999px;
+        }
+
+        .brand-signature__first {
+            font-style: italic;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.01em;
+        }
+
+        .brand-signature__last {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.10em;
+            margin-left: 0.32em;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -60,20 +118,20 @@
     <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
     <div id="nav-container" class="fixed top-6 left-0 right-0 z-50 flex justify-center transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)]">
         <nav class="fade-in" style="animation-delay: 0.2s;">
-            <div class="flex items-center justify-between gap-4 sm:gap-6 px-2.5 py-2 bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full w-auto max-w-[95vw] transition-all duration-500 hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)]">
+            <!-- 背景・枠線・影を削除し、純粋な空間のみを残す -->
+            <div class="flex items-center justify-between gap-6 px-4 py-2 w-auto max-w-[95vw] transition-all duration-500">
                 
-                <a href="./index.html" class="text-xs sm:text-sm font-display font-bold text-gray-900 tracking-widest ml-4 hover:opacity-60 transition-opacity duration-300">KEN HARIMA</a>
+                <!-- Literary Signature as Home Link -->
+                <a href="./index.html" class="brand-signature" aria-label="ホームへ戻る / Back to Home" title="Home">
+                    <span class="brand-signature__first">Ken</span>
+                    <span class="brand-signature__last">HARIMA</span>
+                </a>
                 
-                <div class="flex items-center gap-2">
+                <div class="flex items-center">
                     <div class="relative flex items-center bg-gray-500/5 rounded-full p-0.5 select-none border border-gray-900/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
                         <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JA</button>
                         <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
                     </div>
-                    
-                    <a href="./index.html" class="group relative flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(24,24,27,0.85)] backdrop-blur-md text-white border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-500 hover:bg-black hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] mr-1">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
-                        <i class="fa-solid fa-house text-[10px] relative z-10 transition-transform duration-500 group-hover:-translate-y-0.5"></i>
-                    </a>
                 </div>
             </div>
         </nav>
