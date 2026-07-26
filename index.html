@@ -381,6 +381,99 @@
             0% { opacity: 0; transform: translateY(4px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+        /* ▼▼▼ 追加: LinkedIn 公式認証アイコン (Apple Minimal) ▼▼▼ */
+        @keyframes linkedinIconReveal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-name-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .hero-name-row h1 {
+            margin-bottom: 0 !important;
+        }
+
+        @media (min-width: 768px) {
+            .hero-name-row {
+                justify-content: flex-start;
+                gap: 16px;
+                margin-bottom: 2rem;
+            }
+        }
+
+        .hero-linkedin {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            flex: 0 0 32px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.62);
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            color: #86868b;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            text-decoration: none;
+            transform: translateY(-1px);
+            transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                        color 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                        background-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 450ms cubic-bezier(0.16, 1, 0.3, 1);
+            animation: linkedinIconReveal 700ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both;
+            will-change: transform, opacity, background-color, color, border-color, box-shadow;
+            outline: none;
+        }
+
+        .hero-linkedin i {
+            font-size: 12px;
+            transition: color 450ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 768px) {
+            .hero-linkedin {
+                width: 36px;
+                height: 36px;
+                flex-basis: 36px;
+                transform: translateY(-2px);
+            }
+            .hero-linkedin i {
+                font-size: 13px;
+            }
+        }
+
+        .hero-linkedin:hover {
+            color: #0A66C2;
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(10, 102, 194, 0.20);
+            box-shadow: 0 8px 24px rgba(10, 102, 194, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
+            transform: translateY(-3px) scale(1.05); 
+        }
+
+        @media (min-width: 768px) {
+            .hero-linkedin:hover {
+                transform: translateY(-4px) scale(1.05); 
+            }
+        }
+
+        .hero-linkedin:active {
+            transform: translateY(0) scale(0.96);
+        }
+
+        .hero-linkedin:focus-visible {
+            outline: 2px solid rgba(10, 102, 194, 0.45);
+            outline-offset: 4px;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
         /* ↑↑↑ここまで↑↑↑ */
     </style>
     <noscript>
@@ -541,11 +634,24 @@
 
             <!-- Text Area -->
             <div class="flex flex-col justify-center min-w-0 mt-2 md:mt-8 w-full">
-                <!-- 名前 -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-display font-bold mb-6 md:mb-8 tracking-tighter text-gray-900 leading-none" style="opacity: 0.2; filter: blur(16px) brightness(1.2); transform: translateY(16px); animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; will-change: opacity, transform, filter;">
-                    <span class="lang-ja block mb-2">播磨 賢</span>
-                    <span class="lang-en block mb-2">Ken HARIMA</span>
-                </h1>
+                <!-- 名前 & LinkedIn -->
+                <div class="hero-name-row">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-display font-bold tracking-tighter text-gray-900 leading-none m-0" style="opacity: 0.2; filter: blur(16px) brightness(1.2); transform: translateY(16px); animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; will-change: opacity, transform, filter;">
+                        <span class="lang-ja">播磨 賢</span>
+                        <span class="lang-en">Ken HARIMA</span>
+                    </h1>
+
+                    <a
+                        href="https://www.linkedin.com/in/kenharima/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hero-linkedin"
+                        aria-label="LinkedInプロフィールを開く / Open LinkedIn profile"
+                        title="LinkedIn"
+                    >
+                        <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
+                </div>
 
                 <!-- ▼▼▼ Core Competencies (Extreme Apple Minimalism) ▼▼▼ -->
                 <div class="flex flex-col items-center md:items-start w-full">
@@ -613,16 +719,7 @@
                             </div>
                         </a>
 
-                        <!-- Secondary CTA: View LinkedIn -->
-                        <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer" aria-label="View LinkedIn Profile" class="group relative flex items-center justify-center gap-3 px-8 py-3.5 md:py-4 bg-white/60 backdrop-blur-xl border border-gray-200/80 text-gray-600 rounded-full font-bold text-[11px] md:text-xs tracking-[0.15em] uppercase transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-white hover:text-gray-900 hover:border-gray-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 w-full sm:w-auto">
-                            <!-- 静かなLinkedInの気配（ホバー時のみ微かに青のインナーシャドウが灯る） -->
-                            <div class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 shadow-[inset_0_0_12px_rgba(10,102,194,0.06)] pointer-events-none"></div>
-                            <span class="relative z-10">
-                                <span class="lang-ja">LinkedIn</span>
-                                <span class="lang-en">View LinkedIn</span>
-                            </span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] relative z-10 text-gray-400 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#0A66C2]"></i>
-                        </a>
+                        
                         
                     </div>
                     <!-- ▲▲▲ 新規追加 ここまで ▲▲▲ -->
