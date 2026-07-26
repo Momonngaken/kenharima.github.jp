@@ -1326,8 +1326,8 @@
                                     <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
                                         <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
                                            <i class="fa-solid fa-book-open text-[10px]"></i>
-                                            <span class="lang-ja">受賞作を見る</span>
-                                            <span class="lang-en">View Awarded Work</span>
+                                            <span class="lang-ja">作品を見る</span>
+                                            <span class="lang-en">View Work</span>
                                         </div>
                                         
                                         <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
@@ -1376,8 +1376,8 @@
                                     <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
                                         <div class="flex items-center gap-1.5 text-[#a1a1a6] text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#d2d2d7]">
                                             <i class="fa-solid fa-pen-nib text-[10px]"></i>
-                                            <span class="lang-ja">作品詳細</span>
-                                            <span class="lang-en">View Essay</span>
+                                            <span class="lang-ja">作品を見る</span>
+                                            <span class="lang-en">View Work</span>
                                         </div>
                                         
                                         <div class="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 transform-gpu will-change-transform">
@@ -1387,6 +1387,68 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                             <!-- ▼▼▼ ここから新規追加: 俳句大会 (シルバーグレーの横長カード) ▼▼▼ -->
+                            <div data-modal-id="haiku" class="js-modal-trigger md:col-span-2 relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-gradient-to-br from-[#f8f8fa] to-[#eef1f4] border border-white/60 p-8 md:p-10 lg:p-12 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:-translate-y-[2px] hover:scale-[1.005] hover:shadow-[0_12px_30px_rgba(0,0,0,0.05)] cursor-pointer flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center isolation-auto shadow-[0_4px_20px_rgba(0,0,0,0.02)] transform-gpu will-change-transform">
+                                
+                                <!-- 右上の白銀の光 (日を返す表現・ホバーでわずかに明度アップ) -->
+                                <div class="absolute top-0 right-0 w-[150%] md:w-[70%] h-full bg-[radial-gradient(circle_at_100%_0%,rgba(255,255,255,0.9),transparent_60%)] -z-10 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                                <div class="absolute top-0 right-0 w-[80%] h-[80%] bg-[radial-gradient(circle_at_100%_0%,rgba(224,242,254,0.2),transparent_50%)] -z-10 pointer-events-none opacity-40 group-hover:opacity-70 transition-opacity duration-1000"></div>
+
+                                <!-- 左側: 大会情報と解説 -->
+                                <div class="w-full md:w-1/2 lg:w-7/12 flex flex-col relative z-10 h-full">
+                                    
+                                    <div class="mb-5 md:mb-6 flex justify-start">
+                                        <span class="inline-flex items-center px-3 py-1 bg-white/70 text-[#1d1d1f] border border-gray-200/40 rounded-full text-[10px] md:text-[11px] font-semibold tracking-wider backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                                            <span class="lang-ja">佳作</span>
+                                            <span class="lang-en">Honorable Mention</span>
+                                        </span>
+                                    </div>
+                                    
+                                    <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-[#1d1d1f] tracking-tight leading-tight mb-4">
+                                        <span class="lang-ja">第37回<br class="hidden md:block">黒羽芭蕉の里全国俳句大会</span>
+                                        <span class="lang-en">37th Kurobane Bashō no Sato<br class="hidden xl:block">National Haiku Contest</span>
+                                    </h3>
+                                    
+                                    <p class="text-[14px] md:text-[15px] lg:text-[16px] text-[#6e6e73] leading-relaxed font-medium mb-8">
+                                        <span class="lang-ja">雪解川の流れのなか、名もない石のひとつが、一瞬だけ日を返す。移ろう水とそこに留まる石、その接点に生じた小さな光を詠んだ一句。総投句数2,431句の中から「佳作」に選出。</span>
+                                        <span class="lang-en">In the current of a snowmelt river, one nameless stone briefly returns the sunlight. A haiku capturing the small gleam where moving water meets a stone that remains. Selected for an Honorable Mention from 2,431 submitted haiku.</span>
+                                    </p>
+                                    
+                                    <div class="mt-auto pt-4 flex items-center justify-between relative z-20 border-t border-gray-200/40 md:border-none md:pt-0">
+                                        <div class="flex items-center gap-1.5 text-[#6e6e73] text-[10px] md:text-[11px] font-semibold tracking-widest uppercase transition-colors duration-500 group-hover:text-[#1d1d1f]">
+                                            <span class="lang-ja">作品を見る</span>
+                                            <span class="lang-en">View Work</span>
+                                        </div>
+                                        
+                                        <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-gray-200/60 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-gray-300 group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] group-hover:scale-110 transform-gpu">
+                                            <div class="absolute inset-0 bg-gray-50 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                                            <i class="fa-solid fa-arrow-right -rotate-45 text-gray-400 relative z-10 transition-all duration-500 group-hover:text-gray-900 text-[12px] md:text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform-gpu"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 右側: 俳句（余白とセリフ体を活かした階段状配置） -->
+                                <div class="w-full md:w-1/2 lg:w-5/12 flex flex-col justify-center items-start md:items-center relative z-10 pt-6 md:pt-0 border-t border-gray-200/40 md:border-t-0">
+                                    <div class="text-[#1d1d1f] font-medium leading-[2.4] md:leading-[2.2] tracking-widest" style="font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;">
+                                        <p class="lang-ja text-[24px] sm:text-3xl lg:text-4xl flex flex-col gap-2">
+                                            <span>雪解川</span>
+                                            <span class="ml-4 md:ml-6">石のひとつが</span>
+                                            <span class="ml-8 md:ml-12">日を返す</span>
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="lang-en text-[#1d1d1f] font-normal leading-[1.8] tracking-wide text-[18px] sm:text-[20px] lg:text-[22px]" style="font-family: 'Georgia', 'Times New Roman', serif;">
+                                        <p class="flex flex-col gap-1.5">
+                                            <span>Snowmelt river—</span>
+                                            <span class="ml-4 md:ml-6 text-[#6e6e73] italic">one stone among them</span>
+                                            <span class="ml-8 md:ml-12">returns the sun.</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- ▲▲▲ 新規追加ここまで ▲▲▲ -->
                             
                         </div>
                     </div>
@@ -1939,6 +2001,40 @@ gsap.ticker.lagSmoothing(0);
                         </a>
                     </div>`
                 },
+               // ▼▼▼ ここから新規追加: 俳句モーダルデータ ▼▼▼
+                "haiku": {
+                    sub_ja: "#俳句 / #季節 / #光 / #時間",
+                    sub_en: "#Haiku / #Seasonality / #Light / #Time",
+                    title_ja: "第37回黒羽芭蕉の里全国俳句大会 佳作\n俳句「雪解川　石のひとつが　日を返す」",
+                    title_en: "37th Kurobane Bashō no Sato National Haiku Contest\nHonorable Mention",
+                    body_ja: `第37回黒羽芭蕉の里全国俳句大会「自由題の部」において、総投句数2,431句の中から、次の一句が「佳作」に選出されました。
+
+<div class="my-10 py-10 md:py-12 px-6 md:px-10 rounded-2xl bg-[#f8f8fa] border border-gray-100 flex justify-center items-center shadow-[inset_0_2px_10px_rgba(0,0,0,0.01)]">
+    <p class="text-[22px] md:text-[26px] text-gray-900 leading-[2.2] tracking-[0.15em] flex flex-col gap-2" style="font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;">
+        <span>雪解川</span>
+        <span class="ml-6 md:ml-8">石のひとつが</span>
+        <span class="ml-12 md:ml-16">日を返す</span>
+    </p>
+</div>
+
+この句で掬い取りたかったのは、春の大きな景ではなく、流れのなかでふと目に留まった、ごく小さな反射です。絶えず移ろう雪解川と、その場にとどまる石。「石」ではなく「石のひとつ」と置くことで、名もないものが一瞬だけ世界の焦点になる感覚を詠みました。
+
+また、「日を受ける」ではなく「日を返す」としたことで、石はただ照らされる静物ではなく、光に応答する存在として立ち現れます。流れるものと残るもの、その接点に生じた一瞬を、十七音に留めた句です。`,
+                    body_en: `At the 37th Kurobane Bashō no Sato National Haiku Contest, the following haiku received an Honorable Mention in the Open Theme Division, selected from a total of 2,431 submissions.
+
+<div class="my-10 py-10 md:py-12 px-6 md:px-10 rounded-2xl bg-[#f8f8fa] border border-gray-100 flex justify-center items-center shadow-[inset_0_2px_10px_rgba(0,0,0,0.01)]">
+    <p class="text-[18px] md:text-[22px] text-gray-900 leading-[1.8] tracking-wide flex flex-col gap-2" style="font-family: 'Georgia', 'Times New Roman', serif;">
+        <span>Snowmelt river—</span>
+        <span class="ml-6 md:ml-8 text-gray-600 italic">one stone among them</span>
+        <span class="ml-12 md:ml-16">returns the sun.</span>
+    </p>
+</div>
+
+What I wanted to catch in this haiku was not a grand spring landscape, but a tiny reflection that suddenly drew my eye within the current. The snowmelt river is always moving; the stone remains where it is. By writing not simply “a stone,” but “one of the stones,” I tried to capture the sensation of something nameless becoming, for a moment, the focus of the world.
+
+By choosing “returns the sun” rather than “receives the sun,” the stone appears not as a passive object being illuminated, but as a presence responding to light. This haiku holds in seventeen Japanese syllables the instant that arises where what flows meets what remains.`
+                },
+                // ▲▲▲ 新規追加ここまで ▲▲▲
                 "pivot": {
                     sub_ja: "#プロジェクトマネジメント",
                     sub_en: "#Project Management",
