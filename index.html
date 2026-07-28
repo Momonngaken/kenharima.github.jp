@@ -606,6 +606,749 @@
       ]
     }
     </script>
+
+    <!-- ================= 2026 EDITORIAL REFRESH LAYER ================= -->
+    <style>
+        :root {
+            --kh-bg: #fafafa;
+            --kh-text: #1d1d1f;
+            --kh-secondary: #6e6e73;
+            --kh-muted: #86868b;
+            --kh-faint: #d2d2d7;
+            --kh-surface: rgba(255, 255, 255, 0.64);
+            --kh-surface-solid: #f5f5f7;
+            --kh-blue: #0066cc;
+            --kh-ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ---------------------------------------------------------
+           OUTER CANVAS / CONTENT RAIL
+           --------------------------------------------------------- */
+        .site-shell {
+            width: min(100%, 1120px);
+            margin-inline: auto;
+            padding: clamp(34px, 5vw, 72px) clamp(22px, 4.5vw, 56px) 0;
+        }
+
+        .site-shell > #home,
+        .site-shell > .site-main,
+        .site-shell > .site-footer {
+            width: min(100%, 960px);
+            margin-inline: auto;
+        }
+
+        .site-main {
+            position: relative;
+        }
+
+        #experience,
+        #development,
+        #projects {
+            width: calc(100% - clamp(0px, 2vw, 24px));
+            margin-inline: auto;
+        }
+
+        #next {
+            width: calc(100% - clamp(0px, 1vw, 12px));
+            margin-inline: auto;
+        }
+
+        /* ---------------------------------------------------------
+           EDITORIAL HERO
+           --------------------------------------------------------- */
+        .hero-editorial {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(190px, 0.78fr) minmax(0, 1.55fr);
+            grid-template-areas:
+                "visual copy"
+                "scroll scroll";
+            column-gap: clamp(42px, 6vw, 82px);
+            row-gap: clamp(48px, 7vw, 76px);
+            align-items: center;
+            min-height: min(720px, 78vh);
+            padding: clamp(56px, 9vw, 112px) 0 clamp(54px, 8vw, 88px);
+            margin-bottom: clamp(82px, 10vw, 128px);
+        }
+
+        .hero-visual {
+            grid-area: visual;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-portrait-stage {
+            position: relative;
+            width: clamp(178px, 23vw, 244px);
+            aspect-ratio: 1;
+            isolation: isolate;
+            transform-style: preserve-3d;
+        }
+
+        .hero-aura {
+            position: absolute;
+            inset: -12%;
+            z-index: -1;
+            border-radius: 50%;
+            opacity: 0.62;
+            pointer-events: none;
+            transition: transform 900ms var(--kh-ease), opacity 700ms var(--kh-ease);
+        }
+
+        .hero-aura-layer {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            transition: opacity 700ms var(--kh-ease);
+        }
+
+        .hero-aura-layer--poker {
+            opacity: 1;
+            background: radial-gradient(circle at 48% 45%, rgba(0, 102, 204, 0.14), rgba(77, 181, 214, 0.07) 42%, transparent 72%);
+        }
+
+        .hero-aura-layer--business {
+            opacity: 0;
+            background: radial-gradient(circle at 48% 45%, rgba(29, 29, 31, 0.12), rgba(110, 110, 115, 0.055) 44%, transparent 72%);
+        }
+
+        #hero-photo.hero-photo-button {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.92) !important;
+            background: transparent !important;
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 0.08),
+                0 2px 10px rgba(0, 0, 0, 0.035),
+                inset 0 0 0 1px rgba(0, 0, 0, 0.025);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition:
+                box-shadow 700ms var(--kh-ease),
+                transform 800ms var(--kh-ease);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            #hero-photo.hero-photo-button:hover {
+                box-shadow:
+                    0 30px 72px rgba(0, 0, 0, 0.105),
+                    0 4px 14px rgba(0, 0, 0, 0.04),
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.025);
+            }
+        }
+
+        #hero-photo .hero-portrait {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        #hero-photo .hero-portrait--poker {
+            object-position: center 50%;
+            filter: contrast(1.035) brightness(0.975) saturate(0.94);
+        }
+
+        #hero-photo .hero-portrait--business {
+            object-position: center 48%;
+        }
+
+        #hero-photo .hero-portrait-glass {
+            background:
+                linear-gradient(145deg, rgba(255,255,255,0.14), transparent 34%, transparent 66%, rgba(0,0,0,0.025));
+            mix-blend-mode: soft-light;
+        }
+
+        .hero-copy {
+            grid-area: copy;
+            min-width: 0;
+            align-self: center;
+        }
+
+        .hero-kicker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 clamp(24px, 3.2vw, 36px);
+            color: #9a9a9f;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero-kicker-rule {
+            width: 32px;
+            height: 1px;
+            background: rgba(29, 29, 31, 0.16);
+        }
+
+        .hero-name {
+            margin: 0;
+            color: var(--kh-text);
+            font-size: clamp(52px, 7vw, 82px);
+            line-height: 0.94;
+            font-weight: 700;
+            letter-spacing: -0.072em !important;
+            text-wrap: balance;
+        }
+
+        .hero-thesis {
+            max-width: 720px;
+            margin: clamp(24px, 3.5vw, 40px) 0 0;
+            color: #6f6f74;
+            font-size: clamp(23px, 3.25vw, 38px);
+            line-height: 1.18;
+            font-weight: 550;
+            letter-spacing: -0.045em;
+            text-wrap: balance;
+        }
+
+        .hero-disciplines {
+            margin-top: clamp(42px, 5.8vw, 64px);
+            padding-top: 18px;
+            border-top: 1px solid rgba(0, 0, 0, 0.075);
+        }
+
+        .hero-disciplines-head {
+            margin-bottom: 16px;
+            color: #a1a1a6;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-discipline-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 0;
+        }
+
+        .hero-discipline {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            color: #515154;
+            font-size: clamp(13px, 1.45vw, 15px);
+            line-height: 1.4;
+            font-weight: 560;
+            letter-spacing: -0.018em;
+            text-decoration: none;
+            transition: color 350ms var(--kh-ease), transform 350ms var(--kh-ease);
+        }
+
+        .hero-discipline:not(:last-child)::after {
+            content: "·";
+            margin: 0 14px;
+            color: #c5c5ca;
+            font-weight: 400;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .hero-discipline:hover {
+                color: var(--kh-blue);
+                transform: translateY(-1px);
+            }
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            margin-top: clamp(34px, 4.5vw, 52px);
+        }
+
+        .hero-action,
+        .hero-social-text a {
+            position: relative;
+            color: var(--kh-text);
+            text-decoration: none;
+        }
+
+        .hero-action-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 5px;
+            font-size: 14px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+        }
+
+        .hero-action-primary::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+            transform-origin: right center;
+            transition: transform 450ms var(--kh-ease);
+        }
+
+        .hero-action-primary:hover::after {
+            transform: scaleX(0.18);
+        }
+
+        .hero-social-text {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: var(--kh-muted);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .hero-social-text a {
+            color: var(--kh-muted);
+            transition: color 350ms var(--kh-ease);
+        }
+
+        .hero-social-text a:hover {
+            color: var(--kh-text);
+        }
+
+        .hero-scroll-cue {
+            grid-area: scroll;
+            justify-self: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: #a1a1a6;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .hero-scroll-line {
+            display: block;
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(to bottom, rgba(29,29,31,.28), rgba(29,29,31,.02));
+            transform-origin: top center;
+            transition: transform 450ms var(--kh-ease);
+        }
+
+        .hero-scroll-cue:hover .hero-scroll-line {
+            transform: scaleY(1.22);
+        }
+
+        .hero-reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            filter: blur(7px);
+            animation: heroEditorialReveal 1.05s var(--kh-ease) forwards;
+        }
+
+        .hero-reveal-1 { animation-delay: .20s; }
+        .hero-reveal-2 { animation-delay: .28s; }
+        .hero-reveal-3 { animation-delay: .36s; }
+        .hero-reveal-4 { animation-delay: .44s; }
+        .hero-reveal-5 { animation-delay: .58s; }
+
+        @keyframes heroEditorialReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* ---------------------------------------------------------
+           PROFILE: EDITORIAL SHEET
+           --------------------------------------------------------- */
+        #profile {
+            padding: clamp(34px, 5.8vw, 64px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.055);
+            border-radius: clamp(30px, 4vw, 42px);
+            background:
+                linear-gradient(145deg, rgba(255,255,255,0.78), rgba(248,248,250,0.62));
+            box-shadow:
+                0 22px 70px rgba(0,0,0,0.028),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        #profile .profile-editorial {
+            padding: clamp(32px, 4.5vw, 48px) 0 0 !important;
+            border-top: 1px solid rgba(0,0,0,0.07) !important;
+            border-bottom: 0 !important;
+        }
+
+        #profile .apple-section-heading {
+            margin-bottom: clamp(28px, 4vw, 42px) !important;
+        }
+
+        /* ---------------------------------------------------------
+           CLOSING CONTACT
+           --------------------------------------------------------- */
+        #contact-final {
+            width: calc(100% - clamp(0px, 1vw, 12px));
+            margin: clamp(110px, 14vw, 168px) auto 0;
+            padding: 0 0 clamp(52px, 7vw, 80px);
+        }
+
+        .contact-surface {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(36px, 6.5vw, 72px);
+            border: 1px solid rgba(0,0,0,0.055);
+            border-radius: clamp(30px, 4.4vw, 46px);
+            background:
+                radial-gradient(circle at 90% 10%, rgba(255,255,255,0.95), rgba(255,255,255,0) 33%),
+                linear-gradient(145deg, #f7f7f9 0%, #f1f1f3 100%);
+            isolation: isolate;
+        }
+
+        .contact-orbit {
+            position: absolute;
+            z-index: -1;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.035);
+            pointer-events: none;
+        }
+
+        .contact-orbit-a {
+            width: 420px;
+            height: 420px;
+            right: -190px;
+            top: -230px;
+        }
+
+        .contact-orbit-b {
+            width: 250px;
+            height: 250px;
+            right: -70px;
+            top: -100px;
+        }
+
+        .contact-kicker {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin: 0 0 clamp(64px, 10vw, 110px);
+            color: #98989d;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+        }
+
+        .contact-index {
+            color: #b9b9be;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.28fr) minmax(250px, 0.72fr);
+            gap: clamp(42px, 8vw, 100px);
+            align-items: end;
+        }
+
+        .contact-title {
+            margin: 0;
+            color: var(--kh-text);
+            font-size: clamp(44px, 7vw, 76px);
+            line-height: 1.02;
+            font-weight: 650;
+            letter-spacing: -0.065em !important;
+            text-wrap: balance;
+        }
+
+        .contact-copy {
+            margin: 0;
+            color: #68686d;
+            font-size: clamp(14px, 1.6vw, 17px);
+            line-height: 1.9;
+            font-weight: 450;
+            letter-spacing: -0.015em;
+        }
+
+        .contact-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 34px;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: #1d1d1f;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+            transition:
+                transform 450ms var(--kh-ease),
+                box-shadow 450ms var(--kh-ease),
+                background-color 450ms var(--kh-ease);
+        }
+
+        .contact-action:hover {
+            transform: translateY(-2px);
+            background: #000;
+            box-shadow: 0 16px 34px rgba(0,0,0,0.16);
+        }
+
+        .contact-action-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.11);
+            transition: transform 450ms var(--kh-ease), background-color 450ms var(--kh-ease);
+        }
+
+        .contact-action:hover .contact-action-icon {
+            transform: translate(1px, -1px);
+            background: rgba(255,255,255,0.18);
+        }
+
+        /* ---------------------------------------------------------
+           QUIET FOOTER
+           --------------------------------------------------------- */
+        .site-footer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 26px 0 clamp(44px, 6vw, 70px);
+            border-top: 1px solid rgba(0,0,0,0.07);
+        }
+
+        .site-footer-main {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .site-footer-signature,
+        .site-footer-copy {
+            margin: 0;
+        }
+
+        .site-footer-signature {
+            color: #525256;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .site-footer-copy {
+            color: #a1a1a6;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .site-footer-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 18px;
+        }
+
+        .site-footer-links a {
+            color: #8c8c91;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            transition: color 350ms var(--kh-ease);
+        }
+
+        .site-footer-links a:hover {
+            color: var(--kh-text);
+        }
+
+        /* ---------------------------------------------------------
+           RESPONSIVE
+           --------------------------------------------------------- */
+        @media (max-width: 767px) {
+            .site-shell {
+                padding: 28px 20px 0;
+            }
+
+            #experience,
+            #development,
+            #projects,
+            #next,
+            #contact-final {
+                width: 100%;
+            }
+
+            .hero-editorial {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "visual"
+                    "copy"
+                    "scroll";
+                gap: 38px;
+                min-height: auto;
+                padding: 66px 0 54px;
+                margin-bottom: 82px;
+                text-align: center;
+            }
+
+            .hero-portrait-stage {
+                width: clamp(154px, 46vw, 190px);
+            }
+
+            .hero-kicker {
+                justify-content: center;
+                margin-bottom: 23px;
+            }
+
+            .hero-name {
+                font-size: clamp(46px, 14vw, 62px);
+            }
+
+            .hero-thesis {
+                margin-inline: auto;
+                font-size: clamp(22px, 7vw, 30px);
+            }
+
+            .hero-disciplines {
+                margin-top: 38px;
+                text-align: left;
+            }
+
+            .hero-discipline-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0;
+            }
+
+            .hero-discipline {
+                min-height: 46px;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.055);
+                font-size: 13px;
+            }
+
+            .hero-discipline:nth-child(odd) {
+                padding-right: 14px;
+            }
+
+            .hero-discipline:nth-child(even) {
+                padding-left: 14px;
+                border-left: 1px solid rgba(0,0,0,0.055);
+            }
+
+            .hero-discipline:not(:last-child)::after {
+                display: none;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                justify-content: center;
+                gap: 24px;
+                margin-top: 34px;
+            }
+
+            .hero-social-text {
+                gap: 22px;
+            }
+
+            #profile {
+                padding: 30px 22px 34px !important;
+                border-radius: 30px;
+            }
+
+            #profile .profile-editorial {
+                padding-top: 30px !important;
+            }
+
+            #contact-final {
+                margin-top: 92px;
+            }
+
+            .contact-surface {
+                padding: 34px 24px 38px;
+                border-radius: 30px;
+            }
+
+            .contact-kicker {
+                margin-bottom: 64px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+
+            .contact-title {
+                font-size: clamp(40px, 12vw, 54px);
+            }
+
+            .contact-action {
+                width: 100%;
+            }
+
+            .site-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 24px;
+            }
+
+            .site-footer-links {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+                animation: none !important;
+            }
+
+            #hero-photo.hero-photo-button,
+            .hero-aura,
+            .hero-scroll-line,
+            .contact-action,
+            .contact-action-icon {
+                transition: none !important;
+            }
+        }
+    </style>
+    <noscript>
+        <style>
+            main,
+            .hero-reveal,
+            #hero-tilt-container,
+            header h1 {
+                opacity: 1 !important;
+                visibility: visible !important;
+                filter: none !important;
+                transform: none !important;
+                animation: none !important;
+            }
+        </style>
+    </noscript>
+
 </head>
 <body class="antialiased">
 
@@ -653,144 +1396,114 @@
     </div>
     <!-- ↑↑↑ここまで↑↑↑ -->
     
-    <div class="max-w-4xl mx-auto px-6 py-12 md:py-32">
+    <div class="site-shell">
 
-        <!-- ================= HERO PROFILE ================= -->
-        <header id="home" class="pt-12 md:pt-20 mb-16 md:mb-24 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
-            <!-- Profile Photo (3D Interactive & Dual Portrait) -->
-            <div id="hero-tilt-container" class="relative group shrink-0 z-10" style="perspective: 1000px;">
-                <!-- オーラエフェクト (JSの3D移動と色の透過切り替えを分離) -->
-                <div id="hero-aura" class="absolute inset-0 rounded-full -z-10 transform opacity-80 transition-all duration-700 ease-out mix-blend-multiply will-change-transform transform-gpu pointer-events-none">
-                    <!-- ポーカー時のオーラ (Cyan) -->
-                    <div class="hero-aura-layer hero-aura-layer--poker absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,60,133,0.25)_0%,rgba(34,211,238,0.2)_50%,transparent_80%)] transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-100"></div>
-                    <!-- ビジネス時のオーラ (Slate Blue) -->
-                    <div class="hero-aura-layer hero-aura-layer--business absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,60,133,0.25)_0%,rgba(71,85,105,0.25)_50%,transparent_80%)] transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0"></div>
+        <!-- ================= EDITORIAL HERO ================= -->
+        <header id="home" class="hero-editorial" aria-labelledby="hero-name">
+            <div class="hero-visual">
+                <div id="hero-tilt-container" class="hero-portrait-stage" style="perspective: 1000px;">
+                    <div id="hero-aura" class="hero-aura" aria-hidden="true">
+                        <div class="hero-aura-layer hero-aura-layer--poker"></div>
+                        <div class="hero-aura-layer hero-aura-layer--business"></div>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="hero-photo"
+                        class="hero-photo-button"
+                        aria-label="プロフィール写真を切り替える / Switch profile portrait"
+                        aria-pressed="false"
+                        data-portrait="poker"
+                    >
+                        <img
+                            src="./profile.webp"
+                            width="512"
+                            height="512"
+                            alt=""
+                            fetchpriority="high"
+                            decoding="sync"
+                            class="hero-portrait hero-portrait--poker"
+                        >
+                        <img
+                            src="./profile-business.webp"
+                            width="512"
+                            height="512"
+                            alt=""
+                            fetchpriority="low"
+                            decoding="async"
+                            class="hero-portrait hero-portrait--business"
+                        >
+                        <span class="hero-portrait-glass" aria-hidden="true"></span>
+                    </button>
                 </div>
-                
-                <!-- 写真本体とフレーム (Button化) -->
-                <button type="button" id="hero-photo" aria-label="プロフィール写真を切り替える / Switch profile portrait" aria-pressed="false" data-portrait="poker" class="w-36 h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden border-[4px] md:border-[6px] border-white/90 backdrop-blur-sm shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[0_30px_60px_rgba(15,60,133,0.25)] will-change-transform transform-style-preserve-3d block p-0 m-0 bg-transparent cursor-pointer">
-                    
-                    <!-- 1. 既存ポーカー写真 -->
-                    <img src="./profile.webp" width="512" height="512" alt="" fetchpriority="high" decoding="sync" class="hero-portrait hero-portrait--poker object-[center_50%]">
-                    
-                    <!-- 2. 新規スーツ写真 -->
-                    <img src="./profile-business.webp" width="512" height="512" alt="" fetchpriority="low" decoding="async" class="hero-portrait hero-portrait--business">
-                    
-                    <!-- 3. 極薄ガラス反射レイヤー -->
-                    <span class="hero-portrait-glass" aria-hidden="true"></span>
-                </button>
             </div>
 
-            <!-- Text Area -->
-            <div class="flex flex-col justify-center min-w-0 mt-2 md:mt-8 w-full">
-                <!-- 名前 & LinkedIn -->
-                <div class="hero-name-row">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-display font-bold tracking-tighter text-gray-900 leading-none m-0" style="opacity: 0.2; filter: blur(16px) brightness(1.2); transform: translateY(16px); animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; will-change: opacity, transform, filter;">
-                        <span class="lang-ja">播磨 賢</span>
-                        <span class="lang-en">Ken HARIMA</span>
-                    </h1>
+            <div class="hero-copy">
+                <p class="hero-kicker hero-reveal hero-reveal-1">
+                    <span>KEN HARIMA</span>
+                    <span class="hero-kicker-rule" aria-hidden="true"></span>
+                    <span class="lang-ja">PORTFOLIO</span>
+                    <span class="lang-en">PORTFOLIO</span>
+                </p>
 
-                    <div class="hero-social-links" role="group" aria-label="公式SNSプロフィール / Official social profiles">
-                        <a
-                            href="https://www.linkedin.com/in/kenharima/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="hero-social-link hero-linkedin"
-                            aria-label="LinkedInプロフィールを開く / Open LinkedIn profile"
-                            title="LinkedIn"
-                        >
-                            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                <h1 id="hero-name" class="hero-name">
+                    <span class="lang-ja">播磨 賢</span>
+                    <span class="lang-en">Ken HARIMA</span>
+                </h1>
+
+                <p class="hero-thesis hero-reveal hero-reveal-2">
+                    <span class="lang-ja">複雑さを、読めるかたちへ。</span>
+                    <span class="lang-en">Making complexity legible.</span>
+                </p>
+
+                <div class="hero-disciplines hero-reveal hero-reveal-3" aria-label="専門領域 / Core disciplines">
+                    <div class="hero-disciplines-head">
+                        <span class="lang-ja">専門領域</span>
+                        <span class="lang-en">Disciplines</span>
+                    </div>
+
+                    <div class="hero-discipline-list">
+                        <a href="#narrative" class="hero-discipline js-equation-link" data-target="narrative">
+                            <span class="lang-ja">ナラティブ設計</span>
+                            <span class="lang-en">Narrative Design</span>
                         </a>
-                        <a
-                            href="https://x.com/kenharima_x"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="hero-social-link hero-x"
-                            aria-label="Xプロフィールを開く / Open X profile"
-                            title="X"
-                        >
-                            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                        <a href="#narrative" class="hero-discipline js-equation-link" data-target="narrative">
+                            <span class="lang-ja">哲学・倫理学</span>
+                            <span class="lang-en">Philosophy &amp; Ethics</span>
+                        </a>
+                        <a href="#strategy" class="hero-discipline js-equation-link" data-target="strategy">
+                            <span class="lang-ja">戦略</span>
+                            <span class="lang-en">Strategy</span>
+                        </a>
+                        <a href="#decision" class="hero-discipline js-equation-link" data-target="decision">
+                            <span class="lang-ja">ゲーム理論</span>
+                            <span class="lang-en">Game Theory</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- ▼▼▼ Core Competencies (Extreme Apple Minimalism) ▼▼▼ -->
-                <div class="flex flex-col items-center md:items-start w-full">
-                    
-                    <!-- Preamble & Divider -->
-                    <div class="flex items-center gap-4 mb-5 md:mb-6 w-full opacity-0" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; will-change: opacity, transform, filter;">
-                        <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gray-300 to-gray-300 md:hidden"></div>
-                        <span class="text-[10px] md:text-[11px] font-mono font-bold tracking-[0.3em] md:tracking-[0.4em] text-gray-400 uppercase whitespace-nowrap">
-                            <span class="lang-ja">専門領域</span>
-                            <span class="lang-en">Core Disciplines</span>
-                        </span>
-                        <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-gray-200 to-gray-300 md:bg-gradient-to-r md:from-gray-300 md:via-gray-200 md:to-transparent"></div>
+                <div class="hero-actions hero-reveal hero-reveal-4">
+                    <a href="../contact.html" class="hero-action hero-action-primary">
+                        <span class="lang-ja">話をはじめる</span>
+                        <span class="lang-en">Start a conversation</span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+
+                    <div class="hero-social-text" aria-label="公式SNSプロフィール / Official social profiles">
+                        <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+                        <a href="https://x.com/kenharima_x" target="_blank" rel="noopener noreferrer">X ↗</a>
                     </div>
-
-                    <!-- Hash Tag Pills -->
-                    <div class="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 w-full">
-                        
-                        <!-- Pill 1: Narrative (Rose) -->
-                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(244,63,94,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(244,63,94,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-rose-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-rose-600 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-rose-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">ナラティブ設計</span><span class="lang-en">Narrative Design</span>
-                            </span>
-                        </a>
-
-                        <!-- Pill 2: Philosophy (Purple) -->
-                        <a href="#narrative" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(168,85,247,0.12)] focus:outline-none js-equation-link opacity-0" data-target="narrative" data-color-glow="rgba(168,85,247,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-purple-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-purple-600 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-purple-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">哲学・倫理学</span><span class="lang-en">Philosophy & Ethics</span>
-                            </span>
-                        </a>
-
-                        <!-- Pill 3: Strategy (Blue) -->
-                        <a href="#strategy" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(15,60,133,0.12)] focus:outline-none js-equation-link opacity-0" data-target="strategy" data-color-glow="rgba(15,60,133,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-blue-700 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-blue-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">戦略</span><span class="lang-en">Strategy</span>
-                            </span>
-                        </a>
-
-                        <!-- Pill 4: Game Theory (Cyan) -->
-                        <a href="#decision" class="group/pill relative flex items-center justify-center px-6 py-3 md:py-3.5 rounded-full bg-white/70 backdrop-blur-xl border border-white shadow-[0_2px_12px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-500 hover:scale-[1.03] hover:bg-white hover:shadow-[0_8px_24px_rgba(6,182,212,0.12)] focus:outline-none js-equation-link opacity-0" data-target="decision" data-color-glow="rgba(6,182,212,0.25)" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;">
-                            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-50 to-transparent opacity-0 group-hover/pill:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            <span class="relative z-10 text-[13px] md:text-[15px] font-bold tracking-wider text-gray-500 group-hover/pill:text-cyan-600 transition-colors duration-500">
-                                <span class="text-gray-300 group-hover/pill:text-cyan-400 mr-1 font-medium transition-colors duration-500">#</span><span class="lang-ja">ゲーム理論</span><span class="lang-en">Game Theory</span>
-                            </span>
-                        </a>
-
-                    </div>
-
-                    <!-- ▼▼▼ ここから新規追加：Apple-like Hero CTA Buttons ▼▼▼ -->
-                    <div class="mt-10 md:mt-12 flex flex-col sm:flex-row items-center md:items-start gap-4 w-full opacity-0" style="animation: opticFocusRevealText 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; will-change: opacity, transform, filter;">
-                        
-                        <!-- Primary CTA: Get in Touch -->
-                        <a href="../contact.html" class="group relative flex items-center justify-center gap-3 px-8 py-3.5 md:py-4 bg-[#1d1d1f] text-white rounded-full font-bold text-[11px] md:text-xs tracking-[0.15em] uppercase transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#000000] hover:shadow-[0_12px_32px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 w-full sm:w-auto overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
-                            <!-- Apple的微かな光の走査線エフェクト -->
-                            <div class="absolute inset-0 bg-gradient-to-r from-gray-800/0 via-gray-700/30 to-gray-800/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 -translate-x-full group-hover:translate-x-full ease-in-out"></div>
-                            <span class="relative z-10">
-                                <span class="lang-ja">お問い合わせ</span>
-                                <span class="lang-en">Get in Touch</span>
-                            </span>
-                            <div class="relative z-10 flex items-center justify-center w-5 h-5 rounded-full bg-white/10 group-hover:bg-white group-hover:text-black transition-colors duration-500">
-                                <i class="fa-solid fa-arrow-right text-[9px] transition-transform duration-300 group-hover:translate-x-0.5"></i>
-                            </div>
-                        </a>
-
-                        
-                        
-                    </div>
-                    <!-- ▲▲▲ 新規追加 ここまで ▲▲▲ -->
-
                 </div>
-                <!-- ▲▲▲ Core Competencies ここまで ▲▲▲ -->
             </div>
+
+            <a href="#experience" class="hero-scroll-cue hero-reveal hero-reveal-5" aria-label="経歴セクションへ移動 / Go to experience section">
+                <span class="lang-ja">続きを読む</span>
+                <span class="lang-en">Explore</span>
+                <span class="hero-scroll-line" aria-hidden="true"></span>
+            </a>
         </header>
-        
-        <main class="space-y-16 md:space-y-24">
+
+        <main class="site-main space-y-16 md:space-y-24">
 
                         <!-- ================= EXPERIENCE & EDUCATION ================= -->
 
@@ -8286,62 +8999,53 @@
                 })();
             </script>
 
-           <!-- ================= CONTACT & RESUME ================= -->
-            <section class="fade-in pt-20 pb-40 cv-auto relative isolate">
-                <!-- セクション背景の微かなグラデーション -->
-                <div class="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-gray-50/50 to-[#fafafa] rounded-b-[3rem]"></div>
-                
-                <div class="max-w-4xl mx-auto flex flex-col items-center text-center px-4">
-                    
-                    <!-- 巨大タイポグラフィ: The Next Step -->
-                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 tracking-tighter mb-5 md:mb-6">
-                        <span class="lang-ja">次のフェーズへ。</span>
-                        <span class="lang-en">The Next Step.</span>
-                    </h2>
-                    
-                    <p class="text-sm md:text-base text-gray-500 mb-14 md:mb-20 font-medium tracking-wide max-w-lg">
-                        <span class="lang-ja">まだ名前のついていない椅子から、<br>おたよりをください。</span>
-                        <span class="lang-en">From a chair as yet unnamed,<br class="block sm:hidden"> send me word.</span>
+            <!-- ================= CLOSING CONTACT ================= -->
+            <section id="contact-final" class="contact-closing cv-auto" aria-labelledby="contact-final-title">
+                <div class="contact-surface">
+                    <div class="contact-orbit contact-orbit-a" aria-hidden="true"></div>
+                    <div class="contact-orbit contact-orbit-b" aria-hidden="true"></div>
+
+                    <p class="contact-kicker">
+                        <span class="contact-index">06</span>
+                        <span>CONTACT</span>
                     </p>
 
-                    <!-- メインアクション: お問い合わせ (Premium Capsule Button) -->
-                    <a id="biz-contact-btn" href="../contact.html" class="group relative inline-flex items-center justify-center gap-4 px-10 md:px-14 py-5 md:py-6 bg-gray-900 text-white rounded-full overflow-hidden transition-all duration-700 hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.4)] hover:-translate-y-1 mb-24 w-full sm:w-auto">
-                        <!-- ボタン内の微かなグラデーション発光 -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-gray-800 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                        <div class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rotate-45 pointer-events-none"></div>
-                        
-                        <span class="relative z-10 text-sm md:text-base font-bold tracking-[0.15em] uppercase">
-                            <span class="lang-ja">お問い合わせ</span>
-                            <span class="lang-en">Get in Touch</span>
-                        </span>
-                        <div class="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white group-hover:text-black transition-colors duration-500">
-                            <i class="fa-solid fa-arrow-right text-[11px] md:text-xs transition-transform duration-300 group-hover:translate-x-0.5"></i>
+                    <div class="contact-grid">
+                        <div class="contact-heading-wrap">
+                            <h2 id="contact-final-title" class="contact-title">
+                                <span class="lang-ja">まだ名前のない<br>問いから。</span>
+                                <span class="lang-en">Begin with the question<br>not yet named.</span>
+                            </h2>
                         </div>
-                    </a>
+
+                        <div class="contact-copy-wrap">
+                            <p class="contact-copy">
+                                <span class="lang-ja">プロジェクト、協働、執筆、その他のご相談について。<br>輪郭の定まっていない段階からでも、言葉にしていけます。</span>
+                                <span class="lang-en">For projects, collaboration, writing, or other inquiries. We can begin before the shape of the question is fully defined.</span>
+                            </p>
+
+                            <a id="biz-contact-btn" href="../contact.html" class="contact-action">
+                                <span class="lang-ja">話をはじめる</span>
+                                <span class="lang-en">Start a conversation</span>
+                                <span class="contact-action-icon" aria-hidden="true">↗</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
 
-      <footer class="border-t border-gray-200 pt-8 pb-16 text-xs font-mono">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="flex items-center gap-4">
-                    <p class="text-gray-400">© 2026 Ken HARIMA</p>
-                </div>
-                <!-- ▼▼▼ ここから新規追加：Minimal Footer Links ▼▼▼ -->
-                <div class="flex items-center gap-4 md:gap-6 text-gray-400 font-semibold tracking-widest uppercase text-[10px] md:text-[11px]">
-                    <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer" aria-label="View LinkedIn" class="hover:text-gray-900 transition-colors duration-500 ease-out">
-                        LinkedIn
-                    </a>
-                    <span class="text-gray-200 font-light" aria-hidden="true">/</span>
-                    <a href="https://x.com/kenharima_x" target="_blank" rel="noopener noreferrer" aria-label="View X profile" class="hover:text-gray-900 transition-colors duration-500 ease-out">
-                        X
-                    </a>
-                    <span class="text-gray-200 font-light" aria-hidden="true">/</span>
-                    <a href="../contact.html" class="hover:text-gray-900 transition-colors duration-500 ease-out">
-                        Contact
-                    </a>
-                </div>
-                <!-- ▲▲▲ 新規追加 ここまで ▲▲▲ -->
+        <footer class="site-footer">
+            <div class="site-footer-main">
+                <p class="site-footer-signature">Ken Harima</p>
+                <p class="site-footer-copy">© 2026 Ken HARIMA</p>
+            </div>
+
+            <nav class="site-footer-links" aria-label="Footer navigation">
+                <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+                <a href="https://x.com/kenharima_x" target="_blank" rel="noopener noreferrer">X ↗</a>
+                <a href="../contact.html">Contact ↗</a>
+            </nav>
         </footer>
     </div>
 
@@ -8423,11 +9127,11 @@
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
                     
-                    const tiltX = ((y - centerY) / centerY) * -15; // 最大15度傾斜
-                    const tiltY = ((x - centerX) / centerX) * 15;
+                    const tiltX = ((y - centerY) / centerY) * -5; // 最大5度の微細な傾斜
+                    const tiltY = ((x - centerX) / centerX) * 5;
                     
-                    photo.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
-                    aura.style.transform = `translate(${(x - centerX)*0.15}px, ${(y - centerY)*0.15}px) scale(1.2)`;
+                    photo.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.018)`;
+                    aura.style.transform = `translate(${(x - centerX)*0.06}px, ${(y - centerY)*0.06}px) scale(1.08)`;
                     photo.style.transition = 'none';
                     aura.style.transition = 'none';
                 });
