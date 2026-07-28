@@ -2067,33 +2067,38 @@ and (
                     </div>
 
                     <button
-                        type="button"
-                        id="hero-photo"
-                        class="hero-photo-button"
-                        aria-label="プロフィール写真を切り替える / Switch profile portrait"
-                        aria-pressed="false"
-                        data-portrait="business"
-                    >
-                        <img
-                            src="./profile.webp"
-                            width="512"
-                            height="512"
-                            alt=""
-                            fetchpriority="high"
-                            decoding="sync"
-                            class="hero-portrait hero-portrait--poker"
-                        >
-                        <img
-                            src="./profile-business.webp"
-                            width="512"
-                            height="512"
-                            alt=""
-                            fetchpriority="low"
-                            decoding="async"
-                            class="hero-portrait hero-portrait--business"
-                        >
-                        <span class="hero-portrait-glass" aria-hidden="true"></span>
-                    </button>
+    type="button"
+    id="hero-photo"
+    class="hero-photo-button"
+    aria-label="プロフィール写真を切り替える / Switch profile portrait"
+    aria-pressed="false"
+    data-portrait="business"
+>
+    <img
+        src="./profile.webp"
+        width="512"
+        height="512"
+        alt=""
+        fetchpriority="low"
+        decoding="async"
+        class="hero-portrait hero-portrait--poker"
+    >
+
+    <img
+        src="./profile-business.webp"
+        width="512"
+        height="512"
+        alt=""
+        fetchpriority="high"
+        decoding="sync"
+        class="hero-portrait hero-portrait--business"
+    >
+
+    <span
+        class="hero-portrait-glass"
+        aria-hidden="true"
+    ></span>
+</button>
                 </div>
             </div>
 
