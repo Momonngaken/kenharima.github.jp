@@ -924,169 +924,1076 @@
                     </div>
                 </div>
                 
-                <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
-                <div id="development" class="mt-20 md:mt-32 pt-16 border-t border-gray-100 relative group/section cv-auto">
-                    <!-- Section Label -->
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-12 md:mb-16 text-center">
+                                <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
+                <style>
+                    /* =========================================================
+                       PROFESSIONAL DEVELOPMENT — APPLE-LIKE BENTO
+                       Scoped entirely to #development
+                    ========================================================= */
+
+                    #development {
+                        margin-top: 5rem;
+                        padding-top: 4rem;
+                        border-top: 1px solid rgba(0, 0, 0, 0.045);
+                        position: relative;
+                        font-family:
+                            -apple-system,
+                            BlinkMacSystemFont,
+                            "SF Pro Display",
+                            "SF Pro Text",
+                            "Helvetica Neue",
+                            "Hiragino Sans",
+                            "Hiragino Kaku Gothic ProN",
+                            "Noto Sans JP",
+                            sans-serif;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development {
+                            margin-top: 8rem;
+                        }
+                    }
+
+                    /* ---------- Section heading ---------- */
+
+                    #development .pd-heading {
+                        margin: 0 0 3rem;
+                        color: #1d1d1f;
+                        font-size: clamp(2rem, 4vw, 3rem);
+                        line-height: 1.05;
+                        font-weight: 700;
+                        letter-spacing: -0.045em;
+                        text-align: left;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-heading {
+                            margin-bottom: 3.5rem;
+                        }
+                    }
+
+                    /* ---------- Bento grid ---------- */
+
+                    #development .pd-grid {
+                        display: grid;
+                        grid-template-columns: repeat(12, minmax(0, 1fr));
+                        gap: 16px;
+                        width: 100%;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-grid {
+                            gap: 18px;
+                        }
+                    }
+
+                    /* ---------- Shared card ---------- */
+
+                    #development .pd-card {
+                        position: relative;
+                        overflow: hidden;
+                        min-width: 0;
+                        border-radius: 30px;
+                        background: #f5f5f7;
+                        color: #1d1d1f;
+                        isolation: isolate;
+
+                        /*
+                         * Apple-like:
+                         * no glass blur
+                         * no obvious border
+                         * no floating SaaS shadow
+                         */
+                        box-shadow:
+                            inset 0 0 0 1px rgba(0, 0, 0, 0.018);
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-card {
+                            border-radius: 32px;
+                        }
+                    }
+
+                    #development .pd-card-label {
+                        position: relative;
+                        z-index: 3;
+                        margin: 0;
+                        color: #6e6e73;
+                        font-size: 15px;
+                        line-height: 1.2;
+                        font-weight: 600;
+                        letter-spacing: -0.015em;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-card-label {
+                            font-size: 17px;
+                        }
+                    }
+
+                    #development .pd-credential-primary {
+                        display: block;
+                        color: #1d1d1f;
+                        font-size: 15px;
+                        line-height: 1.35;
+                        font-weight: 600;
+                        letter-spacing: -0.025em;
+                    }
+
+                    #development .pd-credential-secondary {
+                        display: block;
+                        color: #6e6e73;
+                        font-size: 13px;
+                        line-height: 1.45;
+                        font-weight: 500;
+                        letter-spacing: -0.015em;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-credential-primary {
+                            font-size: 16px;
+                        }
+
+                        #development .pd-credential-secondary {
+                            font-size: 14px;
+                        }
+                    }
+
+
+                    /* =========================================================
+                       01 — LANGUAGE
+                       Hero typography card
+                    ========================================================= */
+
+                    #development .pd-language {
+                        grid-column: span 7;
+                        min-height: 390px;
+                        padding: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-language {
+                            padding: 40px 42px;
+                        }
+                    }
+
+                    #development .pd-language-mark {
+                        position: absolute;
+                        top: 29px;
+                        right: 30px;
+                        width: 40px;
+                        height: 40px;
+                        z-index: 2;
+                        opacity: 0.94;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-language-mark {
+                            top: 38px;
+                            right: 40px;
+                            width: 44px;
+                            height: 44px;
+                        }
+                    }
+
+                    #development .pd-language-main {
+                        position: relative;
+                        z-index: 2;
+                        margin-top: auto;
+                    }
+
+                    #development .pd-score {
+                        margin: 0 0 8px;
+                        color: #1d1d1f;
+                        font-size: clamp(84px, 10vw, 124px);
+                        line-height: 0.82;
+                        font-weight: 600;
+                        letter-spacing: -0.075em;
+                        font-variant-numeric: tabular-nums;
+                    }
+
+                    #development .pd-score-label {
+                        display: block;
+                        margin-bottom: 18px;
+                        color: #1d1d1f;
+                        font-size: 16px;
+                        line-height: 1.25;
+                        font-weight: 600;
+                        letter-spacing: -0.025em;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-score-label {
+                            font-size: 18px;
+                        }
+                    }
+
+
+                    /* =========================================================
+                       02 — AI
+                       Graphic card
+                    ========================================================= */
+
+                    #development .pd-ai {
+                        grid-column: span 5;
+                        min-height: 390px;
+                        padding: 30px;
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-ai {
+                            padding: 40px;
+                        }
+                    }
+
+                    #development .pd-ai-graphic {
+                        position: absolute;
+                        z-index: 1;
+                        width: 270px;
+                        height: 270px;
+                        right: -66px;
+                        top: 35px;
+                        color: #1d1d1f;
+                        opacity: 0.055;
+                        pointer-events: none;
+                    }
+
+                    #development .pd-ai-content {
+                        position: relative;
+                        z-index: 2;
+                        margin-top: auto;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 18px;
+                    }
+
+                    #development .pd-ai-rule {
+                        width: 36px;
+                        height: 1px;
+                        background: rgba(0, 0, 0, 0.14);
+                    }
+
+
+                    /* =========================================================
+                       03 — NUMERICAL FOUNDATION
+                       Compact evidence card
+                    ========================================================= */
+
+                    #development .pd-numerical {
+                        grid-column: span 4;
+                        min-height: 260px;
+                        padding: 28px;
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-numerical {
+                            padding: 34px;
+                        }
+                    }
+
+                    #development .pd-abacus-watermark {
+                        position: absolute;
+                        right: -16px;
+                        bottom: -12px;
+                        width: 165px;
+                        height: 165px;
+                        color: #1d1d1f;
+                        opacity: 0.045;
+                        pointer-events: none;
+                    }
+
+                    #development .pd-grade {
+                        position: relative;
+                        z-index: 2;
+                        margin-top: auto;
+                        margin-bottom: 16px;
+                        color: #1d1d1f;
+                        font-size: clamp(42px, 5vw, 58px);
+                        line-height: 0.95;
+                        font-weight: 600;
+                        letter-spacing: -0.06em;
+                    }
+
+                    #development .pd-numerical-list {
+                        position: relative;
+                        z-index: 2;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                    }
+
+
+                    /* =========================================================
+                       04 — DATA & MARKETING
+                       Wide analytical card
+                    ========================================================= */
+
+                    #development .pd-data {
+                        grid-column: span 8;
+                        min-height: 260px;
+                        padding: 28px;
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-data {
+                            padding: 34px 38px;
+                        }
+                    }
+
+                    #development .pd-data-graphic {
+                        position: absolute;
+                        z-index: 1;
+                        width: 54%;
+                        height: auto;
+                        top: 27px;
+                        right: -10px;
+                        color: #1d1d1f;
+                        opacity: 0.052;
+                        pointer-events: none;
+                    }
+
+                    #development .pd-data-list {
+                        position: relative;
+                        z-index: 2;
+                        margin-top: auto;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 7px;
+                        max-width: 76%;
+                    }
+
+
+                    /* =========================================================
+                       05 — SELECTED PROGRAM
+                       Editorial / certificate card
+                    ========================================================= */
+
+                    #development .pd-program {
+                        grid-column: span 12;
+                        min-height: 320px;
+                        padding: 26px;
+                        display: grid;
+                        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+                        gap: 34px;
+                        align-items: center;
+                        cursor: pointer;
+                        transition:
+                            background-color 420ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    #development .pd-program:hover {
+                        background: #f1f1f3;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-program {
+                            min-height: 340px;
+                            padding: 38px 42px;
+                            gap: 48px;
+                        }
+                    }
+
+                    #development .pd-program-media {
+                        position: relative;
+                        z-index: 2;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-width: 0;
+                    }
+
+                    #development .pd-certificate-frame {
+                        width: 100%;
+                        max-width: 285px;
+                        padding: 5px;
+                        border-radius: 13px;
+                        background: #ffffff;
+                        box-shadow:
+                            0 18px 45px rgba(0, 0, 0, 0.075),
+                            0 2px 8px rgba(0, 0, 0, 0.035);
+                    }
+
+                    #development .pd-certificate-frame img {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                        border-radius: 9px;
+                        object-fit: contain;
+                    }
+
+                    #development .pd-program-copy {
+                        position: relative;
+                        z-index: 2;
+                        min-width: 0;
+                    }
+
+                    #development .pd-program-kicker {
+                        display: block;
+                        margin-bottom: 13px;
+                        color: #6e6e73;
+                        font-size: 13px;
+                        line-height: 1.2;
+                        font-weight: 600;
+                        letter-spacing: -0.01em;
+                    }
+
+                    #development .pd-program-title {
+                        margin: 0;
+                        max-width: 560px;
+                        color: #1d1d1f;
+                        font-size: clamp(29px, 4.1vw, 43px);
+                        line-height: 1.05;
+                        font-weight: 700;
+                        letter-spacing: -0.055em;
+                    }
+
+                    #development .pd-program-lab {
+                        display: block;
+                        margin-top: 15px;
+                        max-width: 520px;
+                        color: #6e6e73;
+                        font-size: 14px;
+                        line-height: 1.5;
+                        font-weight: 500;
+                        letter-spacing: -0.02em;
+                    }
+
+                    @media (min-width: 768px) {
+                        #development .pd-program-lab {
+                            font-size: 15px;
+                        }
+                    }
+
+                    #development .pd-program-link {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 7px;
+                        margin-top: 28px;
+                        color: #0066cc;
+                        font-size: 14px;
+                        line-height: 1;
+                        font-weight: 500;
+                        letter-spacing: -0.015em;
+                    }
+
+                    #development .pd-program-arrow {
+                        display: inline-block;
+                        transition:
+                            transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    #development .pd-program:hover .pd-program-arrow {
+                        transform: translateX(3px);
+                    }
+
+
+                    /* =========================================================
+                       Responsive
+                    ========================================================= */
+
+                    @media (max-width: 767px) {
+                        #development {
+                            padding-top: 3.25rem;
+                        }
+
+                        #development .pd-heading {
+                            margin-bottom: 2.25rem;
+                        }
+
+                        #development .pd-grid {
+                            grid-template-columns: 1fr;
+                            gap: 12px;
+                        }
+
+                        #development .pd-language,
+                        #development .pd-ai,
+                        #development .pd-numerical,
+                        #development .pd-data,
+                        #development .pd-program {
+                            grid-column: 1 / -1;
+                        }
+
+                        #development .pd-language {
+                            min-height: 330px;
+                        }
+
+                        #development .pd-ai {
+                            min-height: 300px;
+                        }
+
+                        #development .pd-numerical,
+                        #development .pd-data {
+                            min-height: 230px;
+                        }
+
+                        #development .pd-data-list {
+                            max-width: 88%;
+                        }
+
+                        #development .pd-program {
+                            min-height: 0;
+                            grid-template-columns: 1fr;
+                            gap: 28px;
+                            padding: 28px;
+                        }
+
+                        #development .pd-program-media {
+                            justify-content: flex-start;
+                        }
+
+                        #development .pd-certificate-frame {
+                            width: min(78%, 270px);
+                        }
+
+                        #development .pd-program-link {
+                            margin-top: 23px;
+                        }
+                    }
+
+                    @media (max-width: 380px) {
+                        #development .pd-language,
+                        #development .pd-ai,
+                        #development .pd-numerical,
+                        #development .pd-data {
+                            padding: 25px;
+                        }
+
+                        #development .pd-language-mark {
+                            top: 24px;
+                            right: 24px;
+                        }
+
+                        #development .pd-score {
+                            font-size: 78px;
+                        }
+                    }
+
+
+                    /* =========================================================
+                       Motion accessibility
+                    ========================================================= */
+
+                    @media (prefers-reduced-motion: reduce) {
+                        #development .pd-program,
+                        #development .pd-program-arrow {
+                            transition: none !important;
+                        }
+
+                        #development .pd-program:hover .pd-program-arrow {
+                            transform: none;
+                        }
+                    }
+                </style>
+
+
+                <div
+                    id="development"
+                    class="cv-auto"
+                >
+                    <!-- Section Heading -->
+                    <h2 class="pd-heading">
                         <span class="lang-ja">自己研鑽</span>
                         <span class="lang-en">Professional Development</span>
                     </h2>
 
-                   <!-- Scroll Container: Minimal Glass Cards -->
-                    <div class="relative w-full overflow-hidden">
-                        <!-- Seamless Fade Edges (Apple-like Non-linear Gradient) -->
-                        <div class="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
-                        <div class="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
 
-                        <div id="dev-scroll-container" class="flex overflow-x-auto gap-4 md:gap-6 pb-12 snap-x snap-mandatory scrollbar-hide px-6 md:px-0" style="-webkit-overflow-scrolling: touch;">    
-                            <!-- 1. TOEIC -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(20,184,166,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-language"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3">
-                                    <span class="lang-ja">TOEIC L&R IP 950</span><span class="lang-en">TOEIC L&R IP 950</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">英語を日本語と共に日常的思考基盤として実装する力。</span><span class="lang-en">Business-native English proficiency preserving speed and resolution in global decision-making.</span>
-                                </p>
+                    <div class="pd-grid">
+
+                        <!-- =====================================================
+                             01. LANGUAGE — 7/12
+                        ====================================================== -->
+                        <article class="pd-card pd-language">
+
+                            <div class="pd-card-label">
+                                <span class="lang-ja">語学</span>
+                                <span class="lang-en">Language</span>
                             </div>
 
-                            <!-- 2. Eiken Pre-1 -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(245,158,11,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-globe"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3">
-                                    <span class="lang-ja">実用英語技能検定 準1級</span><span class="lang-en">EIKEN Grade Pre-1</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">非対称な情報環境を突破し、グローバルな文脈で交渉・共創を可能にする言語力。</span><span class="lang-en">Advanced linguistic agility to navigate asymmetric information in global contexts.</span>
-                                </p>
-                            </div>
-                            
-                            <!-- 3. G-検定 -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-brain"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">JDLA Deep Learning for GENERAL（G検定）</span><span class="lang-en">JDLA Deep Learning for GENERAL Certificate</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">AI技術のブラックボックスを解体し、価値へと変換する力。</span><span class="lang-en">Decoding the AI black box to architect strategic business implementations.</span>
-                                </p>
-                            </div>
+                            <!--
+                                Abstract UK / US mark.
+                                Decorative only; no brand asset is used.
+                            -->
+                            <svg
+                                class="pd-language-mark"
+                                viewBox="0 0 48 48"
+                                aria-hidden="true"
+                            >
+                                <defs>
+                                    <clipPath id="pd-language-circle">
+                                        <circle cx="24" cy="24" r="23"></circle>
+                                    </clipPath>
+                                </defs>
 
-                            <!-- 6. Abacus -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(217,70,239,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-fuchsia-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-calculator"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">珠算能力検定1級</span><span class="lang-en">Abacus Proficiency Test, Grade 1</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">複雑な数値を瞬時に捌く、絶対的な処理能力。日本商工会議所主催。</span><span class="lang-en">Absolute processing capacity to instantly decode complex figures.</span>
-                                </p>
-                            </div>
+                                <g clip-path="url(#pd-language-circle)">
+                                    <!-- UK half -->
+                                    <rect
+                                        x="1"
+                                        y="1"
+                                        width="23"
+                                        height="46"
+                                        fill="#012169"
+                                    ></rect>
 
-                            <!-- 7. Mental Math -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-violet-50 text-violet-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-violet-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-bolt"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">暗算検定1級</span><span class="lang-en">Mental Arithmetic Test, Grade 1</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">複雑な数値を素早く処理し、概算・検算・比較判断を支える直感的な数値感覚。日本商工会議所主催。</span><span class="lang-en">An intuitive command of numbers, supporting rapid calculation, estimation, verification, and comparative judgment. Administered by the Japan Chamber of Commerce and Industry.</span>
-                                </p>
-                            </div>
+                                    <path
+                                        d="M-6 4 L28 38 M-6 44 L28 10"
+                                        stroke="#ffffff"
+                                        stroke-width="6"
+                                        opacity="0.92"
+                                    ></path>
 
-                            <!-- 9. Google AI プロフェッショナル認定証 -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-brain"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">Google AI プロフェッショナル認定証</span><span class="lang-en">Google AI Professional Certificate</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">Googleの諸AIツールを実務に組み込み、調査・企画・文章作成・データ分析・コーディングまでを効率化するAIリテラシー。</span><span class="lang-en">AI literacy for integrating tools such as Gemini and NotebookLM into professional workflows to streamline research, planning, writing, data analysis, and coding.</span>
-                                </p>
-                            </div>
+                                    <path
+                                        d="M-6 4 L28 38 M-6 44 L28 10"
+                                        stroke="#C8102E"
+                                        stroke-width="2.4"
+                                        opacity="0.95"
+                                    ></path>
 
-                            <!-- 10. Google Analytics -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(249,115,22,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-chart-column"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">Googleアナリティクス認定資格（GA4）</span><span class="lang-en">Google Analytics Certification (GA4)</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">ユーザー行動の微細な軌跡を定量化し、暗黙のインサイトを炙り出すデータドリヴンな意思決定力。</span><span class="lang-en">Quantifying user trajectories to extract latent insights for decision making.</span>
-                                </p>
-                            </div>
+                                    <rect
+                                        x="8.5"
+                                        y="1"
+                                        width="7"
+                                        height="46"
+                                        fill="#ffffff"
+                                    ></rect>
 
-                            <!-- 11. Google Ads -->
-                            <div class="snap-center shrink-0 w-[260px] md:w-[300px] group relative bg-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(59,130,246,0.1)] rounded-[2rem] p-8 transition-all duration-700 hover:-translate-y-2 flex flex-col cursor-default">
-                                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-6 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500"><i class="fa-solid fa-bullhorn"></i></div>
-                                <h5 class="font-bold text-gray-900 text-lg tracking-tight leading-tight mb-3" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Inter', 'Noto Sans JP', sans-serif;">
-                                    <span class="lang-ja">Google広告クリエイティブ認定資格</span><span class="lang-en">Google Ads Creative Certification</span>
-                                </h5>
-                                <p class="text-[13px] text-gray-500 leading-relaxed font-medium">
-                                    <span class="lang-ja">認知バイアスとデータ分析を融合させ、ユーザーの行動変容をハックする力。</span><span class="lang-en">Hacking behavioral change by fusing cognitive bias insights with optimization.</span>
-                                </p>
-                            </div>
-                            
-                            <!-- End Spacer -->
-                            <div class="shrink-0 w-4 md:w-8"></div>
-                        </div>
-                    </div>
-                    <!-- ▼▼▼ ここから追加: CERTIFICATE MODULE ▼▼▼ -->
-                    <div class="mt-16 md:mt-24 max-w-4xl mx-auto px-6 md:px-0">
-                       <!-- Certificate Header -->
-                        <h4 id="certificate" class="text-xs md:text-sm font-semibold text-[#86868b] tracking-wide mb-6 md:mb-8 scroll-mt-[100px] rounded-xl transition-shadow duration-500 w-fit px-1">
-                            <span class="lang-ja">サーティフィケイト</span>
-                            <span class="lang-en">Certificate</span>
-                        </h4>
+                                    <rect
+                                        x="1"
+                                        y="20.5"
+                                        width="23"
+                                        height="7"
+                                        fill="#ffffff"
+                                    ></rect>
 
-                        <!-- Certificate Card -->
-                        <div data-modal-id="cert_matsuo" class="js-modal-trigger relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-3xl border border-white p-6 md:p-10 group transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,1)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer flex flex-col md:flex-row gap-8 md:gap-12 items-center isolation-auto shadow-[0_8px_30px_rgba(0,0,0,0.03)] transform-gpu will-change-transform">
-                            
-                            <!-- Hover Ambient Glow -->
-                            <div class="absolute inset-0 bg-gradient-to-r from-teal-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                            
-                            <!-- Left: Thumbnail (3D effect) -->
-                            <div class="w-full md:w-5/12 shrink-0 relative z-10 flex justify-center perspective-[1000px]">
-                                <div class="relative w-[85%] md:w-full max-w-[280px] rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-200/60 transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[2deg] group-hover:scale-105 group-hover:shadow-[0_20px_40px_rgba(20,184,166,0.15)] bg-white p-1">
-                                    <!-- 【画像変更箇所1】カードに表示するサムネイルの画像パス -->
-                                    <img src="./matsuo_certificate.png" alt="AI Business Insights 2026 Certificate" class="w-full h-auto object-cover rounded-md relative z-0">
-                                    <!-- Glass Shine -->
-                                    <div class="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-white/10 z-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <rect
+                                        x="10"
+                                        y="1"
+                                        width="4"
+                                        height="46"
+                                        fill="#C8102E"
+                                    ></rect>
+
+                                    <rect
+                                        x="1"
+                                        y="22"
+                                        width="23"
+                                        height="4"
+                                        fill="#C8102E"
+                                    ></rect>
+
+                                    <!-- US half -->
+                                    <rect
+                                        x="24"
+                                        y="1"
+                                        width="23"
+                                        height="46"
+                                        fill="#ffffff"
+                                    ></rect>
+
+                                    <g fill="#B31942">
+                                        <rect x="24" y="1" width="23" height="3.55"></rect>
+                                        <rect x="24" y="8.1" width="23" height="3.55"></rect>
+                                        <rect x="24" y="15.2" width="23" height="3.55"></rect>
+                                        <rect x="24" y="22.3" width="23" height="3.55"></rect>
+                                        <rect x="24" y="29.4" width="23" height="3.55"></rect>
+                                        <rect x="24" y="36.5" width="23" height="3.55"></rect>
+                                        <rect x="24" y="43.45" width="23" height="3.55"></rect>
+                                    </g>
+
+                                    <rect
+                                        x="24"
+                                        y="1"
+                                        width="11"
+                                        height="17.7"
+                                        fill="#0A3161"
+                                    ></rect>
+
+                                    <g fill="#ffffff" opacity="0.95">
+                                        <circle cx="27" cy="5" r="0.8"></circle>
+                                        <circle cx="31" cy="5" r="0.8"></circle>
+                                        <circle cx="27" cy="9" r="0.8"></circle>
+                                        <circle cx="31" cy="9" r="0.8"></circle>
+                                        <circle cx="27" cy="13" r="0.8"></circle>
+                                        <circle cx="31" cy="13" r="0.8"></circle>
+                                    </g>
+                                </g>
+
+                                <circle
+                                    cx="24"
+                                    cy="24"
+                                    r="23"
+                                    fill="none"
+                                    stroke="rgba(0,0,0,0.10)"
+                                    stroke-width="1"
+                                ></circle>
+                            </svg>
+
+
+                            <div class="pd-language-main">
+
+                                <div
+                                    class="pd-score"
+                                    aria-label="TOEIC L&R IP score 950"
+                                >
+                                    950
                                 </div>
+
+                                <span class="pd-score-label">
+                                    TOEIC L&amp;R IP
+                                </span>
+
+                                <span class="pd-credential-secondary">
+                                    <span class="lang-ja">
+                                        実用英語技能検定 準1級
+                                    </span>
+
+                                    <span class="lang-en">
+                                        EIKEN Grade Pre-1
+                                    </span>
+                                </span>
+
                             </div>
-                            
-                            <!-- Right: Content -->
-                            <div class="w-full md:w-7/12 flex flex-col relative z-10 h-full justify-center">
-                                <div class="mb-4 flex justify-start">
-                                    <div class="relative inline-flex items-center px-3 py-1.5 bg-white backdrop-blur-md border border-gray-200/80 rounded-full shadow-[0_2px_12px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_24px_-4px_rgba(20,184,166,0.15)] group-hover:border-teal-400/30 overflow-hidden transform-gpu group-hover:-translate-y-0.5">
-                                        <div class="absolute inset-0 bg-gradient-to-r from-teal-400/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                        <span class="text-[10px] md:text-[11px] font-bold text-gray-800 tracking-widest leading-none transition-colors duration-500 group-hover:text-teal-600 z-10 flex items-center gap-1.5">
-                                            <i class="fa-solid fa-graduation-cap text-[10px] text-gray-400 group-hover:text-teal-500 transition-colors"></i>
-                                            <span class="lang-ja mt-px">東京大学 松尾・岩澤研究室主催</span>
-                                            <span class="lang-en mt-px">Matsuo-Iwasawa Lab, UTokyo</span>
+                        </article>
+
+
+                        <!-- =====================================================
+                             02. AI — 5/12
+                        ====================================================== -->
+                        <article class="pd-card pd-ai">
+
+                            <div class="pd-card-label">
+                                AI
+                            </div>
+
+                            <!-- Large neural / chip watermark -->
+                            <svg
+                                class="pd-ai-graphic"
+                                viewBox="0 0 300 300"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <rect
+                                    x="80"
+                                    y="80"
+                                    width="140"
+                                    height="140"
+                                    rx="34"
+                                    stroke="currentColor"
+                                    stroke-width="7"
+                                ></rect>
+
+                                <rect
+                                    x="112"
+                                    y="112"
+                                    width="76"
+                                    height="76"
+                                    rx="18"
+                                    stroke="currentColor"
+                                    stroke-width="6"
+                                ></rect>
+
+                                <circle cx="150" cy="150" r="11" fill="currentColor"></circle>
+
+                                <g
+                                    stroke="currentColor"
+                                    stroke-width="6"
+                                    stroke-linecap="round"
+                                >
+                                    <path d="M105 80V45"></path>
+                                    <path d="M150 80V35"></path>
+                                    <path d="M195 80V45"></path>
+
+                                    <path d="M105 220V255"></path>
+                                    <path d="M150 220V265"></path>
+                                    <path d="M195 220V255"></path>
+
+                                    <path d="M80 105H45"></path>
+                                    <path d="M80 150H35"></path>
+                                    <path d="M80 195H45"></path>
+
+                                    <path d="M220 105H255"></path>
+                                    <path d="M220 150H265"></path>
+                                    <path d="M220 195H255"></path>
+
+                                    <path d="M123 123L150 150L178 122"></path>
+                                    <path d="M122 178L150 150L179 179"></path>
+                                </g>
+                            </svg>
+
+
+                            <div class="pd-ai-content">
+
+                                <div>
+                                    <span class="pd-credential-primary">
+                                        <span class="lang-ja">
+                                            JDLA Deep Learning for GENERAL（G検定）
                                         </span>
-                                    </div>
+
+                                        <span class="lang-en">
+                                            JDLA Deep Learning for GENERAL Certificate
+                                        </span>
+                                    </span>
                                 </div>
-                                
-                                <h3 class="text-xl md:text-2xl lg:text-[26px] font-bold text-gray-900 tracking-tighter leading-snug mb-3 transition-colors duration-500 group-hover:text-teal-600" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;">
-                                    <span class="lang-ja">AI経営寄付講座<br>「AI Business Insights 2026」修了</span>
-                                    <span class="lang-en">AI Business Insights 2026<br>Program Completion</span>
+
+                                <div class="pd-ai-rule" aria-hidden="true"></div>
+
+                                <div>
+                                    <span class="pd-credential-primary">
+                                        <span class="lang-ja">
+                                            Google AI プロフェッショナル認定証
+                                        </span>
+
+                                        <span class="lang-en">
+                                            Google AI Professional Certificate
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </article>
+
+
+                        <!-- =====================================================
+                             03. NUMERICAL FOUNDATION — 4/12
+                        ====================================================== -->
+                        <article class="pd-card pd-numerical">
+
+                            <div class="pd-card-label">
+                                <span class="lang-ja">数的基礎</span>
+                                <span class="lang-en">Numerical Foundation</span>
+                            </div>
+
+
+                            <!-- Large, faint soroban watermark -->
+                            <svg
+                                class="pd-abacus-watermark"
+                                viewBox="0 0 180 180"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <rect
+                                    x="18"
+                                    y="35"
+                                    width="144"
+                                    height="110"
+                                    rx="16"
+                                    stroke="currentColor"
+                                    stroke-width="5"
+                                ></rect>
+
+                                <path
+                                    d="M18 78H162"
+                                    stroke="currentColor"
+                                    stroke-width="5"
+                                ></path>
+
+                                <g
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                >
+                                    <path d="M48 35V145"></path>
+                                    <path d="M76 35V145"></path>
+                                    <path d="M104 35V145"></path>
+                                    <path d="M132 35V145"></path>
+                                </g>
+
+                                <g fill="currentColor">
+                                    <ellipse cx="48" cy="59" rx="10" ry="6"></ellipse>
+                                    <ellipse cx="76" cy="59" rx="10" ry="6"></ellipse>
+                                    <ellipse cx="104" cy="59" rx="10" ry="6"></ellipse>
+                                    <ellipse cx="132" cy="59" rx="10" ry="6"></ellipse>
+
+                                    <ellipse cx="48" cy="103" rx="10" ry="6"></ellipse>
+                                    <ellipse cx="76" cy="119" rx="10" ry="6"></ellipse>
+                                    <ellipse cx="104" cy="96" rx="10" ry="6"></ellipse>
+                                    <ellipse cx="132" cy="126" rx="10" ry="6"></ellipse>
+                                </g>
+                            </svg>
+
+
+                            <div class="pd-grade">
+                                <span class="lang-ja">1級 × 2</span>
+                                <span class="lang-en">2× Grade 1</span>
+                            </div>
+
+
+                            <div class="pd-numerical-list">
+
+                                <span class="pd-credential-primary">
+                                    <span class="lang-ja">
+                                        珠算能力検定1級
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Abacus Proficiency Test, Grade 1
+                                    </span>
+                                </span>
+
+                                <span class="pd-credential-secondary">
+                                    <span class="lang-ja">
+                                        暗算検定1級
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Mental Arithmetic Test, Grade 1
+                                    </span>
+                                </span>
+
+                            </div>
+                        </article>
+
+
+                        <!-- =====================================================
+                             04. DATA & MARKETING — 8/12
+                        ====================================================== -->
+                        <article class="pd-card pd-data">
+
+                            <div class="pd-card-label">
+                                <span class="lang-ja">
+                                    データ &amp; マーケティング
+                                </span>
+
+                                <span class="lang-en">
+                                    Data &amp; Marketing
+                                </span>
+                            </div>
+
+
+                            <!-- Abstract analytics line -->
+                            <svg
+                                class="pd-data-graphic"
+                                viewBox="0 0 430 180"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M10 148
+                                       C52 140, 71 118, 105 123
+                                       C138 128, 151 92, 184 98
+                                       C219 104, 232 66, 266 71
+                                       C302 77, 326 34, 360 42
+                                       C386 47, 403 24, 420 12"
+                                    stroke="currentColor"
+                                    stroke-width="7"
+                                    stroke-linecap="round"
+                                ></path>
+
+                                <g fill="currentColor">
+                                    <circle cx="105" cy="123" r="7"></circle>
+                                    <circle cx="184" cy="98" r="7"></circle>
+                                    <circle cx="266" cy="71" r="7"></circle>
+                                    <circle cx="360" cy="42" r="7"></circle>
+                                    <circle cx="420" cy="12" r="7"></circle>
+                                </g>
+                            </svg>
+
+
+                            <div class="pd-data-list">
+
+                                <span class="pd-credential-primary">
+                                    <span class="lang-ja">
+                                        Googleアナリティクス認定資格（GA4）
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Google Analytics Certification (GA4)
+                                    </span>
+                                </span>
+
+                                <span class="pd-credential-secondary">
+                                    <span class="lang-ja">
+                                        Google広告クリエイティブ認定資格
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Google Ads Creative Certification
+                                    </span>
+                                </span>
+
+                            </div>
+                        </article>
+
+
+                        <!-- =====================================================
+                             05. SELECTED PROGRAM — 12/12
+                             Existing cert_matsuo modal preserved
+                        ====================================================== -->
+                        <div
+                            id="certificate"
+                            data-modal-id="cert_matsuo"
+                            class="pd-card pd-program js-modal-trigger"
+                            aria-label="AI Business Insights 2026 の詳細を表示"
+                        >
+
+                            <!-- Certificate -->
+                            <div class="pd-program-media">
+
+                                <div class="pd-certificate-frame">
+                                    <img
+                                        src="./matsuo_certificate.png"
+                                        alt="AI Business Insights 2026 Certificate"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </div>
+
+                            </div>
+
+
+                            <!-- Editorial copy -->
+                            <div class="pd-program-copy">
+
+                                <span class="pd-program-kicker">
+                                    Selected Program
+                                </span>
+
+                                <h3 class="pd-program-title">
+                                    AI Business Insights 2026
                                 </h3>
-                                
-                                <p class="text-[13px] md:text-[14px] text-gray-600 leading-relaxed font-medium text-left mb-6 md:mb-8">
-                                    <span class="lang-ja">AI技術を組織戦略へ接続し、現場で動く意思決定に変えるためのアプローチを体系的に習得。</span>
-                                    <span class="lang-en">Systematically studied how AI can be integrated into organizational strategy to drive real-world decision-making.</span>
-                                </p>
-                                
-                                <div class="mt-auto flex justify-between items-center border-t border-gray-200/60 pt-5 md:pt-6">
-                                    <span class="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-widest group-hover:text-teal-500 transition-colors duration-500">View Certificate</span>
-                                    <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-black/[0.05] flex items-center justify-center overflow-hidden transition-all duration-500 shadow-sm group-hover:border-teal-500 group-hover:shadow-[0_0_20px_rgba(20,184,166,0.2)] group-hover:scale-110">
-                                        <div class="absolute inset-0 bg-teal-500 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                                        <i class="fa-solid fa-arrow-right -rotate-45 text-gray-400 group-hover:text-white relative z-10 transition-colors duration-500 text-xs md:text-sm"></i>
-                                    </div>
-                                </div>
+
+                                <span class="pd-program-lab">
+
+                                    <span class="lang-ja">
+                                        東京大学 松尾・岩澤研究室
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Matsuo-Iwasawa Laboratory,<br>
+                                        The University of Tokyo
+                                    </span>
+
+                                </span>
+
+                                <span class="pd-program-link">
+
+                                    <span class="lang-ja">
+                                        詳細を見る
+                                    </span>
+
+                                    <span class="lang-en">
+                                        View details
+                                    </span>
+
+                                    <span
+                                        class="pd-program-arrow"
+                                        aria-hidden="true"
+                                    >
+                                        ›
+                                    </span>
+
+                                </span>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
