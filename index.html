@@ -1070,177 +1070,57 @@ and (
             scale(1.02);
     }
 }
-
-
-@media (
-    prefers-reduced-motion: reduce
-) {
-    /* =========================================================
-   TOUCH PORTRAIT — CLEAN INITIAL STATE
-   Tablet / Mobile
-   ========================================================= */
-
-@media (max-width: 1099px) {
-
-    /*
-     * タブレット・スマホでは、
-     * 初期状態で後ろのPoker写真を見せない。
-     */
-    #hero-photo[data-portrait="business"]
-    .hero-portrait--business {
-
-        clip-path:
-            circle(
-                150%
-                at 0% 0%
-            );
-
-        -webkit-clip-path:
-            circle(
-                150%
-                at 0% 0%
-            );
-
-        transform:
-            scale(1);
-    }
-
-
-    /*
-     * Poker写真の不要な拡大も解除
-     */
-    #hero-photo[data-portrait="business"]
-    .hero-portrait--poker {
-
-        transform:
-            scale(1);
-    }
-
-
-    /*
-     * iPad / Safariで円周が欠ける問題への対策
-     */
-    #hero-photo.hero-photo-button {
-
-        -webkit-backface-visibility:
-            hidden;
-
-        backface-visibility:
-            hidden;
-
-        transform:
-            translateZ(0);
-
-        isolation:
-            isolate;
-    }
-
-
-    /*
-     * 円周に1px程度の隙間が出ないよう、
-     * 画像をほんの少しだけ大きくする
-     */
-    #hero-photo .hero-portrait {
-
-        inset:
-            -1px;
-
-        width:
-            calc(100% + 2px);
-
-        height:
-            calc(100% + 2px);
-    }
-
-
-    /*
-     * ★これが質問されていた部分です★
-     *
-     * PC用の「めくれヒント」は、
-     * タブレット・スマホでは非表示。
-     */
-    .hero-peel-hint {
-
-        display:
-            none !important;
-    }
-
-}
-
-    #hero-photo .hero-portrait--business,
-    #hero-photo .hero-portrait--poker,
-    .hero-peel-hint {
-        transition:
-            none !important;
-    }
-}
         /* =========================================================
-   TOUCH PORTRAIT — CLEAN INITIAL STATE
-   Tablet / Mobile
+   TOUCH PORTRAIT — FINAL
+   iPhone / iPad / Android / Touch devices
    ========================================================= */
 
 /*
- * Desktop:
- *   現行の「Pokerのチラ見せ」を維持。
+ * any-pointer: coarse を使うことで、
+ * 1024pxを超えるiPad Pro横画面でも確実にTouch版にする。
  *
- * Tablet / Mobile:
- *   初期状態ではPokerを完全に隠す。
- *   タップした瞬間だけ斜めRevealする。
- *
- * max-widthで制御することで、
- * iPad + Trackpadなど
- * hover判定が曖昧な端末でも確実に適用する。
+ * Smartphoneは画面幅でも保険をかける。
  */
-@media (max-width: 1099px) {
-    
-    /*
-     * 通常時（Suit）
-     *
-     * 現在の136.5%では円の端に届かず、
-     * 下のPokerが周縁から見えてしまう。
-     *
-     * 150%にすると画像全体を完全に覆う。
-     */
-    #hero-photo[data-portrait="business"]
-    .hero-portrait--business {
+@media (any-pointer: coarse), (max-width: 767px) {
 
+    /* =========================================
+       1. 円そのものは親だけが担当
+       ========================================= */
+
+    #hero-photo.hero-photo-button {
+        position: relative;
+
+        overflow: hidden;
+
+        /*
+         * 実borderはSafariのsubpixel renderingで
+         * 円周欠損を起こしやすいため完全撤去。
+         */
+        border: 0 !important;
+
+        border-radius: 50%;
+
+        /*
+         * 親要素1箇所だけで真円を作る。
+         */
         clip-path:
             circle(
-                150%
-                at 0% 0%
+                50%
+                at 50% 50%
             );
 
         -webkit-clip-path:
             circle(
-                150%
-                at 0% 0%
+                50%
+                at 50% 50%
             );
 
-        transform:
-            scale(1);
-    }
+        background:
+            #f5f5f7 !important;
 
-
-    /*
-     * 下のPoker自体も、
-     * 通常時に外周へ滲まないよう
-     * 不要なscaleを解除。
-     */
-    #hero-photo[data-portrait="business"]
-    .hero-portrait--poker {
-
-        transform:
-            scale(1);
-    }
-
-
-    /*
-     * Safari / iPadOSの
-     * border-radius + clip-path の
-     * sub-pixel seam対策。
-     */
-    #hero-photo.hero-photo-button {
-
+        /*
+         * Safari / iPadOS composite layer安定化
+         */
         -webkit-backface-visibility:
             hidden;
 
@@ -1252,49 +1132,264 @@ and (
 
         isolation:
             isolate;
+
+        contain:
+            paint;
     }
 
 
     /*
-     * 各画像をほんの僅かにoverscan。
-     *
-     * 0.5〜1px程度の隙間が
-     * 円周に出ることを防ぐ。
+     * borderの代わりに光学的なリングを内側へ描く。
+     * 形状そのものには影響しない。
      */
-    #hero-photo .hero-portrait {
+    #hero-photo.hero-photo-button::after {
+        content: "";
 
-        inset:
-            -1px;
+        position: absolute;
 
-        width:
-            calc(100% + 2px);
+        inset: 0;
 
-        height:
-            calc(100% + 2px);
+        z-index: 30;
+
+        border-radius: 50%;
+
+        pointer-events: none;
+
+        box-shadow:
+            inset
+            0 0 0 1px
+            rgba(29, 29, 31, 0.10),
+
+            inset
+            0 0 0 2px
+            rgba(255, 255, 255, 0.30);
     }
 
-}
 
-        @media (max-width: 767px) {
+
+    /* =========================================
+       2. 子画像は「円」にしない
+       ========================================= */
+
+    #hero-photo .hero-portrait {
+        /*
+         * 親の円より2px外まで画像を広げる。
+         * 円周に白い隙間が出るのを防止。
+         */
+        inset: -2px;
+
+        width:
+            calc(100% + 4px);
+
+        height:
+            calc(100% + 4px);
+
+        max-width:
+            none;
+
+        /*
+         * 子側で円を作らない。
+         * これが真円欠損対策として非常に重要。
+         */
+        border-radius:
+            0 !important;
+
+        -webkit-backface-visibility:
+            hidden;
+
+        backface-visibility:
+            hidden;
+    }
+
+
+
+    /* =========================================
+       3. Pokerは裏に常駐
+       ========================================= */
+
+    #hero-photo
+    .hero-portrait--poker {
+
+        z-index:
+            1;
+
+        opacity:
+            1 !important;
+
+        transform:
+            scale(1.01);
+    }
+
+
+
+    /* =========================================
+       4. Suit — 初期状態
+       ========================================= */
+
+    /*
+     * circle()を使わない。
+     *
+     * 完全な四角形としてSuitを置き、
+     * 真円化は親buttonだけに任せる。
+     *
+     * これによりPokerのチラ見えも
+     * 円の欠損も同時に解消する。
+     */
+    #hero-photo[data-portrait="business"]
+    .hero-portrait--business {
+
+        z-index:
+            2;
+
+        opacity:
+            1 !important;
+
+        clip-path:
+            polygon(
+                0 0,
+                100% 0,
+                100% 100%,
+                0 100%
+            );
+
+        -webkit-clip-path:
+            polygon(
+                0 0,
+                100% 0,
+                100% 100%,
+                0 100%
+            );
+
+        transform:
+            scale(1.01);
+    }
+
+
+
+    /* =========================================
+       5. Pokerへ切り替え
+       ========================================= */
+
+    /*
+     * 四角形の4頂点を左上へ収束。
+     *
+     * 視覚的には
+     * 右下 → 左上へ斜めにSuitが剥がれ、
+     * Pokerが現れる。
+     */
+    #hero-photo[data-portrait="poker"]
+    .hero-portrait--business {
+
+        z-index:
+            2;
+
+        opacity:
+            1 !important;
+
+        clip-path:
+            polygon(
+                0 0,
+                0 0,
+                0 0,
+                0 0
+            );
+
+        -webkit-clip-path:
+            polygon(
+                0 0,
+                0 0,
+                0 0,
+                0 0
+            );
+
+        transform:
+            scale(1.01);
+    }
+
+
+
+    /* =========================================
+       6. Animation
+       ========================================= */
 
     #hero-photo
     .hero-portrait--business {
 
         transition:
             clip-path
-            640ms
+            720ms
             var(--kh-ease),
 
             -webkit-clip-path
-            640ms
+            720ms
             var(--kh-ease),
 
             transform
-            720ms
+            800ms
+            var(--kh-ease);
+    }
+
+
+
+    /* =========================================
+       7. PC用Peel hintはTouchでは消す
+       ========================================= */
+
+    .hero-peel-hint {
+        display:
+            none !important;
+    }
+
+}
+
+
+/* =========================================================
+   Smartphone
+   少しだけレスポンスを速く
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    #hero-photo
+    .hero-portrait--business {
+
+        transition:
+            clip-path
+            600ms
+            var(--kh-ease),
+
+            -webkit-clip-path
+            600ms
+            var(--kh-ease),
+
+            transform
+            680ms
             var(--kh-ease);
     }
 
 }
+
+
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #hero-photo
+    .hero-portrait--business,
+
+    #hero-photo
+    .hero-portrait--poker,
+
+    .hero-peel-hint {
+
+        transition:
+            none !important;
+    }
+
+}
+    
         .hero-copy {
             grid-area: copy;
             min-width: 0;
