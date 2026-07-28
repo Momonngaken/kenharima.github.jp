@@ -12,8 +12,6 @@
     <link rel="canonical" href="https://kenharima.com/biz/">
 
     <!-- Performance Optimization: Resource Hints (Moved Up for Preload Scanner) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <!-- Cloudflare Web Analytics Preconnect -->
@@ -24,10 +22,6 @@
 
     <!-- Preload LCP Image (Enhanced Priority) -->
     <link rel="preload" as="image" href="./profile-business.webp" fetchpriority="high">
-
-    <!-- 4G環境最適化: クリティカルなフォント＆アイコンCSSの先行フェッチ -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
 
     <!-- Critical UX: Prefetch Profile Page for Instant Navigation (<0.4s) -->
     <link rel="prefetch" href="./profile.html">
@@ -609,12 +603,19 @@ header .mt-6 {
 
     <!-- 完全な静寂と圧倒的な初速の両立: 
          初回訪問時のFOUC/FOUTを避けるため、フォントとアイコンCSSも初回描画前に適用します。 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap">
-    </noscript>
+    <link
+    rel="preload"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+>
+
+<noscript>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+</noscript>
 
     
     <!-- Language Detection Script -->
