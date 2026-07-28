@@ -6658,7 +6658,16 @@ and (
 
 
                 #projects .project-title-small {
-                    #projects .project-title-descriptor {
+    font-size:
+        clamp(
+            20px,
+            2.4vw,
+            27px
+        );
+}
+
+
+#projects .project-title-descriptor {
     display: block;
 
     margin-top: 9px;
@@ -6672,13 +6681,6 @@ and (
 
     letter-spacing: -0.025em;
 }
-                    font-size:
-                        clamp(
-                            20px,
-                            2.4vw,
-                            27px
-                        );
-                }
 
 
                 #projects .project-subtitle {
@@ -6833,6 +6835,518 @@ and (
                             translateX(2px);
                     }
                 }
+
+                /* =========================================================
+   PROJECT MATERIAL SYSTEM
+   Editorial hierarchy / 2026
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   Shared optical treatment
+   --------------------------------------------------------- */
+
+#projects .project-card {
+    isolation: isolate;
+
+    transition:
+        transform
+        520ms
+        cubic-bezier(0.16, 1, 0.3, 1),
+
+        box-shadow
+        520ms
+        cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+#projects .project-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+#projects .project-card::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    transform: scale(1);
+
+    transition:
+        transform
+        800ms
+        cubic-bezier(0.16, 1, 0.3, 1),
+
+        opacity
+        600ms
+        ease;
+}
+
+
+#projects .project-card::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 32px;
+    right: 32px;
+
+    height: 1px;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.44),
+            transparent
+        );
+
+    opacity: 0.42;
+}
+
+
+
+/* =========================================================
+   FEATURED 01
+   ARIYOSHI — INK
+   ========================================================= */
+
+#projects .project-ariyoshi {
+    background:
+        linear-gradient(
+            145deg,
+            #030303 0%,
+            #080808 68%,
+            #140d0f 100%
+        );
+
+    color: #f5f5f7;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.055),
+        0 18px 52px rgba(0,0,0,0.06);
+}
+
+
+#projects .project-ariyoshi::before {
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            rgba(132, 38, 51, 0.22),
+            transparent 40%
+        );
+}
+
+
+#projects .project-ariyoshi::after {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(177, 75, 87, 0.50),
+            transparent
+        );
+}
+
+
+
+/* =========================================================
+   FEATURED 02
+   ESSAY — WARM INK
+   ========================================================= */
+
+#projects .project-essay {
+    background:
+        linear-gradient(
+            145deg,
+            #141210 0%,
+            #1b1714 58%,
+            #241d18 100%
+        );
+
+    color: #f7f3ed;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.05),
+        0 18px 52px rgba(24,18,13,0.055);
+}
+
+
+#projects .project-essay::before {
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(181, 132, 82, 0.16),
+            transparent 42%
+        );
+}
+
+
+#projects .project-essay::after {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(207, 169, 122, 0.42),
+            transparent
+        );
+}
+
+
+
+/* =========================================================
+   FEATURED 03
+   NOGUCHI × RISO — BLUEPRINT
+   ========================================================= */
+
+#projects .project-noguchi {
+    background:
+        linear-gradient(
+            145deg,
+            #10243a 0%,
+            #0d1c2d 56%,
+            #091522 100%
+        );
+
+    color: #f5f7fa;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.055),
+        0 20px 56px rgba(13, 35, 60, 0.09);
+}
+
+
+#projects .project-noguchi::before {
+    background-image:
+
+        linear-gradient(
+            rgba(130, 180, 230, 0.035) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(130, 180, 230, 0.035) 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle at 94% 4%,
+            rgba(54, 139, 230, 0.22),
+            transparent 42%
+        );
+
+    background-size:
+        28px 28px,
+        28px 28px,
+        auto;
+}
+
+
+#projects .project-noguchi::after {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(86, 161, 237, 0.58),
+            transparent
+        );
+}
+
+
+
+/* =========================================================
+   FEATURED 04
+   POKER — MIDNIGHT / EV GRID
+   ========================================================= */
+
+#projects .project-poker {
+    background:
+        linear-gradient(
+            145deg,
+            #060d18 0%,
+            #0b1121 52%,
+            #111c30 100%
+        );
+
+    color: #f5f5f7;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.05),
+        0 22px 64px rgba(4, 12, 28, 0.11);
+}
+
+
+#projects .project-poker::before {
+    background-image:
+
+        linear-gradient(
+            rgba(99, 161, 225, 0.028) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(99, 161, 225, 0.028) 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle at 92% 5%,
+            rgba(0, 102, 204, 0.22),
+            transparent 43%
+        );
+
+    background-size:
+        34px 34px,
+        34px 34px,
+        auto;
+}
+
+
+#projects .project-poker::after {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(76, 157, 235, 0.58),
+            transparent
+        );
+}
+
+
+
+/* ---------------------------------------------------------
+   Featured typography / metadata
+   --------------------------------------------------------- */
+
+#projects :is(
+    .project-ariyoshi,
+    .project-essay,
+    .project-noguchi,
+    .project-poker
+)
+.project-result {
+    display: inline-flex;
+
+    align-items: center;
+
+    width: fit-content;
+
+    padding:
+        6px
+        9px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    color:
+        rgba(245,245,247,0.72);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        0.035em;
+}
+
+
+#projects :is(
+    .project-ariyoshi,
+    .project-essay,
+    .project-noguchi,
+    .project-poker
+)
+.project-date {
+    color:
+        rgba(245,245,247,0.46);
+}
+
+
+#projects :is(
+    .project-ariyoshi,
+    .project-essay,
+    .project-noguchi,
+    .project-poker
+)
+.project-subtitle {
+    color:
+        rgba(245,245,247,0.62);
+}
+
+
+#projects :is(
+    .project-ariyoshi,
+    .project-essay,
+    .project-noguchi,
+    .project-poker
+)
+.project-evidence-caption {
+    color:
+        rgba(245,245,247,0.48);
+}
+
+
+#projects :is(
+    .project-ariyoshi,
+    .project-essay,
+    .project-noguchi,
+    .project-poker
+)
+.project-action {
+    color:
+        rgba(245,245,247,0.50);
+}
+
+
+#projects :is(
+    .project-ariyoshi,
+    .project-essay,
+    .project-noguchi,
+    .project-poker
+)
+.project-title-descriptor {
+    color:
+        rgba(245,245,247,0.58);
+}
+
+
+
+/* =========================================================
+   SUPPORTING CARDS
+   White → nuanced material surfaces
+   ========================================================= */
+
+#projects .project-haiku {
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,0) 0,
+            rgba(255,255,255,0) 31px,
+            rgba(29,29,31,0.028) 31px,
+            rgba(29,29,31,0.028) 32px
+        ),
+        linear-gradient(
+            145deg,
+            #f5f2eb,
+            #eeeae2
+        );
+}
+
+
+#projects .project-pivot {
+    background:
+        linear-gradient(
+            145deg,
+            #f3f5f7,
+            #e9edf1
+        );
+}
+
+
+#projects .project-bizplan {
+    background:
+        linear-gradient(
+            145deg,
+            #f0f5f8,
+            #e7eef4
+        );
+}
+
+
+#projects .project-social {
+    background:
+        linear-gradient(
+            145deg,
+            #f1f4f1,
+            #e7ece8
+        );
+}
+
+
+#projects .project-tournament {
+    background:
+        linear-gradient(
+            145deg,
+            #f1f2f4,
+            #e8eaee
+        );
+}
+
+
+
+/* =========================================================
+   HOVER
+   Featured cards move one level deeper than supporting cards
+   ========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+    #projects :is(
+        .project-ariyoshi,
+        .project-essay,
+        .project-noguchi,
+        .project-poker
+    ):hover {
+        transform:
+            translateY(-5px)
+            scale(1.006);
+
+        box-shadow:
+            0 28px 72px
+            rgba(0,0,0,0.13),
+
+            inset
+            0 0 0 1px
+            rgba(255,255,255,0.07);
+    }
+
+
+    #projects :is(
+        .project-ariyoshi,
+        .project-essay,
+        .project-noguchi,
+        .project-poker
+    ):hover::before {
+        transform:
+            scale(1.035);
+    }
+
+}
+
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #projects .project-card,
+    #projects .project-card::before {
+        transition:
+            none !important;
+    }
+
+}
 
 
                 /* =========================================================
@@ -8453,8 +8967,16 @@ and (
                                 <div class="project-meta">
 
                                     <span class="project-result">
-                                        Field Study
-                                    </span>
+
+    <span class="lang-ja">
+        実践検証
+    </span>
+
+    <span class="lang-en">
+        Field Study
+    </span>
+
+</span>
 
                                     <span class="project-date">
                                         2023.10 — 2024.02
@@ -8465,17 +8987,17 @@ and (
 
                                 <h3 class="project-title">
 
-                                    <span class="lang-ja">
-                                        不完全情報下の判断構造<br>
-                                        欧州7都市でのポーカー実践
-                                    </span>
+    <span class="lang-ja">
+        不完全情報下の意思決定<br>
+        欧州7都市でのポーカー実践検証
+    </span>
 
-                                    <span class="lang-en">
-                                        Decision-Making Under Incomplete Information<br>
-                                        A Poker Field Study Across Seven European Cities
-                                    </span>
+    <span class="lang-en">
+        Decision-Making Under Incomplete Information<br>
+        A Poker Field Study Across Seven European Cities
+    </span>
 
-                                </h3>
+</h3>
 
 
                                 <p class="project-subtitle">
@@ -8515,52 +9037,94 @@ and (
 
                             <div class="poker-stats">
 
-                                <div>
-                                    <span class="poker-stat-label">
-                                        Final ROI
-                                    </span>
+    <div>
+        <span class="poker-stat-label">
+            <span class="lang-ja">
+                最終ROI
+            </span>
 
-                                    <span class="poker-stat-value">
-                                        532%
-                                    </span>
-                                </div>
+            <span class="lang-en">
+                Final ROI
+            </span>
+        </span>
 
-
-                                <div>
-                                    <span class="poker-stat-label">
-                                        Net Profit
-                                    </span>
-
-                                    <span class="poker-stat-value">
-                                        €5,056
-                                    </span>
-                                </div>
+        <span class="poker-stat-value">
+            532%
+        </span>
+    </div>
 
 
-                                <div>
-                                    <span class="poker-stat-label">
-                                        Field
-                                    </span>
+    <div>
+        <span class="poker-stat-label">
+            <span class="lang-ja">
+                純利益
+            </span>
 
-                                    <span class="poker-stat-value poker-stat-value-small">
-                                        5 Countries<br>
-                                        7 Cities
-                                    </span>
-                                </div>
+            <span class="lang-en">
+                Net Profit
+            </span>
+        </span>
+
+        <span class="poker-stat-value">
+            €5,056
+        </span>
+    </div>
 
 
-                                <div>
-                                    <span class="poker-stat-label">
-                                        Execution
-                                    </span>
+    <div>
+        <span class="poker-stat-label">
+            <span class="lang-ja">
+                実践地域
+            </span>
 
-                                    <span class="poker-stat-value poker-stat-value-small">
-                                        26 Sessions<br>
-                                        175h 52m
-                                    </span>
-                                </div>
+            <span class="lang-en">
+                Locations
+            </span>
+        </span>
 
-                            </div>
+        <span class="poker-stat-value poker-stat-value-small">
+
+            <span class="lang-ja">
+                5か国<br>
+                7都市
+            </span>
+
+            <span class="lang-en">
+                5 Countries<br>
+                7 Cities
+            </span>
+
+        </span>
+    </div>
+
+
+    <div>
+        <span class="poker-stat-label">
+            <span class="lang-ja">
+                実践量
+            </span>
+
+            <span class="lang-en">
+                Execution
+            </span>
+        </span>
+
+        <span class="poker-stat-value poker-stat-value-small">
+
+            <span class="lang-ja">
+                26セッション<br>
+                175時間52分
+            </span>
+
+            <span class="lang-en">
+                26 Sessions<br>
+                175h 52m
+            </span>
+
+        </span>
+    </div>
+
+</div>
 
                         </article>
 
