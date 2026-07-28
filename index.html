@@ -9787,17 +9787,28 @@ const auraLayerBusiness =
         '.hero-aura-layer--business'
     );
 
+
 const canHoverPortrait =
     matchMedia(
         '(hover: hover) and (pointer: fine)'
     ).matches;
 
 
+/*
+ * Mouse / Touch / Pen を区別するための状態。
+ * iPad + Trackpad のようなHybrid Deviceにも対応。
+ */
+let lastPortraitPointerType =
+    'mouse';
+
+
 const setPortraitMode = (
     mode
 ) => {
 
-    if (!photo) return;
+    if (!photo) {
+        return;
+    }
 
 
     const isPoker =
@@ -9845,13 +9856,15 @@ const setPortraitMode = (
                 ? '0'
                 : '1';
     }
+
 };
 
 
 if (photo) {
 
     /*
-     * 初期表示
+     * 初期状態：
+     * 必ずSuitから開始
      */
     setPortraitMode(
         'business'
@@ -9859,12 +9872,31 @@ if (photo) {
 
 
     /*
-     * PC
+     * 実際にどの入力方式で触れたかを記録
+     */
+    photo.addEventListener(
+        'pointerdown',
+
+        (event) => {
+
+            lastPortraitPointerType =
+                event.pointerType ||
+                'mouse';
+        },
+
+        {
+            passive: true
+        }
+    );
+
+
+    /*
+     * PC Mouse
      *
-     * hover:
+     * Hover:
      * Suit → Poker
      *
-     * mouseleave:
+     * Mouse leave:
      * Poker → Suit
      */
     if (
@@ -9872,8 +9904,17 @@ if (photo) {
     ) {
 
         photo.addEventListener(
-            'mouseenter',
-            () => {
+            'pointerenter',
+
+            (event) => {
+
+                if (
+                    event.pointerType !==
+                    'mouse'
+                ) {
+                    return;
+                }
+
 
                 setPortraitMode(
                     'poker'
@@ -9883,35 +9924,58 @@ if (photo) {
 
 
         photo.addEventListener(
-            'mouseleave',
-            () => {
+            'pointerleave',
+
+            (event) => {
+
+                if (
+                    event.pointerType !==
+                    'mouse'
+                ) {
+                    return;
+                }
+
 
                 setPortraitMode(
                     'business'
                 );
             }
         );
+
     }
 
 
     /*
-     * iPhone / Android / iPad /
-     * touch PC / Keyboard
+     * Smartphone / Tablet / Pen / Keyboard
+     *
+     * Tap 1回：
+     * Suit → Poker
+     *
+     * Tap 2回：
+     * Poker → Suit
      */
     photo.addEventListener(
         'click',
-        (e) => {
+
+        (event) => {
+
+            const keyboardActivation =
+                event.detail === 0;
+
+
+            const mouseActivation =
+                lastPortraitPointerType ===
+                'mouse';
+
 
             /*
-             * 通常のmouse clickでは
-             * hoverと二重発火させない。
-             *
-             * e.detail === 0 は
-             * keyboard由来。
+             * PCの通常クリックは無視。
+             * PCはHoverだけで切り替える。
              */
             if (
                 canHoverPortrait &&
-                e.detail !== 0
+                mouseActivation &&
+                !keyboardActivation
             ) {
                 return;
             }
@@ -9925,14 +9989,17 @@ if (photo) {
 
             setPortraitMode(
 
-                currentMode === 'poker'
+                currentMode ===
+                'poker'
 
                     ? 'business'
 
                     : 'poker'
             );
+
         }
     );
+
 }
 
             // Priority 1: Init Interactions Immediately
