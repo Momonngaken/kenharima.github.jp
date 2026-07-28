@@ -4860,57 +4860,46 @@
 
                     letter-spacing: -0.01em;
                 }
+
+
                 #next .next-title {
-    width: 100%;
-    max-width: none;
+                    max-width: 760px;
 
-    margin:
-        0 0
-        clamp(62px, 8vw, 88px);
+                    margin:
+                        0 0
+                        clamp(54px, 9vw, 96px);
 
-    color: #f5f5f7;
+                    color: #f5f5f7;
 
-    font-size:
-        clamp(
-            40px,
-            5.6vw,
-            66px
-        );
+                    font-size:
+                        clamp(
+                            38px,
+                            7vw,
+                            74px
+                        );
 
-    line-height: 1.04;
+                    line-height: 1.06;
 
-    font-weight: 650;
+                    font-weight: 650;
 
-    letter-spacing: -0.062em;
+                    letter-spacing: -0.065em;
 
-    text-wrap: initial;
-}
-
-#next .next-title-line {
-    display: block;
-    width: fit-content;
-    max-width: 100%;
-}
-
-@media (min-width: 768px) {
-    #next .next-title .lang-ja .next-title-line {
-        white-space: nowrap;
-    }
-}
+                    text-wrap: balance;
+                }
 
 
                 #next .next-copy-grid {
-    display: grid;
+                    display: grid;
 
-    grid-template-columns:
-        minmax(0, 0.86fr)
-        minmax(0, 1.14fr);
+                    grid-template-columns:
+                        minmax(0, 1fr)
+                        minmax(0, 1fr);
 
-    gap:
-        clamp(48px, 7vw, 78px);
+                    gap:
+                        clamp(40px, 7vw, 82px);
 
-    align-items: center;
-}
+                    align-items: start;
+                }
 
 
                 #next .next-copy {
@@ -4946,102 +4935,64 @@
                 /* ---------- Formula ---------- */
 
                 #next .next-formula {
-    min-height: 0;
+                    min-height: 340px;
 
-    display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
-        auto
-        minmax(0, 1.25fr);
+                    display: flex;
 
-    align-items: end;
+                    flex-direction: column;
 
-    gap: clamp(16px, 2.4vw, 30px);
+                    justify-content: center;
 
-    padding:
-        clamp(28px, 4vw, 38px)
-        0
-        clamp(30px, 4vw, 40px);
+                    border-top:
+                        1px solid rgba(255, 255, 255, 0.10);
 
-    border-top:
-        1px solid rgba(255, 255, 255, 0.12);
+                    border-bottom:
+                        1px solid rgba(255, 255, 255, 0.10);
 
-    border-bottom:
-        1px solid rgba(255, 255, 255, 0.12);
-}
+                    padding:
+                        38px 0;
+                }
 
 
-#next .next-formula-cell {
-    min-width: 0;
+                #next .next-formula-term {
+                    display: block;
 
-    display: flex;
-    flex-direction: column;
+                    color: #f5f5f7;
 
-    justify-content: flex-end;
-}
+                    font-size:
+                        clamp(
+                            30px,
+                            5.2vw,
+                            58px
+                        );
 
+                    line-height: 1.08;
 
-#next .next-formula-eyebrow {
-    display: block;
+                    font-weight: 600;
 
-    margin-bottom: 14px;
-
-    color: #6e6e73;
-
-    font-size: 11px;
-    line-height: 1;
-
-    font-weight: 600;
-
-    letter-spacing: 0.04em;
-
-    text-transform: uppercase;
-}
+                    letter-spacing: -0.055em;
+                }
 
 
-#next .next-formula-term {
-    display: block;
+                #next .next-formula-multiply {
+                    display: block;
 
-    color: #f5f5f7;
+                    margin:
+                        20px 0;
 
-    font-size:
-        clamp(
-            30px,
-            4.1vw,
-            48px
-        );
+                    color: #86868b;
 
-    line-height: 1.06;
+                    font-size:
+                        clamp(
+                            26px,
+                            4vw,
+                            40px
+                        );
 
-    font-weight: 600;
+                    line-height: 1;
 
-    letter-spacing: -0.055em;
-
-    white-space: nowrap;
-}
-
-
-#next .next-formula-multiply {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding-bottom: 6px;
-
-    color: #6e6e73;
-
-    font-size:
-        clamp(
-            22px,
-            3vw,
-            32px
-        );
-
-    line-height: 1;
-
-    font-weight: 300;
-}
+                    font-weight: 300;
+                }
 
 
                 /* ---------- Final three-line statement ---------- */
@@ -5954,18 +5905,8 @@
 
 
                     #next .next-kicker {
-    margin-bottom:
-        clamp(46px, 6vw, 68px);
-
-    color: #86868b;
-
-    font-size: 13px;
-    line-height: 1;
-
-    font-weight: 600;
-
-    letter-spacing: -0.01em;
-}
+                        margin-bottom: 50px;
+                    }
 
 
                     #next .next-title {
@@ -5981,28 +5922,8 @@
 
 
                     #next .next-formula {
-    min-height: 0;
-
-    grid-template-columns: 1fr;
-
-    gap: 22px;
-
-    align-items: start;
-}
-
-#next .next-formula-multiply {
-    justify-content: flex-start;
-
-    padding-bottom: 0;
-}
-
-#next .next-formula-term {
-    white-space: normal;
-}
-
-#next .next-title .lang-ja .next-title-line {
-    white-space: normal;
-}
+                        min-height: 0;
+                    }
 
 
                     #next .next-manifesto {
@@ -6345,17 +6266,18 @@
 
                     <h2 class="next-title next-reveal">
 
-    <span class="lang-ja">
-        <span class="next-title-line">「10年後の1万人」を、</span>
-        <span class="next-title-line">意思決定の単位にする。</span>
-    </span>
+                        <span class="lang-ja">
+                            「10年後の1万人」を、<br>
+                            意思決定の単位にする。
+                        </span>
 
-    <span class="lang-en">
-        <span class="next-title-line">Measure decisions by</span>
-        <span class="next-title-line">10,000 lives, ten years out.</span>
-    </span>
+                        <span class="lang-en">
+                            Make “10,000 people<br>
+                            in 10 years” a unit of decision-making.
+                        </span>
 
-</h2>
+                    </h2>
+
 
                     <div class="next-copy-grid">
 
@@ -6398,50 +6320,50 @@
                         </div>
 
 
-                        <!-- Decision Lens -->
-<div
-    class="next-formula next-reveal"
-    aria-label="短期収益と長期受益者数を同時に評価する意思決定軸"
->
+                        <!-- Formula -->
+                        <div
+                            class="next-formula next-reveal"
+                            aria-label="Short-term revenue multiplied by long-term beneficiaries"
+                        >
 
-    <div class="next-formula-cell">
+                            <span class="next-formula-term">
 
-        <span class="next-formula-eyebrow">
-            <span class="lang-ja">Business</span>
-            <span class="lang-en">Business</span>
-        </span>
+                                <span class="lang-ja">
+                                    短期収益
+                                </span>
 
-        <span class="next-formula-term">
-            <span class="lang-ja">短期収益</span>
-            <span class="lang-en">Short-Term<br>Revenue</span>
-        </span>
+                                <span class="lang-en">
+                                    Short-Term<br>
+                                    Revenue
+                                </span>
 
-    </div>
-
-
-    <span
-        class="next-formula-multiply"
-        aria-hidden="true"
-    >
-        ×
-    </span>
+                            </span>
 
 
-    <div class="next-formula-cell">
+                            <span
+                                class="next-formula-multiply"
+                                aria-hidden="true"
+                            >
+                                ×
+                            </span>
 
-        <span class="next-formula-eyebrow">
-            <span class="lang-ja">Impact</span>
-            <span class="lang-en">Impact</span>
-        </span>
 
-        <span class="next-formula-term">
-            <span class="lang-ja">長期受益者数</span>
-            <span class="lang-en">Long-Term<br>Beneficiaries</span>
-        </span>
+                            <span class="next-formula-term">
 
-    </div>
+                                <span class="lang-ja">
+                                    長期受益者数
+                                </span>
 
-</div>
+                                <span class="lang-en">
+                                    Long-Term<br>
+                                    Beneficiaries
+                                </span>
+
+                            </span>
+
+                        </div>
+
+                    </div>
 
 
                     <!-- Manifesto -->
@@ -7276,51 +7198,77 @@
 
                             <h3 class="project-title project-title-small">
 
-    <span class="lang-ja">
-        「社会デザイン論入門」<br>
-        レポートコンペティション
-    </span>
+                                <span class="lang-ja">
+                                    早稲田大学<br>
+                                    「社会デザイン論入門」
+                                </span>
 
-    <span class="lang-en">
-        “Introduction to Social Design”<br>
-        Report Competition
-    </span>
+                                <span class="lang-en">
+                                    Waseda University<br>
+                                    Social Design
+                                </span>
 
-</h3>
-
-
-<p class="project-subtitle">
-
-    <span class="lang-ja">
-        ユーザーと運営者の非対称性に対し、利用者へ所有と意思決定を開くDAO型ガバナンスを提案。
-    </span>
-
-    <span class="lang-en">
-        Proposed a DAO governance model that redistributes ownership and decision-making from operators to users.
-    </span>
-
-</p>
+                            </h3>
 
 
-<div class="project-evidence">
+                            <p class="project-subtitle">
 
-    <span class="project-evidence-number">
-        DAO
-    </span>
+                                <span class="lang-ja">
+                                    コワーキングスペースにおける構造的非対称性を、DAO型ガバナンスの視点から再設計。
+                                </span>
 
-    <span class="project-evidence-caption">
+                                <span class="lang-en">
+                                    Proposed a DAO-based governance model to address structural asymmetry in coworking spaces.
+                                </span>
 
-        <span class="lang-ja">
-            「場を借りる」から、「ともに運営する」へ。
-        </span>
+                            </p>
 
-        <span class="lang-en">
-            From renting a space to governing it together.
-        </span>
 
-    </span>
+                            <div class="project-evidence">
 
-</div>
+                                <span class="project-evidence-number">
+                                    Award
+                                </span>
+
+                                <span class="project-evidence-caption">
+
+                                    <span class="lang-ja">
+                                        社会構造の再設計という視座を評価
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Recognized for a structural-design perspective
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+
+                            <span class="project-action">
+
+                                <span class="lang-ja">
+                                    詳細を見る
+                                </span>
+
+                                <span class="lang-en">
+                                    View details
+                                </span>
+
+                                <span
+                                    class="project-action-arrow"
+                                    aria-hidden="true"
+                                >
+                                    ›
+                                </span>
+
+                            </span>
+
+                        </article>
+
+                    </div>
+
+                </div>
 
 
 
