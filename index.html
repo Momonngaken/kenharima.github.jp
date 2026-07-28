@@ -1075,6 +1075,97 @@ and (
 @media (
     prefers-reduced-motion: reduce
 ) {
+    /* =========================================================
+   TOUCH PORTRAIT — CLEAN INITIAL STATE
+   Tablet / Mobile
+   ========================================================= */
+
+@media (max-width: 1099px) {
+
+    /*
+     * タブレット・スマホでは、
+     * 初期状態で後ろのPoker写真を見せない。
+     */
+    #hero-photo[data-portrait="business"]
+    .hero-portrait--business {
+
+        clip-path:
+            circle(
+                150%
+                at 0% 0%
+            );
+
+        -webkit-clip-path:
+            circle(
+                150%
+                at 0% 0%
+            );
+
+        transform:
+            scale(1);
+    }
+
+
+    /*
+     * Poker写真の不要な拡大も解除
+     */
+    #hero-photo[data-portrait="business"]
+    .hero-portrait--poker {
+
+        transform:
+            scale(1);
+    }
+
+
+    /*
+     * iPad / Safariで円周が欠ける問題への対策
+     */
+    #hero-photo.hero-photo-button {
+
+        -webkit-backface-visibility:
+            hidden;
+
+        backface-visibility:
+            hidden;
+
+        transform:
+            translateZ(0);
+
+        isolation:
+            isolate;
+    }
+
+
+    /*
+     * 円周に1px程度の隙間が出ないよう、
+     * 画像をほんの少しだけ大きくする
+     */
+    #hero-photo .hero-portrait {
+
+        inset:
+            -1px;
+
+        width:
+            calc(100% + 2px);
+
+        height:
+            calc(100% + 2px);
+    }
+
+
+    /*
+     * ★これが質問されていた部分です★
+     *
+     * PC用の「めくれヒント」は、
+     * タブレット・スマホでは非表示。
+     */
+    .hero-peel-hint {
+
+        display:
+            none !important;
+    }
+
+}
 
     #hero-photo .hero-portrait--business,
     #hero-photo .hero-portrait--poker,
@@ -1083,7 +1174,127 @@ and (
             none !important;
     }
 }
-        
+        /* =========================================================
+   TOUCH PORTRAIT — CLEAN INITIAL STATE
+   Tablet / Mobile
+   ========================================================= */
+
+/*
+ * Desktop:
+ *   現行の「Pokerのチラ見せ」を維持。
+ *
+ * Tablet / Mobile:
+ *   初期状態ではPokerを完全に隠す。
+ *   タップした瞬間だけ斜めRevealする。
+ *
+ * max-widthで制御することで、
+ * iPad + Trackpadなど
+ * hover判定が曖昧な端末でも確実に適用する。
+ */
+@media (max-width: 1099px) {
+    
+    /*
+     * 通常時（Suit）
+     *
+     * 現在の136.5%では円の端に届かず、
+     * 下のPokerが周縁から見えてしまう。
+     *
+     * 150%にすると画像全体を完全に覆う。
+     */
+    #hero-photo[data-portrait="business"]
+    .hero-portrait--business {
+
+        clip-path:
+            circle(
+                150%
+                at 0% 0%
+            );
+
+        -webkit-clip-path:
+            circle(
+                150%
+                at 0% 0%
+            );
+
+        transform:
+            scale(1);
+    }
+
+
+    /*
+     * 下のPoker自体も、
+     * 通常時に外周へ滲まないよう
+     * 不要なscaleを解除。
+     */
+    #hero-photo[data-portrait="business"]
+    .hero-portrait--poker {
+
+        transform:
+            scale(1);
+    }
+
+
+    /*
+     * Safari / iPadOSの
+     * border-radius + clip-path の
+     * sub-pixel seam対策。
+     */
+    #hero-photo.hero-photo-button {
+
+        -webkit-backface-visibility:
+            hidden;
+
+        backface-visibility:
+            hidden;
+
+        transform:
+            translateZ(0);
+
+        isolation:
+            isolate;
+    }
+
+
+    /*
+     * 各画像をほんの僅かにoverscan。
+     *
+     * 0.5〜1px程度の隙間が
+     * 円周に出ることを防ぐ。
+     */
+    #hero-photo .hero-portrait {
+
+        inset:
+            -1px;
+
+        width:
+            calc(100% + 2px);
+
+        height:
+            calc(100% + 2px);
+    }
+
+}
+
+        @media (max-width: 767px) {
+
+    #hero-photo
+    .hero-portrait--business {
+
+        transition:
+            clip-path
+            640ms
+            var(--kh-ease),
+
+            -webkit-clip-path
+            640ms
+            var(--kh-ease),
+
+            transform
+            720ms
+            var(--kh-ease);
+    }
+
+}
         .hero-copy {
             grid-area: copy;
             min-width: 0;
@@ -1730,7 +1941,7 @@ and (
                         class="hero-photo-button"
                         aria-label="プロフィール写真を切り替える / Switch profile portrait"
                         aria-pressed="false"
-                        data-portrait="poker"
+                        data-portrait="business"
                     >
                         <img
                             src="./profile.webp"
