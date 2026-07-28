@@ -791,139 +791,1352 @@
         </header>
         
         <main class="space-y-16 md:space-y-24">
-            
-            
 
-            <!-- ================= EDUCATION ================= -->
-            <section id="experience" class="fade-in">
-                <!-- Section Label -->
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight mb-10 md:mb-14">
+                        <!-- ================= EXPERIENCE & EDUCATION ================= -->
+
+            <!--
+                Apple Editorial Timeline
+                Motion FOUC protection
+            -->
+            <script>
+                if (
+                    !window.matchMedia ||
+                    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                ) {
+                    document.documentElement.classList.add('exp-motion-enabled');
+                }
+            </script>
+
+
+            <style>
+                /* =========================================================
+                   EXPERIENCE & EDUCATION
+                   Apple Editorial Timeline
+                   ========================================================= */
+
+                #experience {
+                    --exp-text: #1d1d1f;
+                    --exp-muted: #86868b;
+                    --exp-faint: #d2d2d7;
+                    --exp-line: rgba(0, 0, 0, 0.075);
+                    --exp-blue: #0066cc;
+
+                    position: relative;
+
+                    font-family:
+                        -apple-system,
+                        BlinkMacSystemFont,
+                        "SF Pro Display",
+                        "SF Pro Text",
+                        "Helvetica Neue",
+                        "Hiragino Sans",
+                        "Hiragino Kaku Gothic ProN",
+                        "Noto Sans JP",
+                        sans-serif;
+                }
+
+
+                /* =========================================================
+                   FOUC PROTECTION
+                   ========================================================= */
+
+                html.exp-motion-enabled #experience .exp-heading,
+                html.exp-motion-enabled #experience .exp-item,
+                html.exp-motion-enabled #experience .exp-line-fill {
+                    visibility: hidden;
+                }
+
+
+                /* =========================================================
+                   SECTION HEADING
+                   ========================================================= */
+
+                #experience .exp-heading {
+                    margin: 0 0 3rem;
+
+                    color: var(--exp-text);
+
+                    font-size: clamp(2rem, 4vw, 3rem);
+                    line-height: 1.05;
+
+                    font-weight: 700;
+
+                    letter-spacing: -0.045em;
+
+                    text-align: left;
+                }
+
+
+                @media (min-width: 768px) {
+                    #experience .exp-heading {
+                        margin-bottom: 3.75rem;
+                    }
+                }
+
+
+                /* =========================================================
+                   TIMELINE
+                   ========================================================= */
+
+                #experience .exp-timeline {
+                    position: relative;
+
+                    width: 100%;
+                }
+
+
+                /*
+                 * Desktop rail:
+                 *
+                 * 168px date
+                 * 28px  rail
+                 * rest  content
+                 *
+                 * rail center = 182px
+                 */
+
+                #experience .exp-line-base,
+                #experience .exp-line-fill {
+                    position: absolute;
+
+                    top: 7px;
+                    bottom: 8px;
+
+                    left: 182px;
+
+                    width: 1px;
+
+                    pointer-events: none;
+                }
+
+
+                #experience .exp-line-base {
+                    z-index: 0;
+
+                    background:
+                        linear-gradient(
+                            to bottom,
+                            rgba(0, 0, 0, 0.08) 0%,
+                            rgba(0, 0, 0, 0.065) 78%,
+                            rgba(0, 0, 0, 0.015) 100%
+                        );
+                }
+
+
+                #experience .exp-line-fill {
+                    z-index: 1;
+
+                    background:
+                        linear-gradient(
+                            to bottom,
+                            #b8b8bd 0%,
+                            #d2d2d7 72%,
+                            rgba(210, 210, 215, 0.15) 100%
+                        );
+
+                    transform-origin: top center;
+                }
+
+
+                /* =========================================================
+                   ENTRY
+                   ========================================================= */
+
+                #experience .exp-item {
+                    --exp-accent: #86868b;
+                    --exp-ring: rgba(0, 0, 0, 0.06);
+
+                    position: relative;
+
+                    z-index: 2;
+
+                    display: grid;
+
+                    grid-template-columns:
+                        168px
+                        28px
+                        minmax(0, 1fr);
+
+                    align-items: start;
+
+                    min-width: 0;
+
+                    cursor: pointer;
+
+                    outline: none;
+                }
+
+
+                #experience .exp-item:not(:last-child) {
+                    padding-bottom: 3.75rem;
+                }
+
+
+                @media (min-width: 768px) {
+                    #experience .exp-item:not(:last-child) {
+                        padding-bottom: 4.25rem;
+                    }
+                }
+
+
+                /* =========================================================
+                   DATE
+                   ========================================================= */
+
+                #experience .exp-date {
+                    grid-column: 1;
+
+                    padding-top: 1px;
+                    padding-right: 20px;
+
+                    color: var(--exp-muted);
+
+                    font-family:
+                        -apple-system,
+                        BlinkMacSystemFont,
+                        "SF Pro Text",
+                        "Helvetica Neue",
+                        sans-serif;
+
+                    font-size: 13px;
+                    line-height: 1.4;
+
+                    font-weight: 500;
+
+                    letter-spacing: -0.012em;
+
+                    font-variant-numeric: tabular-nums;
+
+                    text-align: right;
+
+                    white-space: nowrap;
+
+                    transition:
+                        color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+
+                /* =========================================================
+                   RAIL / DOT
+                   ========================================================= */
+
+                #experience .exp-rail {
+                    grid-column: 2;
+
+                    position: relative;
+
+                    min-height: 28px;
+
+                    display: flex;
+                    justify-content: center;
+
+                    padding-top: 5px;
+                }
+
+
+                #experience .exp-dot {
+                    position: relative;
+
+                    z-index: 4;
+
+                    display: block;
+
+                    width: 8px;
+                    height: 8px;
+
+                    border-radius: 999px;
+
+                    background: var(--exp-accent);
+
+                    box-shadow:
+                        0 0 0 4px var(--exp-ring);
+
+                    transform-origin: center;
+
+                    transition:
+                        transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 450ms cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+
+                /*
+                 * Current role gets a fractionally stronger point,
+                 * but no pulse / glow / animated ping.
+                 */
+
+                #experience .exp-item-current .exp-dot {
+                    width: 9px;
+                    height: 9px;
+                }
+
+
+                /* =========================================================
+                   CONTENT
+                   ========================================================= */
+
+                #experience .exp-content {
+                    grid-column: 3;
+
+                    min-width: 0;
+
+                    padding-left: 24px;
+
+                    transition:
+                        transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+
+                #experience .exp-title {
+                    margin: 0;
+
+                    color: var(--exp-text);
+
+                    font-size: clamp(21px, 2.6vw, 27px);
+                    line-height: 1.12;
+
+                    font-weight: 650;
+
+                    letter-spacing: -0.045em;
+
+                    text-wrap: balance;
+                }
+
+
+                #experience .exp-meta {
+                    margin: 7px 0 0;
+
+                    max-width: 590px;
+
+                    color: var(--exp-muted);
+
+                    font-size: 14px;
+                    line-height: 1.55;
+
+                    font-weight: 450;
+
+                    letter-spacing: -0.018em;
+
+                    text-wrap: pretty;
+                }
+
+
+                @media (min-width: 768px) {
+                    #experience .exp-meta {
+                        font-size: 15px;
+                    }
+                }
+
+
+                /* =========================================================
+                   VIEW DETAILS
+                   ========================================================= */
+
+                #experience .exp-action {
+                    display: inline-flex;
+
+                    align-items: center;
+
+                    gap: 5px;
+
+                    margin-top: 14px;
+
+                    color: var(--exp-muted);
+
+                    font-size: 13px;
+                    line-height: 1;
+
+                    font-weight: 500;
+
+                    letter-spacing: -0.012em;
+
+                    transition:
+                        color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+
+                #experience .exp-action-arrow {
+                    display: inline-block;
+
+                    font-size: 17px;
+                    line-height: 0.8;
+
+                    transform: translateY(-0.5px);
+
+                    transition:
+                        transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+
+                /* =========================================================
+                   DESKTOP HOVER
+                   ========================================================= */
+
+                @media (hover: hover) and (pointer: fine) {
+
+                    #experience .exp-item:hover .exp-content {
+                        transform: translateX(3px);
+                    }
+
+
+                    #experience .exp-item:hover .exp-dot {
+                        transform: scale(1.14);
+
+                        box-shadow:
+                            0 0 0 5px var(--exp-ring);
+                    }
+
+
+                    #experience .exp-item:hover .exp-action {
+                        color: var(--exp-blue);
+                    }
+
+
+                    #experience .exp-item:hover .exp-action-arrow {
+                        transform:
+                            translateX(2px)
+                            translateY(-0.5px);
+                    }
+
+
+                    #experience .exp-item:hover .exp-date {
+                        color: #6e6e73;
+                    }
+                }
+
+
+                /* =========================================================
+                   KEYBOARD FOCUS
+                   ========================================================= */
+
+                #experience .exp-item:focus-visible .exp-content {
+                    transform: translateX(3px);
+                }
+
+
+                #experience .exp-item:focus-visible .exp-action {
+                    color: var(--exp-blue);
+                }
+
+
+                #experience .exp-item:focus-visible .exp-dot {
+                    box-shadow:
+                        0 0 0 5px var(--exp-ring),
+                        0 0 0 7px rgba(0, 102, 204, 0.16);
+                }
+
+
+                /* =========================================================
+                   MOBILE
+                   ========================================================= */
+
+                @media (max-width: 767px) {
+
+                    #experience .exp-heading {
+                        margin-bottom: 2.75rem;
+                    }
+
+
+                    #experience .exp-line-base,
+                    #experience .exp-line-fill {
+                        left: 12px;
+
+                        top: 6px;
+                        bottom: 6px;
+                    }
+
+
+                    #experience .exp-item {
+                        grid-template-columns:
+                            24px
+                            minmax(0, 1fr);
+
+                        grid-template-rows:
+                            auto
+                            auto;
+                    }
+
+
+                    #experience .exp-item:not(:last-child) {
+                        padding-bottom: 3.25rem;
+                    }
+
+
+                    #experience .exp-rail {
+                        grid-column: 1;
+                        grid-row: 1 / span 2;
+
+                        min-height: 24px;
+
+                        justify-content: center;
+
+                        padding-top: 5px;
+                    }
+
+
+                    #experience .exp-date {
+                        grid-column: 2;
+                        grid-row: 1;
+
+                        padding: 0 0 8px 18px;
+
+                        text-align: left;
+
+                        font-size: 12.5px;
+                    }
+
+
+                    #experience .exp-content {
+                        grid-column: 2;
+                        grid-row: 2;
+
+                        padding-left: 18px;
+                    }
+
+
+                    #experience .exp-title {
+                        font-size: 21px;
+
+                        letter-spacing: -0.038em;
+                    }
+
+
+                    #experience .exp-meta {
+                        margin-top: 6px;
+
+                        font-size: 13.5px;
+
+                        line-height: 1.55;
+                    }
+
+
+                    #experience .exp-action {
+                        margin-top: 13px;
+
+                        font-size: 12.5px;
+                    }
+                }
+
+
+                /* =========================================================
+                   REDUCED MOTION
+                   ========================================================= */
+
+                @media (prefers-reduced-motion: reduce) {
+
+                    #experience .exp-heading,
+                    #experience .exp-item,
+                    #experience .exp-line-fill,
+                    #experience .exp-dot {
+                        visibility: visible !important;
+
+                        opacity: 1 !important;
+
+                        transform: none !important;
+
+                        filter: none !important;
+                    }
+
+
+                    #experience .exp-item,
+                    #experience .exp-content,
+                    #experience .exp-dot,
+                    #experience .exp-action,
+                    #experience .exp-action-arrow {
+                        transition: none !important;
+                    }
+                }
+
+            </style>
+
+
+            <section
+                id="experience"
+                aria-labelledby="experience-heading"
+            >
+
+                <!-- ================= HEADING ================= -->
+
+                <h2
+                    id="experience-heading"
+                    class="exp-heading"
+                >
                     <span class="lang-ja">経歴</span>
-                    <span class="lang-en">Experience & Education</span>
+
+                    <span class="lang-en">
+                        Experience &amp; Education
+                    </span>
                 </h2>
-                
-                <div class="relative pl-4 md:pl-0">
-                    <!-- Minimal Timeline Line (Adjusted for wider dates) -->
-                    <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 top-2 bottom-2 w-[2px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent rounded-full z-0"></div>
 
-                    <div class="space-y-12">
-                        
-                        <!-- 1. Daikin Industries -->
-                        <div data-modal-id="daikin" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500">
-                           <!-- Timeline Dot (Corporate Blue) -->
-                            <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-3 h-3 bg-white border-2 border-[#0097e0] rounded-full mt-[5px] md:mt-[6px] group-hover:bg-[#0097e0] group-hover:scale-125 transition-all duration-500 shadow-[0_0_12px_rgba(0,151,224,0.4)] z-10"></div> 
-                           <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
-    <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-[#0097e0] transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
-        2026.04<span class="opacity-40 mx-1.5 font-light">—</span><span class="lang-ja">現在</span><span class="lang-en">Present</span>
-    </div>
-</div>
 
-<div class="flex-grow pl-8 md:pl-0">
-    <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 group-hover:text-[#0097e0] transition-colors duration-300 tracking-tight mb-1">
-        <span class="lang-ja">ダイキン工業株式会社</span>
-        <span class="lang-en">Daikin Industries, Ltd.</span>
-    </h3>
-    <p class="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300 mb-3 font-medium">
-        <span class="lang-ja">DX推進部</span>
-        <span class="lang-en">DX Promotion Department</span>
-    </p>
-    
-    <!-- Pulse Indicator & Explore Button Hybrid -->
-    <div class="flex items-center gap-3">
-        <!-- Creative Indicator for Present -->
-        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#0097e0] uppercase tracking-[0.2em]">
-            <span class="relative flex h-2 w-2 mr-1">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0097e0] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0097e0]"></span>
-            </span>
-            <span class="lang-ja">現在</span>
-            <span class="lang-en">PRESENT</span>
-        </span>
-        
-        <!-- Subtle Divider -->
-        <div class="h-2.5 w-px bg-gray-300/80"></div>
-        
-        <!-- Explore Action -->
-        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest group-hover:text-[#0097e0] transition-colors">
-            Explore <i class="fa-solid fa-arrow-right -rotate-45 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
-        </span>
-    </div>
-</div>
+                <!-- ================= TIMELINE ================= -->
+
+                <div class="exp-timeline">
+
+                    <!-- Static structural line -->
+                    <div
+                        class="exp-line-base"
+                        aria-hidden="true"
+                    ></div>
+
+                    <!-- Animated line -->
+                    <div
+                        class="exp-line-fill"
+                        aria-hidden="true"
+                    ></div>
+
+
+                    <!-- =====================================================
+                         01 — DAIKIN INDUSTRIES
+                         ===================================================== -->
+
+                    <article
+                        class="exp-item exp-item-current js-modal-trigger"
+                        data-modal-id="daikin"
+                        role="button"
+                        tabindex="0"
+                        aria-haspopup="dialog"
+                        style="
+                            --exp-accent: #0097e0;
+                            --exp-ring: rgba(0, 151, 224, 0.13);
+                        "
+                    >
+
+                        <div class="exp-date">
+
+                            2026.04
+                            <span aria-hidden="true"> — </span>
+
+                            <span class="lang-ja">
+                                現在
+                            </span>
+
+                            <span class="lang-en">
+                                Present
+                            </span>
+
                         </div>
 
-                        <!-- 2. Waseda University -->
-                        <div data-modal-id="waseda" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500">
-                           <!-- Timeline Dot -->
-                            <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-3 h-3 bg-white border-2 border-[#8a1937] rounded-full mt-[5px] md:mt-[6px] group-hover:bg-[#8a1937] group-hover:scale-125 transition-all duration-500 shadow-[0_0_10px_rgba(138,25,55,0.3)] z-10"></div> 
-                            <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
-                                <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-[#8a1937] transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
-                                    2022.04<span class="opacity-40 mx-1.5 font-light">—</span>2026.03
-                                </div>
-                            </div>
-                            
-                            <div class="flex-grow pl-8 md:pl-0">
-                                <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 group-hover:text-[#8a1937] transition-colors duration-300 tracking-tight mb-1">
-                                    <span class="lang-ja">早稲田大学 社会科学部</span>
-                                    <span class="lang-en">Waseda University · School of Social Sciences</span>
-                                </h3>
-                                <p class="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300 mb-3 font-medium">
-                                    <span class="lang-ja">学士（社会科学）</span>
-                                    <span class="lang-en">B.A. in Social Sciences</span>
-                                </p>
-                                <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest group-hover:text-[#8a1937] transition-colors">
-                                    Explore <i class="fa-solid fa-arrow-right -rotate-45 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+
+                        <div
+                            class="exp-rail"
+                            aria-hidden="true"
+                        >
+                            <span class="exp-dot"></span>
+                        </div>
+
+
+                        <div class="exp-content">
+
+                            <h3 class="exp-title">
+
+                                <span class="lang-ja">
+                                    ダイキン工業株式会社
                                 </span>
-                            </div>
+
+                                <span class="lang-en">
+                                    Daikin Industries, Ltd.
+                                </span>
+
+                            </h3>
+
+
+                            <p class="exp-meta">
+
+                                <span class="lang-ja">
+                                    DX推進部 ·
+                                    ダイキン情報システム株式会社へ出向
+                                </span>
+
+                                <span class="lang-en">
+                                    DX Promotion Department ·
+                                    Seconded to Daikin Information Systems Co., Ltd.
+                                </span>
+
+                            </p>
+
+
+                            <span class="exp-action">
+
+                                <span class="lang-ja">
+                                    詳細を見る
+                                </span>
+
+                                <span class="lang-en">
+                                    View details
+                                </span>
+
+                                <span
+                                    class="exp-action-arrow"
+                                    aria-hidden="true"
+                                >
+                                    ›
+                                </span>
+
+                            </span>
+
                         </div>
 
-                        <!-- 3. University of Mannheim -->
-                        <div data-modal-id="mannheim" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500">
-                            <!-- Timeline Dot -->
-                            <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-3 h-3 bg-white border-2 border-bizAccent rounded-full mt-[5px] md:mt-[6px] group-hover:bg-bizAccent group-hover:scale-125 transition-all duration-500 shadow-[0_0_10px_rgba(15,60,133,0.3)] z-10"></div>
-                            <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
-                                <div class="text-xs md:text-[13px] font-mono text-gray-400 group-hover:text-bizAccent transition-colors duration-300 font-semibold tracking-widest whitespace-nowrap">
-                                    2023.08<span class="opacity-40 mx-1.5 font-light">—</span>2024.08
-                                </div>
-                            </div>
-                            
-                            <div class="flex-grow pl-8 md:pl-0">
-                                <h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 group-hover:text-bizAccent transition-colors duration-300 tracking-tight mb-1">
-                                    <span class="lang-ja">マンハイム大学 社会科学部</span>
-                                    <span class="lang-en">University of Mannheim · School of Social Sciences</span>
-                                </h3>
-                                <p class="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300 mb-3 font-medium">
-                                    <span class="lang-ja">社会学科｜ドイツ｜交換留学</span>
-                                    <span class="lang-en">Department of Sociology｜Exchange Program｜Germany</span>
-                                </p>
-                                <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest group-hover:text-bizAccent transition-colors">
-                                    Explore <i class="fa-solid fa-arrow-right -rotate-45 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
-                                </span>
-                            </div>
+                    </article>
+
+
+
+                    <!-- =====================================================
+                         02 — WASEDA UNIVERSITY
+                         ===================================================== -->
+
+                    <article
+                        class="exp-item js-modal-trigger"
+                        data-modal-id="waseda"
+                        role="button"
+                        tabindex="0"
+                        aria-haspopup="dialog"
+                        style="
+                            --exp-accent: #8a1937;
+                            --exp-ring: rgba(138, 25, 55, 0.10);
+                        "
+                    >
+
+                        <div class="exp-date">
+                            2022.04
+                            <span aria-hidden="true"> — </span>
+                            2026.03
                         </div>
 
-                        <!-- 4. Hiroo Gakuen -->
-                        <div data-modal-id="hiroo" class="js-modal-trigger cursor-pointer group relative flex flex-col md:flex-row gap-2 md:gap-10 items-start transition-all duration-500 opacity-70 hover:opacity-100">
-                            <!-- Timeline Dot -->
-                            <div class="absolute left-[14px] md:left-[12rem] -translate-x-1/2 w-2.5 h-2.5 bg-gray-300 rounded-full mt-[6px] md:mt-[7px] group-hover:bg-gray-500 transition-colors duration-300 z-10"></div> 
-                            <div class="md:w-[10.5rem] shrink-0 pt-0.5 pl-8 md:pl-0 md:text-right">
-                                <div class="text-xs md:text-[13px] font-mono text-gray-400 font-semibold tracking-widest whitespace-nowrap">
-                                    2015.04<span class="opacity-40 mx-1.5 font-light">—</span>2021.03
-                                </div>
-                            </div>
-                            
-                            <div class="flex-grow pl-8 md:pl-0">
-                                <h3 class="text-lg md:text-xl font-display font-bold text-gray-700 group-hover:text-gray-900 transition-colors duration-300 tracking-tight mb-1">
-                                    <span class="lang-ja">広尾学園 中学校・高等学校</span>
-                                    <span class="lang-en">Hiroo Gakuen Junior & Senior High School</span>
-                                </h3>
-                                <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest group-hover:text-gray-600 transition-colors mt-2">
-                                    View History <i class="fa-solid fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
-                                </span>
-                            </div>
+
+                        <div
+                            class="exp-rail"
+                            aria-hidden="true"
+                        >
+                            <span class="exp-dot"></span>
                         </div>
-                    </div>
+
+
+                        <div class="exp-content">
+
+                            <h3 class="exp-title">
+
+                                <span class="lang-ja">
+                                    早稲田大学
+                                </span>
+
+                                <span class="lang-en">
+                                    Waseda University
+                                </span>
+
+                            </h3>
+
+
+                            <p class="exp-meta">
+
+                                <span class="lang-ja">
+                                    社会科学部 · 学士（社会科学）
+                                </span>
+
+                                <span class="lang-en">
+                                    School of Social Sciences ·
+                                    B.A. in Social Sciences
+                                </span>
+
+                            </p>
+
+
+                            <span class="exp-action">
+
+                                <span class="lang-ja">
+                                    詳細を見る
+                                </span>
+
+                                <span class="lang-en">
+                                    View details
+                                </span>
+
+                                <span
+                                    class="exp-action-arrow"
+                                    aria-hidden="true"
+                                >
+                                    ›
+                                </span>
+
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- =====================================================
+                         03 — UNIVERSITY OF MANNHEIM
+                         ===================================================== -->
+
+                    <article
+                        class="exp-item js-modal-trigger"
+                        data-modal-id="mannheim"
+                        role="button"
+                        tabindex="0"
+                        aria-haspopup="dialog"
+                        style="
+                            --exp-accent: #0f3c85;
+                            --exp-ring: rgba(15, 60, 133, 0.10);
+                        "
+                    >
+
+                        <div class="exp-date">
+                            2023.08
+                            <span aria-hidden="true"> — </span>
+                            2024.08
+                        </div>
+
+
+                        <div
+                            class="exp-rail"
+                            aria-hidden="true"
+                        >
+                            <span class="exp-dot"></span>
+                        </div>
+
+
+                        <div class="exp-content">
+
+                            <h3 class="exp-title">
+
+                                <span class="lang-ja">
+                                    マンハイム大学
+                                </span>
+
+                                <span class="lang-en">
+                                    University of Mannheim
+                                </span>
+
+                            </h3>
+
+
+                            <p class="exp-meta">
+
+                                <span class="lang-ja">
+                                    社会科学部 · 社会学 · 交換留学
+                                </span>
+
+                                <span class="lang-en">
+                                    School of Social Sciences ·
+                                    Sociology · Exchange Program
+                                </span>
+
+                            </p>
+
+
+                            <span class="exp-action">
+
+                                <span class="lang-ja">
+                                    詳細を見る
+                                </span>
+
+                                <span class="lang-en">
+                                    View details
+                                </span>
+
+                                <span
+                                    class="exp-action-arrow"
+                                    aria-hidden="true"
+                                >
+                                    ›
+                                </span>
+
+                            </span>
+
+                        </div>
+
+                    </article>
+
                 </div>
 
+            </section>
+
+
+            <!-- =========================================================
+                 EXPERIENCE
+                 APPLE CHRONOLOGY REVEAL
+                 ========================================================= -->
+
+            <script>
+                (() => {
+
+                    const setupExperienceReveal = (
+                        attempt = 0
+                    ) => {
+
+                        const experience =
+                            document.getElementById('experience');
+
+
+                        if (!experience) {
+
+                            document.documentElement.classList.remove(
+                                'exp-motion-enabled'
+                            );
+
+                            return;
+                        }
+
+
+                        /*
+                         * Prevent duplicate initialization.
+                         */
+                        if (
+                            experience.dataset.expRevealInitialized ===
+                            'true'
+                        ) {
+                            return;
+                        }
+
+
+                        const reduceMotion =
+                            window.matchMedia &&
+                            window.matchMedia(
+                                '(prefers-reduced-motion: reduce)'
+                            ).matches;
+
+
+                        /*
+                         * Accessibility
+                         */
+                        if (reduceMotion) {
+
+                            document.documentElement.classList.remove(
+                                'exp-motion-enabled'
+                            );
+
+                            return;
+                        }
+
+
+                        /*
+                         * Existing site loads GSAP + ScrollTrigger
+                         * later with defer.
+                         */
+                        if (
+                            typeof window.gsap === 'undefined' ||
+                            typeof window.ScrollTrigger === 'undefined'
+                        ) {
+
+                            if (attempt < 50) {
+
+                                window.setTimeout(
+                                    () => {
+                                        setupExperienceReveal(
+                                            attempt + 1
+                                        );
+                                    },
+                                    100
+                                );
+
+                            } else {
+
+                                /*
+                                 * CDN / script failure fallback:
+                                 * content must never remain invisible.
+                                 */
+                                document.documentElement.classList.remove(
+                                    'exp-motion-enabled'
+                                );
+
+                            }
+
+                            return;
+                        }
+
+
+                        experience.dataset.expRevealInitialized =
+                            'true';
+
+
+                        const gsap =
+                            window.gsap;
+
+                        const ScrollTrigger =
+                            window.ScrollTrigger;
+
+
+                        gsap.registerPlugin(
+                            ScrollTrigger
+                        );
+
+
+                        const heading =
+                            experience.querySelector(
+                                '.exp-heading'
+                            );
+
+                        const lineFill =
+                            experience.querySelector(
+                                '.exp-line-fill'
+                            );
+
+                        const items =
+                            gsap.utils.toArray(
+                                experience.querySelectorAll(
+                                    '.exp-item'
+                                )
+                            );
+
+                        const dots =
+                            gsap.utils.toArray(
+                                experience.querySelectorAll(
+                                    '.exp-dot'
+                                )
+                            );
+
+
+                        /*
+                         * =================================================
+                         * INITIAL STATES
+                         * =================================================
+                         */
+
+
+                        if (heading) {
+
+                            gsap.set(
+                                heading,
+                                {
+                                    autoAlpha: 0,
+
+                                    y: 24,
+
+                                    filter: 'blur(10px)',
+
+                                    willChange:
+                                        'transform, opacity, filter'
+                                }
+                            );
+
+                        }
+
+
+                        if (lineFill) {
+
+                            gsap.set(
+                                lineFill,
+                                {
+                                    visibility: 'visible',
+
+                                    scaleY: 0,
+
+                                    transformOrigin:
+                                        'top center',
+
+                                    willChange:
+                                        'transform'
+                                }
+                            );
+
+                        }
+
+
+                        items.forEach(
+                            (item) => {
+
+                                gsap.set(
+                                    item,
+                                    {
+                                        autoAlpha: 0,
+
+                                        y: 28,
+
+                                        scale: 0.988,
+
+                                        filter: 'blur(8px)',
+
+                                        transformOrigin:
+                                            '50% 50%',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+                        );
+
+
+                        dots.forEach(
+                            (dot) => {
+
+                                gsap.set(
+                                    dot,
+                                    {
+                                        opacity: 0,
+
+                                        scale: 0.35,
+
+                                        willChange:
+                                            'transform, opacity'
+                                    }
+                                );
+
+                            }
+                        );
+
+
+                        /*
+                         * GSAP owns visibility from this point.
+                         */
+                        document.documentElement.classList.remove(
+                            'exp-motion-enabled'
+                        );
+
+
+                        /*
+                         * =================================================
+                         * MASTER TIMELINE
+                         *
+                         * Unlike the Bento section, nothing flies
+                         * horizontally.
+                         *
+                         * The visual metaphor here is chronology:
+                         * 1. Heading resolves.
+                         * 2. Time axis is drawn.
+                         * 3. Moments appear on that axis.
+                         * =================================================
+                         */
+
+
+                        const timeline =
+                            gsap.timeline({
+
+                                defaults: {
+                                    ease: 'power4.out'
+                                },
+
+                                scrollTrigger: {
+
+                                    trigger: experience,
+
+                                    start: 'top 78%',
+
+                                    once: true,
+
+                                    invalidateOnRefresh: true
+                                }
+
+                            });
+
+
+                        /*
+                         * 01 — Heading
+                         */
+
+                        if (heading) {
+
+                            timeline.to(
+                                heading,
+                                {
+                                    autoAlpha: 1,
+
+                                    y: 0,
+
+                                    filter: 'blur(0px)',
+
+                                    duration: 1.0
+                                }
+                            );
+
+                        }
+
+
+                        /*
+                         * 02 — Chronology line
+                         */
+
+                        if (lineFill) {
+
+                            timeline.to(
+                                lineFill,
+                                {
+                                    scaleY: 1,
+
+                                    duration: 1.45,
+
+                                    ease:
+                                        'power3.inOut'
+                                },
+
+                                '-=0.55'
+                            );
+
+                        }
+
+
+                        /*
+                         * 03 — Entries
+                         *
+                         * Very small stagger.
+                         * The experience should feel discovered,
+                         * not presented like PowerPoint slides.
+                         */
+
+                        if (items.length) {
+
+                            timeline.to(
+                                items,
+                                {
+                                    autoAlpha: 1,
+
+                                    y: 0,
+
+                                    scale: 1,
+
+                                    filter: 'blur(0px)',
+
+                                    duration: 1.05,
+
+                                    stagger: 0.16,
+
+                                    ease: 'power4.out'
+                                },
+
+                                '-=1.08'
+                            );
+
+                        }
+
+
+                        /*
+                         * 04 — Timeline points
+                         */
+
+                        if (dots.length) {
+
+                            timeline.to(
+                                dots,
+                                {
+                                    opacity: 1,
+
+                                    scale: 1,
+
+                                    duration: 0.72,
+
+                                    stagger: 0.16,
+
+                                    ease: 'power4.out'
+                                },
+
+                                '<0.09'
+                            );
+
+                        }
+
+
+                        /*
+                         * =================================================
+                         * CLEANUP
+                         * =================================================
+                         */
+
+                        timeline.call(
+                            () => {
+
+                                if (heading) {
+                                    heading.style.willChange =
+                                        'auto';
+                                }
+
+
+                                if (lineFill) {
+                                    lineFill.style.willChange =
+                                        'auto';
+                                }
+
+
+                                items.forEach(
+                                    item => {
+                                        item.style.willChange =
+                                            'auto';
+
+                                        item.style.filter =
+                                            '';
+                                    }
+                                );
+
+
+                                dots.forEach(
+                                    dot => {
+                                        dot.style.willChange =
+                                            'auto';
+                                    }
+                                );
+
+                            }
+                        );
+
+
+                        /*
+                         * =================================================
+                         * KEYBOARD ACCESSIBILITY
+                         * =================================================
+                         */
+
+                        items.forEach(
+                            item => {
+
+                                item.addEventListener(
+                                    'keydown',
+                                    event => {
+
+                                        if (
+                                            event.key === 'Enter' ||
+                                            event.key === ' '
+                                        ) {
+
+                                            event.preventDefault();
+
+                                            item.click();
+
+                                        }
+
+                                    }
+                                );
+
+                            }
+                        );
+
+
+                        /*
+                         * Layout refresh after fonts / language state.
+                         */
+                        window.setTimeout(
+                            () => {
+                                ScrollTrigger.refresh();
+                            },
+                            100
+                        );
+
+                    };
+
+
+                    if (
+                        document.readyState === 'loading'
+                    ) {
+
+                        document.addEventListener(
+                            'DOMContentLoaded',
+                            () => {
+                                setupExperienceReveal();
+                            },
+                            {
+                                once: true
+                            }
+                        );
+
+                    } else {
+
+                        setupExperienceReveal();
+
+                    }
+
+                })();
+            </script>
+            
                                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
 
                 <!--
@@ -1721,10 +2934,10 @@
                 </style>
 
 
-                <div
+                <section
                     id="development"
                     class="cv-auto"
-                >
+                    >
 
                     <!-- ================= SECTION HEADING ================= -->
 
@@ -4211,7 +5424,7 @@ gsap.ticker.lagSmoothing(0);
                     sub_en: "#DX / #IT Promotion / #Philosophy × Tech",
                     title_ja: "ダイキン工業株式会社\nDX推進部",
                     title_en: "Daikin Industries, Ltd.\nDX Promotion Department",
-                    body_ja: `「事務系」採用でダイキン工業株式会社に入社し、DX推進部に配属。現在は、ダイキン情報システム株式会社に出向しています。\n\n学では社会科学を専攻し、哲学と社会学を中心に学びました。哲学を学ぶなかで、知能・言語・判断をめぐる関心がAIへ、さらにIT技術全般へと広がりました。東京大学・松尾岩澤研究室のDeep Learning講座の受講や、ポートフォリオサイト（<a href="https://kenharima.com" class="text-[#0097e0] hover:text-[#007bb5] transition-colors font-semibold border-b border-[#0097e0]/30 hover:border-[#0097e0]" target="_blank" rel="noopener">kenharima.com</a>）の設計・制作を通じて、技術への基礎理解も独学で深めてきました。\n\nDX推進部は、全社横断で各部門に伴走し、業務課題の抽出や構想策定から、システムの導入、現場への定着までをITの観点から支援する組織です。人文・社会科学で培った言語感覚と、製造業のIT現場で得る実践知。その交点から、技術の導入だけで終わらない、地に足のついたDXに取り組んでいきます。`,
+                    body_ja: `「事務系」採用でダイキン工業株式会社に入社し、DX推進部に配属。現在は、ダイキン情報システム株式会社に出向しています。\n\n大学では社会科学を専攻し、哲学と社会学を中心に学びました。哲学を学ぶなかで、知能・言語・判断をめぐる関心がAIへ、さらにIT技術全般へと広がりました。東京大学・松尾岩澤研究室のDeep Learning講座の受講や、ポートフォリオサイト（<a href="https://kenharima.com" class="text-[#0097e0] hover:text-[#007bb5] transition-colors font-semibold border-b border-[#0097e0]/30 hover:border-[#0097e0]" target="_blank" rel="noopener">kenharima.com</a>）の設計・制作を通じて、技術への基礎理解も独学で深めてきました。\n\nDX推進部は、全社横断で各部門に伴走し、業務課題の抽出や構想策定から、システムの導入、現場への定着までをITの観点から支援する組織です。人文・社会科学で培った言語感覚と、製造業のIT現場で得る実践知。その交点から、技術の導入だけで終わらない、地に足のついたDXに取り組んでいきます。`,
                     body_en: `I joined Daikin Industries, Ltd. through its business-track graduate recruitment program and was assigned to the DX Promotion Department. I am currently seconded to Daikin Information Systems Co., Ltd.\n\nAt university, I majored in social sciences, focusing primarily on philosophy and sociology. As I studied philosophy, my interest in questions concerning intelligence, language, and judgment led me to explore AI and, subsequently, information technology more broadly. I also independently developed a foundational understanding of technology by completing the Deep Learning course offered by the Matsuo–Iwasawa Laboratory at the University of Tokyo and by designing and building my own portfolio website(<a href="https://kenharima.com/" class="text-[#0097e0] hover:text-[#007bb5] transition-colors font-semibold border-b border-[#0097e0]/30 hover:border-[#0097e0]" target="_blank" rel="noopener">kenharima.com</a>).\n\nThe DX Promotion Department works across the company, partnering closely with its various business units and functions. From identifying business challenges and developing solution concepts to implementing systems and embedding them in day-to-day operations, the department provides end-to-end support from an IT perspective. By bringing together the sensitivity to language I cultivated through the humanities and social sciences with the practical knowledge I am gaining in a manufacturing IT environment, I aim to pursue grounded, pragmatic digital transformation that goes beyond the mere introduction of technology.`
                 },
                 "cert_matsuo": {
@@ -4234,7 +5447,7 @@ gsap.ticker.lagSmoothing(0);
                 },
                 "mannheim": {
                     sub_ja: "#社会構造分析 / #哲学的思考 / #根源への問い",
-                    sub_en: "##SocialStructureAnalysis / #PhilosophicalThinking / #FundamentalQuestions",
+                    sub_en: "#SocialStructureAnalysis / #PhilosophicalThinking / #FundamentalQuestions",
                     title_ja: "マンハイム大学 社会科学部\n社会学専攻 (交換留学)",
                     title_en: "University of Mannheim\nSchool of Social Sciences",
                     body_ja: `THE世界大学ランキング分野別2024の社会科学分野でドイツ1位になったマンハイム大学に、社会学専攻として1年間交換留学しました。\n\n社会構造を定量・定性の両面から読み解く社会学を学びながら、<strong>同じ熱量で哲学にも向き合っていました</strong>。スピノザ、カント、ニーチェ、ハイデガー、サルトル、ウィトゲンシュタイン、リチャード・ローティ、そして現代のマルクス・ガブリエルまで、答えを急がず、ひとつの問いを別の角度から読み直し続けた一年でした。\n\n特に、「自由とは何か」を問い続けた実存の系譜と、「言葉はどこまで世界を捉えうるか」をめぐる分析・現代哲学の議論は、現在の私が現象を一歩深く見るための、<strong>静かな基盤</strong>となっています。`,
