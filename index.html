@@ -923,11 +923,26 @@
                         </div>
                     </div>
                 </div>
-                
+
                                 <!-- ================= PROFESSIONAL DEVELOPMENT ================= -->
+
+                <!--
+                    Prevent first-paint flash before GSAP initializes.
+                    If reduced motion is enabled, content remains immediately visible.
+                -->
+                <script>
+                    if (
+                        !window.matchMedia ||
+                        !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                    ) {
+                        document.documentElement.classList.add('pd-motion-enabled');
+                    }
+                </script>
+
                 <style>
                     /* =========================================================
-                       PROFESSIONAL DEVELOPMENT — APPLE-LIKE BENTO
+                       PROFESSIONAL DEVELOPMENT
+                       Apple-like Bento / Keynote Reveal
                        Scoped entirely to #development
                     ========================================================= */
 
@@ -936,6 +951,7 @@
                         padding-top: 4rem;
                         border-top: 1px solid rgba(0, 0, 0, 0.045);
                         position: relative;
+
                         font-family:
                             -apple-system,
                             BlinkMacSystemFont,
@@ -954,15 +970,35 @@
                         }
                     }
 
-                    /* ---------- Section heading ---------- */
+
+                    /* =========================================================
+                       FOUC PROTECTION FOR MOTION
+                    ========================================================= */
+
+                    html.pd-motion-enabled #development .pd-heading,
+                    html.pd-motion-enabled #development .pd-language,
+                    html.pd-motion-enabled #development .pd-ai,
+                    html.pd-motion-enabled #development .pd-numerical,
+                    html.pd-motion-enabled #development .pd-data,
+                    html.pd-motion-enabled #development .pd-program {
+                        visibility: hidden;
+                    }
+
+
+                    /* =========================================================
+                       SECTION HEADING
+                    ========================================================= */
 
                     #development .pd-heading {
                         margin: 0 0 3rem;
+
                         color: #1d1d1f;
+
                         font-size: clamp(2rem, 4vw, 3rem);
                         line-height: 1.05;
                         font-weight: 700;
                         letter-spacing: -0.045em;
+
                         text-align: left;
                     }
 
@@ -972,12 +1008,17 @@
                         }
                     }
 
-                    /* ---------- Bento grid ---------- */
+
+                    /* =========================================================
+                       BENTO GRID
+                    ========================================================= */
 
                     #development .pd-grid {
                         display: grid;
                         grid-template-columns: repeat(12, minmax(0, 1fr));
+
                         gap: 16px;
+
                         width: 100%;
                     }
 
@@ -987,25 +1028,34 @@
                         }
                     }
 
-                    /* ---------- Shared card ---------- */
+
+                    /* =========================================================
+                       SHARED CARD
+                    ========================================================= */
 
                     #development .pd-card {
                         position: relative;
                         overflow: hidden;
                         min-width: 0;
+
                         border-radius: 30px;
+
                         background: #f5f5f7;
                         color: #1d1d1f;
+
                         isolation: isolate;
 
                         /*
-                         * Apple-like:
+                         * Deliberately minimal:
                          * no glass blur
-                         * no obvious border
-                         * no floating SaaS shadow
+                         * no visible SaaS border
+                         * no colored glow
                          */
                         box-shadow:
                             inset 0 0 0 1px rgba(0, 0, 0, 0.018);
+
+                        backface-visibility: hidden;
+                        -webkit-backface-visibility: hidden;
                     }
 
                     @media (min-width: 768px) {
@@ -1014,11 +1064,15 @@
                         }
                     }
 
+
                     #development .pd-card-label {
                         position: relative;
                         z-index: 3;
+
                         margin: 0;
+
                         color: #6e6e73;
+
                         font-size: 15px;
                         line-height: 1.2;
                         font-weight: 600;
@@ -1031,23 +1085,30 @@
                         }
                     }
 
+
                     #development .pd-credential-primary {
                         display: block;
+
                         color: #1d1d1f;
+
                         font-size: 15px;
                         line-height: 1.35;
                         font-weight: 600;
                         letter-spacing: -0.025em;
                     }
 
+
                     #development .pd-credential-secondary {
                         display: block;
+
                         color: #6e6e73;
+
                         font-size: 13px;
                         line-height: 1.45;
                         font-weight: 500;
                         letter-spacing: -0.015em;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-credential-primary {
@@ -1063,16 +1124,21 @@
                     /* =========================================================
                        01 — LANGUAGE
                        Hero typography card
+                       7 / 12
                     ========================================================= */
 
                     #development .pd-language {
                         grid-column: span 7;
+
                         min-height: 390px;
+
                         padding: 30px;
+
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-language {
@@ -1080,50 +1146,69 @@
                         }
                     }
 
+
                     #development .pd-language-mark {
                         position: absolute;
+
                         top: 29px;
                         right: 30px;
+
                         width: 40px;
                         height: 40px;
+
                         z-index: 2;
+
                         opacity: 0.94;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-language-mark {
                             top: 38px;
                             right: 40px;
+
                             width: 44px;
                             height: 44px;
                         }
                     }
 
+
                     #development .pd-language-main {
                         position: relative;
                         z-index: 2;
+
                         margin-top: auto;
                     }
 
+
                     #development .pd-score {
                         margin: 0 0 8px;
+
                         color: #1d1d1f;
+
                         font-size: clamp(84px, 10vw, 124px);
                         line-height: 0.82;
+
                         font-weight: 600;
                         letter-spacing: -0.075em;
+
                         font-variant-numeric: tabular-nums;
                     }
 
+
                     #development .pd-score-label {
                         display: block;
+
                         margin-bottom: 18px;
+
                         color: #1d1d1f;
+
                         font-size: 16px;
                         line-height: 1.25;
                         font-weight: 600;
                         letter-spacing: -0.025em;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-score-label {
@@ -1135,15 +1220,20 @@
                     /* =========================================================
                        02 — AI
                        Graphic card
+                       5 / 12
                     ========================================================= */
 
                     #development .pd-ai {
                         grid-column: span 5;
+
                         min-height: 390px;
+
                         padding: 30px;
+
                         display: flex;
                         flex-direction: column;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-ai {
@@ -1151,30 +1241,42 @@
                         }
                     }
 
+
                     #development .pd-ai-graphic {
                         position: absolute;
                         z-index: 1;
+
                         width: 270px;
                         height: 270px;
+
                         right: -66px;
                         top: 35px;
+
                         color: #1d1d1f;
+
                         opacity: 0.055;
+
                         pointer-events: none;
                     }
+
 
                     #development .pd-ai-content {
                         position: relative;
                         z-index: 2;
+
                         margin-top: auto;
+
                         display: flex;
                         flex-direction: column;
+
                         gap: 18px;
                     }
+
 
                     #development .pd-ai-rule {
                         width: 36px;
                         height: 1px;
+
                         background: rgba(0, 0, 0, 0.14);
                     }
 
@@ -1182,15 +1284,20 @@
                     /* =========================================================
                        03 — NUMERICAL FOUNDATION
                        Compact evidence card
+                       4 / 12
                     ========================================================= */
 
                     #development .pd-numerical {
                         grid-column: span 4;
+
                         min-height: 260px;
+
                         padding: 28px;
+
                         display: flex;
                         flex-direction: column;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-numerical {
@@ -1198,34 +1305,48 @@
                         }
                     }
 
+
                     #development .pd-abacus-watermark {
                         position: absolute;
+
                         right: -16px;
                         bottom: -12px;
+
                         width: 165px;
                         height: 165px;
+
                         color: #1d1d1f;
+
                         opacity: 0.045;
+
                         pointer-events: none;
                     }
+
 
                     #development .pd-grade {
                         position: relative;
                         z-index: 2;
+
                         margin-top: auto;
                         margin-bottom: 16px;
+
                         color: #1d1d1f;
+
                         font-size: clamp(42px, 5vw, 58px);
                         line-height: 0.95;
+
                         font-weight: 600;
                         letter-spacing: -0.06em;
                     }
 
+
                     #development .pd-numerical-list {
                         position: relative;
                         z-index: 2;
+
                         display: flex;
                         flex-direction: column;
+
                         gap: 5px;
                     }
 
@@ -1233,15 +1354,20 @@
                     /* =========================================================
                        04 — DATA & MARKETING
                        Wide analytical card
+                       8 / 12
                     ========================================================= */
 
                     #development .pd-data {
                         grid-column: span 8;
+
                         min-height: 260px;
+
                         padding: 28px;
+
                         display: flex;
                         flex-direction: column;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-data {
@@ -1249,25 +1375,36 @@
                         }
                     }
 
+
                     #development .pd-data-graphic {
                         position: absolute;
                         z-index: 1;
+
                         width: 54%;
                         height: auto;
+
                         top: 27px;
                         right: -10px;
+
                         color: #1d1d1f;
+
                         opacity: 0.052;
+
                         pointer-events: none;
                     }
+
 
                     #development .pd-data-list {
                         position: relative;
                         z-index: 2;
+
                         margin-top: auto;
+
                         display: flex;
                         flex-direction: column;
+
                         gap: 7px;
+
                         max-width: 76%;
                     }
 
@@ -1275,97 +1412,142 @@
                     /* =========================================================
                        05 — SELECTED PROGRAM
                        Editorial / certificate card
+                       12 / 12
                     ========================================================= */
 
                     #development .pd-program {
                         grid-column: span 12;
+
                         min-height: 320px;
+
                         padding: 26px;
+
                         display: grid;
-                        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+                        grid-template-columns:
+                            minmax(0, 0.9fr)
+                            minmax(0, 1.35fr);
+
                         gap: 34px;
                         align-items: center;
+
                         cursor: pointer;
+
                         transition:
-                            background-color 420ms cubic-bezier(0.16, 1, 0.3, 1);
+                            background-color
+                            420ms
+                            cubic-bezier(0.16, 1, 0.3, 1);
                     }
+
 
                     #development .pd-program:hover {
                         background: #f1f1f3;
                     }
 
+
                     @media (min-width: 768px) {
                         #development .pd-program {
                             min-height: 340px;
+
                             padding: 38px 42px;
+
                             gap: 48px;
                         }
                     }
 
+
                     #development .pd-program-media {
                         position: relative;
                         z-index: 2;
+
                         display: flex;
                         justify-content: center;
                         align-items: center;
+
                         min-width: 0;
                     }
+
 
                     #development .pd-certificate-frame {
                         width: 100%;
                         max-width: 285px;
+
                         padding: 5px;
+
                         border-radius: 13px;
+
                         background: #ffffff;
+
                         box-shadow:
                             0 18px 45px rgba(0, 0, 0, 0.075),
                             0 2px 8px rgba(0, 0, 0, 0.035);
                     }
 
+
                     #development .pd-certificate-frame img {
                         display: block;
+
                         width: 100%;
                         height: auto;
+
                         border-radius: 9px;
+
                         object-fit: contain;
                     }
+
 
                     #development .pd-program-copy {
                         position: relative;
                         z-index: 2;
+
                         min-width: 0;
                     }
 
+
                     #development .pd-program-kicker {
                         display: block;
+
                         margin-bottom: 13px;
+
                         color: #6e6e73;
+
                         font-size: 13px;
                         line-height: 1.2;
                         font-weight: 600;
                         letter-spacing: -0.01em;
                     }
 
+
                     #development .pd-program-title {
                         margin: 0;
+
                         max-width: 560px;
+
                         color: #1d1d1f;
+
                         font-size: clamp(29px, 4.1vw, 43px);
                         line-height: 1.05;
+
                         font-weight: 700;
                         letter-spacing: -0.055em;
                     }
 
+
                     #development .pd-program-lab {
                         display: block;
+
                         margin-top: 15px;
+
                         max-width: 520px;
+
                         color: #6e6e73;
+
                         font-size: 14px;
                         line-height: 1.5;
+
                         font-weight: 500;
                         letter-spacing: -0.02em;
                     }
+
 
                     @media (min-width: 768px) {
                         #development .pd-program-lab {
@@ -1373,23 +1555,35 @@
                         }
                     }
 
+
                     #development .pd-program-link {
                         display: inline-flex;
+
                         align-items: center;
+
                         gap: 7px;
+
                         margin-top: 28px;
+
                         color: #0066cc;
+
                         font-size: 14px;
                         line-height: 1;
+
                         font-weight: 500;
                         letter-spacing: -0.015em;
                     }
 
+
                     #development .pd-program-arrow {
                         display: inline-block;
+
                         transition:
-                            transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+                            transform
+                            350ms
+                            cubic-bezier(0.16, 1, 0.3, 1);
                     }
+
 
                     #development .pd-program:hover .pd-program-arrow {
                         transform: translateX(3px);
@@ -1397,22 +1591,27 @@
 
 
                     /* =========================================================
-                       Responsive
+                       RESPONSIVE
                     ========================================================= */
 
                     @media (max-width: 767px) {
+
                         #development {
                             padding-top: 3.25rem;
                         }
+
 
                         #development .pd-heading {
                             margin-bottom: 2.25rem;
                         }
 
+
                         #development .pd-grid {
                             grid-template-columns: 1fr;
+
                             gap: 12px;
                         }
+
 
                         #development .pd-language,
                         #development .pd-ai,
@@ -1422,44 +1621,57 @@
                             grid-column: 1 / -1;
                         }
 
+
                         #development .pd-language {
                             min-height: 330px;
                         }
 
+
                         #development .pd-ai {
                             min-height: 300px;
                         }
+
 
                         #development .pd-numerical,
                         #development .pd-data {
                             min-height: 230px;
                         }
 
+
                         #development .pd-data-list {
                             max-width: 88%;
                         }
 
+
                         #development .pd-program {
                             min-height: 0;
+
                             grid-template-columns: 1fr;
+
                             gap: 28px;
+
                             padding: 28px;
                         }
+
 
                         #development .pd-program-media {
                             justify-content: flex-start;
                         }
 
+
                         #development .pd-certificate-frame {
                             width: min(78%, 270px);
                         }
+
 
                         #development .pd-program-link {
                             margin-top: 23px;
                         }
                     }
 
+
                     @media (max-width: 380px) {
+
                         #development .pd-language,
                         #development .pd-ai,
                         #development .pd-numerical,
@@ -1467,10 +1679,12 @@
                             padding: 25px;
                         }
 
+
                         #development .pd-language-mark {
                             top: 24px;
                             right: 24px;
                         }
+
 
                         #development .pd-score {
                             font-size: 78px;
@@ -1479,19 +1693,31 @@
 
 
                     /* =========================================================
-                       Motion accessibility
+                       REDUCED MOTION
                     ========================================================= */
 
                     @media (prefers-reduced-motion: reduce) {
+
+                        #development .pd-heading,
+                        #development .pd-card {
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                            transform: none !important;
+                            filter: none !important;
+                        }
+
+
                         #development .pd-program,
                         #development .pd-program-arrow {
                             transition: none !important;
                         }
 
+
                         #development .pd-program:hover .pd-program-arrow {
                             transform: none;
                         }
                     }
+
                 </style>
 
 
@@ -1499,18 +1725,24 @@
                     id="development"
                     class="cv-auto"
                 >
-                    <!-- Section Heading -->
+
+                    <!-- ================= SECTION HEADING ================= -->
+
                     <h2 class="pd-heading">
                         <span class="lang-ja">自己研鑽</span>
                         <span class="lang-en">Professional Development</span>
                     </h2>
 
 
+                    <!-- ================= BENTO GRID ================= -->
+
                     <div class="pd-grid">
 
+
                         <!-- =====================================================
-                             01. LANGUAGE — 7/12
-                        ====================================================== -->
+                             01 — LANGUAGE
+                             ===================================================== -->
+
                         <article class="pd-card pd-language">
 
                             <div class="pd-card-label">
@@ -1518,23 +1750,29 @@
                                 <span class="lang-en">Language</span>
                             </div>
 
-                            <!--
-                                Abstract UK / US mark.
-                                Decorative only; no brand asset is used.
-                            -->
+
+                            <!-- UK × US abstract mark -->
                             <svg
                                 class="pd-language-mark"
                                 viewBox="0 0 48 48"
                                 aria-hidden="true"
                             >
+
                                 <defs>
                                     <clipPath id="pd-language-circle">
-                                        <circle cx="24" cy="24" r="23"></circle>
+                                        <circle
+                                            cx="24"
+                                            cy="24"
+                                            r="23"
+                                        ></circle>
                                     </clipPath>
                                 </defs>
 
+
                                 <g clip-path="url(#pd-language-circle)">
-                                    <!-- UK half -->
+
+                                    <!-- UK HALF -->
+
                                     <rect
                                         x="1"
                                         y="1"
@@ -1543,6 +1781,7 @@
                                         fill="#012169"
                                     ></rect>
 
+
                                     <path
                                         d="M-6 4 L28 38 M-6 44 L28 10"
                                         stroke="#ffffff"
@@ -1550,12 +1789,14 @@
                                         opacity="0.92"
                                     ></path>
 
+
                                     <path
                                         d="M-6 4 L28 38 M-6 44 L28 10"
                                         stroke="#C8102E"
                                         stroke-width="2.4"
                                         opacity="0.95"
                                     ></path>
+
 
                                     <rect
                                         x="8.5"
@@ -1565,6 +1806,7 @@
                                         fill="#ffffff"
                                     ></rect>
 
+
                                     <rect
                                         x="1"
                                         y="20.5"
@@ -1572,6 +1814,7 @@
                                         height="7"
                                         fill="#ffffff"
                                     ></rect>
+
 
                                     <rect
                                         x="10"
@@ -1581,6 +1824,7 @@
                                         fill="#C8102E"
                                     ></rect>
 
+
                                     <rect
                                         x="1"
                                         y="22"
@@ -1589,7 +1833,9 @@
                                         fill="#C8102E"
                                     ></rect>
 
-                                    <!-- US half -->
+
+                                    <!-- US HALF -->
+
                                     <rect
                                         x="24"
                                         y="1"
@@ -1598,15 +1844,60 @@
                                         fill="#ffffff"
                                     ></rect>
 
+
                                     <g fill="#B31942">
-                                        <rect x="24" y="1" width="23" height="3.55"></rect>
-                                        <rect x="24" y="8.1" width="23" height="3.55"></rect>
-                                        <rect x="24" y="15.2" width="23" height="3.55"></rect>
-                                        <rect x="24" y="22.3" width="23" height="3.55"></rect>
-                                        <rect x="24" y="29.4" width="23" height="3.55"></rect>
-                                        <rect x="24" y="36.5" width="23" height="3.55"></rect>
-                                        <rect x="24" y="43.45" width="23" height="3.55"></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="1"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="8.1"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="15.2"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="22.3"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="29.4"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="36.5"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
+                                        <rect
+                                            x="24"
+                                            y="43.45"
+                                            width="23"
+                                            height="3.55"
+                                        ></rect>
+
                                     </g>
+
 
                                     <rect
                                         x="24"
@@ -1616,15 +1907,52 @@
                                         fill="#0A3161"
                                     ></rect>
 
-                                    <g fill="#ffffff" opacity="0.95">
-                                        <circle cx="27" cy="5" r="0.8"></circle>
-                                        <circle cx="31" cy="5" r="0.8"></circle>
-                                        <circle cx="27" cy="9" r="0.8"></circle>
-                                        <circle cx="31" cy="9" r="0.8"></circle>
-                                        <circle cx="27" cy="13" r="0.8"></circle>
-                                        <circle cx="31" cy="13" r="0.8"></circle>
+
+                                    <g
+                                        fill="#ffffff"
+                                        opacity="0.95"
+                                    >
+
+                                        <circle
+                                            cx="27"
+                                            cy="5"
+                                            r="0.8"
+                                        ></circle>
+
+                                        <circle
+                                            cx="31"
+                                            cy="5"
+                                            r="0.8"
+                                        ></circle>
+
+                                        <circle
+                                            cx="27"
+                                            cy="9"
+                                            r="0.8"
+                                        ></circle>
+
+                                        <circle
+                                            cx="31"
+                                            cy="9"
+                                            r="0.8"
+                                        ></circle>
+
+                                        <circle
+                                            cx="27"
+                                            cy="13"
+                                            r="0.8"
+                                        ></circle>
+
+                                        <circle
+                                            cx="31"
+                                            cy="13"
+                                            r="0.8"
+                                        ></circle>
+
                                     </g>
+
                                 </g>
+
 
                                 <circle
                                     cx="24"
@@ -1634,6 +1962,7 @@
                                     stroke="rgba(0,0,0,0.10)"
                                     stroke-width="1"
                                 ></circle>
+
                             </svg>
 
 
@@ -1646,11 +1975,14 @@
                                     950
                                 </div>
 
+
                                 <span class="pd-score-label">
                                     TOEIC L&amp;R IP
                                 </span>
 
+
                                 <span class="pd-credential-secondary">
+
                                     <span class="lang-ja">
                                         実用英語技能検定 準1級
                                     </span>
@@ -1658,28 +1990,34 @@
                                     <span class="lang-en">
                                         EIKEN Grade Pre-1
                                     </span>
+
                                 </span>
 
                             </div>
+
                         </article>
 
 
+
                         <!-- =====================================================
-                             02. AI — 5/12
-                        ====================================================== -->
+                             02 — AI
+                             ===================================================== -->
+
                         <article class="pd-card pd-ai">
 
                             <div class="pd-card-label">
                                 AI
                             </div>
 
-                            <!-- Large neural / chip watermark -->
+
+                            <!-- Large neural-chip watermark -->
                             <svg
                                 class="pd-ai-graphic"
                                 viewBox="0 0 300 300"
                                 fill="none"
                                 aria-hidden="true"
                             >
+
                                 <rect
                                     x="80"
                                     y="80"
@@ -1689,6 +2027,7 @@
                                     stroke="currentColor"
                                     stroke-width="7"
                                 ></rect>
+
 
                                 <rect
                                     x="112"
@@ -1700,13 +2039,21 @@
                                     stroke-width="6"
                                 ></rect>
 
-                                <circle cx="150" cy="150" r="11" fill="currentColor"></circle>
+
+                                <circle
+                                    cx="150"
+                                    cy="150"
+                                    r="11"
+                                    fill="currentColor"
+                                ></circle>
+
 
                                 <g
                                     stroke="currentColor"
                                     stroke-width="6"
                                     stroke-linecap="round"
                                 >
+
                                     <path d="M105 80V45"></path>
                                     <path d="M150 80V35"></path>
                                     <path d="M195 80V45"></path>
@@ -1725,14 +2072,18 @@
 
                                     <path d="M123 123L150 150L178 122"></path>
                                     <path d="M122 178L150 150L179 179"></path>
+
                                 </g>
+
                             </svg>
 
 
                             <div class="pd-ai-content">
 
                                 <div>
+
                                     <span class="pd-credential-primary">
+
                                         <span class="lang-ja">
                                             JDLA Deep Learning for GENERAL（G検定）
                                         </span>
@@ -1740,13 +2091,22 @@
                                         <span class="lang-en">
                                             JDLA Deep Learning for GENERAL Certificate
                                         </span>
+
                                     </span>
+
                                 </div>
 
-                                <div class="pd-ai-rule" aria-hidden="true"></div>
+
+                                <div
+                                    class="pd-ai-rule"
+                                    aria-hidden="true"
+                                ></div>
+
 
                                 <div>
+
                                     <span class="pd-credential-primary">
+
                                         <span class="lang-ja">
                                             Google AI プロフェッショナル認定証
                                         </span>
@@ -1754,31 +2114,44 @@
                                         <span class="lang-en">
                                             Google AI Professional Certificate
                                         </span>
+
                                     </span>
+
                                 </div>
 
                             </div>
+
                         </article>
 
 
+
                         <!-- =====================================================
-                             03. NUMERICAL FOUNDATION — 4/12
-                        ====================================================== -->
+                             03 — NUMERICAL FOUNDATION
+                             ===================================================== -->
+
                         <article class="pd-card pd-numerical">
 
                             <div class="pd-card-label">
-                                <span class="lang-ja">数的基礎</span>
-                                <span class="lang-en">Numerical Foundation</span>
+
+                                <span class="lang-ja">
+                                    数的基礎
+                                </span>
+
+                                <span class="lang-en">
+                                    Numerical Foundation
+                                </span>
+
                             </div>
 
 
-                            <!-- Large, faint soroban watermark -->
+                            <!-- Soroban watermark -->
                             <svg
                                 class="pd-abacus-watermark"
                                 viewBox="0 0 180 180"
                                 fill="none"
                                 aria-hidden="true"
                             >
+
                                 <rect
                                     x="18"
                                     y="35"
@@ -1789,45 +2162,107 @@
                                     stroke-width="5"
                                 ></rect>
 
+
                                 <path
                                     d="M18 78H162"
                                     stroke="currentColor"
                                     stroke-width="5"
                                 ></path>
 
+
                                 <g
                                     stroke="currentColor"
                                     stroke-width="4"
                                 >
+
                                     <path d="M48 35V145"></path>
                                     <path d="M76 35V145"></path>
                                     <path d="M104 35V145"></path>
                                     <path d="M132 35V145"></path>
+
                                 </g>
+
 
                                 <g fill="currentColor">
-                                    <ellipse cx="48" cy="59" rx="10" ry="6"></ellipse>
-                                    <ellipse cx="76" cy="59" rx="10" ry="6"></ellipse>
-                                    <ellipse cx="104" cy="59" rx="10" ry="6"></ellipse>
-                                    <ellipse cx="132" cy="59" rx="10" ry="6"></ellipse>
 
-                                    <ellipse cx="48" cy="103" rx="10" ry="6"></ellipse>
-                                    <ellipse cx="76" cy="119" rx="10" ry="6"></ellipse>
-                                    <ellipse cx="104" cy="96" rx="10" ry="6"></ellipse>
-                                    <ellipse cx="132" cy="126" rx="10" ry="6"></ellipse>
+                                    <ellipse
+                                        cx="48"
+                                        cy="59"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="76"
+                                        cy="59"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="104"
+                                        cy="59"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="132"
+                                        cy="59"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="48"
+                                        cy="103"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="76"
+                                        cy="119"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="104"
+                                        cy="96"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
+                                    <ellipse
+                                        cx="132"
+                                        cy="126"
+                                        rx="10"
+                                        ry="6"
+                                    ></ellipse>
+
                                 </g>
+
                             </svg>
 
 
                             <div class="pd-grade">
-                                <span class="lang-ja">1級 × 2</span>
-                                <span class="lang-en">2× Grade 1</span>
+
+                                <span class="lang-ja">
+                                    1級 × 2
+                                </span>
+
+                                <span class="lang-en">
+                                    2× Grade 1
+                                </span>
+
                             </div>
 
 
                             <div class="pd-numerical-list">
 
                                 <span class="pd-credential-primary">
+
                                     <span class="lang-ja">
                                         珠算能力検定1級
                                     </span>
@@ -1835,9 +2270,12 @@
                                     <span class="lang-en">
                                         Abacus Proficiency Test, Grade 1
                                     </span>
+
                                 </span>
 
+
                                 <span class="pd-credential-secondary">
+
                                     <span class="lang-ja">
                                         暗算検定1級
                                     </span>
@@ -1845,18 +2283,23 @@
                                     <span class="lang-en">
                                         Mental Arithmetic Test, Grade 1
                                     </span>
+
                                 </span>
 
                             </div>
+
                         </article>
 
 
+
                         <!-- =====================================================
-                             04. DATA & MARKETING — 8/12
-                        ====================================================== -->
+                             04 — DATA & MARKETING
+                             ===================================================== -->
+
                         <article class="pd-card pd-data">
 
                             <div class="pd-card-label">
+
                                 <span class="lang-ja">
                                     データ &amp; マーケティング
                                 </span>
@@ -1864,41 +2307,74 @@
                                 <span class="lang-en">
                                     Data &amp; Marketing
                                 </span>
+
                             </div>
 
 
-                            <!-- Abstract analytics line -->
+                            <!-- Abstract analytical curve -->
                             <svg
                                 class="pd-data-graphic"
                                 viewBox="0 0 430 180"
                                 fill="none"
                                 aria-hidden="true"
                             >
+
                                 <path
-                                    d="M10 148
-                                       C52 140, 71 118, 105 123
-                                       C138 128, 151 92, 184 98
-                                       C219 104, 232 66, 266 71
-                                       C302 77, 326 34, 360 42
-                                       C386 47, 403 24, 420 12"
+                                    d="
+                                        M10 148
+                                        C52 140, 71 118, 105 123
+                                        C138 128, 151 92, 184 98
+                                        C219 104, 232 66, 266 71
+                                        C302 77, 326 34, 360 42
+                                        C386 47, 403 24, 420 12
+                                    "
                                     stroke="currentColor"
                                     stroke-width="7"
                                     stroke-linecap="round"
                                 ></path>
 
+
                                 <g fill="currentColor">
-                                    <circle cx="105" cy="123" r="7"></circle>
-                                    <circle cx="184" cy="98" r="7"></circle>
-                                    <circle cx="266" cy="71" r="7"></circle>
-                                    <circle cx="360" cy="42" r="7"></circle>
-                                    <circle cx="420" cy="12" r="7"></circle>
+
+                                    <circle
+                                        cx="105"
+                                        cy="123"
+                                        r="7"
+                                    ></circle>
+
+                                    <circle
+                                        cx="184"
+                                        cy="98"
+                                        r="7"
+                                    ></circle>
+
+                                    <circle
+                                        cx="266"
+                                        cy="71"
+                                        r="7"
+                                    ></circle>
+
+                                    <circle
+                                        cx="360"
+                                        cy="42"
+                                        r="7"
+                                    ></circle>
+
+                                    <circle
+                                        cx="420"
+                                        cy="12"
+                                        r="7"
+                                    ></circle>
+
                                 </g>
+
                             </svg>
 
 
                             <div class="pd-data-list">
 
                                 <span class="pd-credential-primary">
+
                                     <span class="lang-ja">
                                         Googleアナリティクス認定資格（GA4）
                                     </span>
@@ -1906,9 +2382,12 @@
                                     <span class="lang-en">
                                         Google Analytics Certification (GA4)
                                     </span>
+
                                 </span>
 
+
                                 <span class="pd-credential-secondary">
+
                                     <span class="lang-ja">
                                         Google広告クリエイティブ認定資格
                                     </span>
@@ -1916,48 +2395,60 @@
                                     <span class="lang-en">
                                         Google Ads Creative Certification
                                     </span>
+
                                 </span>
 
                             </div>
+
                         </article>
 
 
+
                         <!-- =====================================================
-                             05. SELECTED PROGRAM — 12/12
+                             05 — SELECTED PROGRAM
                              Existing cert_matsuo modal preserved
-                        ====================================================== -->
+                             ===================================================== -->
+
                         <div
                             id="certificate"
                             data-modal-id="cert_matsuo"
                             class="pd-card pd-program js-modal-trigger"
+                            role="button"
+                            tabindex="0"
                             aria-label="AI Business Insights 2026 の詳細を表示"
                         >
 
                             <!-- Certificate -->
+
                             <div class="pd-program-media">
 
                                 <div class="pd-certificate-frame">
+
                                     <img
                                         src="./matsuo_certificate.png"
                                         alt="AI Business Insights 2026 Certificate"
                                         loading="lazy"
                                         decoding="async"
                                     >
+
                                 </div>
 
                             </div>
 
 
                             <!-- Editorial copy -->
+
                             <div class="pd-program-copy">
 
                                 <span class="pd-program-kicker">
                                     Selected Program
                                 </span>
 
+
                                 <h3 class="pd-program-title">
                                     AI Business Insights 2026
                                 </h3>
+
 
                                 <span class="pd-program-lab">
 
@@ -1971,6 +2462,7 @@
                                     </span>
 
                                 </span>
+
 
                                 <span class="pd-program-link">
 
@@ -1992,10 +2484,793 @@
                                 </span>
 
                             </div>
+
                         </div>
 
                     </div>
                 </div>
+
+
+                <!-- =========================================================
+                     PROFESSIONAL DEVELOPMENT
+                     APPLE EVENT / KEYNOTE REVEAL
+                     ========================================================= -->
+
+                <script>
+                    (() => {
+
+                        const setupProfessionalDevelopmentReveal = (
+                            attempt = 0
+                        ) => {
+
+                            const development =
+                                document.getElementById('development');
+
+
+                            if (!development) {
+                                document.documentElement.classList.remove(
+                                    'pd-motion-enabled'
+                                );
+
+                                return;
+                            }
+
+
+                            const reduceMotion =
+                                window.matchMedia &&
+                                window.matchMedia(
+                                    '(prefers-reduced-motion: reduce)'
+                                ).matches;
+
+
+                            /*
+                             * Accessibility:
+                             * never animate for reduced-motion users.
+                             */
+                            if (reduceMotion) {
+
+                                document.documentElement.classList.remove(
+                                    'pd-motion-enabled'
+                                );
+
+                                return;
+                            }
+
+
+                            /*
+                             * GSAP is loaded with defer near the end
+                             * of the existing document.
+                             *
+                             * Retry quietly until it becomes available.
+                             */
+                            if (
+                                typeof window.gsap === 'undefined' ||
+                                typeof window.ScrollTrigger === 'undefined'
+                            ) {
+
+                                if (attempt < 50) {
+
+                                    window.setTimeout(
+                                        () => {
+                                            setupProfessionalDevelopmentReveal(
+                                                attempt + 1
+                                            );
+                                        },
+                                        100
+                                    );
+
+                                } else {
+
+                                    /*
+                                     * CDN failure fallback:
+                                     * never leave content hidden.
+                                     */
+                                    document.documentElement.classList.remove(
+                                        'pd-motion-enabled'
+                                    );
+
+                                }
+
+                                return;
+                            }
+
+
+                            const gsap = window.gsap;
+                            const ScrollTrigger = window.ScrollTrigger;
+
+
+                            gsap.registerPlugin(ScrollTrigger);
+
+
+                            const heading =
+                                development.querySelector('.pd-heading');
+
+                            const language =
+                                development.querySelector('.pd-language');
+
+                            const ai =
+                                development.querySelector('.pd-ai');
+
+                            const numerical =
+                                development.querySelector('.pd-numerical');
+
+                            const data =
+                                development.querySelector('.pd-data');
+
+                            const program =
+                                development.querySelector('.pd-program');
+
+
+                            const score =
+                                development.querySelector('.pd-score');
+
+                            const languageMark =
+                                development.querySelector(
+                                    '.pd-language-mark'
+                                );
+
+                            const aiGraphic =
+                                development.querySelector(
+                                    '.pd-ai-graphic'
+                                );
+
+                            const grade =
+                                development.querySelector('.pd-grade');
+
+                            const dataGraphic =
+                                development.querySelector(
+                                    '.pd-data-graphic'
+                                );
+
+                            const certificate =
+                                development.querySelector(
+                                    '.pd-certificate-frame'
+                                );
+
+
+                            const panels = [
+                                heading,
+                                language,
+                                ai,
+                                numerical,
+                                data,
+                                program
+                            ].filter(Boolean);
+
+
+                            /*
+                             * Kill accidental duplicate initialization.
+                             */
+                            if (
+                                development.dataset.pdRevealInitialized ===
+                                'true'
+                            ) {
+                                return;
+                            }
+
+
+                            development.dataset.pdRevealInitialized =
+                                'true';
+
+
+                            const isMobile =
+                                window.matchMedia(
+                                    '(max-width: 767px)'
+                                ).matches;
+
+
+                            /* =================================================
+                               INITIAL STATES
+                               ================================================= */
+
+
+                            if (heading) {
+
+                                gsap.set(
+                                    heading,
+                                    {
+                                        autoAlpha: 0,
+
+                                        y: 24,
+
+                                        filter: 'blur(10px)',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+
+
+                            /*
+                             * DESKTOP:
+                             *
+                             * Each panel comes from its physical
+                             * outer direction and converges inward.
+                             *
+                             * MOBILE:
+                             *
+                             * Smaller horizontal movement to prevent
+                             * excessive side-to-side motion.
+                             */
+
+                            if (language) {
+
+                                gsap.set(
+                                    language,
+                                    {
+                                        autoAlpha: 0,
+
+                                        x: isMobile ? -28 : -105,
+                                        y: isMobile ? 35 : 14,
+
+                                        scale: 0.955,
+
+                                        rotation: isMobile ? 0 : -0.65,
+
+                                        filter: 'blur(14px)',
+
+                                        transformOrigin: '50% 50%',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+
+
+                            if (ai) {
+
+                                gsap.set(
+                                    ai,
+                                    {
+                                        autoAlpha: 0,
+
+                                        x: isMobile ? 28 : 105,
+                                        y: isMobile ? 42 : -8,
+
+                                        scale: 0.955,
+
+                                        rotation: isMobile ? 0 : 0.65,
+
+                                        filter: 'blur(14px)',
+
+                                        transformOrigin: '50% 50%',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+
+
+                            if (numerical) {
+
+                                gsap.set(
+                                    numerical,
+                                    {
+                                        autoAlpha: 0,
+
+                                        x: isMobile ? -22 : -62,
+                                        y: isMobile ? 48 : 72,
+
+                                        scale: 0.96,
+
+                                        rotation:
+                                            isMobile
+                                                ? 0
+                                                : -0.4,
+
+                                        filter: 'blur(12px)',
+
+                                        transformOrigin: '50% 50%',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+
+
+                            if (data) {
+
+                                gsap.set(
+                                    data,
+                                    {
+                                        autoAlpha: 0,
+
+                                        x: isMobile ? 22 : 72,
+                                        y: isMobile ? 52 : 66,
+
+                                        scale: 0.96,
+
+                                        rotation:
+                                            isMobile
+                                                ? 0
+                                                : 0.4,
+
+                                        filter: 'blur(12px)',
+
+                                        transformOrigin: '50% 50%',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+
+
+                            if (program) {
+
+                                gsap.set(
+                                    program,
+                                    {
+                                        autoAlpha: 0,
+
+                                        y: isMobile ? 58 : 96,
+
+                                        scale: 0.965,
+
+                                        filter: 'blur(14px)',
+
+                                        transformOrigin: '50% 50%',
+
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
+                                );
+
+                            }
+
+
+                            /*
+                             * Inline GSAP styles now own visibility.
+                             * Remove CSS-only protection.
+                             */
+                            document.documentElement.classList.remove(
+                                'pd-motion-enabled'
+                            );
+
+
+                            /* =================================================
+                               MASTER KEYNOTE TIMELINE
+                               ================================================= */
+
+                            const timeline =
+                                gsap.timeline({
+
+                                    defaults: {
+                                        ease: 'power4.out'
+                                    },
+
+                                    scrollTrigger: {
+
+                                        trigger: development,
+
+                                        /*
+                                         * Trigger once the heading/card system
+                                         * enters the lower quarter of viewport.
+                                         */
+                                        start: 'top 76%',
+
+                                        once: true,
+
+                                        invalidateOnRefresh: true
+
+                                    }
+
+                                });
+
+
+                            /*
+                             * 01
+                             * Heading resolves from blur.
+                             */
+
+                            if (heading) {
+
+                                timeline.to(
+                                    heading,
+                                    {
+                                        autoAlpha: 1,
+
+                                        y: 0,
+
+                                        filter: 'blur(0px)',
+
+                                        duration: 1.0
+                                    }
+                                );
+
+                            }
+
+
+                            /*
+                             * 02
+                             * Primary pair:
+                             * Language + AI converge almost together.
+                             */
+
+                            if (language) {
+
+                                timeline.to(
+                                    language,
+                                    {
+                                        autoAlpha: 1,
+
+                                        x: 0,
+                                        y: 0,
+
+                                        scale: 1,
+                                        rotation: 0,
+
+                                        filter: 'blur(0px)',
+
+                                        duration: 1.42
+                                    },
+
+                                    '-=0.60'
+                                );
+
+                            }
+
+
+                            if (ai) {
+
+                                timeline.to(
+                                    ai,
+                                    {
+                                        autoAlpha: 1,
+
+                                        x: 0,
+                                        y: 0,
+
+                                        scale: 1,
+                                        rotation: 0,
+
+                                        filter: 'blur(0px)',
+
+                                        duration: 1.40
+                                    },
+
+                                    '-=1.20'
+                                );
+
+                            }
+
+
+                            /*
+                             * 03
+                             * Secondary pair:
+                             * Numerical + Data converge upward.
+                             */
+
+                            if (numerical) {
+
+                                timeline.to(
+                                    numerical,
+                                    {
+                                        autoAlpha: 1,
+
+                                        x: 0,
+                                        y: 0,
+
+                                        scale: 1,
+                                        rotation: 0,
+
+                                        filter: 'blur(0px)',
+
+                                        duration: 1.26
+                                    },
+
+                                    '-=0.88'
+                                );
+
+                            }
+
+
+                            if (data) {
+
+                                timeline.to(
+                                    data,
+                                    {
+                                        autoAlpha: 1,
+
+                                        x: 0,
+                                        y: 0,
+
+                                        scale: 1,
+                                        rotation: 0,
+
+                                        filter: 'blur(0px)',
+
+                                        duration: 1.28
+                                    },
+
+                                    '-=1.08'
+                                );
+
+                            }
+
+
+                            /*
+                             * 04
+                             * Editorial climax:
+                             * Selected Program arrives last.
+                             */
+
+                            if (program) {
+
+                                timeline.to(
+                                    program,
+                                    {
+                                        autoAlpha: 1,
+
+                                        y: 0,
+
+                                        scale: 1,
+
+                                        filter: 'blur(0px)',
+
+                                        duration: 1.42
+                                    },
+
+                                    '-=0.68'
+                                );
+
+                            }
+
+
+                            /* =================================================
+                               MICRO REVEALS
+                               ================================================= */
+
+
+                            /*
+                             * TOEIC number resolves independently.
+                             */
+
+                            if (score) {
+
+                                timeline.fromTo(
+                                    score,
+
+                                    {
+                                        y: 18,
+                                        scale: 0.97
+                                    },
+
+                                    {
+                                        y: 0,
+                                        scale: 1,
+
+                                        duration: 0.92,
+
+                                        ease: 'power3.out'
+                                    },
+
+                                    '-=1.52'
+                                );
+
+                            }
+
+
+                            /*
+                             * UK / US mark rotates gently into place.
+                             */
+
+                            if (languageMark) {
+
+                                timeline.fromTo(
+                                    languageMark,
+
+                                    {
+                                        scale: 0.76,
+                                        rotation: -12
+                                    },
+
+                                    {
+                                        scale: 1,
+                                        rotation: 0,
+
+                                        duration: 1.02,
+
+                                        ease: 'power4.out'
+                                    },
+
+                                    '<0.08'
+                                );
+
+                            }
+
+
+                            /*
+                             * AI architecture graphic expands
+                             * as the panel settles.
+                             */
+
+                            if (aiGraphic) {
+
+                                timeline.fromTo(
+                                    aiGraphic,
+
+                                    {
+                                        scale: 0.82,
+                                        rotation: 9
+                                    },
+
+                                    {
+                                        scale: 1,
+                                        rotation: 0,
+
+                                        duration: 1.25,
+
+                                        ease: 'power4.out'
+                                    },
+
+                                    '<0.04'
+                                );
+
+                            }
+
+
+                            /*
+                             * 1級 × 2 resolves.
+                             */
+
+                            if (grade) {
+
+                                timeline.fromTo(
+                                    grade,
+
+                                    {
+                                        y: 14
+                                    },
+
+                                    {
+                                        y: 0,
+
+                                        duration: 0.88,
+
+                                        ease: 'power3.out'
+                                    },
+
+                                    '<0.08'
+                                );
+
+                            }
+
+
+                            /*
+                             * Analytics curve quietly slides
+                             * into its final coordinate.
+                             */
+
+                            if (dataGraphic) {
+
+                                timeline.fromTo(
+                                    dataGraphic,
+
+                                    {
+                                        x: 26,
+                                        scale: 0.94
+                                    },
+
+                                    {
+                                        x: 0,
+                                        scale: 1,
+
+                                        duration: 1.12,
+
+                                        ease: 'power4.out'
+                                    },
+
+                                    '<'
+                                );
+
+                            }
+
+
+                            /*
+                             * Certificate settles into the
+                             * Selected Program card.
+                             */
+
+                            if (certificate) {
+
+                                timeline.fromTo(
+                                    certificate,
+
+                                    {
+                                        y: 18,
+                                        scale: 0.94
+                                    },
+
+                                    {
+                                        y: 0,
+                                        scale: 1,
+
+                                        duration: 1.12,
+
+                                        ease: 'power4.out'
+                                    },
+
+                                    '<0.04'
+                                );
+
+                            }
+
+
+                            /* =================================================
+                               CLEANUP
+                               ================================================= */
+
+                            timeline.call(
+                                () => {
+
+                                    panels.forEach(
+                                        element => {
+
+                                            if (!element) {
+                                                return;
+                                            }
+
+                                            element.style.willChange =
+                                                'auto';
+
+                                        }
+                                    );
+
+                                }
+                            );
+
+
+                            /*
+                             * Recalculate after all layout-dependent
+                             * language/font operations have settled.
+                             */
+                            window.setTimeout(
+                                () => {
+                                    ScrollTrigger.refresh();
+                                },
+                                100
+                            );
+
+                        };
+
+
+                        /*
+                         * Existing GSAP scripts are defer-loaded.
+                         * DOMContentLoaded normally fires after them.
+                         */
+                        if (
+                            document.readyState === 'loading'
+                        ) {
+
+                            document.addEventListener(
+                                'DOMContentLoaded',
+                                () => {
+                                    setupProfessionalDevelopmentReveal();
+                                },
+                                {
+                                    once: true
+                                }
+                            );
+
+                        } else {
+
+                            setupProfessionalDevelopmentReveal();
+
+                        }
+
+                    })();
+                </script>
+
             </section>
 
             <!-- ================= PROFILE ================= -->
