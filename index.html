@@ -23,7 +23,7 @@
     
 
     <!-- Preload LCP Image (Enhanced Priority) -->
-    <link rel="preload" as="image" href="./profile.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="./profile-business.webp" fetchpriority="high">
 
     <!-- 4G環境最適化: クリティカルなフォント＆アイコンCSSの先行フェッチ -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Syne:wght@400;600;700&display=swap" as="style">
@@ -152,16 +152,41 @@
          /* ↓↓↓ ココから追加 ↓↓↓ */
         /* ▼▼▼ 極限最適化: ヒーロー領域のFOUC（黒枠・チラつき）完全防止 ▼▼▼ */
         /* ▼▼▼ 追加: プロフィール写真二層構造・クロスフェード ▼▼▼ */
-        #hero-photo {
-            appearance: none;
-            -webkit-appearance: none;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-            /* ↓↓↓ これがSafari(iPad/iPhone)特有の四角化バグを完全に防ぐ魔法のコード ↓↓↓ */
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
-            mask-image: radial-gradient(white, black);
-            isolation: isolate;
-        }
+        <button
+    type="button"
+    id="hero-photo"
+    class="hero-photo-button"
+    aria-label="ポーカーでの実践写真を表示する / Reveal poker portrait"
+    aria-pressed="false"
+    data-portrait="business"
+>
+    <!-- 裏側：Poker -->
+    <img
+        src="./profile.webp"
+        width="512"
+        height="512"
+        alt=""
+        fetchpriority="low"
+        decoding="async"
+        class="hero-portrait hero-portrait--poker"
+    >
+
+    <!-- 表側：Suit / 初期表示 -->
+    <img
+        src="./profile-business.webp"
+        width="512"
+        height="512"
+        alt=""
+        fetchpriority="high"
+        decoding="sync"
+        class="hero-portrait hero-portrait--business"
+    >
+
+    <!-- 右下の「めくれ」 -->
+    <span class="hero-peel-hint" aria-hidden="true"></span>
+
+    <span class="hero-portrait-glass" aria-hidden="true"></span>
+</button>
         #hero-photo:focus-visible {
             box-shadow: 0 0 0 4px rgba(220, 220, 225, 0.4);
         }
@@ -767,6 +792,298 @@
             mix-blend-mode: soft-light;
         }
 
+        /* =========================================================
+   PORTRAIT PEEL
+   Suit = front / Poker = underneath
+   ========================================================= */
+
+#hero-photo .hero-portrait--poker {
+    z-index: 1;
+    opacity: 1 !important;
+    transform: scale(1.012);
+
+    transition:
+        transform 900ms var(--kh-ease),
+        filter 700ms var(--kh-ease);
+}
+
+/*
+ * Suitを表面に置く。
+ *
+ * 通常時はほぼ全面を覆うが、
+ * 右下だけ数pxほどPoker側を覗かせる。
+ */
+#hero-photo .hero-portrait--business {
+    z-index: 2;
+
+    opacity: 1 !important;
+
+    transform: scale(1);
+
+    clip-path:
+        circle(
+            136.5%
+            at 0% 0%
+        );
+
+    -webkit-clip-path:
+        circle(
+            136.5%
+            at 0% 0%
+        );
+
+    transition:
+        clip-path 820ms var(--kh-ease),
+        -webkit-clip-path 820ms var(--kh-ease),
+        transform 900ms var(--kh-ease);
+
+    will-change:
+        clip-path,
+        transform;
+}
+
+
+/* =========================
+   SUIT
+   ========================= */
+
+#hero-photo[data-portrait="business"]
+.hero-portrait--poker {
+    opacity: 1 !important;
+
+    transform:
+        scale(1.012);
+}
+
+
+#hero-photo[data-portrait="business"]
+.hero-portrait--business {
+    opacity: 1 !important;
+
+    clip-path:
+        circle(
+            136.5%
+            at 0% 0%
+        );
+
+    -webkit-clip-path:
+        circle(
+            136.5%
+            at 0% 0%
+        );
+
+    transform:
+        scale(1);
+}
+
+
+/* =========================
+   POKER
+   ========================= */
+
+/*
+ * Suitのmaskを左上へ収束させることで、
+ * Pokerが右下からめくれるように現れる。
+ */
+#hero-photo[data-portrait="poker"]
+.hero-portrait--business {
+    opacity: 1 !important;
+
+    clip-path:
+        circle(
+            0%
+            at 0% 0%
+        );
+
+    -webkit-clip-path:
+        circle(
+            0%
+            at 0% 0%
+        );
+
+    transform:
+        scale(1.012);
+}
+
+
+/* =========================
+   PEEL CUE
+   ========================= */
+
+.hero-peel-hint {
+    position: absolute;
+
+    right: 10.5%;
+    bottom: 10.5%;
+
+    z-index: 20;
+
+    width:
+        clamp(
+            24px,
+            4vw,
+            34px
+        );
+
+    aspect-ratio: 1;
+
+    pointer-events: none;
+
+    opacity: 0.88;
+
+    transform:
+        rotate(-7deg)
+        scale(0.86);
+
+    transform-origin:
+        100% 100%;
+
+    filter:
+        drop-shadow(
+            -4px
+            -4px
+            7px
+            rgba(0, 0, 0, 0.09)
+        );
+
+    transition:
+        opacity
+        420ms
+        ease,
+
+        transform
+        700ms
+        var(--kh-ease);
+}
+
+
+.hero-peel-hint::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius:
+        72%
+        12%
+        72%
+        18%;
+
+    clip-path:
+        polygon(
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.98)
+            0%,
+
+            rgba(245,245,247,0.94)
+            48%,
+
+            rgba(209,209,214,0.72)
+            100%
+        );
+
+    box-shadow:
+        inset
+        1px
+        1px
+        0
+        rgba(255,255,255,0.9),
+
+        inset
+        -1px
+        -1px
+        0
+        rgba(0,0,0,0.035);
+}
+
+
+.hero-peel-hint::after {
+    content: "";
+
+    position: absolute;
+
+    right: 2px;
+    bottom: 2px;
+
+    width: 68%;
+    height: 1px;
+
+    background:
+        rgba(
+            29,
+            29,
+            31,
+            0.10
+        );
+
+    transform:
+        rotate(-45deg);
+
+    transform-origin:
+        right center;
+}
+
+
+/*
+ * Pokerが現れた後は
+ * peel cueそのものは消す。
+ */
+#hero-photo[data-portrait="poker"]
+.hero-peel-hint {
+    opacity: 0;
+
+    transform:
+        translate(
+            -12px,
+            -12px
+        )
+        rotate(-16deg)
+        scale(1.28);
+}
+
+
+@media (
+    hover: hover
+)
+and (
+    pointer: fine
+) {
+
+    #hero-photo[data-portrait="business"]:hover
+    .hero-peel-hint {
+        opacity: 1;
+
+        transform:
+            translate(
+                -2px,
+                -2px
+            )
+            rotate(-11deg)
+            scale(1.02);
+    }
+}
+
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    #hero-photo .hero-portrait--business,
+    #hero-photo .hero-portrait--poker,
+    .hero-peel-hint {
+        transition:
+            none !important;
+    }
+}
+        
         .hero-copy {
             grid-area: copy;
             min-width: 0;
@@ -6979,17 +7296,27 @@
 
                     <h2 class="next-title next-reveal">
 
-                        <span class="lang-ja">
-                            「10年後の1万人」を、<br>
-                            意思決定の単位にする。
-                        </span>
+                        <h2 class="next-title next-reveal">
 
-                        <span class="lang-en">
-                            Make “10,000 people<br>
-                            in 10 years” a unit of decision-making.
-                        </span>
+    <span class="lang-ja next-title-ja">
 
-                    </h2>
+        <span class="next-title-line">
+            「10年後の1万人」を、
+        </span>
+
+        <span class="next-title-line">
+            意思決定の単位にする。
+        </span>
+
+    </span>
+
+
+    <span class="lang-en next-title-en">
+        Make “10,000 people in 10 years”
+        a unit of decision-making.
+    </span>
+
+</h2>
 
 
                     <div class="next-copy-grid">
@@ -9144,44 +9471,165 @@
                 });
             }
 
-            // --- 2. プロフィール画像のクロスフェード状態管理 ---
-            const auraLayerPoker = document.querySelector('.hero-aura-layer--poker');
-            const auraLayerBusiness = document.querySelector('.hero-aura-layer--business');
-            
-            const setPortraitMode = (mode) => {
-                if (!photo) return;
-                const isBusiness = mode === 'business';
-                
-                // HTML属性による一元管理 (CSSやアクセシビリティと連動)
-                photo.setAttribute('data-portrait', mode);
-                photo.setAttribute('aria-pressed', isBusiness ? 'true' : 'false');
-                
-                // 3Dチルトの移動と競合させないため、内部レイヤーの透過度のみ変更
-                if (auraLayerPoker && auraLayerBusiness) {
-                    auraLayerPoker.style.opacity = isBusiness ? '0' : '1';
-                    auraLayerBusiness.style.opacity = isBusiness ? '1' : '0';
-                }
-            };
+            // --- 2. Portrait peel state: Suit → Poker ---
 
-            if (photo) {
-                // デスクトップ環境 (ホバーによる切り替え)
-                if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-                    photo.addEventListener('mouseenter', () => setPortraitMode('business'));
-                    photo.addEventListener('mouseleave', () => setPortraitMode('poker'));
-                }
-                
-                // スマホ・タブレット(タップ) & キーボード(Enter/Space) 共通のトグル処理
-                photo.addEventListener('click', (e) => {
-                    // ホバー環境での純粋なマウスクリック時は無視する（mouseenterで既に切り替わっているため）
-                    // e.detail === 0 はキーボード操作由来のクリックを示す
-                    if (matchMedia('(hover: hover) and (pointer: fine)').matches && e.detail !== 0) {
-                        return;
-                    }
-                    const currentMode = photo.getAttribute('data-portrait');
-                    setPortraitMode(currentMode === 'poker' ? 'business' : 'poker');
-                });
+const auraLayerPoker =
+    document.querySelector(
+        '.hero-aura-layer--poker'
+    );
+
+const auraLayerBusiness =
+    document.querySelector(
+        '.hero-aura-layer--business'
+    );
+
+const canHoverPortrait =
+    matchMedia(
+        '(hover: hover) and (pointer: fine)'
+    ).matches;
+
+
+const setPortraitMode = (
+    mode
+) => {
+
+    if (!photo) return;
+
+
+    const isPoker =
+        mode === 'poker';
+
+
+    photo.setAttribute(
+        'data-portrait',
+        mode
+    );
+
+
+    photo.setAttribute(
+        'aria-pressed',
+        isPoker
+            ? 'true'
+            : 'false'
+    );
+
+
+    photo.setAttribute(
+        'aria-label',
+
+        isPoker
+
+            ? 'スーツ写真に戻す / Return to business portrait'
+
+            : 'ポーカーでの実践写真を表示する / Reveal poker portrait'
+    );
+
+
+    if (
+        auraLayerPoker &&
+        auraLayerBusiness
+    ) {
+
+        auraLayerPoker.style.opacity =
+            isPoker
+                ? '1'
+                : '0';
+
+
+        auraLayerBusiness.style.opacity =
+            isPoker
+                ? '0'
+                : '1';
+    }
+};
+
+
+if (photo) {
+
+    /*
+     * 初期表示
+     */
+    setPortraitMode(
+        'business'
+    );
+
+
+    /*
+     * PC
+     *
+     * hover:
+     * Suit → Poker
+     *
+     * mouseleave:
+     * Poker → Suit
+     */
+    if (
+        canHoverPortrait
+    ) {
+
+        photo.addEventListener(
+            'mouseenter',
+            () => {
+
+                setPortraitMode(
+                    'poker'
+                );
             }
-            // ▲▲▲ 修正・拡張 ここまで ▲▲▲
+        );
+
+
+        photo.addEventListener(
+            'mouseleave',
+            () => {
+
+                setPortraitMode(
+                    'business'
+                );
+            }
+        );
+    }
+
+
+    /*
+     * iPhone / Android / iPad /
+     * touch PC / Keyboard
+     */
+    photo.addEventListener(
+        'click',
+        (e) => {
+
+            /*
+             * 通常のmouse clickでは
+             * hoverと二重発火させない。
+             *
+             * e.detail === 0 は
+             * keyboard由来。
+             */
+            if (
+                canHoverPortrait &&
+                e.detail !== 0
+            ) {
+                return;
+            }
+
+
+            const currentMode =
+                photo.getAttribute(
+                    'data-portrait'
+                );
+
+
+            setPortraitMode(
+
+                currentMode === 'poker'
+
+                    ? 'business'
+
+                    : 'poker'
+            );
+        }
+    );
+}
 
             // Priority 1: Init Interactions Immediately
             const langJpBtn = document.getElementById('lang-jp');
