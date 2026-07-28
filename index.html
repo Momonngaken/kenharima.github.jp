@@ -191,41 +191,6 @@ header .mt-6 {
          /* ↓↓↓ ココから追加 ↓↓↓ */
         /* ▼▼▼ 極限最適化: ヒーロー領域のFOUC（黒枠・チラつき）完全防止 ▼▼▼ */
         /* ▼▼▼ 追加: プロフィール写真二層構造・クロスフェード ▼▼▼ */
-        <button
-    type="button"
-    id="hero-photo"
-    class="hero-photo-button"
-    aria-label="ポーカーでの実践写真を表示する / Reveal poker portrait"
-    aria-pressed="false"
-    data-portrait="business"
->
-    <!-- 裏側：Poker -->
-    <img
-        src="./profile.webp"
-        width="512"
-        height="512"
-        alt=""
-        fetchpriority="low"
-        decoding="async"
-        class="hero-portrait hero-portrait--poker"
-    >
-
-    <!-- 表側：Suit / 初期表示 -->
-    <img
-        src="./profile-business.webp"
-        width="512"
-        height="512"
-        alt=""
-        fetchpriority="high"
-        decoding="sync"
-        class="hero-portrait hero-portrait--business"
-    >
-
-    <!-- 右下の「めくれ」 -->
-    <span class="hero-peel-hint" aria-hidden="true"></span>
-
-    <span class="hero-portrait-glass" aria-hidden="true"></span>
-</button>
         #hero-photo:focus-visible {
             box-shadow: 0 0 0 4px rgba(220, 220, 225, 0.4);
         }
