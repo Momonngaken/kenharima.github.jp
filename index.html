@@ -924,153 +924,157 @@
                     </div>
                 </div>
 
-                <!-- ================= PROFESSIONAL DEVELOPMENT (Extreme Apple Bento) ================= -->
+                <!-- ================= PROFESSIONAL DEVELOPMENT (Apple-like Bento Grid) ================= -->
                 <div id="development" class="mt-20 md:mt-32 pt-16 border-t border-gray-100 relative group/section cv-auto">
                     
-                    <!-- Section Label (Left Aligned, Minimal) -->
-                    <div class="mb-8 md:mb-12 pl-2 md:pl-0">
+                    <!-- Section Label (Left Aligned) -->
+                    <div class="mb-10 md:mb-12 pl-2 md:pl-0">
                         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] tracking-tight text-left m-0 font-display">
                             <span class="lang-ja">自己研鑽</span>
                             <span class="lang-en">Professional Development</span>
                         </h2>
                     </div>
 
-                    <!-- 12-Column Asymmetric Bento Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 px-4 md:px-0">
+                    <!-- Bento Grid Container -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 px-4 md:px-0">
                         
-                        <!-- 1. CARD: Language (7 cols) - Typography Focus -->
-                        <div class="md:col-span-7 relative bg-white rounded-[28px] md:rounded-[32px] p-8 md:p-10 border border-black/[0.04] shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col justify-between min-h-[320px] md:min-h-[360px] transition-transform duration-500 hover:scale-[1.01] cursor-default">
-                            <div class="flex justify-between items-start">
-                                <span class="text-[17px] font-semibold text-[#86868b] tracking-[-0.01em]">
-                                    <span class="lang-ja">英語</span><span class="lang-en">English</span>
-                                </span>
-                                <!-- Minimal Abstract Graphic (UK/US subtly implied) -->
-                                <div class="flex items-center gap-1.5 opacity-30" aria-hidden="true">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-[#00247d]"></div>
-                                    <div class="w-2.5 h-2.5 rounded-full bg-[#cf142b]"></div>
+                        <!-- 1. CARD: Language -->
+                        <div class="relative bg-white/80 backdrop-blur-xl rounded-[26px] md:rounded-[32px] p-6 md:p-8 lg:p-10 border border-black/[0.03] shadow-[0_4px_20px_rgba(0,0,0,0.035)] transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] overflow-hidden cursor-default flex flex-col justify-between min-h-[260px] md:min-h-[280px]">
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 class="text-[11px] md:text-xs font-semibold text-[#86868b] tracking-widest uppercase">
+                                    <span class="lang-ja">語学</span><span class="lang-en">Language</span>
+                                </h3>
+                                <div class="w-9 h-9 rounded-full border border-gray-100 flex items-center justify-center bg-gray-50/50 shadow-sm shrink-0">
+                                    <!-- Minimal UK/US Abstract Icon -->
+                                    <div class="w-3.5 h-3.5 rounded-full bg-gradient-to-r from-[#00247d] to-[#cf142b] opacity-70"></div>
                                 </div>
                             </div>
-                            
                             <div class="mt-auto">
-                                <div class="text-[96px] md:text-[128px] font-medium tracking-tighter text-[#1d1d1f] leading-[0.85] font-display mb-6">
+                                <div class="text-[64px] md:text-[88px] font-medium tracking-[-0.05em] text-[#1d1d1f] leading-none mb-3 font-display">
                                     950
                                 </div>
-                                <div class="flex flex-col gap-1">
-                                    <span class="text-[18px] md:text-[20px] font-medium text-[#1d1d1f] tracking-tight">TOEIC L&R IP</span>
-                                    <span class="text-[15px] md:text-[16px] font-normal text-[#86868b] tracking-tight">
+                                <div class="flex flex-col gap-1.5">
+                                    <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">TOEIC L&R IP</span>
+                                    <span class="text-[12px] md:text-[13px] font-medium text-[#86868b] tracking-tight">
                                         <span class="lang-ja">実用英語技能検定 準1級</span><span class="lang-en">EIKEN Grade Pre-1</span>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 2. CARD: AI (5 cols) - Graphic Focus -->
-                        <div class="md:col-span-5 relative bg-white rounded-[28px] md:rounded-[32px] p-8 md:p-10 border border-black/[0.04] shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col justify-between min-h-[320px] md:min-h-[360px] transition-transform duration-500 hover:scale-[1.01] cursor-default isolate">
-                            <!-- Architectural Neural Graphic into the void -->
-                            <svg class="absolute -top-12 -right-12 w-[280px] h-[280px] text-gray-900 opacity-[0.03] -z-10 pointer-events-none" viewBox="0 0 100 100" fill="currentColor">
-                                <circle cx="20" cy="20" r="3.5"/><circle cx="20" cy="50" r="3.5"/><circle cx="20" cy="80" r="3.5"/>
-                                <circle cx="50" cy="35" r="3.5"/><circle cx="50" cy="65" r="3.5"/><circle cx="80" cy="50" r="3.5"/>
-                                <path d="M23 20 L47 35 M23 20 L47 65 M23 50 L47 35 M23 50 L47 65 M23 80 L47 35 M23 80 L47 65 M53 35 L77 50 M53 65 L77 50" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                            </svg>
-
-                            <div class="flex justify-between items-start">
-                                <span class="text-[17px] font-semibold text-[#86868b] tracking-[-0.01em]">AI</span>
+                        <!-- 2. CARD: AI -->
+                        <div class="relative bg-white/80 backdrop-blur-xl rounded-[26px] md:rounded-[32px] p-6 md:p-8 lg:p-10 border border-black/[0.03] shadow-[0_4px_20px_rgba(0,0,0,0.035)] transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] overflow-hidden cursor-default flex flex-col justify-between min-h-[260px] md:min-h-[280px]">
+                            <div class="flex justify-between items-start mb-8">
+                                <h3 class="text-[11px] md:text-xs font-semibold text-[#86868b] tracking-widest uppercase">
+                                    AI
+                                </h3>
+                                <div class="w-9 h-9 rounded-full border border-gray-100 flex items-center justify-center bg-gray-50/50 shadow-sm shrink-0">
+                                    <!-- Minimal Neural/Chip Icon -->
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                </div>
                             </div>
-                            
                             <div class="mt-auto flex flex-col gap-4">
-                                <span class="text-[18px] md:text-[20px] font-medium text-[#1d1d1f] tracking-tight leading-snug">
-                                    <span class="lang-ja">JDLA G検定</span><span class="lang-en">JDLA Deep Learning for GENERAL</span>
-                                </span>
-                                <span class="text-[16px] md:text-[17px] font-normal text-[#86868b] tracking-tight leading-snug">
-                                    Google AI Professional Certificate
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- 3. CARD: Numerical (4 cols) - Compact Focus -->
-                        <div class="md:col-span-4 relative bg-white rounded-[28px] md:rounded-[32px] p-8 md:p-10 border border-black/[0.04] shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col justify-between min-h-[280px] transition-transform duration-500 hover:scale-[1.01] cursor-default isolate">
-                            <!-- Abstract Soroban Wireframe -->
-                            <svg class="absolute -bottom-8 -right-8 w-[200px] h-[200px] text-gray-900 opacity-[0.03] -z-10 pointer-events-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="10" y="20" width="80" height="60" rx="4"/>
-                                <line x1="10" y1="40" x2="90" y2="40"/>
-                                <line x1="30" y1="20" x2="30" y2="80"/>
-                                <line x1="50" y1="20" x2="50" y2="80"/>
-                                <line x1="70" y1="20" x2="70" y2="80"/>
-                                <circle cx="30" cy="30" r="3.5" fill="currentColor"/><circle cx="50" cy="30" r="3.5" fill="currentColor"/><circle cx="70" cy="30" r="3.5" fill="currentColor"/>
-                                <circle cx="30" cy="55" r="3.5" fill="currentColor"/><circle cx="50" cy="65" r="3.5" fill="currentColor"/><circle cx="70" cy="55" r="3.5" fill="currentColor"/>
-                            </svg>
-
-                            <div class="flex justify-between items-start">
-                                <span class="text-[17px] font-semibold text-[#86868b] tracking-[-0.01em]">
-                                    <span class="lang-ja">数的基礎</span><span class="lang-en">Numerical</span>
-                                </span>
-                            </div>
-                            
-                            <div class="mt-auto">
-                                <div class="flex items-baseline gap-1.5 mb-2">
-                                    <span class="text-[56px] md:text-[64px] font-medium tracking-tighter text-[#1d1d1f] leading-none font-display">2</span>
-                                    <span class="text-[24px] font-medium tracking-tighter text-[#1d1d1f] leading-none font-display mb-1">×</span>
-                                </div>
                                 <div class="flex flex-col gap-1">
-                                    <span class="text-[18px] md:text-[20px] font-medium text-[#1d1d1f] tracking-tight">
-                                        <span class="lang-ja">1級</span><span class="lang-en">Grade 1</span>
+                                    <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">
+                                        <span class="lang-ja">JDLA G検定</span><span class="lang-en">JDLA Deep Learning for GENERAL</span>
                                     </span>
-                                    <span class="text-[14px] md:text-[15px] font-normal text-[#86868b] tracking-tight leading-snug">
-                                        <span class="lang-ja">珠算能力検定 / 暗算検定</span><span class="lang-en">Abacus / Mental Arithmetic</span>
+                                </div>
+                                <div class="w-8 h-[1px] bg-gray-200"></div>
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">
+                                        Google AI Professional Certificate
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 4. CARD: Data & Marketing (8 cols) - Wide Focus -->
-                        <div class="md:col-span-8 relative bg-white rounded-[28px] md:rounded-[32px] p-8 md:p-10 border border-black/[0.04] shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col justify-between min-h-[280px] transition-transform duration-500 hover:scale-[1.01] cursor-default isolate">
-                            <!-- Fluid Analytics Trend Graphic -->
-                            <svg class="absolute bottom-0 right-0 w-[120%] md:w-[90%] h-full text-gray-900 opacity-[0.025] -z-10 pointer-events-none" viewBox="0 0 200 100" preserveAspectRatio="none" fill="none" stroke="currentColor">
-                                <path d="M0,80 Q40,75 70,45 T140,55 T200,10" stroke-width="2.5"/>
-                                <path d="M0,90 Q40,85 70,60 T140,70 T200,30" stroke-width="1" stroke-dasharray="4 4"/>
-                            </svg>
-
-                            <div class="flex justify-between items-start">
-                                <span class="text-[17px] font-semibold text-[#86868b] tracking-[-0.01em]">
-                                    Data & Marketing
-                                </span>
+                        <!-- 3. CARD: Numerical Foundation -->
+                        <div class="relative bg-white/80 backdrop-blur-xl rounded-[26px] md:rounded-[32px] p-6 md:p-8 lg:p-10 border border-black/[0.03] shadow-[0_4px_20px_rgba(0,0,0,0.035)] transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] overflow-hidden cursor-default flex flex-col justify-between min-h-[220px]">
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 class="text-[11px] md:text-xs font-semibold text-[#86868b] tracking-widest uppercase">
+                                    <span class="lang-ja">数的基礎</span><span class="lang-en">Numerical Foundation</span>
+                                </h3>
+                                <div class="w-9 h-9 rounded-full border border-gray-100 flex items-center justify-center bg-gray-50/50 shadow-sm shrink-0">
+                                    <!-- Minimal Soroban Icon -->
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line><line x1="6" y1="4" x2="6" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line><line x1="18" y1="4" x2="18" y2="20"></line><circle cx="6" cy="7" r="1.5" fill="#86868b"></circle><circle cx="12" cy="7" r="1.5" fill="#86868b"></circle><circle cx="18" cy="15" r="1.5" fill="#86868b"></circle></svg>
+                                </div>
                             </div>
-                            
-                            <div class="mt-auto flex flex-col gap-3">
-                                <span class="text-[18px] md:text-[20px] font-medium text-[#1d1d1f] tracking-tight">
-                                    Google Analytics Certification
+                            <div class="mt-auto flex flex-col gap-2.5">
+                                <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">
+                                    <span class="lang-ja">珠算能力検定 1級</span><span class="lang-en">Abacus Proficiency Test — Grade 1</span>
                                 </span>
-                                <span class="text-[18px] md:text-[20px] font-medium text-[#1d1d1f] tracking-tight">
-                                    Google Ads Creative Certification
+                                <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">
+                                    <span class="lang-ja">暗算検定 1級</span><span class="lang-en">Mental Arithmetic Test — Grade 1</span>
                                 </span>
                             </div>
                         </div>
 
-                        <!-- 5. CARD: Selected Program (12 cols) - Editorial Focus -->
-                        <div data-modal-id="cert_matsuo" class="md:col-span-12 js-modal-trigger relative bg-white rounded-[28px] md:rounded-[32px] p-8 md:p-12 border border-black/[0.04] shadow-[0_2px_10px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col md:flex-row gap-10 md:gap-16 items-start md:items-center justify-between min-h-[300px] transition-transform duration-500 hover:scale-[1.01] cursor-pointer">
-                            
-                            <!-- Content Left -->
-                            <div class="w-full md:w-1/2 flex flex-col order-2 md:order-1">
-                                <span class="text-[17px] font-semibold text-[#86868b] tracking-[-0.01em] mb-5 md:mb-6">
-                                    Selected Program
+                        <!-- 4. CARD: Data & Marketing -->
+                        <div class="relative bg-white/80 backdrop-blur-xl rounded-[26px] md:rounded-[32px] p-6 md:p-8 lg:p-10 border border-black/[0.03] shadow-[0_4px_20px_rgba(0,0,0,0.035)] transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] overflow-hidden cursor-default flex flex-col justify-between min-h-[220px]">
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 class="text-[11px] md:text-xs font-semibold text-[#86868b] tracking-widest uppercase">
+                                    <span class="lang-ja">データ & マーケティング</span><span class="lang-en">Data & Marketing</span>
+                                </h3>
+                                <div class="w-9 h-9 rounded-full border border-gray-100 flex items-center justify-center bg-gray-50/50 shadow-sm shrink-0">
+                                    <!-- Minimal Chart Icon -->
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="mt-auto flex flex-col gap-2.5">
+                                <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">
+                                    <span class="lang-ja">Google Analytics 認定資格</span><span class="lang-en">Google Analytics Certification</span>
                                 </span>
-                                
-                                <h4 class="text-[32px] md:text-[40px] font-medium text-[#1d1d1f] tracking-tighter leading-[1.1] font-display mb-4">
-                                    AI Business <br class="hidden md:block" />Insights 2026
+                                <span class="text-[14px] md:text-[15px] font-semibold text-[#1d1d1f] tracking-tight">
+                                    <span class="lang-ja">Google 広告クリエイティブ認定資格</span><span class="lang-en">Google Ads Creative Certification</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- 5. CARD: Selected Program (Full Width on PC) -->
+                        <div data-modal-id="cert_matsuo" class="md:col-span-2 js-modal-trigger relative bg-[#fbfaf7] rounded-[26px] md:rounded-[32px] p-6 md:p-8 lg:p-10 border border-[#d4af37]/15 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(0,0,0,0.04)] overflow-hidden cursor-pointer flex flex-col md:flex-row gap-8 lg:gap-12 items-center group">
+                            
+                            <!-- Subtle Gold Accent Line -->
+                            <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent"></div>
+                            
+                            <!-- Image Left -->
+                            <div class="w-full md:w-[35%] shrink-0 flex justify-center perspective-[800px]">
+                                <div class="relative w-[85%] md:w-full max-w-[260px] rounded-lg overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-gray-200/50 bg-white p-1 transform-gpu transition-all duration-700 group-hover:rotate-y-[-2deg] group-hover:rotate-x-[1deg] group-hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+                                    <img src="./matsuo_certificate.png" alt="AI Business Insights 2026 Certificate" class="w-full h-auto object-cover rounded-md relative z-0">
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-white/30 via-transparent to-white/10 opacity-40 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Info Right -->
+                            <div class="w-full md:w-[65%] flex flex-col">
+                                <h3 class="text-[11px] md:text-xs font-semibold text-[#d4af37]/80 tracking-widest uppercase mb-4">
+                                    Selected Program
+                                </h3>
+                                <p class="text-[13px] md:text-[15px] font-semibold text-[#86868b] tracking-tight mb-1">
+                                    <span class="lang-ja">東京大学 松尾・岩澤研究室</span><span class="lang-en">Matsuo-Iwasawa Laboratory, UTokyo</span>
+                                </p>
+                                <h4 class="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight leading-tight font-display">
+                                    AI Business Insights 2026
                                 </h4>
                                 
-                                <p class="text-[16px] md:text-[18px] font-normal text-[#86868b] tracking-tight leading-snug">
-                                    <span class="lang-ja">東京大学 松尾・岩澤研究室</span><span class="lang-en">Matsuo-Iwasawa Laboratory<br class="block md:hidden"/>The University of Tokyo</span>
-                                </p>
-                            </div>
-                            
-                            <!-- Image Right (Flat Editorial Style, No 3D/Gold) -->
-                            <div class="w-full md:w-1/2 flex justify-start md:justify-end order-1 md:order-2">
-                                <div class="w-[90%] md:w-full max-w-[340px] rounded-lg overflow-hidden border border-black/[0.05] bg-[#fafafa] p-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
-                                    <img src="./matsuo_certificate.png" alt="AI Business Insights 2026 Certificate" class="w-full h-auto object-cover rounded-md block">
+                                <div class="mt-6 md:mt-8 flex items-center text-[10px] md:text-[11px] font-semibold tracking-widest uppercase text-[#86868b] group-hover:text-[#1d1d1f] transition-colors duration-500">
+                                    View Details <i class="fa-solid fa-arrow-right ml-2 transition-transform duration-500 group-hover:translate-x-1"></i>
                                 </div>
                             </div>
+                        </div>
 
+                        <!-- 6. In Progress (Quietly nested at the bottom) -->
+                        <div class="md:col-span-2 flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 mt-4 pt-6 border-t border-gray-200/60">
+                            <span class="text-[10px] md:text-[11px] font-semibold text-[#86868b] tracking-widest uppercase shrink-0">
+                                <span class="lang-ja">取得予定</span><span class="lang-en">In Progress</span>
+                            </span>
+                            <div class="flex flex-wrap gap-2 md:gap-3">
+                                <div class="px-3.5 py-1.5 rounded-full border border-dashed border-gray-300 text-[11px] md:text-xs font-medium text-[#86868b] bg-transparent pointer-events-none">
+                                    <span class="lang-ja">統計検定2級</span><span class="lang-en">Japan Statistical Society Certificate — Grade 2</span>
+                                </div>
+                                <div class="px-3.5 py-1.5 rounded-full border border-dashed border-gray-300 text-[11px] md:text-xs font-medium text-[#86868b] bg-transparent pointer-events-none">
+                                    <span class="lang-ja">基本情報技術者試験</span><span class="lang-en">Fundamental Information Technology Engineer Examination</span>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
