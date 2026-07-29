@@ -10,21 +10,14 @@
     <meta name="description" content="播磨賢（Ken Harima）の公式ポートフォリオサイト。ナラティブ、哲学・倫理学、戦略、ゲーム理論を軸に、経歴・プロジェクト・専門領域を紹介しています。">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
     <link rel="canonical" href="https://kenharima.com/">
-
-    <!-- Performance Optimization: Resource Hints (Moved Up for Preload Scanner) -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-    <!-- Cloudflare Web Analytics Preconnect -->
-    <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-    <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
-    <link rel="dns-prefetch" href="https://unpkg.com">
-    
-
-    <!-- Preload LCP Image (Enhanced Priority) -->
-    <link rel="preload" as="image" href="./profile-business.webp" fetchpriority="high">
-
-    <!-- Critical UX: Prefetch Profile Page for Instant Navigation (<0.4s) -->
-    <link rel="prefetch" href="./profile.html">
+    <!-- Cold-start critical path: preload only the visible Hero portrait -->
+    <link
+        rel="preload"
+        as="image"
+        href="./profile-business.webp"
+        type="image/webp"
+        fetchpriority="high"
+    >
 
     <!-- Open Graph / Facebook / LinkedIn (Moved Down) -->
     <meta property="og:type" content="website">
@@ -39,9 +32,12 @@
     <meta property="twitter:description" content="Official Business Portfolio of Ken HARIMA. Bridging Social Science & Data Strategy.">
     <meta property="twitter:image" content="https://kenharima.com/ogp_image2.jpg">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="./profile.webp">
-    <link rel="apple-touch-icon" href="./profile.webp">
+    <!-- Favicon: inline SVG keeps the cold-start network path clean -->
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%231d1d1f'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial,sans-serif' font-size='23' font-weight='700' fill='white'%3EKH%3C/text%3E%3C/svg%3E"
+    >
 
     <!-- ================= APPLE-LIKE SEAMLESS REVEAL CSS (OPTIC FOCUS OPTIMIZED) ================= -->
     <style>
@@ -158,24 +154,8 @@ header .mt-6 {
         /* 2. Tailwindロード前の四角化を防ぐ強制角丸保護 */
         .rounded-full { border-radius: 9999px !important; }
         .overflow-hidden { overflow: hidden !important; }
-
-        /* 3. FontAwesome未ロード時の「黒い四角」を物理的に消滅させる極限ハック */
-        html:not(.fonts-loaded) i[class*="fa-"] {
-            font-size: 0 !important; /* 領域自体を消滅させ、四角の描画を不可能にする */
-            color: transparent !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-
-        /* 4. ロード完了後、光の中から実体化させるシネマティック・フェードイン */
-        i[class*="fa-"] {
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
-            will-change: opacity, transform, color;
-        }
         /* ▲▲▲ 修正版ここまで ▲▲▲ */
          /* ▼▼▼ 追加：FOUC（スタイル崩れ）完全防止とシネマティックなフェードイン ▼▼▼ */
-        /* Tailwind CSSが適用されるまでの間、メインコンテンツを完全に隠蔽する *
-        
         /* GSAPがロードされるまでの間、スクロールアニメーション対象要素を隠す */
         .fade-in {
             opacity: 0;
@@ -297,14 +277,29 @@ header .mt-6 {
         html:not(.is-global) .lang-en { display: none !important; }
         html.is-global .lang-ja { display: none !important; }
 
-        .lang-ja, .lang-en {
-            animation: langRevealCinematic 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: opacity, transform, filter;
+        /*
+         * Language content is static on first paint.
+         * The reveal runs only when the user explicitly switches JA / EN.
+         */
+        .lang-ja,
+        .lang-en {
+            animation: none;
+            will-change: auto;
+        }
+
+        html.lang-transition .lang-ja,
+        html.lang-transition .lang-en {
+            animation:
+                langRevealCinematic
+                360ms
+                cubic-bezier(0.16, 1, 0.3, 1)
+                both;
+            will-change: opacity, transform;
         }
 
         @keyframes langRevealCinematic {
-            0% { opacity: 0.01; transform: translateY(4px); filter: blur(4px); }
-            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+            from { opacity: 0; transform: translateY(3px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         #global-modal { display: none !important; }
@@ -561,26 +556,45 @@ header .mt-6 {
             }
         </style>
     </noscript>
-    <!-- ビルド済み Tailwind CSS (初回描画前に必ず適用) -->
-    <link rel="preload" href="../output.css" as="style">
-    <link rel="stylesheet" href="../output.css">
-    <noscript><link rel="stylesheet" href="../output.css"></noscript>
+    <!--
+        Non-critical utility CSS is requested only after the first paint.
+        The complete Hero / navigation shell is covered by the inline critical CSS above.
+    -->
+    <noscript>
+        <link rel="stylesheet" href="../output.css">
+    </noscript>
 
-    <!-- 完全な静寂と圧倒的な初速の両立: 
-         初回訪問時のFOUC/FOUTを避けるため、フォントとアイコンCSSも初回描画前に適用します。 -->
-    <link
-    rel="preload"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
->
+    <script>
+        (() => {
+            const loadNonCriticalCSS = () => {
+                if (document.getElementById('kh-utility-css')) return;
 
-<noscript>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    >
-</noscript>
+                const link = document.createElement('link');
+                link.id = 'kh-utility-css';
+                link.rel = 'stylesheet';
+                link.href = '../output.css';
+                document.head.appendChild(link);
+            };
+
+            const afterFirstPaint = () => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        if ('requestIdleCallback' in window) {
+                            requestIdleCallback(loadNonCriticalCSS, { timeout: 900 });
+                        } else {
+                            setTimeout(loadNonCriticalCSS, 120);
+                        }
+                    });
+                });
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', afterFirstPaint, { once: true });
+            } else {
+                afterFirstPaint();
+            }
+        })();
+    </script>
 
     
     <!-- Language Detection Script -->
@@ -590,18 +604,6 @@ header .mt-6 {
             if (!lang.startsWith('ja')) {
                 document.documentElement.classList.add('is-global');
             }
-            // ▼▼▼ 追加：Font Loading Detection (FOUT完全回避) ▼▼▼
-            if ('fonts' in document) {
-                document.fonts.ready.then(function() {
-                    document.documentElement.classList.add('fonts-loaded');
-                });
-            } else {
-                // Font Loading API非対応ブラウザ用フォールバック
-                window.addEventListener('load', function() {
-                    document.documentElement.classList.add('fonts-loaded');
-                });
-            }
-            // ▲▲▲ 追加ここまで ▲▲▲
         })();
     </script>
 
@@ -1963,14 +1965,41 @@ and (
         @media (max-width: 767px), (any-pointer: coarse) {
 
             /*
+             * COLD START
+             * Keep the very first mobile paint to a single flat canvas.
+             */
+            body::before {
+                display: none;
+            }
+
+            #hero-tilt-container,
+            header h1,
+            header .mt-4,
+            header .mt-6 {
+                animation-duration: 420ms !important;
+            }
+
+            .hero-reveal {
+                filter: none !important;
+                transform: translateY(8px);
+                animation-duration: 420ms !important;
+            }
+
+            .hero-reveal-1 { animation-delay: 40ms !important; }
+            .hero-reveal-2 { animation-delay: 75ms !important; }
+            .hero-reveal-3 { animation-delay: 110ms !important; }
+            .hero-reveal-4 { animation-delay: 145ms !important; }
+            .hero-reveal-5 { animation-delay: 180ms !important; }
+
+            /*
              * ---------------------------------------------------------
              * 01 — Language transition
              * blur()を使わず、opacity + translateだけで収束
              * ---------------------------------------------------------
              */
 
-            .lang-ja,
-            .lang-en {
+            html.lang-transition .lang-ja,
+            html.lang-transition .lang-en {
                 animation:
                     khMobileLanguageReveal
                     320ms
@@ -2209,7 +2238,7 @@ and (
                     </div>
                 </div>
                 <a href="../contact.html" class="menu-contact-cta">
-                    <span class="lang-ja">お問い合わせ</span><span class="lang-en">Get in Touch</span><i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                    <span class="lang-ja">お問い合わせ</span><span class="lang-en">Get in Touch</span><span class="ml-1 text-[11px]" aria-hidden="true">→</span>
                 </a>
             </div>
         </div>
@@ -2236,11 +2265,11 @@ and (
     data-portrait="business"
 >
     <img
-        src="./profile.webp"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-src="./profile.webp"
         width="512"
         height="512"
         alt=""
-        fetchpriority="low"
         decoding="async"
         class="hero-portrait hero-portrait--poker"
     >
@@ -2250,8 +2279,9 @@ and (
         width="512"
         height="512"
         alt=""
+        loading="eager"
         fetchpriority="high"
-        decoding="sync"
+        decoding="async"
         class="hero-portrait hero-portrait--business"
     >
 
@@ -10361,7 +10391,7 @@ and (
                     <!-- JS Injects Title Here -->
                 </div>
                 <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 shrink-0 outline-none border border-transparent">
-                    <i class="fa-solid fa-xmark text-lg transition-transform duration-300 group-hover:rotate-90"></i>
+                    <span class="text-[22px] leading-none" aria-hidden="true">×</span>
                 </button>
             </div>
 
@@ -10376,17 +10406,97 @@ and (
 
                 <div id="modal-scroll-hint" class="scroll-hint-overlay absolute bottom-0 left-0 right-0 h-24 z-20 flex items-end justify-center pb-6 transition-opacity duration-300">
                     <span class="text-[10px] font-bold text-bizAccent uppercase tracking-widest animate-bounce bg-white/80 px-3 py-1 rounded-full shadow-sm border border-gray-100 backdrop-blur-sm">
-                        Read More <i class="fa-solid fa-chevron-down ml-1"></i>
+                        Read More <span class="ml-1" aria-hidden="true">⌄</span>
                     </span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- GSAP & Lenis (Defer loading, Low Priority) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer fetchpriority="low"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer fetchpriority="low"></script>
-    <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js" defer fetchpriority="low"></script>
+    <!--
+        Motion libraries are intentionally absent from the cold-start request queue.
+        They are injected only after the first two paint opportunities.
+    -->
+    <script>
+        (() => {
+            const loadScript = (src, id) => {
+                if (document.getElementById(id)) {
+                    return Promise.resolve();
+                }
+
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.id = id;
+                    script.src = src;
+                    script.async = true;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            };
+
+            const loadMotionLibraries = async () => {
+                try {
+                    await loadScript(
+                        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
+                        'kh-gsap'
+                    );
+
+                    await loadScript(
+                        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
+                        'kh-scrolltrigger'
+                    );
+
+                    const wantsDesktopSmoothScroll =
+                        window.matchMedia(
+                            '(min-width: 768px) and (hover: hover) and (pointer: fine)'
+                        ).matches;
+
+                    if (wantsDesktopSmoothScroll) {
+                        await loadScript(
+                            'https://unpkg.com/lenis@1.1.5/dist/lenis.min.js',
+                            'kh-lenis'
+                        );
+                    }
+
+                    window.dispatchEvent(new Event('kh:motion-ready'));
+                } catch (error) {
+                    /*
+                     * Existing reveal systems already contain CDN-failure fallbacks.
+                     * Keep the failure silent and never block visible content.
+                     */
+                    console.warn('Optional motion libraries could not be loaded.', error);
+                }
+            };
+
+            const scheduleMotion = () => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        const isMobile =
+                            window.matchMedia('(max-width: 767px)').matches;
+
+                        if ('requestIdleCallback' in window) {
+                            requestIdleCallback(
+                                loadMotionLibraries,
+                                { timeout: isMobile ? 1200 : 800 }
+                            );
+                        } else {
+                            setTimeout(
+                                loadMotionLibraries,
+                                isMobile ? 500 : 280
+                            );
+                        }
+                    });
+                });
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', scheduleMotion, { once: true });
+            } else {
+                scheduleMotion();
+            }
+        })();
+    </script>
 
     <script>
 
@@ -10445,6 +10555,56 @@ const auraLayerBusiness =
     document.querySelector(
         '.hero-aura-layer--business'
     );
+
+const pokerPortrait =
+    document.querySelector(
+        '.hero-portrait--poker'
+    );
+
+let pokerPortraitPromise = null;
+
+const ensurePokerPortrait = () => {
+    if (!pokerPortrait || !pokerPortrait.dataset.src) {
+        return Promise.resolve();
+    }
+
+    if (pokerPortrait.dataset.loaded === 'true') {
+        return Promise.resolve();
+    }
+
+    if (pokerPortraitPromise) {
+        return pokerPortraitPromise;
+    }
+
+    pokerPortraitPromise = new Promise((resolve) => {
+        const finish = () => {
+            pokerPortrait.dataset.loaded = 'true';
+            pokerPortrait.removeEventListener('load', finish);
+            pokerPortrait.removeEventListener('error', finish);
+            resolve();
+        };
+
+        pokerPortrait.addEventListener('load', finish, { once: true });
+        pokerPortrait.addEventListener('error', finish, { once: true });
+        pokerPortrait.src = pokerPortrait.dataset.src;
+    });
+
+    return pokerPortraitPromise;
+};
+
+const schedulePokerPortrait = () => {
+    const boot = () => ensurePokerPortrait();
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(boot, { timeout: 1600 });
+    } else {
+        setTimeout(boot, 900);
+    }
+};
+
+requestAnimationFrame(() => {
+    requestAnimationFrame(schedulePokerPortrait);
+});
 
 const canHoverPortrait =
     matchMedia(
@@ -10533,10 +10693,9 @@ if (photo) {
         photo.addEventListener(
             'mouseenter',
             () => {
-
-                setPortraitMode(
-                    'poker'
-                );
+                ensurePokerPortrait().then(() => {
+                    setPortraitMode('poker');
+                });
             }
         );
 
@@ -10582,14 +10741,18 @@ if (photo) {
                 );
 
 
-            setPortraitMode(
-
+            const nextMode =
                 currentMode === 'poker'
-
                     ? 'business'
+                    : 'poker';
 
-                    : 'poker'
-            );
+            if (nextMode === 'poker') {
+                ensurePokerPortrait().then(() => {
+                    setPortraitMode('poker');
+                });
+            } else {
+                setPortraitMode('business');
+            }
         }
     );
 }
@@ -10615,20 +10778,35 @@ if (photo) {
                 setBtnState(langJpBtn, !isGlobal);
                 setBtnState(langEnBtn, isGlobal);
             };
+
+            let languageTransitionTimer = 0;
+            const playLanguageTransition = () => {
+                htmlEl.classList.remove('lang-transition');
+                void htmlEl.offsetWidth;
+                htmlEl.classList.add('lang-transition');
+
+                window.clearTimeout(languageTransitionTimer);
+                languageTransitionTimer = window.setTimeout(() => {
+                    htmlEl.classList.remove('lang-transition');
+                }, 420);
+            };
+
             updateLangStyles();
 
             langJpBtn.addEventListener('click', () => {
                 if (htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.remove('is-global');
+                    playLanguageTransition();
                     updateLangStyles();
-                    setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100); 
+                    setTimeout(() => { if (window.lenis) window.lenis.resize(); }, 100); 
                 }
             });
             langEnBtn.addEventListener('click', () => {
                 if (!htmlEl.classList.contains('is-global')) {
                     htmlEl.classList.add('is-global');
+                    playLanguageTransition();
                     updateLangStyles();
-                    setTimeout(() => { if (typeof lenis !== 'undefined') lenis.resize(); }, 100);
+                    setTimeout(() => { if (window.lenis) window.lenis.resize(); }, 100);
                 }
             });
 
@@ -10795,18 +10973,18 @@ if (photo) {
                     title_en: "3rd Sawako Ariyoshi Literary Award\nShort Story: 'Chikuzenni on October 25th'",
                     body_ja: `第3回有吉佐和子文学賞では、総応募数1,314作品から7編が受賞作に選ばれ、本作は「佳作」を受賞。\n\n本作『十月二十五日の筑前煮』は、就職活動につまずいた大学四年生が、実家から届いた筑前煮を温めなおす――そんな、深夜のたった三十分間を切り取った短編小説。\n\n書きたかったのは、大きな出来事ではなく、<strong>ものの姿そのものが裏返る、その一瞬の傾き</strong>だった。「貧乏くさい」と疎んでいたタッパーの傷や曇りが、容器の隅に貼られた一枚のマスキングテープと、そこに書かれた日付「10.25」を境にして、まったく別のものとして立ち現れてくる。東京のワンルームに似つかわしくない「生活感」だったはずのものが、何百キロも離れた台所で母の手が積み重ねてきた、戻ることのない時間の地層として。タッパーそのものは、何ひとつ変わっていない。変わったのは、受け取る主人公のほうだった。\n\n同時に書きたかったのは、<strong>救われるということが、ときに、ひとりで抱えてきたものを知らぬ間に他人の手に預けてしまうことでもあるという、ささやかな逆説</strong>である。だから主人公は、すぐには「ありがとう」と打てない。感謝してしまえば、ひとりで耐えた夜が、誰かの優しさの物語の挿話に格下げされてしまうから。\n\nものと身体のあいだで、音もなく起こる微かな組み換え――それだけを、できるかぎり静かに置いた一作。\n\n断っておくと、この物語に、事実としての本当のことは一つもない。だからこそ、書けた。\n\n最後に、選考に携わってくださった全ての関係者の方々、そして尾花和歌山市長に、心より、感謝申し上げます。\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
                         <a href="https://kenharima.com/chikuzenni/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
-                            <i class="fa-solid fa-book-open text-amber-400"></i> 作品本文を読む（1,803文字）
+                            <span class="text-amber-500" aria-hidden="true">↗</span> 作品本文を読む（1,803文字）
                         </a>
                         <a href="https://www.city.wakayama.wakayama.jp/kurashi/bunka_sports/1001119/1064886/1067559.html" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-100 text-gray-700 rounded-xl font-bold tracking-wide hover:bg-gray-200 transition-all hover:-translate-y-0.5">
-                            <i class="fa-solid fa-trophy text-gray-400"></i> 受賞結果（和歌山市公式）
+                            <span class="text-gray-400" aria-hidden="true">↗</span> 受賞結果（和歌山市公式）
                         </a>
                     </div>`,
                     body_en: `At the 3rd Sawako Ariyoshi Literary Award, seven works were selected from 1,314 submissions; this story received an Honorable Mention.\n\nThis short story depicts a single late-night thirty-minute span: a fourth-year university student, struggling with job hunting, reheats a dish of chikuzenni sent from his family home.\n\nWhat I wanted to write was not a major event, but <strong>the momentary tilt by which the appearance of things is quietly overturned</strong>. The scratches and cloudiness of a Tupperware container he had dismissed as “shabby” begin to rise up as something entirely different, triggered by a strip of masking tape stuck to the corner of the container and the date written on it: “10.25.” What had seemed like an unwelcome trace of domestic life, out of place in a Tokyo one-room apartment, becomes instead a stratum of irretrievable time accumulated by his mother’s hands in a kitchen hundreds of kilometers away. The Tupperware itself has not changed at all. What has changed is the protagonist who receives it.\n\nAt the same time, I wanted to write about the small paradox that <strong>being saved can sometimes mean unknowingly entrusting to someone else what one had been carrying alone</strong>. That is why the protagonist cannot immediately type “thank you.” If he gives thanks, the night he endured alone may be reduced to an episode in someone else’s story of kindness.\n\nA faint rearrangement that takes place, without a sound, between objects and the body — that alone is what I tried to set down as quietly as possible in this story.\n\nTo be clear, there is not a single factual truth in this story. That is precisely why I was able to write it.\n\nFinally, I would like to express my heartfelt gratitude to everyone involved in the selection process, and to Mr. Masahiro Obana, Mayor of Wakayama City.\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
                         <a href="https://kenharima.com/chikuzenni/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
-                            <i class="fa-solid fa-book-open text-amber-400"></i> Read the Original Work (JA)
+                            <span class="text-amber-500" aria-hidden="true">↗</span> Read the Original Work (JA)
                         </a>
                         <a href="https://www.city.wakayama.wakayama.jp/kurashi/bunka_sports/1001119/1064886/1067559.html" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-100 text-gray-700 rounded-xl font-bold tracking-wide hover:bg-gray-200 transition-all hover:-translate-y-0.5">
-                            <i class="fa-solid fa-trophy text-gray-400"></i> Official Results (Wakayama City)
+                            <span class="text-gray-400" aria-hidden="true">↗</span> Official Results (Wakayama City)
                         </a>
                     </div>`
                 },
@@ -10817,12 +10995,12 @@ if (photo) {
                     title_en: "36th 'What is Work?' Essay Contest",
                     body_ja: `第36回「働くってなんだろう」エッセイコンテストにて、総応募数1,112作品の中から「特選」として「勤労青少年躍進会理事長賞」を受賞。\n\n本作『愛を込めて、清掃員の世界を歩む』は、早朝の新宿で、黙々とゴミが散乱する道路を片付ける清掃員を目撃した経験をもとに執筆したエッセイ。都市の喧騒と静寂が入れ替わる夜明け前の風景のなかで、ふだんは顧みられることの少ない労働の姿を描いた。\n\n「汚れたものを片付ける」という行為を、単なる作業ではなく、他者への応答として、そして世界との関わり方そのものとして描こうとした。実存的な働き方の描写と、現象学的な眼差しを交差させながら、労働を生計手段ではなく、愛や責任、美意識と結びついた人間の営みとして捉えようとした作品である。\n\n執筆当時、ひそかに込めていた狙いがある。労働の尊厳を、自己の内側からひとり立ち上げる強さとしてではなく、他者の声によって外から呼び出されるものとして描くこと。孤独に自分の仕事を引き受けるハイデガー的に自己完結した存在ではなく、誰かに呼びかけられて初めて意味を得る存在として、清掃員を立たせたかった。\n\n物語の終盤、少女が空き缶を差し出し「テンキュー」と言う。誰にも気づかれぬまま働いてきた語り手が、初めて外部から呼びかけられる瞬間だ。だが、ここで少女の姿はあまりに美しく描かれている。風が髪をなびかせ、光が輪郭を照らす。その美しさのなかで、呼びかけは語り手を揺さぶるというより、癒し、肯定し、救ってしまう。外から差し込んで自己完結した労働観を壊すはずだった一言が、清掃員としての自分を受け入れるための、美しい結末へと回収されていく。\n\nそして書き手である私自身、いまもあの美しさへ逃げ込む誘惑から抜け出せてはいない。見えない労働に光を当てようとして、最後はその光に救われてしまうこと。それが当時の限界であり、この解説を書くいまも、私が完全には越えられていない場所である。\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
                         <a href="https://www.nikkinkyo.org/tsudoi/2023/a-06.html" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
-                            <i class="fa-solid fa-book-open text-slate-300"></i> 作品本文を読む（1,619文字）
+                            <span class="text-slate-400" aria-hidden="true">↗</span> 作品本文を読む（1,619文字）
                         </a>
                     </div>`,
                     body_en: `Awarded the Special Selection Prize in the 36th “What Does It Mean to Work?” Essay Contest, selected from a total of 1,112 submissions.\n\n”With Love, I Walk the World of Sanitation Workers” is an essay based on my experience of witnessing a sanitation worker quietly cleaning a street strewn with trash in early-morning Shinjuku. Set against the landscape before dawn, when the noise and silence of the city begin to trade places, the piece depicts a form of labor that is rarely noticed or acknowledged.\n\nI tried to portray the act of “cleaning up what has been dirtied” not as mere work, but as a response to others, and as a way of engaging with the world itself. Bringing together an existential depiction of labor with a phenomenological gaze, the essay attempts to understand work not simply as a means of earning a living, but as a human practice bound up with love, responsibility, and aesthetic sensibility.\n\nThere was also an intention I had quietly embedded in the piece at the time: to depict the dignity of labor not as a strength that rises from within the self alone, but as something called forth from the outside by another person’s voice. I wanted the sanitation worker to stand not as a solitary figure who silently shoulders his own work, but as someone whose meaning emerges only when he is addressed by another.\n\nToward the end of the story, a young girl holds out an empty can and says, “Thank you.” It is the moment when the narrator, who has been working unnoticed, is addressed from the outside for the first time. And yet the girl is rendered almost too beautifully. The wind lifts her hair; the light traces the outline of her figure. Within that beauty, her address does not so much unsettle the narrator as heal, affirm, and redeem him. The one word that should have entered from outside and broken open his self-contained view of labor is instead gathered back into a beautiful ending, allowing him to accept himself as a sanitation worker.\n\nAnd I, as the writer, have still not fully escaped the temptation to take refuge in that beauty. In trying to cast light on invisible labor, I ultimately allowed myself to be saved by that very light. That was the limitation of the piece at the time, and it remains a place I have not yet fully moved beyond, even now as I write this commentary.\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
                         <a href="https://www.nikkinkyo.org/tsudoi/2023/a-06.html" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
-                            <i class="fa-solid fa-book-open text-slate-300"></i> Read the Original Work (JA)
+                            <span class="text-slate-400" aria-hidden="true">↗</span> Read the Original Work (JA)
                         </a>
                     </div>`
                 },
@@ -10865,8 +11043,8 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     sub_en: "#Project Management",
                     title_ja: "早稲田大学✕PIVOT株式会社\nコラボ企画動画実行委員",
                     title_en: "Waseda University × PIVOT Inc.\nCollaboration Project Executive Committee",
-                    body_ja: `2022年、起業家精神（アントレプレナーシップ）の醸成を目的とする早稲田大学公認サークル「BEYOND 2020 NEXT PROJECT」の幹部として、ビジネス映像メディア「PIVOT」とのコラボレーション企画を主導しました。担当したのは、リアル投資ドキュメンタリー番組『ANGELS』の大学初となる公開収録イベントです。\n\n開催までの約4ヶ月間、実行委員としてPIVOT株式会社様および大学側との折衝を担当。企業が求める「クオリティ」と、大学という組織の「制約」の間に立ち、会場選定（井深大記念ホール）、集客導線の設計、当日のオペレーション構築までを完遂しました。三浦崇宏氏をはじめとする一流投資家と学生起業家が対峙したこのイベントは、満席となる約200名を動員。単なるイベント運営に留まらず、熱量の高い空間を創り出す「場づくり」のプロジェクトマネジメントに貢献しました。\n\n<a href="https://youtu.be/jTPYgEqFxzw?si=yiUqsIUQKIJS_I8l" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 mt-4 px-4 py-2.5 bg-[#f5f5f7] rounded-xl text-gray-800 font-bold hover:bg-white transition-all duration-500 border border-transparent hover:border-gray-200 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-0.5"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 transition-transform duration-500 group-hover:scale-110"><i class="fa-brands fa-youtube text-[#FF0000] text-[15px]"></i></span><span class="text-[13px] md:text-[14px] tracking-wide">収録動画を観る (YouTube)</span></a>`,
-                    body_en: `In 2022, as a core member of the Waseda University officially recognized circle "BEYOND 2020 NEXT PROJECT," which focuses on fostering entrepreneurship, I led a collaboration with the business video media company PIVOT. I was responsible for organizing the university’s first public recording event for the real-investment documentary program, ANGELS.\n\nOver four months, I served as the liaison between PIVOT Inc. and the university administration. My role required bridging the gap between the "quality" demanded by a media enterprise and the "constraints" inherent to an academic institution. I successfully managed venue selection (Ibuka Masaru Memorial Hall), audience flow design, and on-the-day operations. The event, featuring top-tier investors like Takahiro Miura and student entrepreneurs, mobilized a full house of approximately 200 attendees. This experience went beyond event operations; it was a project in "placemaking"—creating a high-energy space where professional and academic worlds collide.\n\n<a href="https://youtu.be/jTPYgEqFxzw?si=yiUqsIUQKIJS_I8l" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 mt-4 px-4 py-2.5 bg-[#f5f5f7] rounded-xl text-gray-800 font-bold hover:bg-white transition-all duration-500 border border-transparent hover:border-gray-200 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-0.5"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 transition-transform duration-500 group-hover:scale-110"><i class="fa-brands fa-youtube text-[#FF0000] text-[15px]"></i></span><span class="text-[13px] md:text-[14px] tracking-wide">Watch the Recording (YouTube)</span></a>`
+                    body_ja: `2022年、起業家精神（アントレプレナーシップ）の醸成を目的とする早稲田大学公認サークル「BEYOND 2020 NEXT PROJECT」の幹部として、ビジネス映像メディア「PIVOT」とのコラボレーション企画を主導しました。担当したのは、リアル投資ドキュメンタリー番組『ANGELS』の大学初となる公開収録イベントです。\n\n開催までの約4ヶ月間、実行委員としてPIVOT株式会社様および大学側との折衝を担当。企業が求める「クオリティ」と、大学という組織の「制約」の間に立ち、会場選定（井深大記念ホール）、集客導線の設計、当日のオペレーション構築までを完遂しました。三浦崇宏氏をはじめとする一流投資家と学生起業家が対峙したこのイベントは、満席となる約200名を動員。単なるイベント運営に留まらず、熱量の高い空間を創り出す「場づくり」のプロジェクトマネジメントに貢献しました。\n\n<a href="https://youtu.be/jTPYgEqFxzw?si=yiUqsIUQKIJS_I8l" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 mt-4 px-4 py-2.5 bg-[#f5f5f7] rounded-xl text-gray-800 font-bold hover:bg-white transition-all duration-500 border border-transparent hover:border-gray-200 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-0.5"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 transition-transform duration-500 group-hover:scale-110"><span class="text-[#FF0000] text-[14px] leading-none" aria-hidden="true">▶</span></span><span class="text-[13px] md:text-[14px] tracking-wide">収録動画を観る (YouTube)</span></a>`,
+                    body_en: `In 2022, as a core member of the Waseda University officially recognized circle "BEYOND 2020 NEXT PROJECT," which focuses on fostering entrepreneurship, I led a collaboration with the business video media company PIVOT. I was responsible for organizing the university’s first public recording event for the real-investment documentary program, ANGELS.\n\nOver four months, I served as the liaison between PIVOT Inc. and the university administration. My role required bridging the gap between the "quality" demanded by a media enterprise and the "constraints" inherent to an academic institution. I successfully managed venue selection (Ibuka Masaru Memorial Hall), audience flow design, and on-the-day operations. The event, featuring top-tier investors like Takahiro Miura and student entrepreneurs, mobilized a full house of approximately 200 attendees. This experience went beyond event operations; it was a project in "placemaking"—creating a high-energy space where professional and academic worlds collide.\n\n<a href="https://youtu.be/jTPYgEqFxzw?si=yiUqsIUQKIJS_I8l" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 mt-4 px-4 py-2.5 bg-[#f5f5f7] rounded-xl text-gray-800 font-bold hover:bg-white transition-all duration-500 border border-transparent hover:border-gray-200 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-0.5"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 transition-transform duration-500 group-hover:scale-110"><span class="text-[#FF0000] text-[14px] leading-none" aria-hidden="true">▶</span></span><span class="text-[13px] md:text-[14px] tracking-wide">Watch the Recording (YouTube)</span></a>`
                 },
                 "social": {
                     sub_ja: "#社会デザイン / #Web3.0",
@@ -10979,7 +11157,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     onComplete: () => {
                         modal.classList.remove('is-open');
                         document.documentElement.style.overflow = ''; document.body.style.overflow = '';
-                        if(typeof lenis !== 'undefined') lenis.start();
+                        if (window.lenis) window.lenis.start();
                         isModalOpen = false;
                     }
                 });
@@ -10990,7 +11168,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 if (!trigger) return;
                 if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
 
-                if (typeof lenis !== 'undefined') lenis.stop();
+                if (window.lenis) window.lenis.stop();
                 document.documentElement.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
                 
@@ -11045,12 +11223,12 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                         document.body.classList.remove('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'false');
                         siteMenu.setAttribute('aria-hidden', 'true');
-                        if (typeof lenis !== 'undefined') lenis.start();
+                        if (window.lenis) window.lenis.start();
                     } else {
                         document.body.classList.add('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'true');
                         siteMenu.setAttribute('aria-hidden', 'false');
-                        if (typeof lenis !== 'undefined') lenis.stop();
+                        if (window.lenis) window.lenis.stop();
                     }
                 };
 
@@ -11138,7 +11316,26 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             // ▲▲▲ The Strength Equation Interaction ここまで ▲▲▲
         });
     </script>
-    <!-- Cloudflare Web Analytics (Privacy First / Zero Cookie) -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f2952467d018447895f32b7e19273cba"}'></script>
+    <!-- Cloudflare Web Analytics: post-load / idle only -->
+    <script>
+        window.addEventListener('load', () => {
+            const loadAnalytics = () => {
+                if (document.getElementById('kh-cloudflare-analytics')) return;
+
+                const script = document.createElement('script');
+                script.id = 'kh-cloudflare-analytics';
+                script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+                script.defer = true;
+                script.dataset.cfBeacon = '{"token":"f2952467d018447895f32b7e19273cba"}';
+                document.body.appendChild(script);
+            };
+
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadAnalytics, { timeout: 3500 });
+            } else {
+                setTimeout(loadAnalytics, 2200);
+            }
+        }, { once: true });
+    </script>
 </body>
 </html>
