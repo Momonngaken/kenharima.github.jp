@@ -1899,8 +1899,24 @@ and (
             }
 
             #profile {
-                padding: 30px 22px 34px !important;
-                border-radius: 30px;
+                /*
+                 * Professional Development → Profile
+                 * スマホでは明確な「章間の余白」をつくる。
+                 */
+                margin-top:
+                    clamp(
+                        104px,
+                        26vw,
+                        128px
+                    ) !important;
+
+                padding:
+                    30px
+                    22px
+                    34px !important;
+
+                border-radius:
+                    30px;
             }
 
             #profile .profile-editorial {
@@ -5518,9 +5534,18 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        y: 24,
+                                        y:
+                                            isMobile
+                                                ? 30
+                                                : 24,
 
-                                        filter: revealFilter(10),
+                                        scale:
+                                            isMobile
+                                                ? 0.99
+                                                : 1,
+
+                                        filter:
+                                            revealFilter(10),
 
                                         willChange:
                                             panelWillChange
@@ -5532,14 +5557,11 @@ and (
 
                             /*
                              * DESKTOP:
-                             *
-                             * Each panel comes from its physical
-                             * outer direction and converges inward.
+                             * Full keynote-style convergence.
                              *
                              * MOBILE:
-                             *
-                             * Smaller horizontal movement to prevent
-                             * excessive side-to-side motion.
+                             * Keep the same spatial language, but use only
+                             * GPU-friendly transform + opacity. blur remains off.
                              */
 
                             if (language) {
@@ -5549,16 +5571,31 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? -18 : -105,
-                                        y: isMobile ? 24 : 14,
+                                        x:
+                                            isMobile
+                                                ? -34
+                                                : -105,
 
-                                        scale: isMobile ? 0.975 : 0.955,
+                                        y:
+                                            isMobile
+                                                ? 34
+                                                : 14,
 
-                                        rotation: isMobile ? 0 : -0.65,
+                                        scale:
+                                            isMobile
+                                                ? 0.968
+                                                : 0.955,
 
-                                        filter: revealFilter(14),
+                                        rotation:
+                                            isMobile
+                                                ? -0.45
+                                                : -0.65,
 
-                                        transformOrigin: '50% 50%',
+                                        filter:
+                                            revealFilter(14),
+
+                                        transformOrigin:
+                                            '50% 50%',
 
                                         willChange:
                                             panelWillChange
@@ -5575,16 +5612,31 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? 18 : 105,
-                                        y: isMobile ? 28 : -8,
+                                        x:
+                                            isMobile
+                                                ? 34
+                                                : 105,
 
-                                        scale: isMobile ? 0.975 : 0.955,
+                                        y:
+                                            isMobile
+                                                ? 38
+                                                : -8,
 
-                                        rotation: isMobile ? 0 : 0.65,
+                                        scale:
+                                            isMobile
+                                                ? 0.968
+                                                : 0.955,
 
-                                        filter: revealFilter(14),
+                                        rotation:
+                                            isMobile
+                                                ? 0.45
+                                                : 0.65,
 
-                                        transformOrigin: '50% 50%',
+                                        filter:
+                                            revealFilter(14),
+
+                                        transformOrigin:
+                                            '50% 50%',
 
                                         willChange:
                                             panelWillChange
@@ -5601,19 +5653,31 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? -16 : -62,
-                                        y: isMobile ? 30 : 72,
+                                        x:
+                                            isMobile
+                                                ? -26
+                                                : -62,
 
-                                        scale: isMobile ? 0.978 : 0.96,
+                                        y:
+                                            isMobile
+                                                ? 42
+                                                : 72,
+
+                                        scale:
+                                            isMobile
+                                                ? 0.97
+                                                : 0.96,
 
                                         rotation:
                                             isMobile
-                                                ? 0
+                                                ? -0.32
                                                 : -0.4,
 
-                                        filter: revealFilter(12),
+                                        filter:
+                                            revealFilter(12),
 
-                                        transformOrigin: '50% 50%',
+                                        transformOrigin:
+                                            '50% 50%',
 
                                         willChange:
                                             panelWillChange
@@ -5630,19 +5694,31 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? 16 : 72,
-                                        y: isMobile ? 32 : 66,
+                                        x:
+                                            isMobile
+                                                ? 26
+                                                : 72,
 
-                                        scale: isMobile ? 0.978 : 0.96,
+                                        y:
+                                            isMobile
+                                                ? 44
+                                                : 66,
+
+                                        scale:
+                                            isMobile
+                                                ? 0.97
+                                                : 0.96,
 
                                         rotation:
                                             isMobile
-                                                ? 0
+                                                ? 0.32
                                                 : 0.4,
 
-                                        filter: revealFilter(12),
+                                        filter:
+                                            revealFilter(12),
 
-                                        transformOrigin: '50% 50%',
+                                        transformOrigin:
+                                            '50% 50%',
 
                                         willChange:
                                             panelWillChange
@@ -5659,13 +5735,21 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        y: isMobile ? 38 : 96,
+                                        y:
+                                            isMobile
+                                                ? 52
+                                                : 96,
 
-                                        scale: isMobile ? 0.98 : 0.965,
+                                        scale:
+                                            isMobile
+                                                ? 0.972
+                                                : 0.965,
 
-                                        filter: revealFilter(14),
+                                        filter:
+                                            revealFilter(14),
 
-                                        transformOrigin: '50% 50%',
+                                        transformOrigin:
+                                            '50% 50%',
 
                                         willChange:
                                             panelWillChange
@@ -5703,7 +5787,10 @@ and (
                                          * Trigger once the heading/card system
                                          * enters the lower quarter of viewport.
                                          */
-                                        start: 'top 76%',
+                                        start:
+                                            isMobile
+                                                ? 'top 86%'
+                                                : 'top 76%',
 
                                         once: true,
 
@@ -9694,8 +9781,19 @@ and (
                                     profileHeading,
                                     {
                                         autoAlpha: 0,
-                                        y: 22,
-                                        filter: revealFilter(9)
+
+                                        y:
+                                            isMobile
+                                                ? 30
+                                                : 22,
+
+                                        scale:
+                                            isMobile
+                                                ? 0.985
+                                                : 1,
+
+                                        filter:
+                                            revealFilter(9)
                                     }
                                 );
                             }
@@ -9706,8 +9804,19 @@ and (
                                     origin,
                                     {
                                         autoAlpha: 0,
-                                        y: 18,
-                                        filter: revealFilter(7)
+
+                                        x:
+                                            isMobile
+                                                ? -18
+                                                : 0,
+
+                                        y:
+                                            isMobile
+                                                ? 16
+                                                : 18,
+
+                                        filter:
+                                            revealFilter(7)
                                     }
                                 );
                             }
@@ -9732,8 +9841,19 @@ and (
                                         line,
                                         {
                                             autoAlpha: 0,
-                                            y: 24,
-                                            filter: revealFilter(8)
+
+                                            y:
+                                                isMobile
+                                                    ? 30
+                                                    : 24,
+
+                                            scale:
+                                                isMobile
+                                                    ? 0.992
+                                                    : 1,
+
+                                            filter:
+                                                revealFilter(8)
                                         }
                                     );
 
@@ -9746,8 +9866,14 @@ and (
                                     body,
                                     {
                                         autoAlpha: 0,
-                                        y: 18,
-                                        filter: revealFilter(7)
+
+                                        y:
+                                            isMobile
+                                                ? 24
+                                                : 18,
+
+                                        filter:
+                                            revealFilter(7)
                                     }
                                 );
                             }
@@ -9762,7 +9888,12 @@ and (
 
                                     scrollTrigger: {
                                         trigger: profile,
-                                        start: 'top 78%',
+
+                                        start:
+                                            isMobile
+                                                ? 'top 86%'
+                                                : 'top 78%',
+
                                         once: true
                                     }
 
@@ -9775,8 +9906,15 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: settledFilter,
-                                        duration: 1
+                                        scale: 1,
+
+                                        filter:
+                                            settledFilter,
+
+                                        duration:
+                                            isMobile
+                                                ? 0.82
+                                                : 1
                                     }
                                 );
                             }
@@ -9787,9 +9925,16 @@ and (
                                     origin,
                                     {
                                         autoAlpha: 1,
+                                        x: 0,
                                         y: 0,
-                                        filter: settledFilter,
-                                        duration: 0.95
+
+                                        filter:
+                                            settledFilter,
+
+                                        duration:
+                                            isMobile
+                                                ? 0.84
+                                                : 0.95
                                     },
                                     '-=0.55'
                                 );
@@ -9815,9 +9960,20 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: settledFilter,
-                                        duration: 1.05,
-                                        stagger: 0.10
+                                        scale: 1,
+
+                                        filter:
+                                            settledFilter,
+
+                                        duration:
+                                            isMobile
+                                                ? 0.92
+                                                : 1.05,
+
+                                        stagger:
+                                            isMobile
+                                                ? 0.14
+                                                : 0.10
                                     },
                                     '-=0.72'
                                 );
@@ -9830,8 +9986,14 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: settledFilter,
-                                        duration: 1.05
+
+                                        filter:
+                                            settledFilter,
+
+                                        duration:
+                                            isMobile
+                                                ? 0.9
+                                                : 1.05
                                     },
                                     '-=0.62'
                                 );
@@ -10160,12 +10322,12 @@ and (
 
                                                     y:
                                                         isMobile
-                                                            ? 18
+                                                            ? 28
                                                             : 28,
 
                                                     scale:
                                                         isMobile
-                                                            ? 0.994
+                                                            ? 0.986
                                                             : 0.988,
 
                                                     filter:
@@ -10219,12 +10381,12 @@ and (
 
                                                 duration:
                                                     isMobile
-                                                        ? 0.82
+                                                        ? 0.92
                                                         : 1.05,
 
                                                 stagger:
                                                     isMobile
-                                                        ? 0.075
+                                                        ? 0.095
                                                         : 0.11
                                             },
                                             '-=0.48'
@@ -10470,24 +10632,124 @@ and (
             };
 
             const scheduleMotion = () => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        const isMobile =
-                            window.matchMedia('(max-width: 767px)').matches;
 
-                        if ('requestIdleCallback' in window) {
-                            requestIdleCallback(
-                                loadMotionLibraries,
-                                { timeout: isMobile ? 1200 : 800 }
-                            );
-                        } else {
-                            setTimeout(
-                                loadMotionLibraries,
-                                isMobile ? 500 : 280
-                            );
-                        }
-                    });
-                });
+                let motionRequested =
+                    false;
+
+
+                const startMotion = () => {
+
+                    if (motionRequested) {
+                        return;
+                    }
+
+
+                    motionRequested =
+                        true;
+
+
+                    loadMotionLibraries();
+
+                };
+
+
+                requestAnimationFrame(
+                    () => {
+
+                        requestAnimationFrame(
+                            () => {
+
+                                const isMobile =
+                                    window.matchMedia(
+                                        '(max-width: 767px)'
+                                    ).matches;
+
+
+                                if (isMobile) {
+
+                                    /*
+                                     * Heroのfirst paintを先に成立させる。
+                                     * 従来の1200msより早くmotion engineを
+                                     * 裏で準備するが、初回描画はブロックしない。
+                                     */
+                                    if (
+                                        'requestIdleCallback'
+                                        in window
+                                    ) {
+
+                                        requestIdleCallback(
+                                            startMotion,
+                                            {
+                                                timeout:
+                                                    700
+                                            }
+                                        );
+
+                                    } else {
+
+                                        setTimeout(
+                                            startMotion,
+                                            420
+                                        );
+
+                                    }
+
+
+                                    /*
+                                     * ユーザーが先にスクロール／タッチしたら、
+                                     * idle待ちを解除してmotion engineを準備。
+                                     */
+                                    window.addEventListener(
+                                        'scroll',
+                                        startMotion,
+                                        {
+                                            once: true,
+                                            passive: true
+                                        }
+                                    );
+
+
+                                    window.addEventListener(
+                                        'touchstart',
+                                        startMotion,
+                                        {
+                                            once: true,
+                                            passive: true
+                                        }
+                                    );
+
+                                } else {
+
+                                    if (
+                                        'requestIdleCallback'
+                                        in window
+                                    ) {
+
+                                        requestIdleCallback(
+                                            startMotion,
+                                            {
+                                                timeout:
+                                                    800
+                                            }
+                                        );
+
+                                    } else {
+
+                                        setTimeout(
+                                            startMotion,
+                                            280
+                                        );
+
+                                    }
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
             };
 
             if (document.readyState === 'loading') {
