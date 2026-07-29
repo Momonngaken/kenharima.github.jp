@@ -244,200 +244,6 @@ header .mt-6 {
             z-index: 10;
         }
 
-        /* =========================================================
-   MOBILE MOTION LANGUAGE
-   Touch / GPU-first / No expensive blur
-   ========================================================= */
-
-@keyframes khMobileLanguageReveal {
-    from {
-        opacity: 0;
-        transform: translateY(3px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-@media (max-width: 767px), (any-pointer: coarse) {
-
-    /*
-     * ---------------------------------------------------------
-     * 01 — Language transition
-     * blur()を使わず、opacity + translateだけで収束
-     * ---------------------------------------------------------
-     */
-
-    .lang-ja,
-    .lang-en {
-        animation:
-            khMobileLanguageReveal
-            320ms
-            var(--kh-ease)
-            both;
-
-        will-change:
-            opacity,
-            transform;
-    }
-
-
-    /*
-     * ---------------------------------------------------------
-     * 02 — Persistent glassをTouchでは軽量化
-     * 見た目はほぼ維持し、backdrop-filterの常時計算を避ける
-     * ---------------------------------------------------------
-     */
-
-    #menu-toggle,
-    .hero-social-link {
-        -webkit-backdrop-filter:
-            none !important;
-
-        backdrop-filter:
-            none !important;
-    }
-
-
-    #menu-toggle {
-        background:
-            rgba(
-                255,
-                255,
-                255,
-                0.92
-            );
-
-        box-shadow:
-            0 6px 22px
-            rgba(
-                29,
-                29,
-                31,
-                0.055
-            ),
-            inset
-            0 1px 0
-            rgba(
-                255,
-                255,
-                255,
-                0.96
-            );
-    }
-
-
-    /*
-     * Fullscreen menuは開いた時だけ見える。
-     * 40px blurではなく、不透明度で奥行きを作る。
-     */
-
-    #site-menu {
-        -webkit-backdrop-filter:
-            none !important;
-
-        backdrop-filter:
-            none !important;
-
-        background:
-            rgba(
-                250,
-                250,
-                250,
-                0.975
-            );
-    }
-
-
-    /*
-     * ---------------------------------------------------------
-     * 03 — Touch feedback
-     * Hoverの代わりに「押し込む」物理感を付与
-     * ---------------------------------------------------------
-     */
-
-    #experience .exp-item,
-    #development .pd-card,
-    #projects .project-card,
-    .contact-action,
-    .hero-discipline {
-        touch-action:
-            manipulation;
-
-        -webkit-backface-visibility:
-            hidden;
-
-        backface-visibility:
-            hidden;
-    }
-
-
-    #experience .exp-item:active {
-        transform:
-            scale(0.992) !important;
-    }
-
-
-    #experience .exp-item:active
-    .exp-dot {
-        transform:
-            scale(1.14) !important;
-    }
-
-
-    #development .pd-card:active {
-        transform:
-            scale(0.988) !important;
-    }
-
-
-    #projects .project-card:active {
-        transform:
-            scale(0.992) !important;
-    }
-
-
-    #projects .project-card:active
-    .project-action-arrow {
-        transform:
-            translateX(3px);
-    }
-
-
-    .hero-discipline:active {
-        color:
-            var(--kh-blue);
-
-        transform:
-            translateY(-1px);
-    }
-
-
-    .contact-action:active {
-        transform:
-            scale(0.985);
-    }
-
-
-    /*
-     * ---------------------------------------------------------
-     * 04 — Offscreen rendering
-     * 下方セクションを必要になるまで描画しない
-     * ---------------------------------------------------------
-     */
-
-    .cv-auto {
-        content-visibility:
-            auto;
-
-        contain-intrinsic-size:
-            auto 720px;
-    }
-}
-
         /* モーション軽減 (prefers-reduced-motion) 対応 */
         @media (prefers-reduced-motion: reduce) {
             .hero-portrait {
@@ -3246,11 +3052,6 @@ and (
                             return;
                         }
 
-                        const isMobile =
-    window.matchMedia(
-        '(max-width: 767px)'
-    ).matches;
-
 
                         /*
                          * Existing site loads GSAP + ScrollTrigger
@@ -3341,23 +3142,15 @@ and (
                             gsap.set(
                                 heading,
                                 {
-    autoAlpha: 0,
+                                    autoAlpha: 0,
 
-    y:
-        isMobile
-            ? 16
-            : 24,
+                                    y: 24,
 
-    filter:
-        isMobile
-            ? 'none'
-            : 'blur(10px)',
+                                    filter: 'blur(10px)',
 
-    willChange:
-        isMobile
-            ? 'transform, opacity'
-            : 'transform, opacity, filter'
-}
+                                    willChange:
+                                        'transform, opacity, filter'
+                                }
                             );
 
                         }
@@ -3389,31 +3182,20 @@ and (
                                 gsap.set(
                                     item,
                                     {
-    autoAlpha: 0,
+                                        autoAlpha: 0,
 
-    y:
-        isMobile
-            ? 18
-            : 28,
+                                        y: 28,
 
-    scale:
-        isMobile
-            ? 0.994
-            : 0.988,
+                                        scale: 0.988,
 
-    filter:
-        isMobile
-            ? 'none'
-            : 'blur(8px)',
+                                        filter: 'blur(8px)',
 
-    transformOrigin:
-        '50% 50%',
+                                        transformOrigin:
+                                            '50% 50%',
 
-    willChange:
-        isMobile
-            ? 'transform, opacity'
-            : 'transform, opacity, filter'
-}
+                                        willChange:
+                                            'transform, opacity, filter'
+                                    }
                                 );
 
                             }
@@ -3496,15 +3278,9 @@ and (
 
                                     y: 0,
 
-                                    filter:
-    isMobile
-        ? 'none'
-        : 'blur(0px)',
+                                    filter: 'blur(0px)',
 
-duration:
-    isMobile
-        ? 0.72
-        : 1.0
+                                    duration: 1.0
                                 }
                             );
 
