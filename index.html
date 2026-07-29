@@ -1942,6 +1942,201 @@ and (
             }
         }
 
+        /* =========================================================
+           MOBILE MOTION LANGUAGE
+           Touch / GPU-first / No expensive blur
+           ========================================================= */
+
+        @keyframes khMobileLanguageReveal {
+            from {
+                opacity: 0;
+                transform: translateY(3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @media (max-width: 767px), (any-pointer: coarse) {
+
+            /*
+             * ---------------------------------------------------------
+             * 01 — Language transition
+             * blur()を使わず、opacity + translateだけで収束
+             * ---------------------------------------------------------
+             */
+
+            .lang-ja,
+            .lang-en {
+                animation:
+                    khMobileLanguageReveal
+                    320ms
+                    var(--kh-ease)
+                    both;
+
+                will-change:
+                    opacity,
+                    transform;
+            }
+
+
+            /*
+             * ---------------------------------------------------------
+             * 02 — Persistent glassをTouchでは軽量化
+             * 見た目はほぼ維持し、backdrop-filterの常時計算を避ける
+             * ---------------------------------------------------------
+             */
+
+            #menu-toggle,
+            .hero-social-link {
+                -webkit-backdrop-filter:
+                    none !important;
+
+                backdrop-filter:
+                    none !important;
+            }
+
+
+            #menu-toggle {
+                background:
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.92
+                    );
+
+                box-shadow:
+                    0 6px 22px
+                    rgba(
+                        29,
+                        29,
+                        31,
+                        0.055
+                    ),
+                    inset
+                    0 1px 0
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.96
+                    );
+            }
+
+
+            /*
+             * Fullscreen menuは開いた時だけ見える。
+             * 40px blurではなく、不透明度で奥行きを作る。
+             */
+
+            #site-menu {
+                -webkit-backdrop-filter:
+                    none !important;
+
+                backdrop-filter:
+                    none !important;
+
+                background:
+                    rgba(
+                        250,
+                        250,
+                        250,
+                        0.975
+                    );
+            }
+
+
+            /*
+             * ---------------------------------------------------------
+             * 03 — Touch feedback
+             * Hoverの代わりに「押し込む」物理感を付与
+             * ---------------------------------------------------------
+             */
+
+            #experience .exp-item,
+            #development .pd-card,
+            #projects .project-card,
+            .contact-action,
+            .hero-discipline {
+                touch-action:
+                    manipulation;
+
+                -webkit-backface-visibility:
+                    hidden;
+
+                backface-visibility:
+                    hidden;
+            }
+
+
+            #experience .exp-item:active {
+                transform:
+                    scale(0.992) !important;
+            }
+
+
+            #experience .exp-item:active
+            .exp-dot {
+                transform:
+                    scale(1.14) !important;
+            }
+
+
+            #development .pd-card:active {
+                transform:
+                    scale(0.988) !important;
+            }
+
+
+            #projects .project-card:active {
+                transform:
+                    scale(0.992) !important;
+            }
+
+
+            #projects .project-card:active
+            .project-action-arrow {
+                transform:
+                    translateX(3px);
+            }
+
+
+            .hero-discipline:active {
+                color:
+                    var(--kh-blue);
+
+                transform:
+                    translateY(-1px);
+            }
+
+
+            .contact-action:active {
+                transform:
+                    scale(0.985);
+            }
+
+
+            /*
+             * ---------------------------------------------------------
+             * 04 — Offscreen rendering
+             * 下方セクションを必要になるまで描画しない
+             * ---------------------------------------------------------
+             */
+
+            .cv-auto {
+                content-visibility:
+                    auto;
+
+                contain-intrinsic-size:
+                    auto 720px;
+            }
+        }
+
+
         @media (prefers-reduced-motion: reduce) {
             .hero-reveal {
                 opacity: 1 !important;
@@ -3040,6 +3235,12 @@ and (
                             ).matches;
 
 
+                        const isMobile =
+                            window.matchMedia(
+                                '(max-width: 767px)'
+                            ).matches;
+
+
                         /*
                          * Accessibility
                          */
@@ -3144,12 +3345,20 @@ and (
                                 {
                                     autoAlpha: 0,
 
-                                    y: 24,
+                                    y:
+                                        isMobile
+                                            ? 16
+                                            : 24,
 
-                                    filter: 'blur(10px)',
+                                    filter:
+                                        isMobile
+                                            ? 'none'
+                                            : 'blur(10px)',
 
                                     willChange:
-                                        'transform, opacity, filter'
+                                        isMobile
+                                            ? 'transform, opacity'
+                                            : 'transform, opacity, filter'
                                 }
                             );
 
@@ -3184,17 +3393,28 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        y: 28,
+                                        y:
+                                            isMobile
+                                                ? 18
+                                                : 28,
 
-                                        scale: 0.988,
+                                        scale:
+                                            isMobile
+                                                ? 0.994
+                                                : 0.988,
 
-                                        filter: 'blur(8px)',
+                                        filter:
+                                            isMobile
+                                                ? 'none'
+                                                : 'blur(8px)',
 
                                         transformOrigin:
                                             '50% 50%',
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            isMobile
+                                                ? 'transform, opacity'
+                                                : 'transform, opacity, filter'
                                     }
                                 );
 
@@ -3278,9 +3498,15 @@ and (
 
                                     y: 0,
 
-                                    filter: 'blur(0px)',
+                                    filter:
+                                        isMobile
+                                            ? 'none'
+                                            : 'blur(0px)',
 
-                                    duration: 1.0
+                                    duration:
+                                        isMobile
+                                            ? 0.72
+                                            : 1.0
                                 }
                             );
 
@@ -3329,11 +3555,20 @@ and (
 
                                     scale: 1,
 
-                                    filter: 'blur(0px)',
+                                    filter:
+                                        isMobile
+                                            ? 'none'
+                                            : 'blur(0px)',
 
-                                    duration: 1.05,
+                                    duration:
+                                        isMobile
+                                            ? 0.82
+                                            : 1.05,
 
-                                    stagger: 0.16,
+                                    stagger:
+                                        isMobile
+                                            ? 0.12
+                                            : 0.16,
 
                                     ease: 'power4.out'
                                 },
@@ -5223,6 +5458,24 @@ and (
                                 ).matches;
 
 
+                            const revealFilter = (amount) =>
+                                isMobile
+                                    ? 'none'
+                                    : `blur(${amount}px)`;
+
+
+                            const settledFilter =
+                                isMobile
+                                    ? 'none'
+                                    : 'blur(0px)';
+
+
+                            const panelWillChange =
+                                isMobile
+                                    ? 'transform, opacity'
+                                    : 'transform, opacity, filter';
+
+
                             /* =================================================
                                INITIAL STATES
                                ================================================= */
@@ -5237,10 +5490,10 @@ and (
 
                                         y: 24,
 
-                                        filter: 'blur(10px)',
+                                        filter: revealFilter(10),
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            panelWillChange
                                     }
                                 );
 
@@ -5266,19 +5519,19 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? -28 : -105,
-                                        y: isMobile ? 35 : 14,
+                                        x: isMobile ? -18 : -105,
+                                        y: isMobile ? 24 : 14,
 
-                                        scale: 0.955,
+                                        scale: isMobile ? 0.975 : 0.955,
 
                                         rotation: isMobile ? 0 : -0.65,
 
-                                        filter: 'blur(14px)',
+                                        filter: revealFilter(14),
 
                                         transformOrigin: '50% 50%',
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            panelWillChange
                                     }
                                 );
 
@@ -5292,19 +5545,19 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? 28 : 105,
-                                        y: isMobile ? 42 : -8,
+                                        x: isMobile ? 18 : 105,
+                                        y: isMobile ? 28 : -8,
 
-                                        scale: 0.955,
+                                        scale: isMobile ? 0.975 : 0.955,
 
                                         rotation: isMobile ? 0 : 0.65,
 
-                                        filter: 'blur(14px)',
+                                        filter: revealFilter(14),
 
                                         transformOrigin: '50% 50%',
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            panelWillChange
                                     }
                                 );
 
@@ -5318,22 +5571,22 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? -22 : -62,
-                                        y: isMobile ? 48 : 72,
+                                        x: isMobile ? -16 : -62,
+                                        y: isMobile ? 30 : 72,
 
-                                        scale: 0.96,
+                                        scale: isMobile ? 0.978 : 0.96,
 
                                         rotation:
                                             isMobile
                                                 ? 0
                                                 : -0.4,
 
-                                        filter: 'blur(12px)',
+                                        filter: revealFilter(12),
 
                                         transformOrigin: '50% 50%',
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            panelWillChange
                                     }
                                 );
 
@@ -5347,22 +5600,22 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        x: isMobile ? 22 : 72,
-                                        y: isMobile ? 52 : 66,
+                                        x: isMobile ? 16 : 72,
+                                        y: isMobile ? 32 : 66,
 
-                                        scale: 0.96,
+                                        scale: isMobile ? 0.978 : 0.96,
 
                                         rotation:
                                             isMobile
                                                 ? 0
                                                 : 0.4,
 
-                                        filter: 'blur(12px)',
+                                        filter: revealFilter(12),
 
                                         transformOrigin: '50% 50%',
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            panelWillChange
                                     }
                                 );
 
@@ -5376,16 +5629,16 @@ and (
                                     {
                                         autoAlpha: 0,
 
-                                        y: isMobile ? 58 : 96,
+                                        y: isMobile ? 38 : 96,
 
-                                        scale: 0.965,
+                                        scale: isMobile ? 0.98 : 0.965,
 
-                                        filter: 'blur(14px)',
+                                        filter: revealFilter(14),
 
                                         transformOrigin: '50% 50%',
 
                                         willChange:
-                                            'transform, opacity, filter'
+                                            panelWillChange
                                     }
                                 );
 
@@ -5445,7 +5698,7 @@ and (
 
                                         y: 0,
 
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
 
                                         duration: 1.0
                                     }
@@ -5473,7 +5726,7 @@ and (
                                         scale: 1,
                                         rotation: 0,
 
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
 
                                         duration: 1.42
                                     },
@@ -5497,7 +5750,7 @@ and (
                                         scale: 1,
                                         rotation: 0,
 
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
 
                                         duration: 1.40
                                     },
@@ -5527,7 +5780,7 @@ and (
                                         scale: 1,
                                         rotation: 0,
 
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
 
                                         duration: 1.26
                                     },
@@ -5551,7 +5804,7 @@ and (
                                         scale: 1,
                                         rotation: 0,
 
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
 
                                         duration: 1.28
                                     },
@@ -5579,7 +5832,7 @@ and (
 
                                         scale: 1,
 
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
 
                                         duration: 1.42
                                     },
@@ -9346,6 +9599,24 @@ and (
                         );
 
 
+                        const isMobile =
+                            window.matchMedia(
+                                '(max-width: 767px)'
+                            ).matches;
+
+
+                        const revealFilter = (amount) =>
+                            isMobile
+                                ? 'none'
+                                : `blur(${amount}px)`;
+
+
+                        const settledFilter =
+                            isMobile
+                                ? 'none'
+                                : 'blur(0px)';
+
+
                         /* =================================================
                            PROFILE
                            Reading Reveal
@@ -9394,7 +9665,7 @@ and (
                                     {
                                         autoAlpha: 0,
                                         y: 22,
-                                        filter: 'blur(9px)'
+                                        filter: revealFilter(9)
                                     }
                                 );
                             }
@@ -9406,7 +9677,7 @@ and (
                                     {
                                         autoAlpha: 0,
                                         y: 18,
-                                        filter: 'blur(7px)'
+                                        filter: revealFilter(7)
                                     }
                                 );
                             }
@@ -9432,7 +9703,7 @@ and (
                                         {
                                             autoAlpha: 0,
                                             y: 24,
-                                            filter: 'blur(8px)'
+                                            filter: revealFilter(8)
                                         }
                                     );
 
@@ -9446,7 +9717,7 @@ and (
                                     {
                                         autoAlpha: 0,
                                         y: 18,
-                                        filter: 'blur(7px)'
+                                        filter: revealFilter(7)
                                     }
                                 );
                             }
@@ -9474,7 +9745,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1
                                     }
                                 );
@@ -9487,7 +9758,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 0.95
                                     },
                                     '-=0.55'
@@ -9514,7 +9785,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1.05,
                                         stagger: 0.10
                                     },
@@ -9529,7 +9800,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1.05
                                     },
                                     '-=0.62'
@@ -9598,7 +9869,7 @@ and (
                                         autoAlpha: 0,
                                         y: 46,
                                         scale: 0.982,
-                                        filter: 'blur(13px)'
+                                        filter: revealFilter(13)
                                     }
                                 );
                             }
@@ -9620,7 +9891,7 @@ and (
                                         {
                                             autoAlpha: 0,
                                             y: 24,
-                                            filter: 'blur(8px)'
+                                            filter: revealFilter(8)
                                         }
                                     );
 
@@ -9636,7 +9907,7 @@ and (
                                         {
                                             autoAlpha: 0,
                                             y: 26,
-                                            filter: 'blur(9px)'
+                                            filter: revealFilter(9)
                                         }
                                     );
 
@@ -9667,7 +9938,7 @@ and (
                                         autoAlpha: 1,
                                         y: 0,
                                         scale: 1,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1.45
                                     }
                                 );
@@ -9680,7 +9951,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 0.8
                                     },
                                     '-=1.04'
@@ -9694,7 +9965,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1.12
                                     },
                                     '-=0.62'
@@ -9708,7 +9979,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 0.95
                                     },
                                     '-=0.58'
@@ -9722,7 +9993,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1.05
                                     },
                                     '-=0.78'
@@ -9736,7 +10007,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1,
                                         stagger: 0.13
                                     },
@@ -9751,7 +10022,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 0.9
                                     },
                                     '-=0.45'
@@ -9788,7 +10059,7 @@ and (
                                     {
                                         autoAlpha: 0,
                                         y: 22,
-                                        filter: 'blur(9px)'
+                                        filter: revealFilter(9)
                                     }
                                 );
 
@@ -9798,7 +10069,7 @@ and (
                                     {
                                         autoAlpha: 1,
                                         y: 0,
-                                        filter: 'blur(0px)',
+                                        filter: settledFilter,
                                         duration: 1,
                                         ease: 'power4.out',
 
@@ -9843,7 +10114,7 @@ and (
                                             {
                                                 autoAlpha: 0,
                                                 y: 18,
-                                                filter: 'blur(6px)'
+                                                filter: revealFilter(6)
                                             }
                                         );
                                     }
@@ -9856,9 +10127,19 @@ and (
                                                 card,
                                                 {
                                                     autoAlpha: 0,
-                                                    y: 28,
-                                                    scale: 0.988,
-                                                    filter: 'blur(8px)'
+
+                                                    y:
+                                                        isMobile
+                                                            ? 18
+                                                            : 28,
+
+                                                    scale:
+                                                        isMobile
+                                                            ? 0.994
+                                                            : 0.988,
+
+                                                    filter:
+                                                        revealFilter(8)
                                                 }
                                             );
 
@@ -9888,7 +10169,7 @@ and (
                                             {
                                                 autoAlpha: 1,
                                                 y: 0,
-                                                filter: 'blur(0px)',
+                                                filter: settledFilter,
                                                 duration: 0.85
                                             }
                                         );
@@ -9902,9 +10183,19 @@ and (
                                                 autoAlpha: 1,
                                                 y: 0,
                                                 scale: 1,
-                                                filter: 'blur(0px)',
-                                                duration: 1.05,
-                                                stagger: 0.11
+
+                                                filter:
+                                                    settledFilter,
+
+                                                duration:
+                                                    isMobile
+                                                        ? 0.82
+                                                        : 1.05,
+
+                                                stagger:
+                                                    isMobile
+                                                        ? 0.075
+                                                        : 0.11
                                             },
                                             '-=0.48'
                                         );
@@ -10352,22 +10643,71 @@ if (photo) {
 
             // Priority 2: Visuals (Defer to Idle with 4G Network Fallback)
             const initVisuals = () => {
-                // 4G回線で外部スクリプトの到着が遅延している場合は、100ms後に自己再帰して優雅に待機する
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
+                // GSAP / ScrollTriggerだけを必須にし、LenisはDesktop fine-pointer時のみ利用する
+                if (
+                    typeof gsap === 'undefined' ||
+                    typeof ScrollTrigger === 'undefined'
+                ) {
                     setTimeout(initVisuals, 100);
                     return;
                 }
-                
-                const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
 
-gsap.registerPlugin(ScrollTrigger);
 
-// 改善: GSAPのTickerにLenisを同期し、ScrollTriggerの無駄な毎フレーム更新を防ぐ
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time)=>{
-    lenis.raf(time * 1000)
-});
-gsap.ticker.lagSmoothing(0);
+                gsap.registerPlugin(ScrollTrigger);
+
+
+                const canUseSmoothScroll =
+                    window.matchMedia(
+                        '(min-width: 768px) and (hover: hover) and (pointer: fine)'
+                    ).matches;
+
+
+                if (
+                    canUseSmoothScroll &&
+                    typeof Lenis !== 'undefined'
+                ) {
+
+                    window.lenis =
+                        new Lenis({
+
+                            duration: 1.2,
+
+                            easing: (t) =>
+                                Math.min(
+                                    1,
+                                    1.001 -
+                                    Math.pow(
+                                        2,
+                                        -10 * t
+                                    )
+                                ),
+
+                            smooth: true
+                        });
+
+
+                    window.lenis.on(
+                        'scroll',
+                        ScrollTrigger.update
+                    );
+
+
+                    gsap.ticker.add(
+                        (time) => {
+
+                            window.lenis.raf(
+                                time * 1000
+                            );
+
+                        }
+                    );
+
+
+                    gsap.ticker.lagSmoothing(
+                        0
+                    );
+                }
+
                 gsap.utils.toArray('.fade-in').forEach(section => {
                     gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
