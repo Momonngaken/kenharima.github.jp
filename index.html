@@ -1482,14 +1482,7 @@ and (
             color: #c5c5ca;
             font-weight: 400;
         }
-
-        @media (hover: hover) and (pointer: fine) {
-            .hero-discipline:hover {
-                color: var(--kh-blue);
-                transform: translateY(-1px);
-            }
-        }
-
+        
         .hero-actions {
             display: flex;
             align-items: center;
@@ -1886,6 +1879,25 @@ and (
             .hero-discipline:not(:last-child)::after {
                 display: none;
             }
+
+            /*
+ * 5 disciplines / mobile
+ *
+ * Narrative Design | Philosophy & Ethics
+ * Sociology        | Strategy
+ *           Game Theory
+ */
+.hero-discipline:last-child {
+    grid-column: 1 / -1;
+
+    justify-content: center;
+
+    padding-left: 0;
+    padding-right: 0;
+
+    border-left: 0;
+    border-bottom: 0;
+}
 
             .hero-actions {
                 flex-direction: column;
@@ -2595,23 +2607,31 @@ and (
                     </div>
 
                     <div class="hero-discipline-list">
-                        <a href="#narrative" class="hero-discipline js-equation-link" data-target="narrative">
-                            <span class="lang-ja">ナラティブ設計</span>
-                            <span class="lang-en">Narrative Design</span>
-                        </a>
-                        <a href="#narrative" class="hero-discipline js-equation-link" data-target="narrative">
-                            <span class="lang-ja">哲学・倫理学</span>
-                            <span class="lang-en">Philosophy &amp; Ethics</span>
-                        </a>
-                        <a href="#strategy" class="hero-discipline js-equation-link" data-target="strategy">
-                            <span class="lang-ja">戦略</span>
-                            <span class="lang-en">Strategy</span>
-                        </a>
-                        <a href="#decision" class="hero-discipline js-equation-link" data-target="decision">
-                            <span class="lang-ja">ゲーム理論</span>
-                            <span class="lang-en">Game Theory</span>
-                        </a>
-                    </div>
+    <span class="hero-discipline">
+        <span class="lang-ja">ナラティブ設計</span>
+        <span class="lang-en">Narrative Design</span>
+    </span>
+
+    <span class="hero-discipline">
+        <span class="lang-ja">哲学・倫理学</span>
+        <span class="lang-en">Philosophy &amp; Ethics</span>
+    </span>
+
+    <span class="hero-discipline">
+        <span class="lang-ja">社会学</span>
+        <span class="lang-en">Sociology</span>
+    </span>
+
+    <span class="hero-discipline">
+        <span class="lang-ja">戦略</span>
+        <span class="lang-en">Strategy</span>
+    </span>
+
+    <span class="hero-discipline">
+        <span class="lang-ja">ゲーム理論</span>
+        <span class="lang-en">Game Theory</span>
+    </span>
+</div>
                 </div>
 
                 <div class="hero-actions hero-reveal hero-reveal-4">
@@ -12392,60 +12412,6 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 });
             }
             // ▲▲▲ APPLE-LIKE FULLSCREEN MENU LOGIC ▲▲▲
-            // ↑↑↑ここまで貼り付け↑↑↑
-            // ▼▼▼ The Strength Equation (Equation Bar) Interaction ▼▼▼
-            const equationLinks = document.querySelectorAll('.js-equation-link');
-            equationLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('data-target');
-                    const targetEl = document.getElementById(targetId);
-                    const glowColor = link.getAttribute('data-color-glow');
-
-                    if (targetEl) {
-                        // 1. URLの履歴を汚さずにハッシュを更新
-                        history.replaceState(null, null, `#${targetId}`);
-
-                        // 2. Lenis スムーススクロール (フォールバック完備)
-                        if (typeof lenis !== 'undefined') {
-                            lenis.scrollTo(targetEl, { offset: -100, duration: 1.2 });
-                        } else {
-                            const y = targetEl.getBoundingClientRect().top + window.scrollY - 100;
-                            window.scrollTo({ top: y, behavior: 'smooth' });
-                        }
-
-                        // 3. Cinematic Feedback (光と触感の演出)
-                        if(typeof gsap !== 'undefined') {
-                            // ターゲット要素（飛んだ先のカードや見出し）が光る
-                            gsap.fromTo(targetEl, 
-                                { boxShadow: '0 0 0px rgba(0,0,0,0)' }, 
-                                { 
-                                    boxShadow: `0 0 40px ${glowColor}`, 
-                                    duration: 0.6, 
-                                    yoyo: true, 
-                                    repeat: 1, 
-                                    ease: "power2.out" 
-                                }
-                            );
-                            
-                            // タップしたボタン自体のiOSライクな触感フィードバック（凹んで戻る）
-                            gsap.to(link, {
-                                scale: 0.95,
-                                duration: 0.1,
-                                ease: "power1.out",
-                                onComplete: () => {
-                                    gsap.to(link, {
-                                        scale: 1,
-                                        duration: 0.4,
-                                        ease: "elastic.out(1, 0.5)"
-                                    });
-                                }
-                            });
-                        }
-                    }
-                });
-            });
-            // ▲▲▲ The Strength Equation Interaction ここまで ▲▲▲
         });
     </script>
     <!-- Cloudflare Web Analytics: post-load / idle only -->
