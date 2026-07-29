@@ -2,428 +2,1215 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">　
-    <title>Contact - Ken Harima Official</title>
-    <link rel="stylesheet" href="./output.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Sans+JP:wght@400;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+    <title>Contact | Ken Harima Official</title>
+    <meta
+        name="description"
+        content="播磨賢（Ken Harima）へのお問い合わせ。採用・スカウト、カジュアル面談、共同プロジェクト、執筆に関するご連絡を受け付けています。"
+    >
+    <link rel="canonical" href="https://kenharima.com/contact.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kenharima.com/contact.html">
+    <meta property="og:title" content="Contact | Ken Harima Official">
+    <meta
+        property="og:description"
+        content="採用・スカウト、カジュアル面談、共同プロジェクト、執筆に関するご連絡を受け付けています。"
+    >
+
     <style>
-        /* 極限のAppleライク・タイポグラフィ統一 */
-        body, .font-display, h1, h2, h3, h4, h5, p, span, input, textarea, button, a, label {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif !important;
-        }
-        h1, h2, h3 {
-            letter-spacing: -0.035em !important;
-        }
-        
-        body { color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-
-        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
-
-        /* Cinematic Animations */
-        .smart-reveal {
-            animation: smartReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-        }
-        @keyframes smartReveal {
-            0% { opacity: 0; transform: translateY(15px) scale(0.98); filter: blur(12px); }
-            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        :root {
+            --bg: #f5f5f2;
+            --surface: rgba(255, 255, 255, 0.86);
+            --surface-solid: #ffffff;
+            --ink: #1d1d1f;
+            --muted: #6e6e73;
+            --faint: #a1a1a6;
+            --line: rgba(29, 29, 31, 0.11);
+            --line-strong: rgba(29, 29, 31, 0.18);
+            --blue: #0066cc;
+            --blue-dark: #004f9f;
+            --danger: #b42318;
+            --success: #197a4a;
+            --radius-lg: 32px;
+            --radius-md: 18px;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            color-scheme: light;
         }
 
-        
-        
-        /* Disable Chrome Autofill Background */
-        input:-webkit-autofill, textarea:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.8) inset !important;
-            -webkit-text-fill-color: #0f172a !important;
-            transition: background-color 5000s ease-in-out 0s;
+        * {
+            box-sizing: border-box;
         }
 
-        /* Language Switching Logic */
-        html:not(.is-global) .lang-en { display: none !important; }
-        html.is-global .lang-ja { display: none !important; }
-
-        /* =========================================
-           Brand Signature (Ken HARIMA)
-           ========================================= */
-        .brand-signature,
-        .brand-signature span {
-            font-family: "Lora", Georgia, "Times New Roman", serif !important;
+        html {
+            background: var(--bg);
+            scroll-behavior: smooth;
         }
 
-        .brand-signature {
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 16% 0%, rgba(255,255,255,0.95), transparent 34%),
+                linear-gradient(180deg, #fafafa 0%, var(--bg) 42%, #f2f2ee 100%);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Text",
+                "SF Pro Display",
+                "Helvetica Neue",
+                "Hiragino Sans",
+                "Hiragino Kaku Gothic ProN",
+                "Yu Gothic",
+                "Noto Sans JP",
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .lang-ja,
+        .lang-en {
+            animation: language-reveal 360ms var(--ease) both;
+        }
+
+        html:not(.is-global) .lang-en {
+            display: none !important;
+        }
+
+        html.is-global .lang-ja {
+            display: none !important;
+        }
+
+        @keyframes language-reveal {
+            from {
+                opacity: 0;
+                transform: translateY(3px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid rgba(29, 29, 31, 0.07);
+            background: rgba(245, 245, 242, 0.82);
+            backdrop-filter: blur(18px) saturate(130%);
+            -webkit-backdrop-filter: blur(18px) saturate(130%);
+        }
+
+        .header-inner {
+            width: min(100% - 40px, 1180px);
+            min-height: 72px;
+            margin-inline: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
             display: inline-flex;
             align-items: baseline;
-            flex-shrink: 0;
             white-space: nowrap;
-            color: #1d1d1f;
-            line-height: 1;
             text-decoration: none;
-            cursor: pointer;
-            position: relative;
-            transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1),
-                        color 350ms cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 280ms ease;
         }
 
-        /* ユーザー体験の極限化：不可視のタップ領域を44pxに拡張 */
-        .brand-signature::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: calc(100% + 24px);
-            height: 44px;
-            z-index: 10;
-        }
-
-        .brand-signature:hover {
+        .brand:hover {
             opacity: 0.58;
         }
 
-        .brand-signature:focus-visible {
-            outline: 2px solid rgba(15, 60, 133, 0.45);
-            outline-offset: 5px;
-            border-radius: 9999px;
+        .brand:focus-visible,
+        .header-link:focus-visible,
+        .language-button:focus-visible,
+        .privacy-link:focus-visible,
+        .submit-button:focus-visible {
+            outline: 2px solid rgba(0, 102, 204, 0.46);
+            outline-offset: 4px;
         }
 
-        .brand-signature__first {
+        .brand-first {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 16px;
             font-style: italic;
             font-weight: 500;
-            font-size: 14px;
-            letter-spacing: 0.01em;
         }
 
-        .brand-signature__last {
-            font-style: normal;
-            font-weight: 600;
+        .brand-last {
+            margin-left: 0.34em;
             font-size: 13px;
-            letter-spacing: 0.10em;
-            margin-left: 0.32em;
+            font-weight: 700;
+            letter-spacing: 0.12em;
         }
 
-        /* Apple-like Success Animation */
-        .success-circle {
-            stroke-dasharray: 151px;
-            stroke-dashoffset: 151px;
-            transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
         }
-        .success-check {
-            stroke-dasharray: 36px;
-            stroke-dashoffset: 36px;
-            transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
+
+        .header-link {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 240ms ease;
         }
-        #success-message.is-visible .success-circle,
-        #success-message.is-visible .success-check {
-            stroke-dashoffset: 0;
+
+        .header-link:hover {
+            color: var(--ink);
         }
-        
+
+        .language-switch {
+            display: inline-flex;
+            padding: 3px;
+            border: 1px solid rgba(29, 29, 31, 0.08);
+            border-radius: 999px;
+            background: rgba(255,255,255,0.56);
+        }
+
+        .language-button {
+            min-width: 38px;
+            height: 30px;
+            padding: 0 10px;
+            border: 0;
+            border-radius: 999px;
+            color: var(--faint);
+            background: transparent;
+            font-size: 10px;
+            font-weight: 750;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition:
+                color 280ms var(--ease),
+                background-color 280ms var(--ease),
+                box-shadow 280ms var(--ease);
+        }
+
+        .language-button[aria-pressed="true"] {
+            color: var(--ink);
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            cursor: default;
+        }
+
+        .page-shell {
+            width: min(100% - 40px, 1180px);
+            margin-inline: auto;
+            padding: clamp(64px, 9vw, 120px) 0 clamp(72px, 10vw, 132px);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(520px, 1.08fr);
+            gap: clamp(56px, 8vw, 112px);
+            align-items: start;
+        }
+
+        .contact-intro {
+            position: sticky;
+            top: 132px;
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 34px;
+            color: var(--faint);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 1px;
+            background: rgba(29,29,31,0.18);
+        }
+
+        .page-title {
+            max-width: 560px;
+            margin: 0;
+            font-size: clamp(52px, 7vw, 88px);
+            line-height: 0.96;
+            font-weight: 720;
+            letter-spacing: -0.07em;
+        }
+
+        .intro-copy {
+            max-width: 540px;
+            margin: 34px 0 0;
+            color: var(--muted);
+            font-size: clamp(17px, 2vw, 21px);
+            line-height: 1.72;
+            letter-spacing: -0.02em;
+        }
+
+        .response-meta {
+            margin-top: 54px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .response-label {
+            margin: 0 0 8px;
+            color: var(--faint);
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .response-value {
+            margin: 0;
+            font-size: 20px;
+            line-height: 1.35;
+            font-weight: 650;
+            letter-spacing: -0.025em;
+        }
+
+        .response-note {
+            max-width: 480px;
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .form-panel {
+            position: relative;
+            min-height: 660px;
+            padding: clamp(30px, 4vw, 54px);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.92);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow:
+                0 32px 100px rgba(29,29,31,0.075),
+                inset 0 0 0 1px rgba(29,29,31,0.025);
+        }
+
+        .form-panel::before {
+            content: "";
+            position: absolute;
+            top: -180px;
+            right: -160px;
+            width: 360px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,102,204,0.08), transparent 68%);
+            pointer-events: none;
+        }
+
+        .form-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 38px;
+        }
+
+        .form-kicker {
+            margin: 0 0 10px;
+            color: var(--faint);
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .form-title {
+            margin: 0;
+            font-size: clamp(28px, 3.2vw, 42px);
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.052em;
+        }
+
+        .form-subtitle {
+            max-width: 500px;
+            margin: 14px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .contact-form {
+            position: relative;
+            z-index: 1;
+            transition:
+                opacity 420ms var(--ease),
+                transform 420ms var(--ease);
+        }
+
+        .contact-form.is-hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 18px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field-full {
+            grid-column: 1 / -1;
+        }
+
+        .field-label {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 0 0 10px;
+            color: var(--ink);
+            font-size: 12px;
+            line-height: 1.3;
+            font-weight: 680;
+        }
+
+        .field-status {
+            color: var(--faint);
+            font-size: 9px;
+            line-height: 1;
+            font-weight: 750;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+        }
+
+        .field-status.required {
+            color: #b5473c;
+        }
+
+        .field-control {
+            width: 100%;
+            min-height: 54px;
+            padding: 15px 16px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            color: var(--ink);
+            background: rgba(255,255,255,0.72);
+            outline: none;
+            transition:
+                border-color 240ms ease,
+                box-shadow 240ms ease,
+                background-color 240ms ease;
+        }
+
+        textarea.field-control {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+
+        .field-control::placeholder {
+            color: #b1b1b6;
+        }
+
+        .field-control:hover {
+            border-color: var(--line-strong);
+        }
+
+        .field-control:focus {
+            border-color: rgba(0,102,204,0.55);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0,102,204,0.09);
+        }
+
+        .form-footer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 28px;
+            margin-top: 34px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        .privacy-note {
+            max-width: 340px;
+            margin: 0;
+            color: var(--faint);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .privacy-link {
+            color: var(--muted);
+            text-underline-offset: 3px;
+            transition: color 220ms ease;
+        }
+
+        .privacy-link:hover {
+            color: var(--blue);
+        }
+
+        .submit-button {
+            flex: 0 0 auto;
+            min-width: 164px;
+            min-height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 22px;
+            border: 0;
+            border-radius: 999px;
+            color: #fff;
+            background: var(--ink);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.035em;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(29,29,31,0.16);
+            transition:
+                transform 320ms var(--ease),
+                background-color 260ms ease,
+                box-shadow 320ms var(--ease),
+                opacity 220ms ease;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #000;
+            box-shadow: 0 18px 34px rgba(29,29,31,0.21);
+        }
+
+        .submit-button:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.68;
+            cursor: wait;
+        }
+
+        .submit-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 320ms var(--ease);
+        }
+
+        .submit-button:hover:not(:disabled) .submit-icon {
+            transform: translate(2px, -1px);
+        }
+
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 800ms linear infinite;
+        }
+
+        .submit-button.is-loading .submit-icon {
+            display: none;
+        }
+
+        .submit-button.is-loading .spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-message {
+            min-height: 22px;
+            margin: 18px 0 0;
+            color: var(--danger);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .success-state {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: grid;
+            align-content: center;
+            justify-items: start;
+            padding: clamp(34px, 5vw, 62px);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition:
+                opacity 500ms var(--ease),
+                transform 500ms var(--ease);
+        }
+
+        .success-state.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .success-mark {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 28px;
+            border: 1px solid rgba(25,122,74,0.20);
+            border-radius: 50%;
+            color: var(--success);
+            background: rgba(25,122,74,0.06);
+        }
+
+        .success-title {
+            margin: 0;
+            font-size: clamp(34px, 4vw, 52px);
+            line-height: 1.05;
+            font-weight: 710;
+            letter-spacing: -0.057em;
+        }
+
+        .success-copy {
+            max-width: 480px;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 34px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--blue-dark);
+        }
+
+        .site-footer {
+            border-top: 1px solid rgba(29,29,31,0.08);
+        }
+
+        .footer-inner {
+            width: min(100% - 40px, 1180px);
+            min-height: 92px;
+            margin-inline: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            color: var(--faint);
+            font-size: 11px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--ink);
+        }
+
+        @media (max-width: 920px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 54px;
+            }
+
+            .contact-intro {
+                position: static;
+            }
+
+            .page-title {
+                max-width: 760px;
+            }
+
+            .intro-copy {
+                max-width: 680px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .header-inner,
+            .page-shell,
+            .footer-inner {
+                width: min(100% - 28px, 1180px);
+            }
+
+            .header-inner {
+                min-height: 64px;
+            }
+
+            .header-link {
+                display: none;
+            }
+
+            .page-shell {
+                padding-top: 52px;
+            }
+
+            .page-title {
+                font-size: clamp(46px, 14vw, 66px);
+            }
+
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field-full {
+                grid-column: auto;
+            }
+
+            .form-panel {
+                min-height: 0;
+                padding: 26px 20px 28px;
+                border-radius: 24px;
+            }
+
+            .form-footer {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+
+            .success-state {
+                position: static;
+                display: none;
+                padding: 30px 2px 8px;
+            }
+
+            .success-state.is-visible {
+                display: grid;
+            }
+
+            .footer-inner {
+                min-height: 108px;
+                align-items: flex-start;
+                flex-direction: column;
+                justify-content: center;
+                gap: 12px;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            *, ::before, ::after {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-            .fade-in, .smart-reveal {
-                opacity: 1 !important;
-                transform: none !important;
-                filter: none !important;
             }
         }
     </style>
 </head>
-<body class="antialiased">
 
-    <!-- Ambient Background (Cinematic) -->
-    <div class="fixed inset-0 -z-10 bg-gradient-to-b from-[#fafafa] via-[#f1f5f9] to-[#fafafa] overflow-hidden pointer-events-none">
-        <div class="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-indigo-100/50 to-transparent blur-[100px] opacity-70 mix-blend-multiply"></div>
-        <div class="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-tl from-cyan-100/40 to-transparent blur-[100px] opacity-70 mix-blend-multiply"></div>
-    </div>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a
+                class="brand"
+                href="./index.html"
+                aria-label="ホームへ戻る / Back to Home"
+            >
+                <span class="brand-first">Ken</span>
+                <span class="brand-last">HARIMA</span>
+            </a>
 
-    <!-- ================= DYNAMIC ISLAND NAVIGATION ================= -->
-    <div id="nav-container" class="absolute top-6 left-0 right-0 z-50 flex justify-center transition-all duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)]">
-        <nav class="fade-in" style="animation-delay: 0.2s;">
-            <!-- 背景・枠線・影を削除し、純粋な空間のみを残す -->
-            <div class="flex items-center justify-between gap-6 px-4 py-2 w-auto max-w-[95vw] transition-all duration-500">
-                
-                <!-- Literary Signature as Home Link -->
-                <a href="./index.html" class="brand-signature" aria-label="ホームへ戻る / Back to Home" title="Home">
-                    <span class="brand-signature__first">Ken</span>
-                    <span class="brand-signature__last">HARIMA</span>
+            <div class="header-actions">
+                <a class="header-link" href="./index.html">
+                    <span class="lang-ja">ホーム</span>
+                    <span class="lang-en">Home</span>
                 </a>
-                
-                <div class="flex items-center">
-                    <div class="relative flex items-center bg-gray-500/5 rounded-full p-0.5 select-none border border-gray-900/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
-                        <button id="lang-jp" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to Japanese">JA</button>
-                        <button id="lang-en" class="relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-label="Switch to English">EN</button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
 
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="flex-grow flex flex-col items-center justify-center px-4 pt-40 pb-24 relative z-10">
-        
-        <!-- Cinematic Title -->
-        <div class="mb-12 md:mb-16 text-center smart-reveal">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 leading-tight tracking-tighter">
-                <div class="lang-ja flex flex-col items-center">
-                    <span class="block">対話を始めましょう。</span>
-                    <span class="text-sm md:text-base font-mono font-medium bg-gradient-to-br from-gray-400 to-gray-600 bg-clip-text text-transparent tracking-[0.3em] block mt-4 ml-1">お問い合わせ</span>
-                </div>
-                <div class="lang-en flex flex-col items-center">
-                    <span class="block">Let's Talk.</span>
-                    <span class="text-xs md:text-sm font-mono font-medium bg-gradient-to-br from-gray-400 to-gray-600 bg-clip-text text-transparent uppercase tracking-[0.4em] block mt-4 ml-1">Get in Touch</span>
-                </div>
-            </h1>
-        </div>
-            
-        <div class="w-full max-w-2xl fade-in relative" style="animation-delay: 0.3s;">
-            <!-- Ultimate Glass Form Container -->
-            <form id="contact-form" action="https://formspree.io/f/xovrdzya" method="POST" class="relative bg-white/60 backdrop-blur-2xl p-8 md:p-14 rounded-[2.5rem] border border-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_80px_-15px_rgba(15,60,133,0.1)] transition-all duration-1000 group/form isolate">
-                
-                <div class="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-white/80 pointer-events-none -z-10"></div>
+                <a class="header-link" href="./privacy-policy.html">
+                    <span class="lang-ja">プライバシー</span>
+                    <span class="lang-en">Privacy</span>
+                </a>
 
-                <!-- Contact Guidelines -->
-                <div class="mb-10 p-5 md:p-6 rounded-2xl bg-white/40 border border-gray-100/50 shadow-[0_4px_20px_rgba(0,0,0,0.02)] text-sm text-gray-600 leading-relaxed font-medium transition-all duration-500 hover:bg-white/60">
-                    <div class="flex items-start gap-3 md:gap-4">
-                        <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-shield-halved text-[11px]"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-gray-900 font-bold mb-1">
-                                <span class="lang-ja">ポリシー・ご返信について</span>
-                                <span class="lang-en">Policy & Response Time</span>
-                            </h3>
-                            <p class="text-[13px] md:text-sm text-justify md:text-left mb-2">
-                                <span class="lang-ja">通常48時間以内にご返信いたします。<strong>採用・スカウト・カジュアル面談・執筆に関するご連絡も歓迎しています。</strong></span>
-                                <span class="lang-en">I typically respond within 48 hours. <strong>Recruiting inquiries, casual interviews, and writing-related opportunities are welcome.</strong></span>
-                            </p>
-                            <p class="text-[11px] md:text-[12px] text-justify md:text-left text-gray-500">
-                                <span class="lang-ja">お送りいただいた内容は、確認・返信の目的でのみ使用します。法令に基づく場合を除き、ご本人の同意なく第三者へ提供することはありません。なお、フォーム送信処理には Formspree を利用しています。</span>
-                                <span class="lang-en">Your message will be used only to review and respond to your inquiry. I will not provide your information to third parties without your consent, except as required by law. This form uses Formspree for form submission processing.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <div class="language-switch" aria-label="Language">
+                    <button
+                        type="button"
+                        id="lang-ja"
+                        class="language-button"
+                        aria-label="日本語に切り替える"
+                        aria-pressed="true"
+                    >
+                        JA
+                    </button>
 
-                <input type="hidden" name="_subject" value="New Inquiry from Portfolio Website">
-                <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-                <!-- Input: Name (必須) -->
-                <div class="relative mb-8">
-                    <input type="text" id="name" name="name" required class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-gray-900/10 focus:border-gray-900 transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" placeholder=" ">
-                    <label for="name" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none flex items-center peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-gray-900 peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
-                        <span class="lang-ja">お名前</span><span class="lang-en">Name</span>
-                        <span class="ml-2 mt-[1px] text-[10px] font-bold text-rose-500">
-                            <span class="lang-ja">必須</span>
-                            <span class="lang-en font-mono uppercase tracking-[0.15em] text-[9px]">Required</span>
-                        </span>
-                    </label>
-                </div>
-
-                <!-- Input: Email (必須) -->
-                <div class="relative mb-8">
-                    <input type="email" id="email" name="email" required autocomplete="email" class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-gray-900/10 focus:border-gray-900 transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" placeholder=" ">
-                    <label for="email" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none flex items-center peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-gray-900 peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
-                        <span class="lang-ja">メールアドレス</span><span class="lang-en">Email Address</span>
-                        <span class="ml-2 mt-[1px] text-[10px] font-bold text-rose-500">
-                            <span class="lang-ja">必須</span>
-                            <span class="lang-en font-mono uppercase tracking-[0.15em] text-[9px]">Required</span>
-                        </span>
-                    </label>
-                </div>
-
-                <!-- Input: Company (任意) -->
-                <div class="relative mb-8">
-                    <input type="text" id="company" name="company" autocomplete="organization" class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-gray-900/10 focus:border-gray-900 transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" placeholder=" ">
-                    <label for="company" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none flex items-center peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-gray-900 peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
-                        <span class="lang-ja">企業名・団体名</span>
-                        <span class="lang-en">Affiliation</span>
-                        <span class="ml-2 mt-[1px] text-[10px] font-bold text-gray-400 opacity-80">
-                            <span class="lang-ja">任意</span>
-                            <span class="lang-en font-mono uppercase tracking-[0.15em] text-[9px]">Optional</span>
-                        </span>
-                    </label>
-                </div>
-
-                <!-- Input: Message (必須) -->
-                <div class="relative mb-12">
-                    <textarea id="message" name="message" required rows="4" class="peer w-full bg-white/50 border border-gray-200/80 text-gray-900 rounded-2xl px-5 py-4 font-medium focus:outline-none focus:bg-white focus:ring-4 focus:ring-gray-900/10 focus:border-gray-900 transition-all duration-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] resize-none" placeholder=" " oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
-                    <label for="message" class="absolute left-5 top-4 text-gray-400 font-medium transition-all duration-300 pointer-events-none flex items-center peer-focus:-translate-y-9 peer-focus:-translate-x-1 peer-focus:scale-90 peer-focus:text-gray-900 peer-focus:font-bold peer-[:not(:placeholder-shown)]:-translate-y-9 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:text-gray-600 origin-left">
-                        <span class="lang-ja">ここにメッセージを入力してください。</span><span class="lang-en">Inquiry Details</span>
-                        <span class="ml-2 mt-[1px] text-[10px] font-bold text-rose-500">
-                            <span class="lang-ja">必須</span>
-                            <span class="lang-en font-mono uppercase tracking-[0.15em] text-[9px]">Required</span>
-                        </span>
-                    </label>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" id="btn-submit" class="group relative inline-flex items-center justify-center gap-4 px-12 py-5 md:py-6 bg-gray-900 text-white rounded-full overflow-hidden transition-all duration-700 hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.4)] hover:-translate-y-1 w-full sm:w-auto outline-none">
-                        <div class="absolute inset-0 bg-gradient-to-r from-gray-800 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                        
-                        <span class="relative z-10 text-sm md:text-base font-bold tracking-[0.15em] uppercase">
-                            <span class="lang-ja" id="btn-text-ja">送信する</span>
-                            <span class="lang-en" id="btn-text-en">Send Message</span>
-                        </span>
-                        <div class="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white group-hover:text-black transition-colors duration-500">
-                            <i class="fa-solid fa-paper-plane text-[11px] md:text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
-                        </div>
+                    <button
+                        type="button"
+                        id="lang-en"
+                        class="language-button"
+                        aria-label="Switch to English"
+                        aria-pressed="false"
+                    >
+                        EN
                     </button>
                 </div>
+            </div>
+        </div>
+    </header>
 
-                <!-- Privacy & Formspree Note -->
-                <div class="mt-8 text-center text-[11px] md:text-xs text-gray-400 font-medium leading-relaxed">
+    <main class="page-shell">
+        <div class="contact-layout">
+            <section class="contact-intro" aria-labelledby="page-title">
+                <p class="eyebrow">Contact / 01</p>
+
+                <h1 id="page-title" class="page-title">
                     <span class="lang-ja">
-                        このお問い合わせフォームは Formspree を利用しています。<br class="hidden md:block">
-                        送信内容は、お問い合わせへの確認・返信の目的でのみ使用します。<br class="hidden md:block">
-                        個人情報の取扱いについては <a href="./privacy-policy.html" class="text-blue-500/70 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">プライバシーポリシー</a> をご確認ください。
+                        対話から、<br>
+                        次の仕事を。
                     </span>
+
                     <span class="lang-en">
-                        This contact form is powered by Formspree.<br class="hidden md:block">
-                        Submitted information will be used only to review and respond to your inquiry.<br class="hidden md:block">
-                        Please see the <a href="./privacy-policy.html" class="text-blue-500/70 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">Privacy Policy</a> for details on how personal information is handled.
+                        Begin with<br>
+                        a conversation.
                     </span>
-                </div>
-            </form>
-            
-            <!-- Success Message (Apple-like Cinematic Glass) -->
-            <div id="success-message" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-white/75 backdrop-blur-3xl rounded-[2.5rem] border border-white/90 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] transform transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] scale-95 opacity-0 isolate">
-                
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_50%)] pointer-events-none -z-10"></div>
+                </h1>
 
-                <div class="relative w-24 h-24 mb-8 flex items-center justify-center">
-                    <svg class="w-16 h-16 text-blue-500 drop-shadow-[0_4px_12px_rgba(59,130,246,0.2)]" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle class="success-circle" cx="26" cy="26" r="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-                        <path class="success-check" d="M16 26L23 33L36 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </div>
+                <p class="intro-copy">
+                    <span class="lang-ja">
+                        採用・スカウト、カジュアル面談、共同プロジェクト、
+                        執筆に関するご連絡を歓迎しています。
+                    </span>
 
-                <h2 class="text-[26px] md:text-[32px] font-display font-bold mb-4 text-[#1d1d1f] tracking-tight">
-                    <span class="lang-ja">送信が完了しました</span><span class="lang-en">Message Sent</span>
-                </h2>       
-                <p class="text-[14px] md:text-[15px] text-[#86868b] font-medium leading-relaxed mb-10">
-                    <span class="lang-ja">お問い合わせありがとうございます。<br>確認次第、通常48時間以内にご返信いたします。</span>
-                    <span class="lang-en">Thank you for reaching out.<br>I will get back to you within 48 hours.</span>
+                    <span class="lang-en">
+                        Recruiting inquiries, casual conversations,
+                        collaborative projects, and writing opportunities are welcome.
+                    </span>
                 </p>
 
-                <a href="./index.html" id="back-btn" class="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-[#f5f5f7] text-[#1d1d1f] rounded-full overflow-hidden transition-all duration-500 hover:bg-[#e8e8ed] hover:scale-[1.02] active:scale-[0.98] border border-black/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-                    <span class="text-[12px] font-bold tracking-[0.1em] uppercase">
-                        <span class="lang-ja">ホームに戻る</span><span class="lang-en">Back to Home</span>
-                    </span>
+                <div class="response-meta">
+                    <p class="response-label">
+                        <span class="lang-ja">返信目安</span>
+                        <span class="lang-en">Typical response time</span>
+                    </p>
+
+                    <p class="response-value">
+                        <span class="lang-ja">通常48時間以内</span>
+                        <span class="lang-en">Within 48 hours</span>
+                    </p>
+
+                    <p class="response-note">
+                        <span class="lang-ja">
+                            お送りいただいた内容は、確認・返信の目的でのみ使用します。
+                            フォーム送信処理にはFormspreeを利用しています。
+                        </span>
+
+                        <span class="lang-en">
+                            Submitted information is used only to review and respond to your inquiry.
+                            Formspree is used to process form submissions.
+                        </span>
+                    </p>
+                </div>
+            </section>
+
+            <section class="form-panel" aria-labelledby="form-title">
+                <div class="form-header">
+                    <p class="form-kicker">
+                        <span class="lang-ja">お問い合わせフォーム</span>
+                        <span class="lang-en">Inquiry form</span>
+                    </p>
+
+                    <h2 id="form-title" class="form-title">
+                        <span class="lang-ja">ご連絡内容をお送りください。</span>
+                        <span class="lang-en">Send your inquiry.</span>
+                    </h2>
+
+                    <p class="form-subtitle">
+                        <span class="lang-ja">
+                            必須項目をご入力のうえ、送信してください。
+                        </span>
+
+                        <span class="lang-en">
+                            Complete the required fields and submit your message.
+                        </span>
+                    </p>
+                </div>
+
+                <form
+                    id="contact-form"
+                    class="contact-form"
+                    action="https://formspree.io/f/xovrdzya"
+                    method="POST"
+                    novalidate
+                >
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="New Inquiry from Portfolio Website"
+                    >
+
+                    <input
+                        type="text"
+                        name="_gotcha"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                        hidden
+                    >
+
+                    <div class="field-grid">
+                        <div class="field">
+                            <label class="field-label" for="name">
+                                <span>
+                                    <span class="lang-ja">お名前</span>
+                                    <span class="lang-en">Name</span>
+                                </span>
+
+                                <span class="field-status required">
+                                    <span class="lang-ja">必須</span>
+                                    <span class="lang-en">Required</span>
+                                </span>
+                            </label>
+
+                            <input
+                                class="field-control"
+                                type="text"
+                                id="name"
+                                name="name"
+                                autocomplete="name"
+                                required
+                                placeholder="Ken Harima"
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label" for="email">
+                                <span>
+                                    <span class="lang-ja">メールアドレス</span>
+                                    <span class="lang-en">Email address</span>
+                                </span>
+
+                                <span class="field-status required">
+                                    <span class="lang-ja">必須</span>
+                                    <span class="lang-en">Required</span>
+                                </span>
+                            </label>
+
+                            <input
+                                class="field-control"
+                                type="email"
+                                id="email"
+                                name="email"
+                                autocomplete="email"
+                                required
+                                placeholder="you@example.com"
+                            >
+                        </div>
+
+                        <div class="field field-full">
+                            <label class="field-label" for="company">
+                                <span>
+                                    <span class="lang-ja">企業名・団体名</span>
+                                    <span class="lang-en">Affiliation</span>
+                                </span>
+
+                                <span class="field-status">
+                                    <span class="lang-ja">任意</span>
+                                    <span class="lang-en">Optional</span>
+                                </span>
+                            </label>
+
+                            <input
+                                class="field-control"
+                                type="text"
+                                id="company"
+                                name="company"
+                                autocomplete="organization"
+                                placeholder=""
+                            >
+                        </div>
+
+                        <div class="field field-full">
+                            <label class="field-label" for="message">
+                                <span>
+                                    <span class="lang-ja">お問い合わせ内容</span>
+                                    <span class="lang-en">Inquiry details</span>
+                                </span>
+
+                                <span class="field-status required">
+                                    <span class="lang-ja">必須</span>
+                                    <span class="lang-en">Required</span>
+                                </span>
+                            </label>
+
+                            <textarea
+                                class="field-control"
+                                id="message"
+                                name="message"
+                                rows="6"
+                                required
+                                placeholder=""
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <p class="privacy-note">
+                            <span class="lang-ja">
+                                送信前に
+                                <a class="privacy-link" href="./privacy-policy.html">
+                                    プライバシーポリシー
+                                </a>
+                                をご確認ください。
+                            </span>
+
+                            <span class="lang-en">
+                                Please review the
+                                <a class="privacy-link" href="./privacy-policy.html">
+                                    Privacy Policy
+                                </a>
+                                before submitting.
+                            </span>
+                        </p>
+
+                        <button
+                            type="submit"
+                            id="submit-button"
+                            class="submit-button"
+                        >
+                            <span id="submit-label">
+                                <span class="lang-ja">送信する</span>
+                                <span class="lang-en">Send message</span>
+                            </span>
+
+                            <svg
+                                class="submit-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M5 12h13M13 6l6 6-6 6"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+
+                            <span class="spinner" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <p
+                        id="form-message"
+                        class="form-message"
+                        role="alert"
+                        aria-live="polite"
+                    ></p>
+                </form>
+
+                <div
+                    id="success-state"
+                    class="success-state"
+                    aria-live="polite"
+                    aria-hidden="true"
+                >
+                    <div class="success-mark" aria-hidden="true">
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 28 28"
+                            fill="none"
+                        >
+                            <path
+                                d="M7 14.5l4.4 4.2L21 9.5"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+
+                    <h2 class="success-title">
+                        <span class="lang-ja">送信が完了しました。</span>
+                        <span class="lang-en">Message sent.</span>
+                    </h2>
+
+                    <p class="success-copy">
+                        <span class="lang-ja">
+                            お問い合わせありがとうございます。
+                            内容を確認し、通常48時間以内にご返信します。
+                        </span>
+
+                        <span class="lang-en">
+                            Thank you for reaching out.
+                            I will review your message and respond within 48 hours.
+                        </span>
+                    </p>
+
+                    <a class="back-link" href="./index.html">
+                        <span class="lang-ja">ホームへ戻る</span>
+                        <span class="lang-en">Back to home</span>
+                        <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>© 2026 Ken HARIMA.</span>
+
+            <div class="footer-links">
+                <a href="./index.html">
+                    <span class="lang-ja">ホーム</span>
+                    <span class="lang-en">Home</span>
+                </a>
+
+                <a href="./privacy-policy.html">
+                    <span class="lang-ja">プライバシーポリシー</span>
+                    <span class="lang-en">Privacy Policy</span>
                 </a>
             </div>
         </div>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="text-center py-8 text-[10px] font-mono text-gray-400 flex flex-col gap-3 items-center relative z-10">
-        <a href="./privacy-policy.html" class="text-blue-500/60 hover:text-blue-600 underline underline-offset-4 decoration-blue-300/60 transition-colors">
-            <span class="lang-ja">プライバシーポリシー</span>
-            <span class="lang-en">Privacy Policy</span>
-        </a>
-        <span>© 2026 Ken HARIMA.</span>
     </footer>
 
-    <!-- Scripts -->
     <script>
-        const langJpBtn = document.getElementById('lang-jp');
-        const langEnBtn = document.getElementById('lang-en');
-        const htmlEl = document.documentElement;
-        
-        const activeClasses =['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
-        const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
-        const baseClass = "relative z-10 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
+        (() => {
+            const html = document.documentElement;
+            const jaButton = document.getElementById("lang-ja");
+            const enButton = document.getElementById("lang-en");
 
-        const setBtnState = (btn, isActive) => {
-            if (!btn) return;
-            btn.className = baseClass;
-            btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
-            btn.setAttribute('aria-pressed', isActive.toString());
-        };
+            const setLanguage = (language) => {
+                const isEnglish = language === "en";
 
-        const updateLangStyles = () => {
-            const isGlobal = htmlEl.classList.contains('is-global');
-            setBtnState(langJpBtn, !isGlobal);
-            setBtnState(langEnBtn, isGlobal);
-        };
+                html.classList.toggle("is-global", isEnglish);
+                html.lang = isEnglish ? "en" : "ja";
 
-        const setLanguage = (lang) => {
-            if (lang === 'en') {
-                htmlEl.classList.add('is-global');
-            } else {
-                htmlEl.classList.remove('is-global');
-            }
-            try { localStorage.setItem('ken_portfolio_lang', lang); } catch(e){}
-            updateLangStyles();
-        };
+                jaButton.setAttribute("aria-pressed", String(!isEnglish));
+                enButton.setAttribute("aria-pressed", String(isEnglish));
 
-        const initLanguage = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            let langPref = urlParams.get('lang');
-            
-            try { if(!langPref) langPref = localStorage.getItem('ken_portfolio_lang'); } catch(e){}
-            if (!langPref) {
-                const browserLang = navigator.language || navigator.userLanguage;
-                langPref = browserLang.startsWith('ja') ? 'ja' : 'en';
-            }
-            setLanguage(langPref);
-        };
+                try {
+                    localStorage.setItem("ken_portfolio_lang", language);
+                } catch (_) {}
+            };
 
-        if (langJpBtn) langJpBtn.addEventListener('click', () => setLanguage('ja'));
-        if (langEnBtn) langEnBtn.addEventListener('click', () => setLanguage('en'));
+            const storedLanguage = (() => {
+                try {
+                    return localStorage.getItem("ken_portfolio_lang");
+                } catch (_) {
+                    return null;
+                }
+            })();
 
-        initLanguage();
+            const browserLanguage =
+                navigator.language &&
+                navigator.language.toLowerCase().startsWith("ja")
+                    ? "ja"
+                    : "en";
 
-        // Form Submit Logic
-        const form = document.getElementById('contact-form'); 
-        const successDiv = document.getElementById('success-message'); 
-        const submitBtn = document.getElementById('btn-submit');
-        const btnTextJa = document.getElementById('btn-text-ja');
-        const btnTextEn = document.getElementById('btn-text-en');
+            setLanguage(storedLanguage || browserLanguage);
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); 
-            const originalJa = btnTextJa.innerText; 
-            const originalEn = btnTextEn.innerText; 
-            
-            btnTextJa.innerText = "送信中..."; 
-            btnTextEn.innerText = "SENDING..."; 
-            submitBtn.disabled = true; 
-            submitBtn.classList.add('opacity-80', 'cursor-wait');
+            jaButton.addEventListener("click", () => setLanguage("ja"));
+            enButton.addEventListener("click", () => setLanguage("en"));
 
-            try { 
-                const response = await fetch(form.action, { 
-                    method: 'POST', 
-                    body: new FormData(form), 
-                    headers: { 'Accept': 'application/json' } 
-                }); 
-                if (response.ok) { 
-                    form.style.opacity = '0';
-                    form.style.pointerEvents = 'none';
-                    setTimeout(() => {
-                        successDiv.classList.remove('hidden');
-                        setTimeout(() => {
-                            successDiv.classList.remove('scale-95', 'opacity-0');
-                            successDiv.classList.add('scale-100', 'opacity-100', 'is-visible');
-                        }, 50);
-                    }, 500);
-                } else { 
-                    throw new Error('Failed'); 
-                } 
-            } catch (error) { 
-                alert(htmlEl.classList.contains('is-global') ? "Failed to send." : "送信に失敗しました。"); 
-                btnTextJa.innerText = originalJa; 
-                btnTextEn.innerText = originalEn; 
-                submitBtn.disabled = false; 
-                submitBtn.classList.remove('opacity-80', 'cursor-wait'); 
-            }
-        });
+            const form = document.getElementById("contact-form");
+            const submitButton = document.getElementById("submit-button");
+            const formMessage = document.getElementById("form-message");
+            const successState = document.getElementById("success-state");
+
+            const getErrorText = () =>
+                html.classList.contains("is-global")
+                    ? "Please complete all required fields with valid information."
+                    : "必須項目を正しく入力してください。";
+
+            const getSubmitErrorText = () =>
+                html.classList.contains("is-global")
+                    ? "The message could not be sent. Please try again later."
+                    : "送信に失敗しました。時間をおいて、もう一度お試しください。";
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                formMessage.textContent = "";
+
+                if (!form.checkValidity()) {
+                    formMessage.textContent = getErrorText();
+                    form.reportValidity();
+                    return;
+                }
+
+                submitButton.disabled = true;
+                submitButton.classList.add("is-loading");
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        body: new FormData(form),
+                        headers: {
+                            Accept: "application/json"
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Submission failed");
+                    }
+
+                    form.reset();
+                    form.classList.add("is-hidden");
+
+                    window.setTimeout(() => {
+                        form.hidden = true;
+                        successState.classList.add("is-visible");
+                        successState.setAttribute("aria-hidden", "false");
+                    }, 360);
+                } catch (error) {
+                    formMessage.textContent = getSubmitErrorText();
+                    submitButton.disabled = false;
+                    submitButton.classList.remove("is-loading");
+                }
+            });
+        })();
     </script>
 </body>
 </html>
