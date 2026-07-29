@@ -2487,6 +2487,76 @@ and (
 
     }
 </style>
+    <style>
+    /* =========================================================
+       iPhone / Mobile — Horizontal Page Lock
+       横方向のガタつき・ラバーバンドを防止
+       ========================================================= */
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: hidden;
+
+        overscroll-behavior-x: none;
+    }
+
+
+    /*
+     * overflow: clip 対応ブラウザではこちらを優先。
+     * hiddenと違いスクロールコンテナを作らないため、
+     * sticky / scroll motionとの相性も良い。
+     */
+    @supports (overflow: clip) {
+
+        html,
+        body {
+            overflow-x: clip;
+        }
+
+    }
+
+
+    @media (max-width: 767px) {
+
+        .site-shell,
+        .site-main,
+        main {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+
+        /*
+         * GSAP / Native Motionで左右へ移動しても
+         * viewport自体の幅を広げない。
+         */
+        #experience,
+        #development,
+        #profile,
+        #next,
+        #projects,
+        #contact-final {
+            max-width: 100%;
+            min-width: 0;
+        }
+
+
+        .site-shell {
+            overflow-x: hidden;
+        }
+
+        @supports (overflow: clip) {
+            .site-shell {
+                overflow-x: clip;
+            }
+        }
+
+    }
+</style>
 </head>
 <body class="antialiased">
 
