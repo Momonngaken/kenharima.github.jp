@@ -3495,6 +3495,153 @@ and (
                         );
 
 
+                        /* =================================================
+                         * MOBILE — PER-ITEM REVEAL
+                         *
+                         * Desktop can reveal the whole timeline as one composition.
+                         * On mobile the entries are vertically stacked, so a single
+                         * section-level trigger finishes before lower entries are visible.
+                         * Give every entry its own viewport trigger instead.
+                         * ================================================= */
+                        if (isMobile) {
+
+                            if (heading) {
+                                gsap.to(
+                                    heading,
+                                    {
+                                        autoAlpha: 1,
+                                        y: 0,
+                                        duration: 0.78,
+                                        ease: 'power4.out',
+                                        scrollTrigger: {
+                                            trigger: heading,
+                                            start: 'top 90%',
+                                            once: true
+                                        }
+                                    }
+                                );
+                            }
+
+                            /* The chronology line now grows with the user's scroll. */
+                            if (lineFill) {
+                                gsap.to(
+                                    lineFill,
+                                    {
+                                        scaleY: 1,
+                                        ease: 'none',
+                                        scrollTrigger: {
+                                            trigger: experience,
+                                            start: 'top 82%',
+                                            end: 'bottom 28%',
+                                            scrub: 0.55
+                                        }
+                                    }
+                                );
+                            }
+
+                            items.forEach(
+                                (item, index) => {
+
+                                    const dot =
+                                        item.querySelector('.exp-dot');
+
+                                    const direction =
+                                        index % 2 === 0 ? -1 : 1;
+
+                                    /* Slight alternating lateral drift is perceptible
+                                       on a phone without feeling like a carousel. */
+                                    gsap.set(
+                                        item,
+                                        {
+                                            x: 16 * direction,
+                                            y: 30,
+                                            scale: 0.982,
+                                            rotation: 0.22 * direction,
+                                            transformOrigin: '50% 50%'
+                                        }
+                                    );
+
+                                    const itemTimeline =
+                                        gsap.timeline({
+                                            defaults: {
+                                                ease: 'power4.out'
+                                            },
+                                            scrollTrigger: {
+                                                trigger: item,
+                                                start: 'top 88%',
+                                                once: true
+                                            }
+                                        });
+
+                                    itemTimeline.to(
+                                        item,
+                                        {
+                                            autoAlpha: 1,
+                                            x: 0,
+                                            y: 0,
+                                            scale: 1,
+                                            rotation: 0,
+                                            duration: 0.88
+                                        },
+                                        0
+                                    );
+
+                                    if (dot) {
+                                        itemTimeline.to(
+                                            dot,
+                                            {
+                                                opacity: 1,
+                                                scale: 1,
+                                                duration: 0.52,
+                                                ease: 'back.out(1.8)'
+                                            },
+                                            0.12
+                                        );
+                                    }
+
+                                    itemTimeline.call(
+                                        () => {
+                                            item.style.willChange = 'auto';
+                                            item.style.filter = '';
+
+                                            if (dot) {
+                                                dot.style.willChange = 'auto';
+                                            }
+                                        }
+                                    );
+                                }
+                            );
+
+                            /* Preserve keyboard activation even on touch devices with
+                               external keyboards. */
+                            items.forEach(
+                                item => {
+                                    item.addEventListener(
+                                        'keydown',
+                                        event => {
+                                            if (
+                                                event.key === 'Enter' ||
+                                                event.key === ' '
+                                            ) {
+                                                event.preventDefault();
+                                                item.click();
+                                            }
+                                        }
+                                    );
+                                }
+                            );
+
+                            window.setTimeout(
+                                () => {
+                                    ScrollTrigger.refresh();
+                                },
+                                100
+                            );
+
+                            return;
+                        }
+
+
                         /*
                          * =================================================
                          * MASTER TIMELINE
@@ -5766,6 +5913,247 @@ and (
                             document.documentElement.classList.remove(
                                 'pd-motion-enabled'
                             );
+
+
+                            /* =================================================
+                               MOBILE — CARD-BY-CARD KEYNOTE REVEAL
+
+                               The desktop Bento lives in one viewport, while the
+                               mobile Bento becomes a long vertical stack. Every card
+                               therefore gets its own ScrollTrigger on mobile.
+                               ================================================= */
+                            if (isMobile) {
+
+                                if (heading) {
+                                    gsap.to(
+                                        heading,
+                                        {
+                                            autoAlpha: 1,
+                                            y: 0,
+                                            scale: 1,
+                                            duration: 0.78,
+                                            ease: 'power4.out',
+                                            scrollTrigger: {
+                                                trigger: heading,
+                                                start: 'top 90%',
+                                                once: true
+                                            }
+                                        }
+                                    );
+                                }
+
+                                const createCardTimeline = (
+                                    card,
+                                    onReveal
+                                ) => {
+
+                                    if (!card) {
+                                        return null;
+                                    }
+
+                                    const cardTimeline =
+                                        gsap.timeline({
+                                            defaults: {
+                                                ease: 'power4.out'
+                                            },
+                                            scrollTrigger: {
+                                                trigger: card,
+                                                start: 'top 88%',
+                                                once: true
+                                            }
+                                        });
+
+                                    cardTimeline.to(
+                                        card,
+                                        {
+                                            autoAlpha: 1,
+                                            x: 0,
+                                            y: 0,
+                                            scale: 1,
+                                            rotation: 0,
+                                            duration: 0.94
+                                        },
+                                        0
+                                    );
+
+                                    if (onReveal) {
+                                        onReveal(cardTimeline);
+                                    }
+
+                                    cardTimeline.call(
+                                        () => {
+                                            card.style.willChange = 'auto';
+                                        }
+                                    );
+
+                                    return cardTimeline;
+                                };
+
+
+                                createCardTimeline(
+                                    language,
+                                    cardTimeline => {
+
+                                        if (score) {
+                                            cardTimeline.fromTo(
+                                                score,
+                                                {
+                                                    y: 22,
+                                                    scale: 0.94,
+                                                    opacity: 0.32
+                                                },
+                                                {
+                                                    y: 0,
+                                                    scale: 1,
+                                                    opacity: 1,
+                                                    duration: 0.84,
+                                                    ease: 'power4.out'
+                                                },
+                                                0.12
+                                            );
+                                        }
+
+                                        if (languageMark) {
+                                            cardTimeline.fromTo(
+                                                languageMark,
+                                                {
+                                                    scale: 0.68,
+                                                    rotation: -18,
+                                                    opacity: 0.25
+                                                },
+                                                {
+                                                    scale: 1,
+                                                    rotation: 0,
+                                                    opacity: 0.94,
+                                                    duration: 0.9,
+                                                    ease: 'back.out(1.35)'
+                                                },
+                                                0.16
+                                            );
+                                        }
+                                    }
+                                );
+
+
+                                createCardTimeline(
+                                    ai,
+                                    cardTimeline => {
+
+                                        if (aiGraphic) {
+                                            cardTimeline.fromTo(
+                                                aiGraphic,
+                                                {
+                                                    x: 24,
+                                                    scale: 0.70,
+                                                    rotation: 14,
+                                                    opacity: 0.01
+                                                },
+                                                {
+                                                    x: 0,
+                                                    scale: 1,
+                                                    rotation: 0,
+                                                    opacity: 0.055,
+                                                    duration: 1.0,
+                                                    ease: 'power4.out'
+                                                },
+                                                0.10
+                                            );
+                                        }
+                                    }
+                                );
+
+
+                                createCardTimeline(
+                                    numerical,
+                                    cardTimeline => {
+
+                                        if (grade) {
+                                            cardTimeline.fromTo(
+                                                grade,
+                                                {
+                                                    y: 24,
+                                                    scale: 0.94,
+                                                    opacity: 0.35
+                                                },
+                                                {
+                                                    y: 0,
+                                                    scale: 1,
+                                                    opacity: 1,
+                                                    duration: 0.78,
+                                                    ease: 'power4.out'
+                                                },
+                                                0.12
+                                            );
+                                        }
+                                    }
+                                );
+
+
+                                createCardTimeline(
+                                    data,
+                                    cardTimeline => {
+
+                                        if (dataGraphic) {
+                                            cardTimeline.fromTo(
+                                                dataGraphic,
+                                                {
+                                                    x: 42,
+                                                    y: 8,
+                                                    scale: 0.90,
+                                                    opacity: 0.018
+                                                },
+                                                {
+                                                    x: 0,
+                                                    y: 0,
+                                                    scale: 1,
+                                                    opacity: 0.055,
+                                                    duration: 0.96,
+                                                    ease: 'power4.out'
+                                                },
+                                                0.12
+                                            );
+                                        }
+                                    }
+                                );
+
+
+                                createCardTimeline(
+                                    program,
+                                    cardTimeline => {
+
+                                        if (certificate) {
+                                            cardTimeline.fromTo(
+                                                certificate,
+                                                {
+                                                    y: 30,
+                                                    scale: 0.90,
+                                                    rotation: -1.1,
+                                                    opacity: 0.42
+                                                },
+                                                {
+                                                    y: 0,
+                                                    scale: 1,
+                                                    rotation: 0,
+                                                    opacity: 1,
+                                                    duration: 0.98,
+                                                    ease: 'power4.out'
+                                                },
+                                                0.14
+                                            );
+                                        }
+                                    }
+                                );
+
+
+                                window.setTimeout(
+                                    () => {
+                                        ScrollTrigger.refresh();
+                                    },
+                                    100
+                                );
+
+                                return;
+                            }
 
 
                             /* =================================================
@@ -9879,125 +10267,208 @@ and (
                             }
 
 
-                            const profileTimeline =
-                                gsap.timeline({
+                            if (isMobile) {
 
-                                    defaults: {
-                                        ease: 'power4.out'
-                                    },
+                                /* Intro block: heading + origin establish the chapter. */
+                                const profileIntroTimeline =
+                                    gsap.timeline({
+                                        defaults: {
+                                            ease: 'power4.out'
+                                        },
+                                        scrollTrigger: {
+                                            trigger: profile,
+                                            start: 'top 88%',
+                                            once: true
+                                        }
+                                    });
 
-                                    scrollTrigger: {
-                                        trigger: profile,
+                                if (profileHeading) {
+                                    profileIntroTimeline.to(
+                                        profileHeading,
+                                        {
+                                            autoAlpha: 1,
+                                            y: 0,
+                                            scale: 1,
+                                            duration: 0.82
+                                        },
+                                        0
+                                    );
+                                }
 
-                                        start:
-                                            isMobile
-                                                ? 'top 86%'
-                                                : 'top 78%',
+                                if (origin) {
+                                    profileIntroTimeline.to(
+                                        origin,
+                                        {
+                                            autoAlpha: 1,
+                                            x: 0,
+                                            y: 0,
+                                            duration: 0.86
+                                        },
+                                        0.12
+                                    );
+                                }
 
-                                        once: true
+                                if (originRule) {
+                                    profileIntroTimeline.to(
+                                        originRule,
+                                        {
+                                            scaleX: 1,
+                                            duration: 0.78,
+                                            ease: 'power3.inOut'
+                                        },
+                                        0.18
+                                    );
+                                }
+
+                                /* Each thesis line now waits until it is actually
+                                   approaching the phone viewport. */
+                                thesisLines.forEach(
+                                    (line, index) => {
+
+                                        gsap.set(
+                                            line,
+                                            {
+                                                x: index % 2 === 0 ? -12 : 12,
+                                                y: 34,
+                                                scale: 0.986
+                                            }
+                                        );
+
+                                        gsap.to(
+                                            line,
+                                            {
+                                                autoAlpha: 1,
+                                                x: 0,
+                                                y: 0,
+                                                scale: 1,
+                                                duration: 0.92,
+                                                ease: 'power4.out',
+                                                scrollTrigger: {
+                                                    trigger: line,
+                                                    start: 'top 90%',
+                                                    once: true
+                                                }
+                                            }
+                                        );
                                     }
-
-                                });
-
-
-                            if (profileHeading) {
-                                profileTimeline.to(
-                                    profileHeading,
-                                    {
-                                        autoAlpha: 1,
-                                        y: 0,
-                                        scale: 1,
-
-                                        filter:
-                                            settledFilter,
-
-                                        duration:
-                                            isMobile
-                                                ? 0.82
-                                                : 1
-                                    }
                                 );
+
+                                if (body) {
+                                    gsap.set(
+                                        body,
+                                        {
+                                            y: 30,
+                                            scale: 0.992
+                                        }
+                                    );
+
+                                    gsap.to(
+                                        body,
+                                        {
+                                            autoAlpha: 1,
+                                            y: 0,
+                                            scale: 1,
+                                            duration: 0.92,
+                                            ease: 'power4.out',
+                                            scrollTrigger: {
+                                                trigger: body,
+                                                start: 'top 90%',
+                                                once: true
+                                            }
+                                        }
+                                    );
+                                }
+
+                            } else {
+
+                                const profileTimeline =
+                                    gsap.timeline({
+
+                                        defaults: {
+                                            ease: 'power4.out'
+                                        },
+
+                                        scrollTrigger: {
+                                            trigger: profile,
+                                            start: 'top 78%',
+                                            once: true
+                                        }
+
+                                    });
+
+
+                                if (profileHeading) {
+                                    profileTimeline.to(
+                                        profileHeading,
+                                        {
+                                            autoAlpha: 1,
+                                            y: 0,
+                                            scale: 1,
+                                            filter: settledFilter,
+                                            duration: 1
+                                        }
+                                    );
+                                }
+
+
+                                if (origin) {
+                                    profileTimeline.to(
+                                        origin,
+                                        {
+                                            autoAlpha: 1,
+                                            x: 0,
+                                            y: 0,
+                                            filter: settledFilter,
+                                            duration: 0.95
+                                        },
+                                        '-=0.55'
+                                    );
+                                }
+
+
+                                if (originRule) {
+                                    profileTimeline.to(
+                                        originRule,
+                                        {
+                                            scaleX: 1,
+                                            duration: 0.85,
+                                            ease: 'power3.inOut'
+                                        },
+                                        '-=0.85'
+                                    );
+                                }
+
+
+                                if (thesisLines.length) {
+                                    profileTimeline.to(
+                                        thesisLines,
+                                        {
+                                            autoAlpha: 1,
+                                            y: 0,
+                                            scale: 1,
+                                            filter: settledFilter,
+                                            duration: 1.05,
+                                            stagger: 0.10
+                                        },
+                                        '-=0.72'
+                                    );
+                                }
+
+
+                                if (body) {
+                                    profileTimeline.to(
+                                        body,
+                                        {
+                                            autoAlpha: 1,
+                                            y: 0,
+                                            filter: settledFilter,
+                                            duration: 1.05
+                                        },
+                                        '-=0.62'
+                                    );
+                                }
                             }
 
-
-                            if (origin) {
-                                profileTimeline.to(
-                                    origin,
-                                    {
-                                        autoAlpha: 1,
-                                        x: 0,
-                                        y: 0,
-
-                                        filter:
-                                            settledFilter,
-
-                                        duration:
-                                            isMobile
-                                                ? 0.84
-                                                : 0.95
-                                    },
-                                    '-=0.55'
-                                );
-                            }
-
-
-                            if (originRule) {
-                                profileTimeline.to(
-                                    originRule,
-                                    {
-                                        scaleX: 1,
-                                        duration: 0.85,
-                                        ease: 'power3.inOut'
-                                    },
-                                    '-=0.85'
-                                );
-                            }
-
-
-                            if (thesisLines.length) {
-                                profileTimeline.to(
-                                    thesisLines,
-                                    {
-                                        autoAlpha: 1,
-                                        y: 0,
-                                        scale: 1,
-
-                                        filter:
-                                            settledFilter,
-
-                                        duration:
-                                            isMobile
-                                                ? 0.92
-                                                : 1.05,
-
-                                        stagger:
-                                            isMobile
-                                                ? 0.14
-                                                : 0.10
-                                    },
-                                    '-=0.72'
-                                );
-                            }
-
-
-                            if (body) {
-                                profileTimeline.to(
-                                    body,
-                                    {
-                                        autoAlpha: 1,
-                                        y: 0,
-
-                                        filter:
-                                            settledFilter,
-
-                                        duration:
-                                            isMobile
-                                                ? 0.9
-                                                : 1.05
-                                    },
-                                    '-=0.62'
-                                );
-                            }
 
                         }
 
@@ -10339,59 +10810,138 @@ and (
                                     );
 
 
-                                    const galleryTimeline =
-                                        gsap.timeline({
+                                    if (isMobile) {
 
-                                            defaults: {
-                                                ease: 'power4.out'
-                                            },
+                                        if (heading) {
+                                            gsap.to(
+                                                heading,
+                                                {
+                                                    autoAlpha: 1,
+                                                    y: 0,
+                                                    duration: 0.76,
+                                                    ease: 'power4.out',
+                                                    scrollTrigger: {
+                                                        trigger: heading,
+                                                        start: 'top 91%',
+                                                        once: true
+                                                    }
+                                                }
+                                            );
+                                        }
 
-                                            scrollTrigger: {
-                                                trigger: category,
-                                                start: 'top 82%',
-                                                once: true
-                                            }
+                                        cards.forEach(
+                                            (card, index) => {
 
-                                        });
+                                                const direction =
+                                                    index % 2 === 0 ? -1 : 1;
 
+                                                gsap.set(
+                                                    card,
+                                                    {
+                                                        x: 18 * direction,
+                                                        y: 34,
+                                                        scale: 0.979,
+                                                        rotation: 0.16 * direction,
+                                                        transformOrigin: '50% 50%'
+                                                    }
+                                                );
 
-                                    if (heading) {
-                                        galleryTimeline.to(
-                                            heading,
-                                            {
-                                                autoAlpha: 1,
-                                                y: 0,
-                                                filter: settledFilter,
-                                                duration: 0.85
+                                                const cardTimeline =
+                                                    gsap.timeline({
+                                                        defaults: {
+                                                            ease: 'power4.out'
+                                                        },
+                                                        scrollTrigger: {
+                                                            trigger: card,
+                                                            start: 'top 89%',
+                                                            once: true
+                                                        }
+                                                    });
+
+                                                cardTimeline.to(
+                                                    card,
+                                                    {
+                                                        autoAlpha: 1,
+                                                        x: 0,
+                                                        y: 0,
+                                                        scale: 1,
+                                                        rotation: 0,
+                                                        duration: 0.9
+                                                    },
+                                                    0
+                                                );
+
+                                                const arrow =
+                                                    card.querySelector(
+                                                        '.project-action-arrow'
+                                                    );
+
+                                                if (arrow) {
+                                                    cardTimeline.fromTo(
+                                                        arrow,
+                                                        {
+                                                            x: -5,
+                                                            opacity: 0.25
+                                                        },
+                                                        {
+                                                            x: 0,
+                                                            opacity: 1,
+                                                            duration: 0.58,
+                                                            ease: 'power3.out'
+                                                        },
+                                                        0.18
+                                                    );
+                                                }
                                             }
                                         );
+
+                                    } else {
+
+                                        const galleryTimeline =
+                                            gsap.timeline({
+
+                                                defaults: {
+                                                    ease: 'power4.out'
+                                                },
+
+                                                scrollTrigger: {
+                                                    trigger: category,
+                                                    start: 'top 82%',
+                                                    once: true
+                                                }
+
+                                            });
+
+
+                                        if (heading) {
+                                            galleryTimeline.to(
+                                                heading,
+                                                {
+                                                    autoAlpha: 1,
+                                                    y: 0,
+                                                    filter: settledFilter,
+                                                    duration: 0.85
+                                                }
+                                            );
+                                        }
+
+
+                                        if (cards.length) {
+                                            galleryTimeline.to(
+                                                cards,
+                                                {
+                                                    autoAlpha: 1,
+                                                    y: 0,
+                                                    scale: 1,
+                                                    filter: settledFilter,
+                                                    duration: 1.05,
+                                                    stagger: 0.11
+                                                },
+                                                '-=0.48'
+                                            );
+                                        }
                                     }
 
-
-                                    if (cards.length) {
-                                        galleryTimeline.to(
-                                            cards,
-                                            {
-                                                autoAlpha: 1,
-                                                y: 0,
-                                                scale: 1,
-
-                                                filter:
-                                                    settledFilter,
-
-                                                duration:
-                                                    isMobile
-                                                        ? 0.92
-                                                        : 1.05,
-
-                                                stagger:
-                                                    isMobile
-                                                        ? 0.095
-                                                        : 0.11
-                                            },
-                                            '-=0.48'
-                                        );
-                                    }
 
                                 }
                             );
