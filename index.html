@@ -49,9 +49,91 @@
         :root {
             --bg-base: #fafafa;
         }
+
+        /* =========================================================
+           FIRST-PAINT GEOMETRY LOCK
+           Tailwind Preflightと同じ幾何条件を最初のstyleで確定させ、
+           外部CSSの取得状況にかかわらず初回座標を不変にする。
+           ========================================================= */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Text",
+                "Helvetica Neue",
+                "Hiragino Sans",
+                "Hiragino Kaku Gothic ProN",
+                "Noto Sans JP",
+                sans-serif;
+        }
+
         body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
             background-color: var(--bg-base);
+            color: #1d1d1f;
+            font-family: inherit;
+            line-height: inherit;
             overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        figure,
+        blockquote,
+        dl,
+        dd {
+            margin: 0;
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            color: inherit;
+            font: inherit;
+            background: transparent;
+        }
+
+        button,
+        [type="button"],
+        [type="reset"],
+        [type="submit"] {
+            -webkit-appearance: button;
+        }
+
+        img,
+        picture,
+        svg,
+        video,
+        canvas {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
         }
         
         /* 画面全体に微かなホワイトグラデーションを即座に敷き、FCPタイムを強制的にゼロ秒台へ */
@@ -557,44 +639,11 @@ header .mt-6 {
         </style>
     </noscript>
     <!--
-        Non-critical utility CSS is requested only after the first paint.
-        The complete Hero / navigation shell is covered by the inline critical CSS above.
+        Render-critical utility CSS.
+        遅延注入するとTailwind Preflight（margin / box-sizing / font）が
+        初回描画後に適用され、スマホHero全体が再配置されるため同期読込する。
     -->
-    <noscript>
-        <link rel="stylesheet" href="../output.css">
-    </noscript>
-
-    <script>
-        (() => {
-            const loadNonCriticalCSS = () => {
-                if (document.getElementById('kh-utility-css')) return;
-
-                const link = document.createElement('link');
-                link.id = 'kh-utility-css';
-                link.rel = 'stylesheet';
-                link.href = '../output.css';
-                document.head.appendChild(link);
-            };
-
-            const afterFirstPaint = () => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        if ('requestIdleCallback' in window) {
-                            requestIdleCallback(loadNonCriticalCSS, { timeout: 900 });
-                        } else {
-                            setTimeout(loadNonCriticalCSS, 120);
-                        }
-                    });
-                });
-            };
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', afterFirstPaint, { once: true });
-            } else {
-                afterFirstPaint();
-            }
-        })();
-    </script>
+    <link id="kh-utility-css" rel="stylesheet" href="../output.css">
 
     
     <!-- Language Detection Script -->
@@ -2000,17 +2049,25 @@ and (
                 display: none;
             }
 
+            /*
+             * FIRST VIEW — POSITION LOCK
+             * 初回訪問時のHeroは座標・拡大率を一切変えない。
+             * 写真と名前は即時に最終位置で描画し、補助要素だけopacityで現す。
+             */
             #hero-tilt-container,
             header h1,
             header .mt-4,
             header .mt-6 {
-                animation-duration: 420ms !important;
+                transform: none !important;
+                animation: none !important;
+                will-change: auto !important;
             }
 
             .hero-reveal {
                 filter: none !important;
-                transform: translateY(8px);
-                animation-duration: 420ms !important;
+                transform: none !important;
+                animation-duration: 360ms !important;
+                will-change: opacity !important;
             }
 
             .hero-reveal-1 { animation-delay: 40ms !important; }
