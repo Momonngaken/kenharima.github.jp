@@ -8903,10 +8903,15 @@ and (
                     }
 
 
-                    #projects .project-grid {
-                        grid-template-columns: 1fr;
+                    /* =====================================================
+                       MOBILE PROJECT GALLERY — QUIET APPLE-LIKE REFINEMENT
+                       9枚のカードを画面幅の約85%に抑え、中央へ静かに展示する
+                       ===================================================== */
 
-                        gap: 12px;
+                    #projects .project-grid {
+                        grid-template-columns: minmax(0, 1fr);
+                        justify-items: center;
+                        gap: 20px;
                     }
 
 
@@ -8919,19 +8924,49 @@ and (
                     #projects .project-social,
                     #projects .project-poker,
                     #projects .project-tournament {
-                        grid-column:
-                            1 / -1;
+                        grid-column: 1 / -1;
                     }
 
 
                     #projects .project-card {
-                        border-radius: 26px;
+                        width: min(85vw, 420px);
+                        max-width: 100%;
+                        justify-self: center;
+
+                        padding: 24px;
+                        border-radius: 24px;
+
+                        transition:
+                            transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
+                            box-shadow 360ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+
+                    /* 背景素材は残し、光沢と拡大だけを抑える */
+                    #projects .project-card::before {
+                        opacity: 0.72;
+                        transform: none !important;
+                        transition: none !important;
+                    }
+
+
+                    #projects .project-card::after {
+                        left: 24px;
+                        right: 24px;
+                        opacity: 0.18;
+                    }
+
+
+                    /* タップ時はカード全体を主役にし、矢印は1pxだけ応答 */
+                    #projects .project-card:active
+                    .project-action-arrow {
+                        transform: translateX(1px);
                     }
 
 
                     #projects .project-ariyoshi,
                     #projects .project-essay {
-                        min-height: 360px;
+                        min-height: 344px;
                     }
 
 
@@ -8948,7 +8983,7 @@ and (
                     #projects .project-pivot,
                     #projects .project-bizplan,
                     #projects .project-social {
-                        min-height: 300px;
+                        min-height: 288px;
                     }
 
 
@@ -11185,16 +11220,18 @@ and (
 
                                                     y:
                                                         isMobile
-                                                            ? 28
+                                                            ? 12
                                                             : 28,
 
                                                     scale:
                                                         isMobile
-                                                            ? 0.986
+                                                            ? 0.996
                                                             : 0.988,
 
                                                     filter:
-                                                        revealFilter(8)
+                                                        isMobile
+                                                            ? 'none'
+                                                            : revealFilter(8)
                                                 }
                                             );
 
@@ -11222,68 +11259,26 @@ and (
                                         }
 
                                         cards.forEach(
-                                            (card, index) => {
+                                            card => {
 
-                                                const direction =
-                                                    index % 2 === 0 ? -1 : 1;
-
-                                                gsap.set(
-                                                    card,
-                                                    {
-                                                        x: 18 * direction,
-                                                        y: 34,
-                                                        scale: 0.979,
-                                                        rotation: 0.16 * direction,
-                                                        transformOrigin: '50% 50%'
-                                                    }
-                                                );
-
-                                                const cardTimeline =
-                                                    gsap.timeline({
-                                                        defaults: {
-                                                            ease: 'power4.out'
-                                                        },
-                                                        scrollTrigger: {
-                                                            trigger: card,
-                                                            start: 'top 89%',
-                                                            once: true
-                                                        }
-                                                    });
-
-                                                cardTimeline.to(
+                                                gsap.to(
                                                     card,
                                                     {
                                                         autoAlpha: 1,
-                                                        x: 0,
                                                         y: 0,
                                                         scale: 1,
-                                                        rotation: 0,
-                                                        duration: 0.9
-                                                    },
-                                                    0
+                                                        filter: 'none',
+                                                        duration: 0.68,
+                                                        ease: 'power3.out',
+                                                        clearProps: 'transform,filter',
+                                                        scrollTrigger: {
+                                                            trigger: card,
+                                                            start: 'top 92%',
+                                                            once: true
+                                                        }
+                                                    }
                                                 );
 
-                                                const arrow =
-                                                    card.querySelector(
-                                                        '.project-action-arrow'
-                                                    );
-
-                                                if (arrow) {
-                                                    cardTimeline.fromTo(
-                                                        arrow,
-                                                        {
-                                                            x: -5,
-                                                            opacity: 0.25
-                                                        },
-                                                        {
-                                                            x: 0,
-                                                            opacity: 1,
-                                                            duration: 0.58,
-                                                            ease: 'power3.out'
-                                                        },
-                                                        0.18
-                                                    );
-                                                }
                                             }
                                         );
 
