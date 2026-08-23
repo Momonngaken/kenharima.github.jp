@@ -7,7 +7,7 @@
     <!-- SEO & Metadata -->
     <title>Ken Harima Official - 播磨賢オフィシャル</title>
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-    <meta name="description" content="播磨賢（Ken Harima）の公式ポートフォリオサイト。ナラティブ、哲学・倫理学、戦略、ゲーム理論を軸に、経歴・プロジェクト・専門領域を紹介しています。">
+    <meta name="description" content="播磨賢（Ken Harima）の公式ポートフォリオサイト。ナラティブ設計、哲学・倫理学、社会学、戦略、ゲーム理論を軸に、経歴・プロジェクト・専門領域を紹介しています。">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
     <link rel="canonical" href="https://kenharima.com/">
     <!-- Cold-start critical path: preload only the visible Hero portra it -->
@@ -676,7 +676,7 @@ header .mt-6 {
           "name": "University of Mannheim"
         }
       ],
-      "knowsAbout":["Marketing Strategy", "Game Theory", "Data Analysis", "Web Engineering"],
+      "knowsAbout":["Narrative Design", "Philosophy and Ethics", "Sociology", "Strategy", "Game Theory", "Data Analysis", "Web Engineering"],
       "sameAs":[
         "https://www.linkedin.com/in/ken-harima-29a846234/",
         "https://www.wantedly.com/id/kenharima"
@@ -1466,6 +1466,19 @@ and (
             width: 32px;
             height: 1px;
             background: rgba(29, 29, 31, 0.16);
+        }
+
+        /* Personal credo: a quiet editorial signature above the name */
+        .hero-motto {
+            white-space: nowrap;
+            letter-spacing: 0.13em;
+        }
+
+        @media (max-width: 420px) {
+            .hero-motto {
+                font-size: 9px;
+                letter-spacing: 0.085em;
+            }
         }
 
         .hero-name {
@@ -2699,11 +2712,8 @@ and (
             </div>
 
             <div class="hero-copy">
-                <p class="hero-kicker hero-reveal hero-reveal-1">
-                    <span>KEN HARIMA</span>
-                    <span class="hero-kicker-rule" aria-hidden="true"></span>
-                    <span class="lang-ja">PORTFOLIO</span>
-                    <span class="lang-en">PORTFOLIO</span>
+                <p class="hero-kicker hero-reveal hero-reveal-1" aria-label="Liberté, Progrès, Fraternité, Mesure">
+                    <span class="hero-motto">LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE</span>
                 </p>
 
                 <h1 id="hero-name" class="hero-name">
@@ -2736,6 +2746,11 @@ and (
     <span class="hero-discipline">
         <span class="lang-ja">社会学</span>
         <span class="lang-en">Sociology</span>
+    </span>
+
+    <span class="hero-discipline">
+        <span class="lang-ja">戦略</span>
+        <span class="lang-en">Strategy</span>
     </span>
                         
     <span class="hero-discipline">
