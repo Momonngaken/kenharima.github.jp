@@ -1574,12 +1574,6 @@ and (
         @media (max-width: 420px) {
             .hero-motto-trigger {
                 justify-items: center;
-                text-align: center;
-            }
-
-            .hero-motto-local {
-                width: 100%;
-                text-align: center;
             }
 
             .hero-motto-layer {
@@ -2739,6 +2733,24 @@ and (
 
     }
 </style>
+
+    <!-- Mobile motto centering fix -->
+    <style>
+      @media (max-width: 767px), (any-pointer: coarse) {
+        .hero-motto-trigger {
+          justify-items: center !important;
+          text-align: center !important;
+        }
+        .hero-motto-trigger .hero-motto-layer {
+          justify-self: center !important;
+          text-align: center !important;
+        }
+        .hero-motto-trigger .hero-motto-local {
+          justify-self: center !important;
+          text-align: center !important;
+        }
+      }
+    </style>
 </head>
 <body class="antialiased">
 
