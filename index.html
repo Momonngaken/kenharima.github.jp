@@ -1469,15 +1469,126 @@ and (
         }
 
         /* Personal credo: a quiet editorial signature above the name */
+        .hero-motto-wrap {
+            position: relative;
+        }
+
+        .hero-motto-trigger {
+            appearance: none;
+            -webkit-appearance: none;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 0 4px;
+            margin: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            line-height: inherit;
+            cursor: pointer;
+            transition: color 320ms var(--kh-ease), transform 320ms var(--kh-ease);
+        }
+
+        .hero-motto-trigger:hover {
+            color: #515154;
+        }
+
+        .hero-motto-trigger:active {
+            transform: translateY(1px);
+        }
+
+        .hero-motto-trigger:focus-visible {
+            outline: 1px solid rgba(29, 29, 31, 0.28);
+            outline-offset: 6px;
+            border-radius: 4px;
+        }
+
         .hero-motto {
             white-space: nowrap;
             letter-spacing: 0.13em;
+        }
+
+        .hero-motto-popover {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 12px);
+            z-index: 80;
+            width: max-content;
+            max-width: min(320px, calc(100vw - 32px));
+            padding: 12px 14px;
+            border: 1px solid rgba(29, 29, 31, 0.08);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.82);
+            -webkit-backdrop-filter: blur(22px) saturate(150%);
+            backdrop-filter: blur(22px) saturate(150%);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-4px) scale(0.985);
+            transform-origin: top left;
+            transition:
+                opacity 220ms ease,
+                visibility 220ms ease,
+                transform 320ms var(--kh-ease);
+            text-transform: none;
+        }
+
+        .hero-motto-popover span {
+            display: block;
+            white-space: nowrap;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
+        }
+
+        .hero-motto-ja {
+            color: #3a3a3c;
+            font-size: 12px;
+            line-height: 1.45;
+            font-weight: 600;
+            letter-spacing: 0.035em;
+        }
+
+        .hero-motto-en {
+            margin-top: 5px;
+            color: #86868b;
+            font-size: 10.5px;
+            line-height: 1.4;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .hero-motto-wrap:hover .hero-motto-popover {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .hero-motto-trigger:focus-visible + .hero-motto-popover,
+        .hero-motto-wrap.is-open .hero-motto-popover {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
         }
 
         @media (max-width: 420px) {
             .hero-motto {
                 font-size: 9px;
                 letter-spacing: 0.085em;
+            }
+
+            .hero-motto-popover {
+                left: 50%;
+                transform: translate(-50%, -4px) scale(0.985);
+                transform-origin: top center;
+            }
+
+            .hero-motto-trigger:focus-visible + .hero-motto-popover,
+            .hero-motto-wrap.is-open .hero-motto-popover {
+                transform: translate(-50%, 0) scale(1);
             }
         }
 
@@ -2713,31 +2824,25 @@ and (
 
             <div class="hero-copy">
                 <div class="hero-kicker hero-reveal hero-reveal-1 hero-motto-wrap">
-    <button
-        type="button"
-        id="hero-motto-trigger"
-        class="hero-motto-trigger"
-        aria-describedby="hero-motto-popover"
-        aria-label="Liberté, Progrès, Fraternité, Mesure — 自由、進歩、友愛、節度 — Liberty, Progress, Fraternity, Measure"
-    >
-        <span class="hero-motto">
-            LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE
-        </span>
-    </button>
+                    <button
+                        type="button"
+                        id="hero-motto-trigger"
+                        class="hero-motto-trigger"
+                        aria-describedby="hero-motto-popover"
+                        aria-label="Liberté, Progrès, Fraternité, Mesure — 自由、進歩、友愛、節度 — Liberty, Progress, Fraternity, Measure"
+                    >
+                        <span class="hero-motto">LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE</span>
+                    </button>
 
-    <div
-        id="hero-motto-popover"
-        class="hero-motto-popover"
-        role="tooltip"
-    >
-        <span class="hero-motto-ja">
-            自由 · 進歩 · 友愛 · 節度
-        </span>
-        <span class="hero-motto-en">
-            Liberty · Progress · Fraternity · Measure
-        </span>
-    </div>
-</div>
+                    <div
+                        id="hero-motto-popover"
+                        class="hero-motto-popover"
+                        role="tooltip"
+                    >
+                        <span class="hero-motto-ja">自由 · 進歩 · 友愛 · 節度</span>
+                        <span class="hero-motto-en">Liberty · Progress · Fraternity · Measure</span>
+                    </div>
+                </div>
 
                 <h1 id="hero-name" class="hero-name">
                     <span class="lang-ja">播磨 賢</span>
@@ -12753,6 +12858,38 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             } else {
                 setup();
             }
+        })();
+    </script>
+
+    <script>
+        /* Motto translation popover: tap to toggle, outside tap / Esc to close */
+        (() => {
+            const wrap = document.querySelector('.hero-motto-wrap');
+            const trigger = document.getElementById('hero-motto-trigger');
+
+            if (!wrap || !trigger) return;
+
+            const closePopover = () => {
+                wrap.classList.remove('is-open');
+            };
+
+            trigger.addEventListener('click', (event) => {
+                event.stopPropagation();
+                wrap.classList.toggle('is-open');
+            });
+
+            document.addEventListener('pointerdown', (event) => {
+                if (!wrap.contains(event.target)) {
+                    closePopover();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closePopover();
+                    trigger.blur();
+                }
+            });
         })();
     </script>
 
