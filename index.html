@@ -1468,17 +1468,18 @@ and (
             background: rgba(29, 29, 31, 0.16);
         }
 
-        /* Personal credo: a quiet editorial signature above the name */
-        .hero-motto-wrap {
-            position: relative;
-        }
-
+        /* =========================================================
+           PERSONAL CREDO — INLINE LANGUAGE MORPH
+           FR → current site language, without expanding the layout
+           ========================================================= */
         .hero-motto-trigger {
             appearance: none;
             -webkit-appearance: none;
-            display: inline-flex;
+            display: inline-grid;
+            grid-template-areas: "motto";
             align-items: center;
-            padding: 0 0 4px;
+            justify-items: start;
+            padding: 0;
             margin: 0;
             border: 0;
             background: transparent;
@@ -1486,109 +1487,114 @@ and (
             font: inherit;
             line-height: inherit;
             cursor: pointer;
-            transition: color 320ms var(--kh-ease), transform 320ms var(--kh-ease);
+            text-align: left;
+            outline: none;
         }
 
-        .hero-motto-trigger:hover {
-            color: #515154;
-        }
-
-        .hero-motto-trigger:active {
-            transform: translateY(1px);
-        }
-
-        .hero-motto-trigger:focus-visible {
-            outline: 1px solid rgba(29, 29, 31, 0.28);
-            outline-offset: 6px;
-            border-radius: 4px;
-        }
-
-        .hero-motto {
+        .hero-motto-layer {
+            grid-area: motto;
             white-space: nowrap;
             letter-spacing: 0.13em;
-        }
-
-        .hero-motto-popover {
-            position: absolute;
-            left: 0;
-            top: calc(100% + 12px);
-            z-index: 80;
-            width: max-content;
-            max-width: min(320px, calc(100vw - 32px));
-            padding: 12px 14px;
-            border: 1px solid rgba(29, 29, 31, 0.08);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.82);
-            -webkit-backdrop-filter: blur(22px) saturate(150%);
-            backdrop-filter: blur(22px) saturate(150%);
-            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transform: translateY(-4px) scale(0.985);
-            transform-origin: top left;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
             transition:
-                opacity 220ms ease,
-                visibility 220ms ease,
-                transform 320ms var(--kh-ease);
-            text-transform: none;
+                opacity 280ms ease,
+                filter 360ms var(--kh-ease),
+                transform 420ms var(--kh-ease),
+                letter-spacing 420ms var(--kh-ease),
+                color 320ms var(--kh-ease);
+            will-change: opacity, filter, transform;
         }
 
-        .hero-motto-popover span {
-            display: block;
-            white-space: nowrap;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
-        }
-
-        .hero-motto-ja {
-            color: #3a3a3c;
-            font-size: 12px;
-            line-height: 1.45;
-            font-weight: 600;
-            letter-spacing: 0.035em;
-        }
-
-        .hero-motto-en {
-            margin-top: 5px;
-            color: #86868b;
-            font-size: 10.5px;
-            line-height: 1.4;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            .hero-motto-wrap:hover .hero-motto-popover {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .hero-motto-trigger:focus-visible + .hero-motto-popover,
-        .hero-motto-wrap.is-open .hero-motto-popover {
+        .hero-motto-fr {
             opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
+            filter: blur(0);
             transform: translateY(0) scale(1);
         }
 
+        .hero-motto-local {
+            opacity: 0;
+            filter: blur(7px);
+            transform: translateY(3px) scale(0.985);
+            color: #6e6e73;
+            letter-spacing: 0.105em;
+            pointer-events: none;
+        }
+
+        /* Keep only the translation matching the active site language. */
+        html:not(.is-global) .hero-motto-local-en {
+            display: none;
+        }
+
+        html.is-global .hero-motto-local-ja {
+            display: none;
+        }
+
+        /* Desktop: hover / keyboard focus. Touch: JS adds .is-translated. */
+        @media (hover: hover) and (pointer: fine) {
+            .hero-motto-trigger:hover .hero-motto-fr,
+            .hero-motto-trigger:focus-visible .hero-motto-fr {
+                opacity: 0;
+                filter: blur(7px);
+                transform: translateY(-3px) scale(0.985);
+                letter-spacing: 0.105em;
+            }
+
+            .hero-motto-trigger:hover .hero-motto-local,
+            .hero-motto-trigger:focus-visible .hero-motto-local {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0) scale(1);
+                letter-spacing: 0.13em;
+                color: #515154;
+            }
+        }
+
+        .hero-motto-trigger.is-translated .hero-motto-fr {
+            opacity: 0;
+            filter: blur(7px);
+            transform: translateY(-3px) scale(0.985);
+            letter-spacing: 0.105em;
+        }
+
+        .hero-motto-trigger.is-translated .hero-motto-local {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0) scale(1);
+            letter-spacing: 0.13em;
+            color: #515154;
+        }
+
+        .hero-motto-trigger:focus-visible {
+            border-radius: 4px;
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.08);
+        }
+
         @media (max-width: 420px) {
-            .hero-motto {
+            .hero-motto-trigger {
+                justify-items: center;
+            }
+
+            .hero-motto-layer {
                 font-size: 9px;
                 letter-spacing: 0.085em;
             }
 
-            .hero-motto-popover {
-                left: 50%;
-                transform: translate(-50%, -4px) scale(0.985);
-                transform-origin: top center;
+            .hero-motto-local {
+                letter-spacing: 0.065em;
             }
 
-            .hero-motto-trigger:focus-visible + .hero-motto-popover,
-            .hero-motto-wrap.is-open .hero-motto-popover {
-                transform: translate(-50%, 0) scale(1);
+            .hero-motto-trigger.is-translated .hero-motto-local {
+                letter-spacing: 0.085em;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-motto-layer {
+                transition: opacity 120ms ease !important;
+                filter: none !important;
+                transform: none !important;
             }
         }
 
@@ -2823,25 +2829,23 @@ and (
             </div>
 
             <div class="hero-copy">
-                <div class="hero-kicker hero-reveal hero-reveal-1 hero-motto-wrap">
+                <div class="hero-kicker hero-reveal hero-reveal-1">
                     <button
                         type="button"
                         id="hero-motto-trigger"
                         class="hero-motto-trigger"
-                        aria-describedby="hero-motto-popover"
                         aria-label="Liberté, Progrès, Fraternité, Mesure — 自由、進歩、友愛、節度 — Liberty, Progress, Fraternity, Measure"
                     >
-                        <span class="hero-motto">LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE</span>
+                        <span class="hero-motto-layer hero-motto-fr" aria-hidden="true">
+                            LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE
+                        </span>
+                        <span class="hero-motto-layer hero-motto-local hero-motto-local-ja" aria-hidden="true">
+                            自由 · 進歩 · 友愛 · 節度
+                        </span>
+                        <span class="hero-motto-layer hero-motto-local hero-motto-local-en" aria-hidden="true">
+                            LIBERTY · PROGRESS · FRATERNITY · MEASURE
+                        </span>
                     </button>
-
-                    <div
-                        id="hero-motto-popover"
-                        class="hero-motto-popover"
-                        role="tooltip"
-                    >
-                        <span class="hero-motto-ja">自由 · 進歩 · 友愛 · 節度</span>
-                        <span class="hero-motto-en">Liberty · Progress · Fraternity · Measure</span>
-                    </div>
                 </div>
 
                 <h1 id="hero-name" class="hero-name">
@@ -12862,33 +12866,56 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
     </script>
 
     <script>
-        /* Motto translation popover: tap to toggle, outside tap / Esc to close */
+        /* Motto: tap-to-morph on touch devices; desktop is pure CSS hover. */
         (() => {
-            const wrap = document.querySelector('.hero-motto-wrap');
             const trigger = document.getElementById('hero-motto-trigger');
+            if (!trigger) return;
 
-            if (!wrap || !trigger) return;
+            const isTouchLike = () =>
+                window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
-            const closePopover = () => {
-                wrap.classList.remove('is-open');
+            const reset = () => {
+                trigger.classList.remove('is-translated');
+                trigger.setAttribute('aria-pressed', 'false');
             };
 
+            trigger.setAttribute('aria-pressed', 'false');
+
             trigger.addEventListener('click', (event) => {
+                if (!isTouchLike()) return;
+
                 event.stopPropagation();
-                wrap.classList.toggle('is-open');
+                const next = !trigger.classList.contains('is-translated');
+                trigger.classList.toggle('is-translated', next);
+                trigger.setAttribute('aria-pressed', String(next));
             });
 
             document.addEventListener('pointerdown', (event) => {
-                if (!wrap.contains(event.target)) {
-                    closePopover();
-                }
+                if (!isTouchLike()) return;
+                if (!trigger.contains(event.target)) reset();
             });
 
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
-                    closePopover();
+                    reset();
                     trigger.blur();
                 }
+            });
+
+            /* If JA/EN is switched while translated, return cleanly to French. */
+            let wasGlobal = document.documentElement.classList.contains('is-global');
+
+            const observer = new MutationObserver(() => {
+                const isGlobal = document.documentElement.classList.contains('is-global');
+                if (isGlobal !== wasGlobal) {
+                    wasGlobal = isGlobal;
+                    reset();
+                }
+            });
+
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['class']
             });
         })();
     </script>
