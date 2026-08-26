@@ -9311,6 +9311,90 @@ and (
                 }
 
 
+                /* =========================================================
+                   POKER MODAL MAP — white-surface rendering
+                   Keep SVG intact and tune contrast independently from
+                   the midnight project card.
+                   ========================================================= */
+                .modal-text-body .kh-location-atlas {
+                    width: 100%;
+                    margin: 30px 0 28px;
+                    white-space: normal;
+                }
+
+                .modal-text-body .kh-location-atlas-frame {
+                    width: 100%;
+                    overflow: hidden;
+                    border-radius: 18px;
+                    background: #f5f5f7;
+                    border: 1px solid rgba(29, 29, 31, 0.06);
+                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
+                }
+
+                .modal-text-body .kh-location-atlas-svg {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    aspect-ratio: 760 / 430;
+                }
+
+                .modal-text-body .kh-map-sea {
+                    fill: #f5f5f7;
+                }
+
+                .modal-text-body .kh-map-country {
+                    fill: #e3e3e8;
+                    stroke: rgba(29,29,31,0.20);
+                }
+
+                .modal-text-body .kh-map-country-visited {
+                    fill: #d1d1d6;
+                }
+
+                .modal-text-body .kh-map-dot {
+                    fill: #0071e3;
+                    stroke: #ffffff;
+                    stroke-width: 1.35;
+                }
+
+                .modal-text-body .kh-map-label {
+                    fill: #3a3a3c;
+                }
+
+                .modal-text-body .kh-map-label-count {
+                    fill: #86868b;
+                }
+
+                .modal-text-body .kh-map-leader {
+                    stroke: rgba(58,58,60,0.34);
+                }
+
+                .modal-text-body .kh-map-measure {
+                    margin-top: 10px;
+                    color: #86868b;
+                }
+
+                .modal-text-body .kh-map-measure-dot {
+                    background: #0071e3;
+                }
+
+                @media (max-width: 767px) {
+                    .modal-text-body .kh-location-atlas {
+                        width: calc(100% + 12px);
+                        margin-left: -6px;
+                        margin-right: -6px;
+                    }
+
+                    .modal-text-body .kh-location-atlas-frame {
+                        border-radius: 14px;
+                    }
+
+                    .modal-text-body .kh-location-atlas-svg {
+                        aspect-ratio: 760 / 470;
+                    }
+                }
+
+
                 #projects .project-tournament {
                     grid-column:
                         span 12;
@@ -13017,10 +13101,22 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     </div>`;
                 }
 
+                // Poker contains a full inline SVG map. Converting every newline
+                // to <br> would inject HTML elements inside <svg> and corrupt it.
+                // For this modal only, preserve the raw HTML/SVG and let the
+                // parent `white-space: pre-line` render prose line breaks.
+                const preserveInlineSvg = id === 'poker';
+                const modalBodyJa = preserveInlineSvg
+                    ? data.body_ja
+                    : data.body_ja.replace(/\n/g, '<br>');
+                const modalBodyEn = preserveInlineSvg
+                    ? data.body_en
+                    : data.body_en.replace(/\n/g, '<br>');
+
                 modalContent.innerHTML = `
                     ${imageHTML}
-                    <div class="lang-ja first:mt-0">${data.body_ja.replace(/\n/g, '<br>')}</div>
-                    <div class="lang-en first:mt-0">${data.body_en.replace(/\n/g, '<br>')}</div>`;
+                    <div class="lang-ja first:mt-0">${modalBodyJa}</div>
+                    <div class="lang-en first:mt-0">${modalBodyEn}</div>`;
 
                 requestAnimationFrame(() => {
                     const markers = modalContent.querySelectorAll('strong');
