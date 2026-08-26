@@ -10,7 +10,7 @@
     <meta name="description" content="播磨賢（Ken Harima）の公式ポートフォリオサイト。ナラティブ設計、哲学・倫理学、社会学、戦略、ゲーム理論を軸に、経歴・プロジェクト・専門領域を紹介しています。">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
     <link rel="canonical" href="https://kenharima.com/">
-    <!-- Cold-start critical path: preload only the visible Hero portra it -->
+    <!-- Cold-start critical path: preload only the visible Hero portrait -->
     <link
         rel="preload"
         as="image"
@@ -2337,7 +2337,7 @@ and (
 
             #projects .project-card:active {
                 transform:
-                    scale(0.992) !important;
+                    scale(0.996) !important;
             }
 
 
@@ -12793,10 +12793,13 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 /* Dark keynote */
                 register('#next .next-surface', { y: 46, scale: 0.978 });
 
-                /* Projects */
-                register('#projects .apple-section-heading', { heading: true, y: 22, scale: 0.99 });
-                register('#projects .projects-category-heading', { heading: true, y: 18, scale: 0.995 });
-                register('#projects .project-card', { alternate: true, x: 20, y: 36, scale: 0.978, rotate: 0.16 });
+                /* Projects — quiet mobile settle
+                 * Keep the cards visually anchored: no alternating horizontal slide,
+                 * no rotation, and only a very small vertical/scale convergence.
+                 */
+                register('#projects .apple-section-heading', { heading: true, y: 14, scale: 1 });
+                register('#projects .projects-category-heading', { heading: true, y: 10, scale: 1 });
+                register('#projects .project-card', { y: 14, scale: 0.996 });
 
                 /* Contact */
                 register('#contact-final .contact-surface', { y: 38, scale: 0.984 });
