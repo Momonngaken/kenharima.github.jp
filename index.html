@@ -9142,7 +9142,7 @@ and (
                 }
 
                 #projects .poker-stat-execution {
-                    grid-column: 1 / -1;
+                    grid-column: auto;
                 }
 
                 @media (max-width: 767px) {
@@ -9153,7 +9153,7 @@ and (
                         border-radius: 16px;
                     }
                     .kh-location-atlas-svg {
-                        aspect-ratio: 760 / 470;
+                        aspect-ratio: 760 / 500;
                     }
                     .kh-map-label {
                         font-size: 10.8px;
@@ -9163,6 +9163,24 @@ and (
                     }
                     #projects .poker-side {
                         gap: 18px;
+                    }
+                    #projects .project-poker .kh-location-atlas {
+                        width: calc(100% + 28px);
+                        max-width: none;
+                        margin-left: -14px;
+                        margin-right: -14px;
+                    }
+                    #projects .project-poker .kh-location-atlas-frame {
+                        border-radius: 0;
+                    }
+                    #projects .project-poker .kh-location-atlas-svg {
+                        aspect-ratio: 760 / 540;
+                    }
+                    #projects .project-poker .poker-stats {
+                        gap: 24px 28px;
+                    }
+                    #projects .project-poker .poker-stat-execution {
+                        grid-column: auto;
                     }
                 }
 
@@ -10757,6 +10775,33 @@ and (
             <span class="lang-en">
                 26 Sessions<br>
                 175h 52m
+            </span>
+
+        </span>
+    </div>
+
+
+    <div class="poker-stat-average">
+        <span class="poker-stat-label">
+            <span class="lang-ja">
+                平均セッション
+            </span>
+
+            <span class="lang-en">
+                Avg. Session
+            </span>
+        </span>
+
+        <span class="poker-stat-value poker-stat-value-small">
+
+            <span class="lang-ja">
+                約6時間46分<br>
+                / session
+            </span>
+
+            <span class="lang-en">
+                Approx. 6h 46m<br>
+                per session
             </span>
 
         </span>
