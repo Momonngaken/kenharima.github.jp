@@ -10,7 +10,7 @@
     <meta name="description" content="播磨賢（Ken Harima）の公式ポートフォリオサイト。ナラティブ設計、哲学・倫理学、社会学、戦略、ゲーム理論を軸に、経歴・プロジェクト・専門領域を紹介しています。">
     <meta name="keywords" content="Ken HARIMA, 播磨賢, Harima Ken, Waseda University, Data Strategy, Portfolio">
     <link rel="canonical" href="https://kenharima.com/">
-    <!-- Cold-start critical path: preload only the visible Hero portrait -->
+    <!-- Cold-start critical path: preload only the visible Hero portra it -->
     <link
         rel="preload"
         as="image"
@@ -2751,13 +2751,78 @@ and (
         }
       }
     </style>
+
+    <!-- ================= QUIET EDITORIAL INDEX TOGGLE ================= -->
+    <style>
+        #menu-toggle {
+            top: 1.65rem !important;
+            right: 1.7rem !important;
+            width: auto !important;
+            height: auto !important;
+            min-width: 0 !important;
+            padding: 0 !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+            color: #86868b !important;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.16em !important;
+            text-transform: uppercase !important;
+            opacity: 0.88;
+            transform: none !important;
+            transition: color 280ms ease, opacity 280ms ease !important;
+            will-change: auto !important;
+        }
+
+        #menu-toggle:hover,
+        body.menu-open #menu-toggle:hover {
+            background: transparent !important;
+            box-shadow: none !important;
+            color: #1d1d1f !important;
+            opacity: 1;
+            transform: none !important;
+        }
+
+        #menu-toggle:active {
+            opacity: 0.55;
+            transform: none !important;
+        }
+
+        body.menu-open #menu-toggle {
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+            color: #86868b !important;
+        }
+
+        #menu-toggle:focus-visible {
+            outline: 1px solid rgba(29, 29, 31, 0.28);
+            outline-offset: 7px;
+            border-radius: 2px !important;
+        }
+
+        @media (max-width: 767px) {
+            #menu-toggle {
+                top: 1.35rem !important;
+                right: 1.25rem !important;
+                font-size: 9.5px !important;
+                letter-spacing: 0.15em !important;
+            }
+        }
+    </style>
 </head>
 <body class="antialiased">
 
-    <!-- ================= APPLE-LIKE MINIMAL MENU BUTTON ================= -->
-    <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
-        <span class="menu-label-open font-mono tracking-widest uppercase">Menu</span>
-        <span class="menu-label-close font-mono tracking-widest uppercase">Close</span>
+    <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
+    <button id="menu-toggle" aria-label="Open index" aria-expanded="false" aria-controls="site-menu">
+        <span class="menu-label-open">Index</span>
+        <span class="menu-label-close">Close</span>
     </button>
 
     <!-- ================= FULLSCREEN MENU OVERLAY ================= -->
@@ -12642,11 +12707,13 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     if (isOpen) {
                         document.body.classList.remove('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'false');
+                        menuToggle.setAttribute('aria-label', 'Open index');
                         siteMenu.setAttribute('aria-hidden', 'true');
                         if (window.lenis) window.lenis.start();
                     } else {
                         document.body.classList.add('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'true');
+                        menuToggle.setAttribute('aria-label', 'Close index');
                         siteMenu.setAttribute('aria-hidden', 'false');
                         if (window.lenis) window.lenis.stop();
                     }
