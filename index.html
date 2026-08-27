@@ -3732,6 +3732,10 @@ and (
 
     <!-- ================= 2026 INDEX + CONTACT REFINEMENT ================= -->
     <style id="kh-index-contact-refinement">
+        /* =========================================================
+           GLOBAL MENU — quiet, Apple-like navigation
+           Three equal bars remain the only persistent control.
+           ========================================================= */
         #menu-toggle {
             position: fixed !important;
             top: 1.55rem !important;
@@ -3751,13 +3755,13 @@ and (
             backdrop-filter: none !important;
             color: var(--kh-theme-text, #1d1d1f) !important;
             cursor: pointer;
-            opacity: 0.78;
+            opacity: 0.72;
             transform: none !important;
             transition: opacity 180ms ease !important;
         }
 
         #menu-toggle:hover { opacity: 1; }
-        #menu-toggle:active { opacity: 0.5; }
+        #menu-toggle:active { opacity: 0.46; }
 
         #menu-toggle:focus-visible {
             outline: 2px solid var(--kh-theme-blue, #0066cc) !important;
@@ -3776,6 +3780,7 @@ and (
             height: 18px;
         }
 
+        /* Exactly equal length. Do not use the glyph “三”. */
         .menu-bar {
             display: block;
             width: 18px;
@@ -3785,14 +3790,15 @@ and (
             background: currentColor;
             transform-origin: center;
             transition:
-                transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 180ms ease;
+                transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 160ms ease;
         }
 
         body.menu-open #menu-toggle {
             color: var(--kh-theme-text, #1d1d1f) !important;
             background: transparent !important;
             box-shadow: none !important;
+            opacity: 0.88;
         }
 
         body.menu-open #menu-toggle .menu-bar:nth-child(1) {
@@ -3821,164 +3827,135 @@ and (
             display: block !important;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
-            background: rgba(250,250,250,0.985) !important;
+            background: rgba(250,250,252,0.992) !important;
             color: var(--kh-theme-text, #1d1d1f) !important;
             -webkit-backdrop-filter: none !important;
             backdrop-filter: none !important;
             opacity: 0 !important;
             pointer-events: none !important;
             transform: none !important;
-            transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+            transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
 
         body.menu-open #site-menu {
             opacity: 1 !important;
             pointer-events: auto !important;
-            transform: none !important;
         }
 
         html.dark-mode-on #site-menu {
-            background: rgba(15,15,16,0.985) !important;
+            background: rgba(18,18,19,0.994) !important;
         }
 
         .menu-inner {
-            width: min(100%, 960px) !important;
+            width: min(100%, 860px) !important;
             min-height: 100svh !important;
             margin: 0 auto !important;
-            padding: clamp(84px, 10vh, 118px) clamp(22px, 4.5vw, 56px) clamp(40px, 6vh, 68px) !important;
+            padding:
+                clamp(90px, 12vh, 132px)
+                clamp(24px, 5vw, 54px)
+                clamp(34px, 6vh, 62px) !important;
             display: flex !important;
             flex-direction: column !important;
+            opacity: 0;
+            transform: translateY(-7px);
+            transition:
+                opacity 220ms ease,
+                transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .index-heading {
+        body.menu-open #site-menu .menu-inner {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 35ms;
+        }
+
+        .menu-masthead {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
             gap: 24px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid var(--kh-theme-border, rgba(29,29,31,.075));
+            margin-bottom: clamp(28px, 5vh, 48px);
         }
 
-        .index-heading-label,
-        .index-heading-range,
+        .menu-brand,
+        .menu-context,
         .index-bottom-note {
             margin: 0;
-            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-            font-size: 10px;
-            line-height: 1;
-            font-weight: 600;
-            letter-spacing: 0.14em;
             color: var(--kh-theme-muted, #86868b);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Text",
+                "Helvetica Neue",
+                "Hiragino Sans",
+                sans-serif;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .menu-brand {
+            color: var(--kh-theme-text, #1d1d1f);
+            font-weight: 600;
+            letter-spacing: -0.01em;
         }
 
         .menu-nav {
-            display: block !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: clamp(5px, 1.1vh, 11px) !important;
             margin: 0 !important;
+            padding: 0 !important;
         }
 
         #site-menu .menu-item {
-            display: grid !important;
-            grid-template-columns: 42px minmax(0, 1fr) 18px;
+            position: relative;
+            display: inline-flex !important;
             align-items: center !important;
-            gap: clamp(12px, 2vw, 22px) !important;
-            min-height: clamp(78px, 10vh, 104px);
-            padding: 15px 0;
-            border-bottom: 1px solid var(--kh-theme-border, rgba(29,29,31,.075));
+            min-height: 0 !important;
+            padding: 3px 0 !important;
+            border: 0 !important;
+            background: transparent !important;
             color: var(--kh-theme-text, #1d1d1f) !important;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Helvetica Neue",
+                "Hiragino Sans",
+                "Hiragino Kaku Gothic ProN",
+                "Noto Sans JP",
+                sans-serif;
+            font-size: clamp(34px, 5vw, 52px) !important;
+            line-height: 1.06 !important;
+            font-weight: 600 !important;
+            letter-spacing: -0.045em !important;
             text-decoration: none !important;
             opacity: 1 !important;
-            transform: none !important;
-            transition: color 180ms ease, border-color 180ms ease !important;
-        }
-
-        #site-menu .menu-item-num {
-            align-self: start;
-            padding-top: 5px;
-            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-            font-size: 10px !important;
-            line-height: 1;
-            font-weight: 600 !important;
-            letter-spacing: 0.08em;
-            color: var(--kh-theme-muted, #86868b) !important;
-            transition: color 180ms ease;
-        }
-
-        .menu-item-labels {
-            display: grid;
-            gap: 4px;
-            min-width: 0;
-            transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .menu-item-title {
-            display: block;
-            min-width: 0;
-        }
-
-        .menu-title-ja {
-            order: 1;
-            font-size: clamp(25px, 4.3vw, 42px);
-            line-height: 1.08;
-            font-weight: 600;
-            letter-spacing: -0.045em;
-            color: var(--kh-theme-text, #1d1d1f);
-        }
-
-        .menu-title-en {
-            order: 2;
-            font-size: 11px;
-            line-height: 1.35;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            color: var(--kh-theme-muted, #86868b);
-        }
-
-        html.is-global .menu-title-en {
-            order: 1;
-            font-size: clamp(25px, 4.3vw, 42px);
-            line-height: 1.08;
-            font-weight: 600;
-            letter-spacing: -0.04em;
-            color: var(--kh-theme-text, #1d1d1f);
-        }
-
-        html.is-global .menu-title-ja {
-            order: 2;
-            font-size: 11px;
-            line-height: 1.35;
-            font-weight: 500;
-            letter-spacing: 0;
-            color: var(--kh-theme-muted, #86868b);
-        }
-
-        .menu-item-arrow {
-            justify-self: end;
-            font-size: 14px;
-            line-height: 1;
-            color: var(--kh-theme-muted, #86868b);
+            transform: translateX(0) !important;
             transition:
-                transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
-                color 180ms ease;
+                color 180ms ease,
+                opacity 180ms ease,
+                transform 320ms cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
 
         @media (hover: hover) and (pointer: fine) {
-            #site-menu .menu-item:hover .menu-item-labels {
-                transform: translateX(4px);
+            #site-menu .menu-nav:has(.menu-item:hover) .menu-item:not(:hover) {
+                opacity: 0.36 !important;
             }
 
-            #site-menu .menu-item:hover .menu-item-num,
-            #site-menu .menu-item:hover .menu-item-arrow {
+            #site-menu .menu-item:hover {
                 color: var(--kh-theme-text, #1d1d1f) !important;
-            }
-
-            #site-menu .menu-item:hover .menu-item-arrow {
-                transform: translate(2px, 2px);
+                transform: translateX(4px) !important;
             }
         }
 
         .menu-bottom {
             margin-top: auto !important;
-            padding-top: 28px;
+            padding-top: clamp(36px, 7vh, 70px) !important;
             display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
@@ -4028,35 +4005,34 @@ and (
             color: var(--kh-theme-text, #1d1d1f) !important;
         }
 
-        .index-bottom-note {
-            letter-spacing: 0.04em;
-            text-transform: lowercase;
-        }
-
         @media (max-width: 767px) {
             .menu-inner {
-                padding: 72px 20px 30px !important;
+                width: 100% !important;
+                padding: 78px 22px 28px !important;
+            }
+
+            .menu-masthead {
+                margin-bottom: 30px;
             }
 
             #site-menu .menu-item {
-                grid-template-columns: 34px minmax(0, 1fr) 16px;
-                min-height: 76px;
-                gap: 10px !important;
-                padding: 13px 0;
-            }
-
-            .menu-title-ja,
-            html.is-global .menu-title-en {
-                font-size: clamp(23px, 7vw, 31px);
-            }
-
-            .menu-title-en,
-            html.is-global .menu-title-ja {
-                font-size: 10px;
+                font-size: clamp(31px, 9.2vw, 42px) !important;
+                padding: 4px 0 !important;
             }
 
             .menu-bottom {
-                padding-top: 24px;
+                padding-top: 44px !important;
+            }
+        }
+
+        /* Give Professional Development and Profile their own chapters. */
+        #profile {
+            margin-top: clamp(116px, 13vw, 168px) !important;
+        }
+
+        @media (max-width: 767px) {
+            #profile {
+                margin-top: clamp(104px, 26vw, 132px) !important;
             }
         }
 
@@ -4119,17 +4095,23 @@ and (
         html.dark-mode-on #contact-final .contact-title { color: #f5f5f7 !important; }
 
         #contact-final .contact-copy-wrap {
-            max-width: 340px;
+            max-width: 372px;
             justify-self: end;
         }
 
         #contact-final .contact-copy {
             margin: 0;
             color: #6e6e73;
-            font-size: clamp(14px, 1.45vw, 16px);
+            font-size: clamp(14px, 1.42vw, 16px);
             line-height: 1.82;
             font-weight: 400;
-            letter-spacing: -0.012em;
+            letter-spacing: -0.015em;
+            text-wrap: pretty;
+            line-break: strict;
+        }
+
+        #contact-final .contact-copy-keep {
+            white-space: nowrap;
         }
 
         html.dark-mode-on #contact-final .contact-copy { color: #a1a1a6 !important; }
@@ -4241,8 +4223,8 @@ and (
         @media (prefers-reduced-motion: reduce) {
             .menu-bar,
             #site-menu,
-            .menu-item-labels,
-            .menu-item-arrow,
+            .menu-inner,
+            #site-menu .menu-item,
             #contact-final .contact-action,
             #contact-final .contact-action-icon {
                 transition: none !important;
@@ -4253,7 +4235,7 @@ and (
 </head>
 <body class="antialiased">
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
-    <button id="menu-toggle" aria-label="Open index" aria-expanded="false" aria-controls="site-menu">
+    <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
         <span class="menu-icon" aria-hidden="true">
             <span class="menu-bar"></span>
             <span class="menu-bar"></span>
@@ -4261,67 +4243,46 @@ and (
         </span>
     </button>
 
-    <!-- ================= EDITORIAL INDEX / TABLE OF CONTENTS ================= -->
+    <!-- ================= GLOBAL MENU ================= -->
     <div id="site-menu" aria-hidden="true" data-lenis-prevent>
         <div class="menu-inner">
-            <div class="index-heading">
-                <p class="index-heading-label">INDEX</p>
-                <p class="index-heading-range">01—06</p>
+            <div class="menu-masthead">
+                <p class="menu-brand">Ken Harima</p>
+                <p class="menu-context">
+                    <span class="lang-ja">メニュー</span>
+                    <span class="lang-en">Menu</span>
+                </p>
             </div>
 
-            <nav class="menu-nav" aria-label="Site index">
+            <nav class="menu-nav" aria-label="Site navigation">
                 <a href="#home" class="menu-item js-menu-link">
-                    <span class="menu-item-num">01</span>
-                    <span class="menu-item-labels">
-                        <span class="menu-item-title menu-title-ja">トップ</span>
-                        <span class="menu-item-title menu-title-en">Home</span>
-                    </span>
-                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
+                    <span class="lang-ja">トップ</span>
+                    <span class="lang-en">Home</span>
                 </a>
 
                 <a href="#experience" class="menu-item js-menu-link">
-                    <span class="menu-item-num">02</span>
-                    <span class="menu-item-labels">
-                        <span class="menu-item-title menu-title-ja">経歴</span>
-                        <span class="menu-item-title menu-title-en">Experience &amp; Education</span>
-                    </span>
-                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
+                    <span class="lang-ja">経歴</span>
+                    <span class="lang-en">Experience &amp; Education</span>
                 </a>
 
                 <a href="#projects" class="menu-item js-menu-link">
-                    <span class="menu-item-num">03</span>
-                    <span class="menu-item-labels">
-                        <span class="menu-item-title menu-title-ja">主要プロジェクト・受賞歴</span>
-                        <span class="menu-item-title menu-title-en">Projects &amp; Awards</span>
-                    </span>
-                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
+                    <span class="lang-ja">主要プロジェクト・受賞歴</span>
+                    <span class="lang-en">Projects &amp; Awards</span>
                 </a>
 
                 <a href="#development" class="menu-item js-menu-link">
-                    <span class="menu-item-num">04</span>
-                    <span class="menu-item-labels">
-                        <span class="menu-item-title menu-title-ja">自己研鑽</span>
-                        <span class="menu-item-title menu-title-en">Professional Development</span>
-                    </span>
-                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
+                    <span class="lang-ja">自己研鑽</span>
+                    <span class="lang-en">Professional Development</span>
                 </a>
 
                 <a href="#profile" class="menu-item js-menu-link">
-                    <span class="menu-item-num">05</span>
-                    <span class="menu-item-labels">
-                        <span class="menu-item-title menu-title-ja">プロフィール</span>
-                        <span class="menu-item-title menu-title-en">Profile</span>
-                    </span>
-                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
+                    <span class="lang-ja">プロフィール</span>
+                    <span class="lang-en">Profile</span>
                 </a>
 
                 <a href="#contact-final" class="menu-item js-menu-link">
-                    <span class="menu-item-num">06</span>
-                    <span class="menu-item-labels">
-                        <span class="menu-item-title menu-title-ja">お問い合わせ</span>
-                        <span class="menu-item-title menu-title-en">Contact</span>
-                    </span>
-                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
+                    <span class="lang-ja">お問い合わせ</span>
+                    <span class="lang-en">Contact</span>
                 </a>
             </nav>
 
@@ -4335,7 +4296,7 @@ and (
             </div>
         </div>
     </div>
-    <!-- ↑↑↑ INDEX END ↑↑↑ -->
+    <!-- ↑↑↑ MENU END ↑↑↑ -->
     
     <div class="site-shell">
 
@@ -13675,7 +13636,7 @@ and (
 
                         <div class="contact-copy-wrap">
                             <p class="contact-copy">
-                                <span class="lang-ja">ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、歓迎します。</span>
+                                <span class="lang-ja">ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、<span class="contact-copy-keep">歓迎します。</span></span>
                                 <span class="lang-en">I welcome conversations about roles, projects, collaborations, and writing, as well as feedback on this site.</span>
                             </p>
 
@@ -14801,13 +14762,13 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     if (isOpen) {
                         document.body.classList.remove('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'false');
-                        menuToggle.setAttribute('aria-label', 'Open index');
+                        menuToggle.setAttribute('aria-label', 'Open menu');
                         siteMenu.setAttribute('aria-hidden', 'true');
                         if (window.lenis) window.lenis.start();
                     } else {
                         document.body.classList.add('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'true');
-                        menuToggle.setAttribute('aria-label', 'Close index');
+                        menuToggle.setAttribute('aria-label', 'Close menu');
                         siteMenu.setAttribute('aria-hidden', 'false');
                         if (window.lenis) window.lenis.stop();
                     }
