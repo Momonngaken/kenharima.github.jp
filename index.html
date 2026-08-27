@@ -8611,6 +8611,23 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                 }
 
 
+                /* PIVOT media-reach evidence: a quiet outline play cue, not a YouTube badge. */
+                #projects .project-pivot .project-evidence-video .project-evidence-number {
+                    align-items: center;
+                }
+
+                #projects .project-pivot .project-evidence-play {
+                    display: inline-block;
+                    flex: 0 0 auto;
+                    margin-right: 0.24em;
+                    opacity: 0.50;
+                    font-size: 0.48em;
+                    line-height: 1;
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    transform: translateY(-0.02em);
+                }
+
                 #projects .project-evidence-caption {
                     display: block;
 
@@ -10697,20 +10714,20 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                             </p>
 
 
-                            <div class="project-evidence">
+                            <div class="project-evidence project-evidence-video">
 
                                 <span class="project-evidence-number">
-                                    ≈200
+                                    <span class="project-evidence-play" aria-hidden="true">▷</span>150K+
                                 </span>
 
                                 <span class="project-evidence-caption">
 
                                     <span class="lang-ja">
-                                        イベント参加規模
+                                        関連動画総再生回数
                                     </span>
 
                                     <span class="lang-en">
-                                        Approximate attendees
+                                        Total Views on Related Videos
                                     </span>
 
                                 </span>
