@@ -3729,55 +3729,613 @@ and (
         }
     </style>
 
+
+    <!-- ================= 2026 INDEX + CONTACT REFINEMENT ================= -->
+    <style id="kh-index-contact-refinement">
+        #menu-toggle {
+            position: fixed !important;
+            top: 1.55rem !important;
+            right: 1.65rem !important;
+            z-index: 1000 !important;
+            width: 36px !important;
+            height: 36px !important;
+            min-width: 36px !important;
+            padding: 0 !important;
+            display: grid !important;
+            place-items: center !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+            color: var(--kh-theme-text, #1d1d1f) !important;
+            cursor: pointer;
+            opacity: 0.78;
+            transform: none !important;
+            transition: opacity 180ms ease !important;
+        }
+
+        #menu-toggle:hover { opacity: 1; }
+        #menu-toggle:active { opacity: 0.5; }
+
+        #menu-toggle:focus-visible {
+            outline: 2px solid var(--kh-theme-blue, #0066cc) !important;
+            outline-offset: 3px !important;
+            border-radius: 4px !important;
+        }
+
+        .menu-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .menu-bar {
+            display: block;
+            width: 18px;
+            height: 1.5px;
+            flex: 0 0 1.5px;
+            border-radius: 999px;
+            background: currentColor;
+            transform-origin: center;
+            transition:
+                transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 180ms ease;
+        }
+
+        body.menu-open #menu-toggle {
+            color: var(--kh-theme-text, #1d1d1f) !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        body.menu-open #menu-toggle .menu-bar:nth-child(1) {
+            transform: translateY(5.5px) rotate(45deg);
+        }
+
+        body.menu-open #menu-toggle .menu-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        body.menu-open #menu-toggle .menu-bar:nth-child(3) {
+            transform: translateY(-5.5px) rotate(-45deg);
+        }
+
+        @media (max-width: 767px) {
+            #menu-toggle {
+                top: 1.15rem !important;
+                right: 1.05rem !important;
+            }
+        }
+
+        #site-menu {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 900 !important;
+            display: block !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
+            background: rgba(250,250,250,0.985) !important;
+            color: var(--kh-theme-text, #1d1d1f) !important;
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: none !important;
+            transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        body.menu-open #site-menu {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: none !important;
+        }
+
+        html.dark-mode-on #site-menu {
+            background: rgba(15,15,16,0.985) !important;
+        }
+
+        .menu-inner {
+            width: min(100%, 960px) !important;
+            min-height: 100svh !important;
+            margin: 0 auto !important;
+            padding: clamp(84px, 10vh, 118px) clamp(22px, 4.5vw, 56px) clamp(40px, 6vh, 68px) !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .index-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--kh-theme-border, rgba(29,29,31,.075));
+        }
+
+        .index-heading-label,
+        .index-heading-range,
+        .index-bottom-note {
+            margin: 0;
+            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--kh-theme-muted, #86868b);
+        }
+
+        .menu-nav {
+            display: block !important;
+            margin: 0 !important;
+        }
+
+        #site-menu .menu-item {
+            display: grid !important;
+            grid-template-columns: 42px minmax(0, 1fr) 18px;
+            align-items: center !important;
+            gap: clamp(12px, 2vw, 22px) !important;
+            min-height: clamp(78px, 10vh, 104px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--kh-theme-border, rgba(29,29,31,.075));
+            color: var(--kh-theme-text, #1d1d1f) !important;
+            text-decoration: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            transition: color 180ms ease, border-color 180ms ease !important;
+        }
+
+        #site-menu .menu-item-num {
+            align-self: start;
+            padding-top: 5px;
+            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+            font-size: 10px !important;
+            line-height: 1;
+            font-weight: 600 !important;
+            letter-spacing: 0.08em;
+            color: var(--kh-theme-muted, #86868b) !important;
+            transition: color 180ms ease;
+        }
+
+        .menu-item-labels {
+            display: grid;
+            gap: 4px;
+            min-width: 0;
+            transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .menu-item-title {
+            display: block;
+            min-width: 0;
+        }
+
+        .menu-title-ja {
+            order: 1;
+            font-size: clamp(25px, 4.3vw, 42px);
+            line-height: 1.08;
+            font-weight: 600;
+            letter-spacing: -0.045em;
+            color: var(--kh-theme-text, #1d1d1f);
+        }
+
+        .menu-title-en {
+            order: 2;
+            font-size: 11px;
+            line-height: 1.35;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--kh-theme-muted, #86868b);
+        }
+
+        html.is-global .menu-title-en {
+            order: 1;
+            font-size: clamp(25px, 4.3vw, 42px);
+            line-height: 1.08;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            color: var(--kh-theme-text, #1d1d1f);
+        }
+
+        html.is-global .menu-title-ja {
+            order: 2;
+            font-size: 11px;
+            line-height: 1.35;
+            font-weight: 500;
+            letter-spacing: 0;
+            color: var(--kh-theme-muted, #86868b);
+        }
+
+        .menu-item-arrow {
+            justify-self: end;
+            font-size: 14px;
+            line-height: 1;
+            color: var(--kh-theme-muted, #86868b);
+            transition:
+                transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+                color 180ms ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            #site-menu .menu-item:hover .menu-item-labels {
+                transform: translateX(4px);
+            }
+
+            #site-menu .menu-item:hover .menu-item-num,
+            #site-menu .menu-item:hover .menu-item-arrow {
+                color: var(--kh-theme-text, #1d1d1f) !important;
+            }
+
+            #site-menu .menu-item:hover .menu-item-arrow {
+                transform: translate(2px, 2px);
+            }
+        }
+
+        .menu-bottom {
+            margin-top: auto !important;
+            padding-top: 28px;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 24px !important;
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
+
+        .index-language {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--kh-theme-muted, #86868b);
+            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            line-height: 1;
+            letter-spacing: 0.08em;
+        }
+
+        #site-menu .index-language button {
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 0 !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            color: var(--kh-theme-muted, #86868b) !important;
+            font-family: inherit !important;
+            font-size: inherit !important;
+            line-height: inherit !important;
+            font-weight: 600 !important;
+            letter-spacing: inherit !important;
+            cursor: pointer;
+            transition: color 180ms ease !important;
+        }
+
+        html:not(.is-global) #site-menu #lang-jp,
+        html.is-global #site-menu #lang-en {
+            color: var(--kh-theme-text, #1d1d1f) !important;
+            cursor: default;
+        }
+
+        #site-menu .index-language button:hover {
+            color: var(--kh-theme-text, #1d1d1f) !important;
+        }
+
+        .index-bottom-note {
+            letter-spacing: 0.04em;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 767px) {
+            .menu-inner {
+                padding: 72px 20px 30px !important;
+            }
+
+            #site-menu .menu-item {
+                grid-template-columns: 34px minmax(0, 1fr) 16px;
+                min-height: 76px;
+                gap: 10px !important;
+                padding: 13px 0;
+            }
+
+            .menu-title-ja,
+            html.is-global .menu-title-en {
+                font-size: clamp(23px, 7vw, 31px);
+            }
+
+            .menu-title-en,
+            html.is-global .menu-title-ja {
+                font-size: 10px;
+            }
+
+            .menu-bottom {
+                padding-top: 24px;
+            }
+        }
+
+        #contact-final {
+            width: calc(100% - clamp(0px, 1vw, 12px));
+            margin: clamp(116px, 14vw, 176px) auto 0;
+            padding: 0 0 clamp(58px, 7vw, 84px);
+        }
+
+        #contact-final .contact-surface {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(38px, 6.2vw, 68px);
+            border: 0;
+            border-radius: clamp(30px, 4vw, 42px);
+            background: #f5f5f7;
+            box-shadow: inset 0 0 0 1px rgba(29,29,31,0.035);
+            isolation: isolate;
+        }
+
+        html.dark-mode-on #contact-final .contact-surface {
+            background: #1c1c1e !important;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.055) !important;
+        }
+
+        #contact-final .contact-kicker {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin: 0 0 clamp(70px, 9vw, 104px);
+            color: #86868b;
+            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        #contact-final .contact-index { color: #a1a1a6; }
+
+        #contact-final .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.36fr) minmax(250px, 0.64fr);
+            gap: clamp(48px, 8vw, 96px);
+            align-items: end;
+        }
+
+        #contact-final .contact-title {
+            margin: 0;
+            max-width: 720px;
+            color: #1d1d1f;
+            font-size: clamp(46px, 7vw, 76px);
+            line-height: 1.01;
+            font-weight: 600;
+            letter-spacing: -0.064em !important;
+            text-wrap: balance;
+        }
+
+        html.dark-mode-on #contact-final .contact-title { color: #f5f5f7 !important; }
+
+        #contact-final .contact-copy-wrap {
+            max-width: 340px;
+            justify-self: end;
+        }
+
+        #contact-final .contact-copy {
+            margin: 0;
+            color: #6e6e73;
+            font-size: clamp(14px, 1.45vw, 16px);
+            line-height: 1.82;
+            font-weight: 400;
+            letter-spacing: -0.012em;
+        }
+
+        html.dark-mode-on #contact-final .contact-copy { color: #a1a1a6 !important; }
+
+        #contact-final .contact-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 42px;
+            margin-top: 30px;
+            padding: 0 17px;
+            border: 0;
+            border-radius: 999px;
+            background: #0071e3;
+            color: #fff;
+            font-size: 13px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            box-shadow: none;
+            transition:
+                background-color 180ms ease,
+                transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #contact-final .contact-action:hover {
+            background: #0077ed;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        #contact-final .contact-action:active {
+            transform: scale(0.985);
+        }
+
+        #contact-final .contact-action:focus-visible {
+            outline: 3px solid rgba(0,113,227,0.25);
+            outline-offset: 3px;
+        }
+
+        html.dark-mode-on #contact-final .contact-action {
+            background: #2997ff !important;
+            color: #fff !important;
+        }
+
+        html.dark-mode-on #contact-final .contact-action:hover {
+            background: #40a0ff !important;
+        }
+
+        #contact-final .contact-action-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: currentColor;
+            font-size: 13px;
+            line-height: 1;
+            transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #contact-final .contact-action:hover .contact-action-icon {
+            color: currentColor;
+            transform: translateX(2px);
+        }
+
+        @media (max-width: 767px) {
+            #contact-final {
+                width: 100%;
+                margin-top: 104px;
+                padding-bottom: 54px;
+            }
+
+            #contact-final .contact-surface {
+                padding: 34px 24px 38px;
+                border-radius: 30px;
+            }
+
+            #contact-final .contact-kicker {
+                margin-bottom: 62px;
+            }
+
+            #contact-final .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+
+            #contact-final .contact-title {
+                font-size: clamp(2.55rem, 11.4vw, 3.35rem);
+                line-height: 1.03;
+                letter-spacing: -0.058em !important;
+            }
+
+            #contact-final .contact-copy-wrap {
+                max-width: none;
+                justify-self: stretch;
+            }
+
+            #contact-final .contact-copy {
+                font-size: 15px;
+                line-height: 1.86;
+            }
+
+            #contact-final .contact-action {
+                margin-top: 26px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .menu-bar,
+            #site-menu,
+            .menu-item-labels,
+            .menu-item-arrow,
+            #contact-final .contact-action,
+            #contact-final .contact-action-icon {
+                transition: none !important;
+            }
+        }
+    </style>
+
 </head>
 <body class="antialiased">
-
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
     <button id="menu-toggle" aria-label="Open index" aria-expanded="false" aria-controls="site-menu">
-        <span class="menu-label-open">Index</span>
-        <span class="menu-label-close">Close</span>
+        <span class="menu-icon" aria-hidden="true">
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+        </span>
     </button>
 
-    <!-- ================= FULLSCREEN MENU OVERLAY ================= -->
+    <!-- ================= EDITORIAL INDEX / TABLE OF CONTENTS ================= -->
     <div id="site-menu" aria-hidden="true" data-lenis-prevent>
         <div class="menu-inner">
-            <p class="text-[10px] md:text-xs font-semibold text-[#86868b] tracking-widest uppercase mb-4 pl-1">
-                <span class="lang-ja">ナビゲーション</span><span class="lang-en">Navigation</span>
-            </p>
-            <nav class="menu-nav">
+            <div class="index-heading">
+                <p class="index-heading-label">INDEX</p>
+                <p class="index-heading-range">01—06</p>
+            </div>
+
+            <nav class="menu-nav" aria-label="Site index">
                 <a href="#home" class="menu-item js-menu-link">
-                    <span class="menu-item-num">01</span><span class="menu-item-text"><span class="lang-ja">トップ</span><span class="lang-en">Home</span></span>
+                    <span class="menu-item-num">01</span>
+                    <span class="menu-item-labels">
+                        <span class="menu-item-title menu-title-ja">トップ</span>
+                        <span class="menu-item-title menu-title-en">Home</span>
+                    </span>
+                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
                 </a>
+
                 <a href="#experience" class="menu-item js-menu-link">
-                    <span class="menu-item-num">02</span><span class="menu-item-text"><span class="lang-ja">経歴</span><span class="lang-en">Experience & Education</span></span>
+                    <span class="menu-item-num">02</span>
+                    <span class="menu-item-labels">
+                        <span class="menu-item-title menu-title-ja">経歴</span>
+                        <span class="menu-item-title menu-title-en">Experience &amp; Education</span>
+                    </span>
+                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
                 </a>
+
                 <a href="#projects" class="menu-item js-menu-link">
-                    <span class="menu-item-num">03</span><span class="menu-item-text"><span class="lang-ja">主要プロジェクト・受賞歴</span><span class="lang-en">Projects & Awards</span></span>
+                    <span class="menu-item-num">03</span>
+                    <span class="menu-item-labels">
+                        <span class="menu-item-title menu-title-ja">主要プロジェクト・受賞歴</span>
+                        <span class="menu-item-title menu-title-en">Projects &amp; Awards</span>
+                    </span>
+                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
                 </a>
+
                 <a href="#development" class="menu-item js-menu-link">
-                    <span class="menu-item-num">04</span><span class="menu-item-text"><span class="lang-ja">自己研鑽</span><span class="lang-en">Professional Development</span></span>
+                    <span class="menu-item-num">04</span>
+                    <span class="menu-item-labels">
+                        <span class="menu-item-title menu-title-ja">自己研鑽</span>
+                        <span class="menu-item-title menu-title-en">Professional Development</span>
+                    </span>
+                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
                 </a>
+
                 <a href="#profile" class="menu-item js-menu-link">
-                    <span class="menu-item-num">05</span><span class="menu-item-text"><span class="lang-ja">プロフィール</span><span class="lang-en">Profile</span></span>
+                    <span class="menu-item-num">05</span>
+                    <span class="menu-item-labels">
+                        <span class="menu-item-title menu-title-ja">プロフィール</span>
+                        <span class="menu-item-title menu-title-en">Profile</span>
+                    </span>
+                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
                 </a>
+
                 <a href="#contact-final" class="menu-item js-menu-link">
-                    <span class="menu-item-num">06</span><span class="menu-item-text"><span class="lang-ja">CONTACT</span><span class="lang-en">CONTACT</span></span>
+                    <span class="menu-item-num">06</span>
+                    <span class="menu-item-labels">
+                        <span class="menu-item-title menu-title-ja">お問い合わせ</span>
+                        <span class="menu-item-title menu-title-en">Contact</span>
+                    </span>
+                    <span class="menu-item-arrow" aria-hidden="true">↘</span>
                 </a>
             </nav>
+
             <div class="menu-bottom">
-                <div class="flex items-center gap-2">
-                    <div class="relative flex items-center bg-gray-500/5 rounded-full p-1 select-none border border-gray-900/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.02)]">
-                        <button id="lang-jp" class="relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-out" aria-label="Switch to Japanese">JA</button>
-                        <button id="lang-en" class="relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-out" aria-label="Switch to English">EN</button>
-                    </div>
+                <div class="index-language" aria-label="Language">
+                    <button id="lang-jp" type="button" aria-label="Switch to Japanese">JA</button>
+                    <span aria-hidden="true">/</span>
+                    <button id="lang-en" type="button" aria-label="Switch to English">EN</button>
                 </div>
-                <a href="../contact.html" class="menu-contact-cta">
-                    <span class="lang-ja">お問い合わせ</span><span class="lang-en">Get in Touch</span><span class="ml-1 text-[11px]" aria-hidden="true">→</span>
-                </a>
+                <p class="index-bottom-note">kenharima.com</p>
             </div>
         </div>
     </div>
-    <!-- ↑↑↑ここまで↑↑↑ -->
+    <!-- ↑↑↑ INDEX END ↑↑↑ -->
     
     <div class="site-shell">
 
@@ -13093,39 +13651,38 @@ and (
             <!-- ================= CLOSING CONTACT ================= -->
             <section id="contact-final" class="contact-closing cv-auto" aria-labelledby="contact-final-title">
                 <div class="contact-surface">
-                    <div class="contact-orbit contact-orbit-a" aria-hidden="true"></div>
-                    <div class="contact-orbit contact-orbit-b" aria-hidden="true"></div>
-
-                    <p class="contact-kicker">
+                    <div class="contact-kicker">
                         <span class="contact-index">06</span>
-                        <span>CONTACT</span>
-                    </p>
+                        <span class="lang-ja">お問い合わせ</span>
+                        <span class="lang-en">Contact</span>
+                    </div>
 
                     <div class="contact-grid">
-                       <div class="contact-heading-wrap">
-    <h2 id="contact-final-title" class="contact-title">
-    <span class="lang-ja">
-        <span class="contact-title-line">次の可能性は、</span>
-        <span class="contact-title-line">まだ名前のない</span>
-        <span class="contact-title-line">問いから。</span>
-    </span>
+                        <div class="contact-heading-wrap">
+                            <h2 id="contact-final-title" class="contact-title">
+                                <span class="lang-ja">
+                                    <span class="contact-title-line">次の可能性は、</span>
+                                    <span class="contact-title-line">まだ名前のない</span>
+                                    <span class="contact-title-line">問いから。</span>
+                                </span>
 
-    <span class="lang-en">
-        <span class="contact-title-line">The next possibility begins</span>
-        <span class="contact-title-line">with a question not yet named.</span>
-    </span>
-</h2>
-</div>
+                                <span class="lang-en">
+                                    <span class="contact-title-line">The next possibility begins</span>
+                                    <span class="contact-title-line">with a question not yet named.</span>
+                                </span>
+                            </h2>
+                        </div>
+
                         <div class="contact-copy-wrap">
                             <p class="contact-copy">
-                                <span class="lang-ja">ポジション、プロジェクト、協働、執筆などのご相談を歓迎します。<br>役割や職種名がまだ定まっていなくても、課題と期待から、その輪郭を一緒に描いていけます。</span>
-                                <span class="lang-en">I welcome conversations about roles, projects, collaborations, and writing.<br>Even when the role is still taking shape, we can begin with the challenge and expectations, and define what it could become.</span>
+                                <span class="lang-ja">ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、歓迎します。</span>
+                                <span class="lang-en">I welcome conversations about roles, projects, collaborations, and writing, as well as feedback on this site.</span>
                             </p>
 
                             <a id="biz-contact-btn" href="../contact.html" class="contact-action">
                                 <span class="lang-ja">お問い合わせ</span>
                                 <span class="lang-en">Get in touch</span>
-                                <span class="contact-action-icon" aria-hidden="true">&#x2197;&#xFE0E;</span>
+                                <span class="contact-action-icon" aria-hidden="true">→</span>
                             </a>
                         </div>
                     </div>
