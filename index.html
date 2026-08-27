@@ -850,10 +850,8 @@ header .mt-6 {
             display: grid;
             grid-template-columns: minmax(190px, 0.78fr) minmax(0, 1.55fr);
             grid-template-areas:
-                "visual copy"
-                "scroll scroll";
+                "visual copy";
             column-gap: clamp(42px, 6vw, 82px);
-            row-gap: clamp(48px, 7vw, 76px);
             align-items: center;
             min-height: min(720px, 78vh);
             padding: clamp(56px, 9vw, 112px) 0 clamp(54px, 8vw, 88px);
@@ -1800,8 +1798,7 @@ and (
             flex-wrap: wrap;
         }
 
-        .hero-action,
-        .hero-social-text a {
+        .hero-action {
             position: relative;
             color: var(--kh-text);
             text-decoration: none;
@@ -1864,51 +1861,6 @@ and (
             }
         }
 
-        .hero-social-text {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            color: var(--kh-muted);
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .hero-social-text a {
-            color: var(--kh-muted);
-            transition: color 350ms var(--kh-ease);
-        }
-
-        .hero-social-text a:hover {
-            color: var(--kh-text);
-        }
-
-        .hero-scroll-cue {
-            grid-area: scroll;
-            justify-self: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            color: #a1a1a6;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-
-        .hero-scroll-line {
-            display: block;
-            width: 1px;
-            height: 36px;
-            background: linear-gradient(to bottom, rgba(29,29,31,.28), rgba(29,29,31,.02));
-            transform-origin: top center;
-            transition: transform 450ms var(--kh-ease);
-        }
-
-        .hero-scroll-cue:hover .hero-scroll-line {
-            transform: scaleY(1.22);
-        }
 
         .hero-reveal {
             opacity: 0;
@@ -1918,10 +1870,10 @@ and (
         }
 
         .hero-reveal-1 { animation-delay: .20s; }
-        .hero-reveal-2 { animation-delay: .28s; }
-        .hero-reveal-3 { animation-delay: .36s; }
-        .hero-reveal-4 { animation-delay: .44s; }
-        .hero-reveal-5 { animation-delay: .58s; }
+        .hero-reveal-2 { animation-delay: .24s; }
+        .hero-reveal-3 { animation-delay: .32s; }
+        .hero-reveal-4 { animation-delay: .40s; }
+        .hero-reveal-5 { animation-delay: .48s; }
 
         @keyframes heroEditorialReveal {
             to {
@@ -2093,36 +2045,27 @@ and (
            QUIET FOOTER
            --------------------------------------------------------- */
         .site-footer {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 28px;
-            padding: 26px 0 clamp(44px, 6vw, 70px);
+            display: block;
+            padding: 0 0 clamp(38px, 5vw, 58px);
             border-top: 1px solid rgba(0,0,0,0.07);
         }
 
-        .site-footer-main {
+        .site-footer-row {
             display: flex;
-            flex-direction: column;
-            gap: 7px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 24px 0 28px;
         }
 
-        .site-footer-signature,
         .site-footer-copy {
             margin: 0;
-        }
-
-        .site-footer-signature {
-            color: #525256;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-
-        .site-footer-copy {
             color: #a1a1a6;
             font-size: 10px;
+            line-height: 1.4;
             font-weight: 500;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
         }
 
         .site-footer-links {
@@ -2139,11 +2082,41 @@ and (
             font-weight: 600;
             letter-spacing: 0.04em;
             text-decoration: none;
-            transition: color 350ms var(--kh-ease);
+            transition: color 350ms var(--kh-ease), transform 350ms var(--kh-ease);
         }
 
         .site-footer-links a:hover {
             color: var(--kh-text);
+            transform: translateY(-1px);
+        }
+
+        /* The credo now closes the entire site rather than introducing it. */
+        .site-footer-motto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding-top: 26px;
+            border-top: 1px solid rgba(0,0,0,0.045);
+            color: #9a9a9f;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .site-footer-motto .hero-motto-trigger {
+            justify-items: center;
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .site-footer-motto .hero-motto-layer {
+            justify-self: center;
+            text-align: center;
         }
 
         /* ---------------------------------------------------------
@@ -2166,8 +2139,7 @@ and (
                 grid-template-columns: 1fr;
                 grid-template-areas:
                     "visual"
-                    "copy"
-                    "scroll";
+                    "copy";
                 gap: 38px;
                 min-height: auto;
                 padding: 66px 0 54px;
@@ -2279,10 +2251,6 @@ and (
                 align-self: center;
             }
 
-            .hero-social-text {
-                justify-content: center;
-                gap: 22px;
-            }
 
             #profile {
                 /*
@@ -2336,13 +2304,27 @@ and (
             }
 
             .site-footer {
+                padding-bottom: 34px;
+            }
+
+            .site-footer-row {
                 flex-direction: column;
-                align-items: flex-start;
-                padding-top: 24px;
+                align-items: center;
+                justify-content: center;
+                gap: 14px;
+                padding: 22px 0 24px;
+                text-align: center;
             }
 
             .site-footer-links {
-                justify-content: flex-start;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .site-footer-motto {
+                padding-top: 24px;
+                font-size: 9px;
+                letter-spacing: 0.10em;
             }
         }
 
@@ -3111,25 +3093,6 @@ and (
             </div>
 
             <div class="hero-copy">
-                <div class="hero-kicker hero-reveal hero-reveal-1">
-                    <button
-                        type="button"
-                        id="hero-motto-trigger"
-                        class="hero-motto-trigger"
-                        aria-label="Liberté, Progrès, Fraternité, Mesure — 自由、進歩、友愛、節度 — Liberty, Progress, Fraternity, Measure"
-                    >
-                        <span class="hero-motto-layer hero-motto-fr" aria-hidden="true">
-                            LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE
-                        </span>
-                        <span class="hero-motto-layer hero-motto-local hero-motto-local-ja" aria-hidden="true">
-                            自由 · 進歩 · 友愛 · 節度
-                        </span>
-                        <span class="hero-motto-layer hero-motto-local hero-motto-local-en" aria-hidden="true">
-                            LIBERTY · PROGRESS · FRATERNITY · MEASURE
-                        </span>
-                    </button>
-                </div>
-
                 <h1 id="hero-name" class="hero-name">
                     <span class="lang-ja">播磨 賢</span>
                     <span class="lang-en">Ken HARIMA</span>
@@ -3176,17 +3139,9 @@ and (
                         <span class="hero-action-primary-icon" aria-hidden="true">&#x2197;&#xFE0E;</span>
                     </a>
 
-                    <div class="hero-social-text" aria-label="公式SNSプロフィール / Official social profiles">
-                        <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer">LinkedIn &#x2197;&#xFE0E;</a>
-                    </div>
                 </div>
             </div>
 
-            <a href="#experience" class="hero-scroll-cue hero-reveal hero-reveal-5" aria-label="経歴セクションへ移動 / Go to experience section">
-                <span class="lang-ja">続きを読む</span>
-                <span class="lang-en">Explore</span>
-                <span class="hero-scroll-line" aria-hidden="true"></span>
-            </a>
         </header>
 
         <main class="site-main space-y-16 md:space-y-24">
@@ -9084,11 +9039,13 @@ and (
                                 <h3 class="project-title">
 
     <span class="lang-ja">
-        欧州7都市でのポーカー実践検証
+        不完全情報下の意思決定<br>
+        欧州7都市でのポーカー<span class="project-break-mobile"><br></span>実践検証
     </span>
 
     <span class="lang-en">
-        A Poker Field Study Across 7 European Cities
+        Decision-Making Under<span class="project-break-mobile"><br></span> Incomplete Information<br>
+        A Poker Field Study Across<span class="project-break-mobile"><br></span> Seven European Cities
     </span>
 
 </h3>
@@ -12427,15 +12384,33 @@ and (
         </main>
 
         <footer class="site-footer">
-            <div class="site-footer-main">
-                <p class="site-footer-signature">Ken Harima</p>
-                <p class="site-footer-copy">© 2026 Ken HARIMA</p>
+            <div class="site-footer-row">
+                <p class="site-footer-copy">© 2026 Ken Harima</p>
+
+                <nav class="site-footer-links" aria-label="Footer navigation">
+                    <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer">LinkedIn &#x2197;&#xFE0E;</a>
+                    <a href="../contact.html">Contact &#x2197;&#xFE0E;</a>
+                </nav>
             </div>
 
-            <nav class="site-footer-links" aria-label="Footer navigation">
-                <a href="https://www.linkedin.com/in/kenharima/" target="_blank" rel="noopener noreferrer">LinkedIn &#x2197;&#xFE0E;</a>
-                <a href="../contact.html">Contact &#x2197;&#xFE0E;</a>
-            </nav>
+            <div class="site-footer-motto">
+                <button
+                    type="button"
+                    id="hero-motto-trigger"
+                    class="hero-motto-trigger"
+                    aria-label="Liberté, Progrès, Fraternité, Mesure — 自由、進歩、友愛、節度 — Liberty, Progress, Fraternity, Measure"
+                >
+                    <span class="hero-motto-layer hero-motto-fr" aria-hidden="true">
+                        LIBERTÉ · PROGRÈS · FRATERNITÉ · MESURE
+                    </span>
+                    <span class="hero-motto-layer hero-motto-local hero-motto-local-ja" aria-hidden="true">
+                        自由 · 進歩 · 友愛 · 節度
+                    </span>
+                    <span class="hero-motto-layer hero-motto-local hero-motto-local-en" aria-hidden="true">
+                        LIBERTY · PROGRESS · FRATERNITY · MEASURE
+                    </span>
+                </button>
+            </div>
         </footer>
     </div>
 
