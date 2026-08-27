@@ -4232,6 +4232,65 @@ and (
         }
     </style>
 
+
+    <!-- ================= FINAL TYPOGRAPHY / CTA COLOR REFINEMENT ================= -->
+    <style>
+        /*
+         * INDEX Japanese navigation:
+         * match the Hero thesis ("読む。ときほぐす。ものがたる。")
+         * by using the same system font stack and optical weight/tracking.
+         */
+        #site-menu .menu-item .lang-ja {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Text",
+                "Helvetica Neue",
+                "Hiragino Sans",
+                "Hiragino Kaku Gothic ProN",
+                "Noto Sans JP",
+                sans-serif !important;
+            font-weight: 550 !important;
+            letter-spacing: -0.045em !important;
+            font-kerning: normal;
+            font-feature-settings: "kern" 1, "palt" 1;
+            font-synthesis: none;
+        }
+
+        /*
+         * Editorial CTAs:
+         * keep every View details / View work / View case study action
+         * visibly Apple-blue without requiring hover.
+         */
+        #experience .exp-action,
+        #projects .project-action,
+        #development .pd-program-link {
+            color: #2997ff !important;
+        }
+
+        #experience .exp-action-arrow,
+        #projects .project-action-arrow,
+        #development .pd-program-arrow {
+            color: currentColor !important;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            #experience .exp-item:hover .exp-action,
+            #projects .project-card:hover .project-action,
+            #projects .project-card-dark:hover .project-action,
+            #projects .project-card-midnight:hover .project-action,
+            #development .pd-program:hover .pd-program-link {
+                color: #2997ff !important;
+            }
+        }
+
+        #experience .exp-item:focus-visible .exp-action,
+        #projects .project-card:focus-visible .project-action,
+        #development .pd-program:focus-visible .pd-program-link {
+            color: #2997ff !important;
+        }
+    </style>
+
 </head>
 <body class="antialiased">
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
