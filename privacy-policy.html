@@ -5,28 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 
-    <title>Privacy Policy | Ken Harima Official</title>
+    <title>Contact | Ken Harima</title>
     <meta
         name="description"
-        content="Ken Harima Officialのお問い合わせフォームを通じて取得する個人情報の利用目的・管理方法について定めるプライバシーポリシーです。"
+        content="播磨賢（Ken Harima）へのお問い合わせ。ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、歓迎します。"
     >
-    <link rel="canonical" href="https://kenharima.com/privacy-policy.html">
+    <link rel="canonical" href="https://kenharima.com/contact.html">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kenharima.com/privacy-policy.html">
-    <meta property="og:title" content="Privacy Policy | Ken Harima Official">
+    <meta property="og:url" content="https://kenharima.com/contact.html">
+    <meta property="og:title" content="Contact | Ken Harima Official">
+    <meta
+        property="og:description"
+        content="ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、歓迎します。"
+    >
 
     <style>
         :root {
             --bg: #f5f5f2;
-            --surface: rgba(255, 255, 255, 0.88);
+            --surface: rgba(255, 255, 255, 0.86);
+            --surface-solid: #ffffff;
             --ink: #1d1d1f;
             --muted: #6e6e73;
             --faint: #a1a1a6;
             --line: rgba(29, 29, 31, 0.11);
+            --line-strong: rgba(29, 29, 31, 0.18);
             --blue: #0066cc;
             --blue-dark: #004f9f;
+            --danger: #b42318;
+            --success: #197a4a;
             --radius-lg: 32px;
+            --radius-md: 18px;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
             color-scheme: light;
         }
@@ -62,7 +71,9 @@
             text-rendering: optimizeLegibility;
         }
 
-        button {
+        button,
+        input,
+        textarea {
             font: inherit;
         }
 
@@ -117,52 +128,55 @@
         .brand {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            flex: 0 0 38px;
-            border-radius: 11px;
-            overflow: hidden;
+            flex: 0 0 auto;
+            min-width: 0;
             text-decoration: none;
+            color: var(--ink);
             transition:
-                opacity 280ms ease,
+                opacity 240ms ease,
                 transform 320ms var(--ease);
         }
 
         .brand:hover {
-            opacity: 0.72;
+            opacity: 0.66;
             transform: translateY(-1px);
         }
 
-        .brand-mark {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        /*
+         * Quiet handwritten wordmark.
+         * Snell Roundhand is native to Apple platforms; the fallbacks keep
+         * the mark elegant without loading an external font.
+         */
+        .brand-signature {
+            display: inline-block;
+            white-space: nowrap;
+            font-family:
+                "Snell Roundhand",
+                "Apple Chancery",
+                "Segoe Script",
+                "Bradley Hand",
+                cursive;
+            font-size: clamp(22px, 2vw, 26px);
+            line-height: 1;
+            font-weight: 400;
+            letter-spacing: 0.005em;
+            font-synthesis: none;
+            font-feature-settings: "kern" 1;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: geometricPrecision;
+            transform: translateY(1px) rotate(-0.7deg);
+            transform-origin: left center;
         }
 
         .brand:focus-visible,
         .header-link:focus-visible,
         .language-button:focus-visible,
-        .toc-link:focus-visible,
-        .inline-link:focus-visible {
+        .privacy-link:focus-visible,
+        .submit-button:focus-visible {
             outline: 2px solid rgba(0, 102, 204, 0.46);
             outline-offset: 4px;
         }
 
-        .brand-first {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 16px;
-            font-style: italic;
-            font-weight: 500;
-        }
-
-        .brand-last {
-            margin-left: 0.34em;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-        }
 
         .header-actions {
             display: flex;
@@ -218,16 +232,19 @@
         .page-shell {
             width: min(100% - 40px, 1180px);
             margin-inline: auto;
-            padding: clamp(64px, 9vw, 118px) 0 clamp(76px, 10vw, 136px);
+            padding: clamp(64px, 9vw, 120px) 0 clamp(72px, 10vw, 132px);
         }
 
-        .policy-hero {
+        .contact-layout {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(250px, 0.42fr);
-            gap: 56px;
-            align-items: end;
-            padding-bottom: clamp(52px, 7vw, 82px);
-            border-bottom: 1px solid var(--line);
+            grid-template-columns: minmax(0, 0.92fr) minmax(520px, 1.08fr);
+            gap: clamp(56px, 8vw, 112px);
+            align-items: start;
+        }
+
+        .contact-intro {
+            position: sticky;
+            top: 132px;
         }
 
         .eyebrow {
@@ -252,6 +269,7 @@
         }
 
         .page-title {
+            max-width: 560px;
             margin: 0;
             font-size: clamp(52px, 7vw, 88px);
             line-height: 0.96;
@@ -259,173 +277,363 @@
             letter-spacing: -0.07em;
         }
 
-        .hero-copy {
-            max-width: 760px;
-            margin: 28px 0 0;
+        .intro-copy {
+            max-width: 540px;
+            margin: 34px 0 0;
             color: var(--muted);
-            font-size: clamp(16px, 1.8vw, 19px);
-            line-height: 1.78;
-            letter-spacing: -0.018em;
+            font-size: clamp(17px, 2vw, 21px);
+            line-height: 1.72;
+            letter-spacing: -0.02em;
         }
 
-        .policy-meta {
-            padding-top: 20px;
+        .response-meta {
+            margin-top: 54px;
+            padding-top: 22px;
             border-top: 1px solid var(--line);
         }
 
-        .policy-meta-label {
+        .response-label {
             margin: 0 0 8px;
             color: var(--faint);
-            font-size: 10px;
+            font-size: 11px;
+            line-height: 1;
             font-weight: 700;
-            letter-spacing: 0.09em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
-        .policy-meta-value {
+        .response-value {
             margin: 0;
-            font-size: 15px;
-            line-height: 1.5;
-            font-weight: 620;
+            font-size: 20px;
+            line-height: 1.35;
+            font-weight: 650;
+            letter-spacing: -0.025em;
         }
 
-        .policy-layout {
-            display: grid;
-            grid-template-columns: 230px minmax(0, 1fr);
-            gap: clamp(44px, 7vw, 88px);
-            align-items: start;
-            padding-top: clamp(52px, 7vw, 82px);
+        .response-note {
+            max-width: 480px;
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
         }
 
-        .toc {
-            position: sticky;
-            top: 118px;
+        .form-panel {
+            position: relative;
+            min-height: 660px;
+            padding: clamp(30px, 4vw, 54px);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.92);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow:
+                0 32px 100px rgba(29,29,31,0.075),
+                inset 0 0 0 1px rgba(29,29,31,0.025);
         }
 
-        .toc-title {
-            margin: 0 0 18px;
+        .form-panel::before {
+            content: "";
+            position: absolute;
+            top: -180px;
+            right: -160px;
+            width: 360px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,102,204,0.08), transparent 68%);
+            pointer-events: none;
+        }
+
+        .form-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 38px;
+        }
+
+        .form-kicker {
+            margin: 0 0 10px;
             color: var(--faint);
-            font-size: 10px;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .form-title {
+            margin: 0;
+            font-size: clamp(28px, 3.2vw, 42px);
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.052em;
+        }
+
+        .form-subtitle {
+            max-width: 500px;
+            margin: 14px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .contact-form {
+            position: relative;
+            z-index: 1;
+            transition:
+                opacity 420ms var(--ease),
+                transform 420ms var(--ease);
+        }
+
+        .contact-form.is-hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 18px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field-full {
+            grid-column: 1 / -1;
+        }
+
+        .field-label {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 0 0 10px;
+            color: var(--ink);
+            font-size: 12px;
+            line-height: 1.3;
+            font-weight: 680;
+        }
+
+        .field-status {
+            color: var(--faint);
+            font-size: 9px;
+            line-height: 1;
             font-weight: 750;
             letter-spacing: 0.11em;
             text-transform: uppercase;
         }
 
-        .toc-list {
-            display: grid;
-            gap: 4px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        .field-status.required {
+            color: #b5473c;
         }
 
-        .toc-link {
-            display: grid;
-            grid-template-columns: 28px minmax(0,1fr);
-            gap: 10px;
-            padding: 10px 0;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.45;
-            font-weight: 560;
-            text-decoration: none;
-            transition:
-                color 220ms ease,
-                transform 280ms var(--ease);
-        }
-
-        .toc-link:hover,
-        .toc-link.is-active {
+        .field-control {
+            width: 100%;
+            min-height: 54px;
+            padding: 15px 16px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
             color: var(--ink);
-            transform: translateX(3px);
+            background: rgba(255,255,255,0.72);
+            outline: none;
+            transition:
+                border-color 240ms ease,
+                box-shadow 240ms ease,
+                background-color 240ms ease;
         }
 
-        .toc-number {
-            color: var(--faint);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .policy-document {
-            padding: clamp(30px, 4.5vw, 60px);
-            border: 1px solid rgba(255,255,255,0.94);
-            border-radius: var(--radius-lg);
-            background: var(--surface);
-            box-shadow:
-                0 32px 100px rgba(29,29,31,0.06),
-                inset 0 0 0 1px rgba(29,29,31,0.025);
-        }
-
-        .document-intro {
-            margin: 0 0 clamp(46px, 6vw, 70px);
-            color: var(--muted);
-            font-size: 16px;
-            line-height: 1.95;
-        }
-
-        .policy-section {
-            scroll-margin-top: 116px;
-            padding: clamp(36px, 5vw, 54px) 0;
-            border-top: 1px solid var(--line);
-        }
-
-        .policy-section:first-of-type {
-            padding-top: 0;
-            border-top: 0;
-        }
-
-        .section-number {
-            margin: 0 0 14px;
-            color: var(--blue);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 10px;
-            line-height: 1;
-            font-weight: 750;
-            letter-spacing: 0.12em;
-        }
-
-        .section-title {
-            margin: 0 0 16px;
-            font-size: clamp(23px, 2.6vw, 32px);
-            line-height: 1.2;
-            font-weight: 690;
-            letter-spacing: -0.045em;
-        }
-
-        .section-copy {
-            margin: 0;
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 2;
-        }
-
-        .inline-link {
-            color: var(--blue);
-            text-underline-offset: 4px;
-            text-decoration-thickness: 1px;
-        }
-
-        .inline-link:hover {
-            color: var(--blue-dark);
-        }
-
-        .document-signature {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 24px;
-            margin-top: clamp(46px, 6vw, 70px);
-            padding-top: 24px;
-            border-top: 1px solid var(--line);
-            color: var(--faint);
-            font-size: 12px;
+        textarea.field-control {
+            min-height: 150px;
+            resize: vertical;
             line-height: 1.7;
         }
 
-        .signature-name {
+        .field-control::placeholder {
+            color: #b1b1b6;
+        }
+
+        .field-control:hover {
+            border-color: var(--line-strong);
+        }
+
+        .field-control:focus {
+            border-color: rgba(0,102,204,0.55);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0,102,204,0.09);
+        }
+
+        .form-footer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 28px;
+            margin-top: 34px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        .privacy-note {
+            max-width: 340px;
+            margin: 0;
+            color: var(--faint);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .privacy-link {
             color: var(--muted);
-            font-weight: 620;
+            text-underline-offset: 3px;
+            transition: color 220ms ease;
+        }
+
+        .privacy-link:hover {
+            color: var(--blue);
+        }
+
+        .submit-button {
+            flex: 0 0 auto;
+            min-width: 164px;
+            min-height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 22px;
+            border: 0;
+            border-radius: 999px;
+            color: #fff;
+            background: var(--ink);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.035em;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(29,29,31,0.16);
+            transition:
+                transform 320ms var(--ease),
+                background-color 260ms ease,
+                box-shadow 320ms var(--ease),
+                opacity 220ms ease;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #000;
+            box-shadow: 0 18px 34px rgba(29,29,31,0.21);
+        }
+
+        .submit-button:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.68;
+            cursor: wait;
+        }
+
+        .submit-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 320ms var(--ease);
+        }
+
+        .submit-button:hover:not(:disabled) .submit-icon {
+            transform: translate(2px, -1px);
+        }
+
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 800ms linear infinite;
+        }
+
+        .submit-button.is-loading .submit-icon {
+            display: none;
+        }
+
+        .submit-button.is-loading .spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-message {
+            min-height: 22px;
+            margin: 18px 0 0;
+            color: var(--danger);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .success-state {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: grid;
+            align-content: center;
+            justify-items: start;
+            padding: clamp(34px, 5vw, 62px);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition:
+                opacity 500ms var(--ease),
+                transform 500ms var(--ease);
+        }
+
+        .success-state.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .success-mark {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 28px;
+            border: 1px solid rgba(25,122,74,0.20);
+            border-radius: 50%;
+            color: var(--success);
+            background: rgba(25,122,74,0.06);
+        }
+
+        .success-title {
+            margin: 0;
+            font-size: clamp(34px, 4vw, 52px);
+            line-height: 1.05;
+            font-weight: 710;
+            letter-spacing: -0.057em;
+        }
+
+        .success-copy {
+            max-width: 480px;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 34px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--blue-dark);
         }
 
         .site-footer {
@@ -460,31 +668,21 @@
         }
 
         @media (max-width: 920px) {
-            .policy-hero {
+            .contact-layout {
                 grid-template-columns: 1fr;
-                gap: 34px;
+                gap: 54px;
             }
 
-            .policy-meta {
-                max-width: 320px;
-            }
-
-            .policy-layout {
-                grid-template-columns: 1fr;
-                gap: 34px;
-            }
-
-            .toc {
+            .contact-intro {
                 position: static;
-                padding: 22px 24px;
-                border: 1px solid rgba(255,255,255,0.92);
-                border-radius: 22px;
-                background: rgba(255,255,255,0.60);
             }
 
-            .toc-list {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                column-gap: 24px;
+            .page-title {
+                max-width: 760px;
+            }
+
+            .intro-copy {
+                max-width: 680px;
             }
         }
 
@@ -511,18 +709,37 @@
                 font-size: clamp(46px, 14vw, 66px);
             }
 
-            .toc-list {
+            .field-grid {
                 grid-template-columns: 1fr;
             }
 
-            .policy-document {
-                padding: 28px 20px;
+            .field-full {
+                grid-column: auto;
+            }
+
+            .form-panel {
+                min-height: 0;
+                padding: 26px 20px 28px;
                 border-radius: 24px;
             }
 
-            .document-signature {
-                align-items: flex-start;
+            .form-footer {
+                align-items: stretch;
                 flex-direction: column;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+
+            .success-state {
+                position: static;
+                display: none;
+                padding: 30px 2px 8px;
+            }
+
+            .success-state.is-visible {
+                display: grid;
             }
 
             .footer-inner {
@@ -556,16 +773,9 @@
             <a
                 class="brand"
                 href="./index.html"
-                aria-label="ホームへ戻る / Back to Home"
+                aria-label="Ken Harima — ホームへ戻る / Back to Home"
             >
-                <img
-                    class="brand-mark"
-                    src="./apple-touch-k.png"
-                    alt=""
-                    width="512"
-                    height="512"
-                    decoding="async"
-                >
+                <span class="brand-signature" aria-hidden="true">Ken Harima</span>
             </a>
 
             <div class="header-actions">
@@ -574,9 +784,9 @@
                     <span class="lang-en">Home</span>
                 </a>
 
-                <a class="header-link" href="./contact.html">
-                    <span class="lang-ja">お問い合わせ</span>
-                    <span class="lang-en">Contact</span>
+                <a class="header-link" href="./privacy-policy.html">
+                    <span class="lang-ja">プライバシー</span>
+                    <span class="lang-en">Privacy</span>
                 </a>
 
                 <div class="language-switch" aria-label="Language">
@@ -605,268 +815,308 @@
     </header>
 
     <main class="page-shell">
-        <section class="policy-hero" aria-labelledby="page-title">
-            <div>
-                <p class="eyebrow">Privacy / 02</p>
+        <div class="contact-layout">
+            <section class="contact-intro" aria-labelledby="page-title">
+                <p class="eyebrow">Contact / 01</p>
 
                 <h1 id="page-title" class="page-title">
                     <span class="lang-ja">
-                        プライバシー<br>
-                        ポリシー
+                        対話から、<br>
+                        次の仕事を。
                     </span>
 
-                    <span class="lang-en">
-                        Privacy<br>
-                        Policy
-                    </span>
+                    <span class="lang-en page-title-en">
+    <span class="page-title-line">
+        Begin with
+    </span>
+
+    <span class="page-title-line">
+        a conversation.
+    </span>
+</span>
                 </h1>
 
-                <p class="hero-copy">
+                <p class="intro-copy">
                     <span class="lang-ja">
-                        お問い合わせフォームを通じて取得する情報の
-                        利用目的と取扱いについて定めます。
+                        ポジション、プロジェクト、協働、執筆のご相談から、
+                        本サイトへのご感想まで、歓迎します。
                     </span>
 
                     <span class="lang-en">
-                        This policy explains how information submitted through
-                        the contact form is collected, used, and managed.
-                    </span>
-                </p>
-            </div>
-
-            <div class="policy-meta">
-                <p class="policy-meta-label">
-                    <span class="lang-ja">制定日</span>
-                    <span class="lang-en">Established</span>
-                </p>
-
-                <p class="policy-meta-value">
-                    <span class="lang-ja">2026年7月3日</span>
-                    <span class="lang-en">July 3, 2026</span>
-                </p>
-            </div>
-        </section>
-
-        <div class="policy-layout">
-            <aside class="toc" aria-label="目次 / Table of contents">
-                <p class="toc-title">
-                    <span class="lang-ja">目次</span>
-                    <span class="lang-en">Contents</span>
-                </p>
-
-                <ol class="toc-list">
-                    <li>
-                        <a class="toc-link" href="#section-01">
-                            <span class="toc-number">01</span>
-                            <span>
-                                <span class="lang-ja">取得する情報</span>
-                                <span class="lang-en">Information Collected</span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="toc-link" href="#section-02">
-                            <span class="toc-number">02</span>
-                            <span>
-                                <span class="lang-ja">利用目的</span>
-                                <span class="lang-en">Purpose of Use</span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="toc-link" href="#section-03">
-                            <span class="toc-number">03</span>
-                            <span>
-                                <span class="lang-ja">外部サービス</span>
-                                <span class="lang-en">External Services</span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="toc-link" href="#section-04">
-                            <span class="toc-number">04</span>
-                            <span>
-                                <span class="lang-ja">第三者提供</span>
-                                <span class="lang-en">Third-Party Disclosure</span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="toc-link" href="#section-05">
-                            <span class="toc-number">05</span>
-                            <span>
-                                <span class="lang-ja">管理</span>
-                                <span class="lang-en">Management</span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="toc-link" href="#section-06">
-                            <span class="toc-number">06</span>
-                            <span>
-                                <span class="lang-ja">お問い合わせ</span>
-                                <span class="lang-en">Contact</span>
-                            </span>
-                        </a>
-                    </li>
-                </ol>
-            </aside>
-
-            <article class="policy-document">
-                <p class="document-intro">
-                    <span class="lang-ja">
-                        Ken Harima（以下「本サイト」）は、お問い合わせフォームを通じて取得する個人情報を、
-                        以下の方針に基づいて適切に取り扱います。
-                    </span>
-
-                    <span class="lang-en">
-                        Ken Harima (“this website”) handles personal information submitted through
-                        the contact form in accordance with the following policy.
+                        I welcome conversations about roles, projects, collaborations,
+                        and writing, as well as feedback on this site.
                     </span>
                 </p>
 
-                <section id="section-01" class="policy-section">
-                    <p class="section-number">01</p>
+                <div class="response-meta">
+                    <p class="response-label">
+                        <span class="lang-ja">返信目安</span>
+                        <span class="lang-en">Typical response time</span>
+                    </p>
 
-                    <h2 class="section-title">
-                        <span class="lang-ja">取得する情報</span>
-                        <span class="lang-en">Information Collected</span>
-                    </h2>
+                    <p class="response-value">
+                        <span class="lang-ja">通常48時間以内</span>
+                        <span class="lang-en">Within 48 hours</span>
+                    </p>
 
-                    <p class="section-copy">
+                    <p class="response-note">
                         <span class="lang-ja">
-                            本サイトでは、お問い合わせフォームを通じて、お名前、メールアドレス、
-                            企業・団体名、お問い合わせ内容を取得する場合があります。
+                            お送りいただいた内容は、確認・返信の目的でのみ使用します。
+                            フォーム送信処理にはFormspreeを利用しています。
                         </span>
 
                         <span class="lang-en">
-                            This website may collect your name, email address,
-                            company or organization name, and message content through the contact form.
+                            Submitted information is used only to review and respond to your inquiry.
+                            Formspree is used to process form submissions.
                         </span>
                     </p>
-                </section>
+                </div>
+            </section>
 
-                <section id="section-02" class="policy-section">
-                    <p class="section-number">02</p>
+            <section class="form-panel" aria-labelledby="form-title">
+                <div class="form-header">
+                    <p class="form-kicker">
+                        <span class="lang-ja">お問い合わせフォーム</span>
+                        <span class="lang-en">Inquiry form</span>
+                    </p>
 
-                    <h2 class="section-title">
-                        <span class="lang-ja">利用目的</span>
-                        <span class="lang-en">Purpose of Use</span>
+                    <h2 id="form-title" class="form-title">
+                        <span class="lang-ja">ご連絡内容をお送りください。</span>
+                        <span class="lang-en">Send your inquiry.</span>
                     </h2>
 
-                    <p class="section-copy">
+                    <p class="form-subtitle">
                         <span class="lang-ja">
-                            取得した情報は、お問い合わせへの確認・返信、
-                            採用・スカウト・カジュアル面談・執筆等に関するご連絡への対応のために利用します。
+                            必須項目をご入力のうえ、送信してください。
                         </span>
 
                         <span class="lang-en">
-                            The information collected will be used to review and respond to inquiries,
-                            including recruiting inquiries, scouting messages, casual interview requests,
-                            writing-related opportunities, and other professional communications.
+                            Complete the required fields and submit your message.
                         </span>
                     </p>
-                </section>
+                </div>
 
-                <section id="section-03" class="policy-section">
-                    <p class="section-number">03</p>
+                <form
+                    id="contact-form"
+                    class="contact-form"
+                    action="https://formspree.io/f/xovrdzya"
+                    method="POST"
+                    novalidate
+                >
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="New Inquiry from Portfolio Website"
+                    >
 
-                    <h2 class="section-title">
-                        <span class="lang-ja">外部サービスの利用</span>
-                        <span class="lang-en">Use of External Services</span>
-                    </h2>
+                    <input
+                        type="text"
+                        name="_gotcha"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                        hidden
+                    >
 
-                    <p class="section-copy">
-                        <span class="lang-ja">
-                            本サイトのお問い合わせフォームにはFormspreeを利用しています。
-                            送信された情報は、フォーム送信処理のためにFormspreeを経由します。
-                        </span>
+                    <div class="field-grid">
+                        <div class="field">
+                            <label class="field-label" for="name">
+                                <span>
+                                    <span class="lang-ja">お名前</span>
+                                    <span class="lang-en">Name</span>
+                                </span>
 
-                        <span class="lang-en">
-                            This website uses Formspree for contact form submission processing.
-                            Submitted information may be processed through Formspree for this purpose.
-                        </span>
-                    </p>
-                </section>
+                                <span class="field-status required">
+                                    <span class="lang-ja">必須</span>
+                                    <span class="lang-en">Required</span>
+                                </span>
+                            </label>
 
-                <section id="section-04" class="policy-section">
-                    <p class="section-number">04</p>
+                            <input
+                                class="field-control"
+                                type="text"
+                                id="name"
+                                name="name"
+                                autocomplete="name"
+                                required
+                                placeholder="Ken Harima"
+                            >
+                        </div>
 
-                    <h2 class="section-title">
-                        <span class="lang-ja">第三者提供</span>
-                        <span class="lang-en">Third-Party Disclosure</span>
-                    </h2>
+                        <div class="field">
+                            <label class="field-label" for="email">
+                                <span>
+                                    <span class="lang-ja">メールアドレス</span>
+                                    <span class="lang-en">Email address</span>
+                                </span>
 
-                    <p class="section-copy">
-                        <span class="lang-ja">
-                            法令に基づく場合を除き、ご本人の同意なく取得した情報を第三者へ提供することはありません。
-                        </span>
+                                <span class="field-status required">
+                                    <span class="lang-ja">必須</span>
+                                    <span class="lang-en">Required</span>
+                                </span>
+                            </label>
 
-                        <span class="lang-en">
-                            Personal information will not be provided to third parties without your consent,
-                            except as required by law.
-                        </span>
-                    </p>
-                </section>
+                            <input
+                                class="field-control"
+                                type="email"
+                                id="email"
+                                name="email"
+                                autocomplete="email"
+                                required
+                                placeholder="you@example.com"
+                            >
+                        </div>
 
-                <section id="section-05" class="policy-section">
-                    <p class="section-number">05</p>
+                        <div class="field field-full">
+                            <label class="field-label" for="company">
+                                <span>
+                                    <span class="lang-ja">企業名・団体名</span>
+                                    <span class="lang-en">Affiliation</span>
+                                </span>
 
-                    <h2 class="section-title">
-                        <span class="lang-ja">管理</span>
-                        <span class="lang-en">Management</span>
-                    </h2>
+                                <span class="field-status">
+                                    <span class="lang-ja">任意</span>
+                                    <span class="lang-en">Optional</span>
+                                </span>
+                            </label>
 
-                    <p class="section-copy">
-                        <span class="lang-ja">
-                            取得した情報は、利用目的の達成に必要な範囲で適切に管理します。
-                        </span>
+                            <input
+                                class="field-control"
+                                type="text"
+                                id="company"
+                                name="company"
+                                autocomplete="organization"
+                                placeholder=""
+                            >
+                        </div>
 
-                        <span class="lang-en">
-                            The information collected will be managed appropriately within the scope
-                            necessary to fulfill the purposes stated above.
-                        </span>
-                    </p>
-                </section>
+                        <div class="field field-full">
+                            <label class="field-label" for="message">
+                                <span>
+                                    <span class="lang-ja">お問い合わせ内容</span>
+                                    <span class="lang-en">Inquiry details</span>
+                                </span>
 
-                <section id="section-06" class="policy-section">
-                    <p class="section-number">06</p>
+                                <span class="field-status required">
+                                    <span class="lang-ja">必須</span>
+                                    <span class="lang-en">Required</span>
+                                </span>
+                            </label>
 
-                    <h2 class="section-title">
-                        <span class="lang-ja">お問い合わせ</span>
-                        <span class="lang-en">Contact</span>
-                    </h2>
-
-                    <p class="section-copy">
-                        <span class="lang-ja">
-                            個人情報の取扱いに関するお問い合わせは、本サイトの
-                            <a class="inline-link" href="./contact.html">お問い合わせフォーム</a>
-                            よりご連絡ください。
-                        </span>
-
-                        <span class="lang-en">
-                            For inquiries regarding the handling of personal information,
-                            please use the
-                            <a class="inline-link" href="./contact.html">contact form</a>
-                            on this website.
-                        </span>
-                    </p>
-                </section>
-
-                <div class="document-signature">
-                    <div>
-                        <span class="lang-ja">制定日：2026年7月3日</span>
-                        <span class="lang-en">Established: July 3, 2026</span>
+                            <textarea
+                                class="field-control"
+                                id="message"
+                                name="message"
+                                rows="6"
+                                required
+                                placeholder=""
+                            ></textarea>
+                        </div>
                     </div>
 
-                    <div class="signature-name">Ken Harima</div>
+                    <div class="form-footer">
+                        <p class="privacy-note">
+                            <span class="lang-ja">
+                                送信前に
+                                <a class="privacy-link" href="./privacy-policy.html">
+                                    プライバシーポリシー
+                                </a>
+                                をご確認ください。
+                            </span>
+
+                            <span class="lang-en">
+                                Please review the
+                                <a class="privacy-link" href="./privacy-policy.html">
+                                    Privacy Policy
+                                </a>
+                                before submitting.
+                            </span>
+                        </p>
+
+                        <button
+                            type="submit"
+                            id="submit-button"
+                            class="submit-button"
+                        >
+                            <span id="submit-label">
+                                <span class="lang-ja">送信する</span>
+                                <span class="lang-en">Send message</span>
+                            </span>
+
+                            <svg
+                                class="submit-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M5 12h13M13 6l6 6-6 6"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+
+                            <span class="spinner" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <p
+                        id="form-message"
+                        class="form-message"
+                        role="alert"
+                        aria-live="polite"
+                    ></p>
+                </form>
+
+                <div
+                    id="success-state"
+                    class="success-state"
+                    aria-live="polite"
+                    aria-hidden="true"
+                >
+                    <div class="success-mark" aria-hidden="true">
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 28 28"
+                            fill="none"
+                        >
+                            <path
+                                d="M7 14.5l4.4 4.2L21 9.5"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+
+                    <h2 class="success-title">
+                        <span class="lang-ja">送信が完了しました。</span>
+                        <span class="lang-en">Message sent.</span>
+                    </h2>
+
+                    <p class="success-copy">
+                        <span class="lang-ja">
+                            お問い合わせありがとうございます。
+                            内容を確認し、通常48時間以内にご返信します。
+                        </span>
+
+                        <span class="lang-en">
+                            Thank you for reaching out.
+                            I will review your message and respond within 48 hours.
+                        </span>
+                    </p>
+
+                    <a class="back-link" href="./index.html">
+                        <span class="lang-ja">ホームへ戻る</span>
+                        <span class="lang-en">Back to home</span>
+                        <span aria-hidden="true">→</span>
+                    </a>
                 </div>
-            </article>
+            </section>
         </div>
     </main>
 
@@ -880,9 +1130,9 @@
                     <span class="lang-en">Home</span>
                 </a>
 
-                <a href="./contact.html">
-                    <span class="lang-ja">お問い合わせ</span>
-                    <span class="lang-en">Contact</span>
+                <a href="./privacy-policy.html">
+                    <span class="lang-ja">プライバシーポリシー</span>
+                    <span class="lang-en">Privacy Policy</span>
                 </a>
             </div>
         </div>
@@ -927,39 +1177,61 @@
             jaButton.addEventListener("click", () => setLanguage("ja"));
             enButton.addEventListener("click", () => setLanguage("en"));
 
-            const tocLinks = Array.from(
-                document.querySelectorAll(".toc-link")
-            );
+            const form = document.getElementById("contact-form");
+            const submitButton = document.getElementById("submit-button");
+            const formMessage = document.getElementById("form-message");
+            const successState = document.getElementById("success-state");
 
-            const sections = Array.from(
-                document.querySelectorAll(".policy-section")
-            );
+            const getErrorText = () =>
+                html.classList.contains("is-global")
+                    ? "Please complete all required fields with valid information."
+                    : "必須項目を正しく入力してください。";
 
-            if ("IntersectionObserver" in window) {
-                const observer = new IntersectionObserver(
-                    (entries) => {
-                        const visibleEntry = entries
-                            .filter((entry) => entry.isIntersecting)
-                            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            const getSubmitErrorText = () =>
+                html.classList.contains("is-global")
+                    ? "The message could not be sent. Please try again later."
+                    : "送信に失敗しました。時間をおいて、もう一度お試しください。";
 
-                        if (!visibleEntry) return;
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                formMessage.textContent = "";
 
-                        tocLinks.forEach((link) => {
-                            const isActive =
-                                link.getAttribute("href") ===
-                                `#${visibleEntry.target.id}`;
+                if (!form.checkValidity()) {
+                    formMessage.textContent = getErrorText();
+                    form.reportValidity();
+                    return;
+                }
 
-                            link.classList.toggle("is-active", isActive);
-                        });
-                    },
-                    {
-                        rootMargin: "-18% 0px -64% 0px",
-                        threshold: [0.1, 0.3, 0.6]
+                submitButton.disabled = true;
+                submitButton.classList.add("is-loading");
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        body: new FormData(form),
+                        headers: {
+                            Accept: "application/json"
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Submission failed");
                     }
-                );
 
-                sections.forEach((section) => observer.observe(section));
-            }
+                    form.reset();
+                    form.classList.add("is-hidden");
+
+                    window.setTimeout(() => {
+                        form.hidden = true;
+                        successState.classList.add("is-visible");
+                        successState.setAttribute("aria-hidden", "false");
+                    }, 360);
+                } catch (error) {
+                    formMessage.textContent = getSubmitErrorText();
+                    submitButton.disabled = false;
+                    submitButton.classList.remove("is-loading");
+                }
+            });
         })();
     </script>
 </body>
