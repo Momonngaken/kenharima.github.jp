@@ -4291,6 +4291,223 @@ and (
         }
     </style>
 
+
+    <!-- ================= PROJECT PALETTE REFINEMENT ================= -->
+    <style>
+        /*
+         * Projects & Awards — palette hierarchy
+         * Ariyoshi / Essay are the two editorially featured awards.
+         * European Poker Field Study is intentionally untouched.
+         */
+
+        #projects .project-ariyoshi {
+            background:
+                linear-gradient(
+                    145deg,
+                    #2b0d17 0%,
+                    #1e0a11 58%,
+                    #12070b 100%
+                ) !important;
+            color: #fff8fa !important;
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.075),
+                0 22px 64px rgba(91, 21, 39, 0.12) !important;
+        }
+
+        #projects .project-ariyoshi::before {
+            background:
+                radial-gradient(
+                    circle at 8% 0%,
+                    rgba(220, 82, 111, 0.28),
+                    transparent 43%
+                ) !important;
+        }
+
+        #projects .project-ariyoshi::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(234, 115, 139, 0.62),
+                    transparent
+                ) !important;
+            opacity: 0.62 !important;
+        }
+
+        #projects .project-ariyoshi .project-result {
+            border-color: rgba(236, 137, 157, 0.24) !important;
+            background: rgba(180, 54, 80, 0.15) !important;
+            color: #f3c3cd !important;
+        }
+
+        #projects .project-ariyoshi .project-date {
+            color: rgba(255, 226, 232, 0.52) !important;
+        }
+
+        #projects .project-ariyoshi .project-subtitle {
+            color: rgba(255, 236, 240, 0.68) !important;
+        }
+
+        #projects .project-ariyoshi .project-evidence-caption {
+            color: rgba(255, 226, 232, 0.56) !important;
+        }
+
+        #projects .project-essay {
+            background:
+                linear-gradient(
+                    145deg,
+                    #302116 0%,
+                    #21160f 58%,
+                    #150e0a 100%
+                ) !important;
+            color: #fff9f1 !important;
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.068),
+                0 22px 64px rgba(93, 57, 25, 0.10) !important;
+        }
+
+        #projects .project-essay::before {
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(220, 161, 93, 0.24),
+                    transparent 44%
+                ) !important;
+        }
+
+        #projects .project-essay::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(230, 179, 116, 0.56),
+                    transparent
+                ) !important;
+            opacity: 0.58 !important;
+        }
+
+        #projects .project-essay .project-result {
+            border-color: rgba(232, 190, 136, 0.22) !important;
+            background: rgba(174, 113, 56, 0.14) !important;
+            color: #efd1a8 !important;
+        }
+
+        #projects .project-essay .project-date {
+            color: rgba(255, 235, 207, 0.50) !important;
+        }
+
+        #projects .project-essay .project-subtitle {
+            color: rgba(255, 240, 220, 0.67) !important;
+        }
+
+        #projects .project-essay .project-evidence-caption {
+            color: rgba(255, 232, 200, 0.55) !important;
+        }
+
+        /* Strategy feature: slightly quieter so the two writing awards lead */
+        #projects .project-noguchi {
+            background:
+                linear-gradient(
+                    145deg,
+                    #162534 0%,
+                    #101b27 56%,
+                    #0b141d 100%
+                ) !important;
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.050),
+                0 18px 54px rgba(12, 31, 49, 0.075) !important;
+        }
+
+        #projects .project-noguchi::before {
+            background-image:
+                linear-gradient(rgba(130, 180, 230, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(130, 180, 230, 0.025) 1px, transparent 1px),
+                radial-gradient(circle at 94% 4%, rgba(74, 140, 203, 0.15), transparent 43%) !important;
+        }
+
+        #projects .project-noguchi::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(94, 155, 214, 0.46),
+                    transparent
+                ) !important;
+            opacity: 0.44 !important;
+        }
+
+        /* Supporting cards: quiet differentiated materials */
+        #projects .project-haiku {
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0) 0,
+                    rgba(255,255,255,0) 31px,
+                    rgba(29,29,31,0.024) 31px,
+                    rgba(29,29,31,0.024) 32px
+                ),
+                linear-gradient(145deg, #f6f2e9, #ece7dc) !important;
+        }
+
+        #projects .project-pivot {
+            background: linear-gradient(145deg, #f4f5f7, #e9ebee) !important;
+        }
+
+        #projects .project-bizplan {
+            background: linear-gradient(145deg, #eff5f8, #e4edf3) !important;
+        }
+
+        #projects .project-social {
+            background: linear-gradient(145deg, #f1f4f0, #e6ebe6) !important;
+        }
+
+        #projects .project-tournament {
+            background: linear-gradient(145deg, #f2f3f5, #e8eaed) !important;
+        }
+
+        html.dark-mode-on #projects .project-haiku {
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0) 0,
+                    rgba(255,255,255,0) 31px,
+                    rgba(255,255,255,0.026) 31px,
+                    rgba(255,255,255,0.026) 32px
+                ),
+                linear-gradient(145deg, #211f1a, #181714) !important;
+        }
+
+        html.dark-mode-on #projects .project-pivot {
+            background: linear-gradient(145deg, #1f2226, #181b1e) !important;
+        }
+
+        html.dark-mode-on #projects .project-bizplan {
+            background: linear-gradient(145deg, #192229, #131b21) !important;
+        }
+
+        html.dark-mode-on #projects .project-social {
+            background: linear-gradient(145deg, #1b221d, #141a16) !important;
+        }
+
+        html.dark-mode-on #projects .project-tournament {
+            background: linear-gradient(145deg, #1f2124, #181a1d) !important;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            #projects .project-ariyoshi:hover {
+                box-shadow:
+                    inset 0 0 0 1px rgba(255,255,255,0.085),
+                    0 30px 78px rgba(91, 21, 39, 0.18) !important;
+            }
+
+            #projects .project-essay:hover {
+                box-shadow:
+                    inset 0 0 0 1px rgba(255,255,255,0.078),
+                    0 30px 78px rgba(93, 57, 25, 0.15) !important;
+            }
+        }
+    </style>
+
 </head>
 <body class="antialiased">
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
