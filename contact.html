@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 
-    <title>Contact | Ken Harima Official</title>
+    <title>Contact | Ken Harima</title>
     <meta
         name="description"
-        content="播磨賢（Ken Harima）へのお問い合わせ。採用・スカウト、カジュアル面談、共同プロジェクト、執筆に関するご連絡を受け付けています。"
+        content="播磨賢（Ken Harima）へのお問い合わせ。ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、歓迎します。"
     >
     <link rel="canonical" href="https://kenharima.com/contact.html">
 
@@ -17,7 +17,7 @@
     <meta property="og:title" content="Contact | Ken Harima Official">
     <meta
         property="og:description"
-        content="採用・スカウト、カジュアル面談、共同プロジェクト、執筆に関するご連絡を受け付けています。"
+        content="ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで、歓迎します。"
     >
 
     <style>
@@ -128,28 +128,44 @@
         .brand {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            flex: 0 0 38px;
-            border-radius: 11px;
-            overflow: hidden;
+            flex: 0 0 auto;
+            min-width: 0;
             text-decoration: none;
+            color: var(--ink);
             transition:
-                opacity 280ms ease,
+                opacity 240ms ease,
                 transform 320ms var(--ease);
         }
 
         .brand:hover {
-            opacity: 0.72;
+            opacity: 0.66;
             transform: translateY(-1px);
         }
 
-        .brand-mark {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        /*
+         * Quiet handwritten wordmark.
+         * Snell Roundhand is native to Apple platforms; the fallbacks keep
+         * the mark elegant without loading an external font.
+         */
+        .brand-signature {
+            display: inline-block;
+            white-space: nowrap;
+            font-family:
+                "Snell Roundhand",
+                "Apple Chancery",
+                "Segoe Script",
+                "Bradley Hand",
+                cursive;
+            font-size: clamp(22px, 2vw, 26px);
+            line-height: 1;
+            font-weight: 400;
+            letter-spacing: 0.005em;
+            font-synthesis: none;
+            font-feature-settings: "kern" 1;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: geometricPrecision;
+            transform: translateY(1px) rotate(-0.7deg);
+            transform-origin: left center;
         }
 
         .brand:focus-visible,
@@ -161,19 +177,6 @@
             outline-offset: 4px;
         }
 
-        .brand-first {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 16px;
-            font-style: italic;
-            font-weight: 500;
-        }
-
-        .brand-last {
-            margin-left: 0.34em;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-        }
 
         .header-actions {
             display: flex;
@@ -770,16 +773,9 @@
             <a
                 class="brand"
                 href="./index.html"
-                aria-label="ホームへ戻る / Back to Home"
+                aria-label="Ken Harima — ホームへ戻る / Back to Home"
             >
-                <img
-                    class="brand-mark"
-                    src="./apple-touch-k.png"
-                    alt=""
-                    width="512"
-                    height="512"
-                    decoding="async"
-                >
+                <span class="brand-signature" aria-hidden="true">Ken Harima</span>
             </a>
 
             <div class="header-actions">
@@ -842,13 +838,13 @@
 
                 <p class="intro-copy">
                     <span class="lang-ja">
-                        採用・スカウト、カジュアル面談、共同プロジェクト、
-                        執筆に関するご連絡を歓迎しています。
+                        ポジション、プロジェクト、協働、執筆のご相談から、
+                        本サイトへのご感想まで、歓迎します。
                     </span>
 
                     <span class="lang-en">
-                        Recruiting inquiries, casual conversations,
-                        collaborative projects, and writing opportunities are welcome.
+                        I welcome conversations about roles, projects, collaborations,
+                        and writing, as well as feedback on this site.
                     </span>
                 </p>
 
