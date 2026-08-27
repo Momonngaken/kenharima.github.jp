@@ -4,6 +4,44 @@
     <!-- Google tag (gtag.js) moved to body end for performance -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" id="kh-theme-color" content="#fafafa">
+
+    <!--
+        Theme bootstrap — runs before CSS paint.
+        Behavior follows the Dario Amodei pattern: first visit uses the OS
+        preference; after an explicit toggle, the choice is persisted.
+    -->
+    <script>
+        (() => {
+            const root = document.documentElement;
+            let saved = null;
+
+            try {
+                saved = localStorage.getItem('darkMode');
+            } catch (_) {}
+
+            const systemDark = !!(
+                window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches
+            );
+
+            const isDark = saved === 'enabled'
+                ? true
+                : saved === 'disabled'
+                    ? false
+                    : systemDark;
+
+            root.classList.toggle('dark-mode-on', isDark);
+            root.classList.toggle('dark-mode-off', !isDark);
+            root.style.colorScheme = isDark ? 'dark' : 'light';
+
+            const themeMeta = document.getElementById('kh-theme-color');
+            if (themeMeta) {
+                themeMeta.setAttribute('content', isDark ? '#0f0f10' : '#fafafa');
+            }
+        })();
+    </script>
     <!-- SEO & Metadata -->
     <title>Ken Harima</title>
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
@@ -53,6 +91,14 @@
         */
         :root {
             --bg-base: #fafafa;
+            --prepaint-text: #1d1d1f;
+            --prepaint-radial: rgba(255,255,255,1);
+        }
+
+        html.dark-mode-on {
+            --bg-base: #0f0f10;
+            --prepaint-text: #f5f5f7;
+            --prepaint-radial: rgba(29,29,31,0.72);
         }
 
         /* =========================================================
@@ -88,7 +134,7 @@
             min-height: 100%;
             margin: 0;
             background-color: var(--bg-base);
-            color: #1d1d1f;
+            color: var(--prepaint-text);
             font-family: inherit;
             line-height: inherit;
             overflow-x: hidden;
@@ -146,7 +192,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at top center, rgba(255,255,255,1) 0%, var(--bg-base) 100%);
+            background: radial-gradient(circle at top center, var(--prepaint-radial) 0%, var(--bg-base) 100%);
             z-index: -1;
             pointer-events: none;
         }
@@ -2994,6 +3040,685 @@ and (
             }
         }
     </style>
+
+    <!-- ================= LIGHT / DARK THEME — DARIO-INSPIRED TOGGLE ================= -->
+    <style id="kh-theme-layer">
+        /* ---------------------------------------------------------
+           Theme tokens
+           --------------------------------------------------------- */
+        :root {
+            --kh-theme-bg: #fafafa;
+            --kh-theme-text: #1d1d1f;
+            --kh-theme-secondary: #6e6e73;
+            --kh-theme-muted: #86868b;
+            --kh-theme-faint: #d2d2d7;
+            --kh-theme-surface: #f5f5f7;
+            --kh-theme-surface-raised: #ffffff;
+            --kh-theme-border: rgba(29,29,31,0.075);
+            --kh-theme-border-soft: rgba(29,29,31,0.045);
+            --kh-theme-blue: #0066cc;
+            --kh-theme-shadow: rgba(0,0,0,0.06);
+            --kh-theme-toggle-bg: #fafafa;
+            --kh-theme-toggle-fg: #1d1d1f;
+        }
+
+        html.dark-mode-on {
+            --bg-base: #0f0f10;
+            --kh-bg: #0f0f10;
+            --kh-text: #f5f5f7;
+            --kh-secondary: #b2b2b7;
+            --kh-muted: #8e8e93;
+            --kh-faint: #3a3a3c;
+            --kh-surface: rgba(28,28,30,0.76);
+            --kh-surface-solid: #1c1c1e;
+            --kh-blue: #2997ff;
+
+            --kh-theme-bg: #0f0f10;
+            --kh-theme-text: #f5f5f7;
+            --kh-theme-secondary: #b2b2b7;
+            --kh-theme-muted: #8e8e93;
+            --kh-theme-faint: #3a3a3c;
+            --kh-theme-surface: #1c1c1e;
+            --kh-theme-surface-raised: #242426;
+            --kh-theme-border: rgba(255,255,255,0.10);
+            --kh-theme-border-soft: rgba(255,255,255,0.065);
+            --kh-theme-blue: #2997ff;
+            --kh-theme-shadow: rgba(0,0,0,0.28);
+            --kh-theme-toggle-bg: #0f0f10;
+            --kh-theme-toggle-fg: #f0efea;
+        }
+
+        html.dark-mode-on,
+        html.dark-mode-on body {
+            color-scheme: dark;
+            background-color: var(--kh-theme-bg) !important;
+            color: var(--kh-theme-text) !important;
+        }
+
+        html.dark-mode-off,
+        html.dark-mode-off body {
+            color-scheme: light;
+        }
+
+        html.dark-mode-init *,
+        html.dark-mode-init *::before,
+        html.dark-mode-init *::after {
+            transition: none !important;
+        }
+
+        body,
+        body::before,
+        #site-menu,
+        #profile,
+        .contact-surface,
+        #next .next-surface,
+        #development .pd-card,
+        #projects .project-card,
+        #modal-panel,
+        #modal-scroll-container {
+            transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        }
+
+        /* ---------------------------------------------------------
+           Top utility — deliberately static / non-following
+           --------------------------------------------------------- */
+        .theme-utility {
+            width: min(100%, 960px);
+            margin-inline: auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 20px;
+        }
+
+        .theme-toggle-switch {
+            visibility: hidden;
+            position: relative;
+            width: 40px;
+            height: 20px;
+            flex: 0 0 40px;
+        }
+
+        .theme-toggle-switch.visible {
+            visibility: visible;
+        }
+
+        .theme-toggle-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .theme-toggle-label {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            border: 1px solid var(--kh-theme-toggle-fg);
+            border-radius: 34px;
+            background: var(--kh-theme-toggle-bg);
+            transition: background-color 200ms ease, border-color 200ms ease;
+        }
+
+        .theme-toggle-slider {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            left: 2px;
+            bottom: 2px;
+            border-radius: 50%;
+            background: var(--kh-theme-toggle-fg);
+            transition: left 200ms ease, background-color 200ms ease;
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-label {
+            background: var(--kh-theme-toggle-fg);
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-label .theme-toggle-slider {
+            left: 22px;
+            background: var(--kh-theme-toggle-bg);
+        }
+
+        .theme-toggle-input:focus-visible + .theme-toggle-label {
+            outline: 2px solid var(--kh-theme-blue);
+            outline-offset: 3px;
+        }
+
+        .theme-toggle-label:hover {
+            opacity: 0.72;
+        }
+
+        .site-shell > .theme-utility {
+            width: min(100%, 960px);
+        }
+
+        .theme-utility + #home.hero-editorial {
+            padding-top: clamp(38px, 6vw, 72px);
+        }
+
+        @media (max-width: 767px) {
+            .theme-utility + #home.hero-editorial {
+                padding-top: 42px;
+            }
+        }
+
+        /* ---------------------------------------------------------
+           Global canvas / INDEX
+           --------------------------------------------------------- */
+        html.dark-mode-on body::before {
+            background: radial-gradient(circle at top center, rgba(34,34,36,0.66) 0%, #0f0f10 76%) !important;
+        }
+
+        html.dark-mode-on #menu-toggle,
+        html.dark-mode-on body.menu-open #menu-toggle {
+            color: #8e8e93 !important;
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        html.dark-mode-on #menu-toggle:hover,
+        html.dark-mode-on body.menu-open #menu-toggle:hover {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on #menu-toggle:focus-visible {
+            outline-color: rgba(245,245,247,0.34) !important;
+        }
+
+        html.dark-mode-on #site-menu {
+            background-color: rgba(15,15,16,0.92) !important;
+            color: #f5f5f7 !important;
+            border-color: rgba(255,255,255,0.08) !important;
+        }
+
+        html.dark-mode-on #site-menu .menu-item {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on #site-menu .menu-item-num,
+        html.dark-mode-on #site-menu .text-\[\#86868b\] {
+            color: #8e8e93 !important;
+        }
+
+        html.dark-mode-on #site-menu .menu-item:hover .menu-item-text,
+        html.dark-mode-on #site-menu .menu-item:hover .menu-item-num {
+            color: #64a9ff !important;
+        }
+
+        html.dark-mode-on #site-menu .menu-bottom > .flex > .relative {
+            background: rgba(255,255,255,0.045) !important;
+            border-color: rgba(255,255,255,0.08) !important;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.18) !important;
+        }
+
+        html.dark-mode-on #site-menu #lang-jp,
+        html.dark-mode-on #site-menu #lang-en {
+            color: #8e8e93 !important;
+        }
+
+        html.dark-mode-on #site-menu #lang-jp.bg-white,
+        html.dark-mode-on #site-menu #lang-en.bg-white {
+            background: #2c2c2e !important;
+            color: #f5f5f7 !important;
+            box-shadow: none !important;
+        }
+
+        html.dark-mode-on #site-menu .menu-contact-cta {
+            background: #f5f5f7 !important;
+            color: #111113 !important;
+            box-shadow: none !important;
+        }
+
+        html.dark-mode-on #site-menu .menu-contact-cta:hover {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        /* ---------------------------------------------------------
+           Hero
+           --------------------------------------------------------- */
+        html.dark-mode-on .hero-name {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on .hero-thesis {
+            color: #a1a1a6 !important;
+        }
+
+        html.dark-mode-on .hero-disciplines {
+            border-top-color: rgba(255,255,255,0.10) !important;
+        }
+
+        html.dark-mode-on .hero-disciplines-head {
+            color: #737378 !important;
+        }
+
+        html.dark-mode-on .hero-discipline {
+            color: #d1d1d6 !important;
+        }
+
+        html.dark-mode-on .hero-discipline:not(:last-child)::after {
+            color: #48484a !important;
+        }
+
+        html.dark-mode-on .hero-action-primary {
+            color: #d1d1d6 !important;
+            background: rgba(255,255,255,0.055) !important;
+            border-color: rgba(255,255,255,0.10) !important;
+        }
+
+        html.dark-mode-on .hero-action-primary:hover {
+            color: #ffffff !important;
+            background: rgba(255,255,255,0.09) !important;
+            border-color: rgba(255,255,255,0.15) !important;
+        }
+
+        html.dark-mode-on .hero-action-primary-icon {
+            color: #8e8e93 !important;
+        }
+
+        html.dark-mode-on .hero-aura-layer--business {
+            background: radial-gradient(circle at 48% 45%, rgba(255,255,255,0.09), rgba(142,142,147,0.04) 44%, transparent 72%) !important;
+        }
+
+        html.dark-mode-on #hero-photo.hero-photo-button {
+            border-color: rgba(255,255,255,0.15) !important;
+            box-shadow: 0 24px 62px rgba(0,0,0,0.42), inset 0 0 0 1px rgba(255,255,255,0.06) !important;
+        }
+
+        html.dark-mode-on #hero-photo.hero-photo-button::after {
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12), inset 0 0 0 2px rgba(0,0,0,0.12) !important;
+        }
+
+        @media (max-width: 767px) {
+            html.dark-mode-on .hero-discipline {
+                border-bottom-color: rgba(255,255,255,0.075) !important;
+            }
+
+            html.dark-mode-on .hero-discipline:nth-child(even) {
+                border-left-color: rgba(255,255,255,0.075) !important;
+            }
+        }
+
+        /* ---------------------------------------------------------
+           Experience
+           --------------------------------------------------------- */
+        html.dark-mode-on #experience {
+            --exp-text: #f5f5f7;
+            --exp-muted: #98989d;
+            --exp-faint: #3a3a3c;
+            --exp-line: rgba(255,255,255,0.09);
+            --exp-blue: #2997ff;
+        }
+
+        html.dark-mode-on #experience .exp-line-base {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.08) 78%, rgba(255,255,255,0.015) 100%) !important;
+        }
+
+        html.dark-mode-on #experience .exp-line-fill {
+            background: linear-gradient(to bottom, #68686d 0%, #48484a 72%, rgba(72,72,74,0.16) 100%) !important;
+        }
+
+        html.dark-mode-on #experience .exp-item {
+            --exp-accent: #8e8e93;
+            --exp-ring: rgba(255,255,255,0.075);
+        }
+
+        html.dark-mode-on #experience .exp-item:hover .exp-date {
+            color: #b2b2b7 !important;
+        }
+
+        html.dark-mode-on #experience .exp-photo-frame,
+        html.dark-mode-on .kh-documentary-frame {
+            background: #1c1c1e !important;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.16) !important;
+        }
+
+        html.dark-mode-on #experience .exp-photo-frame::after,
+        html.dark-mode-on .kh-documentary-frame::after {
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.11) !important;
+        }
+
+        html.dark-mode-on #experience .exp-photo-caption,
+        html.dark-mode-on .kh-documentary-caption {
+            color: #7f7f84 !important;
+        }
+
+        /* ---------------------------------------------------------
+           Professional Development
+           --------------------------------------------------------- */
+        html.dark-mode-on #development {
+            border-top-color: rgba(255,255,255,0.075) !important;
+        }
+
+        html.dark-mode-on #development .pd-heading,
+        html.dark-mode-on #development .pd-credential-primary,
+        html.dark-mode-on #development .pd-score,
+        html.dark-mode-on #development .pd-score-label,
+        html.dark-mode-on #development .pd-grade,
+        html.dark-mode-on #development .pd-program-title {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on #development .pd-card {
+            background: #1c1c1e !important;
+            color: #f5f5f7 !important;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
+        }
+
+        html.dark-mode-on #development .pd-card-label,
+        html.dark-mode-on #development .pd-credential-secondary,
+        html.dark-mode-on #development .pd-program-kicker,
+        html.dark-mode-on #development .pd-program-lab {
+            color: #9a9a9f !important;
+        }
+
+        html.dark-mode-on #development .pd-ai-graphic,
+        html.dark-mode-on #development .pd-abacus-watermark,
+        html.dark-mode-on #development .pd-data-graphic {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on #development .pd-ai-rule {
+            background: rgba(255,255,255,0.14) !important;
+        }
+
+        html.dark-mode-on #development .pd-program:hover {
+            background: #242426 !important;
+        }
+
+        html.dark-mode-on #development .pd-certificate-frame {
+            background: #2c2c2e !important;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.30), 0 2px 8px rgba(0,0,0,0.20) !important;
+        }
+
+        html.dark-mode-on #development .pd-program-link {
+            color: #2997ff !important;
+        }
+
+        /* ---------------------------------------------------------
+           Shared profile / projects tokens
+           --------------------------------------------------------- */
+        html.dark-mode-on #profile,
+        html.dark-mode-on #next,
+        html.dark-mode-on #projects {
+            --apple-text: #f5f5f7;
+            --apple-secondary: #a1a1a6;
+            --apple-muted: #8e8e93;
+            --apple-faint: #3a3a3c;
+            --apple-surface: #1c1c1e;
+            --apple-surface-2: #242426;
+            --apple-blue: #2997ff;
+            --apple-black: #000000;
+        }
+
+        /* ---------------------------------------------------------
+           Profile
+           --------------------------------------------------------- */
+        html.dark-mode-on #profile {
+            border-color: rgba(255,255,255,0.075) !important;
+            background: linear-gradient(145deg, rgba(28,28,30,0.88), rgba(20,20,22,0.74)) !important;
+            box-shadow: 0 22px 70px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.035) !important;
+        }
+
+        html.dark-mode-on #profile .profile-editorial {
+            border-top-color: rgba(255,255,255,0.09) !important;
+            border-bottom-color: rgba(255,255,255,0.065) !important;
+        }
+
+        html.dark-mode-on #profile .profile-origin-rule {
+            background: rgba(255,255,255,0.20) !important;
+        }
+
+        html.dark-mode-on #profile .profile-origin-index,
+        html.dark-mode-on #profile .profile-thesis-line-muted {
+            color: #737378 !important;
+        }
+
+        html.dark-mode-on #profile .profile-body {
+            color: #b8b8bd !important;
+        }
+
+        /* ---------------------------------------------------------
+           Next — preserve keynote hierarchy inside a dark page
+           --------------------------------------------------------- */
+        html.dark-mode-on #next .next-surface {
+            background: linear-gradient(145deg, #1a1a1c 0%, #202022 100%) !important;
+            color: #f5f5f7 !important;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.075), 0 28px 80px rgba(0,0,0,0.20) !important;
+        }
+
+        html.dark-mode-on #next .next-surface::before {
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.075), rgba(255,255,255,0) 70%) !important;
+        }
+
+        html.dark-mode-on #next .next-formula,
+        html.dark-mode-on #next .next-manifesto {
+            border-color: rgba(255,255,255,0.10) !important;
+        }
+
+        /* ---------------------------------------------------------
+           Projects — featured cards retain identity; supporting cards
+           become nuanced charcoal materials rather than flat inversion.
+           --------------------------------------------------------- */
+        html.dark-mode-on #projects :is(
+            .project-haiku,
+            .project-pivot,
+            .project-bizplan,
+            .project-social,
+            .project-tournament
+        ) {
+            color: #f5f5f7 !important;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
+        }
+
+        html.dark-mode-on #projects .project-card-soft {
+            background: linear-gradient(145deg, #1f1f21, #19191b) !important;
+        }
+
+        html.dark-mode-on #projects .project-haiku {
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 31px, rgba(255,255,255,0.028) 31px, rgba(255,255,255,0.028) 32px), linear-gradient(145deg, #211f1b, #191816) !important;
+        }
+
+        html.dark-mode-on #projects .project-pivot {
+            background: linear-gradient(145deg, #202326, #191c1f) !important;
+        }
+
+        html.dark-mode-on #projects .project-bizplan {
+            background: linear-gradient(145deg, #192126, #141b20) !important;
+        }
+
+        html.dark-mode-on #projects .project-social {
+            background: linear-gradient(145deg, #1b211d, #151a17) !important;
+        }
+
+        html.dark-mode-on #projects .project-tournament {
+            background: linear-gradient(145deg, #202124, #191a1d) !important;
+        }
+
+        html.dark-mode-on #projects .project-card::after {
+            opacity: 0.22 !important;
+        }
+
+        html.dark-mode-on #projects .project-card:focus-visible {
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07), 0 0 0 3px rgba(41,151,255,0.24) !important;
+        }
+
+        /* ---------------------------------------------------------
+           Contact / Footer / credo
+           --------------------------------------------------------- */
+        html.dark-mode-on .contact-surface {
+            border-color: rgba(255,255,255,0.075) !important;
+            background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.045), rgba(255,255,255,0) 34%), linear-gradient(145deg, #1b1b1d 0%, #151517 100%) !important;
+        }
+
+        html.dark-mode-on .contact-orbit {
+            border-color: rgba(255,255,255,0.055) !important;
+        }
+
+        html.dark-mode-on .contact-kicker,
+        html.dark-mode-on .contact-index {
+            color: #747479 !important;
+        }
+
+        html.dark-mode-on .contact-copy {
+            color: #a1a1a6 !important;
+        }
+
+        html.dark-mode-on .contact-action {
+            background: rgba(255,255,255,0.055) !important;
+            color: #d1d1d6 !important;
+            border-color: rgba(255,255,255,0.10) !important;
+        }
+
+        html.dark-mode-on .contact-action:hover {
+            background: rgba(255,255,255,0.09) !important;
+            color: #ffffff !important;
+            border-color: rgba(255,255,255,0.15) !important;
+        }
+
+        html.dark-mode-on .site-footer {
+            border-top-color: rgba(255,255,255,0.09) !important;
+        }
+
+        html.dark-mode-on .site-footer-copy,
+        html.dark-mode-on .site-footer-links a,
+        html.dark-mode-on .site-footer-motto {
+            color: #7f7f84 !important;
+        }
+
+        html.dark-mode-on .site-footer-links a:hover {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on .site-footer-motto {
+            border-top-color: rgba(255,255,255,0.065) !important;
+        }
+
+        html.dark-mode-on .hero-motto-local {
+            color: #a1a1a6 !important;
+        }
+
+        html.dark-mode-on .hero-motto-trigger:hover .hero-motto-local,
+        html.dark-mode-on .hero-motto-trigger:focus-visible .hero-motto-local,
+        html.dark-mode-on .hero-motto-trigger.is-translated .hero-motto-local {
+            color: #d1d1d6 !important;
+        }
+
+        /* ---------------------------------------------------------
+           Modal system
+           --------------------------------------------------------- */
+        html.dark-mode-on #modal-bg {
+            background: rgba(0,0,0,0.72) !important;
+        }
+
+        html.dark-mode-on #modal-panel {
+            background: #1c1c1e !important;
+            color: #d1d1d6 !important;
+            border-color: rgba(255,255,255,0.10) !important;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.50) !important;
+        }
+
+        html.dark-mode-on #modal-panel > .h-1\.5 {
+            background: #242426 !important;
+        }
+
+        html.dark-mode-on #modal-panel > .px-6,
+        html.dark-mode-on #modal-scroll-container {
+            background: #1c1c1e !important;
+            border-color: rgba(255,255,255,0.08) !important;
+        }
+
+        html.dark-mode-on #modal-scroll-container {
+            background-image: linear-gradient(to bottom, #1c1c1e, #171719) !important;
+        }
+
+        html.dark-mode-on #modal-content {
+            color: #c7c7cc !important;
+        }
+
+        html.dark-mode-on #modal-close-btn {
+            background: #2c2c2e !important;
+            color: #a1a1a6 !important;
+            border-color: rgba(255,255,255,0.05) !important;
+        }
+
+        html.dark-mode-on #modal-close-btn:hover {
+            background: #3a3a3c !important;
+            color: #ffffff !important;
+        }
+
+        html.dark-mode-on #global-modal .text-gray-900,
+        html.dark-mode-on #global-modal .text-gray-800,
+        html.dark-mode-on #global-modal .text-gray-700 {
+            color: #f0f0f2 !important;
+        }
+
+        html.dark-mode-on #global-modal .text-gray-600,
+        html.dark-mode-on #global-modal .text-gray-500,
+        html.dark-mode-on #global-modal .text-gray-400 {
+            color: #9a9a9f !important;
+        }
+
+        html.dark-mode-on #global-modal .bg-gray-50,
+        html.dark-mode-on #global-modal .bg-gray-100,
+        html.dark-mode-on #global-modal .bg-gray-200,
+        html.dark-mode-on #global-modal .bg-\[\#f5f5f7\],
+        html.dark-mode-on #global-modal .bg-white {
+            background-color: #2c2c2e !important;
+        }
+
+        html.dark-mode-on #global-modal .border-gray-100,
+        html.dark-mode-on #global-modal .border-gray-200,
+        html.dark-mode-on #global-modal .border-white\/50 {
+            border-color: rgba(255,255,255,0.09) !important;
+        }
+
+        html.dark-mode-on #modal-scroll-hint span {
+            background: rgba(36,36,38,0.88) !important;
+            color: #a1a1a6 !important;
+            border-color: rgba(255,255,255,0.08) !important;
+        }
+
+        html.dark-mode-on .modal-text-body .kh-location-atlas-frame {
+            background: #242426 !important;
+            border-color: rgba(255,255,255,0.08) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.03) !important;
+        }
+
+        html.dark-mode-on .modal-text-body .kh-map-sea { fill: #242426 !important; }
+        html.dark-mode-on .modal-text-body .kh-map-country { fill: #3a3a3c !important; stroke: rgba(255,255,255,0.20) !important; }
+        html.dark-mode-on .modal-text-body .kh-map-country-visited { fill: #48484a !important; }
+        html.dark-mode-on .modal-text-body .kh-map-dot { fill: #2997ff !important; stroke: #1c1c1e !important; }
+        html.dark-mode-on .modal-text-body .kh-map-label { fill: #d1d1d6 !important; }
+        html.dark-mode-on .modal-text-body .kh-map-label-count { fill: #8e8e93 !important; }
+        html.dark-mode-on .modal-text-body .kh-map-leader { stroke: rgba(209,209,214,0.34) !important; }
+        html.dark-mode-on .modal-text-body .kh-map-measure { color: #8e8e93 !important; }
+        html.dark-mode-on .modal-text-body .kh-map-measure-dot { background: #2997ff !important; }
+
+        html.dark-mode-on .apple-footnote-text,
+        html.dark-mode-on .apple-footnote-mark {
+            color: #9a9a9f !important;
+        }
+
+        /* Modal-specific surfaces must win over utility-class remapping. */
+        html.dark-mode-on #global-modal #modal-panel {
+            background: #1c1c1e !important;
+        }
+
+        html.dark-mode-on #global-modal #modal-panel > .px-6 {
+            background: rgba(28,28,30,0.96) !important;
+        }
+
+        /* Small focus affordance shared by dark controls. */
+        html.dark-mode-on a:focus-visible,
+        html.dark-mode-on button:focus-visible {
+            outline-color: rgba(41,151,255,0.68);
+        }
+    </style>
+
 </head>
 <body class="antialiased">
 
@@ -3046,6 +3771,21 @@ and (
     
     <div class="site-shell">
 
+        <!-- ================= THEME TOGGLE — STATIC TOP UTILITY ================= -->
+        <div class="theme-utility" aria-label="Appearance">
+            <div class="theme-toggle-switch">
+                <input
+                    type="checkbox"
+                    id="darkModeToggle"
+                    class="theme-toggle-input"
+                    aria-label="Toggle dark mode"
+                >
+                <label class="theme-toggle-label" for="darkModeToggle" title="Light / Dark">
+                    <span class="theme-toggle-slider" aria-hidden="true"></span>
+                </label>
+            </div>
+        </div>
+
         <!-- ================= EDITORIAL HERO ================= -->
         <header id="home" class="hero-editorial" aria-labelledby="hero-name">
             <div class="hero-visual">
@@ -3095,7 +3835,7 @@ and (
             <div class="hero-copy">
                 <h1 id="hero-name" class="hero-name">
                     <span class="lang-ja">播磨 賢</span>
-                    <span class="lang-en">Ken HARIMA</span>
+                    <span class="lang-en">Ken Harima</span>
                 </h1>
 
                 <p class="hero-thesis hero-reveal hero-reveal-2">
@@ -13791,6 +14531,88 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             observer.observe(document.documentElement, {
                 attributes: true,
                 attributeFilter: ['class']
+            });
+        })();
+    </script>
+
+
+    <script>
+        /* =========================================================
+           LIGHT / DARK TOGGLE
+           Dario-inspired behavior:
+           - first visit resolves from OS preference
+           - explicit user choice persists in localStorage
+           - switch itself is intentionally non-sticky at page top
+           ========================================================= */
+        (() => {
+            'use strict';
+
+            const root = document.documentElement;
+            const toggle = document.getElementById('darkModeToggle');
+            const switchWrap = document.querySelector('.theme-toggle-switch');
+            const themeMeta = document.getElementById('kh-theme-color');
+
+            if (!toggle) return;
+
+            const readSaved = () => {
+                try {
+                    return localStorage.getItem('darkMode');
+                } catch (_) {
+                    return null;
+                }
+            };
+
+            const writeSaved = (isDark) => {
+                try {
+                    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+                } catch (_) {}
+            };
+
+            const applyTheme = (isDark, { initializing = false } = {}) => {
+                if (initializing) {
+                    root.classList.add('dark-mode-init');
+                }
+
+                root.classList.toggle('dark-mode-on', isDark);
+                root.classList.toggle('dark-mode-off', !isDark);
+                root.style.colorScheme = isDark ? 'dark' : 'light';
+                toggle.checked = isDark;
+                toggle.setAttribute('aria-checked', String(isDark));
+
+                if (themeMeta) {
+                    themeMeta.setAttribute('content', isDark ? '#0f0f10' : '#fafafa');
+                }
+
+                if (initializing) {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            root.classList.remove('dark-mode-init');
+                        });
+                    });
+                }
+            };
+
+            const saved = readSaved();
+            const systemDark = !!(
+                window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches
+            );
+            const initialDark = saved === 'enabled'
+                ? true
+                : saved === 'disabled'
+                    ? false
+                    : systemDark;
+
+            applyTheme(initialDark, { initializing: true });
+
+            toggle.addEventListener('change', () => {
+                const nextDark = toggle.checked;
+                writeSaved(nextDark);
+                applyTheme(nextDark);
+            });
+
+            requestAnimationFrame(() => {
+                if (switchWrap) switchWrap.classList.add('visible');
             });
         })();
     </script>
