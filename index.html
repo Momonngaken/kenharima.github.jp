@@ -3519,7 +3519,15 @@ and (
         }
 
         html.dark-mode-on #projects .project-haiku {
-            background: repeating-linear-gradient(0deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 31px, rgba(255,255,255,0.028) 31px, rgba(255,255,255,0.028) 32px), linear-gradient(145deg, #211f1b, #191816) !important;
+            background: repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0) 0,
+                    rgba(255,255,255,0) 31px,
+                    rgba(255,255,255,0.028) 31px,
+                    rgba(255,255,255,0.028) 32px
+                ),
+                linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         /* Haiku uses a Mincho poem block with a light-mode hardcoded ink color.
@@ -3533,19 +3541,23 @@ and (
         }
 
         html.dark-mode-on #projects .project-pivot {
-            background: linear-gradient(145deg, #202326, #191c1f) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-bizplan {
-            background: linear-gradient(145deg, #192126, #141b20) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-social {
-            background: linear-gradient(145deg, #1b211d, #151a17) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-tournament {
-            background: linear-gradient(145deg, #202124, #191a1d) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-card::after {
@@ -4304,11 +4316,11 @@ and (
             background:
                 linear-gradient(
                     145deg,
-                    #2b0d17 0%,
-                    #1e0a11 58%,
-                    #12070b 100%
+                    #0a0a0b 0%,
+                    #0c0b0c 62%,
+                    #100e10 100%
                 ) !important;
-            color: #fff8fa !important;
+            color: #f5f5f7 !important;
             box-shadow:
                 inset 0 0 0 1px rgba(255,255,255,0.075),
                 0 22px 64px rgba(91, 21, 39, 0.12) !important;
@@ -4318,8 +4330,8 @@ and (
             background:
                 radial-gradient(
                     circle at 8% 0%,
-                    rgba(220, 82, 111, 0.28),
-                    transparent 43%
+                    rgba(255,69,58,0.15),
+                    transparent 42%
                 ) !important;
         }
 
@@ -4328,7 +4340,7 @@ and (
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(234, 115, 139, 0.62),
+                    rgba(255,138,128,0.36),
                     transparent
                 ) !important;
             opacity: 0.62 !important;
@@ -4356,11 +4368,11 @@ and (
             background:
                 linear-gradient(
                     145deg,
-                    #302116 0%,
-                    #21160f 58%,
-                    #150e0a 100%
+                    #0c0a08 0%,
+                    #100d0a 58%,
+                    #17120d 100%
                 ) !important;
-            color: #fff9f1 !important;
+            color: #f5f5f7 !important;
             box-shadow:
                 inset 0 0 0 1px rgba(255,255,255,0.068),
                 0 22px 64px rgba(93, 57, 25, 0.10) !important;
@@ -4370,7 +4382,7 @@ and (
             background:
                 radial-gradient(
                     circle at 100% 0%,
-                    rgba(220, 161, 93, 0.24),
+                    rgba(255,159,10,0.14),
                     transparent 44%
                 ) !important;
         }
@@ -4380,7 +4392,7 @@ and (
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(230, 179, 116, 0.56),
+                    rgba(255,193,120,0.34),
                     transparent
                 ) !important;
             opacity: 0.58 !important;
@@ -4409,9 +4421,9 @@ and (
             background:
                 linear-gradient(
                     145deg,
-                    #162534 0%,
-                    #101b27 56%,
-                    #0b141d 100%
+                    #080b0a 0%,
+                    #0b100e 56%,
+                    #0f1614 100%
                 ) !important;
             box-shadow:
                 inset 0 0 0 1px rgba(255,255,255,0.050),
@@ -4420,9 +4432,20 @@ and (
 
         #projects .project-noguchi::before {
             background-image:
-                linear-gradient(rgba(130, 180, 230, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(130, 180, 230, 0.025) 1px, transparent 1px),
-                radial-gradient(circle at 94% 4%, rgba(74, 140, 203, 0.15), transparent 43%) !important;
+                linear-gradient(
+                    rgba(130,200,170,0.028) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(130,200,170,0.028) 1px,
+                    transparent 1px
+                ),
+                radial-gradient(
+                    circle at 94% 4%,
+                    rgba(48,209,88,0.13),
+                    transparent 44%
+                ) !important;
         }
 
         #projects .project-noguchi::after {
@@ -4430,7 +4453,7 @@ and (
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(94, 155, 214, 0.46),
+                    rgba(110,215,160,0.34),
                     transparent
                 ) !important;
             opacity: 0.44 !important;
@@ -4443,26 +4466,31 @@ and (
                     0deg,
                     rgba(255,255,255,0) 0,
                     rgba(255,255,255,0) 31px,
-                    rgba(29,29,31,0.024) 31px,
-                    rgba(29,29,31,0.024) 32px
+                    rgba(29,29,31,0.030) 31px,
+                    rgba(29,29,31,0.030) 32px
                 ),
-                linear-gradient(145deg, #f6f2e9, #ece7dc) !important;
+                linear-gradient(145deg, #f6f6f8, #efeff2) !important;
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects .project-pivot {
-            background: linear-gradient(145deg, #f4f5f7, #e9ebee) !important;
+            background: linear-gradient(145deg, #f6f6f8, #efeff2) !important;
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects .project-bizplan {
-            background: linear-gradient(145deg, #eff5f8, #e4edf3) !important;
+            background: linear-gradient(145deg, #f6f6f8, #efeff2) !important;
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects .project-social {
-            background: linear-gradient(145deg, #f1f4f0, #e6ebe6) !important;
+            background: linear-gradient(145deg, #f6f6f8, #efeff2) !important;
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects .project-tournament {
-            background: linear-gradient(145deg, #f2f3f5, #e8eaed) !important;
+            background: linear-gradient(145deg, #f6f6f8, #efeff2) !important;
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-haiku {
@@ -4471,26 +4499,31 @@ and (
                     0deg,
                     rgba(255,255,255,0) 0,
                     rgba(255,255,255,0) 31px,
-                    rgba(255,255,255,0.026) 31px,
-                    rgba(255,255,255,0.026) 32px
+                    rgba(255,255,255,0.028) 31px,
+                    rgba(255,255,255,0.028) 32px
                 ),
-                linear-gradient(145deg, #211f1a, #181714) !important;
+                linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-pivot {
-            background: linear-gradient(145deg, #1f2226, #181b1e) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-bizplan {
-            background: linear-gradient(145deg, #192229, #131b21) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-social {
-            background: linear-gradient(145deg, #1b221d, #141a16) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         html.dark-mode-on #projects .project-tournament {
-            background: linear-gradient(145deg, #1f2124, #181a1d) !important;
+            background: linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         @media (hover: hover) and (pointer: fine) {
@@ -4535,11 +4568,11 @@ and (
             background:
                 linear-gradient(
                     145deg,
-                    #17395b 0%,
-                    #102943 54%,
-                    #0a1b2d 100%
+                    #080b0a 0%,
+                    #0b100e 56%,
+                    #0f1614 100%
                 ) !important;
-            color: #f7fbff !important;
+            color: #f5f5f7 !important;
             box-shadow:
                 inset 0 0 0 1px rgba(255,255,255,0.065),
                 0 22px 62px rgba(15, 54, 91, 0.13) !important;
@@ -4547,9 +4580,20 @@ and (
 
         #projects #strategy .project-noguchi::before {
             background-image:
-                linear-gradient(rgba(143, 199, 246, 0.038) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(143, 199, 246, 0.038) 1px, transparent 1px),
-                radial-gradient(circle at 96% 2%, rgba(73, 154, 228, 0.28), transparent 43%) !important;
+                linear-gradient(
+                    rgba(130,200,170,0.028) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(130,200,170,0.028) 1px,
+                    transparent 1px
+                ),
+                radial-gradient(
+                    circle at 94% 4%,
+                    rgba(48,209,88,0.13),
+                    transparent 44%
+                ) !important;
             background-size:
                 28px 28px,
                 28px 28px,
@@ -4561,7 +4605,7 @@ and (
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(112, 184, 246, 0.62),
+                    rgba(110,215,160,0.34),
                     transparent
                 ) !important;
             opacity: 0.54 !important;
@@ -4588,16 +4632,10 @@ and (
         /* 02 / PIVOT — titanium blue */
         #projects #strategy .project-pivot {
             background:
-                linear-gradient(
-                    145deg,
-                    #edf4f9 0%,
-                    #e2ecf4 56%,
-                    #d9e5ee 100%
-                ) !important;
+                linear-gradient(145deg, #f6f6f8, #efeff2) !important;
             border-color: rgba(49, 90, 124, 0.08) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.70),
-                0 18px 48px rgba(48, 82, 109, 0.055) !important;
+                inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects #strategy .project-pivot::before {
@@ -4623,16 +4661,10 @@ and (
         /* 03 / Business Plan — cool indigo mist */
         #projects #strategy .project-bizplan {
             background:
-                linear-gradient(
-                    145deg,
-                    #f0f1fb 0%,
-                    #e7e9f7 56%,
-                    #dfe3f2 100%
-                ) !important;
+                linear-gradient(145deg, #f6f6f8, #efeff2) !important;
             border-color: rgba(74, 87, 139, 0.08) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.72),
-                0 18px 48px rgba(68, 79, 124, 0.052) !important;
+                inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects #strategy .project-bizplan::before {
@@ -4658,16 +4690,10 @@ and (
         /* 04 / Social Design — mineral sage / teal */
         #projects #strategy .project-social {
             background:
-                linear-gradient(
-                    145deg,
-                    #eef5f2 0%,
-                    #e4eeea 56%,
-                    #dce8e3 100%
-                ) !important;
+                linear-gradient(145deg, #f6f6f8, #efeff2) !important;
             border-color: rgba(58, 103, 86, 0.08) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.72),
-                0 18px 48px rgba(54, 92, 78, 0.05) !important;
+                inset 0 0 0 1px rgba(0,0,0,0.045) !important;
         }
 
         #projects #strategy .project-social::before {
@@ -4704,34 +4730,22 @@ and (
 
         html.dark-mode-on #projects #strategy .project-pivot {
             background:
-                linear-gradient(
-                    145deg,
-                    #1c2933 0%,
-                    #17222b 58%,
-                    #121b22 100%
-                ) !important;
+                linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             border-color: rgba(125, 181, 222, 0.08) !important;
         }
 
         html.dark-mode-on #projects #strategy .project-bizplan {
             background:
-                linear-gradient(
-                    145deg,
-                    #22253a 0%,
-                    #1b1e31 58%,
-                    #151829 100%
-                ) !important;
+                linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             border-color: rgba(139, 151, 221, 0.08) !important;
         }
 
         html.dark-mode-on #projects #strategy .project-social {
             background:
-                linear-gradient(
-                    145deg,
-                    #1d2b25 0%,
-                    #17231e 58%,
-                    #121b17 100%
-                ) !important;
+                linear-gradient(145deg, #1e1e20, #1a1a1c) !important;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             border-color: rgba(119, 179, 151, 0.08) !important;
         }
 
@@ -4794,6 +4808,83 @@ and (
                 box-shadow:
                     inset 0 1px 0 rgba(255,255,255,0.76),
                     0 25px 62px rgba(54, 92, 78, 0.078) !important;
+            }
+        }
+    </style>
+
+
+    <!-- ================= PROJECT TITLE HIERARCHY REFINEMENT ================= -->
+    <style>
+        /*
+         * The full competition names are titles, not subtitles.
+         * Preserve their existing line breaks, but remove the smaller/gray
+         * descriptor treatment specifically for Noguchi/RISO and Business Plan.
+         */
+        #projects .project-noguchi .project-title-descriptor,
+        #projects .project-bizplan .project-title-descriptor {
+            display: block !important;
+            margin-top: 0.10em !important;
+            color: inherit !important;
+            font-size: 1em !important;
+            line-height: inherit !important;
+            font-weight: inherit !important;
+            letter-spacing: inherit !important;
+        }
+
+        /*
+         * Business Plan result hierarchy:
+         * "東京都大会 準優勝" is the primary achievement.
+         */
+        #projects .project-bizplan .project-result-featured {
+            border-color: rgba(76, 91, 165, 0.20) !important;
+            background: rgba(91, 108, 184, 0.12) !important;
+            color: #465b9b !important;
+            font-weight: 720 !important;
+            letter-spacing: -0.012em !important;
+        }
+
+        #projects .project-bizplan .project-evidence-official {
+            display: inline-block;
+            margin-top: 4px;
+            color: #727b98;
+            font-size: 0.92em;
+            font-weight: 560;
+        }
+
+        html.dark-mode-on #projects .project-bizplan .project-title,
+        html.dark-mode-on #projects .project-bizplan .project-title-descriptor {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on #projects .project-bizplan .project-result-featured {
+            border-color: rgba(139, 151, 226, 0.26) !important;
+            background: rgba(113, 126, 204, 0.17) !important;
+            color: #c8d0ff !important;
+        }
+
+        html.dark-mode-on #projects .project-bizplan .project-evidence-official {
+            color: #9299b5 !important;
+        }
+
+        /*
+         * Noguchi/RISO is always a dark featured card in the current palette,
+         * so its entire competition name must remain white and bold.
+         */
+        #projects .project-noguchi .project-title,
+        #projects .project-noguchi .project-title-descriptor {
+            color: #f7fbff !important;
+        }
+
+        /* Slight optical correction for the now longer full-title hierarchy. */
+        #projects .project-noguchi .project-title-descriptor,
+        #projects .project-bizplan .project-title-descriptor {
+            text-wrap: balance;
+        }
+
+        @media (max-width: 767px) {
+            #projects .project-noguchi .project-title-descriptor,
+            #projects .project-bizplan .project-title-descriptor {
+                margin-top: 0.08em !important;
             }
         }
     </style>
@@ -8613,11 +8704,11 @@ and (
 #projects .project-ariyoshi {
     background:
         linear-gradient(
-            145deg,
-            #030303 0%,
-            #080808 68%,
-            #140d0f 100%
-        );
+                    145deg,
+                    #0a0a0b 0%,
+                    #0c0b0c 62%,
+                    #100e10 100%
+                );
 
     color: #f5f5f7;
 
@@ -8630,21 +8721,21 @@ and (
 #projects .project-ariyoshi::before {
     background:
         radial-gradient(
-            circle at 8% 0%,
-            rgba(132, 38, 51, 0.22),
-            transparent 40%
-        );
+                    circle at 8% 0%,
+                    rgba(255,69,58,0.15),
+                    transparent 42%
+                );
 }
 
 
 #projects .project-ariyoshi::after {
     background:
         linear-gradient(
-            90deg,
-            transparent,
-            rgba(177, 75, 87, 0.50),
-            transparent
-        );
+                    90deg,
+                    transparent,
+                    rgba(255,138,128,0.36),
+                    transparent
+                );
 }
 
 
@@ -8657,13 +8748,13 @@ and (
 #projects .project-essay {
     background:
         linear-gradient(
-            145deg,
-            #141210 0%,
-            #1b1714 58%,
-            #241d18 100%
-        );
+                    145deg,
+                    #0c0a08 0%,
+                    #100d0a 58%,
+                    #17120d 100%
+                );
 
-    color: #f7f3ed;
+    color: #f5f5f7;
 
     box-shadow:
         inset 0 0 0 1px rgba(255,255,255,0.05),
@@ -8674,21 +8765,21 @@ and (
 #projects .project-essay::before {
     background:
         radial-gradient(
-            circle at 100% 0%,
-            rgba(181, 132, 82, 0.16),
-            transparent 42%
-        );
+                    circle at 100% 0%,
+                    rgba(255,159,10,0.14),
+                    transparent 44%
+                );
 }
 
 
 #projects .project-essay::after {
     background:
         linear-gradient(
-            90deg,
-            transparent,
-            rgba(207, 169, 122, 0.42),
-            transparent
-        );
+                    90deg,
+                    transparent,
+                    rgba(255,193,120,0.34),
+                    transparent
+                );
 }
 
 
@@ -8701,13 +8792,13 @@ and (
 #projects .project-noguchi {
     background:
         linear-gradient(
-            145deg,
-            #10243a 0%,
-            #0d1c2d 56%,
-            #091522 100%
-        );
+                    145deg,
+                    #080b0a 0%,
+                    #0b100e 56%,
+                    #0f1614 100%
+                );
 
-    color: #f5f7fa;
+    color: #f5f5f7;
 
     box-shadow:
         inset 0 0 0 1px rgba(255,255,255,0.055),
@@ -8719,21 +8810,19 @@ and (
     background-image:
 
         linear-gradient(
-            rgba(130, 180, 230, 0.035) 1px,
-            transparent 1px
-        ),
-
-        linear-gradient(
-            90deg,
-            rgba(130, 180, 230, 0.035) 1px,
-            transparent 1px
-        ),
-
-        radial-gradient(
-            circle at 94% 4%,
-            rgba(54, 139, 230, 0.22),
-            transparent 42%
-        );
+                    rgba(130,200,170,0.028) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(130,200,170,0.028) 1px,
+                    transparent 1px
+                ),
+                radial-gradient(
+                    circle at 94% 4%,
+                    rgba(48,209,88,0.13),
+                    transparent 44%
+                );
 
     background-size:
         28px 28px,
@@ -8745,11 +8834,11 @@ and (
 #projects .project-noguchi::after {
     background:
         linear-gradient(
-            90deg,
-            transparent,
-            rgba(86, 161, 237, 0.58),
-            transparent
-        );
+                    90deg,
+                    transparent,
+                    rgba(110,215,160,0.34),
+                    transparent
+                );
 }
 
 
@@ -8762,11 +8851,11 @@ and (
 #projects .project-poker {
     background:
         linear-gradient(
-            145deg,
-            #060d18 0%,
-            #0b1121 52%,
-            #111c30 100%
-        );
+                    145deg,
+                    #070b13 0%,
+                    #0a1019 52%,
+                    #0d1524 100%
+                );
 
     color: #f5f5f7;
 
@@ -8780,21 +8869,19 @@ and (
     background-image:
 
         linear-gradient(
-            rgba(99, 161, 225, 0.028) 1px,
-            transparent 1px
-        ),
-
-        linear-gradient(
-            90deg,
-            rgba(99, 161, 225, 0.028) 1px,
-            transparent 1px
-        ),
-
-        radial-gradient(
-            circle at 92% 5%,
-            rgba(0, 102, 204, 0.22),
-            transparent 43%
-        );
+                    rgba(99,161,225,0.026) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(99,161,225,0.026) 1px,
+                    transparent 1px
+                ),
+                radial-gradient(
+                    circle at 92% 5%,
+                    rgba(10,132,255,0.20),
+                    transparent 44%
+                );
 
     background-size:
         34px 34px,
@@ -8806,11 +8893,11 @@ and (
 #projects .project-poker::after {
     background:
         linear-gradient(
-            90deg,
-            transparent,
-            rgba(76, 157, 235, 0.58),
-            transparent
-        );
+                    90deg,
+                    transparent,
+                    rgba(90,163,255,0.44),
+                    transparent
+                );
 }
 
 
@@ -8926,57 +9013,42 @@ and (
 #projects .project-haiku {
     background:
         repeating-linear-gradient(
-            0deg,
-            rgba(255,255,255,0) 0,
-            rgba(255,255,255,0) 31px,
-            rgba(29,29,31,0.028) 31px,
-            rgba(29,29,31,0.028) 32px
-        ),
-        linear-gradient(
-            145deg,
-            #f5f2eb,
-            #eeeae2
-        );
+                    0deg,
+                    rgba(255,255,255,0) 0,
+                    rgba(255,255,255,0) 31px,
+                    rgba(29,29,31,0.030) 31px,
+                    rgba(29,29,31,0.030) 32px
+                ),
+                linear-gradient(145deg, #f6f6f8, #efeff2);
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 }
 
 
 #projects .project-pivot {
     background:
-        linear-gradient(
-            145deg,
-            #f3f5f7,
-            #e9edf1
-        );
+        linear-gradient(145deg, #f6f6f8, #efeff2);
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 }
 
 
 #projects .project-bizplan {
     background:
-        linear-gradient(
-            145deg,
-            #f0f5f8,
-            #e7eef4
-        );
+        linear-gradient(145deg, #f6f6f8, #efeff2);
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 }
 
 
 #projects .project-social {
     background:
-        linear-gradient(
-            145deg,
-            #f1f4f1,
-            #e7ece8
-        );
+        linear-gradient(145deg, #f6f6f8, #efeff2);
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 }
 
 
 #projects .project-tournament {
     background:
-        linear-gradient(
-            145deg,
-            #f1f2f4,
-            #e8eaee
-        );
+        linear-gradient(145deg, #f6f6f8, #efeff2);
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 }
 
 
@@ -10467,6 +10539,18 @@ and (
                                     1st
                                 </span>
 
+                                <span class="project-evidence-caption">
+
+                                    <span class="lang-ja">
+                                        マーケティング戦略コンペティション
+                                    </span>
+
+                                    <span class="lang-en">
+                                        Marketing Strategy Competition
+                                    </span>
+
+                                </span>
+
                             </div>
 
 
@@ -10598,14 +10682,14 @@ and (
 
                             <div class="project-meta">
 
-                                <span class="project-result">
+                                <span class="project-result project-result-featured">
 
                                     <span class="lang-ja">
-                                        東京都産業労働局長賞
+                                        東京都大会 準優勝
                                     </span>
 
                                     <span class="lang-en">
-                                        Director General’s Award — Bureau of Industrial and Labor Affairs
+                                        Tokyo Runner-up
                                     </span>
 
                                 </span>
@@ -10662,12 +10746,12 @@ and (
 
                                     <span class="lang-ja">
     全国応募4,359件中 TOP100<br>
-    東京都大会 準優勝
+    <span class="project-evidence-official">東京都産業労働局長賞</span>
 </span>
 
 <span class="lang-en">
     Top 100 of 4,359 National Entries<br>
-    Runner-up in the Tokyo Competition
+    <span class="project-evidence-official">Director General’s Award, Tokyo Bureau of Industrial and Labor Affairs</span>
 </span>
 
                                 </span>
@@ -14981,8 +15065,8 @@ The lasting lesson was not that the project produced a high return, but that the
                 "noguchi": {
                     sub_ja: "#マーケティング戦略 / #データ分析",
                     sub_en: "#Marketing Strategy / #Data Analysis",
-                    title_ja: "野口ゼミ×理想科学工業株式会社\nマーケティング戦略コンペティション",
-                    title_en: "Noguchi Seminar × Riso Kagaku\nMarketing Strategy Competition",
+                    title_ja: "野口智雄ゼミ × 理想科学工業株式会社\nマーケティング戦略コンペティション",
+                    title_en: "Tomoo Noguchi Seminar × Riso Kagaku\nMarketing Strategy Competition",
                     body_ja: `2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社様の「MiScreen A4」マーケティング戦略コンペティションに取り組みました。 このプロジェクトにおいて私たちは、感覚的なアイデア出しに依存せず、確固たる「根拠」に基づく戦略立案を徹底しました。\n\nまず、チーム全体で、理想科学工業株式会社様が行っているSNSでの広報活動状況に関する膨大なデータを収集・整理。動画のクリエイティブ要素を詳細に分解。その中でも既存のSNS投稿におけるPV数やリアクションの違いに着目し、<strong>多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出</strong>しました。これにより、<strong>感覚に頼らない客観的根拠のある勝ちパターンを導出し、チームの共通認識として確立</strong>しました。\n\nそのデータを基に、「MiScreen A4」の強みである「ものづくり体験価値」と最も合致する市場として、国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。`,
                     body_en: `In 2024, as part of the Tomoo Noguchi Seminar at the Waseda University School of Social Sciences, I participated in a marketing strategy competition for Riso Kagaku Corporation’s "MiScreen A4." Our project was defined by a rigorous commitment to evidence-based strategy, rejecting reliance on purely intuitive brainstorming.\n\nOur team began by collecting and organizing a vast amount of data regarding the client's existing social media presence. We deconstructed the creative elements of their video content and focused on the variance in page views (PV) and engagement metrics across existing posts. Utilizing Quantification Theory Type I (a method of multivariate analysis), we calculated the specific impact of each creative element. This allowed us to derive an objective "winning pattern" backed by data, establishing a unified strategic vision for the team.\n\nBased on this analysis, we identified art museums (both domestic and international) as the market that best aligned with the product's unique value proposition of "creative manufacturing experiences." We developed a targeted strategy for this niche, ultimately winning the Grand Prix.`
                 },
