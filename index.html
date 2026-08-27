@@ -2189,8 +2189,34 @@ and (
             }
 
             .hero-thesis {
+                width: 100%;
                 margin-inline: auto;
-                font-size: clamp(22px, 7vw, 30px);
+                font-size: clamp(25px, 6.85vw, 28px);
+                line-height: 1.20;
+                letter-spacing: -0.04em;
+                text-wrap: initial;
+            }
+
+            /*
+             * Mobile hero thesis:
+             * preserve the three semantic actions as three deliberate lines.
+             * Never allow “ときほぐす。” to split mid-word.
+             */
+            .hero-thesis-ja {
+                display: grid;
+                justify-items: center;
+                row-gap: 0.08em;
+            }
+
+            .hero-thesis-ja .hero-thesis-line {
+                display: block;
+                white-space: nowrap;
+            }
+
+            /* The English copy is short enough to remain a single clean line. */
+            .hero-thesis-en {
+                display: inline-block;
+                white-space: nowrap;
             }
 
             .hero-disciplines {
@@ -3110,8 +3136,8 @@ and (
                 </h1>
 
                 <p class="hero-thesis hero-reveal hero-reveal-2">
-                    <span class="lang-ja">読む。ときほぐす。ものがたる。</span>
-                    <span class="lang-en">Read. Untangle. Tell.</span>
+                    <span class="lang-ja hero-thesis-ja"><span class="hero-thesis-line">読む。</span><span class="hero-thesis-line">ときほぐす。</span><span class="hero-thesis-line">ものがたる。</span></span>
+                    <span class="lang-en hero-thesis-en">Read. Untangle. Tell.</span>
                 </p>
 
                 <div class="hero-disciplines hero-reveal hero-reveal-3" aria-label="専門領域 / Core disciplines">
