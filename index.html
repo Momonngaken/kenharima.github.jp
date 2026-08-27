@@ -3522,6 +3522,16 @@ and (
             background: repeating-linear-gradient(0deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 31px, rgba(255,255,255,0.028) 31px, rgba(255,255,255,0.028) 32px), linear-gradient(145deg, #211f1b, #191816) !important;
         }
 
+        /* Haiku uses a Mincho poem block with a light-mode hardcoded ink color.
+           Re-ink it explicitly for the dark paper surface so the poem remains legible. */
+        html.dark-mode-on #projects .project-haiku .haiku-poem {
+            color: #f0efea !important;
+        }
+
+        html.dark-mode-on #projects .project-haiku .haiku-poem-en {
+            color: #ecebef !important;
+        }
+
         html.dark-mode-on #projects .project-pivot {
             background: linear-gradient(145deg, #202326, #191c1f) !important;
         }
