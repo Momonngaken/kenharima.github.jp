@@ -4889,6 +4889,81 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
     </style>
 
+
+    <!-- ================= POKER SUIT MOTIF — DECISION-MAKING ================= -->
+    <style>
+        /*
+         * One quiet black-suit cue for the decision-making section.
+         * It is deliberately typographic rather than card-like: no borders,
+         * no four-suit set, no casino ornament.
+         */
+        #projects #decision .projects-category-title {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 7px;
+        }
+
+        #projects #decision .projects-category-suit {
+            display: inline-block;
+            flex: 0 0 auto;
+            color: currentColor;
+            opacity: 0.32;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 0.72em;
+            line-height: 1;
+            font-weight: 400;
+            transform: translateY(-0.02em);
+        }
+
+        /* Expanded poker modals: a single, almost-watermark spade. */
+        #modal-content.poker-suit-modal {
+            isolation: isolate;
+        }
+
+        #modal-content.poker-suit-modal::before {
+            content: "♠";
+            position: absolute;
+            top: 24px;
+            right: 22px;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            color: currentColor;
+            opacity: 0.038;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(76px, 11vw, 108px);
+            line-height: 0.82;
+            font-weight: 400;
+            transform: rotate(2deg);
+        }
+
+        #modal-content.poker-suit-modal > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        html.dark-mode-on #modal-content.poker-suit-modal::before {
+            opacity: 0.045;
+        }
+
+        @media (max-width: 767px) {
+            #projects #decision .projects-category-title {
+                gap: 6px;
+            }
+
+            #modal-content.poker-suit-modal::before {
+                top: 22px;
+                right: 14px;
+                font-size: 78px;
+                opacity: 0.030;
+            }
+
+            html.dark-mode-on #modal-content.poker-suit-modal::before {
+                opacity: 0.038;
+            }
+        }
+    </style>
+
 </head>
 <body class="antialiased">
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
@@ -10883,6 +10958,8 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 
                         <h3 class="projects-category-title">
 
+                            <span class="projects-category-suit" aria-hidden="true">♠</span>
+
                             <span class="lang-ja">
                                 不確実性下の意思決定
                             </span>
@@ -15281,6 +15358,9 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 const id = trigger.getAttribute('data-modal-id');
                 const data = modalData[id];
                 if (!data) return;
+
+                const usesPokerSuitMotif = id === 'poker' || id === 'jopt';
+                modalContent.classList.toggle('poker-suit-modal', usesPokerSuitMotif);
 
                 headerContent.innerHTML = `
                     <div class="lang-ja"><p class="text-xs font-mono font-bold text-bizAccent uppercase tracking-widest mb-1.5">${data.sub_ja}</p><h3 class="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight mb-0">${data.title_ja.replace(/\n/g, '<br>')}</h3></div>
