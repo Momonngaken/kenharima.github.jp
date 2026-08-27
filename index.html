@@ -389,6 +389,81 @@ header .mt-6 {
             to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* =========================================================
+           DOCUMENTARY PHOTO FRAME
+           Border is rendered as an inset overlay so the visible hairline
+           sits directly on the photo pixels with no white seam.
+           ========================================================= */
+        .kh-documentary-figure {
+            margin: 28px 0 30px;
+            width: 100%;
+        }
+
+        .kh-documentary-frame {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border: 0;
+            border-radius: 18px;
+            background: #fff;
+            line-height: 0;
+            isolation: isolate;
+            clip-path: inset(0 round 18px);
+            -webkit-clip-path: inset(0 round 18px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.055);
+        }
+
+        .kh-documentary-frame::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            border-radius: inherit;
+            pointer-events: none;
+            box-shadow: inset 0 0 0 1px rgba(29, 29, 31, 0.10);
+        }
+
+        .kh-documentary-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            vertical-align: middle;
+        }
+
+        .kh-documentary-caption {
+            margin-top: 10px;
+            color: #9a9a9f;
+            font-size: 11px;
+            line-height: 1.55;
+            font-weight: 500;
+            letter-spacing: 0.015em;
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .kh-documentary-figure {
+                margin-top: 32px;
+                margin-bottom: 34px;
+            }
+
+            .kh-documentary-caption {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .kh-documentary-frame {
+                border-radius: 16px;
+                clip-path: inset(0 round 16px);
+                -webkit-clip-path: inset(0 round 16px);
+            }
+        }
+
         #global-modal { display: none !important; }
         #global-modal.is-open { display: flex !important; }
 
@@ -3467,30 +3542,51 @@ and (
 
                 /* =========================================================
                    MANNHEIM ARCHIVE PHOTO
-                   Original 2023 campus photograph — no crop
+                   Horizontal 2023 campus photograph — full frame, no crop
                    ========================================================= */
 
                 #experience .exp-photo-archive {
                     margin: 24px 0 0;
-                    width: min(100%, 340px);
+                    width: min(100%, 520px);
                 }
 
                 #experience .exp-photo-frame {
+                    position: relative;
                     width: 100%;
                     overflow: hidden;
-                    border: 1px solid rgba(29, 29, 31, 0.10);
+                    border: 0;
                     border-radius: 18px;
                     background: #f5f5f7;
+                    line-height: 0;
+                    isolation: isolate;
+                    clip-path: inset(0 round 18px);
+                    -webkit-clip-path: inset(0 round 18px);
                     box-shadow:
                         0 14px 34px rgba(0, 0, 0, 0.055),
                         0 2px 8px rgba(0, 0, 0, 0.025);
+                }
+
+                /* Draw the hairline ON TOP of the image so frame and pixels meet exactly. */
+                #experience .exp-photo-frame::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: 2;
+                    border-radius: inherit;
+                    pointer-events: none;
+                    box-shadow: inset 0 0 0 1px rgba(29, 29, 31, 0.10);
                 }
 
                 #experience .exp-photo-frame img {
                     display: block;
                     width: 100%;
                     height: auto;
-                    max-width: none;
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    border-radius: 0;
+                    vertical-align: middle;
                 }
 
                 #experience .exp-photo-caption {
@@ -3505,11 +3601,13 @@ and (
                 @media (max-width: 767px) {
                     #experience .exp-photo-archive {
                         margin-top: 20px;
-                        width: min(100%, 320px);
+                        width: 100%;
                     }
 
                     #experience .exp-photo-frame {
                         border-radius: 16px;
+                        clip-path: inset(0 round 16px);
+                        -webkit-clip-path: inset(0 round 16px);
                     }
                 }
 
@@ -3994,9 +4092,9 @@ and (
                             <figure class="exp-photo-archive">
                                 <div class="exp-photo-frame">
                                     <img
-                                        src="./mannheim-schloss-2023.webp"
-                                        width="960"
-                                        height="1232"
+                                        src="./mannheim-schloss-2023-horizontal.webp"
+                                        width="1479"
+                                        height="1109"
                                         loading="lazy"
                                         decoding="async"
                                         alt="Ken Harima at Schloss Mannheim during his exchange year in 2023"
@@ -13072,13 +13170,15 @@ The lasting lesson was not that the project produced a high return, but that the
                     sub_en: "#NarrativeDesign / #Phenomenology / #TheoryOfTime / #GiftTheory",
                     title_ja: "第3回有吉佐和子文学賞 佳作\n短編小説『十月二十五日の筑前煮』",
                     title_en: "3rd Sawako Ariyoshi Literary Award\nShort Story: 'Chikuzenni on October 25th'",
-                    after_body_img: "./ariyoshi-award-ceremony-2026.webp",
-                    after_body_img_width: 1600,
-                    after_body_img_height: 890,
-                    after_body_alt_ja: "第3回有吉佐和子文学賞の表彰式で賞状を手にする播磨賢",
-                    after_body_alt_en: "Ken Harima holding his certificate at the 3rd Sawako Ariyoshi Literary Award ceremony",
-                    after_body_caption_ja: "第3回 有吉佐和子文学賞 表彰式 · 2026.06",
-                    after_body_caption_en: "3rd Sawako Ariyoshi Literary Award Ceremony · Jun. 2026",
+                    inline_img: "./ariyoshi-award-ceremony-2026.webp",
+                    inline_img_width: 1600,
+                    inline_img_height: 890,
+                    inline_img_alt_ja: "第3回有吉佐和子文学賞の表彰式で賞状を手にする播磨賢",
+                    inline_img_alt_en: "Ken Harima holding his certificate at the 3rd Sawako Ariyoshi Literary Award ceremony",
+                    inline_img_caption_ja: "第3回 有吉佐和子文学賞 表彰式 · 2026.06",
+                    inline_img_caption_en: "3rd Sawako Ariyoshi Literary Award Ceremony · Jun. 2026",
+                    inline_img_before_ja: "本作『十月二十五日の筑前煮』は",
+                    inline_img_before_en: "This short story depicts",
                     body_ja: `第3回有吉佐和子文学賞では、総応募数1,314作品から7編が受賞作に選ばれ、本作は「佳作」を受賞。\n\n本作『十月二十五日の筑前煮』は、就職活動につまずいた大学四年生が、実家から届いた筑前煮を温めなおす――そんな、深夜のたった三十分間を切り取った哲学的短編小説。\n\n書きたかったのは、大きな出来事ではなく、<strong>ものの姿そのものが裏返る、その一瞬の傾き</strong>だった。「貧乏くさい」と疎んでいたタッパーの傷や曇りが、容器の隅に貼られた一枚のマスキングテープと、そこに書かれた日付「10.25」を境にして、まったく別のものとして立ち現れてくる。東京のワンルームに似つかわしくない「生活感」だったはずのものが、何百キロも離れた台所で母の手が積み重ねてきた、戻ることのない時間の地層として。タッパーそのものは、何ひとつ変わっていない。変わったのは、受け取る主人公のほうだった。\n\n同時に書きたかったのは、<strong>救われるということが、ときに、ひとりで抱えてきたものを知らぬ間に他人の手に預けてしまうことでもあるという、ささやかな逆説</strong>である。だから主人公は、すぐには「ありがとう」と打てない。感謝してしまえば、ひとりで耐えた夜が、誰かの優しさの物語の挿話に格下げされてしまうから。\n\nものと身体のあいだで、音もなく起こる微かな組み換え――それだけを、できるかぎり静かに置いた一作。\n\n断っておくと、この物語に、事実としての本当のことは一つもない。だからこそ、書けた。\n\n最後に、選考に携わってくださった全ての関係者の方々、そして尾花和歌山市長に、心より、感謝申し上げます。\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
                         <a href="https://kenharima.com/chikuzenni/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
                             <span class="text-amber-500" aria-hidden="true">&#x2197;&#xFE0E;</span> 作品本文を読む（1,803文字）
@@ -13308,59 +13408,64 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                         ? html
                         : html.replace(/\n/g, '<br>');
 
-                // For award modals with documentary photography, keep the prose first,
-                // then place the photograph, then the existing CTA links.
-                const splitBodyAndActions = (html) => {
-                    if (!data.after_body_img) {
-                        return { body: html, actions: '' };
+                // Documentary photography can be inserted at an exact sentence boundary.
+                // Ariyoshi: after the award-result paragraph and immediately BEFORE
+                // “本作『十月二十五日の筑前煮』は…” / “This short story depicts…”.
+                const splitBodyAtInlineImage = (html, marker) => {
+                    if (!data.inline_img || !marker) {
+                        return { before: html, after: '' };
                     }
 
-                    const actionMarker =
-                        '<div class="mt-8 flex flex-col sm:flex-row gap-3">';
-                    const actionIndex = html.indexOf(actionMarker);
+                    const markerIndex = html.indexOf(marker);
 
-                    if (actionIndex === -1) {
-                        return { body: html, actions: '' };
+                    if (markerIndex === -1) {
+                        return { before: html, after: '' };
                     }
 
                     return {
-                        body: html.slice(0, actionIndex).trimEnd(),
-                        actions: html.slice(actionIndex)
+                        before: html.slice(0, markerIndex).trimEnd(),
+                        after: html.slice(markerIndex).trimStart()
                     };
                 };
 
-                const bodyJa = splitBodyAndActions(data.body_ja);
-                const bodyEn = splitBodyAndActions(data.body_en);
+                const bodyJa = splitBodyAtInlineImage(
+                    data.body_ja,
+                    data.inline_img_before_ja
+                );
 
-                let afterBodyImageHTML = '';
-                if (data.after_body_img) {
-                    afterBodyImageHTML = `
-                        <figure class="my-8 md:my-10 whitespace-normal">
-                            <div class="overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.055)]">
+                const bodyEn = splitBodyAtInlineImage(
+                    data.body_en,
+                    data.inline_img_before_en
+                );
+
+                let inlineImageHTML = '';
+                if (data.inline_img) {
+                    inlineImageHTML = `
+                        <figure class="kh-documentary-figure whitespace-normal">
+                            <div class="kh-documentary-frame">
                                 <img
-                                    src="${data.after_body_img}"
-                                    width="${data.after_body_img_width || ''}"
-                                    height="${data.after_body_img_height || ''}"
+                                    src="${data.inline_img}"
+                                    width="${data.inline_img_width || ''}"
+                                    height="${data.inline_img_height || ''}"
                                     loading="lazy"
                                     decoding="async"
-                                    alt="${document.documentElement.classList.contains('is-global') ? data.after_body_alt_en : data.after_body_alt_ja}"
-                                    class="block w-full h-auto max-w-none"
+                                    alt="${document.documentElement.classList.contains('is-global') ? data.inline_img_alt_en : data.inline_img_alt_ja}"
                                 >
                             </div>
-                            <figcaption class="mt-2.5 text-[11px] md:text-xs leading-relaxed tracking-[0.015em] text-gray-400 text-left">
-                                <span class="lang-ja">${data.after_body_caption_ja || ''}</span>
-                                <span class="lang-en">${data.after_body_caption_en || ''}</span>
+                            <figcaption class="kh-documentary-caption">
+                                <span class="lang-ja">${data.inline_img_caption_ja || ''}</span>
+                                <span class="lang-en">${data.inline_img_caption_en || ''}</span>
                             </figcaption>
                         </figure>`;
                 }
 
                 modalContent.innerHTML = `
                     ${imageHTML}
-                    <div class="lang-ja first:mt-0">${formatModalHtml(bodyJa.body)}</div>
-                    <div class="lang-en first:mt-0">${formatModalHtml(bodyEn.body)}</div>
-                    ${afterBodyImageHTML}
-                    ${bodyJa.actions ? `<div class="lang-ja first:mt-0">${formatModalHtml(bodyJa.actions)}</div>` : ''}
-                    ${bodyEn.actions ? `<div class="lang-en first:mt-0">${formatModalHtml(bodyEn.actions)}</div>` : ''}`;
+                    <div class="lang-ja first:mt-0">${formatModalHtml(bodyJa.before)}</div>
+                    <div class="lang-en first:mt-0">${formatModalHtml(bodyEn.before)}</div>
+                    ${inlineImageHTML}
+                    ${bodyJa.after ? `<div class="lang-ja first:mt-0">${formatModalHtml(bodyJa.after)}</div>` : ''}
+                    ${bodyEn.after ? `<div class="lang-en first:mt-0">${formatModalHtml(bodyEn.after)}</div>` : ''}`;
 
                 requestAnimationFrame(() => {
                     const markers = modalContent.querySelectorAll('strong');
