@@ -3466,6 +3466,54 @@ and (
 
 
                 /* =========================================================
+                   MANNHEIM ARCHIVE PHOTO
+                   Original 2023 campus photograph — no crop
+                   ========================================================= */
+
+                #experience .exp-photo-archive {
+                    margin: 24px 0 0;
+                    width: min(100%, 340px);
+                }
+
+                #experience .exp-photo-frame {
+                    width: 100%;
+                    overflow: hidden;
+                    border: 1px solid rgba(29, 29, 31, 0.10);
+                    border-radius: 18px;
+                    background: #f5f5f7;
+                    box-shadow:
+                        0 14px 34px rgba(0, 0, 0, 0.055),
+                        0 2px 8px rgba(0, 0, 0, 0.025);
+                }
+
+                #experience .exp-photo-frame img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    max-width: none;
+                }
+
+                #experience .exp-photo-caption {
+                    margin-top: 9px;
+                    color: #9a9a9f;
+                    font-size: 11.5px;
+                    line-height: 1.45;
+                    font-weight: 500;
+                    letter-spacing: 0.015em;
+                }
+
+                @media (max-width: 767px) {
+                    #experience .exp-photo-archive {
+                        margin-top: 20px;
+                        width: min(100%, 320px);
+                    }
+
+                    #experience .exp-photo-frame {
+                        border-radius: 16px;
+                    }
+                }
+
+                /* =========================================================
                    DESKTOP HOVER
                    ========================================================= */
 
@@ -3941,6 +3989,24 @@ and (
                                 </span>
 
                             </span>
+
+
+                            <figure class="exp-photo-archive">
+                                <div class="exp-photo-frame">
+                                    <img
+                                        src="./mannheim-schloss-2023.webp"
+                                        width="960"
+                                        height="1232"
+                                        loading="lazy"
+                                        decoding="async"
+                                        alt="Ken Harima at Schloss Mannheim during his exchange year in 2023"
+                                    >
+                                </div>
+
+                                <figcaption class="exp-photo-caption">
+                                    Schloss Mannheim · 2023
+                                </figcaption>
+                            </figure>
 
                         </div>
 
@@ -13006,6 +13072,13 @@ The lasting lesson was not that the project produced a high return, but that the
                     sub_en: "#NarrativeDesign / #Phenomenology / #TheoryOfTime / #GiftTheory",
                     title_ja: "第3回有吉佐和子文学賞 佳作\n短編小説『十月二十五日の筑前煮』",
                     title_en: "3rd Sawako Ariyoshi Literary Award\nShort Story: 'Chikuzenni on October 25th'",
+                    after_body_img: "./ariyoshi-award-ceremony-2026.webp",
+                    after_body_img_width: 1600,
+                    after_body_img_height: 890,
+                    after_body_alt_ja: "第3回有吉佐和子文学賞の表彰式で賞状を手にする播磨賢",
+                    after_body_alt_en: "Ken Harima holding his certificate at the 3rd Sawako Ariyoshi Literary Award ceremony",
+                    after_body_caption_ja: "第3回 有吉佐和子文学賞 表彰式 · 2026.06",
+                    after_body_caption_en: "3rd Sawako Ariyoshi Literary Award Ceremony · Jun. 2026",
                     body_ja: `第3回有吉佐和子文学賞では、総応募数1,314作品から7編が受賞作に選ばれ、本作は「佳作」を受賞。\n\n本作『十月二十五日の筑前煮』は、就職活動につまずいた大学四年生が、実家から届いた筑前煮を温めなおす――そんな、深夜のたった三十分間を切り取った哲学的短編小説。\n\n書きたかったのは、大きな出来事ではなく、<strong>ものの姿そのものが裏返る、その一瞬の傾き</strong>だった。「貧乏くさい」と疎んでいたタッパーの傷や曇りが、容器の隅に貼られた一枚のマスキングテープと、そこに書かれた日付「10.25」を境にして、まったく別のものとして立ち現れてくる。東京のワンルームに似つかわしくない「生活感」だったはずのものが、何百キロも離れた台所で母の手が積み重ねてきた、戻ることのない時間の地層として。タッパーそのものは、何ひとつ変わっていない。変わったのは、受け取る主人公のほうだった。\n\n同時に書きたかったのは、<strong>救われるということが、ときに、ひとりで抱えてきたものを知らぬ間に他人の手に預けてしまうことでもあるという、ささやかな逆説</strong>である。だから主人公は、すぐには「ありがとう」と打てない。感謝してしまえば、ひとりで耐えた夜が、誰かの優しさの物語の挿話に格下げされてしまうから。\n\nものと身体のあいだで、音もなく起こる微かな組み換え――それだけを、できるかぎり静かに置いた一作。\n\n断っておくと、この物語に、事実としての本当のことは一つもない。だからこそ、書けた。\n\n最後に、選考に携わってくださった全ての関係者の方々、そして尾花和歌山市長に、心より、感謝申し上げます。\n\n<div class="mt-8 flex flex-col sm:flex-row gap-3">
                         <a href="https://kenharima.com/chikuzenni/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-900 text-white rounded-xl font-bold tracking-wide hover:bg-gray-800 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5">
                             <span class="text-amber-500" aria-hidden="true">&#x2197;&#xFE0E;</span> 作品本文を読む（1,803文字）
@@ -13229,17 +13302,65 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 // For this modal only, preserve the raw HTML/SVG and let the
                 // parent `white-space: pre-line` render prose line breaks.
                 const preserveInlineSvg = id === 'poker';
-                const modalBodyJa = preserveInlineSvg
-                    ? data.body_ja
-                    : data.body_ja.replace(/\n/g, '<br>');
-                const modalBodyEn = preserveInlineSvg
-                    ? data.body_en
-                    : data.body_en.replace(/\n/g, '<br>');
+
+                const formatModalHtml = (html) =>
+                    preserveInlineSvg
+                        ? html
+                        : html.replace(/\n/g, '<br>');
+
+                // For award modals with documentary photography, keep the prose first,
+                // then place the photograph, then the existing CTA links.
+                const splitBodyAndActions = (html) => {
+                    if (!data.after_body_img) {
+                        return { body: html, actions: '' };
+                    }
+
+                    const actionMarker =
+                        '<div class="mt-8 flex flex-col sm:flex-row gap-3">';
+                    const actionIndex = html.indexOf(actionMarker);
+
+                    if (actionIndex === -1) {
+                        return { body: html, actions: '' };
+                    }
+
+                    return {
+                        body: html.slice(0, actionIndex).trimEnd(),
+                        actions: html.slice(actionIndex)
+                    };
+                };
+
+                const bodyJa = splitBodyAndActions(data.body_ja);
+                const bodyEn = splitBodyAndActions(data.body_en);
+
+                let afterBodyImageHTML = '';
+                if (data.after_body_img) {
+                    afterBodyImageHTML = `
+                        <figure class="my-8 md:my-10 whitespace-normal">
+                            <div class="overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.055)]">
+                                <img
+                                    src="${data.after_body_img}"
+                                    width="${data.after_body_img_width || ''}"
+                                    height="${data.after_body_img_height || ''}"
+                                    loading="lazy"
+                                    decoding="async"
+                                    alt="${document.documentElement.classList.contains('is-global') ? data.after_body_alt_en : data.after_body_alt_ja}"
+                                    class="block w-full h-auto max-w-none"
+                                >
+                            </div>
+                            <figcaption class="mt-2.5 text-[11px] md:text-xs leading-relaxed tracking-[0.015em] text-gray-400 text-left">
+                                <span class="lang-ja">${data.after_body_caption_ja || ''}</span>
+                                <span class="lang-en">${data.after_body_caption_en || ''}</span>
+                            </figcaption>
+                        </figure>`;
+                }
 
                 modalContent.innerHTML = `
                     ${imageHTML}
-                    <div class="lang-ja first:mt-0">${modalBodyJa}</div>
-                    <div class="lang-en first:mt-0">${modalBodyEn}</div>`;
+                    <div class="lang-ja first:mt-0">${formatModalHtml(bodyJa.body)}</div>
+                    <div class="lang-en first:mt-0">${formatModalHtml(bodyEn.body)}</div>
+                    ${afterBodyImageHTML}
+                    ${bodyJa.actions ? `<div class="lang-ja first:mt-0">${formatModalHtml(bodyJa.actions)}</div>` : ''}
+                    ${bodyEn.actions ? `<div class="lang-en first:mt-0">${formatModalHtml(bodyEn.actions)}</div>` : ''}`;
 
                 requestAnimationFrame(() => {
                     const markers = modalContent.querySelectorAll('strong');
