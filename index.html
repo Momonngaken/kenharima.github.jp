@@ -4508,6 +4508,296 @@ and (
         }
     </style>
 
+
+    <!-- ================= STRATEGY PALETTE REFINEMENT ================= -->
+    <style>
+        /*
+         * 02 — Strategy & Execution
+         * One coherent cool palette, with enough separation between cards
+         * to avoid the "four pale boxes" effect.
+         */
+
+        /* Category heading: a restrained cobalt cue */
+        #projects #strategy .projects-category-title {
+            color: #356f9f !important;
+        }
+
+        #projects #strategy .projects-category-number {
+            color: #7fa2bf !important;
+        }
+
+        #projects #strategy .projects-category-heading {
+            border-bottom-color: rgba(53, 111, 159, 0.18) !important;
+        }
+
+        /* 01 / Noguchi × RISO — deep cobalt blueprint */
+        #projects #strategy .project-noguchi {
+            background:
+                linear-gradient(
+                    145deg,
+                    #17395b 0%,
+                    #102943 54%,
+                    #0a1b2d 100%
+                ) !important;
+            color: #f7fbff !important;
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.065),
+                0 22px 62px rgba(15, 54, 91, 0.13) !important;
+        }
+
+        #projects #strategy .project-noguchi::before {
+            background-image:
+                linear-gradient(rgba(143, 199, 246, 0.038) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(143, 199, 246, 0.038) 1px, transparent 1px),
+                radial-gradient(circle at 96% 2%, rgba(73, 154, 228, 0.28), transparent 43%) !important;
+            background-size:
+                28px 28px,
+                28px 28px,
+                auto !important;
+        }
+
+        #projects #strategy .project-noguchi::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(112, 184, 246, 0.62),
+                    transparent
+                ) !important;
+            opacity: 0.54 !important;
+        }
+
+        #projects #strategy .project-noguchi .project-result {
+            border-color: rgba(140, 203, 255, 0.22) !important;
+            background: rgba(82, 157, 221, 0.13) !important;
+            color: #b9dcfa !important;
+        }
+
+        #projects #strategy .project-noguchi .project-date {
+            color: rgba(219, 239, 255, 0.50) !important;
+        }
+
+        #projects #strategy .project-noguchi .project-subtitle {
+            color: rgba(230, 243, 255, 0.68) !important;
+        }
+
+        #projects #strategy .project-noguchi .project-evidence-caption {
+            color: rgba(219, 239, 255, 0.54) !important;
+        }
+
+        /* 02 / PIVOT — titanium blue */
+        #projects #strategy .project-pivot {
+            background:
+                linear-gradient(
+                    145deg,
+                    #edf4f9 0%,
+                    #e2ecf4 56%,
+                    #d9e5ee 100%
+                ) !important;
+            border-color: rgba(49, 90, 124, 0.08) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.70),
+                0 18px 48px rgba(48, 82, 109, 0.055) !important;
+        }
+
+        #projects #strategy .project-pivot::before {
+            background:
+                radial-gradient(
+                    circle at 95% 2%,
+                    rgba(92, 151, 197, 0.16),
+                    transparent 45%
+                ) !important;
+        }
+
+        #projects #strategy .project-pivot .project-result {
+            border-color: rgba(56, 104, 144, 0.12) !important;
+            background: rgba(70, 125, 170, 0.075) !important;
+            color: #526f87 !important;
+        }
+
+        #projects #strategy .project-pivot .project-date,
+        #projects #strategy .project-pivot .project-evidence-caption {
+            color: #71818f !important;
+        }
+
+        /* 03 / Business Plan — cool indigo mist */
+        #projects #strategy .project-bizplan {
+            background:
+                linear-gradient(
+                    145deg,
+                    #f0f1fb 0%,
+                    #e7e9f7 56%,
+                    #dfe3f2 100%
+                ) !important;
+            border-color: rgba(74, 87, 139, 0.08) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.72),
+                0 18px 48px rgba(68, 79, 124, 0.052) !important;
+        }
+
+        #projects #strategy .project-bizplan::before {
+            background:
+                radial-gradient(
+                    circle at 95% 2%,
+                    rgba(111, 126, 202, 0.15),
+                    transparent 44%
+                ) !important;
+        }
+
+        #projects #strategy .project-bizplan .project-result {
+            border-color: rgba(76, 91, 165, 0.13) !important;
+            background: rgba(91, 108, 184, 0.075) !important;
+            color: #5d6d9d !important;
+        }
+
+        #projects #strategy .project-bizplan .project-date,
+        #projects #strategy .project-bizplan .project-evidence-caption {
+            color: #757d99 !important;
+        }
+
+        /* 04 / Social Design — mineral sage / teal */
+        #projects #strategy .project-social {
+            background:
+                linear-gradient(
+                    145deg,
+                    #eef5f2 0%,
+                    #e4eeea 56%,
+                    #dce8e3 100%
+                ) !important;
+            border-color: rgba(58, 103, 86, 0.08) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.72),
+                0 18px 48px rgba(54, 92, 78, 0.05) !important;
+        }
+
+        #projects #strategy .project-social::before {
+            background:
+                radial-gradient(
+                    circle at 95% 2%,
+                    rgba(79, 142, 118, 0.14),
+                    transparent 45%
+                ) !important;
+        }
+
+        #projects #strategy .project-social .project-result {
+            border-color: rgba(62, 111, 92, 0.13) !important;
+            background: rgba(68, 124, 102, 0.072) !important;
+            color: #527765 !important;
+        }
+
+        #projects #strategy .project-social .project-date {
+            color: #75877f !important;
+        }
+
+        /* Dark mode: preserve the same identities, not a generic gray inversion */
+        html.dark-mode-on #projects #strategy .projects-category-title {
+            color: #72b7ef !important;
+        }
+
+        html.dark-mode-on #projects #strategy .projects-category-number {
+            color: #557b9a !important;
+        }
+
+        html.dark-mode-on #projects #strategy .projects-category-heading {
+            border-bottom-color: rgba(114, 183, 239, 0.17) !important;
+        }
+
+        html.dark-mode-on #projects #strategy .project-pivot {
+            background:
+                linear-gradient(
+                    145deg,
+                    #1c2933 0%,
+                    #17222b 58%,
+                    #121b22 100%
+                ) !important;
+            border-color: rgba(125, 181, 222, 0.08) !important;
+        }
+
+        html.dark-mode-on #projects #strategy .project-bizplan {
+            background:
+                linear-gradient(
+                    145deg,
+                    #22253a 0%,
+                    #1b1e31 58%,
+                    #151829 100%
+                ) !important;
+            border-color: rgba(139, 151, 221, 0.08) !important;
+        }
+
+        html.dark-mode-on #projects #strategy .project-social {
+            background:
+                linear-gradient(
+                    145deg,
+                    #1d2b25 0%,
+                    #17231e 58%,
+                    #121b17 100%
+                ) !important;
+            border-color: rgba(119, 179, 151, 0.08) !important;
+        }
+
+        html.dark-mode-on #projects #strategy :is(
+            .project-pivot,
+            .project-bizplan,
+            .project-social
+        ) .project-title {
+            color: #f5f5f7 !important;
+        }
+
+        html.dark-mode-on #projects #strategy :is(
+            .project-pivot,
+            .project-bizplan,
+            .project-social
+        ) .project-subtitle {
+            color: #aeb0b5 !important;
+        }
+
+        html.dark-mode-on #projects #strategy .project-pivot .project-result {
+            color: #9fc7e4 !important;
+            background: rgba(99, 163, 208, 0.11) !important;
+            border-color: rgba(117, 182, 229, 0.16) !important;
+        }
+
+        html.dark-mode-on #projects #strategy .project-bizplan .project-result {
+            color: #b0b9ee !important;
+            background: rgba(113, 126, 204, 0.11) !important;
+            border-color: rgba(139, 151, 226, 0.16) !important;
+        }
+
+        html.dark-mode-on #projects #strategy .project-social .project-result {
+            color: #a6d1bc !important;
+            background: rgba(87, 151, 121, 0.11) !important;
+            border-color: rgba(112, 177, 146, 0.16) !important;
+        }
+
+        html.dark-mode-on #projects #strategy :is(
+            .project-pivot,
+            .project-bizplan,
+            .project-social
+        ) :is(.project-date, .project-evidence-caption) {
+            color: #85888d !important;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            #projects #strategy .project-pivot:hover {
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.76),
+                    0 25px 62px rgba(48, 82, 109, 0.085) !important;
+            }
+
+            #projects #strategy .project-bizplan:hover {
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.76),
+                    0 25px 62px rgba(68, 79, 124, 0.082) !important;
+            }
+
+            #projects #strategy .project-social:hover {
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.76),
+                    0 25px 62px rgba(54, 92, 78, 0.078) !important;
+            }
+        }
+    </style>
+
 </head>
 <body class="antialiased">
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
