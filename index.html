@@ -2860,11 +2860,8 @@ and (
     @media (max-width: 767px) {
 
         /*
-         * Mobile:
-         *
-         * 次の可能性は、
-         * まだ名前のない
-         * 問いから。
+         * Mobile Contact title sizing is finalized
+         * by the closing Contact section styles below.
          */
         .contact-title-mobile-break {
             display: inline;
@@ -4095,35 +4092,61 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             }
         }
 
+        /* ================= CLOSING CONTACT — APPLE-LIKE EDITORIAL ================= */
         #contact-final {
             width: calc(100% - clamp(0px, 1vw, 12px));
-            margin: clamp(116px, 14vw, 176px) auto 0;
-            padding: 0 0 clamp(58px, 7vw, 84px);
+            margin: clamp(124px, 15vw, 184px) auto 0;
+            padding: 0 0 clamp(62px, 8vw, 92px);
         }
 
         #contact-final .contact-surface {
             position: relative;
-            overflow: hidden;
-            padding: clamp(38px, 6.2vw, 68px);
+            overflow: visible;
+            padding: clamp(30px, 4.2vw, 44px) 0 0;
             border: 0;
-            border-radius: clamp(30px, 4vw, 42px);
-            background: #f5f5f7;
-            box-shadow: inset 0 0 0 1px rgba(29,29,31,0.035);
+            border-top: 1px solid rgba(29, 29, 31, 0.10);
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
             isolation: isolate;
         }
 
+        #contact-final .contact-surface::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 46px;
+            height: 1px;
+            background: #1d1d1f;
+            opacity: 0.58;
+            pointer-events: none;
+        }
+
         html.dark-mode-on #contact-final .contact-surface {
-            background: #1c1c1e !important;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.055) !important;
+            background: transparent !important;
+            border-top-color: rgba(255,255,255,0.14) !important;
+            box-shadow: none !important;
+        }
+
+        html.dark-mode-on #contact-final .contact-surface::before {
+            background: #f5f5f7;
+            opacity: 0.52;
         }
 
         #contact-final .contact-kicker {
             display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin: 0 0 clamp(70px, 9vw, 104px);
+            align-items: center;
+            gap: 11px;
+            margin: 0 0 clamp(54px, 7vw, 78px);
             color: #86868b;
-            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+            font-family:
+                ui-monospace,
+                "SFMono-Regular",
+                Menlo,
+                Monaco,
+                Consolas,
+                monospace;
             font-size: 10px;
             line-height: 1;
             font-weight: 600;
@@ -4131,40 +4154,86 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             text-transform: uppercase;
         }
 
-        #contact-final .contact-index { color: #a1a1a6; }
+        #contact-final .contact-index {
+            display: inline-flex;
+            align-items: center;
+            color: #a1a1a6;
+        }
+
+        #contact-final .contact-index::after {
+            content: "";
+            width: 18px;
+            height: 1px;
+            margin-left: 11px;
+            background: rgba(29,29,31,0.18);
+        }
+
+        html.dark-mode-on #contact-final .contact-index::after {
+            background: rgba(255,255,255,0.22);
+        }
 
         #contact-final .contact-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.36fr) minmax(250px, 0.64fr);
-            gap: clamp(48px, 8vw, 96px);
-            align-items: end;
+            grid-template-columns:
+                minmax(0, 1.42fr)
+                minmax(260px, 0.58fr);
+            gap: clamp(52px, 8vw, 104px);
+            align-items: start;
+        }
+
+        #contact-final .contact-heading-wrap {
+            min-width: 0;
         }
 
         #contact-final .contact-title {
             margin: 0;
-            max-width: 720px;
+            max-width: 760px;
             color: #1d1d1f;
-            font-size: clamp(46px, 7vw, 76px);
-            line-height: 1.01;
-            font-weight: 600;
-            letter-spacing: -0.064em !important;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Helvetica Neue",
+                "Hiragino Sans",
+                "Hiragino Kaku Gothic ProN",
+                "Noto Sans JP",
+                sans-serif;
+            font-size: clamp(48px, 6.65vw, 74px);
+            line-height: 0.99;
+            font-weight: 610;
+            letter-spacing: -0.058em !important;
             text-wrap: balance;
         }
 
-        html.dark-mode-on #contact-final .contact-title { color: #f5f5f7 !important; }
+        html:not(.is-global) #contact-final .contact-title-line {
+            white-space: nowrap;
+        }
+
+        html.is-global #contact-final .contact-title {
+            font-size: clamp(42px, 5.7vw, 64px);
+            line-height: 1.01;
+            letter-spacing: -0.052em !important;
+        }
+
+        html.dark-mode-on #contact-final .contact-title {
+            color: #f5f5f7 !important;
+        }
 
         #contact-final .contact-copy-wrap {
-            max-width: 372px;
+            width: 100%;
+            max-width: 350px;
+            padding-top: 5px;
             justify-self: end;
         }
 
         #contact-final .contact-copy {
             margin: 0;
             color: #6e6e73;
-            font-size: clamp(14px, 1.42vw, 16px);
+            font-size: clamp(14px, 1.36vw, 16px);
             line-height: 1.82;
             font-weight: 400;
-            letter-spacing: -0.015em;
+            letter-spacing: -0.014em;
             text-wrap: pretty;
             line-break: strict;
         }
@@ -4173,35 +4242,66 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             white-space: nowrap;
         }
 
-        html.dark-mode-on #contact-final .contact-copy { color: #a1a1a6 !important; }
-
-        #contact-final .contact-action {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            min-height: 42px;
-            margin-top: 30px;
-            padding: 0 17px;
-            border: 0;
-            border-radius: 999px;
-            background: #0071e3;
-            color: #fff;
-            font-size: 13px;
-            line-height: 1;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            text-decoration: none;
-            box-shadow: none;
-            transition:
-                background-color 180ms ease,
-                transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+        html.dark-mode-on #contact-final .contact-copy {
+            color: #a1a1a6 !important;
         }
 
-        #contact-final .contact-action:hover {
-            background: #0077ed;
-            color: #fff;
-            transform: translateY(-1px);
+        /*
+         * Apple-like tertiary CTA:
+         * the link itself is the affordance, rather than a heavy filled pill.
+         */
+        #contact-final .contact-action {
+            width: auto !important;
+            min-height: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-top: 25px;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent !important;
+            color: #0066cc !important;
+            font-size: 15px;
+            line-height: 1.35;
+            font-weight: 600;
+            letter-spacing: -0.014em;
+            text-decoration: none;
+            box-shadow: none !important;
+            transition:
+                color 220ms ease,
+                transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #contact-final .contact-action-icon {
+            display: inline-grid;
+            place-items: center;
+            width: 21px;
+            height: 21px;
+            flex: 0 0 21px;
+            border-radius: 50%;
+            background: rgba(0,102,204,0.085);
+            color: currentColor;
+            font-size: 11px;
+            line-height: 1;
+            transition:
+                transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 220ms ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            #contact-final .contact-action:hover {
+                background: transparent !important;
+                color: #004f9f !important;
+                transform: translateY(-1px);
+            }
+
+            #contact-final .contact-action:hover .contact-action-icon {
+                color: currentColor;
+                background: rgba(0,102,204,0.13);
+                transform: translateX(2px);
+            }
         }
 
         #contact-final .contact-action:active {
@@ -4209,73 +4309,88 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         #contact-final .contact-action:focus-visible {
-            outline: 3px solid rgba(0,113,227,0.25);
-            outline-offset: 3px;
+            outline: 2px solid rgba(0,113,227,0.38);
+            outline-offset: 5px;
+            border-radius: 6px;
         }
 
         html.dark-mode-on #contact-final .contact-action {
-            background: #2997ff !important;
-            color: #fff !important;
+            background: transparent !important;
+            color: #2997ff !important;
         }
 
-        html.dark-mode-on #contact-final .contact-action:hover {
-            background: #40a0ff !important;
+        html.dark-mode-on #contact-final .contact-action-icon {
+            background: rgba(41,151,255,0.13);
         }
 
-        #contact-final .contact-action-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: currentColor;
-            font-size: 13px;
-            line-height: 1;
-            transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        @media (hover: hover) and (pointer: fine) {
+            html.dark-mode-on #contact-final .contact-action:hover {
+                background: transparent !important;
+                color: #64b5ff !important;
+            }
 
-        #contact-final .contact-action:hover .contact-action-icon {
-            color: currentColor;
-            transform: translateX(2px);
+            html.dark-mode-on #contact-final .contact-action:hover .contact-action-icon {
+                background: rgba(41,151,255,0.19);
+            }
         }
 
         @media (max-width: 767px) {
             #contact-final {
                 width: 100%;
-                margin-top: 104px;
-                padding-bottom: 54px;
+                margin-top: 108px;
+                padding-bottom: 58px;
             }
 
             #contact-final .contact-surface {
-                padding: 34px 24px 38px;
-                border-radius: 30px;
+                padding: 26px 0 0;
+                border-radius: 0;
+            }
+
+            #contact-final .contact-surface::before {
+                width: 38px;
             }
 
             #contact-final .contact-kicker {
-                margin-bottom: 62px;
+                margin-bottom: 44px;
+                font-size: 9px;
+            }
+
+            #contact-final .contact-index::after {
+                width: 15px;
+                margin-left: 9px;
             }
 
             #contact-final .contact-grid {
                 grid-template-columns: 1fr;
-                gap: 38px;
+                gap: 32px;
             }
 
             #contact-final .contact-title {
-                font-size: clamp(2.55rem, 11.4vw, 3.35rem);
-                line-height: 1.03;
-                letter-spacing: -0.058em !important;
+                max-width: none;
+                font-size: clamp(2.05rem, 10.2vw, 2.85rem);
+                line-height: 1.00;
+                letter-spacing: -0.052em !important;
+            }
+
+            html.is-global #contact-final .contact-title {
+                font-size: clamp(2.25rem, 10.4vw, 3rem);
+                line-height: 1.02;
             }
 
             #contact-final .contact-copy-wrap {
-                max-width: none;
+                max-width: 34em;
+                padding-top: 0;
                 justify-self: stretch;
             }
 
             #contact-final .contact-copy {
                 font-size: 15px;
-                line-height: 1.86;
+                line-height: 1.82;
             }
 
             #contact-final .contact-action {
-                margin-top: 26px;
+                margin-top: 22px;
+                font-size: 15px;
             }
         }
 
@@ -14415,14 +14530,11 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                         <div class="contact-heading-wrap">
                             <h2 id="contact-final-title" class="contact-title">
                                 <span class="lang-ja">
-                                    <span class="contact-title-line">次の可能性は、</span>
-                                    <span class="contact-title-line">まだ名前のない</span>
-                                    <span class="contact-title-line">問いから。</span>
+                                    <span class="contact-title-line">続きは、対話で。</span>
                                 </span>
 
                                 <span class="lang-en">
-                                    <span class="contact-title-line">The next possibility begins</span>
-                                    <span class="contact-title-line">with a question not yet named.</span>
+                                    <span class="contact-title-line">Continue the conversation.</span>
                                 </span>
                             </h2>
                         </div>
@@ -14433,7 +14545,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                 <span class="lang-en">I welcome conversations about roles, projects, collaborations, and writing, as well as feedback on this site.</span>
                             </p>
 
-                            <a id="biz-contact-btn" href="../contact.html" class="contact-action">
+                            <a id="biz-contact-btn" href="./contact.html" class="contact-action">
                                 <span class="lang-ja">お問い合わせ</span>
                                 <span class="lang-en">Get in touch</span>
                                 <span class="contact-action-icon" aria-hidden="true">→</span>
