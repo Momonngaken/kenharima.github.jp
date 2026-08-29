@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" id="theme-color" content="#f5f5f7">
+
+  <title>Contact | Ken Harima</title>
+  <meta name="description" content="Ken Harima（播磨賢）へのお問い合わせ。採用・スカウト、プロジェクト、協働、執筆、本サイトへのご感想など。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://kenharima.com/contact.html">
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      let saved = null;
+
+      try {
+        saved = localStorage.getItem('darkMode');
+      } catch (_) {}
+
+      const systemDark = !!(
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      );
+
+      const isDark =
+        saved === 'enabled'
+          ? true
+          : saved === 'disabled'
+            ? false
+            : systemDark;
+
+      root.classList.toggle('dark', isDark);
+      root.style.colorScheme = isDark ? 'dark' : 'light';
+
+      const theme = document.getElementById('theme-color');
+      if (theme) {
+        theme.setAttribute('content', isDark ? '#000000' : '#f5f5f7');
+      }
+
+      const lang = navigator.language || navigator.userLanguage || 'ja';
+      if (!lang.toLowerCase().startsWith('ja')) {
+        root.classList.add('is-en');
+      }
+    })();
+  </script>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --panel: rgba(255,255,255,.72);
+      --panel-hover: rgba(255,255,255,.88);
+      --text: #1d1d1f;
+      --secondary: #6e6e73;
+      --tertiary: #86868b;
+      --hairline: rgba(0,0,0,.08);
+      --hairline-strong: rgba(0,0,0,.13);
+      --blue: #0071e3;
+      --green: #28cd41;
+      --shadow: 0 18px 45px rgba(0,0,0,.055);
+      --ease: cubic-bezier(.16,1,.3,1);
+    }
+
+    html.dark {
+      --bg: #000000;
+      --panel: rgba(28,28,30,.72);
+      --panel-hover: rgba(38,38,40,.86);
+      --text: #f5f5f7;
+      --secondary: #a1a1a6;
+      --tertiary: #86868b;
+      --hairline: rgba(255,255,255,.10);
+      --hairline-strong: rgba(255,255,255,.16);
+      --blue: #2997ff;
+      --green: #30d158;
+      --shadow: 0 24px 60px rgba(0,0,0,.30);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(
+          900px 520px at 50% -80px,
+          rgba(255,255,255,.95) 0%,
+          rgba(255,255,255,.52) 28%,
+          rgba(245,245,247,0) 72%
+        ),
+        var(--bg);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Noto Sans JP",
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    html.dark body {
+      background:
+        radial-gradient(
+          900px 520px at 50% -80px,
+          rgba(255,255,255,.045) 0%,
+          rgba(255,255,255,.016) 36%,
+          rgba(0,0,0,0) 72%
+        ),
+        var(--bg);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      color: inherit;
+      font: inherit;
+    }
+
+    .lang-en {
+      display: none;
+    }
+
+    html.is-en .lang-ja {
+      display: none;
+    }
+
+    html.is-en .lang-en {
+      display: inline;
+    }
+
+    .page {
+      width: min(100%, 1180px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding:
+        max(22px, env(safe-area-inset-top))
+        clamp(22px, 5vw, 58px)
+        28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* -----------------------------
+       NAV
+       ----------------------------- */
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 42px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      transition:
+        color 320ms ease,
+        transform 500ms var(--ease);
+    }
+
+    .home-link:hover {
+      color: var(--text);
+      transform: translateX(-2px);
+    }
+
+    .home-arrow {
+      font-size: 14px;
+      line-height: 1;
+      transform: translateY(-.5px);
+    }
+
+    .nav-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px;
+      border: 1px solid var(--hairline);
+      border-radius: 999px;
+      background: rgba(255,255,255,.54);
+      backdrop-filter: blur(22px) saturate(155%);
+      -webkit-backdrop-filter: blur(22px) saturate(155%);
+      box-shadow: 0 1px 0 rgba(255,255,255,.72) inset;
+    }
+
+    html.dark .nav-controls {
+      background: rgba(28,28,30,.56);
+      box-shadow: 0 1px 0 rgba(255,255,255,.035) inset;
+    }
+
+    .nav-button {
+      height: 30px;
+      min-width: 40px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 10px;
+      background: transparent;
+      cursor: pointer;
+      color: var(--tertiary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      transition:
+        background-color 360ms var(--ease),
+        color 360ms var(--ease),
+        transform 360ms var(--ease);
+    }
+
+    .nav-button:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.72);
+    }
+
+    html.dark .nav-button:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    .theme-button {
+      width: 30px;
+      min-width: 30px;
+      padding: 0;
+      position: relative;
+    }
+
+    .theme-button::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1.4px solid currentColor;
+      border-radius: 50%;
+      box-shadow: inset -3.5px -1.8px 0 0 var(--bg);
+      transform: rotate(-18deg);
+    }
+
+    /* -----------------------------
+       HERO
+       ----------------------------- */
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding:
+        clamp(86px, 14vh, 150px)
+        0
+        clamp(96px, 14vh, 150px);
+    }
+
+    .contact-wrap {
+      width: min(100%, 920px);
+    }
+
+    .hero {
+      max-width: 820px;
+    }
+
+    .kicker {
+      margin: 0 0 22px;
+      color: var(--tertiary);
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(3.65rem, 8vw, 7.6rem);
+      line-height: .92;
+      font-weight: 720;
+      letter-spacing: -.072em;
+      text-wrap: balance;
+    }
+
+    .lede {
+      margin: clamp(28px, 4vw, 42px) 0 0;
+      max-width: 610px;
+      color: var(--secondary);
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.8;
+      letter-spacing: -.015em;
+    }
+
+    /* -----------------------------
+       EMAIL SURFACE
+       ----------------------------- */
+
+    .email-card {
+      position: relative;
+      margin-top: clamp(54px, 8vw, 88px);
+      border: 1px solid var(--hairline);
+      border-radius: 28px;
+      padding: clamp(26px, 4vw, 40px);
+      background: var(--panel);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.74);
+      overflow: hidden;
+      transition:
+        transform 700ms var(--ease),
+        box-shadow 700ms var(--ease),
+        border-color 500ms var(--ease),
+        background-color 500ms var(--ease);
+    }
+
+    html.dark .email-card {
+      box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.045);
+    }
+
+    .email-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          130deg,
+          rgba(255,255,255,.34) 0%,
+          rgba(255,255,255,0) 34%
+        );
+      opacity: .55;
+    }
+
+    html.dark .email-card::before {
+      opacity: .11;
+    }
+
+    @media (hover:hover) and (pointer:fine) {
+      .email-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--hairline-strong);
+        background: var(--panel-hover);
+        box-shadow:
+          0 28px 68px rgba(0,0,0,.075),
+          inset 0 1px 0 rgba(255,255,255,.82);
+      }
+
+      html.dark .email-card:hover {
+        box-shadow:
+          0 28px 68px rgba(0,0,0,.36),
+          inset 0 1px 0 rgba(255,255,255,.055);
+      }
+    }
+
+    .email-topline {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .email-label {
+      margin: 0;
+      color: var(--tertiary);
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: .045em;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--secondary);
+      font-size: 11px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 12%, transparent);
+    }
+
+    .email-address {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(1.55rem, 4.1vw, 3.45rem);
+      line-height: 1.03;
+      font-weight: 650;
+      letter-spacing: -.055em;
+      overflow-wrap: anywhere;
+    }
+
+    .email-meta {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .email-note {
+      margin: 0;
+      color: var(--tertiary);
+      font-size: 11px;
+      line-height: 1.65;
+      letter-spacing: .005em;
+    }
+
+    .email-purpose {
+      margin: 0;
+      max-width: 360px;
+      color: var(--secondary);
+      font-size: 12px;
+      line-height: 1.65;
+      text-align: right;
+    }
+
+    /* -----------------------------
+       FOOTER
+       ----------------------------- */
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding-top: 22px;
+      border-top: 1px solid var(--hairline);
+      color: var(--tertiary);
+      font-size: 10px;
+      line-height: 1.5;
+      letter-spacing: .03em;
+    }
+
+    .footer-link {
+      text-decoration: none;
+      transition: color 300ms ease;
+    }
+
+    .footer-link:hover {
+      color: var(--text);
+    }
+
+    /* -----------------------------
+       REVEAL
+       ----------------------------- */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: reveal 880ms var(--ease) forwards;
+    }
+
+    .delay-1 { animation-delay: 90ms; }
+    .delay-2 { animation-delay: 180ms; }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* -----------------------------
+       RESPONSIVE
+       ----------------------------- */
+
+    @media (max-width: 760px) {
+      .page {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      main {
+        place-items: start;
+        padding-top: 84px;
+      }
+
+      h1 {
+        max-width: 7.5ch;
+        font-size: clamp(3.65rem, 17vw, 5.8rem);
+        line-height: .94;
+      }
+
+      .lede {
+        margin-top: 26px;
+        max-width: 34em;
+        line-height: 1.85;
+      }
+
+      .email-card {
+        margin-top: 54px;
+        border-radius: 24px;
+        padding: 24px 20px 22px;
+      }
+
+      .email-topline {
+        margin-bottom: 20px;
+      }
+
+      .email-address {
+        font-size: clamp(1.45rem, 7.5vw, 2.25rem);
+      }
+
+      .email-meta {
+        display: block;
+        margin-top: 20px;
+      }
+
+      .email-purpose {
+        margin-top: 12px;
+        max-width: none;
+        text-align: left;
+      }
+
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .home-name {
+        display: none;
+      }
+
+      .status-text {
+        display: none;
+      }
+
+      .email-card {
+        border-radius: 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 1ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="nav">
+      <a
+        class="home-link"
+        href="./index.html"
+        aria-label="トップページへ戻る / Back to home"
+      >
+        <span class="home-arrow" aria-hidden="true">←</span>
+        <span class="home-name">Ken Harima</span>
+      </a>
+
+      <div class="nav-controls" aria-label="表示設定 / Display settings">
+        <button
+          class="nav-button"
+          id="lang-toggle"
+          type="button"
+          aria-label="言語を切り替える / Switch language"
+        >
+          <span class="lang-ja">EN</span>
+          <span class="lang-en">JP</span>
+        </button>
+
+        <button
+          class="nav-button theme-button"
+          id="theme-toggle"
+          type="button"
+          aria-label="ライト・ダークモードを切り替える / Toggle light and dark mode"
+        ></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="contact-wrap" aria-labelledby="contact-title">
+        <div class="hero reveal">
+          <p class="kicker">Contact</p>
+
+          <h1 id="contact-title">
+            <span class="lang-ja">話すことから、<br>始めましょう。</span>
+            <span class="lang-en">Let’s begin<br>with a conversation.</span>
+          </h1>
+
+          <p class="lede">
+            <span class="lang-ja">
+              ポジション、プロジェクト、協働、執筆のご相談から、
+              本サイトへのご感想まで。メールでお気軽にご連絡ください。
+            </span>
+
+            <span class="lang-en">
+              For roles, projects, collaborations, writing, or feedback on this site,
+              feel free to get in touch by email.
+            </span>
+          </p>
+        </div>
+
+        <div class="email-card reveal delay-1">
+          <div class="email-topline">
+            <p class="email-label">Email</p>
+
+            <div class="status">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span class="status-text">
+                <span class="lang-ja">Open to conversations</span>
+                <span class="lang-en">Open to conversations</span>
+              </span>
+            </div>
+          </div>
+
+          <p
+            class="email-address"
+            aria-label="hello dot kenharima at outlook dot com"
+          >
+            hello.kenharima☆outlook.com
+          </p>
+
+          <div class="email-meta">
+            <p class="email-note">
+              <span class="lang-ja">※ ☆は @ に置き換えてください。</span>
+              <span class="lang-en">※ Replace ☆ with @.</span>
+            </p>
+
+            <p class="email-purpose">
+              <span class="lang-ja">
+                採用・スカウトを含む、仕事に関するご連絡を歓迎しています。
+              </span>
+              <span class="lang-en">
+                Recruiting and professional inquiries are welcome.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Ken Harima</span>
+      <a class="footer-link" href="./index.html">kenharima.com</a>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const langToggle = document.getElementById('lang-toggle');
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeMeta = document.getElementById('theme-color');
+
+      langToggle?.addEventListener('click', () => {
+        root.classList.toggle('is-en');
+        root.lang = root.classList.contains('is-en') ? 'en' : 'ja';
+      });
+
+      themeToggle?.addEventListener('click', () => {
+        const nextDark = !root.classList.contains('dark');
+
+        root.classList.toggle('dark', nextDark);
+        root.style.colorScheme = nextDark ? 'dark' : 'light';
+
+        try {
+          localStorage.setItem(
+            'darkMode',
+            nextDark ? 'enabled' : 'disabled'
+          );
+        } catch (_) {}
+
+        if (themeMeta) {
+          themeMeta.setAttribute(
+            'content',
+            nextDark ? '#000000' : '#f5f5f7'
+          );
+        }
+      });
+
+      root.lang = root.classList.contains('is-en') ? 'en' : 'ja';
+    })();
+  </script>
+</body>
+</html>
