@@ -1907,6 +1907,188 @@ and (
             }
         }
 
+        /* ---------------------------------------------------------
+           HERO → EXPERIENCE SCROLL CUE
+           --------------------------------------------------------- */
+        .hero-scroll-cue {
+            position: absolute;
+            left: 50%;
+            bottom: clamp(-82px, -7vw, -58px);
+            z-index: 8;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            width: 54px;
+            min-height: 62px;
+            padding: 8px 0 4px;
+            color: var(--kh-muted);
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            opacity: 0;
+            transform: translate(-50%, 6px);
+            animation: heroScrollCueReveal 760ms var(--kh-ease) .78s forwards;
+            transition:
+                opacity 420ms var(--kh-ease),
+                color 320ms ease,
+                transform 520ms var(--kh-ease);
+        }
+
+        .hero-scroll-label {
+            display: block;
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Monaco,
+                Consolas,
+                monospace;
+            font-size: 9px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: .17em;
+            text-indent: .17em;
+            white-space: nowrap;
+        }
+
+        .hero-scroll-rail {
+            position: relative;
+            display: block;
+            width: 1px;
+            height: 38px;
+            overflow: hidden;
+            background: var(--kh-faint);
+            opacity: .82;
+        }
+
+        .hero-scroll-dot {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0;
+            transform: translate(-50%, 0);
+            animation:
+                heroScrollDot
+                1.9s
+                cubic-bezier(.22, .72, .18, 1)
+                1.15s
+                infinite;
+        }
+
+        .hero-scroll-cue.is-hidden {
+            opacity: 0 !important;
+            transform: translate(-50%, 9px);
+            pointer-events: none;
+            animation: none;
+        }
+
+        @keyframes heroScrollCueReveal {
+            to {
+                opacity: .78;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @keyframes heroScrollDot {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 0) scale(.8);
+            }
+
+            16% {
+                opacity: .88;
+            }
+
+            72% {
+                opacity: .52;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, 35px) scale(.8);
+            }
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .hero-scroll-cue:hover {
+                color: var(--kh-text);
+                opacity: 1;
+                transform: translate(-50%, -2px);
+            }
+        }
+
+        .hero-scroll-cue:focus-visible {
+            outline: 2px solid color-mix(in srgb, var(--kh-blue) 52%, transparent);
+            outline-offset: 4px;
+            border-radius: 999px;
+        }
+
+        @media (max-width: 767px) {
+            .hero-scroll-cue {
+                bottom: -56px;
+                gap: 8px;
+                width: 48px;
+                min-height: 52px;
+                padding-top: 6px;
+            }
+
+            .hero-scroll-label {
+                font-size: 8px;
+                letter-spacing: .16em;
+                text-indent: .16em;
+            }
+
+            .hero-scroll-rail {
+                height: 31px;
+            }
+
+            @keyframes heroScrollDot {
+                0% {
+                    opacity: 0;
+                    transform: translate(-50%, 0) scale(.8);
+                }
+
+                16% {
+                    opacity: .88;
+                }
+
+                72% {
+                    opacity: .52;
+                }
+
+                100% {
+                    opacity: 0;
+                    transform: translate(-50%, 28px) scale(.8);
+                }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-scroll-cue {
+                opacity: .78;
+                transform: translate(-50%, 0);
+                animation: none !important;
+                transition: opacity 120ms ease !important;
+            }
+
+            .hero-scroll-dot {
+                top: 50%;
+                opacity: .58;
+                transform: translate(-50%, -50%);
+                animation: none !important;
+            }
+
+            .hero-scroll-cue.is-hidden {
+                opacity: 0 !important;
+                transform: translate(-50%, 0);
+            }
+        }
+
 
         .hero-reveal {
             opacity: 0;
@@ -5345,6 +5527,18 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
 
                 </div>
             </div>
+
+            <a
+                id="hero-scroll-cue"
+                class="hero-scroll-cue"
+                href="#experience"
+                aria-label="経歴までスクロール / Scroll to Experience"
+            >
+                <span class="hero-scroll-label" aria-hidden="true">SCROLL</span>
+                <span class="hero-scroll-rail" aria-hidden="true">
+                    <span class="hero-scroll-dot"></span>
+                </span>
+            </a>
 
         </header>
 
@@ -16112,6 +16306,80 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     switchWrap.classList.add('visible');
                 }
             });
+        })();
+    </script>
+
+    <!-- ================= HERO SCROLL CUE ================= -->
+    <script>
+        (() => {
+            const setupHeroScrollCue = () => {
+                const cue = document.getElementById('hero-scroll-cue');
+                const target = document.getElementById('experience');
+
+                if (!cue || !target) {
+                    return;
+                }
+
+                const reduceMotion = !!(
+                    window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                );
+
+                let dismissed = false;
+                let ticking = false;
+
+                const dismissCue = () => {
+                    if (dismissed) {
+                        return;
+                    }
+
+                    dismissed = true;
+                    cue.classList.add('is-hidden');
+                    window.removeEventListener('scroll', onScroll);
+                };
+
+                const onScroll = () => {
+                    if (dismissed || ticking) {
+                        return;
+                    }
+
+                    ticking = true;
+
+                    window.requestAnimationFrame(() => {
+                        if (window.scrollY > 88) {
+                            dismissCue();
+                        }
+
+                        ticking = false;
+                    });
+                };
+
+                cue.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    dismissCue();
+
+                    target.scrollIntoView({
+                        behavior: reduceMotion ? 'auto' : 'smooth',
+                        block: 'start'
+                    });
+                });
+
+                window.addEventListener('scroll', onScroll, { passive: true });
+
+                if (window.scrollY > 88) {
+                    dismissCue();
+                }
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener(
+                    'DOMContentLoaded',
+                    setupHeroScrollCue,
+                    { once: true }
+                );
+            } else {
+                setupHeroScrollCue();
+            }
         })();
     </script>
 
