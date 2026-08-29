@@ -3130,8 +3130,8 @@ and (
 
         .theme-toggle-switch {
             visibility: hidden;
-            display: inline-grid;
-            grid-template-columns: 30px 30px;
+            display: inline-flex;
+            align-items: center;
             gap: 2px;
             width: auto;
             height: 34px;
@@ -3149,6 +3149,55 @@ and (
                 background-color 260ms ease,
                 border-color 260ms ease,
                 box-shadow 260ms ease;
+        }
+
+        .theme-language-toggle {
+            min-width: 40px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 9px;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--kh-theme-muted);
+            cursor: pointer;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            transition:
+                color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .theme-language-toggle:hover {
+            color: var(--kh-theme-text);
+            background: rgba(255,255,255,0.58);
+        }
+
+        html.dark-mode-on .theme-language-toggle:hover {
+            background: rgba(255,255,255,0.075);
+        }
+
+        .theme-language-toggle:focus-visible {
+            outline: 2px solid var(--kh-theme-blue);
+            outline-offset: 2px;
+        }
+
+        .theme-language-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-divider {
+            width: 1px;
+            height: 20px;
+            flex: 0 0 1px;
+            margin: 0 2px 0 1px;
+            background: var(--kh-theme-border);
+            pointer-events: none;
         }
 
         html.dark-mode-on .theme-toggle-switch {
@@ -3223,8 +3272,17 @@ and (
 
         @media (max-width: 767px) {
             .theme-toggle-switch {
-                grid-template-columns: 29px 29px;
                 height: 33px;
+            }
+
+            .theme-language-toggle {
+                min-width: 38px;
+                height: 29px;
+                padding-inline: 8px;
+            }
+
+            .theme-divider {
+                height: 19px;
             }
 
             .theme-option {
@@ -5143,13 +5201,26 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
     
     <div class="site-shell">
 
-        <!-- ================= THEME TOGGLE — APPLE-LIKE LIGHT / DARK SEGMENT ================= -->
+        <!-- ================= LANGUAGE + THEME TOGGLE — CONTACT PAGE ALIGNED ================= -->
         <div class="theme-utility">
             <div
                 class="theme-toggle-switch"
                 role="group"
-                aria-label="表示モード / Appearance"
+                aria-label="言語と表示モード / Language and appearance"
             >
+                <button
+                    type="button"
+                    id="themeLangToggle"
+                    class="theme-language-toggle"
+                    aria-label="英語に切り替える / Switch to English"
+                    title="Language"
+                >
+                    <span class="lang-ja">EN</span>
+                    <span class="lang-en">JP</span>
+                </button>
+
+                <span class="theme-divider" aria-hidden="true"></span>
+
                 <button
                     type="button"
                     id="themeLight"
@@ -15023,15 +15094,17 @@ if (photo) {
             // Priority 1: Init Interactions Immediately
             const langJpBtn = document.getElementById('lang-jp');
             const langEnBtn = document.getElementById('lang-en');
+            const topLangToggle = document.getElementById('themeLangToggle');
             const htmlEl = document.documentElement;
             const contactBtn = document.getElementById('biz-contact-btn');
             
-            // Language Switcher (Optimized: ClassList Toggling)
+            // Language Switcher (menu + top utility kept in sync)
             const activeClasses = ['bg-white', 'text-gray-900', 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]', 'cursor-default'];
             const inactiveClasses =['text-gray-400', 'hover:text-gray-600', 'cursor-pointer'];
             const baseClass = "relative z-10 px-5 py-2 rounded-full text-[11px] font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
             
             const setBtnState = (btn, isActive) => {
+                if (!btn) return;
                 btn.className = baseClass;
                 btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
             };
@@ -15040,6 +15113,17 @@ if (photo) {
                 const isGlobal = htmlEl.classList.contains('is-global');
                 setBtnState(langJpBtn, !isGlobal);
                 setBtnState(langEnBtn, isGlobal);
+
+                htmlEl.lang = isGlobal ? 'en' : 'ja';
+
+                if (topLangToggle) {
+                    topLangToggle.setAttribute(
+                        'aria-label',
+                        isGlobal
+                            ? '日本語に切り替える / Switch to Japanese'
+                            : '英語に切り替える / Switch to English'
+                    );
+                }
             };
 
             let languageTransitionTimer = 0;
@@ -15054,23 +15138,32 @@ if (photo) {
                 }, 420);
             };
 
+            const setSiteLanguage = (useEnglish) => {
+                const isGlobal = htmlEl.classList.contains('is-global');
+                if (isGlobal === useEnglish) return;
+
+                htmlEl.classList.toggle('is-global', useEnglish);
+                playLanguageTransition();
+                updateLangStyles();
+
+                setTimeout(() => {
+                    if (window.lenis) window.lenis.resize();
+                }, 100);
+            };
+
             updateLangStyles();
 
-            langJpBtn.addEventListener('click', () => {
-                if (htmlEl.classList.contains('is-global')) {
-                    htmlEl.classList.remove('is-global');
-                    playLanguageTransition();
-                    updateLangStyles();
-                    setTimeout(() => { if (window.lenis) window.lenis.resize(); }, 100); 
-                }
+            langJpBtn?.addEventListener('click', () => {
+                setSiteLanguage(false);
             });
-            langEnBtn.addEventListener('click', () => {
-                if (!htmlEl.classList.contains('is-global')) {
-                    htmlEl.classList.add('is-global');
-                    playLanguageTransition();
-                    updateLangStyles();
-                    setTimeout(() => { if (window.lenis) window.lenis.resize(); }, 100);
-                }
+
+            langEnBtn?.addEventListener('click', () => {
+                setSiteLanguage(true);
+            });
+
+            topLangToggle?.addEventListener('click', () => {
+                const currentlyEnglish = htmlEl.classList.contains('is-global');
+                setSiteLanguage(!currentlyEnglish);
             });
 
             if (contactBtn) {
