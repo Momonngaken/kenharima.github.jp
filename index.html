@@ -4092,37 +4092,54 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             }
         }
 
-        /* ================= 06 CONTACT — QUIET EDITORIAL ENDCAP ================= */
+        /* ================= CLOSING CONTACT — APPLE-LIKE EDITORIAL ================= */
         #contact-final {
             width: 100%;
-            margin: clamp(132px, 16vw, 196px) auto 0;
-            padding: 0 clamp(22px, 4.5vw, 56px) clamp(74px, 9vw, 108px);
+            margin: clamp(124px, 15vw, 184px) auto 0;
+            padding: 0 clamp(22px, 4.5vw, 72px) clamp(62px, 8vw, 92px);
         }
 
         #contact-final .contact-surface {
             position: relative;
-            width: min(100%, 900px);
-            margin-inline: auto;
-            padding: clamp(34px, 4.6vw, 48px) 0 0;
-            border: 0;
-            border-top: 1px solid rgba(29,29,31,0.10);
-            border-radius: 0;
-            background: transparent !important;
-            box-shadow: none !important;
             overflow: visible;
+            padding: clamp(30px, 4.2vw, 44px) 0 0;
+            border: 0;
+            border-top: 1px solid rgba(29, 29, 31, 0.10);
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            isolation: isolate;
+        }
+
+        #contact-final .contact-surface::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 46px;
+            height: 1px;
+            background: #1d1d1f;
+            opacity: 0.58;
+            pointer-events: none;
         }
 
         html.dark-mode-on #contact-final .contact-surface {
-            border-top-color: rgba(255,255,255,0.14);
+            background: transparent !important;
+            border-top-color: rgba(255,255,255,0.14) !important;
+            box-shadow: none !important;
+        }
+
+        html.dark-mode-on #contact-final .contact-surface::before {
+            background: #f5f5f7;
+            opacity: 0.52;
         }
 
         #contact-final .contact-kicker {
-            margin: 0 0 clamp(68px, 8vw, 92px);
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 10px;
-            color: #9a9a9f;
+            gap: 11px;
+            margin: 0 0 clamp(54px, 7vw, 78px);
+            color: #86868b;
             font-family:
                 ui-monospace,
                 "SFMono-Regular",
@@ -4130,40 +4147,47 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                 Monaco,
                 Consolas,
                 monospace;
-            font-size: 9.5px;
+            font-size: 10px;
             line-height: 1;
             font-weight: 600;
-            letter-spacing: 0.13em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
         }
 
         #contact-final .contact-index {
-            color: #b0b0b5;
+            display: inline-flex;
+            align-items: center;
+            color: #a1a1a6;
         }
 
         #contact-final .contact-index::after {
-            content: "/";
-            margin-left: 10px;
-            color: #d2d2d7;
-            font-weight: 400;
+            content: "";
+            width: 18px;
+            height: 1px;
+            margin-left: 11px;
+            background: rgba(29,29,31,0.18);
         }
 
         html.dark-mode-on #contact-final .contact-index::after {
-            color: #55555a;
+            background: rgba(255,255,255,0.22);
         }
 
         #contact-final .contact-grid {
-            display: block;
+            display: grid;
+            grid-template-columns:
+                minmax(0, 1.16fr)
+                minmax(300px, 0.84fr);
+            gap: clamp(40px, 5.2vw, 72px);
+            align-items: start;
         }
 
         #contact-final .contact-heading-wrap {
-            width: 100%;
-            text-align: center;
+            min-width: 0;
         }
 
         #contact-final .contact-title {
-            margin: 0 auto;
-            max-width: 840px;
+            margin: 0;
+            max-width: 760px;
             color: #1d1d1f;
             font-family:
                 -apple-system,
@@ -4175,23 +4199,21 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                 "Hiragino Kaku Gothic ProN",
                 "Noto Sans JP",
                 sans-serif;
-            font-size: clamp(3.6rem, 7.1vw, 5.8rem);
-            line-height: 0.96;
+            font-size: clamp(48px, 6.65vw, 74px);
+            line-height: 0.99;
             font-weight: 610;
-            letter-spacing: -0.062em !important;
+            letter-spacing: -0.058em !important;
             text-wrap: balance;
         }
 
-        #contact-final .contact-title-line {
-            display: inline;
+        html:not(.is-global) #contact-final .contact-title-line {
             white-space: nowrap;
         }
 
         html.is-global #contact-final .contact-title {
-            max-width: 760px;
-            font-size: clamp(3.1rem, 6vw, 5rem);
-            line-height: 0.98;
-            letter-spacing: -0.056em !important;
+            font-size: clamp(42px, 5.7vw, 64px);
+            line-height: 1.01;
+            letter-spacing: -0.052em !important;
         }
 
         html.dark-mode-on #contact-final .contact-title {
@@ -4199,44 +4221,43 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
 
         #contact-final .contact-copy-wrap {
-            width: min(100%, 580px);
-            max-width: none;
-            margin: clamp(34px, 4vw, 46px) auto 0;
-            padding: 0;
-            text-align: center;
-            justify-self: auto;
+            width: 100%;
+            max-width: 370px;
+            padding-top: 7px;
+            justify-self: start;
         }
 
         #contact-final .contact-copy {
             margin: 0;
-            color: #86868b;
-            font-size: clamp(14px, 1.35vw, 16px);
-            line-height: 1.85;
+            color: #6e6e73;
+            font-size: clamp(14px, 1.36vw, 16px);
+            line-height: 1.82;
             font-weight: 400;
-            letter-spacing: -0.012em;
+            letter-spacing: -0.014em;
             text-wrap: pretty;
+            line-break: strict;
         }
 
         #contact-final .contact-copy-keep {
-            white-space: normal;
-        }
-
-        #contact-final .contact-copy-nowrap {
             white-space: nowrap;
         }
 
         html.dark-mode-on #contact-final .contact-copy {
-            color: #98989d !important;
+            color: #a1a1a6 !important;
         }
 
+        /*
+         * Apple-like tertiary CTA:
+         * the link itself is the affordance, rather than a heavy filled pill.
+         */
         #contact-final .contact-action {
             width: auto !important;
             min-height: 0;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 7px;
-            margin-top: 28px;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-top: 25px;
             padding: 0;
             border: 0;
             border-radius: 0;
@@ -4245,105 +4266,131 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             font-size: 15px;
             line-height: 1.35;
             font-weight: 600;
-            letter-spacing: -0.012em;
+            letter-spacing: -0.014em;
             text-decoration: none;
             box-shadow: none !important;
             transition:
                 color 220ms ease,
-                transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+                transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #contact-final .contact-action-icon {
-            display: inline;
-            width: auto;
-            height: auto;
-            flex: none;
-            border-radius: 0;
-            background: none !important;
+            display: inline-grid;
+            place-items: center;
+            width: 21px;
+            height: 21px;
+            flex: 0 0 21px;
+            border-radius: 50%;
+            background: rgba(0,102,204,0.085);
             color: currentColor;
-            font-size: 13px;
+            font-size: 11px;
             line-height: 1;
-            transform: translateY(-0.5px);
-            transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+            transition:
+                transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 220ms ease;
         }
 
         @media (hover: hover) and (pointer: fine) {
             #contact-final .contact-action:hover {
+                background: transparent !important;
                 color: #004f9f !important;
                 transform: translateY(-1px);
             }
 
             #contact-final .contact-action:hover .contact-action-icon {
-                transform: translate(3px, -0.5px);
+                color: currentColor;
+                background: rgba(0,102,204,0.13);
+                transform: translateX(2px);
             }
         }
 
-        html.dark-mode-on #contact-final .contact-action {
-            color: #2997ff !important;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            html.dark-mode-on #contact-final .contact-action:hover {
-                color: #64b5ff !important;
-            }
+        #contact-final .contact-action:active {
+            transform: scale(0.985);
         }
 
         #contact-final .contact-action:focus-visible {
             outline: 2px solid rgba(0,113,227,0.38);
             outline-offset: 5px;
-            border-radius: 5px;
+            border-radius: 6px;
+        }
+
+        html.dark-mode-on #contact-final .contact-action {
+            background: transparent !important;
+            color: #2997ff !important;
+        }
+
+        html.dark-mode-on #contact-final .contact-action-icon {
+            background: rgba(41,151,255,0.13);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            html.dark-mode-on #contact-final .contact-action:hover {
+                background: transparent !important;
+                color: #64b5ff !important;
+            }
+
+            html.dark-mode-on #contact-final .contact-action:hover .contact-action-icon {
+                background: rgba(41,151,255,0.19);
+            }
         }
 
         @media (max-width: 767px) {
             #contact-final {
+                width: 100%;
                 margin-top: 108px;
-                padding: 0 20px 64px;
+                padding: 0 20px 58px;
             }
 
             #contact-final .contact-surface {
-                width: 100%;
-                padding-top: 26px;
+                padding: 26px 0 0;
+                border-radius: 0;
+            }
+
+            #contact-final .contact-surface::before {
+                width: 38px;
             }
 
             #contact-final .contact-kicker {
-                justify-content: flex-start;
-                margin-bottom: 52px;
+                margin-bottom: 44px;
                 font-size: 9px;
             }
 
-            #contact-final .contact-heading-wrap {
-                text-align: left;
+            #contact-final .contact-index::after {
+                width: 15px;
+                margin-left: 9px;
+            }
+
+            #contact-final .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
 
             #contact-final .contact-title {
-                margin: 0;
                 max-width: none;
-                font-size: clamp(2.6rem, 12.6vw, 3.8rem);
-                line-height: 0.99;
-                letter-spacing: -0.056em !important;
+                font-size: clamp(2.05rem, 10.2vw, 2.85rem);
+                line-height: 1.00;
+                letter-spacing: -0.052em !important;
             }
 
             html.is-global #contact-final .contact-title {
-                max-width: 12ch;
-                font-size: clamp(2.45rem, 11vw, 3.5rem);
-                line-height: 1.0;
+                font-size: clamp(2.25rem, 10.4vw, 3rem);
+                line-height: 1.02;
             }
 
             #contact-final .contact-copy-wrap {
-                width: 100%;
-                margin-top: 28px;
-                text-align: left;
+                max-width: 34em;
+                padding-top: 0;
+                justify-self: stretch;
             }
 
             #contact-final .contact-copy {
-                max-width: 32em;
                 font-size: 15px;
                 line-height: 1.82;
             }
 
             #contact-final .contact-action {
-                justify-content: flex-start;
                 margin-top: 22px;
+                font-size: 15px;
             }
         }
 
@@ -14494,12 +14541,12 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 
                         <div class="contact-copy-wrap">
                             <p class="contact-copy">
-                                <span class="lang-ja">ポジション、プロジェクト、協働、執筆のご相談から、<span class="contact-copy-nowrap">本サイトへのご感想まで。</span><br><span class="contact-copy-keep">お気軽にご連絡ください。</span></span>
+                                <span class="lang-ja">ポジション、プロジェクト、協働、執筆のご相談から、本サイトへのご感想まで。<span class="contact-copy-keep">お気軽にご連絡ください。</span></span>
                                 <span class="lang-en">For roles, projects, collaborations, writing, or feedback on this site, feel free to get in touch.</span>
                             </p>
 
                             <a id="biz-contact-btn" href="./contact.html" class="contact-action">
-                                <span class="lang-ja">連絡する</span>
+                                <span class="lang-ja">お問い合わせ</span>
                                 <span class="lang-en">Get in touch</span>
                                 <span class="contact-action-icon" aria-hidden="true">→</span>
                             </a>
