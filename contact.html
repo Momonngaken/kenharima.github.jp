@@ -355,6 +355,11 @@
       text-wrap: balance;
     }
 
+    .contact-title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
     .lede {
       margin: clamp(28px, 4vw, 42px) 0 0;
       max-width: 610px;
@@ -684,8 +689,8 @@
         href="./index.html"
         aria-label="トップページへ戻る / Back to home"
       >
-        <span class="home-arrow" aria-hidden="true">‹</span>
-        <span class="home-name">Home</span>
+        <span class="home-arrow" aria-hidden="true">←</span>
+        <span class="home-name">Ken Harima</span>
       </a>
 
       <div class="nav-controls" aria-label="表示設定 / Display settings">
@@ -739,8 +744,14 @@
           <p class="kicker">Contact</p>
 
           <h1 id="contact-title">
-            <span class="lang-ja">まずは対話から。</span>
-            <span class="lang-en">Start with a conversation.</span>
+            <span class="lang-ja">
+              <span class="contact-title-line">まずは</span>
+              <span class="contact-title-line">対話から。</span>
+            </span>
+            <span class="lang-en">
+              <span class="contact-title-line">Start with</span>
+              <span class="contact-title-line">a conversation.</span>
+            </span>
           </h1>
 
           <p class="lede">
