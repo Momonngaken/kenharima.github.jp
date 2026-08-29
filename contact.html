@@ -242,21 +242,68 @@
       background: rgba(255,255,255,.08);
     }
 
-    .theme-button {
-      width: 30px;
-      min-width: 30px;
-      padding: 0;
-      position: relative;
+    .theme-segment {
+      display: inline-grid;
+      grid-template-columns: 30px 30px;
+      gap: 2px;
+      padding: 2px;
+      border-left: 1px solid var(--hairline);
+      margin-left: 1px;
+      padding-left: 5px;
     }
 
-    .theme-button::before {
-      content: "";
-      position: absolute;
-      inset: 9px;
-      border: 1.4px solid currentColor;
-      border-radius: 50%;
-      box-shadow: inset -3.5px -1.8px 0 0 var(--bg);
-      transform: rotate(-18deg);
+    .theme-option {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      color: var(--tertiary);
+      cursor: pointer;
+      transition:
+        color 300ms var(--ease),
+        background-color 300ms var(--ease),
+        box-shadow 300ms var(--ease),
+        transform 300ms var(--ease);
+    }
+
+    .theme-option svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .theme-option:hover {
+      color: var(--text);
+      transform: scale(1.04);
+    }
+
+    html:not(.dark) .theme-option-light,
+    html.dark .theme-option-dark {
+      color: var(--text);
+      background: rgba(255,255,255,.88);
+      box-shadow:
+        0 1px 3px rgba(0,0,0,.08),
+        inset 0 0 0 1px rgba(0,0,0,.035);
+    }
+
+    html.dark .theme-option-dark {
+      background: rgba(255,255,255,.11);
+      box-shadow:
+        0 1px 3px rgba(0,0,0,.30),
+        inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+
+    .theme-option:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
     }
 
     /* -----------------------------
@@ -445,10 +492,33 @@
 
     .email-note {
       margin: 0;
-      color: var(--tertiary);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid var(--hairline);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255,255,255,.58);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 650;
+      letter-spacing: -.005em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
+    }
+
+    .email-note::before {
+      content: "※";
+      color: var(--blue);
+      font-weight: 750;
       font-size: 11px;
-      line-height: 1.65;
-      letter-spacing: .005em;
+      line-height: 1;
+    }
+
+    html.dark .email-note {
+      background: rgba(255,255,255,.055);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
     }
 
     .email-purpose {
@@ -577,6 +647,15 @@
       .email-card {
         border-radius: 22px;
       }
+
+      .theme-segment {
+        grid-template-columns: 28px 28px;
+      }
+
+      .theme-option {
+        width: 28px;
+        height: 28px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -620,12 +699,37 @@
           <span class="lang-en">JP</span>
         </button>
 
-        <button
-          class="nav-button theme-button"
+        <div
+          class="theme-segment"
           id="theme-toggle"
-          type="button"
-          aria-label="ライト・ダークモードを切り替える / Toggle light and dark mode"
-        ></button>
+          role="group"
+          aria-label="表示モード / Appearance"
+        >
+          <button
+            class="theme-option theme-option-light"
+            id="theme-light"
+            type="button"
+            aria-label="ライトモード / Light mode"
+            title="Light"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"></path>
+            </svg>
+          </button>
+
+          <button
+            class="theme-option theme-option-dark"
+            id="theme-dark"
+            type="button"
+            aria-label="ダークモード / Dark mode"
+            title="Dark"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.3 15.2A8.3 8.3 0 0 1 8.8 3.7 8.7 8.7 0 1 0 20.3 15.2Z"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -674,8 +778,8 @@
 
           <div class="email-meta">
             <p class="email-note">
-              <span class="lang-ja">※ ☆は @ に置き換えてください。</span>
-              <span class="lang-en">※ Replace ☆ with @.</span>
+              <span class="lang-ja">☆は @ に置き換えてください。</span>
+              <span class="lang-en">Replace ☆ with @.</span>
             </p>
 
             <p class="email-purpose">
@@ -701,7 +805,8 @@
     (() => {
       const root = document.documentElement;
       const langToggle = document.getElementById('lang-toggle');
-      const themeToggle = document.getElementById('theme-toggle');
+      const themeLight = document.getElementById('theme-light');
+      const themeDark = document.getElementById('theme-dark');
       const themeMeta = document.getElementById('theme-color');
 
       langToggle?.addEventListener('click', () => {
@@ -709,26 +814,32 @@
         root.lang = root.classList.contains('is-en') ? 'en' : 'ja';
       });
 
-      themeToggle?.addEventListener('click', () => {
-        const nextDark = !root.classList.contains('dark');
-
-        root.classList.toggle('dark', nextDark);
-        root.style.colorScheme = nextDark ? 'dark' : 'light';
+      const setTheme = (dark) => {
+        root.classList.toggle('dark', dark);
+        root.style.colorScheme = dark ? 'dark' : 'light';
 
         try {
           localStorage.setItem(
             'darkMode',
-            nextDark ? 'enabled' : 'disabled'
+            dark ? 'enabled' : 'disabled'
           );
         } catch (_) {}
 
         if (themeMeta) {
           themeMeta.setAttribute(
             'content',
-            nextDark ? '#000000' : '#f5f5f7'
+            dark ? '#000000' : '#f5f5f7'
           );
         }
-      });
+
+        themeLight?.setAttribute('aria-pressed', dark ? 'false' : 'true');
+        themeDark?.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      };
+
+      themeLight?.addEventListener('click', () => setTheme(false));
+      themeDark?.addEventListener('click', () => setTheme(true));
+
+      setTheme(root.classList.contains('dark'));
 
       root.lang = root.classList.contains('is-en') ? 'en' : 'ja';
     })();
