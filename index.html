@@ -6001,9 +6001,28 @@
           margin-bottom: 3.75rem;
         }
       }
-      html.post-motion-enabled #profile .profile-body,
-      html.post-motion-enabled #profile .profile-thesis-line {
-        visibility: hidden;
+      /*
+       * Profile reveal is self-contained here instead of relying on the
+       * deferred site bundle to restore `visibility`.  The old rule hid the
+       * thesis/body on desktop indefinitely whenever that bundle's reveal
+       * callback did not run.
+       */
+      html.post-motion-enabled #profile .profile-reveal {
+        visibility: visible !important;
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(5px);
+        transition:
+          opacity 760ms var(--kh-ease) var(--kh-profile-delay, 0ms),
+          transform 760ms var(--kh-ease) var(--kh-profile-delay, 0ms),
+          filter 760ms var(--kh-ease) var(--kh-profile-delay, 0ms);
+        will-change: opacity, transform, filter;
+      }
+      html.post-motion-enabled #profile .profile-reveal.kh-profile-visible {
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
       }
       #profile {
         padding-top: 0.25rem;
@@ -7626,6 +7645,59 @@
             </div>
           </div>
         </section>
+        <script>
+          (() => {
+            const root = document.documentElement;
+            const section = document.getElementById("profile");
+            if (!section) {
+              root.classList.remove("post-motion-enabled");
+              return;
+            }
+
+            const items = Array.from(section.querySelectorAll(".profile-reveal"));
+            let revealed = false;
+            const reveal = () => {
+              if (revealed) return;
+              revealed = true;
+              items.forEach((item, index) => {
+                item.style.setProperty("--kh-profile-delay", `${Math.min(index * 75, 375)}ms`);
+                item.classList.add("kh-profile-visible");
+              });
+            };
+
+            const reducedMotion =
+              window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reducedMotion || !("IntersectionObserver" in window)) {
+              reveal();
+              return;
+            }
+
+            const observer = new IntersectionObserver(
+              (entries) => {
+                if (!entries.some((entry) => entry.isIntersecting)) return;
+                observer.disconnect();
+                reveal();
+              },
+              { rootMargin: "0px 0px -10%", threshold: 0.08 },
+            );
+            observer.observe(section);
+
+            /* A defensive fallback prevents content from remaining hidden if
+               a browser extension or another script disrupts the observer. */
+            window.addEventListener(
+              "scroll",
+              () => {
+                if (revealed) return;
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+                  observer.disconnect();
+                  reveal();
+                }
+              },
+              { passive: true },
+            );
+          })();
+        </script>
         <section id="projects" class="cv-auto" aria-labelledby="projects-heading">
           <h2 id="projects-heading" class="apple-section-heading projects-reveal">
             <span class="lang-ja"> 主要プロジェクト・受賞歴 </span>
