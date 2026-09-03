@@ -4787,8 +4787,424 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
     </style>
 
+
+
+    <!-- ================= DESKTOP GLOBAL NAV — APPLE-LIKE ================= -->
+    <style id="kh-desktop-nav-layer">
+        .kh-desktop-global-nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            /* Desktop owns navigation; mobile keeps the existing menu untouched. */
+            #menu-toggle,
+            #site-menu {
+                display: none !important;
+            }
+
+            body.menu-open {
+                overflow: auto !important;
+            }
+
+            /* The original language/theme utility remains the mobile control. */
+            .site-shell > .theme-utility {
+                display: none !important;
+            }
+
+            .kh-desktop-global-nav {
+                position: fixed;
+                inset: 0 0 auto 0;
+                z-index: 1200;
+                display: block;
+                height: 48px;
+                color: #1d1d1f;
+                background: rgba(250, 250, 252, 0.78);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+                -webkit-backdrop-filter: saturate(180%) blur(20px);
+                backdrop-filter: saturate(180%) blur(20px);
+                transform: translateZ(0);
+            }
+
+            .kh-desktop-global-nav::after {
+                content: "";
+                position: absolute;
+                inset: auto 0 -1px 0;
+                height: 1px;
+                pointer-events: none;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(29, 29, 31, 0.035) 16%,
+                    rgba(29, 29, 31, 0.055) 50%,
+                    rgba(29, 29, 31, 0.035) 84%,
+                    transparent 100%
+                );
+            }
+
+            .kh-desktop-global-nav-inner {
+                width: min(calc(100% - 32px), 1120px);
+                height: 100%;
+                margin-inline: auto;
+                display: flex;
+                align-items: center;
+                gap: clamp(14px, 2vw, 26px);
+            }
+
+            .kh-desktop-brand {
+                flex: 0 0 92px;
+                color: #1d1d1f;
+                font-family:
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "SF Pro Text",
+                    "Helvetica Neue",
+                    "Hiragino Sans",
+                    "Hiragino Kaku Gothic ProN",
+                    "Noto Sans JP",
+                    sans-serif;
+                font-size: 12px;
+                line-height: 1;
+                font-weight: 610;
+                letter-spacing: -0.018em;
+                text-decoration: none;
+                white-space: nowrap;
+                opacity: 0.94;
+                transition: opacity 220ms ease, color 220ms ease;
+            }
+
+            .kh-desktop-brand:hover {
+                opacity: 0.62;
+            }
+
+            .kh-desktop-nav-links {
+                min-width: 0;
+                flex: 1 1 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: clamp(15px, 2vw, 28px);
+                height: 100%;
+            }
+
+            .kh-desktop-nav-link {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                height: 100%;
+                color: #8a8a8f;
+                font-family:
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "SF Pro Text",
+                    "Helvetica Neue",
+                    "Hiragino Sans",
+                    "Hiragino Kaku Gothic ProN",
+                    "Noto Sans JP",
+                    sans-serif;
+                font-size: 11.5px;
+                line-height: 1;
+                font-weight: 500;
+                letter-spacing: -0.012em;
+                text-decoration: none;
+                white-space: nowrap;
+                transition:
+                    color 240ms ease,
+                    opacity 240ms ease;
+            }
+
+            .kh-desktop-nav-link:hover {
+                color: #424245;
+            }
+
+            .kh-desktop-nav-link.is-active {
+                color: #1d1d1f;
+                font-weight: 590;
+            }
+
+            .kh-desktop-nav-link::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: 14px;
+                height: 1px;
+                border-radius: 999px;
+                background: currentColor;
+                opacity: 0;
+                transform: translateX(-50%) scaleX(0.45);
+                transform-origin: center;
+                transition:
+                    opacity 260ms ease,
+                    transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .kh-desktop-nav-link.is-active::after {
+                opacity: 0.22;
+                transform: translateX(-50%) scaleX(1);
+            }
+
+            .kh-desktop-nav-utility {
+                flex: 0 0 92px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 3px;
+                height: 100%;
+            }
+
+            .kh-desktop-language-toggle,
+            .kh-desktop-theme-option {
+                appearance: none;
+                -webkit-appearance: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border: 0;
+                background: transparent;
+                color: #86868b;
+                cursor: pointer;
+                outline: none;
+                transition:
+                    color 220ms ease,
+                    background-color 220ms ease,
+                    opacity 220ms ease,
+                    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .kh-desktop-language-toggle {
+                min-width: 28px;
+                height: 28px;
+                padding: 0 5px;
+                border-radius: 7px;
+                font-family:
+                    ui-monospace,
+                    SFMono-Regular,
+                    Menlo,
+                    Monaco,
+                    Consolas,
+                    monospace;
+                font-size: 9.5px;
+                line-height: 1;
+                font-weight: 650;
+                letter-spacing: 0.05em;
+            }
+
+            .kh-desktop-utility-divider {
+                width: 1px;
+                height: 14px;
+                margin: 0 2px;
+                background: rgba(29, 29, 31, 0.10);
+            }
+
+            .kh-desktop-theme-option {
+                width: 27px;
+                height: 27px;
+                border-radius: 7px;
+            }
+
+            .kh-desktop-theme-option svg {
+                width: 13px;
+                height: 13px;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 1.65;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .kh-desktop-language-toggle:hover,
+            .kh-desktop-theme-option:hover {
+                color: #1d1d1f;
+                background: rgba(118, 118, 128, 0.075);
+            }
+
+            .kh-desktop-theme-option[aria-pressed="true"] {
+                color: #1d1d1f;
+                background: rgba(118, 118, 128, 0.105);
+            }
+
+            .kh-desktop-language-toggle:active,
+            .kh-desktop-theme-option:active {
+                transform: scale(0.94);
+            }
+
+            .kh-desktop-brand:focus-visible,
+            .kh-desktop-nav-link:focus-visible,
+            .kh-desktop-language-toggle:focus-visible,
+            .kh-desktop-theme-option:focus-visible {
+                outline: 2px solid rgba(0, 102, 204, 0.38);
+                outline-offset: 2px;
+                border-radius: 7px;
+            }
+
+            #experience,
+            #profile,
+            #projects,
+            #development,
+            #contact-final {
+                scroll-margin-top: 72px;
+            }
+
+            html.dark-mode-on .kh-desktop-global-nav {
+                color: #f5f5f7;
+                background: rgba(15, 15, 16, 0.80);
+                border-bottom-color: rgba(255, 255, 255, 0.075);
+            }
+
+            html.dark-mode-on .kh-desktop-global-nav::after {
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.035) 16%,
+                    rgba(255, 255, 255, 0.07) 50%,
+                    rgba(255, 255, 255, 0.035) 84%,
+                    transparent 100%
+                );
+            }
+
+            html.dark-mode-on .kh-desktop-brand,
+            html.dark-mode-on .kh-desktop-nav-link.is-active,
+            html.dark-mode-on .kh-desktop-theme-option[aria-pressed="true"] {
+                color: #f5f5f7;
+            }
+
+            html.dark-mode-on .kh-desktop-nav-link,
+            html.dark-mode-on .kh-desktop-language-toggle,
+            html.dark-mode-on .kh-desktop-theme-option {
+                color: #8e8e93;
+            }
+
+            html.dark-mode-on .kh-desktop-nav-link:hover,
+            html.dark-mode-on .kh-desktop-language-toggle:hover,
+            html.dark-mode-on .kh-desktop-theme-option:hover {
+                color: #f5f5f7;
+            }
+
+            html.dark-mode-on .kh-desktop-language-toggle:hover,
+            html.dark-mode-on .kh-desktop-theme-option:hover,
+            html.dark-mode-on .kh-desktop-theme-option[aria-pressed="true"] {
+                background: rgba(255, 255, 255, 0.085);
+            }
+
+            html.dark-mode-on .kh-desktop-utility-divider {
+                background: rgba(255, 255, 255, 0.13);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 920px) {
+            .kh-desktop-global-nav-inner {
+                width: calc(100% - 24px);
+                gap: 10px;
+            }
+
+            .kh-desktop-brand {
+                flex-basis: 78px;
+                font-size: 11px;
+            }
+
+            .kh-desktop-nav-links {
+                gap: clamp(10px, 1.55vw, 15px);
+            }
+
+            .kh-desktop-nav-link {
+                font-size: 10.5px;
+            }
+
+            .kh-desktop-nav-utility {
+                flex-basis: 84px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .kh-desktop-global-nav *,
+            .kh-desktop-global-nav *::before,
+            .kh-desktop-global-nav *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+
 </head>
 <body class="antialiased">
+
+    <!-- ================= DESKTOP GLOBAL NAV ================= -->
+    <nav class="kh-desktop-global-nav" aria-label="Primary navigation / メインナビゲーション">
+        <div class="kh-desktop-global-nav-inner">
+            <a class="kh-desktop-brand js-desktop-home" href="#home" aria-label="Ken Harima — Home">
+                Ken Harima
+            </a>
+
+            <div class="kh-desktop-nav-links">
+                <a class="kh-desktop-nav-link" href="#experience" data-section="experience">
+                    <span class="lang-ja">経歴</span>
+                    <span class="lang-en">Experience</span>
+                </a>
+
+                <a class="kh-desktop-nav-link" href="#profile" data-section="profile">
+                    <span class="lang-ja">プロフィール</span>
+                    <span class="lang-en">Profile</span>
+                </a>
+
+                <a class="kh-desktop-nav-link" href="#projects" data-section="projects">
+                    <span class="lang-ja">実績・受賞</span>
+                    <span class="lang-en">Projects &amp; Awards</span>
+                </a>
+
+                <a class="kh-desktop-nav-link" href="#development" data-section="development">
+                    <span class="lang-ja">スキル</span>
+                    <span class="lang-en">Development</span>
+                </a>
+
+                <a class="kh-desktop-nav-link" href="#contact-final" data-section="contact-final">
+                    <span class="lang-ja">お問い合わせ</span>
+                    <span class="lang-en">Contact</span>
+                </a>
+            </div>
+
+            <div class="kh-desktop-nav-utility" role="group" aria-label="言語と表示モード / Language and appearance">
+                <button
+                    type="button"
+                    id="desktopLangToggle"
+                    class="kh-desktop-language-toggle"
+                    aria-label="英語に切り替える / Switch to English"
+                    title="Language"
+                >
+                    <span class="lang-ja">EN</span>
+                    <span class="lang-en">JP</span>
+                </button>
+
+                <span class="kh-desktop-utility-divider" aria-hidden="true"></span>
+
+                <button
+                    type="button"
+                    id="desktopThemeLight"
+                    class="kh-desktop-theme-option"
+                    aria-label="ライトモード / Light mode"
+                    aria-pressed="false"
+                    title="Light"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"></path>
+                    </svg>
+                </button>
+
+                <button
+                    type="button"
+                    id="desktopThemeDark"
+                    class="kh-desktop-theme-option"
+                    aria-label="ダークモード / Dark mode"
+                    aria-pressed="false"
+                    title="Dark"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.3 15.2A8.3 8.3 0 0 1 8.8 3.7 8.7 8.7 0 1 0 20.3 15.2Z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
     <!-- ================= EDITORIAL INDEX TOGGLE ================= -->
     <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
         <span class="menu-icon" aria-hidden="true">
@@ -16036,6 +16452,238 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 );
             } else {
                 setupHeroScrollCue();
+            }
+        })();
+    </script>
+
+
+
+    <!-- ================= DESKTOP GLOBAL NAV LOGIC ================= -->
+    <script>
+        (() => {
+            'use strict';
+
+            const setupDesktopGlobalNav = () => {
+                const root = document.documentElement;
+                const desktopMedia = window.matchMedia('(min-width: 768px)');
+                const nav = document.querySelector('.kh-desktop-global-nav');
+                const homeLink = document.querySelector('.js-desktop-home');
+                const links = Array.from(document.querySelectorAll('.kh-desktop-nav-link'));
+                const desktopLang = document.getElementById('desktopLangToggle');
+                const desktopLight = document.getElementById('desktopThemeLight');
+                const desktopDark = document.getElementById('desktopThemeDark');
+
+                const mobileMenuToggle = document.getElementById('menu-toggle');
+                const mobileMenu = document.getElementById('site-menu');
+                const sourceLang = document.getElementById('themeLangToggle');
+                const sourceLight = document.getElementById('themeLight');
+                const sourceDark = document.getElementById('themeDark');
+
+                if (!nav || !links.length) return;
+
+                const navOffset = () => 64;
+
+                const scrollToTarget = (target) => {
+                    if (!target) return;
+
+                    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+                        window.lenis.scrollTo(target, {
+                            offset: -navOffset(),
+                            duration: 1.05
+                        });
+                        return;
+                    }
+
+                    const y = target.getBoundingClientRect().top + window.scrollY - navOffset();
+                    window.scrollTo({
+                        top: Math.max(0, y),
+                        behavior: 'smooth'
+                    });
+                };
+
+                const handleAnchorClick = (event) => {
+                    if (!desktopMedia.matches) return;
+
+                    const href = event.currentTarget.getAttribute('href');
+                    if (!href || !href.startsWith('#')) return;
+
+                    const target = document.querySelector(href);
+                    if (!target) return;
+
+                    event.preventDefault();
+                    scrollToTarget(target);
+
+                    try {
+                        history.replaceState(null, '', href);
+                    } catch (_) {}
+                };
+
+                homeLink?.addEventListener('click', handleAnchorClick);
+                links.forEach(link => link.addEventListener('click', handleAnchorClick));
+
+                const sections = links
+                    .map(link => ({
+                        id: link.dataset.section,
+                        link,
+                        element: document.getElementById(link.dataset.section)
+                    }))
+                    .filter(item => item.element);
+
+                let ticking = false;
+
+                const updateActiveSection = () => {
+                    ticking = false;
+
+                    if (!desktopMedia.matches) {
+                        links.forEach(link => {
+                            link.classList.remove('is-active');
+                            link.removeAttribute('aria-current');
+                        });
+                        return;
+                    }
+
+                    const firstSection = sections[0]?.element;
+                    const probe = window.scrollY + 48 + Math.min(window.innerHeight * 0.24, 190);
+                    let activeId = null;
+
+                    if (firstSection && probe >= firstSection.offsetTop) {
+                        for (const section of sections) {
+                            if (probe >= section.element.offsetTop) {
+                                activeId = section.id;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+
+                    const nearPageEnd = (
+                        window.innerHeight + window.scrollY >=
+                        document.documentElement.scrollHeight - 32
+                    );
+
+                    if (nearPageEnd && sections.length) {
+                        activeId = sections[sections.length - 1].id;
+                    }
+
+                    sections.forEach(section => {
+                        const isActive = section.id === activeId;
+                        section.link.classList.toggle('is-active', isActive);
+                        if (isActive) {
+                            section.link.setAttribute('aria-current', 'location');
+                        } else {
+                            section.link.removeAttribute('aria-current');
+                        }
+                    });
+                };
+
+                const requestActiveUpdate = () => {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(updateActiveSection);
+                };
+
+                window.addEventListener('scroll', requestActiveUpdate, { passive: true });
+                window.addEventListener('resize', requestActiveUpdate, { passive: true });
+                window.addEventListener('load', requestActiveUpdate, { once: true });
+
+                const syncLanguageControl = () => {
+                    const isEnglish = root.classList.contains('is-global');
+                    desktopLang?.setAttribute(
+                        'aria-label',
+                        isEnglish
+                            ? '日本語に切り替える / Switch to Japanese'
+                            : '英語に切り替える / Switch to English'
+                    );
+                };
+
+                const syncThemeControls = () => {
+                    if (desktopLight && sourceLight) {
+                        desktopLight.setAttribute(
+                            'aria-pressed',
+                            sourceLight.getAttribute('aria-pressed') || 'false'
+                        );
+                    }
+
+                    if (desktopDark && sourceDark) {
+                        desktopDark.setAttribute(
+                            'aria-pressed',
+                            sourceDark.getAttribute('aria-pressed') || 'false'
+                        );
+                    }
+                };
+
+                desktopLang?.addEventListener('click', () => {
+                    sourceLang?.click();
+                    requestAnimationFrame(syncLanguageControl);
+                });
+
+                desktopLight?.addEventListener('click', () => {
+                    sourceLight?.click();
+                    requestAnimationFrame(syncThemeControls);
+                });
+
+                desktopDark?.addEventListener('click', () => {
+                    sourceDark?.click();
+                    requestAnimationFrame(syncThemeControls);
+                });
+
+                if (sourceLight && sourceDark) {
+                    const themeObserver = new MutationObserver(syncThemeControls);
+                    themeObserver.observe(sourceLight, {
+                        attributes: true,
+                        attributeFilter: ['aria-pressed']
+                    });
+                    themeObserver.observe(sourceDark, {
+                        attributes: true,
+                        attributeFilter: ['aria-pressed']
+                    });
+                }
+
+                const rootObserver = new MutationObserver(() => {
+                    syncLanguageControl();
+                    syncThemeControls();
+                    requestActiveUpdate();
+                });
+
+                rootObserver.observe(root, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+
+                const normalizeResponsiveMenuState = () => {
+                    if (!desktopMedia.matches) return;
+
+                    if (document.body.classList.contains('menu-open')) {
+                        document.body.classList.remove('menu-open');
+                    }
+
+                    mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+                    mobileMenuToggle?.setAttribute('aria-label', 'Open menu');
+                    mobileMenu?.setAttribute('aria-hidden', 'true');
+
+                    if (window.lenis && typeof window.lenis.start === 'function') {
+                        window.lenis.start();
+                    }
+
+                    requestActiveUpdate();
+                };
+
+                if (typeof desktopMedia.addEventListener === 'function') {
+                    desktopMedia.addEventListener('change', normalizeResponsiveMenuState);
+                } else if (typeof desktopMedia.addListener === 'function') {
+                    desktopMedia.addListener(normalizeResponsiveMenuState);
+                }
+
+                syncLanguageControl();
+                syncThemeControls();
+                normalizeResponsiveMenuState();
+                requestActiveUpdate();
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupDesktopGlobalNav, { once: true });
+            } else {
+                setupDesktopGlobalNav();
             }
         })();
     </script>
