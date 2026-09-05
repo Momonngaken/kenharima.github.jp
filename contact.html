@@ -118,6 +118,7 @@
             min-height: 100%;
             background: var(--bg);
             scroll-behavior: smooth;
+            overscroll-behavior-y: none;
             -webkit-text-size-adjust: 100%;
             font-family:
                 -apple-system,
@@ -134,8 +135,10 @@
         body {
             width: 100%;
             min-height: 100vh;
+            min-height: 100dvh;
             margin: 0;
             overflow-x: hidden;
+            overscroll-behavior-y: none;
             color: var(--text);
             background:
                 radial-gradient(
@@ -625,6 +628,7 @@
         .page {
             width: min(100%, 1180px);
             min-height: 100vh;
+            min-height: 100dvh;
             margin: 0 auto;
             padding: max(22px, env(safe-area-inset-top)) clamp(22px, 5vw, 58px) 28px;
             display: flex;
@@ -1093,7 +1097,7 @@
                 padding:
                     max(18px, env(safe-area-inset-top))
                     20px
-                    max(24px, env(safe-area-inset-bottom));
+                    env(safe-area-inset-bottom);
             }
 
             main {
@@ -1233,6 +1237,7 @@
                 align-items: flex-start;
                 flex-direction: column;
                 gap: 8px;
+                margin-bottom: 0;
             }
         }
 
@@ -1553,21 +1558,6 @@
                             </span>
                             <span aria-hidden="true">↗</span>
                         </a>
-
-                        <a
-                            class="topic-link"
-                            data-mail-topic
-                            data-subject-ja="執筆・作品についてのご相談"
-                            data-subject-en="Writing and publication inquiry"
-                            href="mailto:hello.kenharima@outlook.com"
-                        >
-                            <span>
-                                <span class="lang-ja">執筆・作品について</span>
-                                <span class="lang-en">Writing &amp; publications</span>
-                            </span>
-                            <span aria-hidden="true">↗</span>
-                        </a>
-                    </div>
 
                     <div class="secondary-links">
                         <a
