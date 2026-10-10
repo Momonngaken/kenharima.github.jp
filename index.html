@@ -57,8 +57,8 @@
     <link
         rel="preload"
         as="image"
-        href="./new-profile-business-2026.png"
-        type="image/png"
+        href="./ken-harima-casual-2026.jpg"
+        type="image/jpeg"
         fetchpriority="high"
     >
 
@@ -218,8 +218,7 @@
         cubic-bezier(0.16, 1, 0.3, 1)
         forwards;
 
-    will-change:
-        transform;
+    will-change: auto;
 }
 
 
@@ -236,8 +235,7 @@ header h1 {
         cubic-bezier(0.16, 1, 0.3, 1)
         forwards;
 
-    will-change:
-        transform;
+    will-change: auto;
 }
 
 
@@ -271,15 +269,14 @@ header .mt-6 {
         cubic-bezier(0.16, 1, 0.3, 1)
         forwards;
 
-    will-change:
-        transform;
+    will-change: auto;
 }
 
         #nav-container {
             opacity: 0;
             transform: translateY(-20px);
             animation: cinematicRevealNav 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-            will-change: opacity, transform;
+            will-change: auto;
         }
         /* ▼▼▼ 修正版：FOUT（黒い正方形）とコンテナ崩れの完全隠蔽 ▼▼▼ */
         /* 1. スマホ特有の黒いタップハイライトを完全に無効化 */
@@ -342,7 +339,7 @@ header .mt-6 {
                 360ms
                 cubic-bezier(0.16, 1, 0.3, 1)
                 both;
-            will-change: opacity, transform;
+            will-change: auto;
         }
 
         @keyframes langRevealCinematic {
@@ -458,7 +455,7 @@ header .mt-6 {
         /* ↓↓↓ここから下のCSSを貼り付ける↓↓↓ */
         /* ================= APPLE-LIKE FULLSCREEN MENU ================= */
         #menu-toggle {
-            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; align-items: center; justify-content: center; height: 3rem; padding: 0 1.25rem; border-radius: 9999px; background-color: rgba(255, 255, 255, 0.72); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255, 255, 255, 1); color: #1d1d1f; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, background-color;
+            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; align-items: center; justify-content: center; height: 3rem; padding: 0 1.25rem; border-radius: 9999px; background-color: rgba(255, 255, 255, 0.72); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255, 255, 255, 1); color: #1d1d1f; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: auto;
         }
         @media (max-width: 768px) { #menu-toggle { top: 1.25rem; right: 1.25rem; padding: 0 1rem; height: 2.75rem; } }
         #menu-toggle:hover { background-color: rgba(255, 255, 255, 0.95); transform: scale(1.03); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 1); }
@@ -507,7 +504,7 @@ header .mt-6 {
             -webkit-text-fill-color: transparent;
             /* Apple特有の「スッ」と入るイージング */
             transition: background-position 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: background-position;
+            will-change: auto;
         }
         /* スクロールして画面に入り .active が付いた瞬間に文字色が左から右へ染まる */
         .apple-text-wipe.active {
@@ -598,7 +595,7 @@ header .mt-6 {
                         background-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
                         border-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
                         box-shadow 450ms cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity, background-color, color, border-color, box-shadow;
+            will-change: auto;
         }
 
         .hero-social-link i {
@@ -715,6 +712,7 @@ header .mt-6 {
             var lang = navigator.language || navigator.userLanguage; 
             if (!lang.startsWith('ja')) {
                 document.documentElement.classList.add('is-global');
+                document.documentElement.lang = 'en';
             }
         })();
     </script>
@@ -751,7 +749,7 @@ header .mt-6 {
           "name": "Ken Harima",
           "alternateName": ["播磨 賢", "Harima Ken", "Ken HARIMA"],
           "url": "https://kenharima.com/",
-          "image": "https://kenharima.com/new-profile-business-2026.png",
+          "image": "https://kenharima.com/ken-harima-casual-2026.jpg",
           "alumniOf": [
             {
               "@type": "CollegeOrUniversity",
@@ -917,7 +915,7 @@ header .mt-6 {
                 transform 420ms var(--kh-ease),
                 letter-spacing 420ms var(--kh-ease),
                 color 320ms var(--kh-ease);
-            will-change: opacity, filter, transform;
+            will-change: auto;
         }
 
         .hero-motto-fr {
@@ -2123,7 +2121,7 @@ header .mt-6 {
                 transition:
                     opacity var(--kh-mobile-duration, 760ms) cubic-bezier(0.16, 1, 0.3, 1) var(--kh-mobile-delay, 0ms),
                     transform var(--kh-mobile-duration, 760ms) cubic-bezier(0.16, 1, 0.3, 1) var(--kh-mobile-delay, 0ms);
-                will-change: opacity, transform;
+                will-change: auto;
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
             }
@@ -2145,7 +2143,7 @@ header .mt-6 {
                 visibility: visible !important;
                 transform: scaleY(var(--kh-exp-progress, 0));
                 transform-origin: top center;
-                will-change: transform;
+                will-change: auto;
             }
 
             html.kh-native-mobile-motion #experience .exp-dot {
@@ -5124,6 +5122,230 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         }
     </style>
 
+
+    <!-- Design A: personal portrait in Hero, professional portrait in Experience.
+         Keep this final head layer together for future maintenance. -->
+    <style id="kh-dual-portrait-design-a">
+        #home.hero-editorial {
+            grid-template-columns: minmax(248px, .86fr) minmax(0, 1.4fr);
+            column-gap: clamp(40px, 5.2vw, 70px);
+            min-height: auto;
+            padding-top: clamp(64px, 8vw, 104px);
+            padding-bottom: clamp(52px, 6vw, 80px);
+            margin-bottom: clamp(72px, 8vw, 108px);
+        }
+        #home .hero-visual {
+            justify-content: flex-start;
+            transform: none;
+        }
+        #home .hero-portrait-stage {
+            width: min(100%, 308px);
+            aspect-ratio: 4 / 5;
+            transform-style: flat;
+        }
+        #hero-portrait-container {
+            animation: none;
+            transform: none;
+            will-change: auto;
+        }
+        #home #hero-photo.hero-photo-frame {
+            border: 0 !important;
+            border-radius: 26px;
+            background: #626265 !important;
+            box-shadow: 0 16px 42px -18px rgba(0, 0, 0, .23);
+        }
+        #home #hero-photo.hero-photo-frame::after {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+        }
+        #home #hero-photo .hero-portrait--casual {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
+            object-position: center;
+            border-radius: inherit;
+            transform: none;
+            filter: none;
+            opacity: 1;
+        }
+        #home .hero-name {
+            font-size: clamp(54px, 6.2vw, 76px);
+            line-height: 1.06;
+            letter-spacing: -.055em !important;
+        }
+        #home .hero-thesis {
+            margin-top: 28px;
+            font-size: clamp(24px, 2.7vw, 32px);
+            line-height: 1.35;
+            color: var(--kh-secondary);
+        }
+        #home .hero-disciplines {
+            margin-top: 38px;
+            border-color: rgba(29, 29, 31, .1);
+        }
+        #home .hero-disciplines-head {
+            color: var(--kh-secondary);
+            font-size: 11px;
+        }
+        #home .hero-discipline { color: var(--kh-secondary); }
+        #home .hero-actions { margin-top: 30px; gap: 20px; }
+        #home .hero-action-primary {
+            min-height: 44px;
+            padding-inline: 20px;
+            background: #0071e3;
+            border: 1px solid transparent;
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        #home .hero-action-primary-icon { color: inherit; font-size: 12px; }
+        #home .hero-action-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            color: var(--kh-blue);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        #home .hero-reveal {
+            opacity: 1;
+            filter: none;
+            transform: none;
+            animation: none;
+            will-change: auto;
+        }
+        #experience .experience-intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            margin-bottom: clamp(44px, 5vw, 60px);
+        }
+        #experience .experience-intro .exp-heading {
+            min-width: 0;
+            margin: 0;
+            line-height: 1.15;
+        }
+        #experience .career-identity {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            gap: 15px;
+            min-height: 72px;
+            text-decoration: none;
+            border-radius: 18px;
+        }
+        #experience .career-portrait {
+            display: block;
+            flex: 0 0 68px;
+            width: 68px;
+            height: 68px;
+            aspect-ratio: 1;
+            object-fit: cover;
+            object-position: center 44%;
+            border-radius: 17px;
+            background: #12233a;
+        }
+        #experience .career-identity-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-right: 2px;
+        }
+        #experience .career-identity-name {
+            color: var(--kh-text);
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -.015em;
+        }
+        #experience .career-identity-link {
+            color: var(--kh-blue);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        #home .hero-action:focus-visible,
+        #experience .career-identity:focus-visible {
+            outline: 3px solid #0071e3;
+            outline-offset: 5px;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            #home .hero-action-primary:hover {
+                background: #0077ed;
+                color: #fff;
+                border-color: transparent;
+                transform: none;
+            }
+            #home .hero-action-secondary:hover,
+            #experience .career-identity:hover .career-identity-link {
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+        }
+        html.dark-mode-on #home #hero-photo.hero-photo-frame {
+            box-shadow: 0 16px 42px -18px rgba(0, 0, 0, .55);
+        }
+        html.dark-mode-on #home .hero-disciplines {
+            border-color: rgba(255, 255, 255, .12);
+        }
+        html.dark-mode-on #home .hero-action-secondary,
+        html.dark-mode-on #experience .career-identity-link { color: #65b3ff; }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            #home.hero-editorial {
+                grid-template-columns: minmax(210px, .8fr) minmax(0, 1.4fr);
+                column-gap: 36px;
+            }
+            #home .hero-name { font-size: 54px; }
+            #home .hero-thesis { font-size: 25px; }
+            #home .hero-disciplines { margin-top: 28px; }
+            #experience .experience-intro { gap: 20px; }
+        }
+        @media (max-width: 767px) {
+            #home.hero-editorial {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-areas: "visual" "copy";
+                gap: 32px;
+                padding-top: 42px;
+                padding-bottom: 40px;
+                margin-bottom: 60px;
+            }
+            #home .hero-visual { justify-content: center; }
+            #home .hero-portrait-stage { width: clamp(190px, 53vw, 226px); }
+            #home #hero-photo.hero-photo-frame { border-radius: 22px; }
+            #home .hero-name { font-size: clamp(44px, 12vw, 58px); }
+            #home .hero-thesis { margin-top: 22px; font-size: 25px; line-height: 1.3; }
+            #home .hero-thesis-en { white-space: normal; }
+            #home .hero-disciplines { margin-top: 30px; }
+            #home .hero-actions {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                margin-top: 28px;
+            }
+            #experience .experience-intro {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+                margin-bottom: 36px;
+            }
+            #experience .career-identity { min-height: 56px; gap: 12px; }
+            #experience .career-portrait {
+                flex-basis: 56px;
+                width: 56px;
+                height: 56px;
+                border-radius: 14px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #home .hero-action,
+            #experience .career-identity { transition: none !important; }
+        }
+    </style>
 </head>
 <body class="antialiased">
 
@@ -5215,7 +5437,7 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
     </button>
 
     <!-- ================= GLOBAL MENU ================= -->
-    <div id="site-menu" aria-hidden="true" data-lenis-prevent>
+    <div id="site-menu" inert aria-hidden="true" data-lenis-prevent>
         <div class="menu-inner">
             <div class="menu-masthead">
                 <p class="menu-brand">Ken Harima</p>
@@ -5325,22 +5547,17 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         <header id="home" class="hero-editorial" aria-labelledby="hero-name">
             <div class="hero-visual">
                 <div id="hero-portrait-container" class="hero-portrait-stage">
-                    <div id="hero-aura" class="hero-aura" aria-hidden="true">
-                        <div class="hero-aura-layer hero-aura-layer--business"></div>
-                    </div>
-
                     <div id="hero-photo" class="hero-photo-frame">
                         <img
-                            src="./new-profile-business-2026.png"
-                            width="512"
-                            height="512"
-                            alt="播磨 賢 / Ken Harima"
+                            src="./ken-harima-casual-2026.jpg"
+                            width="1122"
+                            height="1402"
+                            alt="眼鏡とネイビーのTシャツ姿の播磨 賢 / Ken Harima wearing glasses and a navy T-shirt"
                             loading="eager"
                             fetchpriority="high"
                             decoding="async"
-                            class="hero-portrait hero-portrait--business"
+                            class="hero-portrait hero-portrait--casual"
                         >
-                        <span class="hero-portrait-glass" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>
@@ -5391,21 +5608,16 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                         <span class="lang-en">Get in touch</span>
                         <span class="hero-action-primary-icon" aria-hidden="true">&#x2197;&#xFE0E;</span>
                     </a>
+                    <a href="#experience" class="hero-action hero-action-secondary">
+                        <span class="lang-ja">経歴を見る</span>
+                        <span class="lang-en">Explore experience</span>
+                        <span aria-hidden="true">↓</span>
+                    </a>
 
                 </div>
             </div>
 
-            <a
-                id="hero-scroll-cue"
-                class="hero-scroll-cue"
-                href="#experience"
-                aria-label="経歴までスクロール / Scroll to Experience"
-            >
-                <span class="hero-scroll-label" aria-hidden="true">SCROLL</span>
-                <span class="hero-scroll-rail" aria-hidden="true">
-                    <span class="hero-scroll-dot"></span>
-                </span>
-            </a>
+
 
         </header>
 
@@ -6378,7 +6590,8 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
 
                 <!-- ================= HEADING ================= -->
 
-                <h2
+                <div class="experience-intro">
+                    <h2
                     id="experience-heading"
                     class="exp-heading"
                 >
@@ -6388,6 +6601,16 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                         Experience &amp; Education
                     </span>
                 </h2>
+                    <a class="career-identity" href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer">
+                        <img src="./new-profile-business-2026.png" width="512" height="512"
+                             alt="スーツ姿の播磨 賢 / Ken Harima in a suit"
+                             loading="lazy" decoding="async" class="career-portrait">
+                        <span class="career-identity-copy">
+                            <span class="career-identity-name">Ken Harima</span>
+                            <span class="career-identity-link">LinkedIn <span aria-hidden="true">↗</span></span>
+                        </span>
+                    </a>
+                </div>
 
 
                 <!-- ================= TIMELINE ================= -->
@@ -8274,12 +8497,9 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                  ========================================================= -->
 
             <script>
-                if (
-                    !window.matchMedia ||
-                    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-                ) {
-                    document.documentElement.classList.add('post-motion-enabled');
-                }
+                // Content is visible while the optional desktop engine loads.
+                // GSAP owns reveal state only after successful initialization.
+                document.documentElement.classList.remove('post-motion-enabled');
             </script>
 
 
@@ -14216,6 +14436,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                     trigger.addEventListener(
                                         'keydown',
                                         event => {
+                                            if (event.target !== trigger) return;
 
                                             if (
                                                 event.key === 'Enter' ||
@@ -14279,24 +14500,10 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                             typeof window.ScrollTrigger === 'undefined'
                         ) {
 
-                            if (attempt < 50) {
-
-                                window.setTimeout(
-                                    () => {
-                                        setupPostSectionsReveal(
-                                            attempt + 1
-                                        );
-                                    },
-                                    100
-                                );
-
-                            } else {
-
-                                document.documentElement.classList.remove(
-                                    'post-motion-enabled'
-                                );
-
-                            }
+                            window.addEventListener('kh:motion-ready', () => setupPostSectionsReveal(), { once: true });
+                            window.setTimeout(() => {
+                                if (!window.gsap || !window.ScrollTrigger) document.documentElement.classList.remove('post-motion-enabled');
+                            }, 5000);
 
                             return;
                         }
@@ -15137,6 +15344,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                     trigger.addEventListener(
                                         'keydown',
                                         event => {
+                                            if (event.target !== trigger) return;
 
                                             if (
                                                 event.key === 'Enter' ||
@@ -15259,13 +15467,13 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
     </div>
 
     <!-- 変更: Tailwindの hidden クラスを削除し、Critical CSSの display:none に依存させる -->
-    <div id="global-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6" aria-hidden="true">
+    <div id="global-modal" inert class="fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6" aria-hidden="true">
         
         <!-- 1. Blur Backdrop -->
         <div id="modal-bg" class="fixed inset-0 modal-backdrop opacity-0 transition-opacity duration-500 cursor-pointer"></div>
 
         <!-- 2. Modal Card -->
-        <div id="modal-panel" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu will-change-transform">            
+        <div id="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-header-content" tabindex="-1" class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden opacity-0 scale-95 flex flex-col max-h-[85vh] md:max-h-[80vh] border border-white/50 ring-1 ring-black/5 outline-none overscroll-contain transform-gpu">            
             <div id="modal-progress-bar" class="reading-progress-bar"></div>
 
             <div class="h-1.5 w-full bg-gray-100 shrink-0 z-30 opacity-50"></div>
@@ -15275,7 +15483,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                 <div class="pr-8" id="modal-header-content">
                     <!-- JS Injects Title Here -->
                 </div>
-                <button id="modal-close-btn" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 shrink-0 outline-none border border-transparent">
+                <button id="modal-close-btn" type="button" aria-label="閉じる / Close dialog" class="group relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 shrink-0 outline-none border border-transparent">
                     <span class="text-[22px] leading-none" aria-hidden="true">×</span>
                 </button>
             </div>
@@ -15297,6 +15505,140 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
             </div>
         </div>
     </div>
+
+    <style id="kh-final-refinement">
+/* Final refinement layer. Existing editorial layout and all assets are retained.
+   !important is limited to overrides of legacy important declarations and
+   accessibility guarantees; normal rules remain governed by the cascade. */
+:root {
+    --kh-motion-fast: 180ms;
+    --kh-motion-panel: 240ms;
+    --kh-section-space: clamp(80px, 9vw, 120px);
+    --kh-focus: #0066cc;
+}
+html.dark-mode-on { --kh-focus: #65b3ff; }
+html { scroll-padding-top: 72px; }
+body::before { background: none !important; }
+:is(a, button, [role="button"], [tabindex]):focus-visible {
+    outline: 3px solid var(--kh-focus) !important;
+    outline-offset: 4px !important;
+}
+#home #hero-photo.hero-photo-frame {
+    box-shadow: 0 8px 24px -12px rgba(0,0,0,.22);
+}
+html.dark-mode-on #home #hero-photo.hero-photo-frame {
+    box-shadow: 0 8px 24px -12px rgba(0,0,0,.45);
+}
+#home .hero-name { animation: none; transform: none; will-change: auto; }
+html:not(.is-global) #home .hero-name,
+html:not(.is-global) :is(h1, h2, h3),
+html:not(.is-global) #experience .exp-heading,
+html:not(.is-global) #development .pd-heading,
+html:not(.is-global) #projects .projects-heading,
+html:not(.is-global) #projects .apple-section-heading,
+html:not(.is-global) #profile .profile-heading,
+html:not(.is-global) #contact-final .contact-title,
+html:not(.is-global) #site-menu .menu-item,
+html:not(.is-global) #site-menu .menu-item .lang-ja {
+    letter-spacing: 0 !important;
+}
+html:not(.is-global) #home .hero-thesis { letter-spacing: .015em; line-height: 1.4; }
+html:not(.is-global) #contact-final .contact-title { line-height: 1.18; }
+html:not(.is-global) #profile .profile-thesis { letter-spacing: 0; line-height: 1.4; }
+#modal-content { text-align: start; letter-spacing: .01em; overflow-wrap: anywhere; }
+#profile .profile-body { overflow-wrap: anywhere; }
+.site-main > section + section { margin-top: var(--kh-section-space); }
+#profile { margin-top: var(--kh-section-space) !important; }
+#contact-final { margin-top: var(--kh-section-space); }
+#site-menu .menu-inner { transition-duration: var(--kh-motion-panel); }
+#site-menu .menu-item { transition-duration: var(--kh-motion-fast) !important; }
+#site-menu .index-language button { min-width: 44px; min-height: 44px; }
+#menu-toggle { width: 44px !important; height: 44px !important; min-width: 44px !important; }
+#site-menu .menu-item { min-height: 44px !important; }
+.theme-toggle-switch { height: 48px; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.theme-toggle-switch :is(.theme-option, .theme-language-toggle) { min-width: 44px; width: 44px; height: 44px; }
+.kh-desktop-nav-utility { flex-basis: 140px; }
+.kh-desktop-nav-utility button { min-width: 40px; min-height: 44px; }
+.kh-desktop-global-nav .kh-desktop-nav-link { color: var(--kh-theme-secondary); }
+.theme-language-toggle, .theme-option { color: var(--kh-theme-secondary); }
+#contact-final .contact-action { min-height: 44px; }
+#contact-final .contact-copy { color: var(--kh-theme-secondary); }
+#experience .exp-action, #projects .project-action, #development .pd-program-link {
+    color: #0066cc !important;
+}
+#experience .exp-item:hover .exp-action,
+#development .pd-program:hover .pd-program-link,
+#experience .exp-item:focus-visible .exp-action,
+#development .pd-program:focus-visible .pd-program-link { color: #0066cc !important; }
+html.dark-mode-on #experience .exp-item:hover .exp-action,
+html.dark-mode-on #experience .exp-item:focus-visible .exp-action,
+html.dark-mode-on #development .pd-program:hover .pd-program-link,
+html.dark-mode-on #development .pd-program:focus-visible .pd-program-link,
+html.dark-mode-on #experience .exp-action,
+html.dark-mode-on #projects .project-action,
+html.dark-mode-on #development .pd-program-link,
+#projects :is(.project-card-dark, .project-card-midnight) .project-action {
+    color: #65b3ff !important;
+}
+#projects .project-card:hover .project-action { color: #0066cc !important; }
+html.dark-mode-on #projects .project-card:hover .project-action,
+#projects :is(.project-card-dark, .project-card-midnight):hover .project-action { color: #65b3ff !important; }
+#projects :is(.project-card-dark, .project-card-midnight) :is(.project-date, .project-evidence-caption) {
+    color: #a1a1a6 !important;
+}
+#projects .project-card { transition-duration: var(--kh-motion-panel); }
+#projects .project-card::before { transition-duration: var(--kh-motion-panel); }
+#projects :is(.project-ariyoshi, .project-essay) { box-shadow: inset 0 0 0 1px rgba(255,255,255,.08) !important; }
+#global-modal { z-index: 1500; }
+#global-modal #modal-panel { max-height: 85vh; max-height: 85dvh; transition-duration: var(--kh-motion-panel) !important; }
+#global-modal #modal-bg { transition-duration: var(--kh-motion-panel) !important; }
+#modal-close-btn { min-width: 44px; min-height: 44px; color: var(--kh-theme-secondary); }
+#modal-scroll-hint { pointer-events: none !important; }
+html.kh-native-mobile-motion .kh-mobile-reveal.kh-inview { will-change: auto; }
+.hero-motto-layer { will-change: auto; transition: opacity 180ms ease, transform 240ms var(--kh-ease); }
+/* Keyboard activation shares the existing touch translation state. */
+.hero-motto-trigger.is-translated .hero-motto-fr { opacity: 0; transform: translateY(-2px); }
+.hero-motto-trigger.is-translated .hero-motto-local { opacity: 1; filter: none; transform: none; }
+@media (max-width: 767px) {
+    #menu-toggle { top: 16px !important; right: 16px !important; }
+    #home.hero-editorial { gap: 28px; padding-top: 32px; margin-bottom: 64px; }
+    #home .hero-actions { flex-wrap: wrap; gap: 8px 16px; }
+    #home .hero-portrait-stage { width: clamp(184px, 51vw, 216px); }
+    .theme-toggle-switch { height: 48px; }
+    .hero-motto-layer { white-space: normal; line-height: 1.7; overflow-wrap: anywhere; }
+    #projects .poker-sample-note { font-size: 12px; line-height: 1.7; }
+    #projects .poker-stat-definition { font-size: 11px; }
+}
+/* Intermediate tablet widths must fit both navigation languages. */
+@media (min-width: 768px) and (max-width: 1000px) {
+    .kh-desktop-global-nav-inner { gap: 10px; }
+    .kh-desktop-nav-links { gap: 12px; }
+    .kh-desktop-brand { flex-basis: auto; }
+    .kh-desktop-nav-utility { flex-basis: auto; }
+    .kh-desktop-nav-utility button { min-width: 28px; }
+}
+@media (max-width: 359px) {
+    #home .hero-name { font-size: 42px; }
+    .contact-title-line { white-space: normal !important; }
+    #projects .project-evidence-number { white-space: normal; flex-wrap: wrap; line-height: 1.1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0ms !important;
+        scroll-behavior: auto !important;
+    }
+    .fade-in, .kh-mobile-reveal, #profile .profile-reveal {
+        opacity: 1 !important; transform: none !important; filter: none !important;
+    }
+}
+/* A failed optional CDN must never hide ordinary content. */
+.fade-in { opacity: 1; transform: none; }
+
+    </style>
 
     <!--
         Motion libraries are intentionally absent from the cold-start request queue.
@@ -15355,6 +15697,8 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
             };
 
             const scheduleMotion = () => {
+                // Mobile already uses native IntersectionObserver; reduce-motion needs no engine.
+                if (window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
 
                 let motionRequested =
                     false;
@@ -15498,7 +15842,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
         })();
         document.addEventListener('DOMContentLoaded', () => {
             
-            // The hero portrait is deliberately static: one suit image,
+            // The hero portrait is deliberately static: one casual image,
             // with no hover, touch, peel, or tilt interaction.
 
             // Priority 1: Init Interactions Immediately
@@ -15517,6 +15861,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                 if (!btn) return;
                 btn.className = baseClass;
                 btn.classList.add(...(isActive ? activeClasses : inactiveClasses));
+                btn.setAttribute('aria-pressed', String(isActive));
             };
 
             const updateLangStyles = () => {
@@ -15538,6 +15883,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 
             let languageTransitionTimer = 0;
             const playLanguageTransition = () => {
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
                 htmlEl.classList.remove('lang-transition');
                 void htmlEl.offsetWidth;
                 htmlEl.classList.add('lang-transition');
@@ -15586,17 +15932,26 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
             }
 
             // Priority 2: Visuals (Defer to Idle with 4G Network Fallback)
+            let visualsInitialized = false;
             const initVisuals = () => {
+                if (visualsInitialized) return;
+                const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const mobile = window.matchMedia('(max-width: 767px)').matches;
+                if (reduce || mobile) {
+                    document.querySelectorAll('.fade-in').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+                    return;
+                }
                 // GSAP / ScrollTriggerだけを必須にし、LenisはDesktop fine-pointer時のみ利用する
                 if (
                     typeof gsap === 'undefined' ||
                     typeof ScrollTrigger === 'undefined'
                 ) {
-                    setTimeout(initVisuals, 100);
+                    // Wait for the optional loader; never poll a failed CDN.
                     return;
                 }
 
 
+                visualsInitialized = true;
                 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -15656,6 +16011,7 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                     gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 95%", toggleActions: "play none none none", once: true } });
                 });
             };
+            window.addEventListener('kh:motion-ready', initVisuals, { once: true });
             if ('requestIdleCallback' in window) requestIdleCallback(initVisuals);
             else requestAnimationFrame(initVisuals);
 
@@ -15954,16 +16310,24 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             const modalScrollHint = document.getElementById('modal-scroll-hint');
 
             let isModalOpen = false;
+            let modalOpener = null;
+            const siteShell = document.querySelector('.site-shell');
+            const desktopNav = document.querySelector('.kh-desktop-global-nav');
+            const isolateModal = (active) => {
+                [siteShell, desktopNav, document.getElementById('menu-toggle'), document.getElementById('site-menu')].forEach(el => { if (el) el.inert = active; });
+                if (!active) document.getElementById('site-menu').inert = !document.body.classList.contains('menu-open');
+            };
+            const visibleFocusables = (container) => Array.from(container.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])')).filter(el => !el.disabled && !el.closest('[inert]') && el.getClientRects().length);
             let modalCloseTimer = 0;
             
-            const markerObserver = new IntersectionObserver((entries) => {
+            const markerObserver = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('nudge-marker', 'active');
                         markerObserver.unobserve(entry.target);
                     }
                 });
-            }, { root: modalScrollContainer, threshold: 0.8 });
+            }, { root: modalScrollContainer, threshold: 0.8 }) : { observe(el) { el.classList.add('active'); }, unobserve() {}, disconnect() {} };
 
             let modalScrollTicking = false;
             modalScrollContainer.addEventListener('scroll', () => {
@@ -15996,7 +16360,11 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 modal.classList.remove('is-visible');
                 modal.classList.add('is-closing');
                 modal.classList.remove('is-open');
+                modal.inert = true;
+                isolateModal(false);
+                if (modalOpener?.isConnected) modalOpener.focus({ preventScroll: true });
                 modal.setAttribute('aria-hidden', 'true');
+                markerObserver.disconnect();
 
                 window.clearTimeout(modalCloseTimer);
                 modalCloseTimer = window.setTimeout(() => {
@@ -16004,7 +16372,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     document.documentElement.style.overflow = '';
                     document.body.style.overflow = '';
                     if (window.lenis) window.lenis.start();
-                }, 420);
+                }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 240);
             };
 
             document.body.addEventListener('click', (e) => {
@@ -16012,13 +16380,20 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 if (!trigger) return;
                 if(e.target.closest('a') && e.target.closest('a').getAttribute('href') !== '#') return;
 
+                const id = trigger.getAttribute('data-modal-id');
+                if (!Object.prototype.hasOwnProperty.call(modalData, id)) return;
+                const data = modalData[id];
+                if (!data) return;
+                e.preventDefault();
+                modalOpener = trigger;
+                markerObserver.disconnect();
                 if (window.lenis) window.lenis.stop();
                 document.documentElement.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
-                
-                const id = trigger.getAttribute('data-modal-id');
-                const data = modalData[id];
-                if (!data) return;
+                isolateModal(true);
+                modal.inert = false;
+                // innerHTML below receives only authored, local modalData.
+                // Preserve its bilingual markup and SVG; never insert URL/user input.
 
                 const usesPokerSuitMotif = id === 'poker' || id === 'jopt';
                 modalContent.classList.toggle('poker-suit-modal', usesPokerSuitMotif);
@@ -16123,8 +16498,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     requestAnimationFrame(() => {
                         if (!isModalOpen) return;
                         modal.classList.add('is-visible');
-                        modalPanel.focus();
-                        modalScrollContainer.focus();
+                        modalPanel.focus({ preventScroll: true });
                     });
                 });
                 isModalOpen = true;
@@ -16132,7 +16506,17 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
 
             modalCloseBtn.addEventListener('click', closeModal);
             modalBg.addEventListener('click', closeModal);
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isModalOpen) closeModal(); });
+            document.addEventListener('keydown', (e) => {
+                if (!isModalOpen) return;
+                if (e.key === 'Escape') { e.preventDefault(); closeModal(); }
+                if (e.key === 'Tab') {
+                    const items = visibleFocusables(modalPanel);
+                    const first = items[0], last = items[items.length - 1];
+                    if (!first) { e.preventDefault(); modalPanel.focus(); return; }
+                    if (e.shiftKey && (document.activeElement === first || document.activeElement === modalPanel)) { e.preventDefault(); last.focus(); }
+                    else if (!e.shiftKey && (document.activeElement === last || !modalPanel.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+                }
+            });
             // ↓↓↓ここから貼り付け↓↓↓
             // ▼▼▼ APPLE-LIKE FULLSCREEN MENU LOGIC ▼▼▼
             const menuToggle = document.getElementById('menu-toggle');
@@ -16140,12 +16524,16 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             const menuLinks = document.querySelectorAll('.js-menu-link');
 
             if (menuToggle && siteMenu) {
+                siteMenu.inert = true;
                 const toggleMenu = () => {
                     const isOpen = document.body.classList.contains('menu-open');
                     if (isOpen) {
                         document.body.classList.remove('menu-open');
                         menuToggle.setAttribute('aria-expanded', 'false');
                         menuToggle.setAttribute('aria-label', 'Open menu');
+                        siteMenu.inert = true;
+                        siteShell.inert = false;
+                        menuToggle.focus({ preventScroll: true });
                         siteMenu.setAttribute('aria-hidden', 'true');
                         if (window.lenis) window.lenis.start();
                     } else {
@@ -16153,6 +16541,9 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                         menuToggle.setAttribute('aria-expanded', 'true');
                         menuToggle.setAttribute('aria-label', 'Close menu');
                         siteMenu.setAttribute('aria-hidden', 'false');
+                        siteMenu.inert = false;
+                        siteShell.inert = true;
+                        siteMenu.querySelector('.js-menu-link')?.focus({ preventScroll: true });
                         if (window.lenis) window.lenis.stop();
                     }
                 };
@@ -16160,7 +16551,14 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 menuToggle.addEventListener('click', toggleMenu);
 
                 document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) toggleMenu();
+                    if (!document.body.classList.contains('menu-open')) return;
+                    if (e.key === 'Escape') { e.preventDefault(); toggleMenu(); }
+                    if (e.key === 'Tab') {
+                        const items = [menuToggle, ...visibleFocusables(siteMenu)];
+                        const index = items.indexOf(document.activeElement);
+                        if (e.shiftKey && index <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
+                        else if (!e.shiftKey && (index === items.length - 1 || index < 0)) { e.preventDefault(); items[0].focus(); }
+                    }
                 });
 
                 menuLinks.forEach(link => {
@@ -16172,13 +16570,15 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                             const targetEl = document.querySelector(targetId);
                             if (targetEl) {
                                 setTimeout(() => {
-                                    if (typeof lenis !== 'undefined') {
-                                        lenis.scrollTo(targetEl, { offset: -100, duration: 1.2 });
+                                    if (window.lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                                        window.lenis.scrollTo(targetEl, { offset: -100, duration: 1.2 });
                                     } else {
                                         const y = targetEl.getBoundingClientRect().top + window.scrollY - 100;
-                                        window.scrollTo({ top: y, behavior: 'smooth' });
+                                        window.scrollTo({ top: y, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+                                        targetEl.setAttribute('tabindex', '-1');
+                                        targetEl.focus({ preventScroll: true });
                                     }
-                                }, 400); 
+                                }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 240); 
                             }
                         }
                     });
@@ -16294,8 +16694,8 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     {
                         y: 12,
                         scale: 1,
-                        duration: 700,
-                        delayStep: 80
+                        duration: 420,
+                        delayStep: 60
                     }
                 );
 
@@ -16304,8 +16704,8 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     {
                         y: 10,
                         scale: 1,
-                        duration: 580,
-                        delay: 160
+                        duration: 380,
+                        delay: 100
                     }
                 );
 
@@ -16368,7 +16768,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             trigger.setAttribute('aria-pressed', 'false');
 
             trigger.addEventListener('click', (event) => {
-                if (!isTouchLike()) return;
+                if (!isTouchLike() && event.detail !== 0) return;
 
                 event.stopPropagation();
                 const next = !trigger.classList.contains('is-translated');
@@ -16384,7 +16784,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
                     reset();
-                    trigger.blur();
+
                 }
             });
 
@@ -16612,6 +17012,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
 
                 const scrollToTarget = (target) => {
                     if (!target) return;
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { target.scrollIntoView({ behavior: 'instant' }); return; }
 
                     if (window.lenis && typeof window.lenis.scrollTo === 'function') {
                         window.lenis.scrollTo(target, {
@@ -16787,6 +17188,9 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     mobileMenuToggle?.setAttribute('aria-expanded', 'false');
                     mobileMenuToggle?.setAttribute('aria-label', 'Open menu');
                     mobileMenu?.setAttribute('aria-hidden', 'true');
+                    if (mobileMenu) mobileMenu.inert = true;
+                    const shell = document.querySelector('.site-shell');
+                    if (shell && document.getElementById('global-modal')?.getAttribute('aria-hidden') !== 'false') shell.inert = false;
 
                     if (window.lenis && typeof window.lenis.start === 'function') {
                         window.lenis.start();
