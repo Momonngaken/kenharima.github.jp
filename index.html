@@ -15609,6 +15609,25 @@ html.kh-native-mobile-motion .kh-mobile-reveal.kh-inview { will-change: auto; }
     #projects .poker-sample-note { font-size: 12px; line-height: 1.7; }
     #projects .poker-stat-definition { font-size: 11px; }
 }
+/* Profile thesis: size Japanese text against its actual column, not the viewport.
+   Each authored line is retained; wrapping remains a safe fallback at zoom. */
+@media (min-width: 768px) {
+    html:not(.is-global) #profile .profile-thesis {
+        max-width: 100%;
+        font-size: clamp(28px, 3.6vw, 46px);
+    }
+    #profile .profile-thesis-line {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+    @supports (container-type: inline-size) {
+        #profile .profile-story { container-type: inline-size; }
+        html:not(.is-global) #profile .profile-thesis {
+            font-size: min(56px, 8cqw);
+        }
+    }
+}
+
 /* Intermediate tablet widths must fit both navigation languages. */
 @media (min-width: 768px) and (max-width: 1000px) {
     .kh-desktop-global-nav-inner { gap: 10px; }
