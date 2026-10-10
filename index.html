@@ -11399,13 +11399,13 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 
                         <div class="profile-body profile-reveal">
                             <div class="lang-ja" lang="ja" data-nosnippet>
-                                <p class="profile-paragraph">シンガポールで生まれ、日本とマレーシアにルーツをもつ家庭で育ちました。同じ出来事でも、立場が変われば違う意味を帯びる。そのことを、理屈より先に生活のなかで知りました。早稲田大学では社会学と哲学を学び、ドイツのマンハイム大学に1年間交換留学し、社会学への理解を深めました。</p>
+                                <p class="profile-paragraph">シンガポールで生まれ、日本とマレーシアにルーツをもつ家庭で育ちました。同じ出来事でも、立場が変われば違う意味を帯びる。そのことを、理屈より先に生活のなかで知りました。早稲田大学では社会科学と哲学を学び、ドイツのマンハイム大学に1年間交換留学し、社会学への理解を深めました。</p>
                                 <p class="profile-paragraph">かつて、分析結果を根拠に、関係者の納得を待たずに計画を進めたことがあります。筋道は通っていると思っていた案は、現場で受け止められず、プロジェクトは止まりました。</p>
-                                <p class="profile-paragraph">いまは結論を出す前に、それを<span class="profile-keep-word">受け取る人が</span><span class="profile-keep-word">どこに立っているのかを</span><span class="profile-keep-word">確かめることから</span><span class="profile-keep-word">始めています。</span></p>
+                                <p class="profile-paragraph">いまは結論を出す前に、それを受け取る人がどこに立っているのかを確かめることから始めています。</p>
                             </div>
 
                             <div class="lang-en" lang="en" data-nosnippet>
-                                <p class="profile-paragraph">Born in Singapore, I grew up in a family with roots in both Japan and Malaysia. Long before I could put it into words, everyday life taught me that the same event can take on different meanings depending on where one stands. I studied sociology and philosophy at Waseda University, then deepened my understanding of sociology during a year-long exchange at the University of Mannheim in Germany.</p>
+                                <p class="profile-paragraph">Born in Singapore, I grew up in a family with roots in both Japan and Malaysia. Long before I could put it into words, everyday life taught me that the same event can take on different meanings depending on where one stands. I studied social sciences and philosophy at Waseda University, then deepened my understanding of sociology during a year-long exchange at the University of Mannheim in Germany.</p>
                                 <p class="profile-paragraph">I once moved forward with a plan based on my analysis without first earning the support of those involved. I believed the reasoning was sound, but the plan failed to gain acceptance on the ground, and the project stalled.</p>
                                 <p class="profile-paragraph">Today, before drawing conclusions, I begin by seeking to understand where the people affected stand.</p>
                             </div>
@@ -15838,17 +15838,24 @@ html.kh-native-mobile-motion .kh-mobile-reveal.kh-inview { will-change: auto; }
         font-size: clamp(33px, 9vw, 43px);
         line-height: 1.2;
     }
-    /* Keep the English title as two semantic lines on compact phones. */
-    @media (max-width: 359px) {
-        html.is-global #profile .profile-thesis { font-size: clamp(26px, 8.4vw, 30px); }
-    }
     #profile .profile-body .profile-paragraph + .profile-paragraph {
         margin-top: 20px;
     }
 }
 
-/* Japanese Profile: prevent mid-word line breaks on narrow screens. */
-#profile .profile-body .lang-ja .profile-keep-word { white-space: nowrap; }
+/* Profile body (Japanese): keep every paragraph on the same character grid.
+   text-wrap: pretty re-balances the last lines of each paragraph independently,
+   so short Japanese paragraphs broke at different column counts. */
+html:not(.is-global) #profile .profile-body .lang-ja .profile-paragraph {
+    text-wrap: wrap;
+    letter-spacing: 0;
+    line-break: strict;
+    word-break: normal;
+    overflow-wrap: normal;
+    text-align: justify;
+    text-justify: inter-character;
+}
+
 /* Intermediate tablet widths must fit both navigation languages. */
 @media (min-width: 768px) and (max-width: 1000px) {
     .kh-desktop-global-nav-inner { gap: 10px; }
