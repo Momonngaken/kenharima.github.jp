@@ -5346,6 +5346,155 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             #experience .career-identity { transition: none !important; }
         }
     </style>
+
+    <!-- ================= PERSONAL STATEMENT LAYER =================
+         Hero → Statement → Experience.
+         Scoped to #statement; hero/experience spacing is adjusted with
+         selectors one step more specific than the later refinement layer. -->
+    <style id="kh-statement-layer">
+        /* Spacing between Hero, Statement and Experience */
+        html #home.hero-editorial { margin-bottom: 0; }
+        .site-main > #experience { margin-top: clamp(88px, 11vw, 152px); }
+
+        #statement {
+            --st-text: var(--kh-theme-text, #1d1d1f);
+            --st-secondary: var(--kh-theme-secondary, #6e6e73);
+            --st-ease: cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            margin: 0 auto;
+            padding: clamp(40px, 6vw, 72px) 0 0;
+            text-align: center;
+            color: var(--st-text);
+            font-family:
+                -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+                "Noto Sans JP", sans-serif;
+            font-kerning: normal;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #statement .kh-statement-kicker {
+            margin: 0 0 clamp(26px, 3.6vw, 40px);
+            color: var(--st-secondary);
+            font-size: 12px;
+            line-height: 1.4;
+            font-weight: 600;
+            letter-spacing: .14em !important;
+            text-transform: uppercase;
+        }
+
+        #statement .kh-statement-copy > p { margin-inline: auto; }
+
+        /* Phrase units keep Japanese 文節 intact; wrapping happens only between them. */
+        #statement .kh-st-phrase { display: inline-block; white-space: nowrap; }
+
+        /* A. Opening line — the single loudest element */
+        #statement .kh-statement-lead {
+            margin-top: 0;
+            margin-bottom: 0;
+            color: var(--st-text);
+            font-weight: 650;
+            text-wrap: balance;
+        }
+        #statement .lang-ja .kh-statement-lead {
+            font-size: clamp(26px, 4.6vw, 48px);
+            line-height: 1.34;
+            letter-spacing: .01em;
+        }
+        #statement .lang-en .kh-statement-lead {
+            max-width: 16em;
+            font-size: clamp(28px, 4.3vw, 46px);
+            line-height: 1.12;
+            letter-spacing: -.028em;
+        }
+
+        /* B. Body — quieter, measured line length */
+        #statement .kh-statement-body {
+            margin-top: clamp(26px, 3.6vw, 40px);
+            margin-bottom: 0;
+            color: var(--st-secondary);
+            font-weight: 400;
+            text-wrap: pretty;
+        }
+        #statement .lang-ja .kh-statement-body {
+            max-width: 35em;
+            font-size: clamp(16px, 1.6vw, 19px);
+            line-height: 2;
+            letter-spacing: .02em;
+            line-break: strict;
+            word-break: normal;
+            word-break: auto-phrase; /* Chromium: break between 文節; others fall back to normal */
+            overflow-wrap: anywhere;
+        }
+        #statement .lang-en .kh-statement-body {
+            max-width: 35em;
+            font-size: clamp(16px, 1.5vw, 18.5px);
+            line-height: 1.7;
+            letter-spacing: -.003em;
+            hyphens: manual;
+            -webkit-hyphens: manual;
+            word-break: normal;
+            overflow-wrap: break-word;
+        }
+
+        /* C. Closing line — answers the opening, smaller, with room before it */
+        #statement .kh-statement-coda {
+            margin-top: clamp(40px, 5.6vw, 68px);
+            margin-bottom: 0;
+            color: var(--st-text);
+            font-weight: 600;
+            text-wrap: balance;
+        }
+        #statement .lang-ja .kh-statement-coda {
+            font-size: clamp(20px, 2.5vw, 30px);
+            line-height: 1.5;
+            letter-spacing: .02em;
+        }
+        #statement .lang-en .kh-statement-coda {
+            max-width: 22em;
+            font-size: clamp(20px, 2.35vw, 28px);
+            line-height: 1.3;
+            letter-spacing: -.018em;
+        }
+
+        @media (max-width: 767px) {
+            #statement .lang-ja .kh-statement-body { text-wrap: wrap; }
+            #statement .lang-en .kh-statement-body { text-align: center; }
+        }
+        @media (max-width: 359px) {
+            #statement .lang-ja .kh-statement-lead { font-size: 24px; }
+            #statement .lang-en .kh-statement-lead { font-size: 26px; }
+            #statement .lang-ja .kh-statement-body { font-size: 15.5px; }
+        }
+
+        /* Restrained reveal. Applied only when JS has armed it (see inline script). */
+        html.kh-statement-motion #statement [data-st-part] {
+            opacity: 0;
+            transform: translate3d(0, 12px, 0);
+            transition:
+                opacity 720ms var(--st-ease) var(--st-delay, 0ms),
+                transform 720ms var(--st-ease) var(--st-delay, 0ms);
+        }
+        html.kh-statement-motion #statement [data-st-part="lead"] { --st-delay: 60ms; }
+        html.kh-statement-motion #statement [data-st-part="body"] { --st-delay: 140ms; }
+        html.kh-statement-motion #statement.is-in-kicker [data-st-part="kicker"],
+        html.kh-statement-motion #statement.is-in-lead [data-st-part="lead"],
+        html.kh-statement-motion #statement.is-in-body [data-st-part="body"],
+        html.kh-statement-motion #statement.is-in-coda [data-st-part="coda"] {
+            opacity: 1;
+            transform: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html.kh-statement-motion #statement [data-st-part] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+        @media print {
+            html.kh-statement-motion #statement [data-st-part] { opacity: 1 !important; transform: none !important; }
+        }
+    </style>
 </head>
 <body class="antialiased">
 
@@ -5622,6 +5771,54 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
         </header>
 
         <main class="site-main space-y-16 md:space-y-24">
+
+            <!-- ================= PERSONAL STATEMENT ================= -->
+            <section id="statement" class="kh-statement" aria-labelledby="statement-kicker">
+                <h2 id="statement-kicker" class="kh-statement-kicker" lang="en" data-st-part="kicker">A Personal Statement</h2>
+
+                <div class="kh-statement-copy lang-ja" lang="ja">
+                    <p class="kh-statement-lead" data-st-part="lead"><span class="kh-st-phrase">正しい答えが、</span><span class="kh-st-phrase">人を置き去りに</span><span class="kh-st-phrase">することがある。</span></p>
+                    <p class="kh-statement-body" data-st-part="body">だから私は、数字の背後にある声を聴く。哲学で問い、社会学で構造を読み、技術で仕組みを変える。異なる正義がぶつかる場所から逃げず、複雑さをときほぐし、人と組織が次の一歩を踏み出せる言葉を届ける。</p>
+                    <p class="kh-statement-coda" data-st-part="coda"><span class="kh-st-phrase">世界は、</span><span class="kh-st-phrase">理解しただけでは</span><span class="kh-st-phrase">変わらない。</span></p>
+                </div>
+
+                <div class="kh-statement-copy lang-en" lang="en">
+                    <p class="kh-statement-lead" data-st-part="lead">Even the right answer can leave people behind.</p>
+                    <p class="kh-statement-body" data-st-part="body">That is why I listen to the voices behind the numbers. I draw on philosophy to question assumptions, sociology to uncover underlying structures, and technology to change how things work. When different visions of what is right collide, I do not look away. I untangle complexity and find the words that help people and organizations take their next step.</p>
+                    <p class="kh-statement-coda" data-st-part="coda">The world does not change simply because we understand it.</p>
+                </div>
+            </section>
+            <script>
+                /* Arm the reveal only when it can be completed; otherwise text simply stays visible. */
+                (() => {
+                    const root = document.documentElement;
+                    const section = document.getElementById('statement');
+                    if (!section || !('IntersectionObserver' in window)) return;
+                    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                    try {
+                        const parts = section.querySelectorAll('[data-st-part]');
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting) return;
+                                section.classList.add('is-in-' + entry.target.dataset.stPart);
+                                observer.unobserve(entry.target);
+                            });
+                        }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+                        parts.forEach((el) => observer.observe(el));
+                        root.classList.add('kh-statement-motion');
+                        /* Content already above the viewport (deep link / restored scroll) is shown at once. */
+                        requestAnimationFrame(() => {
+                            parts.forEach((el) => {
+                                if (el.getBoundingClientRect().bottom < 0) {
+                                    section.classList.add('is-in-' + el.dataset.stPart);
+                                }
+                            });
+                        });
+                    } catch (error) {
+                        root.classList.remove('kh-statement-motion');
+                    }
+                })();
+            </script>
 
                         <!-- ================= EXPERIENCE & EDUCATION ================= -->
 
@@ -16954,7 +17151,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
         (() => {
             const setupHeroScrollCue = () => {
                 const cue = document.getElementById('hero-scroll-cue');
-                const target = document.getElementById('experience');
+                const target = document.getElementById('statement') || document.getElementById('experience');
 
                 if (!cue || !target) {
                     return;
