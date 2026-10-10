@@ -15609,6 +15609,27 @@ html.kh-native-mobile-motion .kh-mobile-reveal.kh-inview { will-change: auto; }
     #projects .poker-sample-note { font-size: 12px; line-height: 1.7; }
     #projects .poker-stat-definition { font-size: 11px; }
 }
+/* Mobile Japanese hero: one quiet line at ordinary text size.
+   Keep each phrase intact, allowing wrapping between phrases when enlarged. */
+@media (max-width: 767px) {
+    html:not(.is-global) #home .hero-thesis {
+        margin-top: 22px;
+        font-size: clamp(1.125rem, 4.7vw, 1.25rem);
+        line-height: 1.6;
+        letter-spacing: .015em;
+        text-align: center;
+        text-wrap: wrap;
+    }
+    #home .hero-thesis-ja {
+        display: block;
+        max-width: 100%;
+    }
+    #home .hero-thesis-ja .hero-thesis-line {
+        display: inline-block;
+        white-space: nowrap;
+    }
+}
+
 /* Profile thesis: size Japanese text against its actual column, not the viewport.
    Each authored line is retained; wrapping remains a safe fallback at zoom. */
 @media (min-width: 768px) {
