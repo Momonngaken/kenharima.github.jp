@@ -57,8 +57,8 @@
     <link
         rel="preload"
         as="image"
-        href="./ken-harima-casual-2026.jpg"
-        type="image/jpeg"
+        href="./new-profile-business-2026.png"
+        type="image/png"
         fetchpriority="high"
     >
 
@@ -749,7 +749,7 @@ header .mt-6 {
           "name": "Ken Harima",
           "alternateName": ["播磨 賢", "Harima Ken", "Ken HARIMA"],
           "url": "https://kenharima.com/",
-          "image": "https://kenharima.com/ken-harima-casual-2026.jpg",
+          "image": "https://kenharima.com/new-profile-business-2026.png",
           "alumniOf": [
             {
               "@type": "CollegeOrUniversity",
@@ -5698,14 +5698,14 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                 <div id="hero-portrait-container" class="hero-portrait-stage">
                     <div id="hero-photo" class="hero-photo-frame">
                         <img
-                            src="./ken-harima-casual-2026.jpg"
-                            width="1122"
-                            height="1402"
-                            alt="眼鏡とネイビーのTシャツ姿の播磨 賢 / Ken Harima wearing glasses and a navy T-shirt"
+                            src="./new-profile-business-2026.png"
+                            width="512"
+                            height="512"
+                            alt="紺色の背景でスーツを着た播磨 賢 / Ken Harima in a suit against a navy backdrop"
                             loading="eager"
                             fetchpriority="high"
                             decoding="async"
-                            class="hero-portrait hero-portrait--casual"
+                            class="hero-portrait hero-portrait--business"
                         >
                     </div>
                 </div>
@@ -6798,13 +6798,17 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                         Experience &amp; Education
                     </span>
                 </h2>
-                    <a class="career-identity" href="https://www.linkedin.com/in/ken-harima-29a846234/" target="_blank" rel="noopener noreferrer">
-                        <img src="./new-profile-business-2026.png" width="512" height="512"
-                             alt="スーツ姿の播磨 賢 / Ken Harima in a suit"
-                             loading="lazy" decoding="async" class="career-portrait">
-                        <span class="career-identity-copy">
-                            <span class="career-identity-name">Ken Harima</span>
-                            <span class="career-identity-link">LinkedIn <span aria-hidden="true">↗</span></span>
+                    <a class="career-identity career-linkedin-cta"
+                       href="https://www.linkedin.com/in/ken-harima-29a846234/"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="LinkedInのプロフィールを新しいタブで開く / Open LinkedIn profile in a new tab">
+                        <span class="career-linkedin-symbol" aria-hidden="true">in</span>
+                        <span class="career-linkedin-labels">
+                            <span class="career-linkedin-caption">
+                                <span class="lang-ja">職務プロフィール</span>
+                                <span class="lang-en">Professional profile</span>
+                            </span>
+                            <span class="career-linkedin-title">LinkedIn <span class="career-linkedin-arrow" aria-hidden="true">↗</span></span>
                         </span>
                     </a>
                 </div>
@@ -15886,6 +15890,158 @@ html:not(.is-global) #profile .profile-body .lang-ja .profile-paragraph {
 .fade-in { opacity: 1; transform: none; }
 
     </style>
+
+    <!-- ================= HERITAGE PORTRAIT + LINKEDIN REFINEMENT ================= -->
+    <style id="kh-heritage-portrait-linkedin">
+        /* Use the original, navy-background professional portrait as a quiet visual anchor. */
+        #home .hero-portrait-stage {
+            width: clamp(246px, 22vw, 292px);
+            aspect-ratio: 1;
+            transform-style: flat;
+        }
+        #home #hero-photo.hero-photo-frame {
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.78) !important;
+            background: #12233a !important;
+            box-shadow: 0 14px 38px -17px rgba(8,24,48,.28);
+        }
+        #home #hero-photo.hero-photo-frame .hero-portrait--business {
+            position: absolute;
+            inset: -1px;
+            display: block;
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+            max-width: none;
+            object-fit: cover;
+            object-position: center 47%;
+            border-radius: 50% !important;
+            opacity: 1 !important;
+            filter: none;
+            transform: none !important;
+            transition: none !important;
+        }
+        html.dark-mode-on #home #hero-photo.hero-photo-frame {
+            border-color: rgba(255,255,255,.1) !important;
+            box-shadow: 0 14px 40px -17px rgba(0,0,0,.65);
+        }
+        /* Don't repeat the same headshot in the Experience header. */
+        #experience .career-linkedin-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            min-height: 52px;
+            padding: 7px 15px 7px 8px;
+            border: 1px solid rgba(29,29,31,.10);
+            border-radius: 14px;
+            background: rgba(255,255,255,.35);
+            box-shadow: none;
+            color: var(--kh-text, #1d1d1f);
+            text-decoration: none;
+            transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #experience .career-linkedin-symbol {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 36px;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: #f0f1f3;
+            color: #44464b;
+            font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+            font-weight: 800;
+            font-size: 17px;
+            line-height: 1;
+            letter-spacing: -.045em;
+            transition: background-color 180ms ease, color 180ms ease;
+        }
+        #experience .career-linkedin-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        #experience .career-linkedin-caption {
+            color: var(--kh-secondary, #6e6e73);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .018em;
+        }
+        #experience .career-linkedin-title {
+            color: var(--kh-text, #1d1d1f);
+            font-size: 13px;
+            font-weight: 620;
+            letter-spacing: -.012em;
+        }
+        #experience .career-linkedin-arrow {
+            display: inline-block;
+            padding-left: 4px;
+            color: #86868b;
+            font-weight: 450;
+            transition: transform 180ms ease,color 180ms ease;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            #experience .career-linkedin-cta:hover {
+                background: rgba(0,102,204,.035);
+                border-color: rgba(0,102,204,.20);
+                transform: translateY(-1px);
+            }
+            #experience .career-linkedin-cta:hover .career-linkedin-symbol {
+                color: #fff;
+                background: #0a66c2;
+            }
+            #experience .career-linkedin-cta:hover .career-linkedin-title {
+                color: #0a66c2;
+            }
+            #experience .career-linkedin-cta:hover .career-linkedin-arrow {
+                transform: translate(1px,-1px);
+                color: #0a66c2;
+            }
+        }
+        html.dark-mode-on #experience .career-linkedin-cta {
+            background: rgba(255,255,255,.025);
+            border-color: rgba(255,255,255,.13);
+            color: #f5f5f7;
+        }
+        html.dark-mode-on #experience .career-linkedin-symbol {
+            background: #2c2c2e;
+            color: #ececf0;
+        }
+        html.dark-mode-on #experience .career-linkedin-title {
+            color: #f5f5f7;
+        }
+        html.dark-mode-on #experience .career-linkedin-caption {
+            color: #a1a1a6;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            html.dark-mode-on #experience .career-linkedin-cta:hover {
+                background: rgba(101,179,255,.08);
+                border-color: rgba(101,179,255,.32);
+            }
+            html.dark-mode-on #experience .career-linkedin-cta:hover .career-linkedin-symbol {
+                background: #0a66c2;
+                color: white;
+            }
+            html.dark-mode-on #experience .career-linkedin-cta:hover .career-linkedin-title {
+                color: #65b3ff;
+            }
+        }
+        @media (max-width: 767px) {
+            #home .hero-portrait-stage { width: clamp(186px, 51vw, 224px); aspect-ratio: 1; }
+            #home #hero-photo.hero-photo-frame { border-radius: 50%; }
+            #experience .career-linkedin-cta { min-height: 48px; padding: 6px 12px 6px 7px; }
+            #experience .career-linkedin-symbol { width: 34px; height: 34px; flex-basis: 34px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #experience .career-linkedin-cta,
+            #experience .career-linkedin-symbol,
+            #experience .career-linkedin-arrow { transition: none !important; }
+        }
+    </style>
+
 
     <!--
         Motion libraries are intentionally absent from the cold-start request queue.
