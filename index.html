@@ -5495,6 +5495,103 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             html.kh-statement-motion #statement [data-st-part] { opacity: 1 !important; transform: none !important; }
         }
     </style>
+
+    <!-- 2026-10-21: Editorial navigation active state and updated profile -->
+    <style id="kh-profile-nav-20261021">
+        /* Global navigation: editorial contrast, with a short baseline marker.
+           No tint, capsule, inset stroke or branded accent color at rest. */
+        @media (min-width: 768px) {
+            .kh-desktop-global-nav .kh-desktop-nav-links {
+                gap: clamp(15px, 2vw, 28px);
+            }
+            .kh-desktop-global-nav .kh-desktop-nav-link {
+                height: 100%;
+                align-self: stretch;
+                justify-content: center;
+                padding: 0 2px;
+                border-radius: 0;
+                font-size: 11.5px;
+                font-weight: 510;
+                color: #85858a;
+                background: transparent;
+                box-shadow: none;
+                transition: color 220ms ease;
+            }
+            .kh-desktop-global-nav .kh-desktop-nav-link:hover:not(.is-active) {
+                color: #424245;
+                background: transparent;
+            }
+            .kh-desktop-global-nav .kh-desktop-nav-link.is-active {
+                color: #1d1d1f;
+                font-weight: 640;
+                background: transparent;
+                box-shadow: none;
+            }
+            .kh-desktop-global-nav .kh-desktop-nav-link::after {
+                bottom: 0;
+                width: 26px;
+                max-width: none;
+                height: 2px;
+                border-radius: 2px 2px 0 0;
+                background: #353538;
+                opacity: 0;
+                transform: translateX(-50%) scaleX(.78);
+                transition: opacity 220ms ease,
+                            transform 320ms cubic-bezier(.16, 1, .3, 1);
+            }
+            .kh-desktop-global-nav .kh-desktop-nav-link.is-active::after {
+                opacity: .80;
+                transform: translateX(-50%) scaleX(1);
+            }
+            html.dark-mode-on .kh-desktop-global-nav .kh-desktop-nav-link {
+                color: #8e8e93;
+            }
+            html.dark-mode-on .kh-desktop-global-nav .kh-desktop-nav-link:hover:not(.is-active) {
+                color: #c7c7cc;
+                background: transparent;
+            }
+            html.dark-mode-on .kh-desktop-global-nav .kh-desktop-nav-link.is-active {
+                color: #f5f5f7;
+                background: transparent;
+                box-shadow: none;
+            }
+            html.dark-mode-on .kh-desktop-global-nav .kh-desktop-nav-link.is-active::after {
+                background: #f5f5f7;
+                opacity: .86;
+            }
+            .kh-desktop-global-nav .kh-desktop-nav-link:focus-visible {
+                outline: 2px solid rgba(0, 102, 204, .50);
+                outline-offset: -5px;
+                border-radius: 5px;
+            }
+        }
+        /* Literary hierarchy: the first line leads quietly, the conclusion lands. */
+        #profile .profile-thesis-line-muted {
+            color: #6e6e73 !important;
+        }
+        html.dark-mode-on #profile .profile-thesis-line-muted {
+            color: #a1a1a6 !important;
+        }
+        #profile .profile-thesis {
+            line-height: 1.23 !important;
+        }
+        @media (min-width: 768px) {
+            html:not(.is-global) #profile .profile-thesis {
+                font-size: clamp(29px, 3.5vw, 46px);
+            }
+            html.is-global #profile .profile-thesis {
+                font-size: clamp(31px, 3.55vw, 49px);
+            }
+        }
+        @media (max-width: 767px) {
+            html:not(.is-global) #profile .profile-thesis { line-height: 1.38 !important; }
+            html.is-global #profile .profile-thesis { line-height: 1.18 !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .kh-desktop-global-nav .kh-desktop-nav-link,
+            .kh-desktop-global-nav .kh-desktop-nav-link::after { transition: none !important; }
+        }
+    </style>
 </head>
 <body class="antialiased">
 
@@ -11387,31 +11484,31 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                     </aside>
 
 
-                    <!-- Story -->
+                    <!-- Story: updated editorial profile, 2026-10-21 -->
                     <div class="profile-story">
 
                         <h3 class="profile-thesis">
-                            <span class="profile-thesis-line profile-reveal">
-                                <span class="lang-ja">いくつもの文脈を、</span>
-                                <span class="lang-en">A Life</span>
+                            <span class="profile-thesis-line profile-thesis-line-muted profile-reveal">
+                                <span class="lang-ja">みんな、</span>
+                                <span class="lang-en">Everyone Has</span>
                             </span>
                             <span class="profile-thesis-line profile-reveal">
-                                <span class="lang-ja">跨いできた。</span>
-                                <span class="lang-en">Across Contexts.</span>
+                                <span class="lang-ja">なにかを守っている。</span>
+                                <span class="lang-en">Something to Protect.</span>
                             </span>
                         </h3>
 
                         <div class="profile-body profile-reveal">
                             <div class="lang-ja" lang="ja" data-nosnippet>
-                                <p class="profile-paragraph">シンガポールで生まれ、日本とマレーシアにルーツをもつ家庭で育ちました。同じ出来事でも、立場が変われば違う意味を帯びる。そのことを、理屈より先に生活のなかで知りました。早稲田大学では社会科学と哲学を学び、ドイツのマンハイム大学に1年間交換留学し、社会学への理解を深めました。</p>
-                                <p class="profile-paragraph">かつて、分析結果を根拠に、関係者の納得を待たずに計画を進めたことがあります。筋道は通っていると思っていた案は、現場で受け止められず、プロジェクトは止まりました。</p>
-                                <p class="profile-paragraph">いまは結論を出す前に、それを受け取る人がどこに立っているのかを確かめることから始めています。</p>
+                                <p class="profile-paragraph">シンガポール生まれ。日本とマレーシアにルーツをもつ家庭で育ち、ドイツで1年を過ごしました。国や文化の境目を跨ぐたび、同じ出来事が見る人によって違った意味を帯び、違った「正義」が立ち上がる。そのことを、理屈より先に暮らしのなかで知りました。早稲田大学で社会科学と哲学を、マンハイム大学で社会学を学びました。</p>
+                                <p class="profile-paragraph">かつて、データが示す答えを信じるあまり、関係者の納得を待たずに計画を進め、プロジェクトを止めてしまったことがあります。数字は嘘をつかない。けれど、数字だけでは国境も、部門も、人の心も越えられない。欠けていたのは、相手が何を守ろうとしていたのかへの想像でした。以来、結論より先に、一人ひとりが守ろうとしているものを、その人の言葉で書き出しています。食い違いは、たいていそこに見えてきます。</p>
+                                <p class="profile-paragraph">異なる立場の言葉を聴き分け、複雑さを誰もが腑に落ちる言葉に置き換えて、組織に意思決定の軸を与える。それが、私の引き受けたい役割です。</p>
                             </div>
 
                             <div class="lang-en" lang="en" data-nosnippet>
-                                <p class="profile-paragraph">Born in Singapore, I grew up in a family with roots in both Japan and Malaysia. Long before I could put it into words, everyday life taught me that the same event can take on different meanings depending on where one stands. I studied social sciences and philosophy at Waseda University, then deepened my understanding of sociology during a year-long exchange at the University of Mannheim in Germany.</p>
-                                <p class="profile-paragraph">I once moved forward with a plan based on my analysis without first earning the support of those involved. I believed the reasoning was sound, but the plan failed to gain acceptance on the ground, and the project stalled.</p>
-                                <p class="profile-paragraph">Today, before drawing conclusions, I begin by seeking to understand where the people affected stand.</p>
+                                <p class="profile-paragraph">Born in Singapore, I grew up in a family with roots in both Japan and Malaysia and later spent a year in Germany. Each time I crossed a national or cultural boundary, I came to see how the same event could take on different meanings depending on who was looking—and how different notions of what is right could emerge. I learned this through everyday life, long before I could explain it in theory. I studied social sciences and philosophy at Waseda University, and sociology at the University of Mannheim.</p>
+                                <p class="profile-paragraph">There was a time when I placed so much faith in what the data seemed to show that I pushed a plan forward without first earning the understanding and support of those involved, bringing the project to a standstill. Numbers don't lie. But numbers alone cannot bridge borders, organizational divides, or the distance between people. What I lacked was the imagination to see what others were trying to protect. Since then, before drawing conclusions, I have made a point of writing down, in each person's own words, what they are trying to protect. More often than not, that is where the source of disagreement begins to come into focus.</p>
+                                <p class="profile-paragraph">I want to listen closely to people across different perspectives, translate complexity into language they can genuinely make sense of, and help organizations establish a clear foundation for decision-making. That is the role I want to take on.</p>
                             </div>
                         </div>
 
@@ -17473,17 +17570,18 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                         return;
                     }
 
-                    const firstSection = sections[0]?.element;
-                    const probe = window.scrollY + 48 + Math.min(window.innerHeight * 0.24, 190);
+                    // Use document-space positions: section.offsetTop may be relative
+                    // to .site-main (a positioned ancestor), not the document.
+                    const probe = window.scrollY + nav.getBoundingClientRect().height
+                        + Math.min(window.innerHeight * 0.22, 150);
                     let activeId = null;
 
-                    if (firstSection && probe >= firstSection.offsetTop) {
-                        for (const section of sections) {
-                            if (probe >= section.element.offsetTop) {
-                                activeId = section.id;
-                            } else {
-                                break;
-                            }
+                    for (const section of sections) {
+                        const documentTop = section.element.getBoundingClientRect().top + window.scrollY;
+                        if (probe >= documentTop) {
+                            activeId = section.id;
+                        } else {
+                            break;
                         }
                     }
 
