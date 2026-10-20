@@ -8789,107 +8789,156 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                 
 
 
-                <!-- Language proficiency: quiet editorial typography, integrated into the existing bento. -->
+                <!-- Language proficiency: one hero level on the CEFR scale, supporting languages kept quiet. -->
                 <style>
                     #development .pd-language {
                         min-height: 456px;
                         justify-content: flex-start;
                         gap: 0;
                     }
-                    #development .kh-lang-head {
+                    #development .kh-lang-hero {
+                        margin-top: 30px;
+                    }
+                    #development .kh-lang-hero-name {
+                        display: block;
+                        margin: 0 0 10px;
+                        color: #1d1d1f;
+                        font-size: 17px;
+                        line-height: 1.2;
+                        font-weight: 600;
+                        letter-spacing: -0.022em;
+                    }
+                    #development .pd-language .pd-score {
+                        display: block;
+                        margin: 0;
+                        font-size: clamp(76px, 8.6vw, 112px);
+                        line-height: 0.86;
+                        letter-spacing: -0.06em;
+                        transform-origin: left bottom;
+                    }
+                    /* CEFR scale: the scale itself is the information, not decoration. */
+                    #development .kh-cefr {
+                        display: grid;
+                        grid-template-columns: repeat(6, minmax(0, 1fr));
+                        gap: 4px;
+                        max-width: 340px;
+                        margin: 22px 0 0;
+                        padding: 0;
+                        list-style: none;
+                    }
+                    #development .kh-cefr li {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 7px;
+                        min-width: 0;
+                        color: #a1a1a6;
+                        font-size: 11px;
+                        line-height: 1;
+                        font-weight: 500;
+                        letter-spacing: 0;
+                        font-variant-numeric: tabular-nums;
+                    }
+                    #development .kh-cefr li::before {
+                        content: "";
+                        display: block;
+                        height: 4px;
+                        border-radius: 999px;
+                        background: #d2d2d7;
+                    }
+                    #development .kh-cefr li.is-reached::before { background: #1d1d1f; }
+                    #development .kh-cefr li.is-current { color: #1d1d1f; font-weight: 650; }
+                    #development .kh-lang-evidence {
+                        margin: 22px 0 0;
+                        color: #6e6e73;
+                        font-size: 14px;
+                        line-height: 1.5;
+                        font-weight: 500;
+                        letter-spacing: -0.012em;
+                    }
+                    #development .kh-lang-evidence strong {
+                        color: #1d1d1f;
+                        font-weight: 600;
+                        font-variant-numeric: tabular-nums;
+                    }
+                    #development .kh-lang-evidence .kh-sep {
+                        display: inline-block;
+                        margin: 0 8px;
+                        color: #c7c7cc;
+                    }
+                    #development .kh-lang-others {
+                        margin: auto 0 0;
+                        padding: 30px 0 0;
+                    }
+                    #development .kh-lang-row {
                         display: flex;
                         justify-content: space-between;
                         align-items: baseline;
                         gap: 16px;
-                        margin: 0 0 22px;
+                        padding: 14px 0;
+                        border-top: 1px solid rgba(29, 29, 31, .09);
                     }
-                    #development .kh-lang-count {
-                        white-space: nowrap;
-                        color: #6e6e73;
-                        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-                        font-size: 11px;
-                        font-weight: 500;
-                        font-variant-numeric: tabular-nums;
-                        letter-spacing: 0.035em;
-                    }
-                    #development .kh-lang-count span { color: #a1a1a6; font-size: 10px; letter-spacing: 0.055em; }
-                    #development .kh-lang-list { width: 100%; }
-                    #development .kh-lang-item {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        gap: 18px;
-                        padding: 12px 0;
-                        border-top: 1px solid rgba(29, 29, 31, .105);
-                    }
-                    #development .kh-lang-copy { min-width: 0; flex: 1; }
-                    #development .kh-lang-name {
+                    #development .kh-lang-row dt {
                         color: #1d1d1f;
-                        font-size: clamp(16px, 1.6vw, 18px);
-                        line-height: 1.25;
-                        font-weight: 610;
-                        letter-spacing: -0.035em;
-                    }
-                    #development .kh-lang-detail {
-                        margin: 5px 0 0;
-                        color: #6e6e73;
-                        font-size: 11.5px;
-                        line-height: 1.5;
-                        font-weight: 400;
-                        letter-spacing: -0.007em;
-                        overflow-wrap: anywhere;
-                    }
-                    #development .kh-lang-level {
-                        color: #1d1d1f;
-                        font-size: 20px;
-                        line-height: 1;
-                        font-weight: 590;
-                        letter-spacing: -0.045em;
-                        font-variant-numeric: tabular-nums;
-                        white-space: nowrap;
-                    }
-                    #development .kh-lang-level-native {
-                        font-size: 14px;
+                        font-size: 15px;
+                        line-height: 1.3;
+                        font-weight: 600;
                         letter-spacing: -0.02em;
-                        font-weight: 550;
                     }
-                    #development .kh-lang-note {
-                        margin: auto 0 0;
-                        padding-top: 15px;
+                    #development .kh-lang-row-detail {
+                        display: block;
+                        margin-top: 4px;
                         color: #86868b;
-                        font-size: 10px;
-                        line-height: 1.6;
-                        letter-spacing: 0.004em;
-                        border-top: 1px solid rgba(29, 29, 31, .075);
+                        font-size: 12px;
+                        line-height: 1.45;
+                        font-weight: 500;
+                        letter-spacing: -0.005em;
+                    }
+                    #development .kh-lang-row dd {
+                        margin: 0;
+                        display: flex;
+                        align-items: baseline;
+                        gap: 8px;
+                        color: #1d1d1f;
+                        font-size: 15px;
+                        line-height: 1.3;
+                        font-weight: 600;
+                        letter-spacing: -0.02em;
+                        white-space: nowrap;
+                        font-variant-numeric: tabular-nums;
+                    }
+                    #development .kh-lang-row dd small {
+                        color: #86868b;
+                        font-size: 12px;
+                        font-weight: 500;
+                        letter-spacing: -0.005em;
                     }
                     @media (min-width: 768px) and (max-width: 980px) {
                         #development .pd-language { padding: 32px; }
-                        #development .kh-lang-item { gap: 10px; }
-                        #development .kh-lang-detail { font-size: 11px; }
                     }
                     @media (max-width: 767px) {
                         #development .pd-language { min-height: 0; padding: 30px; }
-                        #development .kh-lang-head { margin-bottom: 19px; }
-                        #development .kh-lang-item { padding: 14px 0; }
-                        #development .kh-lang-name { font-size: 17px; }
-                        #development .kh-lang-level { font-size: 19px; }
-                        #development .kh-lang-level-native { font-size: 14px; }
-                        #development .kh-lang-note { margin-top: 14px; }
+                        #development .kh-lang-hero { margin-top: 26px; }
+                        #development .pd-language .pd-score { font-size: 80px; }
+                        #development .kh-lang-others { padding-top: 26px; }
                     }
                     @media (max-width: 380px) {
                         #development .pd-language { padding: 25px; }
-                        #development .kh-lang-head { gap: 8px; }
-                        #development .kh-lang-count { font-size: 10px; }
-                        #development .kh-lang-detail { font-size: 11px; }
+                        #development .kh-cefr { gap: 3px; }
+                        #development .kh-cefr li { font-size: 10px; }
                     }
-                    html.dark-mode-on #development .kh-lang-name,
-                    html.dark-mode-on #development .kh-lang-level { color: #f5f5f7; }
-                    html.dark-mode-on #development .kh-lang-detail,
-                    html.dark-mode-on #development .kh-lang-count { color: #a1a1a6; }
-                    html.dark-mode-on #development .kh-lang-count span,
-                    html.dark-mode-on #development .kh-lang-note { color: #8e8e93; }
-                    html.dark-mode-on #development .kh-lang-item { border-top-color: rgba(255, 255, 255, .14); }
-                    html.dark-mode-on #development .kh-lang-note { border-top-color: rgba(255, 255, 255, .11); }
+                    html.dark-mode-on #development .kh-lang-hero-name,
+                    html.dark-mode-on #development .kh-lang-evidence strong,
+                    html.dark-mode-on #development .kh-lang-row dt,
+                    html.dark-mode-on #development .kh-lang-row dd,
+                    html.dark-mode-on #development .kh-cefr li.is-current { color: #f5f5f7; }
+                    html.dark-mode-on #development .kh-lang-evidence { color: #a1a1a6; }
+                    html.dark-mode-on #development .kh-lang-evidence .kh-sep,
+                    html.dark-mode-on #development .kh-cefr li { color: #636366; }
+                    html.dark-mode-on #development .kh-cefr li::before { background: #3a3a3c; }
+                    html.dark-mode-on #development .kh-cefr li.is-reached::before { background: #f5f5f7; }
+                    html.dark-mode-on #development .kh-lang-row dd small,
+                    html.dark-mode-on #development .kh-lang-row-detail { color: #8e8e93; }
+                    html.dark-mode-on #development .kh-lang-row { border-top-color: rgba(255, 255, 255, .12); }
                 </style>
 
 
@@ -12906,76 +12955,79 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                              ===================================================== -->
 
                         <article class="pd-card pd-language" aria-labelledby="kh-languages-heading">
-                            <div class="kh-lang-head">
-                                <h3 class="pd-card-label" id="kh-languages-heading">
-                                    <span class="lang-ja">語学</span>
-                                    <span class="lang-en">Languages</span>
-                                </h3>
-                                <span class="kh-lang-count" aria-hidden="true">CEFR <span>· SELF-ASSESSED</span></span>
+                            <h3 class="pd-card-label" id="kh-languages-heading">
+                                <span class="lang-ja">語学</span>
+                                <span class="lang-en">Languages</span>
+                            </h3>
+
+                            <div class="kh-lang-hero">
+                                <span class="kh-lang-hero-name">
+                                    <span class="lang-ja">英語</span>
+                                    <span class="lang-en">English</span>
+                                </span>
+                                <span class="pd-score" aria-label="CEFR C1">C1</span>
+
+                                <ol class="kh-cefr" aria-label="CEFR: A1, A2, B1, B2, C1, C2">
+                                    <li class="is-reached">A1</li>
+                                    <li class="is-reached">A2</li>
+                                    <li class="is-reached">B1</li>
+                                    <li class="is-reached">B2</li>
+                                    <li class="is-reached is-current" aria-current="true">C1</li>
+                                    <li>C2</li>
+                                </ol>
+
+                                <p class="kh-lang-evidence">
+                                    <span class="lang-ja">TOEIC L&amp;R IP <strong>950</strong><span class="kh-sep" aria-hidden="true">/</span>英検 <strong>準1級</strong></span>
+                                    <span class="lang-en">TOEIC L&amp;R IP <strong>950</strong><span class="kh-sep" aria-hidden="true">/</span>EIKEN <strong>Pre-1</strong></span>
+                                </p>
                             </div>
 
-                            <div class="kh-lang-list" role="list">
-                                <div class="kh-lang-item" role="listitem">
-                                    <div class="kh-lang-copy">
-                                        <div class="kh-lang-name">
-                                            <span class="lang-ja">日本語</span>
-                                            <span class="lang-en">Japanese</span>
-                                        </div>
-                                        <p class="kh-lang-detail">
-                                            <span class="lang-ja">母語</span>
-                                            <span class="lang-en">Native language</span>
-                                        </p>
-                                    </div>
-                                    <span class="kh-lang-level kh-lang-level-native">Native</span>
+                            <dl class="kh-lang-others">
+                                <div class="kh-lang-row">
+                                    <dt>
+                                        <span class="lang-ja">日本語</span>
+                                        <span class="lang-en">Japanese</span>
+                                    </dt>
+                                    <dd>
+                                        <span class="lang-ja">ネイティブ</span>
+                                        <span class="lang-en">Native</span>
+                                    </dd>
                                 </div>
-
-                                <div class="kh-lang-item" role="listitem">
-                                    <div class="kh-lang-copy">
-                                        <div class="kh-lang-name">
-                                            <span class="lang-ja">英語</span>
-                                            <span class="lang-en">English</span>
-                                        </div>
-                                        <p class="kh-lang-detail">
-                                            <span class="lang-ja">TOEIC L&amp;R IP 950 · 英検準1級</span>
-                                            <span class="lang-en">TOEIC L&amp;R IP 950 · EIKEN Pre-1</span>
-                                        </p>
-                                    </div>
-                                    <span class="kh-lang-level">C1</span>
+                                <div class="kh-lang-row">
+                                    <dt>
+                                        <span class="lang-ja">中国語</span>
+                                        <span class="lang-en">Chinese</span>
+                                        <span class="kh-lang-row-detail">
+                                            <span class="lang-ja">初級・基本的な日常表現</span>
+                                            <span class="lang-en">Elementary · Everyday basics</span>
+                                        </span>
+                                    </dt>
+                                    <dd>
+                                        <small>
+                                            <span class="lang-ja">自己評価</span>
+                                            <span class="lang-en">Self-assessed</span>
+                                        </small>
+                                        A2
+                                    </dd>
                                 </div>
-
-                                <div class="kh-lang-item" role="listitem">
-                                    <div class="kh-lang-copy">
-                                        <div class="kh-lang-name">
-                                            <span class="lang-ja">中国語</span>
-                                            <span class="lang-en">Chinese</span>
-                                        </div>
-                                        <p class="kh-lang-detail">
-                                            <span class="lang-ja">初級 · 基本的な日常表現</span>
-                                            <span class="lang-en">Elementary proficiency</span>
-                                        </p>
-                                    </div>
-                                    <span class="kh-lang-level">A2</span>
+                                <div class="kh-lang-row">
+                                    <dt>
+                                        <span class="lang-ja">スペイン語</span>
+                                        <span class="lang-en">Spanish</span>
+                                        <span class="kh-lang-row-detail">
+                                            <span class="lang-ja">初級・学習継続中</span>
+                                            <span class="lang-en">Elementary · Still learning</span>
+                                        </span>
+                                    </dt>
+                                    <dd>
+                                        <small>
+                                            <span class="lang-ja">自己評価</span>
+                                            <span class="lang-en">Self-assessed</span>
+                                        </small>
+                                        A2
+                                    </dd>
                                 </div>
-
-                                <div class="kh-lang-item" role="listitem">
-                                    <div class="kh-lang-copy">
-                                        <div class="kh-lang-name">
-                                            <span class="lang-ja">スペイン語</span>
-                                            <span class="lang-en">Spanish</span>
-                                        </div>
-                                        <p class="kh-lang-detail">
-                                            <span class="lang-ja">初級 · 基本的な日常表現</span>
-                                            <span class="lang-en">Elementary proficiency</span>
-                                        </p>
-                                    </div>
-                                    <span class="kh-lang-level">A2</span>
-                                </div>
-                            </div>
-
-                            <p class="kh-lang-note">
-                                <span class="lang-ja">CEFRは自己評価。試験スコア・資格は別記。NativeはCEFRの評価対象外。</span>
-                                <span class="lang-en">CEFR levels are self-assessed. Test scores and credentials are listed separately; Native is not a CEFR level.</span>
-                            </p>
+                            </dl>
                         </article>
 
 
