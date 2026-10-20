@@ -8841,7 +8841,7 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                     #development .kh-cefr li::before {
                         content: "";
                         display: block;
-                        height: 4px;
+                        height: 3px;
                         border-radius: 999px;
                         background: #d2d2d7;
                     }
@@ -8917,6 +8917,80 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                     }
                     html.dark-mode-on #development .kh-lang-framework { color: #8e8e93; }
                     #development .kh-lang-row-name { display: block; }
+                    /* Apple-style spec strip */
+                    #development .kh-lang-evidence .kh-ev { display: inline-block; margin-right: 18px; white-space: nowrap; }
+                    #development .kh-lang-evidence .kh-ev:last-child { margin-right: 0; }
+                    #development .kh-specs {
+                        display: grid;
+                        grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 1fr);
+                        gap: 0 16px;
+                        margin: 30px 0 0;
+                        padding: 24px 0 0;
+                        border-top: 1px solid rgba(29, 29, 31, .09);
+                    }
+                    #development .kh-spec {
+                        display: flex;
+                        flex-direction: column-reverse;
+                        gap: 6px;
+                        min-width: 0;
+                    }
+                    #development .kh-spec dd {
+                        margin: 0;
+                        color: #1d1d1f;
+                        font-size: clamp(22px, 2.3vw, 28px);
+                        line-height: 1.05;
+                        font-weight: 600;
+                        letter-spacing: -0.035em;
+                        white-space: nowrap;
+                        font-variant-numeric: tabular-nums;
+                    }
+                    #development .kh-spec dt {
+                        color: #6e6e73;
+                        font-size: 13px;
+                        line-height: 1.3;
+                        font-weight: 500;
+                        letter-spacing: -0.01em;
+                    }
+                    #development .kh-lang-foot {
+                        margin-top: auto;
+                        padding-top: 22px;
+                    }
+                    #development .kh-lang-foot p {
+                        margin: 0;
+                        color: #86868b;
+                        font-size: 12px;
+                        line-height: 1.6;
+                        font-weight: 400;
+                        letter-spacing: -0.003em;
+                    }
+                    @media (max-width: 767px) {
+                        #development .kh-specs { margin-top: 26px; padding-top: 20px; }
+                        #development .kh-spec dd { font-size: 21px; }
+                    }
+                    @media (max-width: 380px) {
+                        #development .kh-spec dd { font-size: 19px; }
+                        #development .kh-specs { gap: 0 10px; }
+                    }
+                    html.dark-mode-on #development .kh-specs { border-top-color: rgba(255, 255, 255, .12); }
+                    html.dark-mode-on #development .kh-spec dd { color: #f5f5f7; }
+                    html.dark-mode-on #development .kh-spec dt { color: #a1a1a6; }
+                    html.dark-mode-on #development .kh-lang-foot p { color: #8e8e93; }
+                    #development .kh-lang-foot .kh-lang-learning-line {
+                        margin-top: 14px;
+                        font-size: 13px;
+                    }
+                    #development .kh-ll-label { margin-right: 12px; color: #86868b; }
+                    #development .kh-ll-langs { color: #1d1d1f; font-weight: 500; }
+                    html.dark-mode-on #development .kh-ll-langs { color: #f5f5f7; }
+                    #development .kh-lang-learning {
+                        margin: 8px 0 0;
+                        color: #86868b;
+                        font-size: 12px;
+                        line-height: 1.5;
+                        font-weight: 500;
+                        letter-spacing: -0.005em;
+                    }
+                    html.dark-mode-on #development .kh-lang-learning { color: #8e8e93; }
                     #development .kh-lang-sub {
                         display: block;
                         margin-top: 3px;
@@ -13002,50 +13076,36 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                 </ol>
 
                                 <p class="kh-lang-evidence">
-                                    <span class="lang-ja">TOEIC L&amp;R IP <strong>950</strong><span class="kh-sep" aria-hidden="true">/</span>英検 <strong>準1級</strong></span>
-                                    <span class="lang-en">TOEIC L&amp;R IP <strong>950</strong><span class="kh-sep" aria-hidden="true">/</span>EIKEN <strong>Pre-1</strong></span>
+                                    <span class="lang-ja"><span class="kh-ev">TOEIC L&amp;R IP <strong>950</strong></span><span class="kh-ev">英検 <strong>準1級</strong></span></span>
+                                    <span class="lang-en"><span class="kh-ev">TOEIC L&amp;R IP <strong>950</strong></span><span class="kh-ev">EIKEN <strong>Pre-1</strong></span></span>
                                 </p>
                             </div>
 
-                            <dl class="kh-lang-others">
-                                <div class="kh-lang-row">
+                            <dl class="kh-specs">
+                                <div class="kh-spec">
                                     <dt>
-                                        <span class="kh-lang-row-name">
-                                            <span class="lang-ja">日本語</span>
-                                            <span class="lang-en">Japanese</span>
-                                        </span>
+                                        <span class="lang-ja">日本語</span>
+                                        <span class="lang-en">Japanese</span>
                                     </dt>
                                     <dd>
                                         <span class="lang-ja">ネイティブ</span>
                                         <span class="lang-en">Native</span>
                                     </dd>
                                 </div>
-                                <div class="kh-lang-row">
+                                <div class="kh-spec">
                                     <dt>
-                                        <span class="kh-lang-row-name">
-                                            <span class="lang-ja">中国語</span>
-                                            <span class="lang-en">Chinese</span>
-                                        </span>
-                                        <span class="kh-lang-sub">
-                                            <span class="lang-ja">初級・基本的な日常表現 · 自己評価</span>
-                                            <span class="lang-en">Elementary · Everyday basics · Self-assessed</span>
-                                        </span>
+                                        <span class="lang-ja">中国語</span>
+                                        <span class="lang-en">Chinese</span>
                                     </dt>
                                     <dd>
                                         <span class="lang-ja">A2</span>
                                         <span class="lang-en">A2</span>
                                     </dd>
                                 </div>
-                                <div class="kh-lang-row">
+                                <div class="kh-spec">
                                     <dt>
-                                        <span class="kh-lang-row-name">
-                                            <span class="lang-ja">スペイン語</span>
-                                            <span class="lang-en">Spanish</span>
-                                        </span>
-                                        <span class="kh-lang-sub">
-                                            <span class="lang-ja">初級・学習継続中 · 自己評価</span>
-                                            <span class="lang-en">Elementary · Currently learning · Self-assessed</span>
-                                        </span>
+                                        <span class="lang-ja">スペイン語</span>
+                                        <span class="lang-en">Spanish</span>
                                     </dt>
                                     <dd>
                                         <span class="lang-ja">A2</span>
@@ -13053,6 +13113,17 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                     </dd>
                                 </div>
                             </dl>
+
+                            <div class="kh-lang-foot">
+                                <p>
+                                    <span class="lang-ja">中国語・スペイン語は自己評価。A2は、基本的な日常表現を使える段階です。</span>
+                                    <span class="lang-en">Chinese and Spanish are self-assessed. A2 covers basic everyday communication.</span>
+                                </p>
+                                <p class="kh-lang-learning-line">
+                                    <span class="lang-ja"><span class="kh-ll-label">学習中</span><span class="kh-ll-langs">フランス語、ドイツ語</span></span>
+                                    <span class="lang-en"><span class="kh-ll-label">Currently learning</span><span class="kh-ll-langs">French, German</span></span>
+                                </p>
+                            </div>
                         </article>
 
 
