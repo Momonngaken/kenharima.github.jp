@@ -8797,7 +8797,7 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                         gap: 0;
                     }
                     #development .kh-lang-hero {
-                        margin-top: 30px;
+                        margin-top: 24px;
                     }
                     #development .kh-lang-hero-name {
                         display: block;
@@ -8822,7 +8822,7 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                         grid-template-columns: repeat(6, minmax(0, 1fr));
                         gap: 4px;
                         max-width: 340px;
-                        margin: 22px 0 0;
+                        margin: 18px 0 0;
                         padding: 0;
                         list-style: none;
                     }
@@ -8848,7 +8848,7 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                     #development .kh-cefr li.is-reached::before { background: #1d1d1f; }
                     #development .kh-cefr li.is-current { color: #1d1d1f; font-weight: 650; }
                     #development .kh-lang-evidence {
-                        margin: 22px 0 0;
+                        margin: 18px 0 0;
                         color: #6e6e73;
                         font-size: 14px;
                         line-height: 1.5;
@@ -8867,14 +8867,14 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                     }
                     #development .kh-lang-others {
                         margin: auto 0 0;
-                        padding: 30px 0 0;
+                        padding: 24px 0 0;
                     }
                     #development .kh-lang-row {
                         display: flex;
                         justify-content: space-between;
-                        align-items: baseline;
+                        align-items: center;
                         gap: 16px;
-                        padding: 14px 0;
+                        padding: 12px 0;
                         border-top: 1px solid rgba(29, 29, 31, .09);
                     }
                     #development .kh-lang-row dt {
@@ -8906,6 +8906,27 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                         white-space: nowrap;
                         font-variant-numeric: tabular-nums;
                     }
+                    #development .kh-lang-framework {
+                        margin-left: 10px;
+                        color: #86868b;
+                        font-size: 13px;
+                        font-weight: 500;
+                        letter-spacing: -0.005em;
+                        text-decoration: none;
+                        cursor: help;
+                    }
+                    html.dark-mode-on #development .kh-lang-framework { color: #8e8e93; }
+                    #development .kh-lang-row-name { display: block; }
+                    #development .kh-lang-sub {
+                        display: block;
+                        margin-top: 3px;
+                        color: #86868b;
+                        font-size: 12px;
+                        line-height: 1.45;
+                        font-weight: 500;
+                        letter-spacing: -0.005em;
+                    }
+                    html.dark-mode-on #development .kh-lang-sub { color: #8e8e93; }
                     #development .kh-lang-row dd small {
                         color: #86868b;
                         font-size: 12px;
@@ -12964,6 +12985,10 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                 <span class="kh-lang-hero-name">
                                     <span class="lang-ja">英語</span>
                                     <span class="lang-en">English</span>
+                                    <abbr class="kh-lang-framework" title="Common European Framework of Reference for Languages">
+                                        <span class="lang-ja">CEFR（国際的な語学力の基準）</span>
+                                        <span class="lang-en">CEFR</span>
+                                    </abbr>
                                 </span>
                                 <span class="pd-score" aria-label="CEFR C1">C1</span>
 
@@ -12985,8 +13010,10 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                             <dl class="kh-lang-others">
                                 <div class="kh-lang-row">
                                     <dt>
-                                        <span class="lang-ja">日本語</span>
-                                        <span class="lang-en">Japanese</span>
+                                        <span class="kh-lang-row-name">
+                                            <span class="lang-ja">日本語</span>
+                                            <span class="lang-en">Japanese</span>
+                                        </span>
                                     </dt>
                                     <dd>
                                         <span class="lang-ja">ネイティブ</span>
@@ -12995,36 +13022,34 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
                                 </div>
                                 <div class="kh-lang-row">
                                     <dt>
-                                        <span class="lang-ja">中国語</span>
-                                        <span class="lang-en">Chinese</span>
-                                        <span class="kh-lang-row-detail">
-                                            <span class="lang-ja">初級・基本的な日常表現</span>
-                                            <span class="lang-en">Elementary · Everyday basics</span>
+                                        <span class="kh-lang-row-name">
+                                            <span class="lang-ja">中国語</span>
+                                            <span class="lang-en">Chinese</span>
+                                        </span>
+                                        <span class="kh-lang-sub">
+                                            <span class="lang-ja">初級・基本的な日常表現 · 自己評価</span>
+                                            <span class="lang-en">Elementary · Everyday basics · Self-assessed</span>
                                         </span>
                                     </dt>
                                     <dd>
-                                        <small>
-                                            <span class="lang-ja">自己評価</span>
-                                            <span class="lang-en">Self-assessed</span>
-                                        </small>
-                                        A2
+                                        <span class="lang-ja">A2</span>
+                                        <span class="lang-en">A2</span>
                                     </dd>
                                 </div>
                                 <div class="kh-lang-row">
                                     <dt>
-                                        <span class="lang-ja">スペイン語</span>
-                                        <span class="lang-en">Spanish</span>
-                                        <span class="kh-lang-row-detail">
-                                            <span class="lang-ja">初級・学習継続中</span>
-                                            <span class="lang-en">Elementary · Still learning</span>
+                                        <span class="kh-lang-row-name">
+                                            <span class="lang-ja">スペイン語</span>
+                                            <span class="lang-en">Spanish</span>
+                                        </span>
+                                        <span class="kh-lang-sub">
+                                            <span class="lang-ja">初級・学習継続中 · 自己評価</span>
+                                            <span class="lang-en">Elementary · Currently learning · Self-assessed</span>
                                         </span>
                                     </dt>
                                     <dd>
-                                        <small>
-                                            <span class="lang-ja">自己評価</span>
-                                            <span class="lang-en">Self-assessed</span>
-                                        </small>
-                                        A2
+                                        <span class="lang-ja">A2</span>
+                                        <span class="lang-en">A2</span>
                                     </dd>
                                 </div>
                             </dl>
