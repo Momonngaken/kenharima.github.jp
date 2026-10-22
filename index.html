@@ -54,13 +54,9 @@
     <link rel="apple-touch-icon" sizes="512x512" href="https://kenharima.com/apple-touch-k.png">
 
     <!-- Cold-start critical path: preload only the visible Hero portrait -->
-    <link
-        rel="preload"
-        as="image"
-        href="./new-profile-business-2026.png"
-        type="image/png"
-        fetchpriority="high"
-    >
+    <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+          imagesrcset="./new-profile-business-2026-480.avif 480w, ./new-profile-business-2026-720.avif 720w"
+          imagesizes="(max-width: 767px) 224px, 308px">
 
     <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -5592,6 +5588,43 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             .kh-desktop-global-nav .kh-desktop-nav-link::after { transition: none !important; }
         }
     </style>
+
+<style id="kh-current-role-highlights">
+/* Compact current affiliation and three direct entries into the existing work. */
+#home .hero-current-role { margin: 20px 0 0; max-width: 560px; color: #626268; font-size: 13px; font-weight: 500; line-height: 1.85; letter-spacing: .015em; text-wrap: pretty; }
+#home .hero-current-role .role-unit { display: inline-block; }
+#home.hero-editorial { margin-bottom: 0; }
+.site-shell > .kh-highlights { width: min(100%, 960px); margin: 0 auto clamp(64px, 8vw, 104px); }
+.kh-highlights-heading { margin: 0 0 18px; color: #6e6e73; font-size: 12px; font-weight: 600; letter-spacing: .06em; }
+.kh-highlights-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #dcdcdf; border-bottom: 1px solid #dcdcdf; padding: 25px 0; }
+.kh-highlight { appearance: none; position: relative; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; width: 100%; margin: 0; padding: 5px 28px; border: 0; border-radius: 0; background: transparent; color: #1d1d1f; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.kh-highlight:first-child { padding-left: 0; }
+.kh-highlight:last-child { padding-right: 0; }
+.kh-highlight + .kh-highlight { border-left: 1px solid #dcdcdf; }
+.kh-highlight-label { display: block; margin-bottom: 11px; color: #6e6e73; font-size: 11px; font-weight: 500; letter-spacing: .025em; line-height: 1.65; }
+.kh-highlight-title { display: block; margin-bottom: 10px; font-size: clamp(16px, 1.7vw, 19px); font-weight: 600; line-height: 1.55; letter-spacing: -.025em; text-wrap: balance; }
+.kh-highlight-description { display: block; color: #6e6e73; font-size: 12px; line-height: 1.85; text-wrap: pretty; }
+.kh-highlight-link { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 19px; color: #0066cc; font-size: 12px; font-weight: 500; line-height: 1.5; }
+.kh-highlight-arrow { transition: transform .2s ease; }
+.kh-highlight:focus-visible { outline: 3px solid #0071e3; outline-offset: 6px; border-radius: 4px; }
+@media (hover: hover) { .kh-highlight:hover .kh-highlight-link { text-decoration: underline; text-underline-offset: 4px; } .kh-highlight:hover .kh-highlight-arrow { transform: translateX(3px); } }
+html.dark-mode-on #home .hero-current-role, html.dark-mode-on .kh-highlight-label, html.dark-mode-on .kh-highlight-description, html.dark-mode-on .kh-highlights-heading { color: #a1a1a6; }
+html.dark-mode-on .kh-highlight { color: #f5f5f7; }
+html.dark-mode-on .kh-highlights-grid, html.dark-mode-on .kh-highlight + .kh-highlight { border-color: #424245; }
+html.dark-mode-on .kh-highlight-link { color: #66b1ff; }
+@media (max-width: 767px) {
+ #home .hero-current-role { margin-top: 17px; font-size: 12px; line-height: 1.9; }
+ .kh-highlights-grid { grid-template-columns: 1fr; padding: 0; }
+ .kh-highlight, .kh-highlight:first-child, .kh-highlight:last-child { padding: 24px 30px 24px 0; }
+ .kh-highlight + .kh-highlight { border-left: 0; border-top: 1px solid #dcdcdf; }
+ .kh-highlight-label { margin-bottom: 6px; }
+ .kh-highlight-title { margin-bottom: 6px; font-size: 18px; }
+ .kh-highlight-link { padding-top: 12px; }
+ .kh-highlight-arrow { position: absolute; right: 2px; top: 50%; font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .kh-highlight-arrow { transition: none; } }
+</style>
+
 </head>
 <body class="antialiased">
 
@@ -5794,6 +5827,9 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
             <div class="hero-visual">
                 <div id="hero-portrait-container" class="hero-portrait-stage">
                     <div id="hero-photo" class="hero-photo-frame">
+                        <picture>
+                            <source type="image/avif" srcset="./new-profile-business-2026-480.avif 480w, ./new-profile-business-2026-720.avif 720w" sizes="(max-width: 767px) 224px, 308px">
+                            <source type="image/webp" srcset="./new-profile-business-2026-480.webp 480w, ./new-profile-business-2026-720.webp 720w" sizes="(max-width: 767px) 224px, 308px">
                         <img
                             src="./new-profile-business-2026.png"
                             width="512"
@@ -5804,6 +5840,7 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                             decoding="async"
                             class="hero-portrait hero-portrait--business"
                         >
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -5817,6 +5854,11 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
                 <p class="hero-thesis hero-reveal hero-reveal-2">
                     <span class="lang-ja hero-thesis-ja"><span class="hero-thesis-line">読む。</span><span class="hero-thesis-line">ときほぐす。</span><span class="hero-thesis-line">ものがたる。</span></span>
                     <span class="lang-en hero-thesis-en">Read. Untangle. Retell.</span>
+                </p>
+
+                <p class="hero-current-role">
+                    <span class="lang-ja"><span class="role-unit">ダイキン工業 DX推進部</span><span class="role-unit">（ダイキン情報システム出向）</span></span>
+                    <span class="lang-en">Daikin Industries · DX Promotion Department<br>Seconded to Daikin Information Systems</span>
                 </p>
 
                 <div class="hero-disciplines hero-reveal hero-reveal-3" aria-label="専門領域 / Core disciplines">
@@ -5866,6 +5908,30 @@ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
 
 
         </header>
+
+        <section class="kh-highlights" aria-labelledby="kh-highlights-heading">
+            <h2 id="kh-highlights-heading" class="kh-highlights-heading"><span class="lang-ja">代表実績</span><span class="lang-en">Selected Highlights</span></h2>
+            <div class="kh-highlights-grid">
+                <button type="button" class="kh-highlight js-modal-trigger" data-modal-id="noguchi" aria-haspopup="dialog" aria-controls="global-modal">
+                    <span class="kh-highlight-label"><span class="lang-ja">野口智雄ゼミ × 理想科学工業</span><span class="lang-en">Tomoo Noguchi Seminar × RISO</span></span>
+                    <span class="kh-highlight-title"><span class="lang-ja">マーケティング戦略コンペ<br>最優秀賞</span><span class="lang-en">First Prize<br>Marketing Strategy Competition</span></span>
+                    <span class="kh-highlight-description"><span class="lang-ja">データ分析をもとに、チームで戦略を提案。</span><span class="lang-en">Developed a data-informed strategy as part of a team.</span></span>
+                    <span class="kh-highlight-link"><span class="lang-ja">詳細を見る</span><span class="lang-en">Explore project</span><span class="kh-highlight-arrow" aria-hidden="true">›</span></span>
+                </button>
+                <button type="button" class="kh-highlight js-modal-trigger" data-modal-id="pivot" aria-haspopup="dialog" aria-controls="global-modal">
+                    <span class="kh-highlight-label"><span class="lang-ja">早稲田大学 × PIVOT</span><span class="lang-en">Waseda University × PIVOT</span></span>
+                    <span class="kh-highlight-title"><span class="lang-ja">公開収録イベント<br>企画・運営</span><span class="lang-en">Public Recording Event<br>Planning &amp; Operations</span></span>
+                    <span class="kh-highlight-description"><span class="lang-ja">企業・大学との折衝から、当日の運営まで担当。</span><span class="lang-en">Coordinated with the company and university and handled on-site operations.</span></span>
+                    <span class="kh-highlight-link"><span class="lang-ja">詳細を見る</span><span class="lang-en">Explore project</span><span class="kh-highlight-arrow" aria-hidden="true">›</span></span>
+                </button>
+                <button type="button" class="kh-highlight js-modal-trigger" data-modal-id="ariyoshi" aria-haspopup="dialog" aria-controls="global-modal">
+                    <span class="kh-highlight-label"><span class="lang-ja">第3回 有吉佐和子文学賞</span><span class="lang-en">3rd Sawako Ariyoshi Literary Award</span></span>
+                    <span class="kh-highlight-title"><span class="lang-ja">佳作</span><span class="lang-en">Honorable Mention</span></span>
+                    <span class="kh-highlight-description"><span class="lang-ja">母から届いた料理を通して、優しさを受け取る葛藤を描く。</span><span class="lang-en">A short story exploring the difficulty of accepting a mother’s care.</span></span>
+                    <span class="kh-highlight-link"><span class="lang-ja">作品を見る</span><span class="lang-en">Explore work</span><span class="kh-highlight-arrow" aria-hidden="true">›</span></span>
+                </button>
+            </div>
+        </section>
 
         <main class="site-main space-y-16 md:space-y-24">
 
@@ -11877,8 +11943,8 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
     </span>
 
     <span class="lang-en">
-        Noguchi TomooSeminar ×<br>
-        Riso Kagaku Corp.
+        Tomoo Noguchi Seminar ×<br>
+        RISO
         <span class="project-title-descriptor">
             Marketing Strategy Competition
         </span>
@@ -16709,9 +16775,9 @@ The lasting lesson was not that the project produced a high return, but that the
                     sub_ja: "#マーケティング戦略 / #データ分析",
                     sub_en: "#Marketing Strategy / #Data Analysis",
                     title_ja: "野口智雄ゼミ × 理想科学工業株式会社\nマーケティング戦略コンペティション",
-                    title_en: "Tomoo Noguchi Seminar × Riso Kagaku\nMarketing Strategy Competition",
+                    title_en: "Tomoo Noguchi Seminar × RISO\nMarketing Strategy Competition",
                     body_ja: `2024年、早稲田大学社会科学部野口智雄ゼミにおいて、理想科学工業株式会社様の「MiScreen A4」マーケティング戦略コンペティションに取り組みました。 このプロジェクトにおいて私たちは、感覚的なアイデア出しに依存せず、確固たる「根拠」に基づく戦略立案を徹底しました。\n\nまず、チーム全体で、理想科学工業株式会社様が行っているSNSでの広報活動状況に関する膨大なデータを収集・整理。動画のクリエイティブ要素を詳細に分解。その中でも既存のSNS投稿におけるPV数やリアクションの違いに着目し、<strong>多変量解析の一種である「数量化I類」を用いて各要素の影響度を算出</strong>しました。これにより、<strong>感覚に頼らない客観的根拠のある勝ちパターンを導出し、チームの共通認識として確立</strong>しました。\n\nそのデータを基に、「MiScreen A4」の強みである「ものづくり体験価値」と最も合致する市場として、国内外の美術館をターゲットとした戦略を立案し、最優秀賞を獲得しました。`,
-                    body_en: `In 2024, as part of the Tomoo Noguchi Seminar at the Waseda University School of Social Sciences, I participated in a marketing strategy competition for Riso Kagaku Corporation’s "MiScreen A4." Our project was defined by a rigorous commitment to evidence-based strategy, rejecting reliance on purely intuitive brainstorming.\n\nOur team began by collecting and organizing a vast amount of data regarding the client's existing social media presence. We deconstructed the creative elements of their video content and focused on the variance in page views (PV) and engagement metrics across existing posts. Utilizing Quantification Theory Type I (a method of multivariate analysis), we calculated the specific impact of each creative element. This allowed us to derive an objective "winning pattern" backed by data, establishing a unified strategic vision for the team.\n\nBased on this analysis, we identified art museums (both domestic and international) as the market that best aligned with the product's unique value proposition of "creative manufacturing experiences." We developed a targeted strategy for this niche, ultimately winning the Grand Prix.`
+                    body_en: `In 2024, as part of the Tomoo Noguchi Seminar at the Waseda University School of Social Sciences, I participated in a marketing strategy competition for RISO’s "MiScreen A4." Our project was defined by a rigorous commitment to evidence-based strategy, rejecting reliance on purely intuitive brainstorming.\n\nOur team began by collecting and organizing a vast amount of data regarding the client's existing social media presence. We deconstructed the creative elements of their video content and focused on the variance in page views (PV) and engagement metrics across existing posts. Utilizing Quantification Theory Type I (a method of multivariate analysis), we calculated the specific impact of each creative element. This allowed us to derive an objective "winning pattern" backed by data, establishing a unified strategic vision for the team.\n\nBased on this analysis, we identified art museums (both domestic and international) as the market that best aligned with the product's unique value proposition of "creative manufacturing experiences." We developed a targeted strategy for this niche, ultimately winning the Grand Prix.`
                 },
                "ariyoshi": {
                     sub_ja: "#ナラティブ / #現象学 / #時間論 / #贈与論",
