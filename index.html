@@ -5625,6 +5625,85 @@ html.dark-mode-on .kh-highlight-link { color: #66b1ff; }
 @media (prefers-reduced-motion: reduce) { .kh-highlight-arrow { transition: none; } }
 </style>
 
+<style id="kh-poker-2026-refresh">
+
+/* ================================================================
+   2026 Poker editorial / three tournament results / photo essays
+   Scoped overrides; no changes to the rest of the portfolio.
+   ================================================================ */
+#projects .project-tournament .tournament-results {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(10px, 1.5vw, 18px);
+    align-items: stretch;
+}
+#projects .project-tournament .tournament-result {min-width:0;padding-left:clamp(12px,1.6vw,20px);}
+#projects .project-tournament .tournament-name {
+    font-size: clamp(10px, 1vw, 12px); min-height: 1.6em;
+    font-weight: 600; letter-spacing: .015em; white-space:nowrap;
+}
+#projects .project-tournament .tournament-rank {
+    font-size: clamp(22px, 2.45vw, 32px); letter-spacing:-.052em;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+#projects .project-tournament .tournament-date {font-size:11px; letter-spacing:.02em;}
+@media (max-width: 767px) {
+    #projects .project-tournament .tournament-results {grid-template-columns:1fr;gap:0;}
+    #projects .project-tournament .tournament-result {
+        padding: 15px 0 13px; border-left:0; border-top:1px solid rgba(29,29,31,.10);
+        display:grid;grid-template-columns:minmax(0,1fr) auto;
+        grid-template-areas:'name rank' 'date rank'; align-items:center; column-gap:12px;
+    }
+    #projects .project-tournament .tournament-name {grid-area:name;min-height:0;margin:0;font-size:12px;white-space:normal;}
+    #projects .project-tournament .tournament-rank {grid-area:rank;font-size:clamp(23px,5.7vw,30px);}
+    #projects .project-tournament .tournament-date {grid-area:date;margin-top:4px;}
+}
+/* Modal: purposeful editorial documentation, rather than a wall of text. */
+#global-modal .kh-tourney-editorial {white-space:normal;text-align:left;word-break:normal;}
+#global-modal .kh-tourney-editorial * {box-sizing:border-box;}
+#global-modal .kh-tourney-intro {font-size:15px;line-height:1.9;color:#515154;letter-spacing:.005em;margin:0 0 25px;}
+#global-modal .kh-tourney-section {padding:30px 0 36px;border-top:1px solid rgba(29,29,31,.10);}
+#global-modal .kh-tourney-section:first-of-type {border-top:0;padding-top:4px;}
+#global-modal .kh-tourney-kicker {
+    margin:0 0 12px;color:#8e8e93;font-size:11px;font-weight:650;line-height:1.5;
+    letter-spacing:.11em;text-transform:uppercase;
+}
+#global-modal .kh-tourney-title {margin:0 0 13px;color:#1d1d1f;font-size:clamp(22px,3.5vw,31px);font-weight:700;line-height:1.2;letter-spacing:-.04em;}
+#global-modal .kh-tourney-lead {margin:0 0 23px;color:#515154;font-size:14px;line-height:1.9;}
+#global-modal .kh-tourney-metrics {display:flex;flex-wrap:wrap;gap:20px;padding:20px 0;margin:0 0 23px;border-top:1px solid rgba(29,29,31,.07);border-bottom:1px solid rgba(29,29,31,.07);}
+#global-modal .kh-tourney-metric {display:flex;flex-direction:column;gap:5px;min-width:110px;}
+#global-modal .kh-tourney-metric-label {color:#86868b;font-size:10px;line-height:1.3;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+#global-modal .kh-tourney-metric-value {color:#1d1d1f;font-size:clamp(24px,4vw,33px);line-height:1.1;letter-spacing:-.05em;font-weight:680;font-variant-numeric:tabular-nums;}
+#global-modal .kh-tourney-copy p {font-size:14px;line-height:2.0;letter-spacing:.008em;margin:0 0 17px;color:#515154;text-align:justify;}
+#global-modal .kh-tourney-copy p:last-child {margin-bottom:0;}
+#global-modal .kh-tourney-copy strong {color:#1d1d1f;font-weight:650;}
+#global-modal .kh-tourney-photo {margin:24px 0 24px;white-space:normal;}
+#global-modal .kh-tourney-photo img {display:block;width:100%;height:auto;object-fit:cover;background:#e8e8ed;border-radius:17px;box-shadow:0 12px 35px rgba(0,0,0,.07);}
+#global-modal .kh-tourney-photo-primary img {max-height:510px;aspect-ratio:1.38/1;object-position:50% 44%;}
+#global-modal .kh-tourney-photo figcaption {margin-top:10px;text-align:left;color:#86868b;font-size:11px;line-height:1.6;letter-spacing:.01em;}
+#global-modal .kh-tourney-photo-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:23px;}
+#global-modal .kh-tourney-photo-grid .kh-tourney-photo {margin:0;min-width:0;}
+#global-modal .kh-tourney-photo-grid img {aspect-ratio:1/1;object-fit:cover;object-position:center;}
+#global-modal .kh-tourney-photo-grid .kh-tourney-photo:last-child img {object-position:center 42%;}
+#global-modal .kh-tourney-note {border-top:1px solid rgba(29,29,31,.09);padding-top:16px;margin-top:22px;font-size:12px;line-height:1.9;color:#86868b;}
+#global-modal .kh-tourney-notes {padding:23px 0 0;border-top:1px solid rgba(29,29,31,.10);}
+#global-modal .kh-tourney-notes details {margin-top:10px;border-bottom:1px solid rgba(29,29,31,.08);padding:0 0 9px;}
+#global-modal .kh-tourney-notes summary {cursor:pointer;color:#515154;font-weight:600;font-size:13px;list-style-position:inside;padding:8px 0;}
+#global-modal .kh-tourney-notes p {margin:7px 0 12px;font-size:12px;line-height:1.9;color:#6e6e73;}
+@media (max-width: 520px) {
+  #global-modal .kh-tourney-photo-grid {grid-template-columns:1fr;gap:20px;}
+  #global-modal .kh-tourney-photo-grid img {aspect-ratio:1.35/1;}
+  #global-modal .kh-tourney-metrics {gap:14px;}
+  #global-modal .kh-tourney-metric {min-width:95px;}
+  #global-modal .kh-tourney-copy p {font-size:13.5px;line-height:1.95;}
+}
+html.dark-mode-on #projects .project-tournament .tournament-result {border-color:rgba(255,255,255,.14);}
+html.dark-mode-on #global-modal .kh-tourney-title,html.dark-mode-on #global-modal .kh-tourney-metric-value,html.dark-mode-on #global-modal .kh-tourney-copy strong {color:#f5f5f7;}
+html.dark-mode-on #global-modal .kh-tourney-intro, html.dark-mode-on #global-modal .kh-tourney-lead,html.dark-mode-on #global-modal .kh-tourney-copy p {color:#b5b5bb;}
+html.dark-mode-on #global-modal .kh-tourney-section, html.dark-mode-on #global-modal .kh-tourney-metrics,html.dark-mode-on #global-modal .kh-tourney-notes,html.dark-mode-on #global-modal .kh-tourney-notes details,html.dark-mode-on #global-modal .kh-tourney-note {border-color:rgba(255,255,255,.13);}
+html.dark-mode-on #global-modal .kh-tourney-notes summary {color:#d1d1d6;}
+html.dark-mode-on #global-modal .kh-tourney-notes p {color:#a1a1a6;}
+
+</style>
 </head>
 <body class="antialiased">
 
@@ -13079,6 +13158,12 @@ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.045);
 
                                 </div>
 
+                                <div class="tournament-result">
+                                    <span class="tournament-name">ZONe × m HOLD’EM</span>
+                                    <span class="tournament-rank">2 / 84</span>
+                                    <time class="tournament-date" datetime="2025-12">2025.12</time>
+                                </div>
+
                             </div>
 
                         </article>
@@ -16901,33 +16986,56 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                     body_en: `In 2018, in the "6th High School Business Plan Grand Prix" hosted by the Japan Finance Corporation, the business plan for which I handled concept creation and product design was selected in the TOP 100 out of 4,359 entries. Additionally, at the Tokyo metropolitan level, we received the Tokyo Bureau of Industrial and Labor Affairs Director General’s Award (2nd place).\n\nOur proposal was a study-focused SNS service named "'presst." Focusing on cognitive science findings that "the mere presence of a smartphone reduces human cognitive capacity," we aimed to solve the issue of learning obstruction caused by traditional social media. Our concept was "Expressing Study." Rather than cutting off communication with friends, we adopted the paradoxical approach of "turning SNS into a driving force for learning."\n\nThe core mechanism of "'presst" automatically recorded study start and end times while eliminating distracting elements, allowing users to publish their learning time and content via hashtags. This visualized "friends working hard right now," designing a UX that stimulated autonomous motivation through the peer effect. In the presentation, alongside a product mockup, I presented a concrete revenue model and financial plan projecting 50 million yen in sales by the fifth year. The project was highly praised for balancing creative product design capabilities with realistic business planning.`
                 },
                "jopt": {
-                    sub_ja: "#ゲーム理論 / #ポーカートーナメント戦略",
-                    sub_en: "#Game Theory / #Poker Tournament Strategy",
-                    title_ja: "ゲーム理論実践検証\n於ポーカー日本大会",
-                    title_en: "Game Theory in Practice\nJapan Poker Tournaments",
-                    body_ja: `主戦場はキャッシュゲームであり、トーナメントは本領ではない。だが、2,511名がエントリーした大規模なフィールドで問われるのは、競技形式への習熟だけでなく、刻々と変わる状況に応じた意思決定の精度だと考えた。\n\n戦略の軸に据えたのは、GTO（ゲーム理論最適戦略）を基準とした、状況に応じた期待値の最大化である。理論を機械的になぞるのではなく、対戦相手の傾向や卓上の力学を観察し、必要に応じて均衡戦略から意図的に逸脱する。リスクを抑えるべき局面と、積極的に勝負すべき局面を見極めながら、2日間にわたり判断を積み重ねた。\n\n終盤には、ICM（Independent Chip Model）の観点も取り入れ、チップの増加が必ずしも賞金期待値の最大化につながらないことを踏まえ、敗退リスクをより慎重に評価した。「生き残ること」と「勝ちに行くこと」。時に相反する二つの要請を、一手ごとに量り直し続けた。\n\n最終結果は、2,511名中107位（上位約4.3％）。偶然性が常に介在する以上、一度の順位で実力は証明できない。それでも、不確実性の中で観察し、判断し、時に抑制し、勝負所では決断する。その過程を通じて、結果と判断の質を切り分けて検証することの重要性を再確認した。それが、私にとってこの大会の最大の収穫だった。\n\n<strong>>> 国内大会実績:</strong>\n- JOPT2024 Tokyo #32 Poker Players Championship 107th / 2511\n- SPADIE 40th #23 Casualstack 12th / 279
-
-<div class="mt-10 pt-6 border-t border-gray-200/50">
-    <div class="apple-footnote" style="margin-bottom: 8px;">
-        <span class="apple-footnote-mark">*</span>
-        <p class="apple-footnote-text m-0"><strong class="font-medium text-gray-700">GTO (Game Theory Optimal):</strong> ゲーム理論上、相手に戦略を読まれても長期的に搾取されにくい均衡戦略。ポーカーでは、特定の相手への読みや感情に依存せず、ベット頻度やブラフ頻度を理論的にバランスさせることで、期待値を安定させる考え方を指す。</p>
-    </div>
-    <div class="apple-footnote" style="margin-top: 0;">
-        <span class="apple-footnote-mark">*</span>
-        <p class="apple-footnote-text m-0"><strong class="font-medium text-gray-700">ICM (Independent Chip Model):</strong> トーナメントポーカーにおいて、各プレイヤーのチップ量を賞金期待値に換算するためのモデル。チップの枚数そのものではなく、順位ごとの賞金配分を踏まえて、現在のチップスタックがどれだけの金銭的価値を持つかを評価する。</p>
-    </div>
+                    sub_ja: "#ゲーム理論 / #大会実績 / #意思決定",
+                    sub_en: "#Game Theory / #Tournament Results / #Decision-Making",
+                    title_ja: "国内ポーカートーナメント\n競技記録と意思決定",
+                    title_en: "Domestic Poker Tournaments\nResults & Decision-Making",
+                    body_ja: `<div class="kh-tourney-editorial">
+<p class="kh-tourney-intro">主戦場はキャッシュゲーム。それでもトーナメントでは、賞金構造や生存リスクによって合理的な判断が変わる。その違いを意識しながら、ゲーム理論を実際の卓上で検証してきた。</p>
+<section class="kh-tourney-section" aria-labelledby="kh-jopt-ja">
+<p class="kh-tourney-kicker">01 / JOPT · 2024.10</p>
+<h4 id="kh-jopt-ja" class="kh-tourney-title">JOPT 2024 Tokyo #32</h4>
+<div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">107 / 2,511</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">PERCENTILE</span><span class="kh-tourney-metric-value">Top 4.3%</span></div></div>
+<figure class="kh-tourney-photo kh-tourney-photo-primary"><img src="./poker-jopt-tokyo-2024.webp" alt="JOPT 2024 Tokyoでポーカーテーブルに着席し、プレイに集中する姿" width="1440" height="1440" loading="lazy" decoding="async"><figcaption>JOPT 2024 Tokyo にて。大会当日の記録。</figcaption></figure>
+<div class="kh-tourney-copy"><p>キャッシュゲームを主に打ってきた私にとって、トーナメントは慣れない形式だった。だが、2,511名がエントリーしたフィールドで問われるのは、形式への習熟だけでなく、刻々と変わる状況に応じた意思決定の精度だと考えた。</p>
+<p>戦略の軸に据えたのは、<strong>GTO（ゲーム理論最適戦略）を基準とした、状況に応じた期待値の最大化</strong>である。GTOは絶対的な正解ではなく、相手の傾向を測るための基準線として用いた。コールしすぎる相手にはブラフを減らし、降りすぎる相手には増やす。相手ごとの傾向と卓上の力学を踏まえ、必要に応じて均衡戦略から意図的に逸脱する。リスクを抑えるべき局面と勝負すべき局面を見極めながら、2日間にわたり判断を積み重ねた。</p>
+<p>終盤には、<strong>ICM（Independent Chip Model）</strong>の観点も重要になった。トーナメントではチップが倍になっても賞金期待値は倍にならない。キャッシュゲームなら期待値がプラスのコールでも、賞金構造と敗退リスクを考慮するとフォールドが合理的になり得る。「生き残ること」と「勝ちに行くこと」。時に相反する二つの要請を、一手ごとに秤にかけた。</p>
+<p>最終結果は2,511名中107位。偶然性が常に介在する以上、この順位だけで実力を証明することはできない。<strong>勝った手と、正しかった手は、必ずしも同じではない。</strong>キャッシュゲームで向き合ってきたこの原則を、異なる形式で改めて確かめた。結果と判断の質を切り分けて検証する姿勢こそ、この大会の最大の収穫だった。</p></div>
+</section>
+<section class="kh-tourney-section" aria-labelledby="kh-spadie-ja">
+<p class="kh-tourney-kicker">02 / SPADIE · 2026.01</p>
+<h4 id="kh-spadie-ja" class="kh-tourney-title">SPADIE 40th #23 Casualstack</h4>
+<div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">12 / 279</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">PERCENTILE</span><span class="kh-tourney-metric-value">Top 4.3%</span></div></div>
+<p class="kh-tourney-lead">279名中12位。JOPTとは異なる大会形式で得たトーナメント実績の一つとして記録している。単一の順位を実力の証明とはせず、意思決定を振り返る材料として位置づけている。</p>
+</section>
+<section class="kh-tourney-section" aria-labelledby="kh-zone-ja">
+<p class="kh-tourney-kicker">03 / ZONe ENERGY × m HOLD’EM · 2025.12</p>
+<h4 id="kh-zone-ja" class="kh-tourney-title">Students Poker Tournament<br>— Mystery Bounty</h4>
+<div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">2 / 84</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">RESULT</span><span class="kh-tourney-metric-value">Runner-up</span></div></div>
+<p class="kh-tourney-lead">2025年12月、m HOLD’EM目黒で開催されたZONe ENERGY × m HOLD’EM学生ポーカートーナメント（Mystery Bounty形式）に出場し、84名中準優勝（上位約2.4％）。キャッシュゲームとは異なる賞金構造と敗退リスクを持つ競技形式での結果として記録する。</p>
+<div class="kh-tourney-photo-grid"><figure class="kh-tourney-photo"><img src="./poker-mholdem-meguro.webp" width="941" height="941" loading="lazy" decoding="async" alt="m HOLD’EM目黒のポーカーテーブルでチップを前にプレイする姿"><figcaption>m HOLD’EM目黒でのプレイ風景。JOPTの写真ではありません。</figcaption></figure><figure class="kh-tourney-photo"><img src="./poker-zone-mholdem-runnerup-2025.webp" width="706" height="440" loading="lazy" decoding="async" alt="ZONe ENERGYとm HOLD’EMの学生トーナメントで準優勝した際の記録写真"><figcaption>学生トーナメント準優勝時の記録（SNSストーリー画像から抜粋）。</figcaption></figure></div>
+<p class="kh-tourney-note">※ 順位やROIといった短期的な結果には偶然性が伴います。各記録は実力の因果的証明ではなく、実践と振り返りの履歴として掲載しています。</p>
+</section>
+<div class="kh-tourney-notes"><p class="kh-tourney-kicker">TERMINOLOGY</p><details><summary>GTO · Game Theory Optimal</summary><p>相手の戦略に対して長期的に搾取されにくい均衡戦略を目指す考え方。相手の傾向を踏まえてエクスプロイトする際の基準線としても有効です。</p></details><details><summary>ICM · Independent Chip Model</summary><p>トーナメントの賞金配分と各プレイヤーのチップ量から、スタックの賞金期待値を推定するモデル。チップの期待値と賞金の期待値の違いを考えるために用います。</p></details></div>
 </div>`,
-                    body_en: `My primary focus has always been cash games rather than tournaments. Yet, in a field of 2,511 entrants, I believed that success would depend not merely on familiarity with the tournament format, but on the precision of one's decisions as circumstances continually evolved.\n\nMy strategy centered on maximizing expected value (EV) through a context-sensitive approach grounded in Game Theory Optimal (GTO) principles. Rather than adhering mechanically to theoretically optimal play, I observed opponents' tendencies and table dynamics, deliberately deviating from equilibrium strategies when the situation warranted it. Over two days of competition, I continually assessed when to manage risk conservatively and when to seize opportunities through calculated aggression.\n\nIn the later stages, I incorporated considerations from the Independent Chip Model (ICM), recognizing that accumulating chips does not necessarily translate into maximizing expected prize money. This required a more careful assessment of elimination risk. Survival and the pursuit of victory—two objectives that can, at times, pull in opposing directions—had to be weighed anew with every decision.\n\nI ultimately finished 107th out of 2,511 entrants, placing in the top 4.3%. Given the inherent role of variance in poker, no single tournament result can establish a player's skill. Nevertheless, the experience demanded sustained observation, judgment, restraint, and decisiveness at critical moments. Above all, it reaffirmed the importance of evaluating the quality of decisions independently of their outcomes. That, to me, was the most valuable lesson of the tournament.\n\n<strong>>> Domestic Tournament Results:</strong>\n- JOPT2024 Tokyo #32 Poker Players Championship 107th / 2511\n- SPADIE 40th #23 Casualstack 12th / 279
-
-<div class="mt-10 pt-6 border-t border-gray-200/50">
-    <div class="apple-footnote" style="margin-bottom: 8px;">
-        <span class="apple-footnote-mark">*</span>
-        <p class="apple-footnote-text m-0"><strong class="font-medium text-gray-700">GTO (Game Theory Optimal):</strong> A game-theoretic equilibrium strategy designed to be difficult to exploit over the long run, even if opponents understand your strategy. In poker, it refers to an approach that stabilizes expected value by theoretically balancing frequencies such as betting and bluffing, rather than relying on reads on a specific opponent or on emotion.</p>
-    </div>
-    <div class="apple-footnote" style="margin-top: 0;">
-        <span class="apple-footnote-mark">*</span>
-        <p class="apple-footnote-text m-0"><strong class="font-medium text-gray-700">ICM (Independent Chip Model):</strong> A model used in tournament poker to convert each player’s chip stack into expected prize value. Rather than evaluating chips by their raw count alone, it estimates the monetary value of a current stack based on the prize distribution across finishing positions.</p>
-    </div>
+                    body_en: `<div class="kh-tourney-editorial">
+<p class="kh-tourney-intro">Cash games have been my primary discipline. Tournament poker introduces different incentives: payout structures and elimination risk can change which decisions are rational. I have approached these events as opportunities to test game-theoretic thinking under changing conditions.</p>
+<section class="kh-tourney-section" aria-labelledby="kh-jopt-en"><p class="kh-tourney-kicker">01 / JOPT · OCT 2024</p><h4 class="kh-tourney-title" id="kh-jopt-en">JOPT 2024 Tokyo #32</h4>
+<div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">107 / 2,511</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">PERCENTILE</span><span class="kh-tourney-metric-value">Top 4.3%</span></div></div>
+<figure class="kh-tourney-photo kh-tourney-photo-primary"><img src="./poker-jopt-tokyo-2024.webp" alt="Playing at the table during JOPT 2024 Tokyo" width="1440" height="1440" loading="lazy" decoding="async"><figcaption>JOPT 2024 Tokyo · Photograph taken during the tournament.</figcaption></figure>
+<div class="kh-tourney-copy"><p>Having predominantly played cash games, I was less familiar with tournament poker. In a field of 2,511 entrants, however, I saw success as a matter not only of familiarity with the format, but of making precise decisions as circumstances changed.</p>
+<p>My approach was to <strong>maximize expected value using GTO (Game Theory Optimal) as a reference point</strong>, not as an immutable answer. Against opponents who called too often, I reduced my bluffing frequency; against those who folded too often, I increased it. By observing individual tendencies and table dynamics, I deliberately deviated from equilibrium strategies when appropriate. Over two days of play, I continually weighed restraint against calculated aggression.</p>
+<p>As the event progressed, <strong>ICM (Independent Chip Model)</strong> became increasingly relevant. Doubling a chip stack does not necessarily double its expected prize value. A call that is profitable in a cash game can become a fold when tournament payouts and elimination risk are considered. Survival and the pursuit of victory can sometimes pull in different directions; each decision required weighing them anew.</p>
+<p>I finished 107th out of 2,511 entrants. With variance inherent in poker, a single result cannot establish skill. <strong>A winning hand is not necessarily a well-played hand.</strong> The event gave me another opportunity to test a principle I had repeatedly encountered in cash games: the quality of a decision must be assessed independently of its outcome.</p></div></section>
+<section class="kh-tourney-section" aria-labelledby="kh-spadie-en"><p class="kh-tourney-kicker">02 / SPADIE · JAN 2026</p><h4 class="kh-tourney-title" id="kh-spadie-en">SPADIE 40th #23 Casualstack</h4>
+<div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">12 / 279</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">PERCENTILE</span><span class="kh-tourney-metric-value">Top 4.3%</span></div></div>
+<p class="kh-tourney-lead">I finished 12th out of 279 entrants. I treat this as another tournament result worth documenting—not as standalone proof of skill, but as an opportunity for reviewing decisions in a different competitive setting.</p></section>
+<section class="kh-tourney-section" aria-labelledby="kh-zone-en"><p class="kh-tourney-kicker">03 / ZONe ENERGY × m HOLD’EM · DEC 2025</p><h4 class="kh-tourney-title" id="kh-zone-en">Students Poker Tournament<br>— Mystery Bounty</h4>
+<div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">2 / 84</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">RESULT</span><span class="kh-tourney-metric-value">Runner-up</span></div></div>
+<p class="kh-tourney-lead">In December 2025, I finished runner-up out of 84 entrants (top 2.4%) at the ZONe ENERGY × m HOLD’EM student tournament, held at m HOLD’EM Meguro in a Mystery Bounty format. I record the result as another experience navigating tournament-specific incentives and elimination risk.</p>
+<div class="kh-tourney-photo-grid"><figure class="kh-tourney-photo"><img src="./poker-mholdem-meguro.webp" width="941" height="941" loading="lazy" decoding="async" alt="Playing poker at m HOLD’EM Meguro"><figcaption>At m HOLD’EM Meguro. This photograph was not taken at JOPT.</figcaption></figure><figure class="kh-tourney-photo"><img src="./poker-zone-mholdem-runnerup-2025.webp" width="706" height="440" loading="lazy" decoding="async" alt="Photograph documenting runner-up finish at the ZONe ENERGY and m HOLD’EM student tournament"><figcaption>Runner-up at the student tournament · Cropped from an Instagram Story.</figcaption></figure></div>
+<p class="kh-tourney-note">* Tournament finishes and short-run ROI are affected by variance. These records document practice and reflection, not causal proof of playing ability.</p></section>
+<div class="kh-tourney-notes"><p class="kh-tourney-kicker">TERMINOLOGY</p><details><summary>GTO · Game Theory Optimal</summary><p>An equilibrium-oriented approach intended to be difficult for opponents to exploit over the long run. It can also provide a baseline from which to adjust to specific opponents.</p></details><details><summary>ICM · Independent Chip Model</summary><p>A model estimating the monetary value of tournament chip stacks given the payout structure and players’ stacks; it helps distinguish chip EV from prize-money EV.</p></details></div>
 </div>`
                 }
             };
@@ -17049,7 +17157,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
                 // to <br> would inject HTML elements inside <svg> and corrupt it.
                 // For this modal only, preserve the raw HTML/SVG and let the
                 // parent `white-space: pre-line` render prose line breaks.
-                const preserveInlineSvg = id === 'poker';
+                const preserveInlineSvg = id === 'poker' || id === 'jopt';
 
                 const formatModalHtml = (html) =>
                     preserveInlineSvg
