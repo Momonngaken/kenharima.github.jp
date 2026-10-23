@@ -5680,18 +5680,15 @@ html.dark-mode-on .kh-highlight-link { color: #66b1ff; }
 #global-modal .kh-tourney-photo img {display:block;width:100%;height:auto;object-fit:cover;background:#e8e8ed;border-radius:17px;box-shadow:0 12px 35px rgba(0,0,0,.07);}
 #global-modal .kh-tourney-photo-primary img {max-height:510px;aspect-ratio:1.38/1;object-position:50% 44%;}
 #global-modal .kh-tourney-photo figcaption {margin-top:10px;text-align:left;color:#86868b;font-size:11px;line-height:1.6;letter-spacing:.01em;}
-#global-modal .kh-tourney-photo-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:23px;}
-#global-modal .kh-tourney-photo-grid .kh-tourney-photo {margin:0;min-width:0;}
-#global-modal .kh-tourney-photo-grid img {aspect-ratio:1/1;object-fit:cover;object-position:center;}
-#global-modal .kh-tourney-photo-grid .kh-tourney-photo:last-child img {object-position:center 42%;}
+#global-modal .kh-tourney-photo-solo {width:100%;max-width:480px;margin:24px 0 26px;}
+#global-modal .kh-tourney-photo-solo img {aspect-ratio:1/1;object-fit:cover;object-position:center;}
 #global-modal .kh-tourney-note {border-top:1px solid rgba(29,29,31,.09);padding-top:16px;margin-top:22px;font-size:12px;line-height:1.9;color:#86868b;}
 #global-modal .kh-tourney-notes {padding:23px 0 0;border-top:1px solid rgba(29,29,31,.10);}
 #global-modal .kh-tourney-notes details {margin-top:10px;border-bottom:1px solid rgba(29,29,31,.08);padding:0 0 9px;}
 #global-modal .kh-tourney-notes summary {cursor:pointer;color:#515154;font-weight:600;font-size:13px;list-style-position:inside;padding:8px 0;}
 #global-modal .kh-tourney-notes p {margin:7px 0 12px;font-size:12px;line-height:1.9;color:#6e6e73;}
 @media (max-width: 520px) {
-  #global-modal .kh-tourney-photo-grid {grid-template-columns:1fr;gap:20px;}
-  #global-modal .kh-tourney-photo-grid img {aspect-ratio:1.35/1;}
+  #global-modal .kh-tourney-photo-solo {max-width:100%;}
   #global-modal .kh-tourney-metrics {gap:14px;}
   #global-modal .kh-tourney-metric {min-width:95px;}
   #global-modal .kh-tourney-copy p {font-size:13.5px;line-height:1.95;}
@@ -17013,7 +17010,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
 <h4 id="kh-zone-ja" class="kh-tourney-title">Students Poker Tournament<br>— Mystery Bounty</h4>
 <div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">2 / 84</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">RESULT</span><span class="kh-tourney-metric-value">Runner-up</span></div></div>
 <p class="kh-tourney-lead">2025年12月、m HOLD’EM目黒で開催されたZONe ENERGY × m HOLD’EM学生ポーカートーナメント（Mystery Bounty形式）に出場し、84名中準優勝（上位約2.4％）。キャッシュゲームとは異なる賞金構造と敗退リスクを持つ競技形式での結果として記録する。</p>
-<div class="kh-tourney-photo-grid"><figure class="kh-tourney-photo"><img src="./poker-mholdem-meguro.webp" width="941" height="941" loading="lazy" decoding="async" alt="m HOLD’EM目黒のポーカーテーブルでチップを前にプレイする姿"><figcaption>m HOLD’EM目黒でのプレイ風景。JOPTの写真ではありません。</figcaption></figure><figure class="kh-tourney-photo"><img src="./poker-zone-mholdem-runnerup-2025.webp" width="706" height="440" loading="lazy" decoding="async" alt="ZONe ENERGYとm HOLD’EMの学生トーナメントで準優勝した際の記録写真"><figcaption>学生トーナメント準優勝時の記録（SNSストーリー画像から抜粋）。</figcaption></figure></div>
+<figure class="kh-tourney-photo kh-tourney-photo-solo"><img src="./poker-mholdem-meguro.webp" width="941" height="941" loading="lazy" decoding="async" alt="m HOLD’EM目黒のポーカーテーブルでチップを前にプレイする姿"><figcaption>m HOLD’EM目黒でのプレイ風景（準優勝時の記録写真ではありません）。</figcaption></figure>
 <p class="kh-tourney-note">※ 順位やROIといった短期的な結果には偶然性が伴います。各記録は実力の因果的証明ではなく、実践と振り返りの履歴として掲載しています。</p>
 </section>
 <div class="kh-tourney-notes"><p class="kh-tourney-kicker">TERMINOLOGY</p><details><summary>GTO · Game Theory Optimal</summary><p>相手の戦略に対して長期的に搾取されにくい均衡戦略を目指す考え方。相手の傾向を踏まえてエクスプロイトする際の基準線としても有効です。</p></details><details><summary>ICM · Independent Chip Model</summary><p>トーナメントの賞金配分と各プレイヤーのチップ量から、スタックの賞金期待値を推定するモデル。チップの期待値と賞金の期待値の違いを考えるために用います。</p></details></div>
@@ -17033,7 +17030,7 @@ By choosing “returns the sun” rather than “receives the sun,” the stone 
 <section class="kh-tourney-section" aria-labelledby="kh-zone-en"><p class="kh-tourney-kicker">03 / ZONe ENERGY × m HOLD’EM · DEC 2025</p><h4 class="kh-tourney-title" id="kh-zone-en">Students Poker Tournament<br>— Mystery Bounty</h4>
 <div class="kh-tourney-metrics"><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">FINISH</span><span class="kh-tourney-metric-value">2 / 84</span></div><div class="kh-tourney-metric"><span class="kh-tourney-metric-label">RESULT</span><span class="kh-tourney-metric-value">Runner-up</span></div></div>
 <p class="kh-tourney-lead">In December 2025, I finished runner-up out of 84 entrants (top 2.4%) at the ZONe ENERGY × m HOLD’EM student tournament, held at m HOLD’EM Meguro in a Mystery Bounty format. I record the result as another experience navigating tournament-specific incentives and elimination risk.</p>
-<div class="kh-tourney-photo-grid"><figure class="kh-tourney-photo"><img src="./poker-mholdem-meguro.webp" width="941" height="941" loading="lazy" decoding="async" alt="Playing poker at m HOLD’EM Meguro"><figcaption>At m HOLD’EM Meguro. This photograph was not taken at JOPT.</figcaption></figure><figure class="kh-tourney-photo"><img src="./poker-zone-mholdem-runnerup-2025.webp" width="706" height="440" loading="lazy" decoding="async" alt="Photograph documenting runner-up finish at the ZONe ENERGY and m HOLD’EM student tournament"><figcaption>Runner-up at the student tournament · Cropped from an Instagram Story.</figcaption></figure></div>
+<figure class="kh-tourney-photo kh-tourney-photo-solo"><img src="./poker-mholdem-meguro.webp" width="941" height="941" loading="lazy" decoding="async" alt="Playing poker at m HOLD’EM Meguro"><figcaption>At m HOLD’EM Meguro · Portrait separate from the runner-up result.</figcaption></figure>
 <p class="kh-tourney-note">* Tournament finishes and short-run ROI are affected by variance. These records document practice and reflection, not causal proof of playing ability.</p></section>
 <div class="kh-tourney-notes"><p class="kh-tourney-kicker">TERMINOLOGY</p><details><summary>GTO · Game Theory Optimal</summary><p>An equilibrium-oriented approach intended to be difficult for opponents to exploit over the long run. It can also provide a baseline from which to adjust to specific opponents.</p></details><details><summary>ICM · Independent Chip Model</summary><p>A model estimating the monetary value of tournament chip stacks given the payout structure and players’ stacks; it helps distinguish chip EV from prize-money EV.</p></details></div>
 </div>`
