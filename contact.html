@@ -1546,7 +1546,23 @@
             grid-column: 2;
             display: block;
             margin: 0;
-            border-bottom: 1px solid var(--hairline);
+        }
+
+        /* LinkedIn sits in its own row: it is not one of the email topics */
+        html .contact-wrap .contact-extras:not(.contact-profile-row) {
+            padding-bottom: clamp(30px, 3.4vw, 40px);
+        }
+
+        .contact-wrap .contact-profile-row .extras-heading {
+            grid-row: auto;
+        }
+
+        .contact-wrap .contact-profile-row .secondary-link {
+            justify-content: flex-start;
+            gap: 8px;
+            width: auto;
+            padding: 0;
+            border-top: 0;
         }
 
         .contact-wrap .topic-link,
@@ -1684,6 +1700,14 @@
 
             html .contact-wrap .contact-extras {
                 padding-bottom: 0;
+            }
+
+            html .contact-wrap .contact-extras:not(.contact-profile-row) {
+                padding-bottom: 28px;
+            }
+
+            .contact-wrap .contact-profile-row .secondary-link {
+                padding: 0;
             }
 
             .contact-wrap .email-topline,
@@ -1990,7 +2014,42 @@
                             <span aria-hidden="true">↗</span>
                         </a>
 
+                        <a
+                            class="topic-link"
+                            data-mail-topic
+                            data-subject-ja="執筆・作品についてのご相談"
+                            data-subject-en="Writing inquiry"
+                            href="mailto:contact.kenharima@gmail.com"
+                        >
+                            <span>
+                                <span class="lang-ja">執筆・作品について</span>
+                                <span class="lang-en">Writing &amp; works</span>
+                            </span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+
+                        <a
+                            class="topic-link"
+                            data-mail-topic
+                            data-subject-ja="お問い合わせ"
+                            data-subject-en="General inquiry"
+                            href="mailto:contact.kenharima@gmail.com"
+                        >
+                            <span>
+                                <span class="lang-ja">ご感想・その他</span>
+                                <span class="lang-en">Feedback &amp; other</span>
+                            </span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+
                     </div>
+                </section>
+
+                <section class="contact-extras contact-profile-row reveal delay-2" aria-labelledby="profile-link-title">
+                    <h2 class="extras-heading" id="profile-link-title">
+                        <span class="lang-ja">プロフィール</span>
+                        <span class="lang-en">Profile</span>
+                    </h2>
 
                     <div class="secondary-links">
                         <a
