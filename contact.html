@@ -10,13 +10,13 @@
     <title>Contact | Ken Harima</title>
     <meta name="description" content="Ken Harima（播磨賢）へのお問い合わせ。採用・スカウト、企画・プロジェクト協働、執筆・作品、本サイトへのご感想など。">
     <meta name="robots" content="index,follow,max-image-preview:large">
-    <link rel="canonical" href="https://kenharima.com/contact.html">
+    <link rel="canonical" href="https://kenharima.com/contact">
 
     <link rel="icon" type="image/png" sizes="512x512" href="https://kenharima.com/favicon-k.png">
     <link rel="apple-touch-icon" sizes="512x512" href="https://kenharima.com/apple-touch-k.png">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kenharima.com/contact.html">
+    <meta property="og:url" content="https://kenharima.com/contact">
     <meta property="og:site_name" content="Ken Harima">
     <meta property="og:title" content="Contact | Ken Harima">
     <meta property="og:description" content="Contact Ken Harima about opportunities, project collaboration, writing, and feedback on this site.">
@@ -35,6 +35,13 @@
     <!-- Apply appearance/language before paint to avoid a visible flash. -->
     <script>
         (() => {
+            // Show the clean address (/contact) even when the page is opened as /contact.html.
+            try {
+                if (/\/contact\.html$/.test(window.location.pathname)) {
+                    history.replaceState(null, '', window.location.pathname.replace(/\.html$/, '') + window.location.search + window.location.hash);
+                }
+            } catch (_) {}
+
             const root = document.documentElement;
             let savedTheme = null;
 
@@ -82,6 +89,16 @@
 
             root.classList.toggle('is-global', useEnglish);
             root.lang = useEnglish ? 'en' : 'ja';
+
+            // Keep the address bar clean: the language has been applied, so drop the helper parameters.
+            try {
+                const clean = new URL(window.location.href);
+                if (clean.searchParams.has('lang') || clean.searchParams.has('from')) {
+                    clean.searchParams.delete('lang');
+                    clean.searchParams.delete('from');
+                    history.replaceState(null, '', clean.pathname + clean.search + clean.hash);
+                }
+            } catch (_) {}
         })();
     </script>
 
@@ -1334,32 +1351,32 @@
     <!-- Desktop navigation: same hierarchy and visual language as index.html. -->
     <nav class="kh-desktop-global-nav" aria-label="Primary navigation / メインナビゲーション">
         <div class="kh-desktop-global-nav-inner">
-            <a class="kh-desktop-brand" href="./index.html#home" aria-label="Ken Harima — Home">
+            <a class="kh-desktop-brand" href="./#home" aria-label="Ken Harima — Home">
                 Ken Harima
             </a>
 
             <div class="kh-desktop-nav-links">
-                <a class="kh-desktop-nav-link" href="./index.html#experience">
+                <a class="kh-desktop-nav-link" href="./#experience">
                     <span class="lang-ja">経歴</span>
                     <span class="lang-en">Experience</span>
                 </a>
 
-                <a class="kh-desktop-nav-link" href="./index.html#profile">
+                <a class="kh-desktop-nav-link" href="./#profile">
                     <span class="lang-ja">プロフィール</span>
                     <span class="lang-en">Profile</span>
                 </a>
 
-                <a class="kh-desktop-nav-link" href="./index.html#projects">
+                <a class="kh-desktop-nav-link" href="./#projects">
                     <span class="lang-ja">実績・受賞</span>
                     <span class="lang-en">Projects &amp; Awards</span>
                 </a>
 
-                <a class="kh-desktop-nav-link" href="./index.html#development">
+                <a class="kh-desktop-nav-link" href="./#development">
                     <span class="lang-ja">スキル・資格</span>
                     <span class="lang-en">Skills</span>
                 </a>
 
-                <a class="kh-desktop-nav-link is-active" href="./contact.html" aria-current="page">
+                <a class="kh-desktop-nav-link is-active" href="./contact" aria-current="page">
                     <span class="lang-ja">お問い合わせ</span>
                     <span class="lang-en">Contact</span>
                 </a>
@@ -1412,7 +1429,7 @@
     <div class="page">
         <!-- Existing compact contact header is retained on mobile only. -->
         <header class="mobile-topbar">
-            <a class="home-link" href="./index.html" aria-label="トップページへ戻る / Back to home">
+            <a class="home-link" href="./" aria-label="トップページへ戻る / Back to home">
                 <span class="home-arrow" aria-hidden="true">&lt;</span>
                 <span class="home-name">Home</span>
             </a>
@@ -1593,7 +1610,7 @@
 
         <footer>
             <span>© 2026 Ken Harima</span>
-            <a class="footer-link" href="./index.html">kenharima.com</a>
+            <a class="footer-link" href="./">kenharima.com</a>
         </footer>
     </div>
 
@@ -1650,12 +1667,6 @@
                     const browserEnglish = !String(navigator.language || navigator.userLanguage || 'ja').toLowerCase().startsWith('ja');
                     if (useEnglish === browserEnglish) localStorage.removeItem('siteLang');
                     else localStorage.setItem('siteLang', useEnglish ? 'en' : 'ja');
-                } catch (_) {}
-
-                const url = new URL(window.location.href);
-                url.searchParams.set('lang', useEnglish ? 'en' : 'ja');
-                try {
-                    history.replaceState(null, '', url.href);
                 } catch (_) {}
             };
 
