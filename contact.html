@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" id="kh-theme-color" content="#f5f5f7">
+    <meta name="theme-color" id="kh-theme-color" content="#fafafa">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 
     <title>Contact | Ken Harima</title>
-    <meta name="description" content="Ken Harima（播磨賢）へのお問い合わせ。採用・スカウト、企画・プロジェクト協働、執筆・作品、本サイトへのご感想など。">
+    <meta name="description" content="Ken Harima（播磨賢）へのお問い合わせ。お仕事のご相談、企画・プロジェクト協働、執筆・作品、本サイトへのご感想など。">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://kenharima.com/contact">
 
@@ -1340,6 +1340,406 @@
                 transform: none !important;
             }
         }
+
+        /* =========================================================
+           CONTACT v2 (2026-11-15)
+           トップページの経歴・プロフィールと同じ骨格に揃える。
+           ガラス調のカード、グラデーション、影を外し、
+           「罫線＋ラベル列＋本文列」で読ませる。
+           ========================================================= */
+        :root {
+            --bg: #fafafa;
+            --hairline: rgba(0, 0, 0, 0.10);
+            --hairline-strong: rgba(0, 0, 0, 0.18);
+        }
+
+        html.dark-mode-on {
+            --bg: #0f0f10;
+            --hairline: rgba(255, 255, 255, 0.16);
+            --hairline-strong: rgba(255, 255, 255, 0.28);
+        }
+
+        html body,
+        html.dark-mode-on body {
+            background: var(--bg);
+        }
+
+        .page {
+            width: min(100%, 1052px);
+        }
+
+        .page main {
+            padding: clamp(64px, 9vh, 104px) 0 clamp(88px, 12vh, 128px);
+        }
+
+        .contact-wrap {
+            width: 100%;
+        }
+
+        .contact-wrap .hero {
+            max-width: none;
+        }
+
+        .contact-wrap .kicker {
+            margin: 0 0 14px;
+            color: var(--secondary);
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 1.4;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            text-transform: none;
+        }
+
+        html #contact-title {
+            max-width: none;
+            font-size: clamp(40px, 5.6vw, 64px);
+            line-height: 1.08;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            white-space: normal;
+        }
+
+        html:not(.is-global) #contact-title {
+            line-height: 1.2;
+            letter-spacing: 0;
+        }
+
+        .contact-wrap .desktop-title-break {
+            display: none;
+        }
+
+        .contact-wrap .lede {
+            max-width: 36em;
+            text-wrap: balance;
+            margin-top: clamp(16px, 2vw, 22px);
+            color: var(--secondary);
+            font-size: clamp(17px, 1.6vw, 19px);
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        html:not(.is-global) .contact-wrap .lede {
+            line-height: 1.75;
+        }
+
+        /* rows: label column + content column, divided by hairlines */
+        html .contact-wrap .email-card,
+        html .contact-wrap .contact-extras {
+            display: grid;
+            grid-template-columns: clamp(150px, 19%, 200px) minmax(0, 1fr);
+            column-gap: clamp(20px, 3vw, 40px);
+            align-items: start;
+            margin-top: 0;
+            padding: clamp(30px, 3.4vw, 40px) 0;
+            border: 0;
+            border-top: 1px solid var(--hairline);
+            border-radius: 0;
+            background: none;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            box-shadow: none;
+            overflow: visible;
+            transform: none;
+        }
+
+        html .contact-wrap .email-card {
+            margin-top: clamp(44px, 6vw, 72px);
+        }
+
+        html .contact-wrap .contact-extras {
+            padding-bottom: 0;
+        }
+
+        .contact-wrap .email-card::before {
+            display: none;
+        }
+
+        .contact-wrap .email-topline {
+            grid-column: 1;
+            grid-row: 1 / span 3;
+            display: block;
+            margin: 0;
+            padding-top: 0.5em;
+        }
+
+        .contact-wrap .email-label,
+        .contact-wrap .extras-heading {
+            color: var(--secondary);
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .contact-wrap .email-address-link {
+            grid-column: 2;
+            justify-self: start;
+            max-width: 100%;
+            color: var(--text);
+            font-size: clamp(22px, 2.7vw, 32px);
+            line-height: 1.25;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            transform: none;
+        }
+
+        .contact-wrap .email-actions {
+            grid-column: 2;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .contact-wrap .email-action {
+            min-height: 44px;
+            padding: 0 20px;
+            border: 1px solid var(--hairline-strong);
+            color: var(--text);
+            background: transparent;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0;
+            box-shadow: none;
+            filter: none;
+            transform: none;
+        }
+
+        .contact-wrap .email-action svg {
+            width: 15px;
+            height: 15px;
+            stroke-width: 1.6;
+        }
+
+        .contact-wrap .email-action-primary {
+            border-color: transparent;
+            color: #fff;
+            background: #0071e3;
+        }
+
+        .contact-wrap .email-note {
+            display: none;
+        }
+
+        .contact-wrap .extras-heading {
+            grid-column: 1;
+            grid-row: 1 / span 3;
+            padding-top: 0.05em;
+        }
+
+        .contact-wrap .extras-copy {
+            grid-column: 2;
+            max-width: none;
+            margin: 0 0 16px;
+            color: var(--secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        .contact-wrap .topic-list {
+            grid-column: 2;
+            display: block;
+            margin: 0;
+        }
+
+        .contact-wrap .secondary-links {
+            grid-column: 2;
+            display: block;
+            margin: 0;
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        .contact-wrap .topic-link,
+        .contact-wrap .secondary-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
+            min-height: 0;
+            padding: 17px 2px;
+            border: 0;
+            border-top: 1px solid var(--hairline);
+            border-radius: 0;
+            color: var(--text);
+            background: none;
+            font-size: 17px;
+            line-height: 1.4;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-decoration: none;
+            transform: none;
+            transition: color 240ms ease;
+        }
+
+        .contact-wrap .topic-link > span[aria-hidden],
+        .contact-wrap .secondary-link > span[aria-hidden] {
+            flex: 0 0 auto;
+            color: var(--tertiary);
+            font-size: 15px;
+            transition: color 240ms ease, transform 320ms var(--ease);
+        }
+
+        .page footer {
+            font-size: 12px;
+            letter-spacing: 0;
+        }
+
+        html .page .mobile-controls {
+            background: transparent;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            box-shadow: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            html .contact-wrap .email-card:hover {
+                transform: none;
+                border-color: var(--hairline);
+                background: none;
+                box-shadow: none;
+            }
+
+            .contact-wrap .email-card:hover .email-address-link {
+                color: var(--text);
+                transform: none;
+            }
+
+            .contact-wrap .email-card .email-address-link:hover {
+                color: var(--blue);
+            }
+
+            .contact-wrap .email-action:hover {
+                border-color: var(--hairline-strong);
+                color: var(--text);
+                background: color-mix(in srgb, var(--text) 5%, transparent);
+                transform: none;
+            }
+
+            .contact-wrap .email-action-primary:hover {
+                border-color: transparent;
+                color: #fff;
+                background: #0077ed;
+                box-shadow: none;
+                filter: none;
+            }
+
+            .contact-wrap .topic-link:hover,
+            .contact-wrap .secondary-link:hover {
+                border-color: var(--hairline);
+                color: var(--blue);
+                background: none;
+                text-decoration: none;
+                transform: none;
+            }
+
+            .contact-wrap .topic-link:hover > span[aria-hidden],
+            .contact-wrap .secondary-link:hover > span[aria-hidden] {
+                color: var(--blue);
+                transform: translate(1px, -1px);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .page main {
+                padding-top: clamp(96px, 13vh, 144px);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .page main {
+                padding: 56px 0 80px;
+            }
+
+            html #contact-title,
+            html.is-global #contact-title {
+                max-width: none;
+                font-size: clamp(34px, 10vw, 44px);
+                line-height: 1.12;
+                letter-spacing: -0.02em;
+            }
+
+            html:not(.is-global) #contact-title {
+                line-height: 1.25;
+                letter-spacing: 0;
+            }
+
+            .contact-wrap .lede {
+                max-width: none;
+                margin-top: 16px;
+                font-size: 16px;
+                text-wrap: wrap;
+            }
+
+            html .contact-wrap .email-card,
+            html .contact-wrap .contact-extras {
+                grid-template-columns: minmax(0, 1fr);
+                padding: 28px 0;
+                border-radius: 0;
+            }
+
+            html .contact-wrap .email-card {
+                margin-top: 40px;
+            }
+
+            html .contact-wrap .contact-extras {
+                padding-bottom: 0;
+            }
+
+            .contact-wrap .email-topline,
+            .contact-wrap .extras-heading {
+                grid-column: 1;
+                grid-row: auto;
+                margin: 0 0 8px;
+                padding-top: 0;
+            }
+
+            .contact-wrap .email-label,
+            .contact-wrap .extras-heading {
+                font-size: 13px;
+            }
+
+            .contact-wrap .email-address-link,
+            .contact-wrap .email-actions,
+            .contact-wrap .extras-copy,
+            .contact-wrap .topic-list,
+            .contact-wrap .secondary-links {
+                grid-column: 1;
+            }
+
+            .contact-wrap .email-address-link {
+                width: auto;
+                font-size: clamp(19px, 5.7vw, 24px);
+                letter-spacing: -0.02em;
+            }
+
+            .contact-wrap .email-actions {
+                gap: 10px;
+                margin-top: 18px;
+            }
+
+            .contact-wrap .email-action {
+                flex: 1 1 auto;
+                min-height: 46px;
+                padding: 0 16px;
+                font-size: 15px;
+            }
+
+            .contact-wrap .extras-copy {
+                font-size: 14px;
+            }
+
+            .contact-wrap .topic-link,
+            .contact-wrap .secondary-link {
+                padding: 16px 2px;
+                border-radius: 0;
+                font-size: 16px;
+            }
+
+            .page footer {
+                margin-top: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1488,10 +1888,10 @@
 
                     <p class="lede">
                         <span class="lang-ja">
-                            <span class="lede-ja-line">採用・スカウト、プロジェクト協働のご相談から、本サイトのご感想など、お気軽にメールでご連絡ください。</span>
+                            <span class="lede-ja-line">お仕事やプロジェクト協働のご相談から、本サイトのご感想など、お気軽にメールでご連絡ください。</span>
                         </span>
                         <span class="lang-en">
-                            Recruiting opportunities, project inquiries, collaborations, writing, and feedback on this site are all welcome.
+                            Work inquiries, project collaborations, writing, and feedback on this site are all welcome.
                         </span>
                     </p>
                 </div>
@@ -1565,13 +1965,13 @@
                         <a
                             class="topic-link"
                             data-mail-topic
-                            data-subject-ja="採用・スカウトについてのご相談"
-                            data-subject-en="Career opportunity inquiry"
+                            data-subject-ja="お仕事についてのご相談"
+                            data-subject-en="Work inquiry"
                             href="mailto:contact.kenharima@gmail.com"
                         >
                             <span>
-                                <span class="lang-ja">採用・スカウト</span>
-                                <span class="lang-en">Opportunities</span>
+                                <span class="lang-ja">お仕事のご相談</span>
+                                <span class="lang-en">Work inquiries</span>
                             </span>
                             <span aria-hidden="true">↗</span>
                         </a>
@@ -1692,7 +2092,7 @@
                 mobileLight?.setAttribute('aria-pressed', String(!isDark));
                 mobileDark?.setAttribute('aria-pressed', String(isDark));
 
-                themeMeta?.setAttribute('content', isDark ? '#000000' : '#f5f5f7');
+                themeMeta?.setAttribute('content', isDark ? '#0f0f10' : '#fafafa');
 
                 if (persist) {
                     writeTheme(isDark);
