@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" role="img" aria-labelledby="t d" font-family="-apple-system,BlinkMacSystemFont,&quot;Hiragino Sans&quot;,&quot;Hiragino Kaku Gothic ProN&quot;,&quot;Noto Sans JP&quot;,&quot;Noto Sans CJK JP&quot;,&quot;Yu Gothic&quot;,sans-serif">
+<title id="t">特徴別の平均再生回数</title>
+<desc id="d">理想科学工業のInstagramリール82投稿を特徴別に集計した横棒グラフ。「異国風」の平均再生回数は約45万回で、他の分類を大きく上回る。</desc>
+<rect width="1200" height="760" rx="28" fill="#ffffff"/>
+<text x="70" y="78" font-size="15" font-weight="600" fill="#86868b" letter-spacing="1.5">INSTAGRAM リール分析 ・ 特徴別の平均再生回数</text>
+<text x="70" y="136" font-size="36" font-weight="700" fill="#1d1d1f">「異国風」の投稿だけが、桁違いに再生されていた。</text>
+<line x1="250.0" y1="213" x2="250.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="250.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">0</text>
+<line x1="418.0" y1="213" x2="418.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="418.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">10万回</text>
+<line x1="586.0" y1="213" x2="586.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="586.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">20万回</text>
+<line x1="754.0" y1="213" x2="754.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="754.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">30万回</text>
+<line x1="922.0" y1="213" x2="922.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="922.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">40万回</text>
+<line x1="1090.0" y1="213" x2="1090.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="1090.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">50万回</text>
+<text x="228" y="254.0" font-size="19" font-weight="700" fill="#1d1d1f" text-anchor="end">異国風</text>
+<rect x="250" y="235" width="756.0" height="26" rx="6" fill="#0071e3"/>
+<text x="1020.0" y="255.0" font-size="20" font-weight="700" fill="#0071e3">約45万回</text>
+<text x="228" y="312.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">モノ</text>
+<rect x="250" y="293" width="216.7" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="370.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">子供用</text>
+<rect x="250" y="351" width="179.8" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="428.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">動物</text>
+<rect x="250" y="409" width="174.7" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="486.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">花</text>
+<rect x="250" y="467" width="139.4" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="544.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">文字</text>
+<rect x="250" y="525" width="68.9" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="602.0" font-size="19" font-weight="500" fill="#86868b" text-anchor="end">ほか9分類</text>
+<rect x="250" y="583" width="20.2" height="26" rx="6" fill="#e5e5ea"/>
+<text x="284.2" y="602.0" font-size="15" fill="#86868b">いずれも1.5万回未満</text>
+<line x1="70" y1="659" x2="1130" y2="659" stroke="#d2d2d7" stroke-width="1"/>
+<text x="70" y="699" font-size="17" fill="#1d1d1f"><tspan font-weight="700">数量化I類による検証</tspan><tspan dx="18">異国風:係数 +42.1万回(p = 0.001)</tspan></text>
+<text x="70" y="729" font-size="13.5" fill="#86868b">対象:@riso_silkscreen のリール全82投稿(2023年1月〜2024年10月)。再生回数は2024年10月25日時点。</text>
+</svg>
