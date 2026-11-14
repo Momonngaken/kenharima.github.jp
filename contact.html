@@ -47,6 +47,11 @@
                 window.matchMedia('(prefers-color-scheme: dark)').matches
             );
 
+            if ((savedTheme === 'enabled' && systemDark) || (savedTheme === 'disabled' && !systemDark)) {
+                try { localStorage.removeItem('darkMode'); } catch (_) {}
+                savedTheme = null;
+            }
+
             const isDark = savedTheme === 'enabled'
                 ? true
                 : savedTheme === 'disabled'
@@ -60,11 +65,20 @@
             const params = new URLSearchParams(window.location.search);
             const requestedLanguage = params.get('lang');
             const browserLanguage = (navigator.language || navigator.userLanguage || 'ja').toLowerCase();
+            let rememberedLanguage = null;
+            try {
+                rememberedLanguage = localStorage.getItem('siteLang');
+            } catch (_) {}
+
             const useEnglish = requestedLanguage === 'en'
                 ? true
                 : requestedLanguage === 'ja'
                     ? false
-                    : !browserLanguage.startsWith('ja');
+                    : rememberedLanguage === 'en'
+                        ? true
+                        : rememberedLanguage === 'ja'
+                            ? false
+                            : !browserLanguage.startsWith('ja');
 
             root.classList.toggle('is-global', useEnglish);
             root.lang = useEnglish ? 'en' : 'ja';
@@ -1631,6 +1645,13 @@
                 root.classList.toggle('is-global', useEnglish);
                 syncLanguageControls();
 
+                // Remember a manual switch only when it differs from the browser language.
+                try {
+                    const browserEnglish = !String(navigator.language || navigator.userLanguage || 'ja').toLowerCase().startsWith('ja');
+                    if (useEnglish === browserEnglish) localStorage.removeItem('siteLang');
+                    else localStorage.setItem('siteLang', useEnglish ? 'en' : 'ja');
+                } catch (_) {}
+
                 const url = new URL(window.location.href);
                 url.searchParams.set('lang', useEnglish ? 'en' : 'ja');
                 try {
@@ -1642,8 +1663,11 @@
             mobileLang?.addEventListener('click', () => setLanguage(!isEnglish()));
 
             const writeTheme = (isDark) => {
+                // Choosing the same theme as the device returns to "follow the device".
                 try {
-                    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+                    const systemDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                    if (isDark === systemDark) localStorage.removeItem('darkMode');
+                    else localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
                 } catch (_) {}
             };
 
@@ -1666,6 +1690,33 @@
 
             const currentThemeIsDark = root.classList.contains('dark-mode-on');
             applyTheme(currentThemeIsDark, false);
+
+            // Follow the device setting live while no manual choice is stored.
+            const systemThemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+            if (systemThemeQuery) {
+                const followSystemTheme = event => {
+                    let stored = null;
+                    try { stored = localStorage.getItem('darkMode'); } catch (_) {}
+                    if (!stored) applyTheme(event.matches, false);
+                };
+                if (systemThemeQuery.addEventListener) systemThemeQuery.addEventListener('change', followSystemTheme);
+                else if (systemThemeQuery.addListener) systemThemeQuery.addListener(followSystemTheme);
+            }
+
+            // Carry the current language back to the main page.
+            const carryLanguage = event => {
+                const link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+                if (!link) return;
+                let url;
+                try { url = new URL(link.getAttribute('href'), window.location.href); } catch (_) { return; }
+                if (url.origin !== window.location.origin) return;
+                if (!/(\/|\/index\.html)$/.test(url.pathname)) return;
+                url.searchParams.set('lang', isEnglish() ? 'en' : 'ja');
+                link.href = url.href;
+            };
+            ['pointerdown', 'mousedown', 'touchstart', 'keydown', 'click', 'auxclick', 'contextmenu'].forEach(type => {
+                document.addEventListener(type, carryLanguage, true);
+            });
 
             desktopLight?.addEventListener('click', () => applyTheme(false, true));
             desktopDark?.addEventListener('click', () => applyTheme(true, true));
