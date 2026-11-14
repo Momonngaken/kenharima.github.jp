@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" role="img" aria-labelledby="t d" font-family="-apple-system,BlinkMacSystemFont,&quot;SF Pro Text&quot;,&quot;Helvetica Neue&quot;,&quot;Inter&quot;,Arial,sans-serif">
+<title id="t">Average views by theme</title>
+<desc id="d">Horizontal bar chart of 82 Instagram Reels posted by RISO, grouped by theme. Foreign-style posts average about 450K views, far above every other theme.</desc>
+<rect width="1200" height="760" rx="28" fill="#ffffff"/>
+<text x="70" y="78" font-size="15" font-weight="600" fill="#86868b" letter-spacing="1.5">INSTAGRAM REELS ANALYSIS · AVERAGE VIEWS BY THEME</text>
+<text x="70" y="136" font-size="34" font-weight="700" fill="#1d1d1f">“Foreign-style” posts far outperformed every other theme.</text>
+<line x1="250.0" y1="213" x2="250.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="250.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">0</text>
+<line x1="418.0" y1="213" x2="418.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="418.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">100K</text>
+<line x1="586.0" y1="213" x2="586.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="586.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">200K</text>
+<line x1="754.0" y1="213" x2="754.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="754.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">300K</text>
+<line x1="922.0" y1="213" x2="922.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="922.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">400K</text>
+<line x1="1090.0" y1="213" x2="1090.0" y2="627" stroke="#e8e8ed" stroke-width="1"/>
+<text x="1090.0" y="203" font-size="14" fill="#86868b" text-anchor="middle">500K</text>
+<text x="228" y="254.0" font-size="19" font-weight="700" fill="#1d1d1f" text-anchor="end">Foreign-style</text>
+<rect x="250" y="235" width="756.0" height="26" rx="6" fill="#0071e3"/>
+<text x="1020.0" y="255.0" font-size="20" font-weight="700" fill="#0071e3">≈450K</text>
+<text x="228" y="312.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">Objects</text>
+<rect x="250" y="293" width="216.7" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="370.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">For kids</text>
+<rect x="250" y="351" width="179.8" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="428.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">Animals</text>
+<rect x="250" y="409" width="174.7" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="486.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">Flowers</text>
+<rect x="250" y="467" width="139.4" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="544.0" font-size="19" font-weight="500" fill="#515154" text-anchor="end">Lettering</text>
+<rect x="250" y="525" width="68.9" height="26" rx="6" fill="#c7c7cc"/>
+<text x="228" y="602.0" font-size="19" font-weight="500" fill="#86868b" text-anchor="end">9 other themes</text>
+<rect x="250" y="583" width="20.2" height="26" rx="6" fill="#e5e5ea"/>
+<text x="284.2" y="602.0" font-size="15" fill="#86868b">all under 15K</text>
+<line x1="70" y1="659" x2="1130" y2="659" stroke="#d2d2d7" stroke-width="1"/>
+<text x="70" y="699" font-size="17" fill="#1d1d1f"><tspan font-weight="700">Tested with Quantification Theory Type I</tspan><tspan dx="18">Foreign-style: coefficient +420.6K views (p = 0.001)</tspan></text>
+<text x="70" y="729" font-size="13.5" fill="#86868b">Scope: all 82 Reels posted by @riso_silkscreen (Jan 2023 – Oct 2024). View counts as of Oct 25, 2024.</text>
+</svg>
