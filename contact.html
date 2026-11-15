@@ -1844,6 +1844,26 @@
                 margin-top: 0;
             }
         }
+    
+        /* ---- Mobile top bar: name + chevron so first-time visitors know where it leads ---- */
+        html .mobile-topbar .home-link {
+            gap: 7px;
+            min-height: 44px;
+            padding-right: 10px;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+        }
+
+        html .mobile-topbar .home-name {
+            display: inline;
+        }
+
+        html .mobile-topbar .home-chevron {
+            flex: none;
+            color: var(--secondary);
+        }
     </style>
 </head>
 <body>
@@ -1933,9 +1953,9 @@
     <div class="page">
         <!-- Existing compact contact header is retained on mobile only. -->
         <header class="mobile-topbar">
-            <a class="home-link" href="./" aria-label="トップページへ戻る / Back to home">
-                <span class="home-arrow" aria-hidden="true">&lt;</span>
-                <span class="home-name">Home</span>
+            <a class="home-link" href="./" aria-label="Ken Harima のトップページへ / Ken Harima — Home">
+                <svg class="home-chevron" viewBox="0 0 10 16" width="9" height="15" aria-hidden="true" focusable="false"><path d="M8 1.5 1.75 8 8 14.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="home-name">Ken Harima</span>
             </a>
 
             <div class="mobile-controls" aria-label="表示設定 / Display settings">
